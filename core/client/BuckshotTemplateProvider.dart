@@ -18,14 +18,14 @@
 //TODO event handlers (waiting for reflection)
 
 /**
-* The default presentation format provider for LUCA UI.  
+* The default presentation format provider for Buckshot.
 */
 class BuckshotTemplateProvider extends HashableObject implements IPresentationFormatProvider {
   //a very ugly brute force implementation of an xml <-> object converter
   //but it works..
   
   //TODO MIME as identifier type instead?
-  String get fileExtension() => "lucaxml";
+  String get fileExtension() => "BuckXml";
   
   FrameworkElement deserialize(String fileData){
     

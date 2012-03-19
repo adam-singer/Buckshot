@@ -30,9 +30,7 @@ class Dom {
   }
   
   /// Creates an [Element] from the given [String] html tag name.
-  static Element createByTag(String tagName){
-    return new Element.tag(tagName);
-  }
+  static Element createByTag(String tagName) => new Element.tag(tagName);
   
   /**
   * Injects javascript into the DOM, and optionally removes it after the script has run. */

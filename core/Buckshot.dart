@@ -16,40 +16,39 @@
 ///   See the License for the specific language governing permissions and
 ///   limitations under the License.
 ///
-/// ## Try LUCA UI Online
-/// <http://www.lucastudios.com/trylucaui>
+/// ## Try Buckshot Online
+/// <http://www.lucastudios.com/trybuckshot>
 ///
 /// ## Project Source Code Repository
-/// <https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart>
+/// <https://github.com/prujohn/Buckshot>
 
 
 #library('Buckshot_Core');
 
 #import('dart:html');
 
-#source('globals.dart');
-#source('BuckshotSystem.dart');
-#source('FrameworkObject.dart');
-#source('FrameworkProperty.dart');
-#source('ObservableList.dart');
-#source('FrameworkElement.dart');
-#source('VirtualContainer.dart');
-#source('HashableObject.dart');
-#source('ContainerElement.dart');
-#source('FrameworkDebug.dart');
-#source('IValueConverter.dart');
-#source('RootElement.dart');
-#source('DomHelpers.dart');
-#source('BuckshotObject.dart');
-#source('IPresentationFormatProvider.dart');
-#source('BuckshotTemplateProvider.dart');
-#source('FrameworkPropertyBase.dart');
-#source('AttachedFrameworkProperty.dart');
-#source('FrameworkPropertyResolutionException.dart');
+#source('client/globals.dart');
+#source('client/BuckshotSystem.dart');
+#source('client/FrameworkObject.dart');
+#source('client/FrameworkProperty.dart');
+#source('client/ObservableList.dart');
+#source('client/FrameworkElement.dart');
+#source('client/VirtualContainer.dart');
+#source('client/HashableObject.dart');
+#source('client/ContainerElement.dart');
+#source('client/FrameworkDebug.dart');
+#source('client/IValueConverter.dart');
+#source('client/RootElement.dart');
+#source('client/DomHelpers.dart');
+#source('client/BuckshotObject.dart');
+#source('client/IPresentationFormatProvider.dart');
+#source('client/BuckshotTemplateProvider.dart');
+#source('client/FrameworkPropertyBase.dart');
+#source('client/AttachedFrameworkProperty.dart');
+#source('client/FrameworkPropertyResolutionException.dart');
 
-//TODO move these out of core and into MVVM extension
-#source('ViewModelBase.dart');
-#source('IView.dart');
+#source('MVVM/ViewModelBase.dart');
+#source('MVVM/IView.dart');
 
 #source('binding/Binding.dart');
 #source('binding/BindingMode.dart');
@@ -131,11 +130,11 @@
 #source('resources/StyleSetter.dart');
 #source('resources/StyleTemplate.dart');
 #source('resources/GradientStop.dart');
-#source('DataTemplate.dart');
-#source('CollectionPresenter.dart');
-#source('BindingData.dart');
-#source('ControlTemplate.dart');
 
-#source('IFrameworkContainer.dart');
-#source('IMultiChildContainer.dart');
-#source('ISingleChildContainer.dart');
+#source('client/DataTemplate.dart');
+#source('client/CollectionPresenter.dart');
+#source('client/BindingData.dart');
+#source('client/ControlTemplate.dart');
+#source('client/IFrameworkContainer.dart');
+#source('client/IMultiChildContainer.dart');
+#source('client/ISingleChildContainer.dart');

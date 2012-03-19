@@ -2,7 +2,7 @@
 
 ![Buckshot Logo](http://www.lucastudios.com/img/lucaui_logo_candidate2.png)
 
-### **Buckshot [buhk-shot]** *noun* A throw when darts land wildly all over the board. ###
+### Buckshot [buhk-shot] *noun* A throw when darts land wildly all over the board. ###
 
 Buckshot is a Google Dart library that provides a declarative presentation framework for modern web browsers.  Some refer to this type of framework as an Application Object Model (AOM).
 
@@ -12,11 +12,11 @@ Even so, all aspects of the framework's UI design and interactivity can be devel
 If you've worked with .net WPF or Silverlight then this framework will feel very familiar to you.
 
 ## Getting Started
-* [Library Reference] *Coming soon*
+* [Library Reference] *Coming back soon*
 * [Wiki Documentation](https://github.com/prujohn/Buckshot/wiki/_pages)
 * [Developers: How To Contribute](https://github.com/prujohn/Buckshot/wiki/How-To-Contribute)
 
-## Try It Yourself Online
+## Try The Buckshot Sandbox Online
 [Online Interactive Buckshot](http://www.lucastudios.com/trybuckshot)
 
 ## Other Live Demos
