@@ -1,4 +1,4 @@
-#import('../../core/Buckshot.dart');
+#import('../../lib/Buckshot.dart');
 #import('../DemoStyles/DemoStyles.dart');
 #import('dart:html');
 #source('UpperCaseConverter.dart');

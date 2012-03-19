@@ -18,5 +18,5 @@
 #library('LUCAUI_Extensions_Social');
 
 #import('dart:html');
-#import('../../core/Buckshot.dart');
+#import('../../lib/Buckshot.dart');
 #source('PlusOne.dart');

@@ -1,5 +1,5 @@
 #import('dart:html');
-#import('../../core/Buckshot.dart');
+#import('../../lib/Buckshot.dart');
 
 #source('Life.dart');
 #source('View.dart');

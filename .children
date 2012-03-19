@@ -7,5 +7,5 @@ demos/Colors/Colors.dart
 demos/Life/GameOfLife.dart
 debug/debug.dart
 extensions/media/lucaui_extension_media.dart
+lib/Buckshot.dart
 demos/todo/todo.dart
-core/Buckshot.dart

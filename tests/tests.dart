@@ -19,7 +19,7 @@
 
 #import('../../../src/dart/client/testing/unittest/unittest_html.dart');
 
-#import('../core/Buckshot.dart');
+#import('../lib/Buckshot.dart');
 
 #source('InitializationTests.dart');
 #source('FrameworkFundamentalsTests.dart');

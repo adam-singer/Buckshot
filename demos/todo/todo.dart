@@ -1,4 +1,4 @@
-#import('../../core/Buckshot.dart');
+#import('../../lib/Buckshot.dart');
 #import('dart:html');
 #source('View.dart');
 #source('ViewModel.dart');

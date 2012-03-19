@@ -27,26 +27,6 @@
 
 #import('dart:html');
 
-#source('client/globals.dart');
-#source('client/BuckshotSystem.dart');
-#source('client/FrameworkObject.dart');
-#source('client/FrameworkProperty.dart');
-#source('client/ObservableList.dart');
-#source('client/FrameworkElement.dart');
-#source('client/VirtualContainer.dart');
-#source('client/HashableObject.dart');
-#source('client/ContainerElement.dart');
-#source('client/FrameworkDebug.dart');
-#source('client/IValueConverter.dart');
-#source('client/RootElement.dart');
-#source('client/DomHelpers.dart');
-#source('client/BuckshotObject.dart');
-#source('client/IPresentationFormatProvider.dart');
-#source('client/BuckshotTemplateProvider.dart');
-#source('client/FrameworkPropertyBase.dart');
-#source('client/AttachedFrameworkProperty.dart');
-#source('client/FrameworkPropertyResolutionException.dart');
-
 #source('MVVM/ViewModelBase.dart');
 #source('MVVM/IView.dart');
 
@@ -131,6 +111,25 @@
 #source('resources/StyleTemplate.dart');
 #source('resources/GradientStop.dart');
 
+#source('client/globals.dart');
+#source('client/BuckshotSystem.dart');
+#source('client/FrameworkObject.dart');
+#source('client/FrameworkProperty.dart');
+#source('client/ObservableList.dart');
+#source('client/FrameworkElement.dart');
+#source('client/VirtualContainer.dart');
+#source('client/HashableObject.dart');
+#source('client/ContainerElement.dart');
+#source('client/FrameworkDebug.dart');
+#source('client/IValueConverter.dart');
+#source('client/RootElement.dart');
+#source('client/DomHelpers.dart');
+#source('client/BuckshotObject.dart');
+#source('client/IPresentationFormatProvider.dart');
+#source('client/BuckshotTemplateProvider.dart');
+#source('client/FrameworkPropertyBase.dart');
+#source('client/AttachedFrameworkProperty.dart');
+#source('client/FrameworkPropertyResolutionException.dart');
 #source('client/DataTemplate.dart');
 #source('client/CollectionPresenter.dart');
 #source('client/BindingData.dart');

@@ -15,7 +15,7 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-#import('../../core/Buckshot.dart');
+#import('../../lib/Buckshot.dart');
 #import('../../extensions/media/lucaui_extension_media.dart');
 #import('../../extensions/social/lucaui_extension_social.dart');
 #import('dart:html');
