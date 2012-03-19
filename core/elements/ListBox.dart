@@ -1,0 +1,136 @@
+//   Copyright (c) 2012, John Evans & LUCA Studios LLC
+//
+//   http://www.lucastudios.com/contact
+//   John: https://plus.google.com/u/0/115427174005651655317/about
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+
+/**
+* A control that provides a scrollable list of selectable items.
+*/
+class ListBox extends Control
+{
+  FrameworkProperty horizontalScrollEnabledProperty;
+  FrameworkProperty verticalScrollEnabledProperty;
+  FrameworkProperty selectedItemProperty;
+  CollectionPresenter _presenter;
+  
+  int _selectedIndex = -1;
+  
+  final FrameworkEvent<SelectedItemChangedEventArgs> selectionChanged;
+  
+  int get selectedIndex() => _selectedIndex;
+  
+  /// Overridden [LucaObject] method.
+  FrameworkObject makeMe() => new ListBox();
+  
+  ListBox()
+  :
+    selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs>()
+  {
+    _initListBoxProperties();
+    this._component.style.border = "solid black 1px";
+
+    if (templateObject == null)
+      throw const FrameworkException('control template was not found.');
+    
+    _presenter = LucaSystem.findByName("__luca_ui_listbox_presenter__", templateObject);
+    
+    if (_presenter == null)
+      throw const FrameworkException('element not found in control template');
+    
+    _presenter.itemCreated + _OnItemCreated;
+    
+    // selectionChanged + (_, args) => print('Selected ${args.selectedItem} at index: $selectedIndex');
+  }
+  
+  void _OnItemCreated(sender, ItemCreatedEventArgs args){
+    FrameworkElement item = args.itemCreated;
+    
+    item.click + (_, __) {
+      
+      _selectedIndex = _presenter.presentationPanel.children.indexOf(item);
+      
+      setValue(selectedItemProperty, item._stateBag[CollectionPresenter._SBO]);
+      
+      selectionChanged.invoke(this, new SelectedItemChangedEventArgs(item._stateBag[CollectionPresenter._SBO]));
+          
+    };
+    
+    item.mouseEnter + (_, __) => onItemMouseEnter(item);
+    
+    item.mouseLeave + (_, __) => onItemMouseLeave(item);
+    
+    item.mouseDown + (_, __) => onItemMouseDown(item);
+    
+    item.mouseUp + (_, __) => onItemMouseUp(item);
+  }
+  
+  
+  
+  void onItemMouseDown(item){
+    if (item.hasProperty("background")){
+      item.dynamic.background = new SolidColorBrush(new Color.predefined(Colors.SkyBlue));
+    }
+  }
+  
+  void onItemMouseUp(item){
+    if (item.hasProperty("background")){
+      item.dynamic.background = new SolidColorBrush(new Color.predefined(Colors.PowderBlue));
+    }
+  }
+  
+  /// Override this method to implement your own mouse over behavior for items in
+  /// the ListBox.
+  void onItemMouseEnter(FrameworkElement item){
+    if (item.hasProperty("background")){
+      item._stateBag["__lb_item_bg_brush__"] = item.dynamic.background;
+      item.dynamic.background = new SolidColorBrush(new Color.predefined(Colors.PowderBlue));
+    }
+  }
+  
+  /// Override this method to implement your own mouse out behavior for items in
+  /// the ListBox.
+  void onItemMouseLeave(FrameworkElement item){
+    if (item._stateBag.containsKey("__lb_item_bg_brush__")){
+      item.dynamic.background = item._stateBag["__lb_item_bg_brush__"];
+    }
+  }
+  
+  
+  void _initListBoxProperties(){
+    
+    selectedItemProperty = new FrameworkProperty(this, "selectedItem", (_){});
+    
+    horizontalScrollEnabledProperty = new FrameworkProperty(this, "horizontalScrollEnabled", (bool value){
+      if (value == true){
+        this._component.style.overflowX = "auto";
+      }else{
+        this._component.style.overflowX = "hidden";
+      }
+    }, false);
+    horizontalScrollEnabledProperty.stringToValueConverter = const StringToBooleanConverter();
+    
+    verticalScrollEnabledProperty = new FrameworkProperty(this, "verticalScrollEnabled", (bool value){
+      if (value == false){
+        this._component.style.overflowY = "hidden";
+      }else{
+        this._component.style.overflowY = "auto";
+      }
+    }, true);
+    verticalScrollEnabledProperty.stringToValueConverter = const StringToBooleanConverter();
+  }
+  
+  
+  String get _type() => "ListBox";
+}
