@@ -1,4 +1,4 @@
-#import('../../core/LUCA_UI_Framework.dart');
+#import('../../core/Buckshot.dart');
 #import('dart:html');
 #source('View.dart');
 #source('ViewModel.dart');
@@ -11,9 +11,9 @@ class todo {
 
   void run() {
     //initialize the framework (I hope to do away with this step eventually)
-    new LucaSystem();
+    new BuckshotSystem();
     
-    LucaSystem.rootView = new View();
+    BuckshotSystem.rootView = new View();
     
   }
 

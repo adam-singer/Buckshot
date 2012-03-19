@@ -28,7 +28,7 @@
 * * Select the "Collections" example on the LUCA UI Try It website: [Try LUCA UI](http://www.lucastudios.com/trylucaui)
 * * [Example view model that uses DataTemplate](https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/blob/master/demos/tryit/DemoViewModel.dart)
 */
-class DataTemplate extends LucaObject{
+class DataTemplate extends BuckshotObject{
   final HashMap<String, FrameworkProperty> _properties;
   
   /// Constructs a DataTemplate with no properties.

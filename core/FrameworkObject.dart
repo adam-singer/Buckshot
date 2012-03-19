@@ -18,7 +18,7 @@
 /**
 * Represents and element that can participate in the framework's
 * [Binding] and [FrameworkProperty] model. */
-class FrameworkObject extends LucaObject {
+class FrameworkObject extends BuckshotObject {
   Element _component;
   var _rawElement;
   bool _isLoaded = false;
@@ -38,7 +38,7 @@ class FrameworkObject extends LucaObject {
   FrameworkProperty nameProperty;
   
   /// Overridden [LucaObject] method.
-  LucaObject makeMe() => new FrameworkObject();
+  BuckshotObject makeMe() => new FrameworkObject();
   
   /// Gets a boolean value indicating whether this element has a contain context set.
   bool get isContainer() => _stateBag.containsKey(CONTAINER_CONTEXT);
@@ -66,12 +66,12 @@ class FrameworkObject extends LucaObject {
         (String value){
           
           if (nameProperty != null && nameProperty.previousValue != null){
-            if (LucaSystem.namedElements.containsKey(nameProperty.previousValue))
-              LucaSystem.namedElements.remove(nameProperty.previousValue);
+            if (BuckshotSystem.namedElements.containsKey(nameProperty.previousValue))
+              BuckshotSystem.namedElements.remove(nameProperty.previousValue);
           }
           
           if (value != ""){
-            LucaSystem.namedElements[value] = this;
+            BuckshotSystem.namedElements[value] = this;
           }
           
         }, "");
@@ -95,7 +95,7 @@ class FrameworkObject extends LucaObject {
   * Sets the value of a given AttachedFrameworkProperty for a given Element. */
   static void setAttachedValue(FrameworkElement element, AttachedFrameworkProperty property, Dynamic value)
   {
-    HashMap<FrameworkElement, Dynamic> aDepInfo = LucaSystem._attachedProperties[property];
+    HashMap<FrameworkElement, Dynamic> aDepInfo = BuckshotSystem._attachedProperties[property];
 
     //no need to invoke if nothing has changed
     if (aDepInfo[element] == value) return;
@@ -115,7 +115,7 @@ class FrameworkObject extends LucaObject {
   static Dynamic getAttachedValue(FrameworkElement element, AttachedFrameworkProperty property){
       if (property == null) return null;
 
-      HashMap<FrameworkElement, Dynamic> aDepInfo = LucaSystem._attachedProperties[property];
+      HashMap<FrameworkElement, Dynamic> aDepInfo = BuckshotSystem._attachedProperties[property];
       
       return (aDepInfo.containsKey(element)) ? aDepInfo[element] : null;
   }

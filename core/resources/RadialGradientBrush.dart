@@ -31,8 +31,8 @@ class RadialGradientBrush extends Brush {
   /// gradients.
   FrameworkProperty fallbackColorProperty;
   
-  /// Overridden [LucaObject] method.
-  LucaObject makeMe() => new RadialGradientBrush();
+  /// Overridden [BuckshotObject] method.
+  BuckshotObject makeMe() => new RadialGradientBrush();
   
   RadialGradientBrush([RadialGradientDrawMode mode, Color fallback])
   {

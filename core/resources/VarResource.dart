@@ -51,7 +51,7 @@ class VarResource extends FrameworkResource
 {
   FrameworkProperty valueProperty;
   
-  LucaObject makeMe() => new VarResource();
+  BuckshotObject makeMe() => new VarResource();
   
   VarResource(){
     _initVarProperties();

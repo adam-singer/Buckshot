@@ -34,12 +34,12 @@ class StyleTemplateTests extends TestGroupBase
     testList[".mergeWith new property succeeds"] = mergeNewPropertySucceeds;
     testList[".mergeWith multiple styles succeeds"] = mergeWithMultiple;
     testList[".mergeWith to new Element style"] = mergeToNewElementStyle;
-    testList["is LucaObject"] = isLucaObject;
+    testList["is BuckshotObject"] = isBuckshotObject;
   }
   
-  void isLucaObject(){
+  void isBuckshotObject(){
     StyleTemplate st = new StyleTemplate();
-    Expect.isTrue(st is LucaObject);
+    Expect.isTrue(st is BuckshotObject);
   }
   
   // test whether merging directly to a new element's style succeeds

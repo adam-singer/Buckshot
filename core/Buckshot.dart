@@ -23,12 +23,12 @@
 /// <https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart>
 
 
-#library('LUCAUI_Framework_Core');
+#library('Buckshot_Core');
 
 #import('dart:html');
 
 #source('globals.dart');
-#source('LucaSystem.dart');
+#source('BuckshotSystem.dart');
 #source('FrameworkObject.dart');
 #source('FrameworkProperty.dart');
 #source('ObservableList.dart');
@@ -40,7 +40,7 @@
 #source('IValueConverter.dart');
 #source('RootElement.dart');
 #source('DomHelpers.dart');
-#source('LucaObject.dart');
+#source('BuckshotObject.dart');
 #source('IPresentationFormatProvider.dart');
 #source('LucaxmlPresentationProvider.dart');
 #source('FrameworkPropertyBase.dart');

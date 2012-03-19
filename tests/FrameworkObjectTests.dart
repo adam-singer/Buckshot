@@ -26,40 +26,40 @@ class FrameworkObjectTests extends TestGroupBase {
   }
   
   // Tests that assignment to the name property of a FrameworkObject
-  // properly registers it with LucaSystem.namedElements
+  // properly registers it with BuckshotSystem.namedElements
   void namePropertyRegistration(){
     var b = new Border();
     b.name = "hello";
     
-    Expect.isTrue(LucaSystem.namedElements.containsKey("hello"));
+    Expect.isTrue(BuckshotSystem.namedElements.containsKey("hello"));
   }
   
   // Tests that renaming the name property of a FrameworkObject
-  // properly updates the registration in LucaSystem.namedElements
+  // properly updates the registration in BuckshotSystem.namedElements
   void namePropertyRenaming(){
     var b = new Border();
     b.name = "hello";
     
-    Expect.isTrue(LucaSystem.namedElements.containsKey("hello"));
+    Expect.isTrue(BuckshotSystem.namedElements.containsKey("hello"));
     
     b.name = "world";
     
-    Expect.isFalse(LucaSystem.namedElements.containsKey("hello"));
-    Expect.isTrue(LucaSystem.namedElements.containsKey("world"));
+    Expect.isFalse(BuckshotSystem.namedElements.containsKey("hello"));
+    Expect.isTrue(BuckshotSystem.namedElements.containsKey("world"));
     
   }
   
   // Tests that blanking the name property of a FrameworkObject
-  // will properly unregister it from LucaSystem.namedElements
+  // will properly unregister it from BuckshotSystem.namedElements
   void namePropertyUnregister(){
     var b = new Border();
     b.name = "hello";
     
-    Expect.isTrue(LucaSystem.namedElements.containsKey("hello"));
+    Expect.isTrue(BuckshotSystem.namedElements.containsKey("hello"));
     
     b.name = "";
     
-    Expect.isFalse(LucaSystem.namedElements.containsKey("hello"), 'hello should not exist');
-    Expect.isFalse(LucaSystem.namedElements.containsKey(""), 'blank should not exist');
+    Expect.isFalse(BuckshotSystem.namedElements.containsKey("hello"), 'hello should not exist');
+    Expect.isFalse(BuckshotSystem.namedElements.containsKey(""), 'blank should not exist');
   }
 }

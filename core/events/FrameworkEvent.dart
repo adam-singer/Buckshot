@@ -50,10 +50,10 @@ interface FrameworkEvent<T extends EventArgs>  default _FrameworkEventImplementa
   * Call each EventHandler function that is registered to the FrameworkEvent */
   void invoke(sender, T args);
   
-  String get _type();
+  String get type();
 }
 
-class _FrameworkEventImplementation<T extends EventArgs> extends LucaObject implements FrameworkEvent
+class _FrameworkEventImplementation<T extends EventArgs> extends BuckshotObject implements FrameworkEvent
 {
   final List<EventHandlerReference> _handlers;
   
@@ -79,7 +79,7 @@ class _FrameworkEventImplementation<T extends EventArgs> extends LucaObject impl
     
   void invoke(sender, T args) => _handlers.forEach((handlerReference) => handlerReference.handler(sender, args));
   
-  String get _type() => "FrameworkEvent";
+  String get type() => "FrameworkEvent";
 }
 
 

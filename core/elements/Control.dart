@@ -51,7 +51,7 @@ class Control extends FrameworkElement
     
     _templateApplied = true;
     
-    templateObject = LucaSystem.retrieveResource(this.templateName);
+    templateObject = BuckshotSystem.retrieveResource(this.templateName);
 
     if (templateObject != null){
       _component = templateObject._component;

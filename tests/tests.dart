@@ -16,16 +16,11 @@
 //   limitations under the License.
 
 #import('dart:html');
-//#import('dart:dom', prefix:'dom');
-
-//may need to adjust these paths if you have the files a different location
-#import('UnitTestFramework.dart');
 
 #import('../../../src/dart/client/testing/unittest/unittest_html.dart');
 
-#import('../core/LUCA_UI_Framework.dart');
+#import('../core/Buckshot.dart');
 
-#source('UIBuilder.dart');
 #source('InitializationTests.dart');
 #source('FrameworkFundamentalsTests.dart');
 #source('FrameworkPropertyTests.dart');
@@ -54,9 +49,11 @@
 #source('VarResourceTests.dart');
 
 void main() {
- 
+  final List<TestGroupBase> _tList = new List<TestGroupBase>();
+  
+  
 //  try{
-    new LucaSystem();
+    new BuckshotSystem();
 //    }
 //    catch(FrameworkException e){
 //      window.alert("Buckshot Framework initialization failed: ${e}");
@@ -67,48 +64,59 @@ void main() {
 //      return;
 //    }
     
-  TestFramework tester;
+  _tList.add(new InitializationTests());
+  _tList.add(new FrameworkFundamentalsTests());
+  _tList.add(new FrameworkElementTests());
+  _tList.add(new FrameworkPropertyTests());
+  _tList.add(new FrameworkEventTests());
+  _tList.add(new FrameworkExceptionTests());
+  _tList.add(new BindingTests());
+  _tList.add(new LucaxmlPresentationProviderTests());
+  _tList.add(new TextBoxTests());
+  _tList.add(new BorderTests());
+  _tList.add(new ButtonTests());
+  _tList.add(new ControlTests());
+  _tList.add(new FrameworkObjectTests());
+  _tList.add(new ObservableListTests());
+  _tList.add(new PanelTests());
+  _tList.add(new StackPanelTests());
+  _tList.add(new TextBlockTests());
+  _tList.add(new LayoutCanvasTests());
+  _tList.add(new RadioButtonGroupTests());
+  _tList.add(new GridTests());
+  _tList.add(new GridCellTests());
+  _tList.add(new DomHelpersTests());
+  _tList.add(new StyleTemplateTests());
+  _tList.add(new StringToGridLengthConverterTests());
+  _tList.add(new ResourceTests());
+  _tList.add(new VarResourceTests());
   
-//  try{
-    tester = new TestFramework();
-//  }
-//  catch(FrameworkException e){
-//    window.alert("Test Framework initialization failed: ${e.message}");
-//    return;
-//  }
-//  catch (Exception e){
-//    window.alert("Test Framework initialization failed: ${e.toString()}");
-//    return;
-//  }
+  _tList.forEach((TestGroupBase t){
+    group(t.testGroupName, (){
+      t.testList.forEach((String name, Function testFunc){
+        test(name, testFunc);
+      });
+    });
+  });
+  
 
-  //hope to find these with reflection eventually...
+}
+
+
+//TODO:  This is an artifact from the old unit testing system and should be removed
+// at some point.
+/**
+* A base class for defining groups of tests to be performed. */
+class TestGroupBase {
   
-  tester.addTestGroup(new InitializationTests());
-  tester.addTestGroup(new FrameworkFundamentalsTests());
-  tester.addTestGroup(new FrameworkElementTests());
-  tester.addTestGroup(new FrameworkPropertyTests());
-  tester.addTestGroup(new FrameworkEventTests());
-  tester.addTestGroup(new FrameworkExceptionTests());
-  tester.addTestGroup(new BindingTests());
-  tester.addTestGroup(new LucaxmlPresentationProviderTests());
-  tester.addTestGroup(new TextBoxTests());
-  tester.addTestGroup(new BorderTests());
-  tester.addTestGroup(new ButtonTests());
-  tester.addTestGroup(new ControlTests());
-  tester.addTestGroup(new FrameworkObjectTests());
-  tester.addTestGroup(new ObservableListTests());
-  tester.addTestGroup(new PanelTests());
-  tester.addTestGroup(new StackPanelTests());
-  tester.addTestGroup(new TextBlockTests());
-  tester.addTestGroup(new LayoutCanvasTests());
-  tester.addTestGroup(new RadioButtonGroupTests());
-  tester.addTestGroup(new GridTests());
-  tester.addTestGroup(new GridCellTests());
-  tester.addTestGroup(new DomHelpersTests());
-  tester.addTestGroup(new StyleTemplateTests());
-  tester.addTestGroup(new StringToGridLengthConverterTests());
-  tester.addTestGroup(new ResourceTests());
-  tester.addTestGroup(new VarResourceTests());
+  final LinkedHashMap<String, Function> testList;
+  String testGroupName;
   
-  tester.executeTests();
+  TestGroupBase() : testList = new LinkedHashMap<String, Function>()
+  {
+    registerTests();
+  }
+  
+  abstract void registerTests();
+  
 }

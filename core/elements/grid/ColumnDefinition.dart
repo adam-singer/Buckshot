@@ -52,8 +52,8 @@ class ColumnDefinition extends GridLayoutDefinition{
     width = value;
   }
   
-  /// Overridden [LucaObject] method.
-  LucaObject makeMe() => new ColumnDefinition();
+  /// Overridden [BuckshotObject] method.
+  BuckshotObject makeMe() => new ColumnDefinition();
   
   void _initColumnDefinitionProperties(){
     widthProperty = new FrameworkProperty(this, "width", (GridLength v){

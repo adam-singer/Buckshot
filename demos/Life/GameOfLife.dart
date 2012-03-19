@@ -1,5 +1,5 @@
 #import('dart:html');
-#import('../../core/LUCA_UI_Framework.dart');
+#import('../../core/Buckshot.dart');
 
 #source('Life.dart');
 #source('View.dart');
@@ -21,7 +21,7 @@ final ViewModel vm;
 
 void main() {
   //initialize the framework
-  new LucaSystem();
+  new BuckshotSystem();
   
   new GameOfLife();
   

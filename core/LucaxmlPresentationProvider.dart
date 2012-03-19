@@ -42,10 +42,10 @@ class LucaxmlPresentationProvider extends HashableObject implements IPresentatio
     //html parser converts 'image' to 'img', so convert it back.
     if (lowerTagName == "img") lowerTagName = "image";
 
-    if (!LucaSystem._objectRegistry.containsKey(lowerTagName))
+    if (!BuckshotSystem._objectRegistry.containsKey(lowerTagName))
       throw new PresentationProviderException('Element "${lowerTagName}" not found in object registry.');
     
-    var newElement = LucaSystem._objectRegistry[lowerTagName].makeMe();
+    var newElement = BuckshotSystem._objectRegistry[lowerTagName].makeMe();
     
     if (xmlElement.elements.length > 0){
       //process nodes
@@ -54,12 +54,12 @@ class LucaxmlPresentationProvider extends HashableObject implements IPresentatio
         String elementLowerTagName = e.tagName.toLowerCase();
         if (elementLowerTagName == "img") elementLowerTagName = "image";
         
-        if (LucaSystem._objectRegistry.containsKey(elementLowerTagName)){
+        if (BuckshotSystem._objectRegistry.containsKey(elementLowerTagName)){
           if (e.tagName.contains(".")){
             //attached property
-            if (LucaSystem._objectRegistry.containsKey(elementLowerTagName)){    
+            if (BuckshotSystem._objectRegistry.containsKey(elementLowerTagName)){    
 
-              Function setAttachedPropertyFunction = LucaSystem._objectRegistry[elementLowerTagName];
+              Function setAttachedPropertyFunction = BuckshotSystem._objectRegistry[elementLowerTagName];
               
               //no data binding for attached properties
               setAttachedPropertyFunction(newElement, Math.parseInt(e.text.trim()));
@@ -196,7 +196,7 @@ class LucaxmlPresentationProvider extends HashableObject implements IPresentatio
         if (words.length != 2)
           throw const FrameworkException('Binding syntax incorrect.');
         
-        setValue(p, LucaSystem.retrieveResource(words[1]));
+        setValue(p, BuckshotSystem.retrieveResource(words[1]));
         break;
       case "template":
         break;
@@ -226,21 +226,21 @@ class LucaxmlPresentationProvider extends HashableObject implements IPresentatio
           var ne = words[1].substring(0, words[1].indexOf('.'));
           var prop = words[1].substring(words[1].indexOf('.') + 1);
           
-          if (!LucaSystem.namedElements.containsKey(ne))
+          if (!BuckshotSystem.namedElements.containsKey(ne))
             throw new FrameworkException("Named element '${ne}' not found.");
           
           Binding b;
           try{
-            new Binding(LucaSystem.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);  
+            new Binding(BuckshotSystem.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);  
           }catch (Exception err){
             //try to bind late...
-            FrameworkProperty theProperty = LucaSystem.namedElements[ne].resolveFirstProperty(prop);
+            FrameworkProperty theProperty = BuckshotSystem.namedElements[ne].resolveFirstProperty(prop);
             theProperty.propertyChanging + (_, __) {
               
               //unregister previous binding if one already exists.
               if (b != null) b.unregister();
               
-              b = new Binding(LucaSystem.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);
+              b = new Binding(BuckshotSystem.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);
             }; 
           }        
           
@@ -263,7 +263,7 @@ class LucaxmlPresentationProvider extends HashableObject implements IPresentatio
       throw const FrameworkException("Resource is missing a key identifier.");
     
     //add/replace resource at given key
-    LucaSystem.registerResource(resource);
+    BuckshotSystem.registerResource(resource);
   }
   
   void _assignAttributeProperties(FrameworkObject element, Element xmlElement){
@@ -274,9 +274,9 @@ class LucaxmlPresentationProvider extends HashableObject implements IPresentatio
 
       if (k.contains(".")){
         //attached property    
-        if (LucaSystem._objectRegistry.containsKey("$k")){    
+        if (BuckshotSystem._objectRegistry.containsKey("$k")){    
           
-          Function setAttachedPropertyFunction = LucaSystem._objectRegistry["$k"];
+          Function setAttachedPropertyFunction = BuckshotSystem._objectRegistry["$k"];
           
           setAttachedPropertyFunction(element, Math.parseInt(v));
         }

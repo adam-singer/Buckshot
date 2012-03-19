@@ -31,7 +31,7 @@ class ListBox extends Control
   
   int get selectedIndex() => _selectedIndex;
   
-  /// Overridden [LucaObject] method.
+  /// Overridden [BuckshotObject] method.
   FrameworkObject makeMe() => new ListBox();
   
   ListBox()
@@ -44,7 +44,7 @@ class ListBox extends Control
     if (templateObject == null)
       throw const FrameworkException('control template was not found.');
     
-    _presenter = LucaSystem.findByName("__luca_ui_listbox_presenter__", templateObject);
+    _presenter = BuckshotSystem.findByName("__luca_ui_listbox_presenter__", templateObject);
     
     if (_presenter == null)
       throw const FrameworkException('element not found in control template');

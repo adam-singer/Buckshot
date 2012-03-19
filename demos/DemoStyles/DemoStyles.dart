@@ -1,5 +1,5 @@
 #library('LUCA UI Demo Style Templates');
-#import('../../core/LUCA_UI_Framework.dart');
+#import('../../core/Buckshot.dart');
 #import('dart:html');
 
 

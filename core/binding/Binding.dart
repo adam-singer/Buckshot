@@ -54,7 +54,7 @@ interface Binding default _BindingImplementation{
 }
 
 
-class _BindingImplementation extends LucaObject implements Binding
+class _BindingImplementation extends BuckshotObject implements Binding
 {
   BindingMode bindingMode;
   _BindingImplementation _twoWayPartner;

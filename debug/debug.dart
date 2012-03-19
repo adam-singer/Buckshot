@@ -1,7 +1,5 @@
-#import('../core/LUCA_UI_Framework.dart');
+#import('../core/Buckshot.dart');
 #import('dart:html');
-
-#import('dart:builtin'); //remove once IDE supports top-level functions without squiggles
 
 //#import('dart:json');
 
@@ -61,7 +59,7 @@ class Debug {
     
     //passing the view, which triggers rendering on the page. 
     //LucaSystem.rootView = new MainUIView();
-    LucaSystem.rootView = new GridDemoView.with(_vm);
+    BuckshotSystem.rootView = new GridDemoView.with(_vm);
     //LucaSystem.rootView = new BorderDemoView();
     //LucaSystem.rootView = new StackPanelDebug();
         
@@ -70,7 +68,7 @@ class Debug {
 
 void main() {
   try{
-    new LucaSystem();
+    new BuckshotSystem();
     }catch(FrameworkException e){
       print("LUCA UI Framework initialization failed: ${e.message}");
     }

@@ -39,7 +39,7 @@ class CheckBox extends FrameworkElement
     _initEvents();
   }    
   
-  /// Overloaded [LucaObject] method for creating new checkboxes.
+  /// Overloaded [BuckshotObject] method for creating new checkboxes.
   FrameworkObject makeMe() => new CheckBox();
   
   void _initProperties(){

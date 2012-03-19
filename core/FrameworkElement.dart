@@ -503,8 +503,8 @@ class FrameworkElement extends FrameworkObject {
       if (bd.dataContextPath == ""){
         new Binding(dc, p);
       }else{
-        if (!(dc.value is LucaObject))
-          throw new FrameworkException("Datacontext binding attempted to resolve properties '${bd.dataContextPath}' on non-LucaObject type.");
+        if (!(dc.value is BuckshotObject))
+          throw new FrameworkException("Datacontext binding attempted to resolve properties '${bd.dataContextPath}' on non-BuckshotObject type.");
         
         //TODO keep a reference to these so they can be removed if the datacontext changes
         

@@ -24,7 +24,7 @@ class ControlTemplate extends FrameworkResource
   FrameworkProperty controlTypeProperty;
   FrameworkProperty templateProperty;
   
-  LucaObject makeMe() => new ControlTemplate();
+  BuckshotObject makeMe() => new ControlTemplate();
   
   ControlTemplate(){
     _initializeControlTemplateProperties();

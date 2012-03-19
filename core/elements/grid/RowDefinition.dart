@@ -52,8 +52,8 @@ class RowDefinition extends GridLayoutDefinition{
     height = value;
   }
   
-  /// Overridden [LucaObject] method.
-  LucaObject makeMe() => new RowDefinition();
+  /// Overridden [BuckshotObject] method.
+  BuckshotObject makeMe() => new RowDefinition();
   
   void _initRowDefinitionProperties(){
     heightProperty = new FrameworkProperty(this, "height", (GridLength v){

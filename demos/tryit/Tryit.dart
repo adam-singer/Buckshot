@@ -15,7 +15,7 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-#import('../../core/LUCA_UI_Framework.dart');
+#import('../../core/Buckshot.dart');
 #import('../../extensions/media/lucaui_extension_media.dart');
 #import('../../extensions/social/lucaui_extension_social.dart');
 #import('dart:html');
@@ -25,36 +25,36 @@
 
 void main() { 
   
-  new LucaSystem();
+  new BuckshotSystem();
   
   var dt = new DataTemplate.fromList(["name", "address", "phone", "age"]);
   var dt2 = new DataTemplate.fromMap({"name":"John","address":"foo st","phone":"555-123-4567","age":"99"});
   Views views = new Views();
   
   //register extensions
-  LucaSystem.registerElement(new YouTube());
-  LucaSystem.registerElement(new Hulu());
-  LucaSystem.registerElement(new Vimeo());
-  LucaSystem.registerElement(new FunnyOrDie());
-  LucaSystem.registerElement(new PlusOne());
+  BuckshotSystem.registerElement(new YouTube());
+  BuckshotSystem.registerElement(new Hulu());
+  BuckshotSystem.registerElement(new Vimeo());
+  BuckshotSystem.registerElement(new FunnyOrDie());
+  BuckshotSystem.registerElement(new PlusOne());
   
   // initialize the presentation provider.  this will eventually be done by the framework
-  IPresentationFormatProvider p = LucaSystem.defaultPresentationProvider;
+  IPresentationFormatProvider p = BuckshotSystem.defaultPresentationProvider;
     
   // create our main view and error view
   FrameworkObject o = p.deserialize(views.ui);
   FrameworkObject errorUI = p.deserialize(views.errorUI);
   
   // get references to all the ui interactives that we need    
-  TextBlock tbError = LucaSystem.namedElements["tbErrorMessage"];  
-  Border borderContent = LucaSystem.namedElements["borderContent"];
-  Button btnRefresh = LucaSystem.namedElements["btnRefresh"];
-  Button btnClear = LucaSystem.namedElements["btnClear"];
-  TextArea tbUserInput = LucaSystem.namedElements["tbUserInput"];
-  DropDownList ddlElements = LucaSystem.namedElements["ddlElements"];
-  DropDownList ddlControls = LucaSystem.namedElements["ddlControls"];
-  DropDownList ddlBinding = LucaSystem.namedElements["ddlBinding"];
-  DropDownList ddlMediaExtensions = LucaSystem.namedElements["ddlMediaExtensions"];  
+  TextBlock tbError = BuckshotSystem.namedElements["tbErrorMessage"];  
+  Border borderContent = BuckshotSystem.namedElements["borderContent"];
+  Button btnRefresh = BuckshotSystem.namedElements["btnRefresh"];
+  Button btnClear = BuckshotSystem.namedElements["btnClear"];
+  TextArea tbUserInput = BuckshotSystem.namedElements["tbUserInput"];
+  DropDownList ddlElements = BuckshotSystem.namedElements["ddlElements"];
+  DropDownList ddlControls = BuckshotSystem.namedElements["ddlControls"];
+  DropDownList ddlBinding = BuckshotSystem.namedElements["ddlBinding"];
+  DropDownList ddlMediaExtensions = BuckshotSystem.namedElements["ddlMediaExtensions"];  
 
   // set a demo view model into the borderContent's datacontext
   borderContent.dataContext = new DemoViewModel();
@@ -190,7 +190,7 @@ void main() {
   ddlControls.selectionChanged + handleSelection;
     
   // render the main view
-  LucaSystem.renderRaw(o);
+  BuckshotSystem.renderRaw(o);
 }
 
 

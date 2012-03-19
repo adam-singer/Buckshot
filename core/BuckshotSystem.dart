@@ -16,13 +16,13 @@
 //   limitations under the License.
 
 /**
-* LucaSystem provides a central initialization and registration facility for the framework.
+* BuckshotSystem provides a central initialization and registration facility for the framework.
 *
-* LucaSystem must be initialized prior to using the framework:
+* BuckshotSystem must be initialized prior to using the framework:
 *
-*     new LucaSystem();
+*     new BuckshotSystem();
 */ 
-class LucaSystem extends FrameworkObject {
+class BuckshotSystem extends FrameworkObject {
   static final String _defaultRootID = "#LucaUIHost";
   static IView _currentRootView;
   static bool initialized = false;
@@ -54,29 +54,29 @@ class LucaSystem extends FrameworkObject {
   static FrameworkProperty windowHeightProperty;
   
   //"Singleton?"
-  static LucaSystem _ref;
+  static BuckshotSystem _ref;
   
-  factory LucaSystem()
+  factory BuckshotSystem()
   { 
     if (_ref != null) return _ref;
-    return new LucaSystem._init();
+    return new BuckshotSystem._init();
   }
   
-  factory LucaSystem.fromRoot(String domRootElementOrID)
+  factory BuckshotSystem.fromRoot(String domRootElementOrID)
   {
     if (_ref != null) return _ref;
-    return new LucaSystem._init(domRootElementOrID);
+    return new BuckshotSystem._init(domRootElementOrID);
   }
   
-  LucaSystem._init([String rootID = LucaSystem._defaultRootID])
+  BuckshotSystem._init([String rootID = BuckshotSystem._defaultRootID])
   {
     _ref = this;
-    _initLucaSystem(rootID);
+    _initBuckshotSystem(rootID);
   } 
   
-  void _initLucaSystem(String rootID)
+  void _initBuckshotSystem(String rootID)
   {
-    LucaSystem._domRootElement = window.document.query(rootID);
+    BuckshotSystem._domRootElement = window.document.query(rootID);
     
     namedElements = new HashMap<String, FrameworkObject>();
     
@@ -90,21 +90,21 @@ class LucaSystem extends FrameworkObject {
     
     defaultPresentationProvider = new LucaxmlPresentationProvider();
     
-    if (LucaSystem._domRootElement == null)
+    if (BuckshotSystem._domRootElement == null)
       throw new FrameworkException("Unable to locate required root element (must be <div id='$rootID' />)");
     
-    if (LucaSystem._domRootElement.tagName != "DIV")
-      throw new FrameworkException("Root element for LUCA UI must be a <div>. Element given was a <${LucaSystem._domRootElement.tagName.toLowerCase()}>");
+    if (BuckshotSystem._domRootElement.tagName != "DIV")
+      throw new FrameworkException("Root element for LUCA UI must be a <div>. Element given was a <${BuckshotSystem._domRootElement.tagName.toLowerCase()}>");
     
-    LucaSystem._attachedProperties = new HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject, Dynamic>>();
+    BuckshotSystem._attachedProperties = new HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject, Dynamic>>();
     
-    LucaSystem.windowWidthProperty = new FrameworkProperty(
-      LucaSystem._ref,
+    BuckshotSystem.windowWidthProperty = new FrameworkProperty(
+      BuckshotSystem._ref,
       "windowWidth",
       (value){}, window.innerWidth); //subtracting 1 removes scrollbars in chrome.  haven't tested cross-browser yet.
     
-    LucaSystem.windowHeightProperty = new FrameworkProperty(
-      LucaSystem._ref,
+    BuckshotSystem.windowHeightProperty = new FrameworkProperty(
+      BuckshotSystem._ref,
       "windowHeight",
       (value){}, window.innerHeight);
     
@@ -113,10 +113,10 @@ class LucaSystem extends FrameworkObject {
                  
       //any elements bound to these properties will also get updated...
       if (window.innerWidth != windowWidth){
-        setValue(LucaSystem.windowWidthProperty, window.innerWidth);
+        setValue(BuckshotSystem.windowWidthProperty, window.innerWidth);
       }
       if (window.innerHeight != windowHeight){
-        setValue(LucaSystem.windowHeightProperty, window.innerHeight);
+        setValue(BuckshotSystem.windowHeightProperty, window.innerHeight);
       }
     });
 
@@ -129,7 +129,7 @@ class LucaSystem extends FrameworkObject {
     // now register controls that may depend on control templates for visuals
     _registerCoreControls();
     
-    LucaSystem.initialized = true;
+    BuckshotSystem.initialized = true;
   }
 
   /// Performs a search of the element tree starting from the given [FrameworkElement]
@@ -138,7 +138,7 @@ class LucaSystem extends FrameworkObject {
   /// ** Deprecated **
   ///
   /// ## Instead use:
-  ///     LucaSystem.namedElements[elementName];
+  ///     BuckshotSystem.namedElements[elementName];
   static FrameworkElement findByName(String name, FrameworkElement startingWith){
     
     if (startingWith.name != null && startingWith.name == name) return startingWith;
@@ -164,42 +164,42 @@ class LucaSystem extends FrameworkObject {
     //registering elements we need ahead of time (poor man's reflection...)
     
     //elements
-    LucaSystem.registerElement(new StackPanel());
-    LucaSystem.registerElement(new Grid());
-    LucaSystem.registerElement(new Border());
-    LucaSystem.registerElement(new TextArea());
-    LucaSystem.registerElement(new LayoutCanvas());
-    LucaSystem.registerElement(new TextBlock());
-    LucaSystem.registerElement(new CheckBox());
-    LucaSystem.registerElement(new RadioButton());
-    LucaSystem.registerElement(new Hyperlink());
-    LucaSystem.registerElement(new Image());
-    LucaSystem.registerElement(new RawHtml());
-    LucaSystem.registerElement(new ColumnDefinition());
-    LucaSystem.registerElement(new RowDefinition());
-    LucaSystem.registerElement(new DropDownListItem());
-    LucaSystem.registerElement(new CollectionPresenter());
+    BuckshotSystem.registerElement(new StackPanel());
+    BuckshotSystem.registerElement(new Grid());
+    BuckshotSystem.registerElement(new Border());
+    BuckshotSystem.registerElement(new TextArea());
+    BuckshotSystem.registerElement(new LayoutCanvas());
+    BuckshotSystem.registerElement(new TextBlock());
+    BuckshotSystem.registerElement(new CheckBox());
+    BuckshotSystem.registerElement(new RadioButton());
+    BuckshotSystem.registerElement(new Hyperlink());
+    BuckshotSystem.registerElement(new Image());
+    BuckshotSystem.registerElement(new RawHtml());
+    BuckshotSystem.registerElement(new ColumnDefinition());
+    BuckshotSystem.registerElement(new RowDefinition());
+    BuckshotSystem.registerElement(new DropDownListItem());
+    BuckshotSystem.registerElement(new CollectionPresenter());
     
     //resources
-    LucaSystem.registerElement(new ResourceCollection());
-    LucaSystem.registerElement(new Color());
-    LucaSystem.registerElement(new LinearGradientBrush());
-    LucaSystem.registerElement(new GradientStop());
-    LucaSystem.registerElement(new SolidColorBrush());
-    LucaSystem.registerElement(new RadialGradientBrush());
-    LucaSystem.registerElement(new StyleSetter());
-    LucaSystem.registerElement(new _StyleTemplateImplementation());
-    LucaSystem.registerElement(new VarResource());
-    LucaSystem.registerElement(new ControlTemplate());
+    BuckshotSystem.registerElement(new ResourceCollection());
+    BuckshotSystem.registerElement(new Color());
+    BuckshotSystem.registerElement(new LinearGradientBrush());
+    BuckshotSystem.registerElement(new GradientStop());
+    BuckshotSystem.registerElement(new SolidColorBrush());
+    BuckshotSystem.registerElement(new RadialGradientBrush());
+    BuckshotSystem.registerElement(new StyleSetter());
+    BuckshotSystem.registerElement(new _StyleTemplateImplementation());
+    BuckshotSystem.registerElement(new VarResource());
+    BuckshotSystem.registerElement(new ControlTemplate());
     
     //attached properties
-    LucaSystem._objectRegistry["grid.column"] = Grid.setColumn;
-    LucaSystem._objectRegistry["grid.row"] = Grid.setRow;
-    LucaSystem._objectRegistry["grid.columnspan"] = Grid.setColumnSpan;
-    LucaSystem._objectRegistry["grid.rowspan"] = Grid.setRowSpan;
+    BuckshotSystem._objectRegistry["grid.column"] = Grid.setColumn;
+    BuckshotSystem._objectRegistry["grid.row"] = Grid.setRow;
+    BuckshotSystem._objectRegistry["grid.columnspan"] = Grid.setColumnSpan;
+    BuckshotSystem._objectRegistry["grid.rowspan"] = Grid.setRowSpan;
     
-    LucaSystem._objectRegistry["layoutcanvas.top"] = LayoutCanvas.setTop;
-    LucaSystem._objectRegistry["layoutcanvas.left"] = LayoutCanvas.setLeft;
+    BuckshotSystem._objectRegistry["layoutcanvas.top"] = LayoutCanvas.setTop;
+    BuckshotSystem._objectRegistry["layoutcanvas.left"] = LayoutCanvas.setLeft;
     
   } 
   
@@ -208,20 +208,20 @@ class LucaSystem extends FrameworkObject {
   //use control template may try to implement a control that isn't yet
   //registered here...
   static void _registerCoreControls(){
-    LucaSystem.registerElement(new TextBox());
-    LucaSystem.registerElement(new Slider());
-    LucaSystem.registerElement(new Button());
-    LucaSystem.registerElement(new DropDownList());
-    LucaSystem.registerElement(new ListBox());
+    BuckshotSystem.registerElement(new TextBox());
+    BuckshotSystem.registerElement(new Slider());
+    BuckshotSystem.registerElement(new Button());
+    BuckshotSystem.registerElement(new DropDownList());
+    BuckshotSystem.registerElement(new ListBox());
   }
   
   /// Returns a resource that is registered with the given [resourceKey].
   static retrieveResource(String resourceKey){
     String lowered = resourceKey.trim().toLowerCase();
 
-    if (!LucaSystem._resourceRegistry.containsKey(lowered)) return null;
+    if (!BuckshotSystem._resourceRegistry.containsKey(lowered)) return null;
 
-    var res = LucaSystem._resourceRegistry[lowered];
+    var res = BuckshotSystem._resourceRegistry[lowered];
     
     if (res._stateBag.containsKey(FrameworkResource.RESOURCE_PROPERTY)){
 //      db('$lowered ${res._type} ${getValue(res._stateBag[FrameworkResource.RESOURCE_PROPERTY])}');
@@ -235,35 +235,35 @@ class LucaSystem extends FrameworkObject {
   
   /// Registers a resource to the framework.
   static void registerResource(FrameworkResource object){
-    LucaSystem._resourceRegistry[object.key.trim().toLowerCase()] = object;
+    BuckshotSystem._resourceRegistry[object.key.trim().toLowerCase()] = object;
   }
   
-  /// Registers a LucaObject to the framework.  Useful for registering
+  /// Registers a BuckshotObject to the framework.  Useful for registering
   /// extension elements.
-  static void registerElement(LucaObject o){
-    LucaSystem._objectRegistry[o.type.trim().toLowerCase()] = o;
+  static void registerElement(BuckshotObject o){
+    BuckshotSystem._objectRegistry[o.type.trim().toLowerCase()] = o;
   }  
   
   /// Gets the innerWidth of the window
-  static int get windowWidth() => (_ref != null) ? getValue(LucaSystem.windowWidthProperty) : -1;
+  static int get windowWidth() => (_ref != null) ? getValue(BuckshotSystem.windowWidthProperty) : -1;
   
   /// Gets the innerHeight of the window
-  static int get windowHeight() => (_ref != null) ? getValue(LucaSystem.windowHeightProperty) : -1;
+  static int get windowHeight() => (_ref != null) ? getValue(BuckshotSystem.windowHeightProperty) : -1;
   
   /// Sets the given view as the root visual element.
   static set rootView(IView view){
-    LucaSystem._currentRootView = view;
+    BuckshotSystem._currentRootView = view;
     visualRoot.content = view.rootVisual;
     
     //remove child nodes from the root dom element
-    LucaSystem._domRootElement.nodes.clear();  
+    BuckshotSystem._domRootElement.nodes.clear();  
        
-    LucaSystem._domRootElement.nodes.add(visualRoot._component);
+    BuckshotSystem._domRootElement.nodes.add(visualRoot._component);
     
   }
   
   /// Gets the currently assigned view.
-  static IView get rootView() => LucaSystem._currentRootView;
+  static IView get rootView() => BuckshotSystem._currentRootView;
   
 
   /// Wraps a FrameworkElement into an [IView] and sets it as the root view.
@@ -272,5 +272,5 @@ class LucaSystem extends FrameworkObject {
   }
     
     
-  String get _type() => "LucaSystem";
+  String get _type() => "BuckshotSystem";
   }

@@ -1,4 +1,4 @@
-#import('../../core/LUCA_UI_Framework.dart');
+#import('../../core/Buckshot.dart');
 #import('../DemoStyles/DemoStyles.dart');
 #import('dart:html');
 #source('UpperCaseConverter.dart');
@@ -11,14 +11,14 @@ StyleResources resources;
 
   void run() {
     //init LUCA UI
-    new LucaSystem();
+    new BuckshotSystem();
     
     //instantiate style resources
     resources = new StyleResources();
     
-    //bind LucaSystem.visualRoot to window dimensions
-    new Binding(LucaSystem.windowWidthProperty, LucaSystem.visualRoot.widthProperty);
-    new Binding(LucaSystem.windowHeightProperty, LucaSystem.visualRoot.heightProperty);
+    //bind BuckshotSystem.visualRoot to window dimensions
+    new Binding(BuckshotSystem.windowWidthProperty, BuckshotSystem.visualRoot.widthProperty);
+    new Binding(BuckshotSystem.windowHeightProperty, BuckshotSystem.visualRoot.heightProperty);
     
     //make the mainGrid and set it's style
     Grid mainGrid = new Grid();
@@ -49,7 +49,7 @@ StyleResources resources;
     
     generateContent(contentGrid);
     
-    LucaSystem.renderRaw(mainGrid);
+    BuckshotSystem.renderRaw(mainGrid);
   }
   
   void generateContent(Grid contentGrid){

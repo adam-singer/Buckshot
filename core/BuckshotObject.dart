@@ -18,19 +18,19 @@
 /**
 * Base class for all objects participating in the framework.
 */
-class LucaObject extends HashableObject{
+class BuckshotObject extends HashableObject{
   final HashMap<String, Dynamic> _stateBag;
   final List<Binding> _bindings;
   //TODO convert to HashMap?
   final Set<FrameworkProperty> _frameworkProperties;
   
-  LucaObject():
+  BuckshotObject():
     _stateBag = new HashMap<String, Dynamic>(),
     _bindings = new List<Binding>(),
     _frameworkProperties = new Set<FrameworkProperty>();
   
-  /// Factory method for creating derived LucaObjects.
-  LucaObject makeMe() => new LucaObject();  
+  /// Factory method for creating derived BuckshotObjects.
+  BuckshotObject makeMe() => new BuckshotObject();  
   
   /// Gets the stateBag [HashMap<String, Dynamic>] for the object.
   HashMap<String, Dynamic> get stateBag() => _stateBag;
@@ -57,38 +57,38 @@ class LucaObject extends HashableObject{
   /// Property name queries are case in-sensitive.
   ///
   /// Examples:
-  /// * "background" - returns the 'background' FrameworkProperty of the root [LucaObject].
-  /// * "content.background" - returns the 'background' FrameworkProperty of the [LucaObject] assigned
+  /// * "background" - returns the 'background' FrameworkProperty of the root [BuckshotObject].
+  /// * "content.background" - returns the 'background' FrameworkProperty of the [BuckshotObject] assigned
   /// to the 'content' property.
   ///
-  /// As long as a property in the dot chain is a [LucaObject] then resolve() will continue
+  /// As long as a property in the dot chain is a [BuckshotObject] then resolve() will continue
   /// along until the last dot property is resolved, and then return it.
   FrameworkProperty resolveProperty(String propertyNameChain){
-    return LucaObject._resolvePropertyInternal(this, propertyNameChain.trim().split('.'));
+    return BuckshotObject._resolvePropertyInternal(this, propertyNameChain.trim().split('.'));
   }
   
   FrameworkProperty resolveFirstProperty(String propertyNameChain){
-    return LucaObject._resolvePropertyInternal(this, [propertyNameChain.trim().split('.')[0]]);
+    return BuckshotObject._resolvePropertyInternal(this, [propertyNameChain.trim().split('.')[0]]);
   }
   
-  static FrameworkProperty _resolvePropertyInternal(LucaObject currentObject, List<String> propertyChain){
+  static FrameworkProperty _resolvePropertyInternal(BuckshotObject currentObject, List<String> propertyChain){
     FrameworkProperty prop = currentObject._getPropertyByName(propertyChain[0]);
     
     // couldn't resolve current property name to a property
     if (prop == null) throw new FrameworkPropertyResolutionException('Unable to resolve FrameworkProperty: "${propertyChain[0]}".');
     
     // more properties in the chain, but cannot resolve further
-    if (!(prop.value is LucaObject) && propertyChain.length > 1)
-      throw const FrameworkPropertyResolutionException('Unable to resolve further.  Remaining properties in the chain while current property value is not a LucaObject');
+    if (!(prop.value is BuckshotObject) && propertyChain.length > 1)
+      throw const FrameworkPropertyResolutionException('Unable to resolve further.  Remaining properties in the chain while current property value is not a BuckshotObject');
     
     // return the property if there are no further names to resolve or the property
-    // is not a LucaObject
-    if (!(prop.value is LucaObject) || propertyChain.length == 1) return prop;
+    // is not a BuckshotObject
+    if (!(prop.value is BuckshotObject) || propertyChain.length == 1) return prop;
     
-    // recurse down to the next LucaObject and property name
+    // recurse down to the next BuckshotObject and property name
     return _resolvePropertyInternal(prop.value, propertyChain.getRange(1, propertyChain.length - 1));
   }
 
-  String get type() => "LucaObject";
+  String get type() => "BuckshotObject";
 
 }

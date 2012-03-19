@@ -111,6 +111,6 @@ db(String message, [FrameworkObject element]){
     print(message);
     return;
   }
-  print("[${element._type}(${element.name})] $message");
+  print("[${element.type}(${element.name})] $message");
 }
 

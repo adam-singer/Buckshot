@@ -26,7 +26,7 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
     AttachedFrameworkProperty(String propertyName, Function propertyChangedCallback)
       : super(null, propertyName, propertyChangedCallback)
       { 
-        LucaSystem._attachedProperties[this] = new HashMap<FrameworkElement, Dynamic>();
+        BuckshotSystem._attachedProperties[this] = new HashMap<FrameworkElement, Dynamic>();
       }
     
     String get _type() => "AttachedFrameworkProperty";

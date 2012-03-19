@@ -1,4 +1,4 @@
-#import('../../core/LUCA_UI_Framework.dart');
+#import('../../core/Buckshot.dart');
 #import('../DemoStyles/DemoStyles.dart');
 #import('dart:html');
 #source('InHalfValueConverter.dart');
@@ -18,7 +18,7 @@ class ColorsDemo {
   
   void run() {
     //init Luca UI
-    new LucaSystem();
+    new BuckshotSystem();
 
     resources = new StyleResources();
     
@@ -28,9 +28,9 @@ class ColorsDemo {
     num rows = (colors.length / 14).ceil();
         
     //since we know this app owns the entire browser window space...
-    //bind LucaSystem.visualRoot to window dimensions
-    new Binding(LucaSystem.windowWidthProperty, LucaSystem.visualRoot.widthProperty);
-    new Binding(LucaSystem.windowHeightProperty, LucaSystem.visualRoot.heightProperty);
+    //bind BuckshotSystem.visualRoot to window dimensions
+    new Binding(BuckshotSystem.windowWidthProperty, BuckshotSystem.visualRoot.widthProperty);
+    new Binding(BuckshotSystem.windowHeightProperty, BuckshotSystem.visualRoot.heightProperty);
     
     Grid mainGrid = new Grid();
     mainGrid.style = resources.mainGridStyle;
@@ -85,7 +85,7 @@ class ColorsDemo {
       }
     }
     
-    LucaSystem.renderRaw(mainGrid);
+    BuckshotSystem.renderRaw(mainGrid);
   }
 
   Grid buildColorGrid(int columns, int rows)

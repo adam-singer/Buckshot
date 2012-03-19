@@ -61,7 +61,7 @@ static AttachedFrameworkProperty columnSpanProperty;
 /// Represents the row span of an element within the grid.
 static AttachedFrameworkProperty rowSpanProperty;
 
-/// Overidden [LucaObject] method.
+/// Overidden [BuckshotObject] method.
 FrameworkObject makeMe() => new Grid();
 
 Grid() :

@@ -31,8 +31,8 @@ class LinearGradientBrush extends Brush
   /// Represents the fall back [Color] to use if gradients aren't supported.
   FrameworkProperty fallbackColorProperty;
   
-  /// Overridden [LucaObject] method.
-  LucaObject makeMe() => new LinearGradientBrush();
+  /// Overridden [BuckshotObject] method.
+  BuckshotObject makeMe() => new LinearGradientBrush();
   
   LinearGradientBrush([LinearGradientDirection dir, Color fallback]) 
   {

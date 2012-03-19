@@ -53,11 +53,11 @@ class FrameworkProperty extends FrameworkPropertyBase
   /// Constructs a FrameworkProperty and initializes it to the framework.
   ///
   /// ### Parameters
-  /// * [LucaObject] sourceObject - the object the property belongs to.
+  /// * [BuckshotObject] sourceObject - the object the property belongs to.
   /// * [String] propertyName - the friendly public name for the property.
   /// * [Function] propertyChangedCallback - called by the framework when the property value changes.
   /// * [Dynamic] value - optional default value assigned to the property at initialization.
-  FrameworkProperty(LucaObject sourceObject, String propertyName, Function propertyChangedCallback, [this.value = null])
+  FrameworkProperty(BuckshotObject sourceObject, String propertyName, Function propertyChangedCallback, [this.value = null])
   : super(sourceObject, propertyName, propertyChangedCallback)
   {
 

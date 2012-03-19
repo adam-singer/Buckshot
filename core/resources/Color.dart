@@ -27,8 +27,8 @@ class Color extends FrameworkResource
   /// Represents the value of the color.
   FrameworkProperty valueProperty;
   
-  /// Overridden [LucaObject] method.
-  LucaObject makeMe() => new Color();
+  /// Overridden [BuckshotObject] method.
+  BuckshotObject makeMe() => new Color();
   
   Color(){
     _initColorProperties();

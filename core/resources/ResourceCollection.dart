@@ -21,7 +21,7 @@ class ResourceCollection extends FrameworkResource
 {
   final ObservableList<FrameworkResource> resources;
   
-  LucaObject makeMe() => new ResourceCollection();
+  BuckshotObject makeMe() => new ResourceCollection();
   
   ResourceCollection(): resources = new ObservableList<FrameworkResource>()
   {

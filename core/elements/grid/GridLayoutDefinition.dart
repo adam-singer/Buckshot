@@ -22,7 +22,7 @@
 * * [ColumnDefinition]
 * * [RowDefinition]
 */
-class GridLayoutDefinition extends LucaObject{
+class GridLayoutDefinition extends BuckshotObject{
   
   int _adjustedLengthInternal = 0;
   Node _htmlNode;

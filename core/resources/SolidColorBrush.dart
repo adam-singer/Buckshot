@@ -25,7 +25,7 @@ class SolidColorBrush extends Brush
 {
   FrameworkProperty colorProperty;
   
-  LucaObject makeMe() => new SolidColorBrush();
+  BuckshotObject makeMe() => new SolidColorBrush();
   
   SolidColorBrush([Color toColor]){
       

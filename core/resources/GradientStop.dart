@@ -22,15 +22,15 @@
 * * [LinearGradientBrush]
 * * [RadialGradientBrush]
 */
-class GradientStop extends LucaObject
+class GradientStop extends BuckshotObject
 {
   /// Represents the [Color] value of the GradientStop.
   FrameworkProperty colorProperty;
   /// Represents the offset percentage of the GradientStop.
   FrameworkProperty percentProperty;
 
-  /// Overridden [LucaObject] method.
-  LucaObject makeMe() => new GradientStop();
+  /// Overridden [BuckshotObject] method.
+  BuckshotObject makeMe() => new GradientStop();
   
   GradientStop(){
     _initGradientStopProperties();

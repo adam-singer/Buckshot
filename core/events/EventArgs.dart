@@ -17,7 +17,7 @@
 
 /**
 * Base class for parameters which are passed to the event handler. */
-class EventArgs extends LucaObject {
+class EventArgs extends BuckshotObject {
   
-  String get _type() => "EventArgs";
+  String get type() => "EventArgs";
 }

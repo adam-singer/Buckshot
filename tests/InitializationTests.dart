@@ -15,23 +15,22 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-class TestFramework {
-  final List<TestGroupBase> _tests;
+/**
+* Tests for the initialization phase of the framework */
+class InitializationTests extends TestGroupBase 
+{
   
-  TestFramework() : _tests = new List<TestGroupBase>(); 
-
-  void addTestGroup(TestGroupBase testGroup)
+  void registerTests()
   {
-    _tests.add(testGroup);  
+    testGroupName = "Initialization Tests";
+    
+    //reflection would sure be nice instead of this...
+    testList["Framework Ready"] = frameworkReadyTest;
   }
   
-  void executeTests(){   
-    _tests.forEach((TestGroupBase t){
-      group(t.testGroupName, (){
-        t.testList.forEach((String name, Function testFunc){
-          test(name, testFunc);
-        });
-      });
-    });
+  void frameworkReadyTest(){
+    Expect.isNotNull(BuckshotSystem.visualRoot);
   }
+   
+
 }

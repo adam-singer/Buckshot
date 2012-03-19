@@ -22,7 +22,7 @@ interface StyleTemplate default _StyleTemplateImplementation
   StyleTemplate();
   
   
-  LucaObject makeMe();
+  BuckshotObject makeMe();
   
   /**
   * Sets a style [property] with a given [value], which will apply to all current and future Elements using this StyleTemplate.
@@ -51,7 +51,7 @@ class _StyleTemplateImplementation extends FrameworkResource implements StyleTem
   final String stateBagPrefix = "__StyleBinding__";
   FrameworkProperty settersProperty;
   
-  LucaObject makeMe() => new _StyleTemplateImplementation();
+  BuckshotObject makeMe() => new _StyleTemplateImplementation();
   
   _StyleTemplateImplementation()
   : _registeredElements = new HashSet<FrameworkElement>(),

@@ -18,7 +18,7 @@
 #library('LUCAUI_Extensions_Media');
 
 #import('dart:html');
-#import('../../core/LUCA_UI_Framework.dart');
+#import('../../core/Buckshot.dart');
 #source('YouTube.dart');
 #source('Hulu.dart');
 #source('Vimeo.dart');

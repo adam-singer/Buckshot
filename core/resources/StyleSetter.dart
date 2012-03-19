@@ -18,11 +18,11 @@
 /**
 * Represents a setter/value pair for a [FrameworkProperty].
 */
-class StyleSetter extends LucaObject
+class StyleSetter extends BuckshotObject
 {
   FrameworkProperty valueProperty, propertyProperty;
   
-  LucaObject makeMe() => new StyleSetter();
+  BuckshotObject makeMe() => new StyleSetter();
   
   StyleSetter(){
     _initStyleSetterProperties();
