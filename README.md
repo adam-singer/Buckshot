@@ -10,12 +10,12 @@ Even so, all aspects of the framework's UI design and interactivity can be devel
 If you've worked with .net WPF or Silverlight then this framework will feel very familiar to you.
 
 ## Getting Started
-* [Library Reference](http://www.lucastudios.com/trylucaui/docs)
+* [Library Reference] *Coming soon*
 * [Wiki Documentation](https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/wiki/_pages)
 * [Developers: How To Contribute](https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/wiki/How-To-Contribute)
 
 ## Try It Yourself Online
-[Online Interactive Buckshot](http://www.lucastudios.com/trylucaui)
+[Online Interactive Buckshot](http://www.lucastudios.com/trybuckshot)
 
 ## Other Live Demos
 [Click here to view live versions of demos included in the project](http://www.lucastudios.com/demos/)
