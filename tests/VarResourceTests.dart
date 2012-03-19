@@ -19,7 +19,7 @@ class VarResourceTests extends TestGroupBase
 {
   final IPresentationFormatProvider p;
   
-  VarResourceTests() : p = new LucaxmlPresentationProvider() {}
+  VarResourceTests() : p = new BuckshotTemplateProvider() {}
   
   registerTests(){
     

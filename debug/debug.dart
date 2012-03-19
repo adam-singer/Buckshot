@@ -25,7 +25,7 @@ class Debug {
     _vm.title = "Demo"; //view can bind to this property   
            
    
-    IPresentationFormatProvider p = new LucaxmlPresentationProvider();
+    IPresentationFormatProvider p = new BuckshotTemplateProvider();
      
 //    FrameworkObject o = p.deserialize('''
 //      <textblock>Hello World.</textblock>

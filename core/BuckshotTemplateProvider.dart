@@ -20,7 +20,7 @@
 /**
 * The default presentation format provider for LUCA UI.  
 */
-class LucaxmlPresentationProvider extends HashableObject implements IPresentationFormatProvider {
+class BuckshotTemplateProvider extends HashableObject implements IPresentationFormatProvider {
   //a very ugly brute force implementation of an xml <-> object converter
   //but it works..
   

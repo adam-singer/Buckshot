@@ -42,7 +42,7 @@
 #source('DomHelpers.dart');
 #source('BuckshotObject.dart');
 #source('IPresentationFormatProvider.dart');
-#source('LucaxmlPresentationProvider.dart');
+#source('BuckshotTemplateProvider.dart');
 #source('FrameworkPropertyBase.dart');
 #source('AttachedFrameworkProperty.dart');
 #source('FrameworkPropertyResolutionException.dart');

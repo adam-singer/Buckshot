@@ -65,7 +65,7 @@ class CollectionPresenter extends Control
   
   CollectionPresenter()
   : 
-    _pfp = new LucaxmlPresentationProvider(),
+    _pfp = new BuckshotTemplateProvider(),
     itemCreated = new FrameworkEvent<ItemCreatedEventArgs>()
   {
     _Dom.appendClass(_component, "luca_ui_collectionpresenter");

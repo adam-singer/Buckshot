@@ -88,7 +88,7 @@ class BuckshotSystem extends FrameworkObject {
         
     presentationProviders = new Set<IPresentationFormatProvider>();
     
-    defaultPresentationProvider = new LucaxmlPresentationProvider();
+    defaultPresentationProvider = new BuckshotTemplateProvider();
     
     if (BuckshotSystem._domRootElement == null)
       throw new FrameworkException("Unable to locate required root element (must be <div id='$rootID' />)");

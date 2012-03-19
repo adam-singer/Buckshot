@@ -16,11 +16,11 @@
 //   limitations under the License.
 
 
-class LucaxmlPresentationProviderTests extends TestGroupBase
+class BuckshotTemplateProviderTests extends TestGroupBase
 {
   final IPresentationFormatProvider p;
   
-  LucaxmlPresentationProviderTests() : p = new LucaxmlPresentationProvider() {}
+  BuckshotTemplateProviderTests() : p = new BuckshotTemplateProvider() {}
   
   registerTests(){
     this.testGroupName = "LucaxmlPresentationProvider Tests";

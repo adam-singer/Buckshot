@@ -43,7 +43,7 @@
 #source('RadioButtonGroupTests.dart');
 #source('DomHelpersTests.dart');
 #source('StyleTemplateTests.dart');
-#source('LucaxmlPresentationProviderTests.dart');
+#source('BuckshotTemplateProviderTests.dart');
 #source('StringToGridLengthConverterTests.dart');
 #source('ResourceTests.dart');
 #source('VarResourceTests.dart');
@@ -71,7 +71,7 @@ void main() {
   _tList.add(new FrameworkEventTests());
   _tList.add(new FrameworkExceptionTests());
   _tList.add(new BindingTests());
-  _tList.add(new LucaxmlPresentationProviderTests());
+  _tList.add(new BuckshotTemplateProviderTests());
   _tList.add(new TextBoxTests());
   _tList.add(new BorderTests());
   _tList.add(new ButtonTests());
