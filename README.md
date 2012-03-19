@@ -11,8 +11,8 @@ If you've worked with .net WPF or Silverlight then this framework will feel very
 
 ## Getting Started
 * [Library Reference] *Coming soon*
-* [Wiki Documentation](https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/wiki/_pages)
-* [Developers: How To Contribute](https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/wiki/How-To-Contribute)
+* [Wiki Documentation](https://github.com/prujohn/Buckshot/wiki/_pages)
+* [Developers: How To Contribute](https://github.com/prujohn/Buckshot/wiki/How-To-Contribute)
 
 ## Try It Yourself Online
 [Online Interactive Buckshot](http://www.lucastudios.com/trybuckshot)
@@ -27,16 +27,13 @@ If you've worked with .net WPF or Silverlight then this framework will feel very
 * **Declarative Presentation Templates.** xml based (default) declarative layouts and binding to resources, data, and other elements.
 * **Style Templates.**  Use a common style library among multiple elements.  Individual changes to style property values will automatically update any elements using that style.
 * **MVVM Support**
-* [More Details Here] (https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/wiki/What-is-LUCA-UI%3F)
+* [More Details Here] (https://github.com/prujohn/Buckshot/wiki/What-is-Buckshot%3F)
 
 ## Future Stuff
 * Animation
 * More controls
 * Server-side integration (Dart works on both client and server)
 * Free beer (no, but wouldn't it be nice?)
-
-## Compiling The Project
-[Instructions Here] (https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/wiki/Compiling-the-Project)
 
 ## License
 Apache 2.0. See license.txt for project licensing information.
