@@ -43,7 +43,7 @@ class LucaxmlPresentationProviderTests extends TestGroupBase
   }
   
   void commentsIgnored(){
-    String test =
+    String t =
       '''
       <!--comment before xml-->
       <stackpanel>
@@ -64,7 +64,7 @@ class LucaxmlPresentationProviderTests extends TestGroupBase
       <!--comment after xml -->
       ''';
     
-    var result = p.deserialize(test);
+    var result = p.deserialize(t);
     
     Expect.isTrue(result is StackPanel);
     
@@ -79,63 +79,63 @@ class LucaxmlPresentationProviderTests extends TestGroupBase
   }
   
   void attachedPropertyNodeAssignsCorrectly(){
-    String test = "<StackPanel><grid.column>2</grid.column></StackPanel>";
+    String t = "<StackPanel><grid.column>2</grid.column></StackPanel>";
     
-    var result = p.deserialize(test);
+    var result = p.deserialize(t);
     Expect.equals(2, Grid.getColumn(result));
   }
   
   void enumPropertyNodeAssignsCorrectly(){
-    String test = "<StackPanel><orientation>horizontal</orientation></StackPanel>";
+    String t = "<StackPanel><orientation>horizontal</orientation></StackPanel>";
     
-    var result = p.deserialize(test);
+    var result = p.deserialize(t);
     Expect.equals(Orientation.horizontal, result.orientation);
   }
   
   
   void simplePropertyNodeAssignsCorrectly(){
-    String test = "<StackPanel><width>40</width></StackPanel>";
+    String t = "<StackPanel><width>40</width></StackPanel>";
     
-    var result = p.deserialize(test);
+    var result = p.deserialize(t);
     Expect.equals(40, result.width);
   }
   
   void textNodeInListContainerThrows(){
-    String test = "<StackPanel>hello world</StackPanel>";
+    String t = "<StackPanel>hello world</StackPanel>";
     
     Expect.throws(
-    ()=> p.deserialize(test),
+    ()=> p.deserialize(t),
     (err) => (err is PresentationProviderException && err.message.startsWith("Expected container context to be property")));
   }
   
   
   void textInNonContainerThrows(){
-    String test = "<Slider>hello world</Slider>";
+    String t = "<Slider>hello world</Slider>";
     
     Expect.throws(
-    ()=> p.deserialize(test),
+    ()=> p.deserialize(t),
     (err) => (err is PresentationProviderException && err.message.startsWith("Text node found in element")));
   }
     
   void invalidPropertyNodeThrows(){
-    String test = "<Slider><fooProperty>bar</fooProperty></Slider>";
+    String t = "<Slider><fooProperty>bar</fooProperty></Slider>";
     
     Expect.throws(
-    ()=> p.deserialize(test),
+    ()=> p.deserialize(t),
     (err) => (err is FrameworkPropertyResolutionException));
   }
   
   void childElementOfNonContainerThrows(){
-    String test = "<Slider><TextBlock></TextBlock></Slider>";
+    String t = "<Slider><TextBlock></TextBlock></Slider>";
     
     Expect.throws(
-    ()=> p.deserialize(test),
+    ()=> p.deserialize(t),
     (err) => (err is PresentationProviderException && err.message.startsWith("Attempted to add element to another"))
     );
   }
   
   void coreElements(){
-    String test = '''
+    String t = '''
     <StackPanel>
       <Grid></Grid>
       <Border></Border>
@@ -147,7 +147,7 @@ class LucaxmlPresentationProviderTests extends TestGroupBase
     </StackPanel>
     ''';
     
-    var result = p.deserialize(test);
+    var result = p.deserialize(t);
     Expect.isTrue(result is StackPanel);
     Expect.equals(7, result.children.length);
     
@@ -161,7 +161,7 @@ class LucaxmlPresentationProviderTests extends TestGroupBase
   }
   
   void attachedProperties(){
-    String test = '''
+    String t = '''
     <StackPanel Grid.column="3" 
                 Grid.ROW="4" 
                 LayoutCanvas.top="5" 
@@ -171,7 +171,7 @@ class LucaxmlPresentationProviderTests extends TestGroupBase
     </StackPanel>
     ''';
     
-    var result = p.deserialize(test);
+    var result = p.deserialize(t);
     
     Expect.equals(3, Grid.getColumn(result));
     Expect.equals(4, Grid.getRow(result));
@@ -182,8 +182,8 @@ class LucaxmlPresentationProviderTests extends TestGroupBase
   }
   
   void enumProperties(){
-    String test = '<StackPanel orientation="horizontal" verticalAlignment="center"></StackPanel>';
-    var result = p.deserialize(test);
+    String t = '<StackPanel orientation="horizontal" verticalAlignment="center"></StackPanel>';
+    var result = p.deserialize(t);
     
     Expect.equals(Orientation.horizontal, result.orientation);
     Expect.equals(VerticalAlignment.center, result.verticalAlignment);
@@ -191,18 +191,18 @@ class LucaxmlPresentationProviderTests extends TestGroupBase
   
   void simpleProperties(){
     String testString = "Hello World";
-    String test = '<TextBlock text="$testString"></TextBlock>';
-    var result = p.deserialize(test);
+    String t = '<TextBlock text="$testString"></TextBlock>';
+    var result = p.deserialize(t);
     
     Expect.equals(testString, result.text);
   }
   
   void registryLookupNotFoundThrows(){
-    String test = "<foo></foo>";
+    String t = "<foo></foo>";
     
     
     Expect.throws(
-    ()=> p.deserialize(test),
+    ()=> p.deserialize(t),
     (err)=> (err is PresentationProviderException)
     );
   }

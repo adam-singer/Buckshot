@@ -21,6 +21,8 @@
 //may need to adjust these paths if you have the files a different location
 #import('../unit_test_framework/UnitTestFramework.dart');
 
+#import('../../../src/dart/client/testing/unittest/unittest_html.dart');
+
 #import('../core/LUCA_UI_Framework.dart');
 
 #source('UIBuilder.dart');

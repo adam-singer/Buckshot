@@ -30,7 +30,7 @@ class VarResourceTests extends TestGroupBase
   }
   
   void objectValuesWork(){
-    var test = '''
+    var t = '''
 <resourcecollection>
   <var key="contenttest">
     <textblock text="hello world!"></textblock>
@@ -38,7 +38,7 @@ class VarResourceTests extends TestGroupBase
 </resourcecollection>
 ''';
     
-    p.deserialize(test);
+    p.deserialize(t);
     
     var result = LucaSystem.retrieveResource("contenttest");
     
@@ -46,7 +46,7 @@ class VarResourceTests extends TestGroupBase
   }
   
   void stringValuesWork(){
-    var test = '''
+    var t = '''
   <resourcecollection>
 <var key="test" value="hello world!"></var>
 <var key="colortest" value="#007777"></var>
@@ -54,7 +54,7 @@ class VarResourceTests extends TestGroupBase
 <var key="urltest" value="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></var>
 </resourcecollection>
 ''';
-    p.deserialize(test);
+    p.deserialize(t);
     
     Expect.equals("hello world!", LucaSystem.retrieveResource("test"));
     Expect.equals("#007777", LucaSystem.retrieveResource("colortest"));

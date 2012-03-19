@@ -43,6 +43,8 @@ class BorderTests extends TestGroupBase
   
   void createFromXml(){
     IPresentationFormatProvider p = new LucaxmlPresentationProvider();
-    String test = "<border><border/>";
+    String t = "<border><border/>";
+    
+    //TODO: finish
   }
 }

@@ -16,8 +16,8 @@
 //   limitations under the License.
 
 #library('LUCAStudios_UnitTestFramework');
-
 #import('dart:html');
+#import('../../../src/dart/client/testing/unittest/unittest_html.dart');
 #import('../core/LUCA_UI_Framework.dart');
 
 #source('TestGroupBase.dart');

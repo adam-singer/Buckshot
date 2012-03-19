@@ -598,20 +598,20 @@ class FrameworkElement extends FrameworkObject {
   
   void _initFrameworkEvents(){
     
-    _component._addEventListener("DOMNodeInsertedIntoDocument",(e){
-      _isLoaded = true;
-
-      updateDataContext();
-      
-      updateLayout();
-
-      loaded.invoke(this, new EventArgs());
-    });
-    
-    _component._addEventListener("DOMNodeRemovedFromDocument", (e){
-      _isLoaded = false;
-      unloaded.invoke(this, new EventArgs());
-    });
+//    _component._addEventListener("DOMNodeInsertedIntoDocument",(e){
+//      _isLoaded = true;
+//
+//      updateDataContext();
+//      
+//      updateLayout();
+//
+//      loaded.invoke(this, new EventArgs());
+//    });
+//    
+//    _component._addEventListener("DOMNodeRemovedFromDocument", (e){
+//      _isLoaded = false;
+//      unloaded.invoke(this, new EventArgs());
+//    });
     
     _component.on.mouseUp.add((e){
       if (!mouseUp.hasHandlers) return;
