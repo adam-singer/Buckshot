@@ -238,5 +238,5 @@ class Border extends _ContainerElement
     _previousHeight = height;
   }
   
-  String get _type() => "Border";
+  String get type() => "Border";
 }

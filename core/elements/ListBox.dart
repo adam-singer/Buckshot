@@ -132,5 +132,5 @@ class ListBox extends Control
   }
   
   
-  String get _type() => "ListBox";
+  String get type() => "ListBox";
 }

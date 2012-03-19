@@ -153,5 +153,5 @@ class Hyperlink extends FrameworkElement implements ISingleChildContainer
     _component = _Dom.createByTag("a");  
   }
   
-  String get _type() => "Hyperlink";
+  String get type() => "Hyperlink";
 }

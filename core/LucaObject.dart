@@ -88,7 +88,7 @@ class LucaObject extends HashableObject{
     // recurse down to the next LucaObject and property name
     return _resolvePropertyInternal(prop.value, propertyChain.getRange(1, propertyChain.length - 1));
   }
-  
-  String get _type() => "LucaObject";
+
+  String get type() => "LucaObject";
 
 }

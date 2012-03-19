@@ -75,5 +75,5 @@ class GridLength extends FrameworkObject{
     }, -1);
   }
   
-  String get _type() => "GridLength";
+  String get type() => "GridLength";
 }

@@ -25,5 +25,5 @@ class _RootElement extends Border
      name = "luca_ui_root";
   }
   
-  String get _type() => "RootElement";
+  String get type() => "RootElement";
 }

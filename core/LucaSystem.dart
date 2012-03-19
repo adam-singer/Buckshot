@@ -240,8 +240,8 @@ class LucaSystem extends FrameworkObject {
   
   /// Registers a LucaObject to the framework.  Useful for registering
   /// extension elements.
-  static void registerElement(LucaObject object){
-    LucaSystem._objectRegistry[object._type.trim().toLowerCase()] = object;
+  static void registerElement(LucaObject o){
+    LucaSystem._objectRegistry[o.type.trim().toLowerCase()] = o;
   }  
   
   /// Gets the innerWidth of the window

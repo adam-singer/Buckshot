@@ -149,5 +149,5 @@ class _StyleTemplateImplementation extends FrameworkResource implements StyleTem
     });
   }
   
-  String get _type() => "StyleTemplate";
+  String get type() => "StyleTemplate";
 }

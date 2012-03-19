@@ -64,5 +64,5 @@ class RawHtml extends FrameworkElement
   
   void updateLayout(){}
 
-  String get _type() => "RawHtml";
+  String get type() => "RawHtml";
 }

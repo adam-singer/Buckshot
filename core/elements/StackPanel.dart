@@ -79,5 +79,5 @@ class StackPanel extends Panel
   void updateLayout()
   { }
   
-  String get _type() => "StackPanel";
+  String get type() => "StackPanel";
 }

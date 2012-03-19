@@ -46,5 +46,5 @@ class FrameworkPropertyBase extends LucaObject{
   FrameworkPropertyBase(this.sourceObject, this.propertyName, this.propertyChangedCallback) :
    propertyChanging = new FrameworkEvent<PropertyChangingEventArgs>(){}
 
-   String get _type() => "FrameworkPropertyBase";
+   String get type() => "FrameworkPropertyBase";
 }

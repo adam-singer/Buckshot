@@ -81,5 +81,5 @@ class Button extends Control implements ISingleChildContainer
     _component = _Dom.createByTag("button");   
   }
   
-  String get _type() => "Button";
+  String get type() => "Button";
 }

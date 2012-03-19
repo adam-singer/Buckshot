@@ -45,7 +45,7 @@ class SolidColorBrush extends Brush
     element.style.background = "${color.toString()}";
   }
   
-  String get _type() => "SolidColorBrush";
+  String get type() => "SolidColorBrush";
 }
 
 

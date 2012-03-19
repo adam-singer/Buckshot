@@ -59,7 +59,7 @@ class Control extends FrameworkElement
   }
   
   /// By convention, template name should always be: 'template_{ControlName}'
-  String get templateName() => 'template_${_type}';
+  String get templateName() => 'template_${type}';
   
-  String get _type() => "Control";
+  String get type() => "Control";
 }

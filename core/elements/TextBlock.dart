@@ -102,5 +102,5 @@ class TextBlock extends FrameworkElement
   
   void updateLayout(){}
 
-  String get _type() => "TextBlock";
+  String get type() => "TextBlock";
 }

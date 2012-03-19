@@ -79,5 +79,5 @@ class Slider extends Control
     _component.attributes["type"] = "range";
   }
   
-  String get _type() => "Slider";
+  String get type() => "Slider";
 }

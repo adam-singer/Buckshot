@@ -82,5 +82,5 @@ class CheckBox extends FrameworkElement
     selectionChanged.invoke(this, new EventArgs());
   }
   
-  String get _type() => "CheckBox";
+  String get type() => "CheckBox";
 }

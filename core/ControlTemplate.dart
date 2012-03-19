@@ -48,5 +48,5 @@ class ControlTemplate extends FrameworkResource
   FrameworkElement get template() => getValue(templateProperty);
   set template(FrameworkElement value) => setValue(templateProperty, value);
   
-  String get _type() => "ControlTemplate";
+  String get type() => "ControlTemplate";
 }

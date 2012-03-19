@@ -61,5 +61,5 @@ class GradientStop extends LucaObject
     percentProperty.stringToValueConverter = const StringToNumericConverter();
   }
   
-  String get _type() => "GradientStop";
+  String get type() => "GradientStop";
 }

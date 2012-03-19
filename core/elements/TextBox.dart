@@ -104,7 +104,7 @@ class TextBox extends Control
     _component.attributes["type"] = "text";
   }
   
-  String get _type() => "TextBox";
+  String get type() => "TextBox";
 }
 
 //TODO convert to Nystrom enum pattern

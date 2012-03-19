@@ -42,5 +42,5 @@ class ResourceCollection extends FrameworkResource
     }
   }
   
-  String get _type() => "ResourceCollection";
+  String get type() => "ResourceCollection";
 }

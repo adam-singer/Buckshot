@@ -47,5 +47,5 @@ class StyleSetter extends LucaObject
     propertyProperty = new FrameworkProperty(this, "property", (String v){});
   }
   
-  String get _type() => "StyleSetter";
+  String get type() => "StyleSetter";
 }

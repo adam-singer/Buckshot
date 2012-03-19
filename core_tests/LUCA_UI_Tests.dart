@@ -59,11 +59,11 @@ void main() {
     new LucaSystem();
 //    }
 //    catch(FrameworkException e){
-//      window.alert("LUCA UI Framework initialization failed: ${e.message}");
+//      window.alert("Buckshot Framework initialization failed: ${e}");
 //      return;
 //    }
-//    catch(Exception e){
-//      window.alert("LUCA UI Framework initialization failed: ${e.toString()}");
+//    catch(Exception e, final stack){
+//      window.alert("General system exception: ${e} $stack");
 //      return;
 //    }
     
@@ -111,5 +111,4 @@ void main() {
   tester.addTestGroup(new VarResourceTests());
   
   tester.executeTests();
-  db("Tests Complete");
 }

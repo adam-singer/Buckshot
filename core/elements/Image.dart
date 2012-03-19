@@ -59,5 +59,5 @@ class Image extends FrameworkElement {
     _component = _Dom.createByTag("img");
   }
   
-  String get _type() => "Image";
+  String get type() => "Image";
 }

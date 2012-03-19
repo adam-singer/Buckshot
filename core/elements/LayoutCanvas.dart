@@ -148,6 +148,6 @@ class LayoutCanvas extends Panel
   /// Overridden [FrameworkObject] method.
   updateLayout(){ }
   
-  String get _type() { return "LayoutCanvas"; }
+  String get type() { return "LayoutCanvas"; }
 }
 

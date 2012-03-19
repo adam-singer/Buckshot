@@ -367,10 +367,11 @@ class FrameworkElement extends FrameworkObject {
   /// Sets the [styleProperty] value.
   set style(StyleTemplate value) => setValue(styleProperty, value);
   
+  // FIX
   /// Gets the inner width value.
-  int get innerWidth() => _rawElement.clientWidth - (margin.left + margin.right);
+  int get innerWidth() => 0; //_rawElement.clientWidth - (margin.left + margin.right);
   /// Gets the inner height value.
-  int get innerHeight() => _rawElement.clientHeight - (margin.top + margin.bottom);
+  int get innerHeight() => 0; //_rawElement.clientHeight - (margin.top + margin.bottom);
   
   /// Gets the inner width of the element less any bordering offsets (margin, padding, borderThickness)
   int get actualWidth() => getValue(actualWidthProperty);
@@ -704,5 +705,5 @@ class FrameworkElement extends FrameworkObject {
   /// Overridden [FrameworkObject] method.
   updateLayout(){}
   
-  String get _type() => "FrameworkElement";
+  String get type() => "FrameworkElement";
 }

@@ -129,6 +129,6 @@ class FrameworkObject extends LucaObject {
   /// Called by the framework to request that an element update it's visual layout.
   void updateLayout(){}
   
-  String get _type() => "FrameworkObject";
+  String get type() => "FrameworkObject";
   
 }

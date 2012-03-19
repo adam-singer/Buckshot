@@ -83,5 +83,5 @@ class Color extends FrameworkResource
   /// Returns the string representation of the color.
   String toString() => value;
   
-  String get _type() => "Color";
+  String get type() => "Color";
 }

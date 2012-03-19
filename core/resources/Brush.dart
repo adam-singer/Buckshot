@@ -24,5 +24,5 @@ class Brush extends FrameworkResource
   * Renders the brush output to the given [Element].*/
   void renderBrush(Element component){}
 
-  String get _type() => "Brush";
+  String get type() => "Brush";
 }

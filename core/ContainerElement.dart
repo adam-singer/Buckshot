@@ -121,5 +121,5 @@ class _ContainerElement extends FrameworkElement
     }
   }
   
-  String get _type() => "ContainerElement";
+  String get type() => "ContainerElement";
 }

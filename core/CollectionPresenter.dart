@@ -151,7 +151,7 @@ class CollectionPresenter extends Control
     _component = _Dom.createByTag("div");
   }
   
-  String get _type() => "CollectionPresenter";
+  String get type() => "CollectionPresenter";
 }
 
 

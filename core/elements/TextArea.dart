@@ -102,5 +102,5 @@ class TextArea extends FrameworkElement
     _component = _Dom.createByTag("textarea");
   }
   
-  String get _type() => "TextArea";
+  String get type() => "TextArea";
 }

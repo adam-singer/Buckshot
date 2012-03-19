@@ -69,5 +69,5 @@ class _BorderContainer extends _VirtualContainer {
     _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
   }
   
-  String get _type() => "BorderContainer";
+  String get type() => "BorderContainer";
 }

@@ -138,5 +138,5 @@ class DropDownListItem extends LucaObject
   set value(Dynamic v) => setValue(valueProperty, v);
   
   
-  String get _type() => "DropDownListItem";
+  String get type() => "DropDownListItem";
 }

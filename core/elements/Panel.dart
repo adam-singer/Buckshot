@@ -77,7 +77,7 @@ class Panel extends _ContainerElement implements IMultiChildContainer {
   /// Gets the [backgroundProperty] value.
   Brush get background() => getValue(backgroundProperty);
   
-  String get _type() => "Panel";
+  String get type() => "Panel";
   
   /// Overridden [FrameworkObject] method.
   void CreateElement(){

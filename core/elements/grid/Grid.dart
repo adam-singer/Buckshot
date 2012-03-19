@@ -440,5 +440,5 @@ static int getRowSpan(FrameworkElement element){
   return getAttachedValue(element, rowSpanProperty);
 }
 
-String get _type() => "Grid";
+String get type() => "Grid";
 }

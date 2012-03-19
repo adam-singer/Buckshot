@@ -41,7 +41,7 @@ class LucaxmlPresentationProvider extends HashableObject implements IPresentatio
     
     //html parser converts 'image' to 'img', so convert it back.
     if (lowerTagName == "img") lowerTagName = "image";
-    
+
     if (!LucaSystem._objectRegistry.containsKey(lowerTagName))
       throw new PresentationProviderException('Element "${lowerTagName}" not found in object registry.');
     

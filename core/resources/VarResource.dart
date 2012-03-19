@@ -68,5 +68,5 @@ class VarResource extends FrameworkResource
   Dynamic get value() => getValue(valueProperty);
   set value(Dynamic c) => setValue(valueProperty, c);
   
-  String get _type() => "Var";
+  String get type() => "Var";
 }

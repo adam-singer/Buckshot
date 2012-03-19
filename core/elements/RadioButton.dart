@@ -69,5 +69,5 @@ class RadioButton extends FrameworkElement
     selectionChanged.invoke(this, new EventArgs());
   }
   
-  String get _type() => "RadioButton";
+  String get type() => "RadioButton";
 }

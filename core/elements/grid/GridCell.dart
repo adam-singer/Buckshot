@@ -70,5 +70,5 @@ class _GridCell extends _VirtualContainer
     _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
   }
   
-  String get _type() => "GridCell";
+  String get type() => "GridCell";
 }

@@ -98,5 +98,5 @@ class LinearGradientBrush extends Brush
     
   }
   
-  String get _type() => "LinearGradientBrush";
+  String get type() => "LinearGradientBrush";
 }

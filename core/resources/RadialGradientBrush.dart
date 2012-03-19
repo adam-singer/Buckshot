@@ -97,5 +97,5 @@ class RadialGradientBrush extends Brush {
     element.style.background = "radial-gradient(50% 50%, ${drawMode.toString()}, ${colorString})";
   }
   
-  String get _type() => "RadialGradientBrush";
+  String get type() => "RadialGradientBrush";
 }

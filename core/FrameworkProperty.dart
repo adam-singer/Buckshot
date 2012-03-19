@@ -74,5 +74,5 @@ class FrameworkProperty extends FrameworkPropertyBase
     
   }
    
-  String get _type() => "FrameworkProperty";
+  String get type() => "FrameworkProperty";
 }
