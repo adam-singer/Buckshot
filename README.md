@@ -1,6 +1,8 @@
+# ALERT!  The build is currently broken while I adapt it to some of the latest changes in Dart.
+
 ![Buckshot Logo](http://www.lucastudios.com/img/lucaui_logo_candidate2.png)
 
-**Buckshot [buhk-shot]** *noun* A throw when darts land wildly all over the board.
+# **Buckshot [buhk-shot]** *noun* A throw when darts land wildly all over the board.
 
 Buckshot is a Google Dart library that provides a declarative presentation framework for modern web browsers.  Some refer to this type of framework as an Application Object Model (AOM).
 
