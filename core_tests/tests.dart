@@ -19,7 +19,7 @@
 //#import('dart:dom', prefix:'dom');
 
 //may need to adjust these paths if you have the files a different location
-#import('../unit_test_framework/UnitTestFramework.dart');
+#import('UnitTestFramework.dart');
 
 #import('../../../src/dart/client/testing/unittest/unittest_html.dart');
 

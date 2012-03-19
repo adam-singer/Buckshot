@@ -1,9 +1,9 @@
 extensions/social/lucaui_extension_social.dart
+core_tests/UnitTestFramework.dart
 demos/DemoStyles/DemoStyles.dart
 demos/tryit/Tryit.dart
 demos/ValueConversion/ValueConversion.dart
-core_tests/LUCA_UI_Tests.dart
-unit_test_framework/UnitTestFramework.dart
+core_tests/tests.dart
 demos/Colors/Colors.dart
 core_tests/TestGroup.dart
 demos/Life/GameOfLife.dart

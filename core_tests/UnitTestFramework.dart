@@ -15,23 +15,10 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-class TestViewModel implements ITestViewModel
-{ 
-  StackPanel rootPanel;
-  
-  
-  /**
-  * Add an output [message] to the given [targetPanel] with optional [indentation] */
-  TextBlock addTestMessage(StackPanel targetPanel, String message, [int indentation = 0]){
-    TextBlock t = new TextBlock();
-    t.text = message;
-    t.foreground = new SolidColorBrush(new Color.predefined(Colors.White));
-    t.fontSize = 12;
-    t.fontFamily = "Consolas";
-    if (indentation > 0)
-      t.margin = new Thickness.specified(0, 0, 0, indentation);
-    targetPanel.children.add(t);
-    //LucaSystem.rootView.rootVisual.updateLayout();
-    return t;
-  }
-}
+#library('LUCAStudios_UnitTestFramework');
+#import('dart:html');
+#import('../../../src/dart/client/testing/unittest/unittest_html.dart');
+#import('../core/LUCA_UI_Framework.dart');
+
+#source('TestGroupBase.dart');
+#source('TestFramework.dart');
