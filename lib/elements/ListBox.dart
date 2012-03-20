@@ -18,7 +18,7 @@
 /**
 * A control that provides a scrollable list of selectable items.
 */
-class ListBox extends Control
+class ListBox extends Control implements IFrameworkContainer
 {
   FrameworkProperty horizontalScrollEnabledProperty;
   FrameworkProperty verticalScrollEnabledProperty;
@@ -76,7 +76,7 @@ class ListBox extends Control
     item.mouseUp + (_, __) => onItemMouseUp(item);
   }
   
-  
+  get content() => _presenter;
   
   void onItemMouseDown(item){
     if (item.hasProperty("background")){

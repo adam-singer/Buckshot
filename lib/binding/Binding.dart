@@ -147,7 +147,7 @@ class _BindingImplementation extends BuckshotObject implements Binding
     }
   }
   
-  String get _type() => "Binding";
+  String get type() => "Binding";
   
 }
 

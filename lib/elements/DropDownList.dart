@@ -107,9 +107,8 @@ class DropDownList extends Control
   void CreateElement(){
     _component = _Dom.createByTag('select');
   }
-  
-  
-  String get _type() => "DropDownList";
+    
+  String get type() => "DropDownList";
 }
 
 

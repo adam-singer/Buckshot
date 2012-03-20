@@ -17,7 +17,7 @@
 
 /**
 * A container element that holds a single child and provides visual border properties. */
-class Border extends _ContainerElement
+class Border extends _ContainerElement implements IFrameworkContainer
 {
   var _previousWidth = -1;
   var _previousHeight = -1;
@@ -62,6 +62,7 @@ class Border extends _ContainerElement
       "content",
       (FrameworkElement value){
         if (_vc != null){
+          _vc.content.removeFromLayoutTree();          
           _vc.content = null;
 
           if (contentProperty.previousValue != null)
@@ -79,7 +80,12 @@ class Border extends _ContainerElement
             if (_vc == null){
               _vc = new _BorderContainer();
               _vc._containerParent = this;
-              _component.nodes.add(_vc._component);
+              
+//              _component.nodes.add(_vc._component);
+              
+              _vc.addToLayoutTree(this);
+              
+              
               _registerChild(_vc);
             }
             
@@ -115,7 +121,7 @@ class Border extends _ContainerElement
       "cornerRadius",
       (value){
         if (value == null || value < 0) value = 0;
-        _component.style.borderRadius = '${value.toString()}px';
+        _component.style.borderRadius = '${value}px';
       });
     cornerRadiusProperty.stringToValueConverter = const StringToNumericConverter();
     
@@ -193,8 +199,7 @@ class Border extends _ContainerElement
   FrameworkElement get content() => getValue(contentProperty);
   /// Sets the [contentProperty] value.
   set content(FrameworkElement value) => setValue(contentProperty, value); 
-  
-  
+    
   /// Overridden [FrameworkObject] method for generating the html representation of the border.
   void CreateElement(){
     _component = _Dom.createByTag("div");

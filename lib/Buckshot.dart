@@ -32,6 +32,7 @@
 
 #source('binding/Binding.dart');
 #source('binding/BindingMode.dart');
+#source('binding/BindingData.dart');
 
 #source('events/FrameworkEvent.dart');
 #source('events/EventHandler.dart');
@@ -57,7 +58,8 @@
 #source('enums/HorizontalAlignment.dart');
 #source('enums/VerticalAlignment.dart');
 
-#source('elements/Control.dart');
+#source('elements/control/Control.dart');
+#source('elements/control/ControlTemplate.dart');
 #source('elements/Panel.dart');
 #source('elements/TextBox.dart');
 #source('elements/StackPanel.dart');
@@ -82,7 +84,7 @@
 #source('elements/grid/GridLength.dart');
 #source('elements/DropDownList.dart');
 #source('elements/ListBox.dart');
-//#source('elements/grid/Grid2.dart');
+#source('elements/CollectionPresenter.dart');
 
 #source('exceptions/PresentationProviderException.dart');
 #source('exceptions/FrameworkException.dart');
@@ -131,9 +133,4 @@
 #source('client/AttachedFrameworkProperty.dart');
 #source('client/FrameworkPropertyResolutionException.dart');
 #source('client/DataTemplate.dart');
-#source('client/CollectionPresenter.dart');
-#source('client/BindingData.dart');
-#source('client/ControlTemplate.dart');
 #source('client/IFrameworkContainer.dart');
-#source('client/IMultiChildContainer.dart');
-#source('client/ISingleChildContainer.dart');

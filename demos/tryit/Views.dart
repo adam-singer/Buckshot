@@ -166,7 +166,7 @@ each list.
 '''
 <!--
 DropDownList provides an easy way to display a list of choices to the user.
-In LUCA UI, DropDownList's can be populated statically or dynamically via data binding.
+In Buckshot, DropDownList's can be populated statically or dynamically via data binding.
 
 In the example below, both methods are shown.  Element binding is also
 used to provide a little interactivity in the demo.  Aside from the
@@ -296,7 +296,7 @@ data source 'fruit' the entire demo required no Dart coding in order to work.
 <!-- 
 Data Binding Demo
 
-This demo shows how LUCA UI properties can be bound to data
+This demo shows how Buckshot properties can be bound to data
 objects in your code.  This demo is fairly basic, but imagine
 that you are dealing with objects such as query returns from
 databases, etc.  It works the same.
@@ -658,7 +658,7 @@ The fourth column is pixel-type of 100, and remains fixed in place.
     
     funnyOrDieView = 
 '''
-<!-- FunnyOrDie element is part of the media extension library for LUCA UI. -->
+<!-- FunnyOrDie element is part of the media extension library for Buckshot. -->
 <stackpanel margin="10">
 
     <textblock fontfamily="arial">Darth Vader Sells Out</textblock>
@@ -670,7 +670,7 @@ The fourth column is pixel-type of 100, and remains fixed in place.
     
     vimeoView =
 '''
-<!-- Vimeo element is part of the media extension library for LUCA UI. -->
+<!-- Vimeo element is part of the media extension library for Buckshot. -->
 <stackpanel margin="10">
 
     <textblock fontfamily="arial">Seth Ladd's 'Intro To Box2D'</textblock>
@@ -683,7 +683,7 @@ The fourth column is pixel-type of 100, and remains fixed in place.
     huluView =
 '''
 <!-- 
-Hulu element is part of the media extension library for LUCA UI.
+Hulu element is part of the media extension library for Buckshot.
 
 Hulu requires Flash and that only works on USA data networks. 
 -->
@@ -693,7 +693,7 @@ Hulu requires Flash and that only works on USA data networks.
     
     youtubeView =
 '''
-<!-- YouTube element is part of the media extension library for LUCA UI. -->
+<!-- YouTube element is part of the media extension library for Buckshot. -->
 <stackpanel margin="10">
 
     <textblock fontfamily="arial">David Chandler's 'Getting Started With Dart'</textblock>
@@ -706,8 +706,8 @@ Hulu requires Flash and that only works on USA data networks.
     imageView =
 '''
 <stackpanel margin="10">
-  <textblock>Like this logo for LUCA UI?</textblock>
-  <image alt="LUCA UI Logo Candidate" sourceuri="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></image>
+  <textblock>Like this logo for Buckshot?</textblock>
+  <image alt="Buckshot Logo Candidate" sourceuri="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></image>
 </stackpanel>
 ''';
     
@@ -1015,33 +1015,33 @@ Neat, huh?
 
   <stackpanel width="{resource sidewidth}">
     <border width="{resource sidewidth}">
-    <image horizontalAlignment="center" width="193" height="135" alt="LUCA UI Logo Candidate" 
+    <image horizontalAlignment="center" width="193" height="135" alt="Buckshot Logo Candidate" 
         sourceuri="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></image>
     </border>
     <border style="{resource sideboxdark}">
       <stackpanel>
-          <textblock foreground="White" fontSize="48" text="LUCA UI"></textblock>
+          <textblock foreground="White" fontSize="48" text="Buckshot"></textblock>
           <textblock fontfamily="arial" foreground="White" text="A Better Way To Web"></textblock>
       </stackpanel>
     </border>
     <border style="{resource sidebox}">
       <stackpanel>
         <textblock style="{resource sideboxtext}">
-        LUCA UI is a User Interface framework for the web written in Google Dart.  On this page you can explore how the framework's simple layout structure makes designing and working with web pages easy.
+        Buckshot is a User Interface framework for the web written in Google Dart.  On this page you can explore how the framework's simple layout structure makes designing and working with web pages easy.
         </textblock>
         <textblock foreground="White" margin="10,0,0,0" fontSize="14">
-        (this page is 100% generated with LUCA UI)
+        (this page is 100% generated with Buckshot)
         </textblock>
       </stackpanel>
     </border>
     <border style="{resource sidebox}">
       <textblock style="{resource sideboxtext}">
-      LUCA UI is currently in the ALPHA stage of development. That means you may find some things that don't work as expected.
+      Buckshot is currently in the ALPHA stage of development. That means you may find some things that don't work as expected.
       </textblock>
     </border>
     <border style="{resource sidebox}">
        <hyperlink targetName="_blank" navigateto="https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/wiki">
-          <textblock style="{resource sideboxtext}">LUCA UI Project Site</textblock>
+          <textblock style="{resource sideboxtext}">Buckshot Project Site</textblock>
        </hyperlink>
     </border>
     <border style="{resource sidebox}">

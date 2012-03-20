@@ -36,8 +36,8 @@ class _BorderContainer extends _VirtualContainer {
   
   set content(FrameworkElement element) {
     if (_content != null){
-            
-      _content._component.remove();
+      
+      _content.removeFromLayoutTree();
       _content._containerParent = null;
       _unRegisterChild(_content);
     }
@@ -48,7 +48,10 @@ class _BorderContainer extends _VirtualContainer {
    
         _content._containerParent = this;
         _registerChild(_content);
-        _component.nodes.add(content._component);
+        
+        content.addToLayoutTree(this);
+        
+//        _component.nodes.add(content._component);
                
         updateLayout();
     }else{

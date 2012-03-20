@@ -534,7 +534,7 @@ class FrameworkElement extends FrameworkObject {
     }
 
     int adjustedValue = value - (margin.left + margin.right);
-    _component.style.width = '${adjustedValue.toString()}px';
+    _component.style.width = '${adjustedValue}px';
     setValue(actualWidthProperty, adjustedValue);
     if (this is Panel) updateLayout();
     
@@ -558,42 +558,64 @@ class FrameworkElement extends FrameworkObject {
     }
     
     int adjustedValue = value - (margin.top + margin.bottom);
-    _component.style.height = '${adjustedValue.toString()}px'; //, null);
+    _component.style.height = '${adjustedValue}px'; //, null);
     setValue(actualHeightProperty, adjustedValue);
     if (this is Panel) updateLayout();
   }
   
   //TODO load/unload should be asynchronous
-  void _addToLayoutTree(FrameworkElement parentElement){
+  void addToLayoutTree(FrameworkElement parentElement){
 
     parentElement._component.elements.add(_component);
     
     _isLoaded = true;
     
     if (!parentElement._isLoaded) return;
-    
-    onAddedToDOM();
+        
+    _onAddedToDOM();
   }
   
-  void onAddedToDOM(){
+  void _onAddedToDOM(){
     //parent is in the DOM so we should call loaded event and check for children
-    
+        
     updateDataContext();
     
     updateLayout();
     
     loaded.invoke(this, new EventArgs());
     
-    if (this.isContainer){
-      this.dynamic.children.forEach((FrameworkElement child) => child.onAddedToDOM());
+    if (this is! IFrameworkContainer) return;
+    
+    if (this.dynamic.content is List){
+      this.dynamic.content.forEach((FrameworkElement child) => child._onAddedToDOM());    
+    }else if (this.dynamic.content is FrameworkElement){
+      this.dynamic.content._onAddedToDOM();
     }
+
   }
   
-  void _removeFromLayoutTree(){
-    //enforce DOM participation
-    if (!_isLoaded)
-      throw new FrameworkException('Attempted to remove element that is not already loaded into the DOM.');
+  void removeFromLayoutTree(){   
+  //    throw new FrameworkException('Attempted to remove element that is not already loaded into the DOM.');
     
+    this._component.remove();
+
+    if (!parent._isLoaded) return;
+    
+    _onRemoveFromDOM();
+  }
+  
+  _onRemoveFromDOM(){
+    _isLoaded = false;
+    
+    unloaded.invoke(this, new EventArgs());
+    
+    if (this is! IFrameworkContainer) return;
+       
+    if (this.dynamic.content is List){
+      this.dynamic.content.forEach((FrameworkElement child) => child._onRemoveFromDOM());    
+    }else if (this.dynamic.content is FrameworkElement){
+      this.dynamic.content._onRemoveFromDOM();
+    }
   }
   
   
@@ -647,9 +669,9 @@ class FrameworkElement extends FrameworkObject {
     
     _component.on.click.add((e) {
       if (!click.hasHandlers) return;
-      
-      int x = (e.pageX - _rawElement.offsetLeft);
-      int y = (e.pageY - _rawElement.offsetTop);
+      // FIX
+      int x = 0;// (e.pageX - _rawElement.offsetLeft);
+      int y = 0;//(e.pageY - _rawElement.offsetTop);
       click.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
       
       if (e.cancelable) e.cancelBubble = true;  

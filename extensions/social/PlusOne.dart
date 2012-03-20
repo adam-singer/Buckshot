@@ -73,7 +73,7 @@ class PlusOne extends FrameworkElement
     component.attributes["size"] = "standard";
   }
   
-  String get _type() => "PlusOne";
+  String get type() => "PlusOne";
 }
 
 class PlusOneButtonSizes{

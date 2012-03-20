@@ -44,5 +44,5 @@ class FunnyOrDie extends FrameworkElement
     component.attributes["frameborder"] = "0";
   }
   
-  String get _type() => "FunnyOrDie";
+  String get type() => "FunnyOrDie";
 }

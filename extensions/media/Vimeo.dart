@@ -44,5 +44,5 @@ class Vimeo extends FrameworkElement
     component.attributes["frameborder"] = "0";
   }
   
-  String get _type() => "Vimeo";
+  String get type() => "Vimeo";
 }

@@ -47,5 +47,5 @@ class YouTube extends FrameworkElement
     component.attributes["frameborder"] = "0";
   }
   
-  String get _type() => "YouTube";
+  String get type() => "YouTube";
 }

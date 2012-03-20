@@ -44,7 +44,7 @@
 * ## Try It Yourself
 * Select the "Collections" example on the LUCA UI Try It website: [Try LUCA UI](http://www.lucastudios.com/trylucaui) 
 */
-class CollectionPresenter extends Control
+class CollectionPresenter extends Control implements IFrameworkContainer
 {
   static final String _SBO = '__CollectionPresenterData__';
   var _eHandler;
@@ -95,6 +95,9 @@ class CollectionPresenter extends Control
   Panel get presentationPanel() => getValue(presentationPanelProperty);
   /// Sets the [presentationPanelProperty] value.
   set presentationPanel(Panel value) => setValue(presentationPanelProperty, value);
+  
+  //IFrameworkContainer interface
+  get content() => presentationPanel.children;
   
   /// Gets the [itemsTemplateProperty] value.
   String get itemsTemplate() => getValue(itemsTemplateProperty);

@@ -23,7 +23,7 @@
 * * [LayoutCanvas]
 * * [StackPanel]
 */
-class Panel extends _ContainerElement implements IMultiChildContainer {
+class Panel extends _ContainerElement implements IFrameworkContainer {
   /// An observable list of the child elements associated with the panel.
   final ObservableList<FrameworkElement> children;
   static final String childHasParentExceptionMessage = "Element is already child of another element.";
@@ -66,7 +66,10 @@ class Panel extends _ContainerElement implements IMultiChildContainer {
       });
     };
   }
-   
+  
+  // IFrameworkContainer interface
+  get content() => children;
+  
   /// Returns true if the given [FrameworkElement] is a child of the panel.
   bool contains(FrameworkElement newChild){
     return children.indexOf(newChild, 0) > -1;

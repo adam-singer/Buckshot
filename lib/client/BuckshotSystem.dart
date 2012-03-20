@@ -23,7 +23,7 @@
 *     new BuckshotSystem();
 */ 
 class BuckshotSystem extends FrameworkObject {
-  static final String _defaultRootID = "#LucaUIHost";
+  static final String _defaultRootID = "#BuckshotHost";
   static IView _currentRootView;
   static bool initialized = false;
   static Element _domRootElement;
@@ -256,10 +256,11 @@ class BuckshotSystem extends FrameworkObject {
     visualRoot.content = view.rootVisual;
     
     //remove child nodes from the root dom element
-    BuckshotSystem._domRootElement.nodes.clear();  
+    BuckshotSystem._domRootElement.elements.clear();  
        
-    BuckshotSystem._domRootElement.nodes.add(visualRoot._component);
-    
+    BuckshotSystem._domRootElement.elements.add(visualRoot._component);
+    visualRoot._isLoaded = true;
+    visualRoot._onAddedToDOM();
   }
   
   /// Gets the currently assigned view.

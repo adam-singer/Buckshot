@@ -18,7 +18,7 @@
 /**
 * A button control element. 
 */
-class Button extends Control implements ISingleChildContainer
+class Button extends Control implements IFrameworkContainer
 { 
   Dynamic _content;
  

@@ -1,1 +1,4 @@
-interface IFrameworkContainer{}
+interface IFrameworkContainer{
+  
+  get content();
+}

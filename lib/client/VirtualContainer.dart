@@ -30,8 +30,10 @@ class _VirtualContainer extends _ContainerElement
   
   set content(FrameworkElement element) {
     if (_content != null){
-            
-      _content._component.remove();
+      
+      _content.removeFromLayoutTree();
+//      _content._component.remove();
+      
       _content._containerParent = null;
       _unRegisterChild(_content);
     }
@@ -42,8 +44,9 @@ class _VirtualContainer extends _ContainerElement
    
         _content._containerParent = this;
         _registerChild(_content);
-        _component.nodes.add(content._component);
-               
+        //_component.nodes.add(content._component);
+        content.addToLayoutTree(this); 
+        
         updateLayout();
     }else{
       _content = null;

@@ -81,5 +81,5 @@ class Hulu extends FrameworkElement
     component.nodes.add(embed);
   }
   
-  String get _type() => "Hulu";
+  String get type() => "Hulu";
 }
