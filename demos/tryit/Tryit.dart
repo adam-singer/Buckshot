@@ -87,6 +87,8 @@ void main() {
     
   btnClear.click + (_,__){
     tbUserInput.text = "";
+    
+    //TODO this should support '= null' but does not
     borderContent.content = new TextBlock();
   };
     

@@ -61,8 +61,7 @@ class Border extends _ContainerElement implements IFrameworkContainer
       this,
       "content",
       (FrameworkElement value){
-        if (_vc != null){
-          _vc.content.removeFromLayoutTree();          
+        if (_vc != null){      
           _vc.content = null;
 
           if (contentProperty.previousValue != null)
@@ -93,6 +92,12 @@ class Border extends _ContainerElement implements IFrameworkContainer
             _vc.parent = this;
             
             updateLayout();
+        }else{
+          if (_vc != null){
+            _vc.removeFromLayoutTree();
+            _unRegisterChild(_vc);
+            _vc = null;
+          }
         }
       }, null);
         

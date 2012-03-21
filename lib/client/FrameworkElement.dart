@@ -568,10 +568,9 @@ class FrameworkElement extends FrameworkObject {
 
     parentElement._component.elements.add(_component);
     
-    _isLoaded = true;
-    
+    db('Added to Layout Tree', this);
     if (!parentElement._isLoaded) return;
-        
+       
     _onAddedToDOM();
   }
   
@@ -579,10 +578,14 @@ class FrameworkElement extends FrameworkObject {
     //parent is in the DOM so we should call loaded event and check for children
         
     updateDataContext();
+       
+    _isLoaded = true;
     
     updateLayout();
     
     loaded.invoke(this, new EventArgs());
+    
+    db('Added to DOM', this);
     
     if (this is! IFrameworkContainer) return;
     
@@ -591,14 +594,15 @@ class FrameworkElement extends FrameworkObject {
     }else if (this.dynamic.content is FrameworkElement){
       this.dynamic.content._onAddedToDOM();
     }
-
   }
   
-  void removeFromLayoutTree(){   
+  void removeFromLayoutTree(){
   //    throw new FrameworkException('Attempted to remove element that is not already loaded into the DOM.');
     
     this._component.remove();
-
+    
+    db('Removed from Layout Tree', this);
+    
     if (!parent._isLoaded) return;
     
     _onRemoveFromDOM();
@@ -608,6 +612,8 @@ class FrameworkElement extends FrameworkObject {
     _isLoaded = false;
     
     unloaded.invoke(this, new EventArgs());
+    
+    db('Removed from DOM', this);
     
     if (this is! IFrameworkContainer) return;
        

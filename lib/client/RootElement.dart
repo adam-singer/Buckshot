@@ -20,9 +20,9 @@
 class _RootElement extends Border
 {
   _RootElement(){
-    _Dom.appendClass(_component, "luca_ui_root");
+    _Dom.appendClass(_component, "buckshot_root");
 
-     name = "luca_ui_root";
+     name = "buckshot_root";
   }
   
   String get type() => "RootElement";

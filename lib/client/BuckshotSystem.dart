@@ -253,14 +253,17 @@ class BuckshotSystem extends FrameworkObject {
   /// Sets the given view as the root visual element.
   static set rootView(IView view){
     BuckshotSystem._currentRootView = view;
-    visualRoot.content = view.rootVisual;
     
     //remove child nodes from the root dom element
     BuckshotSystem._domRootElement.elements.clear();  
        
     BuckshotSystem._domRootElement.elements.add(visualRoot._component);
+
     visualRoot._isLoaded = true;
-    visualRoot._onAddedToDOM();
+    db('(BuckshotSystem)Updating visualRoot content', visualRoot);
+    visualRoot.content = view.rootVisual;
+    //    visualRoot._isLoaded = true;
+//    visualRoot._onAddedToDOM();
   }
   
   /// Gets the currently assigned view.
@@ -273,5 +276,5 @@ class BuckshotSystem extends FrameworkObject {
   }
     
     
-  String get _type() => "BuckshotSystem";
+  String get type() => "BuckshotSystem";
   }

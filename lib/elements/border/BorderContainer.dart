@@ -66,7 +66,7 @@ class _BorderContainer extends _VirtualContainer {
   
   
   void updateLayout(){
-    if (content == null || !_isLoaded) return;
+    if (content == null) return;
     
     _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
     _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
