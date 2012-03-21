@@ -574,6 +574,8 @@ class FrameworkElement extends FrameworkObject {
 
     parentElement._component.elements.add(_component);
     
+    parent = parentElement;
+    
    // db('Added to Layout Tree', this);
     if (!parentElement._isLoaded) return;
        
@@ -608,8 +610,11 @@ class FrameworkElement extends FrameworkObject {
     this._component.remove();
     
     //db('Removed from Layout Tree', this);
+    var p = parent;
     
-    if (!parent._isLoaded) return;
+    parent = null;
+    
+    if (!p._isLoaded) return;
     
     _onRemoveFromDOM();
   }

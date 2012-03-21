@@ -52,11 +52,14 @@ class Control extends FrameworkElement
     _templateApplied = true;
     
     templateObject = BuckshotSystem.retrieveResource(this.templateName);
-
+    
     if (templateObject != null){
       _component = templateObject._component;
+    }else{
+      super.applyVisualTemplate();
     }
   }
+  
   
   /// By convention, template name should always be: 'template_{ControlName}'
   String get templateName() => 'template_${type}';

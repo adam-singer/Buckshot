@@ -23,6 +23,13 @@ class ListBox extends Control implements IFrameworkContainer
   FrameworkProperty horizontalScrollEnabledProperty;
   FrameworkProperty verticalScrollEnabledProperty;
   FrameworkProperty selectedItemProperty;
+  /// Represents the [Panel] element which will contain the generated UI for
+  /// each element of the collection.
+  FrameworkProperty presentationPanelProperty;
+  
+  /// Represents the UI that will display for each item in the collection.
+  FrameworkProperty itemsTemplateProperty;
+  
   CollectionPresenter _presenter;
   
   int _selectedIndex = -1;
@@ -39,16 +46,17 @@ class ListBox extends Control implements IFrameworkContainer
     selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs>()
   {
     _initListBoxProperties();
+    
     this._component.style.border = "solid black 1px";
 
     if (templateObject == null)
       throw const FrameworkException('control template was not found.');
     
-    _presenter = BuckshotSystem.findByName("__luca_ui_listbox_presenter__", templateObject);
+    _presenter = BuckshotSystem.findByName("__buckshot_listbox_presenter__", templateObject);
     
     if (_presenter == null)
       throw const FrameworkException('element not found in control template');
-    
+        
     _presenter.itemCreated + _OnItemCreated;
     
     // selectionChanged + (_, args) => print('Selected ${args.selectedItem} at index: $selectedIndex');
@@ -56,6 +64,8 @@ class ListBox extends Control implements IFrameworkContainer
   
   void _OnItemCreated(sender, ItemCreatedEventArgs args){
     FrameworkElement item = args.itemCreated;
+    
+    db('item created', this);
     
     item.click + (_, __) {
       
@@ -111,6 +121,16 @@ class ListBox extends Control implements IFrameworkContainer
   void _initListBoxProperties(){
     
     selectedItemProperty = new FrameworkProperty(this, "selectedItem", (_){});
+    
+    presentationPanelProperty = new FrameworkProperty(this, "presentationPanel", (Panel p){
+      if (_presenter == null) return;
+      _presenter.presentationPanel = p;
+    });
+        
+    itemsTemplateProperty = new FrameworkProperty(this, "itemsTemplate", (value){
+      if (_presenter == null) return;
+      _presenter.itemsTemplate = value;
+    });
     
     horizontalScrollEnabledProperty = new FrameworkProperty(this, "horizontalScrollEnabled", (bool value){
       if (value == true){

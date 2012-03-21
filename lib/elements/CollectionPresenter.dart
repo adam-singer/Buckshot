@@ -68,27 +68,25 @@ class CollectionPresenter extends Control implements IFrameworkContainer
     _pfp = new BuckshotTemplateProvider(),
     itemCreated = new FrameworkEvent<ItemCreatedEventArgs>()
   {
-    _Dom.appendClass(_component, "luca_ui_collectionpresenter");
+    _Dom.appendClass(_component, "buckshot_collectionpresenter");
     _initCollectionPresenterProperties();    
   }
   
   void _initCollectionPresenterProperties(){
-        
     presentationPanelProperty = new FrameworkProperty(this, "presentationPanel", (Panel p){
       if (p.parent != null)
         throw const FrameworkException("Element is already child of another element.");
       
       if (!_component.elements.isEmpty())
          _component.elements[0].remove();
-      
+
       p.loaded + (_,__) => _updateCollection();
-      
-      _component.elements.add(p._component);
+
+      p.addToLayoutTree(this);
 
     }, new StackPanel());
         
     itemsTemplateProperty = new FrameworkProperty(this, "itemsTemplate", (_){});
-    
   }
   
   /// Gets the [presentationPanelProperty] value.
@@ -97,15 +95,17 @@ class CollectionPresenter extends Control implements IFrameworkContainer
   set presentationPanel(Panel value) => setValue(presentationPanelProperty, value);
   
   //IFrameworkContainer interface
-  get content() => presentationPanel.children;
+  get content() => presentationPanel;
   
   /// Gets the [itemsTemplateProperty] value.
   String get itemsTemplate() => getValue(itemsTemplateProperty);
   /// Sets the [itemsTemplateProperty] value.
   set itemsTemplate(String value) => setValue(itemsTemplateProperty, value);
     
-  void _updateCollection(){        
+  void _updateCollection(){
     var dc = this.resolveDataContext();
+    db('parent is', this.parent);
+    db('parent of parent is', this.parent.parent);
     
     if (dc == null && presentationPanel._isLoaded)
       {
@@ -115,13 +115,14 @@ class CollectionPresenter extends Control implements IFrameworkContainer
         return;
       }
    
+    db('after datacontext', this);
     var values = getValue(dc);
     
     if (values is ObservableList && _eHandler == null){
       _eHandler = values.listChanged + (_, __) => _updateCollection();
     }
     
-    if (!(values is Collection)) throw const FrameworkException("Expected dataContext object to be of type Collection.");
+    if (values is! Collection) throw const FrameworkException("Expected dataContext object to be of type Collection.");
     
     presentationPanel._component.elements.clear();
     
@@ -150,7 +151,6 @@ class CollectionPresenter extends Control implements IFrameworkContainer
   
   /// Overriden [FrameworkObject] method.
   void CreateElement(){
-
     _component = _Dom.createByTag("div");
   }
   

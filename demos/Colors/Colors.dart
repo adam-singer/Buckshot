@@ -8,16 +8,16 @@
 // minfrog --out=Colors.dart.app.js --compile-only Colors.dart
 
 /**
-* Demonstrates LUCA UI pre-defined colors.
+* Demonstrates Buckshot pre-defined colors.
 *
-* Since the LUCA UI library is not yet optimized for performance, it may take a few seconds for the layout to render.
+* Since the Buckshot library is not yet optimized for performance, it may take a few seconds for the layout to render.
 */
 class ColorsDemo {
   //instantiate style resources
   StyleResources resources;
   
   void run() {
-    //init Luca UI
+    //init Buckshot
     new BuckshotSystem();
 
     resources = new StyleResources();
@@ -46,7 +46,7 @@ class ColorsDemo {
     
     TextBlock title = new TextBlock();
     title.style = resources.titleTextBlockStyle;
-    title.text = "LUCA UI Framework Pre-Defined Colors";
+    title.text = "Buckshot Framework Pre-Defined Colors";
     mainGrid.children.add(title);
     
     TextBlock subTitle = new TextBlock();
