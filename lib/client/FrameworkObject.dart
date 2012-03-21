@@ -20,7 +20,9 @@
 * [Binding] and [FrameworkProperty] model. */
 class FrameworkObject extends BuckshotObject {
   Element _component;
-  var _rawElement;
+  
+  var _rawElement; // <--- deprecated
+  
   bool _isLoaded = false;
   
   /// A meta-data tag that represents the container context of an element,

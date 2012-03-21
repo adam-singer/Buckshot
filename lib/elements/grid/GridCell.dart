@@ -37,7 +37,7 @@ class _GridCell extends _VirtualContainer
   int _getHeight(){
     if (content == null) return 0;
     
-    int h = this._rawElement.getBoundingClientRect().height;
+    int h = this.mostRecentMeasurement.bounding.height; // this._rawElement.getBoundingClientRect().height;
         
     if (content.verticalAlignment != VerticalAlignment.stretch) return h;
 
@@ -49,7 +49,7 @@ class _GridCell extends _VirtualContainer
     content.height = "auto";
     content.width = "auto";
     content.updateLayout();
-    h = _rawElement.clientHeight;
+    h = this.mostRecentMeasurement.client.height; // _rawElement.clientHeight;
     _registerChild(content);
     
     content.updateLayout(); //restore the registration

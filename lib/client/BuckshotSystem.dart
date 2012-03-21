@@ -260,7 +260,7 @@ class BuckshotSystem extends FrameworkObject {
     BuckshotSystem._domRootElement.elements.add(visualRoot._component);
 
     visualRoot._isLoaded = true;
-    db('(BuckshotSystem)Updating visualRoot content', visualRoot);
+    //db('(BuckshotSystem)Updating visualRoot content', visualRoot);
     visualRoot.content = view.rootVisual;
     //    visualRoot._isLoaded = true;
 //    visualRoot._onAddedToDOM();

@@ -137,11 +137,22 @@ num _totalLengthOf(List<GridLayoutDefinition> definitions){
 
 /// Overidden [FrameworkObject] method.
 void updateLayout(){
+
+  _updateMeasurements();
   
-  _updateRowLayout(actualHeight);
+  window.requestLayoutFrame((){
+    _updateRowLayout(actualHeight);
     
-  _updateColumnLayout(actualWidth);
+    _updateColumnLayout(actualWidth);    
+  });
+  
 } 
+
+void _updateMeasurements(){
+  _internalChildren.forEach((child){
+    child.updateMeasurement();
+  });
+}
 
 // Updates the column layout of the Grid based on given [gridWidth]
 void _updateColumnLayout(int gridMeasurement){
@@ -187,7 +198,7 @@ void _updateColumnLayout(int gridMeasurement){
                     && Grid.getColumnSpan(child.content) < 2;
           })
           .forEach((FrameworkElement child){
-            int childWidth = child._rawElement.clientWidth;
+            int childWidth = child.mostRecentMeasurement.client.width;
             if (childWidth > widestAuto) 
               widestAuto = childWidth;
           });

@@ -121,9 +121,7 @@ class FrameworkElement extends FrameworkObject {
     
     _initFrameworkProperties();
 
-    //TODO bugged
-    // this._component.get$attributes().$setindex("data-lucaui-element", this.get$_LUCAUI_Extensions_Media_type());
-    //_component.attributes["data-lucaui-element"] = this._type;
+    _component.attributes["data-lucaui-element"] = this.type;
     
     _initFrameworkEvents();
   }
@@ -469,6 +467,14 @@ class FrameworkElement extends FrameworkObject {
   /// Gets the [horizontalAlignmentProperty] value.
   HorizontalAlignment get horizontalAlignment() => getValue(horizontalAlignmentProperty);
   
+  ElementRect mostRecentMeasurement;
+  
+  void updateMeasurement(){
+    _component
+      .rect
+      .then((ElementRect r) { mostRecentMeasurement = r;});
+  }
+  
   /*
   ** Methods
   */
@@ -568,7 +574,7 @@ class FrameworkElement extends FrameworkObject {
 
     parentElement._component.elements.add(_component);
     
-    db('Added to Layout Tree', this);
+   // db('Added to Layout Tree', this);
     if (!parentElement._isLoaded) return;
        
     _onAddedToDOM();
@@ -585,7 +591,7 @@ class FrameworkElement extends FrameworkObject {
     
     loaded.invoke(this, new EventArgs());
     
-    db('Added to DOM', this);
+    //db('Added to DOM', this);
     
     if (this is! IFrameworkContainer) return;
     
@@ -601,7 +607,7 @@ class FrameworkElement extends FrameworkObject {
     
     this._component.remove();
     
-    db('Removed from Layout Tree', this);
+    //db('Removed from Layout Tree', this);
     
     if (!parent._isLoaded) return;
     
@@ -613,7 +619,7 @@ class FrameworkElement extends FrameworkObject {
     
     unloaded.invoke(this, new EventArgs());
     
-    db('Removed from DOM', this);
+    //db('Removed from DOM', this);
     
     if (this is! IFrameworkContainer) return;
        
@@ -626,59 +632,53 @@ class FrameworkElement extends FrameworkObject {
   
   
   void _initFrameworkEvents(){
-    
-//    _component._addEventListener("DOMNodeInsertedIntoDocument",(e){
-//      _isLoaded = true;
-//
-//      updateDataContext();
-//      
-//      updateLayout();
-//
-//      loaded.invoke(this, new EventArgs());
-//    });
-//    
-//    _component._addEventListener("DOMNodeRemovedFromDocument", (e){
-//      _isLoaded = false;
-//      unloaded.invoke(this, new EventArgs());
-//    });
-    
+        
     _component.on.mouseUp.add((e){
       if (!mouseUp.hasHandlers) return;
-      
-        int x = (e.pageX - _rawElement.offsetLeft);
-        int y = (e.pageY - _rawElement.offsetTop);
-        MouseEventArgs args = new MouseEventArgs(x, y, e.pageX, e.pageY);
-        mouseUp.invoke(this, args);
 
+      _component.rect.then((ElementRect r){
+          int x = (e.pageX - r.offset.left);
+          int y = (e.pageY - r.offset.top);
+          MouseEventArgs args = new MouseEventArgs(x, y, e.pageX, e.pageY);
+          mouseUp.invoke(this, args);
+      });
+        
+        
       if (e.cancelable) e.cancelBubble = true;
     });
 
     _component.on.mouseDown.add((e){
       if (!mouseDown.hasHandlers) return;
-      
-        int x = (e.pageX - _rawElement.offsetLeft);
-        int y = (e.pageY - _rawElement.offsetTop);
-        mouseDown.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
-      
+           
+        _component.rect.then((ElementRect r){
+          int x = (e.pageX - r.offset.left);
+          int y = (e.pageY - r.offset.top);
+          mouseDown.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
+        });
+        
       if (e.cancelable) e.cancelBubble = true;
     });
     
     _component.on.mouseMove.add((e) {
       if (!mouseMove.hasHandlers) return;
-           
-      int x = (e.pageX - _rawElement.offsetLeft);
-      int y = (e.pageY - _rawElement.offsetTop);
-      mouseMove.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
-      
+                 
+      _component.rect.then((ElementRect r){
+        int x = (e.pageX - r.offset.left);
+        int y = (e.pageY - r.offset.top);
+        mouseMove.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
+      });
+     
       if (e.cancelable) e.cancelBubble = true;
     });
     
     _component.on.click.add((e) {
       if (!click.hasHandlers) return;
       // FIX
-      int x = 0;// (e.pageX - _rawElement.offsetLeft);
-      int y = 0;//(e.pageY - _rawElement.offsetTop);
-      click.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
+      _component.rect.then((ElementRect r){
+        int x = (e.pageX - r.offset.left);
+        int y = (e.pageY - r.offset.top);
+        click.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
+      });
       
       if (e.cancelable) e.cancelBubble = true;  
     });
