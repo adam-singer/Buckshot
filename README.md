@@ -1,4 +1,4 @@
-# ALERT!  The build is currently broken while I adapt it to some of the latest changes in Dart.
+## ALERT! Some elements are currently broken while the new control template system is being put in place. ##
 
 ![Buckshot Logo](http://www.lucastudios.com/img/lucaui_logo_candidate2.png)
 
