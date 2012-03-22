@@ -47,7 +47,7 @@ class ListBox extends Control implements IFrameworkContainer
   {
     _initListBoxProperties();
     
-    this._component.style.border = "solid black 1px";
+//    this._component.style.border = "solid black 1px";
 
     //applyVisualTemplate() is called before the constructor
     //so we expect template to be assigned
@@ -64,6 +64,21 @@ class ListBox extends Control implements IFrameworkContainer
     // selectionChanged + (_, args) => print('Selected ${args.selectedItem} at index: $selectedIndex');
   }
   
+  String get defaultControlTemplate() {
+    return 
+    '''<resourcecollection>
+        <controltemplate controlType="template_ListBox">
+          <template>
+            <border bordercolor=Black borderthickness=1>
+                <collectionPresenter name="__buckshot_listbox_presenter__">
+                </collectionPresenter>
+            </border>
+          </template>
+        </controltemplate>
+      </resourcecollection>
+    ''';
+  }
+    
   void _OnItemCreated(sender, ItemCreatedEventArgs args){
     FrameworkElement item = args.itemCreated;
         

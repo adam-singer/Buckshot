@@ -23,6 +23,28 @@
 #source('DemoViewModel.dart');
 #source('DemoModel.dart');
 
+class TestListBox extends ListBox {
+  
+  BuckshotObject makeMe() => new TestListBox();
+  
+  String get defaultControlTemplate() {
+    return 
+    '''<resourcecollection>
+          <controltemplate controlType="template_TestListBox">
+            <template>
+              <border bordercolor=Blue borderthickness=3>
+                <collectionPresenter name="__buckshot_listbox_presenter__">
+                </collectionPresenter>
+              </border>
+            </template>
+          </controltemplate>
+      </resourcecollection>
+    ''';
+  }
+  
+  String get type() => "TestListBox";
+}
+
 void main() { 
   
   new BuckshotSystem();
@@ -37,6 +59,7 @@ void main() {
   BuckshotSystem.registerElement(new Vimeo());
   BuckshotSystem.registerElement(new FunnyOrDie());
   BuckshotSystem.registerElement(new PlusOne());
+  BuckshotSystem.registerElement(new TestListBox());
   
   // initialize the presentation provider.  this will eventually be done by the framework
   IPresentationFormatProvider p = BuckshotSystem.defaultPresentationProvider;

@@ -23,6 +23,8 @@ class Control extends FrameworkElement
   
   FrameworkElement template;
   
+  String get defaultControlTemplate() => '';
+  
   bool _templateApplied = false;
   
   Control(){
@@ -51,9 +53,14 @@ class Control extends FrameworkElement
     
     _templateApplied = true;
     
+    if (!defaultControlTemplate.isEmpty()){
+      BuckshotSystem.defaultPresentationProvider.deserialize(defaultControlTemplate);
+    }
+    
     var t = BuckshotSystem.retrieveResource(this.templateName);
     
     if (t == null){
+      template = this;
       super.applyVisualTemplate();
       return;
     }
