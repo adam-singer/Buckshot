@@ -26,14 +26,12 @@
 //this control overrides the default ListBox template
 //yet retains all the listbox functionality
 class TestListBox extends ListBox {
-  
-  BuckshotObject makeMe() => new TestListBox();
-  
+    
   String get defaultControlTemplate() {
     return 
     '''<controltemplate controlType="template_TestListBox">
           <template>
-            <border bordercolor=Blue borderthickness=3>
+            <border bordercolor=Blue borderthickness=3 cornerradius=5>
               <collectionPresenter name="__buckshot_listbox_presenter__">
               </collectionPresenter>
             </border>
@@ -41,6 +39,8 @@ class TestListBox extends ListBox {
         </controltemplate>
     ''';
   }
+  
+  BuckshotObject makeMe() => new TestListBox();
   
   String get type() => "TestListBox";
 }
