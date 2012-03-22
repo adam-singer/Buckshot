@@ -23,22 +23,22 @@
 #source('DemoViewModel.dart');
 #source('DemoModel.dart');
 
+//this control overrides the default ListBox template
+//yet retains all the listbox functionality
 class TestListBox extends ListBox {
   
   BuckshotObject makeMe() => new TestListBox();
   
   String get defaultControlTemplate() {
     return 
-    '''<resourcecollection>
-          <controltemplate controlType="template_TestListBox">
-            <template>
-              <border bordercolor=Blue borderthickness=3>
-                <collectionPresenter name="__buckshot_listbox_presenter__">
-                </collectionPresenter>
-              </border>
-            </template>
-          </controltemplate>
-      </resourcecollection>
+    '''<controltemplate controlType="template_TestListBox">
+          <template>
+            <border bordercolor=Blue borderthickness=3>
+              <collectionPresenter name="__buckshot_listbox_presenter__">
+              </collectionPresenter>
+            </border>
+          </template>
+        </controltemplate>
     ''';
   }
   
