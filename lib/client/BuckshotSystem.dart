@@ -78,6 +78,12 @@ class BuckshotSystem extends FrameworkObject {
   {
     BuckshotSystem._domRootElement = window.document.query(rootID);
     
+    if (BuckshotSystem._domRootElement == null)
+      throw new FrameworkException("Unable to locate required root element (must be <div id='$rootID' />)");
+    
+    if (BuckshotSystem._domRootElement.tagName != "DIV")
+      throw new FrameworkException("Root element for LUCA UI must be a <div>. Element given was a <${BuckshotSystem._domRootElement.tagName.toLowerCase()}>");
+    
     namedElements = new HashMap<String, FrameworkObject>();
     
     visualRoot = new _RootElement();
@@ -89,13 +95,7 @@ class BuckshotSystem extends FrameworkObject {
     presentationProviders = new Set<IPresentationFormatProvider>();
     
     defaultPresentationProvider = new BuckshotTemplateProvider();
-    
-    if (BuckshotSystem._domRootElement == null)
-      throw new FrameworkException("Unable to locate required root element (must be <div id='$rootID' />)");
-    
-    if (BuckshotSystem._domRootElement.tagName != "DIV")
-      throw new FrameworkException("Root element for LUCA UI must be a <div>. Element given was a <${BuckshotSystem._domRootElement.tagName.toLowerCase()}>");
-    
+        
     BuckshotSystem._attachedProperties = new HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject, Dynamic>>();
     
     BuckshotSystem.windowWidthProperty = new FrameworkProperty(

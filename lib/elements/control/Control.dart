@@ -21,7 +21,7 @@ class Control extends FrameworkElement
 {
   FrameworkProperty isEnabledProperty;
   
-  FrameworkElement templateObject;
+  FrameworkElement template;
   
   bool _templateApplied = false;
   
@@ -40,7 +40,7 @@ class Control extends FrameworkElement
       }
     }, true);
     
-    isEnabledProperty.stringToValueConverter = const StringToBooleanConverter();
+    isEnabledProperty.stringToValueConverter = const StringToBooleanConverter();    
   }
   
   bool get isEnabled() => getValue(isEnabledProperty);
@@ -51,15 +51,22 @@ class Control extends FrameworkElement
     
     _templateApplied = true;
     
-    templateObject = BuckshotSystem.retrieveResource(this.templateName);
+    var t = BuckshotSystem.retrieveResource(this.templateName);
     
-    if (templateObject != null){
-      _component = templateObject._component;
-    }else{
+    if (t == null){
       super.applyVisualTemplate();
+      return;
     }
+        
+    //creates a new instance of the template for the next object that requires the resource
+    BuckshotSystem.defaultPresentationProvider.deserialize(t.rawData);
+    
+    template = t.template;
+        
+    template.parent = this;
+    _component = template._component;
+
   }
-  
   
   /// By convention, template name should always be: 'template_{ControlName}'
   String get templateName() => 'template_${type}';

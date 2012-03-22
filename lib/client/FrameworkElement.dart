@@ -487,7 +487,7 @@ class FrameworkElement extends FrameworkObject {
   /// in the this [FrameworkElement]'s heirarchy.
   ///
   /// Returns null if no non-null [dataContext] can be found.
-  Dynamic resolveDataContext(){
+  FrameworkProperty resolveDataContext(){
     if (dataContext != null) return dataContextProperty;
     if (parent == null) return null;
     return parent.resolveDataContext();

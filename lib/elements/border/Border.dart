@@ -169,12 +169,12 @@ class Border extends _ContainerElement implements IFrameworkContainer
     setValue(actualHeightProperty, value - (margin.top + margin.bottom + borderThickness.top + borderThickness.bottom + padding.top + padding.bottom));
   }
   
-  /// Returns the adjusted inner width of the border.
-  int get innerWidth() => (margin != null && padding != null && borderThickness != null) ? _rawElement.clientWidth - (margin.left + padding.left + borderThickness.left + margin.right + padding.right + borderThickness.right) : 0;
-  
-  /// Returns the adjusted inner height of the border.
-  int get innerHeight() => (margin != null && padding != null && borderThickness != null) ? _rawElement.clientHeight - (margin.top + padding.top + borderThickness.top + margin.bottom + padding.bottom + borderThickness.bottom) : 0;
-  
+//  /// Returns the adjusted inner width of the border.
+//  int get innerWidth() => (margin != null && padding != null && borderThickness != null) ? _rawElement.clientWidth - (margin.left + padding.left + borderThickness.left + margin.right + padding.right + borderThickness.right) : 0;
+//  
+//  /// Returns the adjusted inner height of the border.
+//  int get innerHeight() => (margin != null && padding != null && borderThickness != null) ? _rawElement.clientHeight - (margin.top + padding.top + borderThickness.top + margin.bottom + padding.bottom + borderThickness.bottom) : 0;
+//  
   /// Sets the [backgroundProperty] value.
   set background(Brush value) => setValue(backgroundProperty, value);
   /// Gets the [backgroundProperty] value.

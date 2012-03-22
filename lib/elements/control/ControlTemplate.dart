@@ -29,7 +29,9 @@ class ControlTemplate extends FrameworkResource
   ControlTemplate(){
     _initializeControlTemplateProperties();
     
-    this._stateBag[FrameworkResource.RESOURCE_PROPERTY] = templateProperty;
+    //redirect the resource finder to the template property
+    //otherwise the ControlTemplate itself would be retrieved as the resource
+    //this._stateBag[FrameworkResource.RESOURCE_PROPERTY] = templateProperty;
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = templateProperty;
   }
   

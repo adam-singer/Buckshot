@@ -35,10 +35,8 @@ class Globals
 <resourcecollection>
   <controltemplate controlType="template_ListBox">
     <template>
-      <border name="__buckshot_listbox_border__" width="50" height="50" background="Orange" borderthickness="1" bordercolor="Black">
           <collectionPresenter name="__buckshot_listbox_presenter__">
           </collectionPresenter>
-      </border>
     </template>
   </controltemplate>
 </resourcecollection>

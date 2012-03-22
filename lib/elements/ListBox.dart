@@ -49,10 +49,12 @@ class ListBox extends Control implements IFrameworkContainer
     
     this._component.style.border = "solid black 1px";
 
-    if (templateObject == null)
+    //applyVisualTemplate() is called before the constructor
+    //so we expect template to be assigned
+    if (template == null)
       throw const FrameworkException('control template was not found.');
     
-    _presenter = BuckshotSystem.findByName("__buckshot_listbox_presenter__", templateObject);
+    _presenter = BuckshotSystem.findByName("__buckshot_listbox_presenter__", template);
     
     if (_presenter == null)
       throw const FrameworkException('element not found in control template');
@@ -64,9 +66,7 @@ class ListBox extends Control implements IFrameworkContainer
   
   void _OnItemCreated(sender, ItemCreatedEventArgs args){
     FrameworkElement item = args.itemCreated;
-    
-    db('item created', this);
-    
+        
     item.click + (_, __) {
       
       _selectedIndex = _presenter.presentationPanel.children.indexOf(item);
@@ -86,7 +86,7 @@ class ListBox extends Control implements IFrameworkContainer
     item.mouseUp + (_, __) => onItemMouseUp(item);
   }
   
-  get content() => _presenter;
+  get content() => template;
   
   void onItemMouseDown(item){
     if (item.hasProperty("background")){

@@ -104,8 +104,6 @@ class CollectionPresenter extends Control implements IFrameworkContainer
     
   void _updateCollection(){
     var dc = this.resolveDataContext();
-    db('parent is', this.parent);
-    db('parent of parent is', this.parent.parent);
     
     if (dc == null && presentationPanel._isLoaded)
       {
@@ -115,7 +113,6 @@ class CollectionPresenter extends Control implements IFrameworkContainer
         return;
       }
    
-    db('after datacontext', this);
     var values = getValue(dc);
     
     if (values is ObservableList && _eHandler == null){

@@ -61,6 +61,8 @@ class FrameworkResource extends FrameworkObject
     keyProperty = new FrameworkProperty(this, "key", (_){}, "");
   }
   
+  String rawData;
+  
   /// Sets the [keyProperty] value.
   set key(String v) => setValue(keyProperty, v);
   /// Gets the [keyProperty] value.

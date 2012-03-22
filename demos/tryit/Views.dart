@@ -18,7 +18,7 @@
 /**
 * A container class to hold all the views. */
 class Views{
-  String lucaColor = "#165284";
+  String buckshotColor = "#165284";
   String errorUI;
   String ui;
   String helloWorldView;
@@ -155,7 +155,7 @@ each list.
 
   <textblock margin="20,0,0,0">To see the view model that this demo is binding to:</textblock>
 
-  <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
+  <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
   
   <textblock margin="20,0,0,0" fontsize="12">Icons used in this demo are licensed to LUCA Studios LLC and may not be redistributed.</textblock>
 </stackpanel>
@@ -287,7 +287,7 @@ data source 'fruit' the entire demo required no Dart coding in order to work.
     </itemstemplate>
   </collectionpresenter>
   <textblock margin="10,0,0,0">To see the view model that this demo is binding to:</textblock>
-  <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
+  <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
 </stackpanel>
 ''';
     
@@ -343,8 +343,8 @@ soon as they are declared.
 
   <stackpanel orientation="horizontal">
 
-    <!-- these borders are binding to a sub-property of a property, using LUCA
-    UI's dot notation resolver -->
+    <!-- these borders are binding to a sub-property of a property, using 
+     Buckshot's dot notation resolver -->
     <border style="{resource borderstyle}" background="{data color.red}"></border>
     <border style="{resource borderstyle}" background="{data color.orange}"></border>
     <border style="{resource borderstyle}" background="{data color.blue}"></border>
@@ -352,7 +352,7 @@ soon as they are declared.
   </stackpanel>
 
   <textblock>To see the view model that this demo is binding to:</textblock>
-  <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
+  <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
 </stackpanel>
 ''';
     
@@ -717,9 +717,9 @@ Hulu requires Flash and that only works on USA data networks.
 
   <textblock margin="0,10">Hyperlinks can contain text or other elements.</textblock>
 
-  <hyperlink targetname="_blank" navigateto="https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/wiki/">Text Hyperlink</hyperlink>
+  <hyperlink targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki/">Text Hyperlink</hyperlink>
 
-  <hyperlink width="170" margin="10,0,0,0" targetname="_blank" navigateto="https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/wiki/">
+  <hyperlink width="170" margin="10,0,0,0" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki/">
 
     <border width="150" height="150" background="Green">
       <textblock foreground="White" horizontalalignment="center" verticalalignment="center">Content hyperlink</textblock>
@@ -975,7 +975,7 @@ Neat, huh?
 
 <stackpanel orientation="horizontal" horizontalAlignment="center">
   <resourcecollection>
-    <color key="lucablue" value="#165284"></color>
+    <color key="buckshotBlue" value="#165284"></color>
 
     <var key="sidewidth" value="270"></var>
 
@@ -984,7 +984,7 @@ Neat, huh?
         <stylesetter property="margin" value="0,0,10,0"></stylesetter>
         <stylesetter property="horizontalAlignment" value="stretch"></stylesetter>
         <stylesetter property="padding" value="20"></stylesetter>
-        <stylesetter property="background" value="{resource lucablue}"></stylesetter>
+        <stylesetter property="background" value="{resource buckshotBlue}"></stylesetter>
       </setters>
     </styletemplate>
     
@@ -1040,7 +1040,7 @@ Neat, huh?
       </textblock>
     </border>
     <border style="{resource sidebox}">
-       <hyperlink targetName="_blank" navigateto="https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/wiki">
+       <hyperlink targetName="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki">
           <textblock style="{resource sideboxtext}">Buckshot Project Site</textblock>
        </hyperlink>
     </border>
@@ -1116,7 +1116,7 @@ Neat, huh?
        <button name="btnClear" margin="0,0,0,5" content="Clear All"></button>
     </StackPanel>
     <TextBlock style="{resource iotext}" text="Output:"></TextBlock>
-    <border name="borderContent" margin="0,0,10,0" width="690" borderThickness="3" borderColor="{resource lucablue}">
+    <border name="borderContent" margin="0,0,10,0" width="690" borderThickness="3" borderColor="{resource buckshotBlue}">
     </border>
     <Textblock fontsize="12" margin="10,0,0,0">
     This online demo doesn't support advanced features such as binding to properties or events, which require back-end code.
