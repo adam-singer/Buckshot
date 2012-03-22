@@ -1,5 +1,3 @@
-### Alert: ListBox is currently broken while the new control template system is being put in place. ###
-
 ![Buckshot Logo](http://www.lucastudios.com/img/lucaui_logo_candidate2.png)
 
 ### Buckshot [buhk-shot] *noun* A throw when darts land wildly all over the board. ###
