@@ -146,7 +146,7 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
   
   void _resolveBinding(FrameworkProperty p, String binding){
     if (!binding.startsWith("{") || !binding.endsWith("}"))
-      throw const FrameworkException('Binding must begin with "{" and end with "}"');
+      throw const PresentationProviderException('Binding must begin with "{" and end with "}"');
     
     FrameworkProperty placeholder = new FrameworkProperty(null, "placeholder",(_){});
     
@@ -195,15 +195,19 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
     switch(words[0]){
       case "resource":
         if (words.length != 2)
-          throw const FrameworkException('Binding syntax incorrect.');
+          throw const PresentationProviderException('Binding syntax incorrect.');
         
         setValue(p, BuckshotSystem.retrieveResource(words[1]));
         break;
       case "template":
+        if (words.length != 2)
+          throw const FrameworkException('{template} bindings must contain a property name parameter: {template [propertyName]}');
+        
+          p.sourceObject._templateBindings[p] = words[1];
         break;
       case "data":
         if (!(p.sourceObject is FrameworkElement)){
-          throw const FrameworkException('{data...} binding only supported on types that derive from FrameworkElement.');
+          throw const PresentationProviderException('{data...} binding only supported on types that derive from FrameworkElement.');
         }
         
         switch(words.length){
@@ -216,19 +220,19 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
             p.sourceObject.lateBindings[p] = new BindingData(words[1], null, mode);
             break;
           default:
-            throw const FrameworkException('Binding syntax incorrect.');
+            throw const PresentationProviderException('Binding syntax incorrect.');
         }
         break;
       case "element":
         if (words.length != 2)
-          throw const FrameworkException('Binding syntax incorrect.');
+          throw const PresentationProviderException('Binding syntax incorrect.');
         
         if (words[1].contains(".")){
           var ne = words[1].substring(0, words[1].indexOf('.'));
           var prop = words[1].substring(words[1].indexOf('.') + 1);
           
           if (!BuckshotSystem.namedElements.containsKey(ne))
-            throw new FrameworkException("Named element '${ne}' not found.");
+            throw new PresentationProviderException("Named element '${ne}' not found.");
           
           Binding b;
           try{
@@ -247,11 +251,11 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
           
           
         }else{
-          throw const FrameworkException("Element binding requires a minimum named element/property pairing (usage '{element name.property}')");
+          throw const PresentationProviderException("Element binding requires a minimum named element/property pairing (usage '{element name.property}')");
         }
         break;
       default:
-        throw const FrameworkException('Binding syntax incorrect.');
+        throw const PresentationProviderException('Binding syntax incorrect.');
     }
   }
   
@@ -261,7 +265,7 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
     if (resource is ResourceCollection) return;
 
     if (resource.key.isEmpty())
-      throw const FrameworkException("Resource is missing a key identifier.");
+      throw const PresentationProviderException("Resource is missing a key identifier.");
     
     //add/replace resource at given key
     BuckshotSystem.registerResource(resource);

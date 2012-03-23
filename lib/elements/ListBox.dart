@@ -69,10 +69,14 @@ class ListBox extends Control implements IFrameworkContainer
     
   String get defaultControlTemplate() {
     return 
-    '''<controltemplate controlType="template_ListBox">
+    '''<controltemplate controlType="${this.templateName}">
           <template>
-            <border bordercolor=Black borderthickness=1>
-                <collectionPresenter name="__buckshot_listbox_presenter__">
+            <border bordercolor=Black 
+                    borderthickness=1 
+                    horizontalScrollEnabled="{template horizontalScrollEnabled}" 
+                    verticalScrollEnabled="{template verticalScrollEnabled}">
+                <collectionPresenter name="__buckshot_listbox_presenter__" 
+                                      horizontalAlignment=stretch>
                 </collectionPresenter>
             </border>
           </template>
@@ -153,20 +157,12 @@ class ListBox extends Control implements IFrameworkContainer
     // then border can assign the overflows to the virtual container instead
     
     horizontalScrollEnabledProperty = new FrameworkProperty(this, "horizontalScrollEnabled", (bool value){
-      if (value == true){
-        this._component.style.overflowX = "auto";
-      }else{
-        this._component.style.overflowX = "hidden";
-      }
+
     }, false);
     horizontalScrollEnabledProperty.stringToValueConverter = const StringToBooleanConverter();
     
     verticalScrollEnabledProperty = new FrameworkProperty(this, "verticalScrollEnabled", (bool value){
-      if (value == false){
-        this._component.style.overflowY = "hidden";
-      }else{
-        this._component.style.overflowY = "auto";
-      }
+
     }, true);
     verticalScrollEnabledProperty.stringToValueConverter = const StringToBooleanConverter();
   }

@@ -40,6 +40,9 @@ class Border extends _ContainerElement implements IFrameworkContainer
   /// Represents the content inside the border.
   FrameworkProperty contentProperty;
   
+  FrameworkProperty horizontalScrollEnabledProperty;
+  FrameworkProperty verticalScrollEnabledProperty;
+  
   _BorderContainer _vc;
   
   
@@ -80,11 +83,11 @@ class Border extends _ContainerElement implements IFrameworkContainer
               _vc = new _BorderContainer();
               _vc._containerParent = this;
               
-//              _component.nodes.add(_vc._component);
+              _assignOverflowX(getValue(horizontalAlignmentProperty));
+              _assignOverflowY(getValue(verticalAlignmentProperty));
               
               _vc.addToLayoutTree(this);
-              
-              
+                            
               _registerChild(_vc);
             }
             
@@ -152,6 +155,32 @@ class Border extends _ContainerElement implements IFrameworkContainer
         _component.style.borderBottom = 'solid ${value.bottom}px $color';
       }, new Thickness(0));
     borderThicknessProperty.stringToValueConverter = const StringToThicknessConverter();
+    
+    horizontalScrollEnabledProperty = new FrameworkProperty(this, "horizontalScrollEnabled", (bool value){      
+      if (_vc != null) _assignOverflowX(value);
+    }, false);
+    horizontalScrollEnabledProperty.stringToValueConverter = const StringToBooleanConverter();
+    
+    verticalScrollEnabledProperty = new FrameworkProperty(this, "verticalScrollEnabled", (bool value){
+      if (_vc != null) _assignOverflowY(value);
+    }, true);
+    verticalScrollEnabledProperty.stringToValueConverter = const StringToBooleanConverter();
+  }
+  
+  void _assignOverflowX(bool value){
+    if (value == true){
+      this._vc._component.style.overflowX = "auto";
+    }else{
+      this._vc._component.style.overflowX = "hidden";
+    }
+  }
+  
+  void _assignOverflowY(bool value){
+    if (value == false){
+      this._vc._component.style.overflowY = "hidden";
+    }else{
+      this._vc._component.style.overflowY = "auto";
+    }
   }
   
   /// Calculates the [actualWidth] of the border with margin, border, and padding taken into account. ** For internal use by the framework only. **

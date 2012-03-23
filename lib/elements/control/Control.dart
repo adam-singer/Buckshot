@@ -25,9 +25,15 @@ class Control extends FrameworkElement
   
   String get defaultControlTemplate() => '';
   
-  bool _templateApplied = false;
+  bool _visualTemplateApplied = false;    // flags if visual template applied
+  bool _templateApplied = false;          // flags if a template was used during applyVisualTemplate();
+  bool _templateBindingsApplied = false;  // flags if template bindings have been applied
   
-  Control(){
+//  final HashMap<FrameworkProperty, String> _allTemplateBindings;
+  
+  Control()
+//  : _allTemplateBindings = new HashMap<FrameworkProperty, String>()
+  {
     _initControlProperties();
   }
   
@@ -48,10 +54,11 @@ class Control extends FrameworkElement
   bool get isEnabled() => getValue(isEnabledProperty);
   set isEnabled(bool value) => setValue(isEnabledProperty, value);
   
-  void applyVisualTemplate(){
-    if (_templateApplied) throw const FrameworkException('Attempted to apply visual template to control more than once.');
+  void applyVisualTemplate(){ 
+    if (_visualTemplateApplied)
+      throw const FrameworkException('Attempted to apply visual template more than once.');
     
-    _templateApplied = true;
+    _visualTemplateApplied = true;
     
     if (!defaultControlTemplate.isEmpty()){
       BuckshotSystem.defaultPresentationProvider.deserialize(defaultControlTemplate);
@@ -64,18 +71,62 @@ class Control extends FrameworkElement
       super.applyVisualTemplate();
       return;
     }
-        
-    //creates a new instance of the template for the next object that requires the resource
-    BuckshotSystem.defaultPresentationProvider.deserialize(t.rawData);
+    
+    _templateApplied = true;
     
     template = t.template;
-        
+    
     template.parent = this;
     _component = template._component;
 
+    var ref;
+    ref = this.loaded + (_, __){
+
+      
+      this.loaded - ref;
+    };
   }
   
-  /// By convention, template name should always be: 'template_{ControlName}'
+  onLoaded(){
+    //returning if we have already done this, or if no template was actually used for this control
+    if (_templateBindingsApplied || !_templateApplied) return;
+    _templateBindingsApplied = true;
+    
+    _bindTemplateBindings();
+  }
+  
+  void _bindTemplateBindings(){
+    var tb = new HashMap<FrameworkProperty, String>();
+    
+    _getAllTemplateBindings(tb, template);
+    
+    tb.forEach((FrameworkProperty k, String v){
+      var prop = this._getPropertyByName(v);
+      if (prop != null){
+        //TODO throw if null
+        new Binding(prop, k);
+      }
+    });
+  }
+  
+  void _getAllTemplateBindings(HashMap<FrameworkProperty, String> list, FrameworkElement element){
+    
+    element
+      ._templateBindings
+      .forEach((k, v){
+        list[k] = v;  
+      });
+      
+    if (element is! IFrameworkContainer) return;
+    
+    if (element.dynamic.content is List){
+      element.dynamic.content.forEach((FrameworkElement child) => _getAllTemplateBindings(list, child));    
+    }else if (element.dynamic.content is FrameworkElement){
+      _getAllTemplateBindings(list, element.dynamic.content);
+    }
+  }
+  
+  /// Gets a standardized name for assignment to the [ControlTemplate] 'controlType' property.
   String get templateName() => 'template_${type}';
   
   String get type() => "Control";

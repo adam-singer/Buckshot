@@ -116,7 +116,7 @@ class FrameworkElement extends FrameworkObject {
     mouseUp = new FrameworkEvent<MouseEventArgs>()
   {    
     _Dom.appendClass(_component, "luca_ui_frameworkelement");
-    
+
     _style = new StyleTemplate(); //give a blank style so merging works immediately
     
     _initFrameworkProperties();
@@ -590,7 +590,8 @@ class FrameworkElement extends FrameworkObject {
     _isLoaded = true;
     
     updateLayout();
-    
+
+    onLoaded();
     loaded.invoke(this, new EventArgs());
     
     //db('Added to DOM', this);
@@ -603,6 +604,9 @@ class FrameworkElement extends FrameworkObject {
       this.dynamic.content._onAddedToDOM();
     }
   }
+  
+  void onLoaded(){}
+  void onUnloaded(){}
   
   void removeFromLayoutTree(){
   //    throw new FrameworkException('Attempted to remove element that is not already loaded into the DOM.');
@@ -621,7 +625,8 @@ class FrameworkElement extends FrameworkObject {
   
   _onRemoveFromDOM(){
     _isLoaded = false;
-    
+
+    onUnloaded();
     unloaded.invoke(this, new EventArgs());
     
     //db('Removed from DOM', this);

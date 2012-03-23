@@ -23,16 +23,19 @@
 #source('DemoViewModel.dart');
 #source('DemoModel.dart');
 
-//this control overrides the default ListBox template
-//yet retains all the listbox functionality
-class TestListBox extends ListBox {
+
+class MenuStrip extends ListBox {
     
   String get defaultControlTemplate() {
     return 
-    '''<controltemplate controlType="template_TestListBox">
+    '''<controltemplate controlType="${this.templateName}">
           <template>
-            <border bordercolor=Blue borderthickness=3 cornerradius=5>
+            <border horizontalScrollEnabled="{template horizontalScrollEnabled}" 
+                    verticalScrollEnabled="{template verticalScrollEnabled}">
               <collectionPresenter name="__buckshot_listbox_presenter__">
+                <presentationpanel>
+                  <stackpanel orientation='horizontal'></stackpanel>
+                </presentationpanel>
               </collectionPresenter>
             </border>
           </template>
@@ -40,17 +43,16 @@ class TestListBox extends ListBox {
     ''';
   }
   
-  BuckshotObject makeMe() => new TestListBox();
+  BuckshotObject makeMe() => new MenuStrip();
   
-  String get type() => "TestListBox";
+  String get type() => "MenuStrip";
 }
+
 
 void main() { 
   
   new BuckshotSystem();
   
-  var dt = new DataTemplate.fromList(["name", "address", "phone", "age"]);
-  var dt2 = new DataTemplate.fromMap({"name":"John","address":"foo st","phone":"555-123-4567","age":"99"});
   Views views = new Views();
   
   //register extensions
@@ -59,7 +61,7 @@ void main() {
   BuckshotSystem.registerElement(new Vimeo());
   BuckshotSystem.registerElement(new FunnyOrDie());
   BuckshotSystem.registerElement(new PlusOne());
-  BuckshotSystem.registerElement(new TestListBox());
+  BuckshotSystem.registerElement(new MenuStrip());
   
   // initialize the presentation provider.  this will eventually be done by the framework
   IPresentationFormatProvider p = BuckshotSystem.defaultPresentationProvider;
