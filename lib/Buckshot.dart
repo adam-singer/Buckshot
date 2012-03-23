@@ -135,3 +135,5 @@
 #source('system/FrameworkPropertyResolutionException.dart');
 #source('system/DataTemplate.dart');
 #source('system/IFrameworkContainer.dart');
+
+#source('animation/FrameworkAnimation.dart');

@@ -24,6 +24,7 @@
 #source('DemoModel.dart');
 
 void main() { 
+  aTest();
   
   new BuckshotSystem();
   
