@@ -17,7 +17,7 @@
 
 /**
 * A button that only allows a single selection when part of the same group. */
-class RadioButton extends FrameworkElement
+class RadioButton extends Control
 {
   FrameworkProperty valueProperty, groupNameProperty;
   

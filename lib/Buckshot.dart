@@ -23,7 +23,7 @@
 /// <https://github.com/prujohn/Buckshot>
 
 
-#library('Buckshot_Core');
+#library('Buckshot_Client');
 
 #import('dart:html');
 
@@ -58,22 +58,12 @@
 #source('enums/HorizontalAlignment.dart');
 #source('enums/VerticalAlignment.dart');
 
-#source('elements/control/Control.dart');
-#source('elements/control/ControlTemplate.dart');
 #source('elements/Panel.dart');
-#source('elements/TextBox.dart');
 #source('elements/StackPanel.dart');
 #source('elements/TextBlock.dart');
-#source('elements/RadioButton.dart');
-#source('elements/RadioButtonGroup.dart');
-#source('elements/CheckBox.dart');
-#source('elements/TextArea.dart');
 #source('elements/border/Border.dart');
 #source('elements/border/BorderContainer.dart');
-#source('elements/Button.dart');
 #source('elements/LayoutCanvas.dart');
-#source('elements/Slider.dart');
-#source('elements/Hyperlink.dart');
 #source('elements/Image.dart');
 #source('elements/RawHtml.dart');
 #source('elements/grid/Grid.dart');
@@ -82,9 +72,20 @@
 #source('elements/grid/GridCell.dart');
 #source('elements/grid/GridLayoutDefinition.dart');
 #source('elements/grid/GridLength.dart');
-#source('elements/DropDownList.dart');
-#source('elements/ListBox.dart');
 #source('elements/CollectionPresenter.dart');
+
+#source('controls/TextBox.dart');
+#source('controls/control/Control.dart');
+#source('controls/control/ControlTemplate.dart');
+#source('controls/RadioButton.dart');
+#source('controls/RadioButtonGroup.dart');
+#source('controls/Button.dart');
+#source('controls/CheckBox.dart');
+#source('controls/TextArea.dart');
+#source('controls/Slider.dart');
+#source('controls/Hyperlink.dart');
+#source('controls/DropDownList.dart');
+#source('controls/ListBox.dart');
 
 #source('exceptions/PresentationProviderException.dart');
 #source('exceptions/FrameworkException.dart');

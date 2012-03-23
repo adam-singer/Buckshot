@@ -21,7 +21,7 @@
 * * [TextBox]
 * * [TextBlock]
 */
-class TextArea extends FrameworkElement
+class TextArea extends Control
 {
   FrameworkProperty textProperty, placeholderProperty, spellcheckProperty;
   final FrameworkEvent<TextChangedEventArgs> textChanged;

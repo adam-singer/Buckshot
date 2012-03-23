@@ -44,7 +44,7 @@
 * ## Try It Yourself
 * Select the "Collections" example on the LUCA UI Try It website: [Try LUCA UI](http://www.lucastudios.com/trylucaui) 
 */
-class CollectionPresenter extends Control implements IFrameworkContainer
+class CollectionPresenter extends FrameworkElement implements IFrameworkContainer
 {
   static final String _SBO = '__CollectionPresenterData__';
   var _eHandler;
