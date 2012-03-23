@@ -23,32 +23,6 @@
 #source('DemoViewModel.dart');
 #source('DemoModel.dart');
 
-
-class MenuStrip extends ListBox {
-    
-  String get defaultControlTemplate() {
-    return 
-    '''<controltemplate controlType="${this.templateName}">
-          <template>
-            <border horizontalScrollEnabled="{template horizontalScrollEnabled}" 
-                    verticalScrollEnabled="{template verticalScrollEnabled}">
-              <collectionPresenter name="__buckshot_listbox_presenter__">
-                <presentationpanel>
-                  <stackpanel orientation='horizontal'></stackpanel>
-                </presentationpanel>
-              </collectionPresenter>
-            </border>
-          </template>
-        </controltemplate>
-    ''';
-  }
-  
-  BuckshotObject makeMe() => new MenuStrip();
-  
-  String get type() => "MenuStrip";
-}
-
-
 void main() { 
   
   new BuckshotSystem();
@@ -61,7 +35,6 @@ void main() {
   BuckshotSystem.registerElement(new Vimeo());
   BuckshotSystem.registerElement(new FunnyOrDie());
   BuckshotSystem.registerElement(new PlusOne());
-  BuckshotSystem.registerElement(new MenuStrip());
   
   // initialize the presentation provider.  this will eventually be done by the framework
   IPresentationFormatProvider p = BuckshotSystem.defaultPresentationProvider;

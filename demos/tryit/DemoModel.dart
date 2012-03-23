@@ -38,10 +38,10 @@ class DemoModel {
                 ];
               
     videoList = [
-                 new DataTemplate.fromMap({"Title":"LUCA UI Resources",          "Description":"An overview of LUCA UI Resource Binding.",   "Hash":"cFxf3OBIj8Q"}),
-                 new DataTemplate.fromMap({"Title":"LUCA UI Element Binding",    "Description":"An overview of LUCA UI Element Binding.",    "Hash":"WC25C5AHYAI"}),
-                 new DataTemplate.fromMap({"Title":"Getting Started With Dart",  "Description":"A nice Dart Overview.",                      "Hash":"Gh6SO26SkO8"}),
-                 new DataTemplate.fromMap({"Title":"A Walk On The Dart Side",    "Description":"Gilad Bracha lectures about Dart.",          "Hash":"-IavVtOE_Fg"})
+                 new DataTemplate.fromMap({"Title":"Buckshot Resources",          "Description":"An overview of Buckshot Resource Binding.",   "Hash":"cFxf3OBIj8Q"}),
+                 new DataTemplate.fromMap({"Title":"Buckshot Element Binding",    "Description":"An overview of Buckshot Element Binding.",    "Hash":"WC25C5AHYAI"}),
+                 new DataTemplate.fromMap({"Title":"Buckshot Control Templates",  "Description":"An overview of Buckshot Control Templates and Template Binding","Hash":"KRGvdID4rPE"}),
+                 new DataTemplate.fromMap({"Title":"Getting Started With Dart",  "Description":"A nice Dart Overview.",                      "Hash":"Gh6SO26SkO8"})
                ];
   }
 }

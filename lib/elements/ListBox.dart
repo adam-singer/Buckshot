@@ -64,9 +64,7 @@ class ListBox extends Control implements IFrameworkContainer
     // selectionChanged + (_, args) => print('Selected ${args.selectedItem} at index: $selectedIndex');
   }
   
-  
-  //TODO border is not behaving as expected in this scenario for vertical scrolling
-    
+      
   String get defaultControlTemplate() {
     return 
     '''<controltemplate controlType="${this.templateName}">
@@ -152,9 +150,6 @@ class ListBox extends Control implements IFrameworkContainer
       _presenter.itemsTemplate = value;
     });
     
-    
-    //TODO access border directly in order to set the overflows...
-    // then border can assign the overflows to the virtual container instead
     
     horizontalScrollEnabledProperty = new FrameworkProperty(this, "horizontalScrollEnabled", (bool value){
 
