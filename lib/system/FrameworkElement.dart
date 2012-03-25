@@ -33,6 +33,8 @@ class FrameworkElement extends FrameworkObject {
   
   final HashMap<FrameworkProperty, String> _templateBindings;
   
+  final HashMap<String, String> _transitionProperties;
+  
   /// Represents the margin [Thickness] area outside the FrameworkElement boundary.
   FrameworkProperty marginProperty;
   /// Represents the width of the FrameworkElement.
@@ -128,7 +130,8 @@ class FrameworkElement extends FrameworkObject {
     mouseMove = new FrameworkEvent<MouseEventArgs>(),
     mouseDown = new FrameworkEvent<MouseEventArgs>(),
     mouseUp = new FrameworkEvent<MouseEventArgs>(),
-    _transforms = [50, 50, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0]
+    _transforms = [50, 50, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+    _transitionProperties = new HashMap<String, String>()
   {   
     _Dom.appendBuckshotClass(_component, "frameworkelement");
 

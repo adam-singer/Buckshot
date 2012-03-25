@@ -16,18 +16,37 @@
 //   limitations under the License.
 
 
-class KeyFrame{
+class TransitionStateManager{
+  static void goToState(String name, bool useTransitions){
+    throw new NotImplementedException();
+  }
+}
+
+class TransitionStateGroup{
+  String name;
+  final List<TransitionState> states;
+  
+  TransitionStateGroup()
+  :
+  states = new List<TransitionState>()
+  {
+    
+  }
+}
+
+class TransitionState{
   
 }
 
-class BuckshotTransition
+class PropertyTransition
 {
   final num durationInSeconds;
   final TransitionTiming timing;
   final List<num> bezierValues;
   
-  BuckshotTransition(this.durationInSeconds, this.timing, [this.bezierValues = const [0,0,0,0]]);
+  PropertyTransition(this.durationInSeconds, this.timing, [this.bezierValues = const [0,0,0,0]]);
 }
+
 
 class FrameworkAnimation
 {

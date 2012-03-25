@@ -73,24 +73,21 @@ class FrameworkProperty extends FrameworkPropertyBase
       propertyChangedCallback(value);
       propertyChanging.invoke(this, new PropertyChangingEventArgs(null, value));
     }
-    
   }
    
   String get type() => "FrameworkProperty";
 }
 
 /// A [FrameworkProperty] that supports transition/animation features.
-class AnimationFrameworkProperty extends FrameworkProperty{
-  final Function _transitionFunc;
+class AnimatingFrameworkProperty extends FrameworkProperty{
+  final String cssPropertyPeer;
   
-  AnimationFrameworkProperty(FrameworkElement sourceObject, String propertyName, Function propertyChangedCallback, Function this._transitionFunc, [value = null])
-  : super(sourceObject, propertyName, propertyChangedCallback, value:value)
+  AnimatingFrameworkProperty(FrameworkElement sourceObject, String propertyName, Function propertyChangedCallback, String this.cssPropertyPeer, [value = null, converter = null])
+  : super(sourceObject, propertyName, propertyChangedCallback, value:value, converter:converter)
   {
     if (sourceObject is! FrameworkElement) throw const FrameworkException('AnimationFrameworkProperties can only be used with elements that derive from FrameworkElement.');
   }
   
-  setTransition(BuckshotTransition transition) => _transitionFunc(transition);
   
   String get type() => "AnimationFrameworkProperty";
-  
 }

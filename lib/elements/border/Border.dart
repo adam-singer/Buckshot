@@ -104,7 +104,7 @@ class Border extends _ContainerElement implements IFrameworkContainer
         }
       }, null);
         
-    backgroundProperty = new FrameworkProperty(
+    backgroundProperty = new AnimatingFrameworkProperty(
       this,
       "background",
       (Brush value){
@@ -113,7 +113,9 @@ class Border extends _ContainerElement implements IFrameworkContainer
           return;
         }
         value.renderBrush(_component);
-      }, converter:const StringToSolidColorBrushConverter());
+      },
+      "background",
+      converter:const StringToSolidColorBrushConverter());
     
     paddingProperty = new FrameworkProperty(
       this,
