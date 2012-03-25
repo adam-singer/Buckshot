@@ -80,10 +80,16 @@ class FrameworkProperty extends FrameworkPropertyBase
 }
 
 class AnimationFrameworkProperty extends FrameworkProperty{
-  final List<String> transitionProperties;
+  BuckshotTransition _transition;
   
-  AnimationFrameworkProperty(BuckshotObject sourceObject, String propertyName, Function propertyChangedCallback, [value = null, this.transitionProperties = null])
-  : super(sourceObject, propertyName, propertyChangedCallback, value:value){}
+  AnimationFrameworkProperty(FrameworkElement sourceObject, String propertyName, Function propertyChangedCallback, [value = null])
+  : super(sourceObject, propertyName, propertyChangedCallback, value:value){
+    if (sourceObject is! FrameworkElement) throw const FrameworkException('AnimationFrameworkProperties can only be used with elements that derive from FrameworkElement.');
+  }
+  
+  setTransition(BuckshotTransition transition){
+    
+  }
   
   String get type() => "AnimationFrameworkProperty";
   
