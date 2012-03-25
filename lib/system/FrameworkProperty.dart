@@ -60,7 +60,7 @@ class FrameworkProperty extends FrameworkPropertyBase
   /// * [Function] propertyChangedCallback - called by the framework when the property value changes.
   /// * [Dynamic] value - optional default value assigned to the property at initialization.
   FrameworkProperty(BuckshotObject sourceObject, String propertyName, Function propertyChangedCallback, [this.value = null, converter = null])
-  : super(sourceObject, propertyName, propertyChangedCallback, _stringToValueConverter:converter)
+  : super(sourceObject, propertyName, propertyChangedCallback, stringToValueConverter:converter)
   {
 
     if (this.sourceObject != null)
@@ -80,8 +80,11 @@ class FrameworkProperty extends FrameworkPropertyBase
 }
 
 class AnimationFrameworkProperty extends FrameworkProperty{
+  final List<String> transitionProperties;
   
-  AnimationFrameworkProperty(BuckshotObject sourceObject, String propertyName, Function propertyChangedCallback, [value = null])
+  AnimationFrameworkProperty(BuckshotObject sourceObject, String propertyName, Function propertyChangedCallback, [value = null, this.transitionProperties = null])
   : super(sourceObject, propertyName, propertyChangedCallback, value:value){}
+  
+  String get type() => "AnimationFrameworkProperty";
   
 }

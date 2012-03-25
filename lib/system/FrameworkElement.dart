@@ -128,22 +128,8 @@ class FrameworkElement extends FrameworkObject {
     mouseMove = new FrameworkEvent<MouseEventArgs>(),
     mouseDown = new FrameworkEvent<MouseEventArgs>(),
     mouseUp = new FrameworkEvent<MouseEventArgs>(),
-    _transforms = new List<num>(12)
-  { 
-    
-    _transforms[Transforms.originX] = 50;
-    _transforms[Transforms.originY] = 50;
-    _transforms[Transforms.originZ] = 0;
-    _transforms[Transforms.translateX] = 0;
-    _transforms[Transforms.translateY] = 0;
-    _transforms[Transforms.translateZ] = 0;
-    _transforms[Transforms.scaleX] = 1;
-    _transforms[Transforms.scaleY] = 1;
-    _transforms[Transforms.scaleZ] = 1;
-    _transforms[Transforms.rotateX] = 0;
-    _transforms[Transforms.rotateY] = 0;
-    _transforms[Transforms.rotateZ] = 0;
-      
+    _transforms = [50, 50, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0]
+  {   
     _Dom.appendBuckshotClass(_component, "frameworkelement");
 
     _style = new StyleTemplate(); //give a blank style so merging works immediately

@@ -58,6 +58,7 @@
 #source('enums/HorizontalAlignment.dart');
 #source('enums/VerticalAlignment.dart');
 #source('enums/Transforms.dart');
+#source('enums/TransitionTiming.dart');
 
 #source('elements/Panel.dart');
 #source('elements/StackPanel.dart');
