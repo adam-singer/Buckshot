@@ -22,12 +22,11 @@ class KeyFrame{
 
 class BuckshotTransition
 {
-  final String property; //css property name
   final num durationInSeconds;
   final TransitionTiming timing;
   final List<num> bezierValues;
   
-  BuckshotTransition(this.property, this.durationInSeconds, this.timing, [this.bezierValues = const [0,0,0,0]]);
+  BuckshotTransition(this.durationInSeconds, this.timing, [this.bezierValues = const [0,0,0,0]]);
 }
 
 class FrameworkAnimation
