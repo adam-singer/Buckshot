@@ -129,8 +129,7 @@ class Hyperlink extends Control implements IFrameworkContainer
       "foreground",
       (value){
         _component.style.color = value.color.toString();
-      }, new SolidColorBrush(new Color.hex(Colors.Black.toString())));
-    foregroundProperty.stringToValueConverter = const StringToSolidColorBrushConverter();
+      }, new SolidColorBrush(new Color.predefined(Colors.Black)), converter:const StringToSolidColorBrushConverter());
     
     fontSizeProperty = new FrameworkProperty(
       this,

@@ -74,7 +74,7 @@ class FrameworkObject extends BuckshotObject {
             BuckshotSystem.namedElements[value] = this;
           }
           
-        }, "", canAnimate:false);
+        }, "");
   }  
   
   /// Sets the [nameProperty] value.

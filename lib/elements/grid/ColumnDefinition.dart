@@ -62,8 +62,7 @@ class ColumnDefinition extends GridLayoutDefinition{
       
       _value = v;
       _columnDefinitionChanged.invoke(this, new EventArgs());
-    }, new GridLength());
-    widthProperty.stringToValueConverter = const StringToGridLengthConverter();
+    }, new GridLength(), converter:const StringToGridLengthConverter());
   }
   
   /// Sets the [widthProperty] value.

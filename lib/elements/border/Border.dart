@@ -113,16 +113,14 @@ class Border extends _ContainerElement implements IFrameworkContainer
           return;
         }
         value.renderBrush(_component);
-      });
-    backgroundProperty.stringToValueConverter = const StringToSolidColorBrushConverter();
+      }, converter:const StringToSolidColorBrushConverter());
     
     paddingProperty = new FrameworkProperty(
       this,
       "padding",
       (Thickness value){
         _component.style.padding = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
-      }, new Thickness(0));
-    paddingProperty.stringToValueConverter = const StringToThicknessConverter();
+      }, new Thickness(0), converter:const StringToThicknessConverter());
     
     cornerRadiusProperty = new FrameworkProperty(
       this,
@@ -130,16 +128,14 @@ class Border extends _ContainerElement implements IFrameworkContainer
       (value){
         if (value == null || value < 0) value = 0;
         _component.style.borderRadius = '${value}px';
-      });
-    cornerRadiusProperty.stringToValueConverter = const StringToNumericConverter();
+      }, converter:const StringToNumericConverter());
     
     borderColorProperty = new FrameworkProperty(
       this,
       "borderColor",
       (value){
         _component.style.borderColor = value.color.toString();
-      }, new SolidColorBrush(new Color.hex(Colors.White.toString())));
-    borderColorProperty.stringToValueConverter = const StringToSolidColorBrushConverter();
+      }, new SolidColorBrush(new Color.predefined(Colors.White)), converter:const StringToSolidColorBrushConverter());
     
     borderThicknessProperty = new FrameworkProperty(
       this,
@@ -153,18 +149,15 @@ class Border extends _ContainerElement implements IFrameworkContainer
         _component.style.borderRight = 'solid ${value.right}px $color';
         _component.style.borderLeft = 'solid ${value.left}px $color';
         _component.style.borderBottom = 'solid ${value.bottom}px $color';
-      }, new Thickness(0));
-    borderThicknessProperty.stringToValueConverter = const StringToThicknessConverter();
+      }, new Thickness(0), converter:const StringToThicknessConverter());
     
     horizontalScrollEnabledProperty = new FrameworkProperty(this, "horizontalScrollEnabled", (bool value){      
       if (_vc != null) _assignOverflowX(value);
-    }, false);
-    horizontalScrollEnabledProperty.stringToValueConverter = const StringToBooleanConverter();
+    }, false, converter:const StringToBooleanConverter());
     
     verticalScrollEnabledProperty = new FrameworkProperty(this, "verticalScrollEnabled", (bool value){
       if (_vc != null) _assignOverflowY(value);
-    }, false);
-    verticalScrollEnabledProperty.stringToValueConverter = const StringToBooleanConverter();
+    }, false, converter:const StringToBooleanConverter());
   }
   
   void _assignOverflowX(bool value){

@@ -64,8 +64,7 @@ class LinearGradientBrush extends Brush
     }, new List<GradientStop>());
     
     directionProperty = new FrameworkProperty(this, "direction", (v){      
-    }, LinearGradientDirection.horizontal);
-    directionProperty.stringToValueConverter = const StringToLinearGradientDirectionConverter();
+    }, LinearGradientDirection.horizontal, converter:const StringToLinearGradientDirectionConverter());
     
     fallbackColorProperty = new FrameworkProperty(this, "fallbackColor", (v){},
       new Color.predefined(Colors.White));

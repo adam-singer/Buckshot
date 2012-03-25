@@ -62,8 +62,7 @@ class RowDefinition extends GridLayoutDefinition{
       
       _value = v;
       _rowDefinitionChanged.invoke(this, new EventArgs());
-    }, new GridLength());
-    heightProperty.stringToValueConverter = const StringToGridLengthConverter();
+    }, new GridLength(), converter:const StringToGridLengthConverter());
   }
   
   /// Sets the [heightProperty] value.

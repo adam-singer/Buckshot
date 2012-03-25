@@ -39,10 +39,8 @@ class StackPanel extends Panel
         _Dom.setFlexBoxOrientation(this, value);
 
       },
-      Orientation.vertical);
-    
-    orientationProperty.stringToValueConverter = new StringToOrientationConverter();
-    
+      Orientation.vertical, converter:new StringToOrientationConverter());
+        
     //TODO create override in Panel instead of dedicated event here
     children.listChanged + _onListChanging;
   }

@@ -47,10 +47,8 @@ class Panel extends _ContainerElement implements IFrameworkContainer {
           return;
         }
         value.renderBrush(_component);
-      });
-    
-    backgroundProperty.stringToValueConverter = const StringToSolidColorBrushConverter();
-    
+      }, converter:const StringToSolidColorBrushConverter());
+        
     children.listChanged + (_, args)
     {
       

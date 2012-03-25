@@ -25,10 +25,9 @@ class BuckshotTransition
   
 }
 
-class BuckshotAnimation
+class FrameworkAnimation
 {
-  
- 
+   
   BuckshotAnimation(){
     document.head.elements.add(new Element.html('<style id="__BuckshotStyle__">.luca_ui_textblock {font-size:30px;}</style>'));
   }

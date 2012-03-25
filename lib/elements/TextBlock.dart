@@ -44,16 +44,14 @@ class TextBlock extends FrameworkElement
           return;
         }
         value.renderBrush(_component);
-      });
-    backgroundProperty.stringToValueConverter = const StringToSolidColorBrushConverter();
+      }, converter:const StringToSolidColorBrushConverter());
     
     foregroundProperty = new FrameworkProperty(
       this,
       "foreground",
       (value){
         _component.style.color = value.color.toString();
-      }, new SolidColorBrush(new Color.hex(Colors.Black.toString())));
-    foregroundProperty.stringToValueConverter = const StringToSolidColorBrushConverter();
+      }, new SolidColorBrush(new Color.predefined(Colors.Black)), converter:const StringToSolidColorBrushConverter());
         
     textProperty = new FrameworkProperty(
       this,

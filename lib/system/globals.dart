@@ -52,8 +52,8 @@ void setValue(FrameworkProperty property, Dynamic value)
     //if (Globals.addPropertyAttributes)
            // Globals.satt(property);
    
-   if (property.stringToValueConverter != null && value is String){
-     value = property.stringToValueConverter.convert(value);
+   if (property._stringToValueConverter != null && value is String){
+     value = property._stringToValueConverter.convert(value);
    }
    
   

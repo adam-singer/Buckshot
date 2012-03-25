@@ -63,9 +63,7 @@ class RadialGradientBrush extends Brush {
     }, new List<GradientStop>());
     
     drawModeProperty = new FrameworkProperty(this, "drawMode", (v){      
-    }, RadialGradientDrawMode.contain);
-    
-    drawModeProperty.stringToValueConverter = const StringToRadialGradientDrawModeConverter();
+    }, RadialGradientDrawMode.contain, converter:const StringToRadialGradientDrawModeConverter());
     
     fallbackColorProperty = new FrameworkProperty(this, "fallbackColor", (v){},
       new Color.predefined(Colors.White));

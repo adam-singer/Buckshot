@@ -46,9 +46,8 @@ class Control extends FrameworkElement
       }else{
         _component.attributes['disabled'] = 'disabled';
       }
-    }, true);
+    }, true, converter:const StringToBooleanConverter());
     
-    isEnabledProperty.stringToValueConverter = const StringToBooleanConverter();    
   }
   
   bool get isEnabled() => getValue(isEnabledProperty);

@@ -54,11 +54,9 @@ class GradientStop extends BuckshotObject
   int get percent() => getValue(percentProperty);
     
   void _initGradientStopProperties(){
-    colorProperty = new FrameworkProperty(this, "color", (v){});
-    colorProperty.stringToValueConverter = const StringToColorConverter();
+    colorProperty = new FrameworkProperty(this, "color", (v){}, converter:const StringToColorConverter());
     
-    percentProperty = new FrameworkProperty(this, "percent", (v){}, -1);
-    percentProperty.stringToValueConverter = const StringToNumericConverter();
+    percentProperty = new FrameworkProperty(this, "percent", (v){}, -1, converter:const StringToNumericConverter());
   }
   
   String get type() => "GradientStop";

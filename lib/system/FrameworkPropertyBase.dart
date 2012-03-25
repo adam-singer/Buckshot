@@ -35,7 +35,7 @@ class FrameworkPropertyBase extends HashableObject{
   final FrameworkEvent<PropertyChangingEventArgs> propertyChanging;
   /// Holds a converter that is used to convert strings into the type
   /// Required by the property.
-  IValueConverter stringToValueConverter;
+  final IValueConverter _stringToValueConverter;
   
   /// Constructs a FrameworkPropertyBase and initializes it to the framework.
   ///
@@ -43,7 +43,7 @@ class FrameworkPropertyBase extends HashableObject{
   /// * [LucaObject] sourceObject - the object the property belongs to.
   /// * [String] propertyName - the friendly public name for the property.
   /// * [Function] propertyChangedCallback - called by the framework when the property value changes.
-  FrameworkPropertyBase(this.sourceObject, this.propertyName, this.propertyChangedCallback) :
+  FrameworkPropertyBase(this.sourceObject, this.propertyName, this.propertyChangedCallback, [this._stringToValueConverter = null]) :
    propertyChanging = new FrameworkEvent<PropertyChangingEventArgs>(){}
 
    String get type() => "FrameworkPropertyBase";

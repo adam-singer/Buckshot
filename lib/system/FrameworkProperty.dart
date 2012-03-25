@@ -51,15 +51,7 @@ class FrameworkProperty extends FrameworkPropertyBase
   /// Gets the previous value assigned to the FrameworkProperty.
   Dynamic get previousValue() => _previousValue;
   Dynamic _previousValue;
-  
-  
-  /// If non-null, is the underlying css property that animation will be applied to.
-  final String transitionCSSProperty;
-  
-  /// Specifies whether the property can participate in the animation system.
-  /// Default: true.
-  final bool canAnimate = true;
-  
+    
   /// Constructs a FrameworkProperty and initializes it to the framework.
   ///
   /// ### Parameters
@@ -67,9 +59,8 @@ class FrameworkProperty extends FrameworkPropertyBase
   /// * [String] propertyName - the friendly public name for the property.
   /// * [Function] propertyChangedCallback - called by the framework when the property value changes.
   /// * [Dynamic] value - optional default value assigned to the property at initialization.
-  FrameworkProperty(BuckshotObject sourceObject, String propertyName, Function propertyChangedCallback,
-                    [this.value = null, this.transitionCSSProperty = null, this.canAnimate = true])
-  : super(sourceObject, propertyName, propertyChangedCallback)
+  FrameworkProperty(BuckshotObject sourceObject, String propertyName, Function propertyChangedCallback, [this.value = null, converter = null])
+  : super(sourceObject, propertyName, propertyChangedCallback, _stringToValueConverter:converter)
   {
 
     if (this.sourceObject != null)
@@ -86,4 +77,11 @@ class FrameworkProperty extends FrameworkPropertyBase
   }
    
   String get type() => "FrameworkProperty";
+}
+
+class AnimationFrameworkProperty extends FrameworkProperty{
+  
+  AnimationFrameworkProperty(BuckshotObject sourceObject, String propertyName, Function propertyChangedCallback, [value = null])
+  : super(sourceObject, propertyName, propertyChangedCallback, value:value){}
+  
 }

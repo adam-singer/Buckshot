@@ -56,9 +56,7 @@ class TextArea extends Control
     
     spellcheckProperty = new FrameworkProperty(this, "spellcheck", (bool value){
       _component.attributes["spellcheck"] = value.toString();
-    });
-    spellcheckProperty.stringToValueConverter = const StringToBooleanConverter();
-    
+    }, converter:const StringToBooleanConverter());   
   }
   
   

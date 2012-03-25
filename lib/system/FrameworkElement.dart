@@ -82,8 +82,6 @@ class FrameworkElement extends FrameworkObject {
   FrameworkProperty rotateXProperty;
   FrameworkProperty rotateYProperty;
   FrameworkProperty rotateZProperty;
-  FrameworkProperty skewXProperty;
-  FrameworkProperty skewYProperty;
   FrameworkProperty transformOriginXProperty;
   FrameworkProperty transformOriginYProperty;
   FrameworkProperty transformOriginZProperty;
@@ -172,87 +170,74 @@ class FrameworkElement extends FrameworkObject {
     //TODO: propogate this property in elements that use virtual containers
     perspectiveProperty = new FrameworkProperty(this, "perspective", (num value){
      _Dom.setXPCSS(_component, 'perspective', '${value}'); 
-    });
-    perspectiveProperty.stringToValueConverter = const StringToNumericConverter();
+    },converter:const StringToNumericConverter());
     
     translateXProperty = new FrameworkProperty(this, "translateX", (num value){
       _transforms[Transforms.translateX] = value;
       doTransform(this);
-    });
-    translateXProperty.stringToValueConverter = const StringToNumericConverter();
+    },converter:const StringToNumericConverter());
         
     translateYProperty = new FrameworkProperty(this, "translateY", (num value){
       _transforms[Transforms.translateY] = value;
       doTransform(this);
-    });
-    translateYProperty.stringToValueConverter = const StringToNumericConverter();
+    },converter:const StringToNumericConverter());
     
     translateZProperty = new FrameworkProperty(this, "translateZ", (num value){
       _transforms[Transforms.translateZ] = value;
       doTransform(this);
-    });
-    translateZProperty.stringToValueConverter = const StringToNumericConverter();
+    },converter:const StringToNumericConverter());
     
     scaleXProperty = new FrameworkProperty(this, "scaleX", (num value){
       _transforms[Transforms.scaleX] = value;
       doTransform(this);
-    });
-    scaleXProperty.stringToValueConverter = const StringToNumericConverter();
+    },converter:const StringToNumericConverter());
     
     scaleYProperty = new FrameworkProperty(this, "scaleY", (num value){
       _transforms[Transforms.scaleY] = value;
       doTransform(this);
-    });
-    scaleYProperty.stringToValueConverter = const StringToNumericConverter();
+    },converter:const StringToNumericConverter());
     
     scaleZProperty = new FrameworkProperty(this, "scaleZ", (num value){
       _transforms[Transforms.scaleZ] = value;
       doTransform(this);
-    });
-    scaleZProperty.stringToValueConverter = const StringToNumericConverter();
+    },converter:const StringToNumericConverter());
     
     rotateXProperty = new FrameworkProperty(this, "rotateX", (num value){
       _transforms[Transforms.rotateX] = value;
       doTransform(this);
-    });
-    rotateXProperty.stringToValueConverter = const StringToNumericConverter();
+    },converter:const StringToNumericConverter());
     
     rotateYProperty = new FrameworkProperty(this, "rotateY", (num value){
       _transforms[Transforms.rotateY] = value;
       doTransform(this);
-    });
-    rotateYProperty.stringToValueConverter = const StringToNumericConverter();
+    },converter:const StringToNumericConverter());
     
     rotateZProperty = new FrameworkProperty(this, "rotateZ", (num value){
       _transforms[Transforms.rotateZ] = value;
       doTransform(this);
-    });
-    rotateZProperty.stringToValueConverter = const StringToNumericConverter();
+    },converter:const StringToNumericConverter());
         
     transformOriginXProperty = new FrameworkProperty(this, "transformOriginX", (num value){
       _transforms[Transforms.originX] = value;
       _Dom.setXPCSS(this._component, 'transform-origin', '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px');
-    });
-    transformOriginXProperty.stringToValueConverter = const StringToNumericConverter();
+    },converter:const StringToNumericConverter());
     
     transformOriginYProperty = new FrameworkProperty(this, "transformOriginY", (num value){
       _transforms[Transforms.originY] = value;
       _Dom.setXPCSS(this._component, 'transform-origin', '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px');
-    });
-    transformOriginYProperty.stringToValueConverter = const StringToNumericConverter();
+    },converter:const StringToNumericConverter());
     
     transformOriginZProperty = new FrameworkProperty(this, "transformOriginZ", (num value){
       _transforms[Transforms.originZ] = value;
       _Dom.setXPCSS(this._component, 'transform-origin', '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px');
-    });
-    transformOriginZProperty.stringToValueConverter = const StringToNumericConverter();
+    },converter:const StringToNumericConverter());
     
     htmlIDProperty = new FrameworkProperty(
       this,
       "htmlID",
       (String value){
         _component.attributes["ID"] = value;
-      }, canAnimate:false);
+      });
     
     opacityProperty = new FrameworkProperty(
       this,
@@ -262,8 +247,7 @@ class FrameworkElement extends FrameworkObject {
         if (value > 1.0) value = 0.1;
         _component.style.opacity = value.toStringAsPrecision(2);
         _component.style.filter = "alpha(opacity=${value * 100})";
-      }, 1.0);
-    opacityProperty.stringToValueConverter = const StringToNumericConverter();
+      }, 1.0, converter:const StringToNumericConverter());
     
     visibilityProperty = new FrameworkProperty(
       this,
@@ -289,9 +273,7 @@ class FrameworkElement extends FrameworkObject {
       "zOrder",
       (value){
         _component.style.zIndex = value.toString(); //, null);
-      }
-    );
-    zOrderProperty.stringToValueConverter = const StringToNumericConverter();
+      }, converter:const StringToNumericConverter());
     
     marginProperty = new FrameworkProperty(
       this,
@@ -300,32 +282,27 @@ class FrameworkElement extends FrameworkObject {
         _component.style.margin = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px'; //, null);
         //if (_useOffsetWidthAndHeight) _computeWHOffset();
         //db("...margin - offsetX: ${whOffset.first}, offsetY ${whOffset.second}", this);
-      }, new Thickness(0));
-    marginProperty.stringToValueConverter = const StringToThicknessConverter();
+      }, new Thickness(0), converter:const StringToThicknessConverter());
     
     actualWidthProperty = new FrameworkProperty(
       this,
       "actualWidth",
-      (int value){}, 0, canAnimate:false);
-    actualWidthProperty.stringToValueConverter = const StringToNumericConverter();
+      (int value){}, 0, converter:const StringToNumericConverter());
     
     actualHeightProperty = new FrameworkProperty(
       this,
       "actualHeight",
-      (int value){}, 0, canAnimate:false);
-    actualHeightProperty.stringToValueConverter = const StringToNumericConverter();
+      (int value){}, 0, converter:const StringToNumericConverter());
     
     widthProperty = new FrameworkProperty(
       this,
       "width",
-      (Dynamic value) => calculateWidth(value), "auto");
-    widthProperty.stringToValueConverter = const StringToNumericConverter();
+      (Dynamic value) => calculateWidth(value), "auto", converter:const StringToNumericConverter());
     
     heightProperty = new FrameworkProperty(
       this,
       "height",
-      (Dynamic value) => calculateHeight(value), "auto");
-    heightProperty.stringToValueConverter = const StringToNumericConverter();
+      (Dynamic value) => calculateHeight(value), "auto", converter:const StringToNumericConverter());
     
     minHeightProperty = new FrameworkProperty(
       this,
@@ -348,8 +325,7 @@ class FrameworkElement extends FrameworkObject {
 //        }
 
         _component.style.minHeight = '${value}px';
-      }, canAnimate:false);
-    minHeightProperty.stringToValueConverter = const StringToNumericConverter();
+      }, converter:const StringToNumericConverter());
     
     maxHeightProperty = new FrameworkProperty(
       this,
@@ -371,8 +347,7 @@ class FrameworkElement extends FrameworkObject {
 //          height = value;
         
         _component.style.maxHeight = '${value}px';
-      }, canAnimate:false);
-    maxHeightProperty.stringToValueConverter = const StringToNumericConverter();
+      }, converter:const StringToNumericConverter());
     
     minWidthProperty = new FrameworkProperty(
       this,
@@ -394,8 +369,7 @@ class FrameworkElement extends FrameworkObject {
 //          width = value;
         
         _component.style.minWidth = '${value}px';
-      }, canAnimate:false);
-    minWidthProperty.stringToValueConverter = const StringToNumericConverter();
+      }, converter:const StringToNumericConverter());
     
     maxWidthProperty = new FrameworkProperty(
       this,
@@ -417,26 +391,24 @@ class FrameworkElement extends FrameworkObject {
 //          width = value;
         
         _component.style.maxWidth = '${value}px';
-      }, canAnimate:false);
-    maxWidthProperty.stringToValueConverter = const StringToNumericConverter();
+      }, converter:const StringToNumericConverter());
     
     cursorProperty = new FrameworkProperty(
       this,
       "cursor",
       (Cursors value){
         _component.style.cursor = value._str;
-      });
-    cursorProperty.stringToValueConverter = const StringToCursorConverter();
+      }, converter:const StringToCursorConverter());
     
     tagProperty = new FrameworkProperty(
       this,
       "tag",
-      (value){}, canAnimate:false);
+      (value){});
     
     dataContextProperty = new FrameworkProperty(
       this,
       "dataContext",
-      (value){}, canAnimate:false);
+      (value){});
         
     horizontalAlignmentProperty = new FrameworkProperty(
       this,
@@ -444,8 +416,7 @@ class FrameworkElement extends FrameworkObject {
       (HorizontalAlignment value){
         updateLayout();
       }, 
-      HorizontalAlignment.left, canAnimate:false);
-    horizontalAlignmentProperty.stringToValueConverter = const StringToHorizontalAlignmentConverter();
+      HorizontalAlignment.left, converter:const StringToHorizontalAlignmentConverter());
     
     verticalAlignmentProperty = new FrameworkProperty(
       this,
@@ -453,8 +424,7 @@ class FrameworkElement extends FrameworkObject {
       (VerticalAlignment value){
         updateLayout();
       }, 
-      VerticalAlignment.top, canAnimate:false);
-    verticalAlignmentProperty.stringToValueConverter = const StringToVerticalAlignmentConverter();
+      VerticalAlignment.top, converter:const StringToVerticalAlignmentConverter());
     
     styleProperty = new FrameworkProperty(
       this,
@@ -472,7 +442,7 @@ class FrameworkElement extends FrameworkObject {
           value._registerElement(this);
           _style = value;
         }
-      }, new StyleTemplate(), canAnimate:false);
+      }, new StyleTemplate());
   }
      
   /** 
