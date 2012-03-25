@@ -15,15 +15,20 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-
-// This is the root element injected into the DOM and the parent of any other.
-class _RootElement extends Border
-{
-  _RootElement(){
-    _Dom.appendClass(_component, "buckshot_root");
-
-     name = "buckshot_root";
-  }
-  
-  String get type() => "RootElement";
+class Transforms
+{  	
+  	static final originX = 0;
+    static final originY = 1;
+  	static final originZ = 2;
+  	static final translateX = 3;
+  	static final translateY = 4;
+  	static final translateZ = 5;
+  	static final scaleX = 6;
+  	static final scaleY = 7;
+  	static final scaleZ = 8;
+  	static final rotateX = 9;
+  	static final rotateY = 10;
+  	static final rotateZ = 11;
+  	
+  //	static void setTransformOrigin(FrameworkElement e) => 
 }

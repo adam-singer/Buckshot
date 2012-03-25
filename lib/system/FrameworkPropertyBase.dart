@@ -23,7 +23,7 @@
 * * [FrameworkProperty]
 * * [AttachedFrameworkProperty] 
 */
-class FrameworkPropertyBase extends BuckshotObject{
+class FrameworkPropertyBase extends HashableObject{
   /// Holds a reference to the object that the property belongs to.
   final sourceObject;
   /// Holds a callback function that is invoked whenever the value

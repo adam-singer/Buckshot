@@ -61,7 +61,6 @@ class _BorderContainer extends _VirtualContainer {
   
   void CreateElement(){
     super.CreateElement();
-    _component.style.display = "table-cell"; //, null);
   }
   
   

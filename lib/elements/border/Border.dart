@@ -163,7 +163,7 @@ class Border extends _ContainerElement implements IFrameworkContainer
     
     verticalScrollEnabledProperty = new FrameworkProperty(this, "verticalScrollEnabled", (bool value){
       if (_vc != null) _assignOverflowY(value);
-    }, true);
+    }, false);
     verticalScrollEnabledProperty.stringToValueConverter = const StringToBooleanConverter();
   }
   
@@ -176,10 +176,10 @@ class Border extends _ContainerElement implements IFrameworkContainer
   }
   
   void _assignOverflowY(bool value){
-    if (value == false){
-      this._vc._component.style.overflowY = "hidden";
-    }else{
+    if (value == true){
       this._vc._component.style.overflowY = "auto";
+    }else{
+      this._vc._component.style.overflowY = "hidden";
     }
   }
   

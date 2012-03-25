@@ -16,30 +16,14 @@
 //   limitations under the License.
 
 
-class KeyFrame{
-  
-}
-
-class BuckshotTransition
+// This is the root element injected into the DOM and the parent of any other.
+class _RootElement extends Border
 {
-  
-}
+  _RootElement(){
+    _Dom.appendBuckshotClass(_component, "root");
 
-class BuckshotAnimation
-{
-  
- 
-  BuckshotAnimation(){
-    document.head.elements.add(new Element.html('<style id="__BuckshotStyle__">.luca_ui_textblock {font-size:30px;}</style>'));
+     name = "buckshot_root";
   }
+  
+  String get type() => "RootElement";
 }
-
-
-aTest(){
-  document.head.elements.add(new Element.html('<style id="__BuckshotStyle__">.luca_ui_textblock {font-size:30px;}</style>'));
-  StyleElement test = document.head.query('#__BuckshotStyle__');
-  test.innerHTML = ".luca_ui_textblock {font-size:10px;}";
-  //document.head.elements.add(new Element.html('<style>.luca_ui_textblock {font-size:10px;}</style>'));
-   //new CSSStyleDeclaration.css(".luca_ui_textblock {font-size:30px}");
-}
-

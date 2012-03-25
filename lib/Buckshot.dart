@@ -57,6 +57,7 @@
 #source('enums/GridUnitType.dart');
 #source('enums/HorizontalAlignment.dart');
 #source('enums/VerticalAlignment.dart');
+#source('enums/Transforms.dart');
 
 #source('elements/Panel.dart');
 #source('elements/StackPanel.dart');
@@ -120,12 +121,12 @@
 #source('system/FrameworkProperty.dart');
 #source('system/ObservableList.dart');
 #source('system/FrameworkElement.dart');
-#source('system/VirtualContainer.dart');
+#source('system/_VirtualContainer.dart');
 #source('system/HashableObject.dart');
-#source('system/ContainerElement.dart');
+#source('system/_ContainerElement.dart');
 #source('system/FrameworkDebug.dart');
 #source('system/IValueConverter.dart');
-#source('system/RootElement.dart');
+#source('system/_RootElement.dart');
 #source('system/DomHelpers.dart');
 #source('system/BuckshotObject.dart');
 #source('system/IPresentationFormatProvider.dart');

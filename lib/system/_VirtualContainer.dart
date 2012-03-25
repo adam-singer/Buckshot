@@ -23,7 +23,7 @@ class _VirtualContainer extends _ContainerElement
   
   _VirtualContainer()
   {
-    _Dom.appendClass(_component, "luca_ui_virtualcontainer");
+    _Dom.appendBuckshotClass(_component, "virtualcontainer");
   }
     
   FrameworkElement get content() => _content;

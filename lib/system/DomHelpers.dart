@@ -18,7 +18,6 @@
 /**
 * Static helpers for working with the DOM. 
 *
-* **(deprecated)**
 */
 class Dom {
   
@@ -48,6 +47,10 @@ class Dom {
 
 class _Dom{
 
+  static void appendBuckshotClass(Element element, String classToAppend){
+    _Dom.appendClass(element, 'buckshot_' + classToAppend);
+  }
+  
   static void appendClass(Element element, String classToAppend){
     String currentClasses = element.attributes["class"];
     currentClasses = currentClasses == null || currentClasses == "null" ? "" : currentClasses;
@@ -59,92 +62,70 @@ class _Dom{
   }
   
   static void makeFlexBox(FrameworkElement element){
-    var e = element._component;
-    
-    e.style.setProperty("display", "-webkit-box", null);   
-    e.style.setProperty("display", "-moz-box", null);
-    e.style.setProperty("display", "box", null);
-
+    element._component.style.setProperty("display", "box");
+    element._component.style.setProperty("display", "-webkit-box");
+    element._component.style.setProperty("display", "-moz-box");
+    element._component.style.setProperty("display", "-o-box");
+    element._component.style.setProperty("display", "-ms-box");
+  }
+  
+  static void setXPCSS(Element e, String declaration, String value){
+    e.style.setProperty('-webkit-${declaration}', value);
+    e.style.setProperty('-moz-${declaration}', value);
+    e.style.setProperty('-o-${declaration}', value);
+    e.style.setProperty('-ms-${declaration}', value);
+    e.style.setProperty(declaration, value);
   }
   
   static void setFlexBoxOrientation(FrameworkElement element, Orientation orientation){
-    makeFlexBox(element);
-
-    var e = element._component;
     
-    switch(orientation){
-    case Orientation.horizontal:
-      e.style.setProperty("-webkit-box-orient", "horizontal", null);
-      e.style.setProperty("-moz-box-orient", "horizontal", null);
-      e.style.setProperty("box-orient","horizontal", null);
-      break;
-    case Orientation.vertical:
-      e.style.setProperty("-webkit-box-orient", "vertical", null);
-      e.style.setProperty("-moz-box-orient", "vertical", null);
-      e.style.setProperty("box-orient","vertical", null);
-      break;
+    makeFlexBox(element);
+    
+    if (orientation == Orientation.horizontal){
+      setXPCSS(element._component, 'box-orient', 'horizontal');      
+    }else{
+      setXPCSS(element._component, 'box-orient', 'vertical'); 
     }
   }
   
   static void setHorizontalFlexBoxAlignment(FrameworkElement element, HorizontalAlignment alignment){
+    
     makeFlexBox(element);
     
-    var e = element._component;
-
     switch(alignment){
-    case HorizontalAlignment.left:
-      e.style.setProperty("-webkit-box-pack","start", null);
-      e.style.setProperty("-moz-box-pack","start", null);
-      e.style.setProperty("box-pack","start", null);
-      break;
-    case HorizontalAlignment.right:
-      e.style.setProperty("-webkit-box-pack","end", null);
-      e.style.setProperty("-moz-box-pack","end", null);
-      e.style.setProperty("box-pack","end", null);
-      break;
-    case HorizontalAlignment.center:
-      e.style.setProperty("-webkit-box-pack","center", null);
-      e.style.setProperty("-moz-box-pack","center", null);
-      e.style.setProperty("box-pack","center", null);
-      break;
-    case HorizontalAlignment.stretch:
-      //this doesn't work as intended for boxes containing single items
-//      e.style.setProperty("-webkit-box-pack", "justify", null);
-//      e.style.setProperty("-moz-box-pack", "justify", null);
-//      e.style.setProperty("box-pack", "justify", null);
-      e.style.setProperty("-webkit-box-flex","1.0", null);
-      e.style.setProperty("-moz-box-flex","1.0", null);
-      e.style.setProperty("box-flex","1.0", null);
-      
-      //setFlexBoxOrientation(e, Orientation.vertical);
-      break;
-    }
+      case HorizontalAlignment.left:
+        setXPCSS(element._component, 'box-pack', 'start'); 
+        break;
+      case HorizontalAlignment.right:
+        setXPCSS(element._component, 'box-pack', 'end'); 
+        break;
+      case HorizontalAlignment.center:
+        setXPCSS(element._component, 'box-pack', 'center'); 
+        break;
+      case HorizontalAlignment.stretch:
+        //this doesn't work as intended for boxes containing single items
+        //_setXPCSS(element._component, 'box-pack', 'justify'); 
+        setXPCSS(element._component, 'box-flex', '1.0'); 
+        break;
+      }
   }
   
   static void setVerticalFlexBoxAlignment(FrameworkElement element, VerticalAlignment alignment){
+    
     makeFlexBox(element);
-    var e = element._component;
     
     switch(alignment){
       case VerticalAlignment.top:
-        e.style.setProperty("-webkit-box-align","start", null);
-        e.style.setProperty("-moz-box-align","start", null);
-        e.style.setProperty("box-align","start", null);
+        setXPCSS(element._component, 'box-align', 'start'); 
         break;
       case VerticalAlignment.bottom:
-        e.style.setProperty("-webkit-box-align","end", null);
-        e.style.setProperty("-moz-box-align","end", null);
-        e.style.setProperty("box-align","end", null);
+        setXPCSS(element._component, 'box-align', 'end'); 
         break;
       case VerticalAlignment.center:
-        e.style.setProperty("-webkit-box-align","center", null);
-        e.style.setProperty("-moz-box-align","center", null);
-        e.style.setProperty("box-align","center", null);
+        setXPCSS(element._component, 'box-align', 'center'); 
         break;
       case VerticalAlignment.stretch:
-        e.style.setProperty("-webkit-box-align","stretch", null);
-        e.style.setProperty("-moz-box-align","stretch", null);
-        e.style.setProperty("box-align","stretch", null);
+        setXPCSS(element._component, 'box-align', 'stretch'); 
         break;
     }
   }
