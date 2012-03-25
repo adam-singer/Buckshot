@@ -2,10 +2,7 @@
 
 ### Buckshot [buhk-shot] *noun* A throw when darts land wildly all over the board. ###
 
-Buckshot is a Google Dart library that provides a declarative presentation framework for modern web browsers.  Some refer to this type of framework as an Application Object Model (AOM).
-
-The framework attempts to separate concerns by pushing as much design (or "view") as possible into declarative templates, leaving the majority of coding to implementation work.
-Even so, all aspects of the framework's UI design and interactivity can be developed in Dart code directly.
+Buckshot is a UI Framework for modern web applications. It is written in Google Dart and attempts to model the best of .net WPF (Silverlight) and Adobe Flex, but without the need for a plug-in. Buckshot renders all output in HTML5/CSS3, and makes use of features available in today's modern web browsers.
 
 If you've worked with .net WPF or Silverlight then this framework will feel very familiar to you.
 
