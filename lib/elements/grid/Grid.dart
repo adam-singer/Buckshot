@@ -67,7 +67,7 @@ FrameworkObject makeMe() => new Grid();
 Grid() :
 _internalChildren = new List<_GridCell>()
 {
-  _Dom.appendClass(_component, "luca_ui_grid");
+  _Dom.appendBuckshotClass(_component, "grid");
   
   columnDefinitionsProperty = new FrameworkProperty(this, "columnDefinitions", (ObservableList<ColumnDefinition> list){
     _updateColumnLayout(actualWidth);

@@ -31,7 +31,7 @@ class StackPanel extends Panel
   
   StackPanel()
   {
-    _Dom.appendClass(_component, "luca_ui_stackpanel");
+    _Dom.appendBuckshotClass(_component, "stackpanel");
     orientationProperty = new FrameworkProperty(
       this,
       "orientation",

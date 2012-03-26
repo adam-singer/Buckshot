@@ -114,9 +114,6 @@ class FrameworkFundamentalsTests extends TestGroupBase
     
     TextBlock tb = new TextBlock();
     tb.text = testString;
-    
-    //check if property is set correctly
-    Expect.equals(tb.text, testString);
             
     b.content = tb;
     
@@ -132,7 +129,7 @@ class FrameworkFundamentalsTests extends TestGroupBase
     b.content = null;
     
     Expect.isNull(b.content);
-    Expect.equals(b._vc.component.nodes.length, 0, "BorderContainer should have 0 children.");
+    Expect.isNull(b._vc);
     
     _removeElement(b);
     

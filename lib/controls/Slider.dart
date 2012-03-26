@@ -26,7 +26,7 @@ class Slider extends Control
   FrameworkObject makeMe() => new Slider();
   
   Slider(){
-    _Dom.appendClass(_component, "luca_ui_slider");
+    _Dom.appendBuckshotClass(_component, "slider");
     
     _initSliderProperties();
     

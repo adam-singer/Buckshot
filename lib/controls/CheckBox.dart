@@ -34,7 +34,7 @@ class CheckBox extends FrameworkElement
   CheckBox()
   : selectionChanged = new FrameworkEvent<EventArgs>()
   {
-    _Dom.appendClass(_component, "luca_ui_checkbox");
+    _Dom.appendBuckshotClass(_component, "checkbox");
     _initProperties();
     _initEvents();
   }    

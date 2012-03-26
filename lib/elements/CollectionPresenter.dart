@@ -68,7 +68,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
     _pfp = new BuckshotTemplateProvider(),
     itemCreated = new FrameworkEvent<ItemCreatedEventArgs>()
   {
-    _Dom.appendClass(_component, "buckshot_collectionpresenter");
+    _Dom.appendBuckshotClass(_component, "collectionpresenter");
     _initCollectionPresenterProperties();    
   }
   

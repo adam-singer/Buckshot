@@ -47,6 +47,7 @@
 #source('StringToGridLengthConverterTests.dart');
 #source('ResourceTests.dart');
 #source('VarResourceTests.dart');
+#source('FrameworkAnimationTests.dart');
 
 void main() {
   final List<TestGroupBase> _tList = new List<TestGroupBase>();
@@ -90,6 +91,7 @@ void main() {
   _tList.add(new StringToGridLengthConverterTests());
   _tList.add(new ResourceTests());
   _tList.add(new VarResourceTests());
+  _tList.add(new FrameworkAnimationTests());
   
   _tList.forEach((TestGroupBase t){
     group(t.testGroupName, (){

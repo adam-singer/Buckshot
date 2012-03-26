@@ -23,7 +23,6 @@ class TransitionStateManager{
 }
 
 class TransitionStateGroup{
-  String name;
   final List<TransitionState> states;
   
   TransitionStateGroup()
@@ -43,14 +42,101 @@ class PropertyTransition
   final num durationInSeconds;
   final TransitionTiming timing;
   final List<num> bezierValues;
+  final num delay;
   
-  PropertyTransition(this.durationInSeconds, this.timing, [this.bezierValues = const [0,0,0,0]]);
+  PropertyTransition(this.durationInSeconds, this.timing, [this.bezierValues = const [0,0,0,0], this.delay = 0]);
 }
 
 
 class FrameworkAnimation
 {
-   
+  
+  static void clearPropertyTransition(AnimatingFrameworkProperty property){
+    String transProp = _Dom.getXPCSS(property.sourceObject._component, 'transition');
+        
+    if (transProp == null || !transProp.contains(property.cssPropertyPeer)) return;
+    
+    List props = transProp != null ? transProp.split(',') : [];
+    
+    if (props.length == 1){
+      _Dom.setXPCSS(property.sourceObject._component, 'transition', '');
+      return;
+    }
+    
+    int i = 0;
+    int fi = -1;
+        
+    for (final String prop in props){
+      if (prop.startsWith(property.cssPropertyPeer)){
+        props.removeRange(i, 1);
+        break;
+      }
+      i++;
+    }
+        
+    StringBuffer sb = new StringBuffer();
+    
+    for(i = 0; i < props.length - 1; i++){
+      sb.add('${props[i]},');
+    }
+
+    sb.add(props.last());
+    
+    _Dom.setXPCSS(property.sourceObject._component, 'transition', sb.toString());
+  }
+  
+  static void setPropertyTransition(AnimatingFrameworkProperty property, PropertyTransition transition){
+    
+    String newProp = '${property.cssPropertyPeer} ${transition.durationInSeconds}s ${transition.timing} ${transition.delay}s';    
+    
+    String transProp = _Dom.getXPCSS(property.sourceObject._component, 'transition');
+    
+    if (transProp == null){
+      //create and return;
+      _Dom.setXPCSS(property.sourceObject._component, 'transition', newProp);
+      return;
+    }
+    
+    if (transProp != null && !transProp.contains(property.cssPropertyPeer)){
+      //append and return;
+      _Dom.setXPCSS(property.sourceObject._component, 'transition', '${transProp}, $newProp');
+      return;
+    }
+
+    //replace existing
+    
+    List props = transProp != null ? transProp.split(',') : [];
+       
+    int i = 0;
+    int fi = -1;
+        
+    for (final String prop in props){
+      if (prop.startsWith(property.cssPropertyPeer)){
+        fi = i;
+        break;
+      }
+      i++;
+    }
+
+    if (fi > -1)
+      props[fi] = newProp;
+    else
+      props.add(newProp);
+    
+    StringBuffer sb = new StringBuffer();
+    
+    for(i = 0; i < props.length - 1; i++){
+      sb.add('${props[i]},');
+    }
+
+    sb.add(props.last());
+    
+    _Dom.setXPCSS(property.sourceObject._component, 'transition', sb.toString());
+
+
+    
+  }
+  
   BuckshotAnimation(){
     document.head.elements.add(new Element.html('<style id="__BuckshotStyle__">.luca_ui_textblock {font-size:30px;}</style>'));
   }

@@ -54,9 +54,7 @@ class FrameworkElementTests extends TestGroupBase
     var b = new Border();
     var sp = new StackPanel();
     b.content = sp;
-    
-    Expect.equals(b, sp.parent);
-    
+        
     var dc = sp.resolveDataContext();
     
     Expect.isNull(dc);

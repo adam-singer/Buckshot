@@ -40,7 +40,7 @@ class Hyperlink extends Control implements IFrameworkContainer
   
   Hyperlink()
   {
-    _Dom.appendClass(_component, "luca_ui_hyperlink");
+    _Dom.appendBuckshotClass(_component, "hyperlink");
 
     _initHyperlinkProperties();
     

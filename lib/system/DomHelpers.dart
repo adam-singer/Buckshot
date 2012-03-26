@@ -43,10 +43,16 @@ class Dom {
     if (removeAfter != null && removeAfter)
       s.remove();
   }
+  
+  static void setXPCSS(Element e, String declaration, String value) => _Dom.setXPCSS(e, declaration, value);
+  static String getXPCSS(Element e, String declaration) => _Dom.getXPCSS(e, declaration);
+  
 }
 
-class _Dom{
+class _Dom {
 
+  static final prefixes = const ['','-webkit-','-moz-','-o-','-ms-'];
+  
   static void appendBuckshotClass(Element element, String classToAppend){
     _Dom.appendClass(element, 'buckshot_' + classToAppend);
   }
@@ -62,30 +68,39 @@ class _Dom{
   }
   
   static void makeFlexBox(FrameworkElement element){
-    element._component.style.setProperty("display", "box");
-    element._component.style.setProperty("display", "-webkit-box");
-    element._component.style.setProperty("display", "-moz-box");
-    element._component.style.setProperty("display", "-o-box");
-    element._component.style.setProperty("display", "-ms-box");
+    prefixes.forEach((String p){
+      var pre = '${p}box'; //assigning here because some bug won't let me pass it directly in .setProperty
+      element._component.style.setProperty('display', pre);
+      });
+    
   }
   
   static void setXPCSS(Element e, String declaration, String value){
-    e.style.setProperty('-webkit-${declaration}', value);
-    e.style.setProperty('-moz-${declaration}', value);
-    e.style.setProperty('-o-${declaration}', value);
-    e.style.setProperty('-ms-${declaration}', value);
-    e.style.setProperty(declaration, value);
+    
+    prefixes.forEach((String p){
+     var pre = '${p}${declaration}'; //assigning here because some bug won't let me pass it directly in .setProperty
+     e.style.setProperty(pre, value);
+     });
   }
   
+  static String getXPCSS(Element e, String declaration){
+    
+    for(final String p in prefixes){
+      var pre = '${p}${declaration}'; //assigning here because some bug won't let me pass it directly in .setProperty
+      String result = e.style.getPropertyValue(pre);
+      
+      if (result != null) return result;
+    }
+    
+    return null;
+  }
+    
   static void setFlexBoxOrientation(FrameworkElement element, Orientation orientation){
     
     makeFlexBox(element);
     
-    if (orientation == Orientation.horizontal){
-      setXPCSS(element._component, 'box-orient', 'horizontal');      
-    }else{
-      setXPCSS(element._component, 'box-orient', 'vertical'); 
-    }
+    element._component.style.boxOrient = (orientation == Orientation.horizontal) ? 'horizontal' : 'vertical';  
+
   }
   
   static void setHorizontalFlexBoxAlignment(FrameworkElement element, HorizontalAlignment alignment){
@@ -94,18 +109,18 @@ class _Dom{
     
     switch(alignment){
       case HorizontalAlignment.left:
-        setXPCSS(element._component, 'box-pack', 'start'); 
+        element._component.style.boxPack = 'start';
         break;
       case HorizontalAlignment.right:
-        setXPCSS(element._component, 'box-pack', 'end'); 
+        element._component.style.boxPack = 'end';
         break;
       case HorizontalAlignment.center:
-        setXPCSS(element._component, 'box-pack', 'center'); 
+        element._component.style.boxPack = 'center';
         break;
       case HorizontalAlignment.stretch:
         //this doesn't work as intended for boxes containing single items
         //_setXPCSS(element._component, 'box-pack', 'justify'); 
-        setXPCSS(element._component, 'box-flex', '1.0'); 
+        element._component.style.boxFlex = '1.0';
         break;
       }
   }
@@ -116,16 +131,16 @@ class _Dom{
     
     switch(alignment){
       case VerticalAlignment.top:
-        setXPCSS(element._component, 'box-align', 'start'); 
+        element._component.style.boxAlign = 'start';
         break;
       case VerticalAlignment.bottom:
-        setXPCSS(element._component, 'box-align', 'end'); 
+        element._component.style.boxAlign = 'end';
         break;
       case VerticalAlignment.center:
-        setXPCSS(element._component, 'box-align', 'center'); 
+        element._component.style.boxAlign = 'center';
         break;
       case VerticalAlignment.stretch:
-        setXPCSS(element._component, 'box-align', 'stretch'); 
+        element._component.style.boxAlign = 'stretch';
         break;
     }
   }

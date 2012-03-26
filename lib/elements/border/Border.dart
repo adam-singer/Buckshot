@@ -23,7 +23,7 @@ class Border extends _ContainerElement implements IFrameworkContainer
   var _previousHeight = -1;
   
   /// Represents the [Color] of the border background.
-  FrameworkProperty backgroundProperty;
+  AnimatingFrameworkProperty backgroundProperty;
   
   /// Represents the [Thickness] of space between the border frame and the content.
   FrameworkProperty paddingProperty;
@@ -32,7 +32,7 @@ class Border extends _ContainerElement implements IFrameworkContainer
   FrameworkProperty cornerRadiusProperty; 
   
   /// Represents the [Color] of the border frame.
-  FrameworkProperty borderColorProperty;
+  AnimatingFrameworkProperty borderColorProperty;
   
   /// Represents the [Thickness] of the border frame.
   FrameworkProperty borderThicknessProperty;
@@ -51,7 +51,7 @@ class Border extends _ContainerElement implements IFrameworkContainer
   
   Border()
   {
-    _Dom.appendClass(_component, "luca_ui_border");
+    _Dom.appendBuckshotClass(_component, "border");
        
     _initBorderProperties();
     
@@ -132,12 +132,12 @@ class Border extends _ContainerElement implements IFrameworkContainer
         _component.style.borderRadius = '${value}px';
       }, converter:const StringToNumericConverter());
     
-    borderColorProperty = new FrameworkProperty(
+    borderColorProperty = new AnimatingFrameworkProperty(
       this,
       "borderColor",
       (value){
         _component.style.borderColor = value.color.toString();
-      }, new SolidColorBrush(new Color.predefined(Colors.White)), converter:const StringToSolidColorBrushConverter());
+      }, "border-color", new SolidColorBrush(new Color.predefined(Colors.White)), converter:const StringToSolidColorBrushConverter());
     
     borderThicknessProperty = new FrameworkProperty(
       this,
@@ -151,7 +151,7 @@ class Border extends _ContainerElement implements IFrameworkContainer
         _component.style.borderRight = 'solid ${value.right}px $color';
         _component.style.borderLeft = 'solid ${value.left}px $color';
         _component.style.borderBottom = 'solid ${value.bottom}px $color';
-      }, new Thickness(0), converter:const StringToThicknessConverter());
+      },  new Thickness(0), converter:const StringToThicknessConverter());
     
     horizontalScrollEnabledProperty = new FrameworkProperty(this, "horizontalScrollEnabled", (bool value){      
       if (_vc != null) _assignOverflowX(value);

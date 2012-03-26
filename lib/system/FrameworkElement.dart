@@ -134,31 +134,30 @@ class FrameworkElement extends FrameworkObject {
     _transitionProperties = new HashMap<String, String>()
   {   
     _Dom.appendBuckshotClass(_component, "frameworkelement");
-
+    
     _style = new StyleTemplate(); //give a blank style so merging works immediately
     
     _initFrameworkProperties();
 
-    _component.attributes["data-lucaui-element"] = this.type;
+    _component.attributes["data-buckshot-element"] = this.type;
+    _component.attributes['data-buckshot-id'] = '${this.hashCode()}';
     
     _initFrameworkEvents();
   }
   
   static void doTransform(FrameworkElement e){
-    _Dom.setXPCSS(
-      e._component, 
-      'transform', 
+      e._component.style.transform = 
       '''translateX(${e._transforms[Transforms.translateX]}px) translateY(${e._transforms[Transforms.translateY]}px) translateZ(${e._transforms[Transforms.translateZ]}px)
          scaleX(${e._transforms[Transforms.scaleX]}) scaleY(${e._transforms[Transforms.scaleY]}) scaleZ(${e._transforms[Transforms.scaleZ]}) 
          rotateX(${e._transforms[Transforms.rotateX]}deg) rotateY(${e._transforms[Transforms.rotateY]}deg) rotateZ(${e._transforms[Transforms.rotateZ]}deg)
-      ''');
+      ''';
   }
     
   void _initFrameworkProperties(){
 
     //TODO: propogate this property in elements that use virtual containers
     perspectiveProperty = new FrameworkProperty(this, "perspective", (num value){
-     _Dom.setXPCSS(_component, 'perspective', '${value}'); 
+     _component.style.perspective = '${value}';
     },converter:const StringToNumericConverter());
     
     translateXProperty = new FrameworkProperty(this, "translateX", (num value){
@@ -208,26 +207,19 @@ class FrameworkElement extends FrameworkObject {
         
     transformOriginXProperty = new FrameworkProperty(this, "transformOriginX", (num value){
       _transforms[Transforms.originX] = value;
-      _Dom.setXPCSS(this._component, 'transform-origin', '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px');
+      _component.style.transformOrigin = '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px';
     },converter:const StringToNumericConverter());
     
     transformOriginYProperty = new FrameworkProperty(this, "transformOriginY", (num value){
       _transforms[Transforms.originY] = value;
-      _Dom.setXPCSS(this._component, 'transform-origin', '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px');
+      _component.style.transformOrigin ='${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px';
     },converter:const StringToNumericConverter());
     
     transformOriginZProperty = new FrameworkProperty(this, "transformOriginZ", (num value){
       _transforms[Transforms.originZ] = value;
-      _Dom.setXPCSS(this._component, 'transform-origin', '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px');
+      _component.style.transformOrigin = '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px';
     },converter:const StringToNumericConverter());
-    
-    htmlIDProperty = new FrameworkProperty(
-      this,
-      "htmlID",
-      (String value){
-        _component.attributes["ID"] = value;
-      });
-    
+       
     opacityProperty = new FrameworkProperty(
       this,
       "opacity",
@@ -297,21 +289,6 @@ class FrameworkElement extends FrameworkObject {
       this,
       "minHeight",
       (value){
-//        
-//        if (height == "auto"){
-//          _component.style.minHeight = '${value}px';
-//          return;
-//        }
-//        
-//        if (maxHeight != null && value > maxHeight){
-//           minHeight = maxHeight;
-//          _component.style.minHeight = '${minHeightProperty.value}px';
-//          return;
-//        }
-//        
-//        if (height != null && height < value){
-//          height = value;
-//        }
 
         _component.style.minHeight = '${value}px';
       }, converter:const StringToNumericConverter());
@@ -320,20 +297,6 @@ class FrameworkElement extends FrameworkObject {
       this,
       "maxHeight",
       (value){
-//        
-//        if (height == "auto"){
-//          _component.style.maxHeight = '${value}px';
-//          return;
-//        }
-//        
-//        if (minHeight != null && value < minHeight){
-//          maxHeight = minHeight;
-//          _component.style.maxHeight = '${maxHeightProperty.value}px';
-//          return;
-//        }
-//        
-//        if (height != null && height > value)
-//          height = value;
         
         _component.style.maxHeight = '${value}px';
       }, converter:const StringToNumericConverter());
@@ -342,20 +305,6 @@ class FrameworkElement extends FrameworkObject {
       this,
       "minWidth",
       (value){
-//        
-//        if (width == "auto"){
-//          _component.style.minWidth = '${value}px';
-//          return;
-//        }
-//        
-//        if (maxWidth != null && value > maxWidth){
-//          minWidth = maxWidth;
-//          _component.style.minWidth = '${minWidthProperty.value}px';
-//          return;
-//        }
-//        
-//        if (width != null && width < value)
-//          width = value;
         
         _component.style.minWidth = '${value}px';
       }, converter:const StringToNumericConverter());
@@ -364,20 +313,6 @@ class FrameworkElement extends FrameworkObject {
       this,
       "maxWidth",
       (value){
-//        
-//        if (width == "auto"){
-//          _component.style.maxWidth = '${value}px';
-//          return;
-//        }
-//        
-//        if (minWidth != null && value < minWidth){
-//          maxWidth = minWidth;
-//          _component.style.maxWidth = '${maxWidthProperty.value}px';
-//          return;
-//        }
-//        
-//        if (width != null && width > value)
-//          width = value;
         
         _component.style.maxWidth = '${value}px';
       }, converter:const StringToNumericConverter());

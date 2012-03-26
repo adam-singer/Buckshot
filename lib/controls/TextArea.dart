@@ -31,7 +31,7 @@ class TextArea extends Control
   TextArea() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {
-    _Dom.appendClass(_component, "luca_ui_textarea");
+    _Dom.appendBuckshotClass(_component, "textarea");
     
     _initProperties();
 

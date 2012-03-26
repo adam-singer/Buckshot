@@ -33,7 +33,7 @@ class LayoutCanvas extends Panel
   FrameworkObject makeMe() => new LayoutCanvas();
   
   LayoutCanvas(){
-    _Dom.appendClass(_component, "luca_ui_layoutcanvas");
+    _Dom.appendBuckshotClass(_component, "layoutcanvas");
     
     //TODO override panel delegate instead
     children.listChanged + _onListChanging;

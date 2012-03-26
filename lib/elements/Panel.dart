@@ -34,7 +34,7 @@ class Panel extends _ContainerElement implements IFrameworkContainer {
   Panel()
   : children = new ObservableList<FrameworkElement>()
   {
-    _Dom.appendClass(_component, "luca_ui_panel");
+    _Dom.appendBuckshotClass(_component, "panel");
     
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = children;
     

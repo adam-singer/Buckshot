@@ -45,6 +45,8 @@ class ListBox extends Control implements IFrameworkContainer
   :
     selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs>()
   {
+    _Dom.appendBuckshotClass(_component, "listbox"); 
+    
     _initListBoxProperties();
     
 //    this._component.style.border = "solid black 1px";

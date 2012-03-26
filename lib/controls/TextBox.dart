@@ -27,7 +27,7 @@ class TextBox extends Control
   TextBox() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {
-    _Dom.appendClass(_component, "luca_ui_textbox");
+    _Dom.appendBuckshotClass(_component, "textbox");
     
     _initTextBoxProperties();
 

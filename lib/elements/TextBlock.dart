@@ -26,7 +26,7 @@ class TextBlock extends FrameworkElement
   
   TextBlock()
   {
-    _Dom.appendClass(_component, "luca_ui_textblock");
+    _Dom.appendBuckshotClass(_component, "textblock");
        
     _initTextBlockProperties();
   

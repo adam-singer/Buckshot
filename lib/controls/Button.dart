@@ -30,7 +30,7 @@ class Button extends Control implements IFrameworkContainer
   
   Button()
   {
-    _Dom.appendClass(_component, "luca_ui_button");
+    _Dom.appendBuckshotClass(_component, "button");
         
     // Initialize FrameworkProperty declarations.
     contentProperty = new FrameworkProperty(

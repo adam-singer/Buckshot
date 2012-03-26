@@ -40,7 +40,7 @@ class RawHtml extends FrameworkElement
   
   RawHtml()
   {
-    _Dom.appendClass(_component, "luca_ui_rawhtml");
+    _Dom.appendBuckshotClass(_component, "rawhtml");
        
     _initRawHtmlProperties();
   }

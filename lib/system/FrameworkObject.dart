@@ -50,7 +50,7 @@ class FrameworkObject extends BuckshotObject {
       
       if (_component == null) CreateElement();
       
-      _Dom.appendClass(_component, "luca_ui_frameworkobject");
+      _Dom.appendBuckshotClass(_component, 'frameworkobject');
       
       //grab the unwrapped version
       //_rawElement = _unwrap(_component);
@@ -68,14 +68,17 @@ class FrameworkObject extends BuckshotObject {
           if (nameProperty != null && nameProperty.previousValue != null){
             if (BuckshotSystem.namedElements.containsKey(nameProperty.previousValue))
               BuckshotSystem.namedElements.remove(nameProperty.previousValue);
+            
+            if (_component != null) _component.attributes.remove('ID');
           }
           
           if (value != ""){
             BuckshotSystem.namedElements[value] = this;
+            if (_component != null) _component.attributes["ID"] = value;
           }
           
         }, "");
-  }  
+    }  
   
   /// Sets the [nameProperty] value.
   set name(String value) => setValue(nameProperty, value);

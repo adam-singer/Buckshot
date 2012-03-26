@@ -28,7 +28,7 @@ class _BorderContainer extends _VirtualContainer {
   
   //enforce parental relationship
   set parent(FrameworkElement value) {
-    if (!(value is Border))
+    if (value != null && (value is! Border))
       throw const FrameworkException(parentErrorMessage);
     
     _parent = value;

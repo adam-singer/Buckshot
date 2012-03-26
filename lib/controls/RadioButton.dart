@@ -26,7 +26,7 @@ class RadioButton extends Control
   RadioButton()
   : selectionChanged = new FrameworkEvent<EventArgs>()
   {
-    _Dom.appendClass(_component, "luca_ui_radiobutton");
+    _Dom.appendBuckshotClass(_component, "radiobutton");
     _initProperties();
     _initEvents();
   }    
