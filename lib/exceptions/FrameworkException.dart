@@ -21,7 +21,7 @@
 * Implements a general framework [Exception] object. */
 class FrameworkException extends ExceptionBase
 {
-  const FrameworkException(String message);
+  const FrameworkException([var msg]);
   
   String get type() => "FrameworkException";
 }

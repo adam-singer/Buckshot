@@ -134,6 +134,8 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
        
     _assignAttributeProperties(newElement, xmlElement);
     
+    //TODO defer processing AnimationResources until remainder of parsing is complete?
+    
     if (newElement is FrameworkResource){
       newElement.rawData = xmlElement.outerHTML;
       _processResource(newElement);

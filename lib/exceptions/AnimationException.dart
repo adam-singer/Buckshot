@@ -18,7 +18,7 @@
 
 class AnimationException extends ExceptionBase {
   
-  const AnimationException(String message);
+  const AnimationException([var msg]);
   
   String get type() => 'AnimationException';
   

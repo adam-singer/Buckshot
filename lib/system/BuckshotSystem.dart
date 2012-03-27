@@ -244,11 +244,12 @@ class BuckshotSystem extends FrameworkObject {
   }
   
   /// Registers a resource to the framework.
-  static void registerResource(FrameworkResource object){
-    BuckshotSystem._resourceRegistry[object.key.trim().toLowerCase()] = object;
+  static void registerResource(FrameworkResource resource){
+    BuckshotSystem._resourceRegistry[resource.key.trim().toLowerCase()] = resource;
     
-    if (object is AnimationResource){
-      object.dynamic.compileAnimation();
+    //pre-cache the compiled animation
+    if (resource is AnimationResource){
+      _CssCompiler.compileAnimation(resource);
     }
   }
   

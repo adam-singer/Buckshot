@@ -75,6 +75,16 @@ class _Dom {
     
   }
   
+  static String generateXPCSS(String declaration, String value){
+    StringBuffer sb = new StringBuffer();
+    
+    prefixes.forEach((String p){
+      sb.add('${p}${declaration}: ${value};');  
+    });
+    
+    return sb.toString();
+  }
+  
   static void setXPCSS(Element e, String declaration, String value){
     
     prefixes.forEach((String p){

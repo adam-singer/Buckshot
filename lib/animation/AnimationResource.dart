@@ -17,7 +17,11 @@
 
 class AnimationResource extends FrameworkResource
 {
+  String _cachedAnimation;
+  
   FrameworkProperty keyFramesProperty;
+  
+  //TODO add support for other CSS3 animation properties: easing, iteration, direction
   
   BuckshotObject makeMe() => new AnimationResource();
   
@@ -29,31 +33,15 @@ class AnimationResource extends FrameworkResource
     
   _initAnimationResourceProperties(){
     
-    keyFramesProperty = new FrameworkProperty(this, 'keyFrames', (_){}, new List<AnimationKeyFrame>());
+    keyFramesProperty = new FrameworkProperty(this, 'keyFrames', (_){
+      _invalidate();
+    }, new List<AnimationKeyFrame>());
     
   }
   
-  void compileAnimation(){
-    
-    //sort keyframe by time
-    if (keyFrames.length == 0) return;
-    
-    _sortKeyFrames();
-    
-    if (keyFrames[0].time < 0)
-      throw const AnimationException('keyframe start time is < 0');
-    
-    //compute the spread
-    List<num> spread = new List<num>();
-        
-  }
-  
-  _sortKeyFrames(){
-    keyFrames.sort((a, b){
-      if (a.time < b.time) return -1;
-      if (a.time > b.time) return 1;
-      return 0;
-    });
+  void _invalidate(){
+    _cachedAnimation = null;
+    _CssCompiler.compileAnimation(this);
   }
   
   List<AnimationKeyFrame> get keyFrames() => getValue(keyFramesProperty);

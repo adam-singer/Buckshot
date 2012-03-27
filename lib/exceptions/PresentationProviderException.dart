@@ -23,7 +23,7 @@
 */
 class PresentationProviderException extends ExceptionBase
 {
-  const PresentationProviderException(String message);
+  const PresentationProviderException([var msg]);
   
   String get type() => "PresentationProviderException";
 }

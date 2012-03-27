@@ -42,7 +42,7 @@ class SolidColorBrush extends Brush
   Color get color() => getValue(colorProperty);
   
   void renderBrush(Element element){
-    element.style.background = "${color.toString()}";
+    element.style.background = "${color}";
   }
   
   String get type() => "SolidColorBrush";

@@ -17,9 +17,10 @@
 
 /**
 * Represents a pair of like values. */
-class Tuple<T>
+class Tuple<T1, T2>
 {
-  T first, second;
-  Tuple();
-  Tuple.with(this.first, this.second);
+  final T1 first;
+  final T2 second;
+  
+  const Tuple(this.first, this.second);
 }

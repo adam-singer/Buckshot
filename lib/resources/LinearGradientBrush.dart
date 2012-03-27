@@ -89,6 +89,7 @@ class LinearGradientBrush extends Brush
     });
     
     //set the background for all browser types
+
     element.style.background = "-webkit-linear-gradient(${direction.toString()}, ${colorString})";
     element.style.background = "-moz-linear-gradient(${direction.toString()}, ${colorString})";
     element.style.background = "-ms-linear-gradient(${direction.toString()}, ${colorString})";

@@ -17,11 +17,8 @@
 
 class ExceptionBase implements Exception{
   /// Description of the exception that occured.
-  final String message;
-  
-  const ExceptionBase(String this.message);
+ 
+  const ExceptionBase([var msg]);
   
   String get type() => "ExceptionBase";
-  
-  String toString() => message;
 }

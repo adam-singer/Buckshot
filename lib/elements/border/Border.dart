@@ -114,7 +114,7 @@ class Border extends _ContainerElement implements IFrameworkContainer
         }
         value.renderBrush(_component);
       },
-      "background",
+      const Tuple("background",''),
       converter:const StringToSolidColorBrushConverter());
     
     paddingProperty = new FrameworkProperty(
@@ -137,7 +137,7 @@ class Border extends _ContainerElement implements IFrameworkContainer
       "borderColor",
       (value){
         _component.style.borderColor = value.color.toString();
-      }, "border-color", new SolidColorBrush(new Color.predefined(Colors.White)), converter:const StringToSolidColorBrushConverter());
+      }, const Tuple("border-color",''), new SolidColorBrush(new Color.predefined(Colors.White)), converter:const StringToSolidColorBrushConverter());
     
     borderThicknessProperty = new FrameworkProperty(
       this,

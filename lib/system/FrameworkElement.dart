@@ -159,68 +159,68 @@ class FrameworkElement extends FrameworkObject {
     //TODO: propogate this property in elements that use virtual containers
     
     perspectiveProperty = new FrameworkProperty(this, "perspective", (num value){
-     _component.style.perspective = '${value}';
+      _Dom.setXPCSS(_component, 'perspective', '$value');
     },converter:const StringToNumericConverter());
     
-    translateXProperty = new FrameworkProperty(this, "translateX", (num value){
+    translateXProperty = new AnimatingFrameworkProperty(this, "translateX", (num value){
       _transforms[Transforms.translateX] = value;
       doTransform(this);
-    },converter:const StringToNumericConverter());
+    }, const Tuple('translateX','px'), converter:const StringToNumericConverter());
         
-    translateYProperty = new FrameworkProperty(this, "translateY", (num value){
+    translateYProperty = new AnimatingFrameworkProperty(this, "translateY", (num value){
       _transforms[Transforms.translateY] = value;
       doTransform(this);
-    },converter:const StringToNumericConverter());
+    }, const Tuple('translateY','px'), converter:const StringToNumericConverter());
     
-    translateZProperty = new FrameworkProperty(this, "translateZ", (num value){
+    translateZProperty = new AnimatingFrameworkProperty(this, "translateZ", (num value){
       _transforms[Transforms.translateZ] = value;
       doTransform(this);
-    },converter:const StringToNumericConverter());
+    }, const Tuple('translateZ','px'), converter:const StringToNumericConverter());
     
-    scaleXProperty = new FrameworkProperty(this, "scaleX", (num value){
+    scaleXProperty = new AnimatingFrameworkProperty(this, "scaleX", (num value){
       _transforms[Transforms.scaleX] = value;
       doTransform(this);
-    },converter:const StringToNumericConverter());
+    }, const Tuple('scaleX',''), converter:const StringToNumericConverter());
     
-    scaleYProperty = new FrameworkProperty(this, "scaleY", (num value){
+    scaleYProperty = new AnimatingFrameworkProperty(this, "scaleY", (num value){
       _transforms[Transforms.scaleY] = value;
       doTransform(this);
-    },converter:const StringToNumericConverter());
+    }, const Tuple('scaleY',''), converter:const StringToNumericConverter());
     
-    scaleZProperty = new FrameworkProperty(this, "scaleZ", (num value){
+    scaleZProperty = new AnimatingFrameworkProperty(this, "scaleZ", (num value){
       _transforms[Transforms.scaleZ] = value;
       doTransform(this);
-    },converter:const StringToNumericConverter());
+    }, const Tuple('scaleZ',''), converter:const StringToNumericConverter());
     
-    rotateXProperty = new FrameworkProperty(this, "rotateX", (num value){
+    rotateXProperty = new AnimatingFrameworkProperty(this, "rotateX", (num value){
       _transforms[Transforms.rotateX] = value;
       doTransform(this);
-    },converter:const StringToNumericConverter());
+    }, const Tuple('rotateX','deg'), converter:const StringToNumericConverter());
     
-    rotateYProperty = new FrameworkProperty(this, "rotateY", (num value){
+    rotateYProperty = new AnimatingFrameworkProperty(this, "rotateY", (num value){
       _transforms[Transforms.rotateY] = value;
       doTransform(this);
-    },converter:const StringToNumericConverter());
+    }, const Tuple('rotateY','deg'), converter:const StringToNumericConverter());
     
-    rotateZProperty = new FrameworkProperty(this, "rotateZ", (num value){
+    rotateZProperty = new AnimatingFrameworkProperty(this, "rotateZ", (num value){
       _transforms[Transforms.rotateZ] = value;
       doTransform(this);
-    },converter:const StringToNumericConverter());
+    }, const Tuple('rotateZ','deg'), converter:const StringToNumericConverter());
         
     transformOriginXProperty = new FrameworkProperty(this, "transformOriginX", (num value){
       _transforms[Transforms.originX] = value;
-      _component.style.transformOrigin = '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px';
-    },converter:const StringToNumericConverter());
+      _Dom.setXPCSS(_component, 'transform-origin', '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px');
+    }, converter:const StringToNumericConverter());
     
     transformOriginYProperty = new FrameworkProperty(this, "transformOriginY", (num value){
       _transforms[Transforms.originY] = value;
-      _component.style.transformOrigin ='${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px';
-    },converter:const StringToNumericConverter());
+      _Dom.setXPCSS(_component, 'transform-origin', '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px');
+    }, converter:const StringToNumericConverter());
     
     transformOriginZProperty = new FrameworkProperty(this, "transformOriginZ", (num value){
       _transforms[Transforms.originZ] = value;
-      _component.style.transformOrigin = '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px';
-    },converter:const StringToNumericConverter());
+      _Dom.setXPCSS(_component, 'transform-origin', '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px');
+    }, converter:const StringToNumericConverter());
        
     opacityProperty = new FrameworkProperty(
       this,

@@ -147,4 +147,5 @@
 #source('animation/AnimationResource.dart');
 #source('animation/AnimationKeyFrame.dart');
 #source('animation/AnimationState.dart');
+#source('animation/_CssCompiler.dart');
 

@@ -55,7 +55,7 @@ class FrameworkAnimation
   static void clearPropertyTransition(AnimatingFrameworkProperty property){
     String transProp = _Dom.getXPCSS(property.sourceObject._component, 'transition');
         
-    if (transProp == null || !transProp.contains(property.cssPropertyPeer)) return;
+    if (transProp == null || !transProp.contains(property.cssPropertyPeerAndUnit.first)) return;
     
     List props = transProp != null ? transProp.split(',') : [];
     
@@ -68,7 +68,7 @@ class FrameworkAnimation
     int fi = -1;
         
     for (final String prop in props){
-      if (prop.startsWith(property.cssPropertyPeer)){
+      if (prop.startsWith(property.cssPropertyPeerAndUnit.first)){
         props.removeRange(i, 1);
         break;
       }
@@ -89,7 +89,7 @@ class FrameworkAnimation
   /// Low-level function that sets a CSS3 transition property for a given [AnimatingFrameworkProperty].
   static void setPropertyTransition(AnimatingFrameworkProperty property, PropertyTransition transition){
     
-    String newProp = '${property.cssPropertyPeer} ${transition.durationInSeconds}s ${transition.timing} ${transition.delay}s';    
+    String newProp = '${property.cssPropertyPeerAndUnit.first} ${transition.durationInSeconds}s ${transition.timing} ${transition.delay}s';    
     
     String transProp = _Dom.getXPCSS(property.sourceObject._component, 'transition');
     
@@ -99,7 +99,7 @@ class FrameworkAnimation
       return;
     }
     
-    if (transProp != null && !transProp.contains(property.cssPropertyPeer)){
+    if (transProp != null && !transProp.contains(property.cssPropertyPeerAndUnit.first)){
       //append and return;
       _Dom.setXPCSS(property.sourceObject._component, 'transition', '${transProp}, $newProp');
       return;
@@ -113,7 +113,7 @@ class FrameworkAnimation
     int fi = -1;
         
     for (final String prop in props){
-      if (prop.startsWith(property.cssPropertyPeer)){
+      if (prop.startsWith(property.cssPropertyPeerAndUnit.first)){
         fi = i;
         break;
       }

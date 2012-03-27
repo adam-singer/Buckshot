@@ -2,6 +2,10 @@ class AnimationKeyFrame extends BuckshotObject
 {
   FrameworkProperty timeProperty;
   FrameworkProperty statesProperty;
+  num _percentage; //represents a conversion of time to a percentage along a time span
+ // int _ordinal; //represents the ordinal order of the keyframe in an animation sequence
+  
+  //TODO add support for easing with 'animation-timing-function'
   
   AnimationKeyFrame(){
     _initAnimationKeyFrameProperties();
