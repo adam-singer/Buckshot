@@ -27,6 +27,7 @@ class BuckshotSystem extends FrameworkObject {
   static IView _currentRootView;
   static bool initialized = false;
   static Element _domRootElement;
+  static StyleElement _buckshotCSS;
   static HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject, Dynamic>> _attachedProperties;
   
   //TODO: Eventually support multiple presentation providers
@@ -83,6 +84,12 @@ class BuckshotSystem extends FrameworkObject {
     
     if (BuckshotSystem._domRootElement.tagName != "DIV")
       throw new FrameworkException("Root element for LUCA UI must be a <div>. Element given was a <${BuckshotSystem._domRootElement.tagName.toLowerCase()}>");
+    
+    document.head.elements.add(new Element.html('<style id="__BuckshotCSS__"></style>'));
+    _buckshotCSS = document.head.query('#__BuckshotCSS__');
+    
+    if (_buckshotCSS == null)
+      throw const FrameworkException('Unable to initialize Buckshot StyleSheet.');
     
     namedElements = new HashMap<String, FrameworkObject>();
     
@@ -191,6 +198,9 @@ class BuckshotSystem extends FrameworkObject {
     BuckshotSystem.registerElement(new _StyleTemplateImplementation());
     BuckshotSystem.registerElement(new VarResource());
     BuckshotSystem.registerElement(new ControlTemplate());
+    BuckshotSystem.registerElement(new AnimationResource());
+    BuckshotSystem.registerElement(new AnimationKeyFrame());
+    BuckshotSystem.registerElement(new AnimationState());
     
     //attached properties
     BuckshotSystem._objectRegistry["grid.column"] = Grid.setColumn;
@@ -236,6 +246,10 @@ class BuckshotSystem extends FrameworkObject {
   /// Registers a resource to the framework.
   static void registerResource(FrameworkResource object){
     BuckshotSystem._resourceRegistry[object.key.trim().toLowerCase()] = object;
+    
+    if (object is AnimationResource){
+      object.dynamic.compileAnimation();
+    }
   }
   
   /// Registers a BuckshotObject to the framework.  Useful for registering

@@ -54,7 +54,7 @@ void main() {
   DropDownList ddlControls = BuckshotSystem.namedElements["ddlControls"];
   DropDownList ddlBinding = BuckshotSystem.namedElements["ddlBinding"];
   DropDownList ddlMediaExtensions = BuckshotSystem.namedElements["ddlMediaExtensions"];  
-   
+  
   // set a demo view model into the borderContent's datacontext
   borderContent.dataContext = new DemoViewModel();
   

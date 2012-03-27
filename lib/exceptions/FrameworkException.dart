@@ -15,15 +15,15 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+
+
 /**
 * Implements a general framework [Exception] object. */
-class FrameworkException implements Exception 
+class FrameworkException extends ExceptionBase
 {
-  /// Description of the exception that occured.
-  final String message;
+  const FrameworkException(String message);
   
-  const FrameworkException(String this.message);
-  
-  String get _type() => "FrameworkException";
+  String get type() => "FrameworkException";
 }
+
 

@@ -146,16 +146,18 @@ class FrameworkElement extends FrameworkObject {
   }
   
   static void doTransform(FrameworkElement e){
-      e._component.style.transform = 
+    _Dom.setXPCSS(e._component, 'transform', 
       '''translateX(${e._transforms[Transforms.translateX]}px) translateY(${e._transforms[Transforms.translateY]}px) translateZ(${e._transforms[Transforms.translateZ]}px)
          scaleX(${e._transforms[Transforms.scaleX]}) scaleY(${e._transforms[Transforms.scaleY]}) scaleZ(${e._transforms[Transforms.scaleZ]}) 
          rotateX(${e._transforms[Transforms.rotateX]}deg) rotateY(${e._transforms[Transforms.rotateY]}deg) rotateZ(${e._transforms[Transforms.rotateZ]}deg)
-      ''';
+      ''');
   }
-    
+  
+  
   void _initFrameworkProperties(){
 
     //TODO: propogate this property in elements that use virtual containers
+    
     perspectiveProperty = new FrameworkProperty(this, "perspective", (num value){
      _component.style.perspective = '${value}';
     },converter:const StringToNumericConverter());
@@ -504,6 +506,15 @@ class FrameworkElement extends FrameworkObject {
     if (dataContext != null) return dataContextProperty;
     if (parent == null) return null;
     return parent.resolveDataContext();
+  }
+  
+  bool isChildOf(FrameworkElement candidate){
+    if (parent != null && parent == candidate)
+      return true;
+    
+    if (parent == null) return false;
+    
+    return parent.isChildOf(candidate);
   }
   
   bool _dataContextUpdated = false;

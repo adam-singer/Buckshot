@@ -78,7 +78,7 @@ class FrameworkProperty extends FrameworkPropertyBase
   String get type() => "FrameworkProperty";
 }
 
-/// A [FrameworkProperty] that supports transition/animation features.
+/// A [FrameworkProperty] that supports participation in transition/animation features.
 class AnimatingFrameworkProperty extends FrameworkProperty{
   final String cssPropertyPeer;
   

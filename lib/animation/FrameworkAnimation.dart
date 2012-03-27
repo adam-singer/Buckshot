@@ -51,6 +51,7 @@ class PropertyTransition
 class FrameworkAnimation
 {
   
+  /// Low-level function that clears a CSS3 transition property for a given [AnimatingFrameworkProperty].
   static void clearPropertyTransition(AnimatingFrameworkProperty property){
     String transProp = _Dom.getXPCSS(property.sourceObject._component, 'transition');
         
@@ -62,7 +63,7 @@ class FrameworkAnimation
       _Dom.setXPCSS(property.sourceObject._component, 'transition', '');
       return;
     }
-    
+
     int i = 0;
     int fi = -1;
         
@@ -85,6 +86,7 @@ class FrameworkAnimation
     _Dom.setXPCSS(property.sourceObject._component, 'transition', sb.toString());
   }
   
+  /// Low-level function that sets a CSS3 transition property for a given [AnimatingFrameworkProperty].
   static void setPropertyTransition(AnimatingFrameworkProperty property, PropertyTransition transition){
     
     String newProp = '${property.cssPropertyPeer} ${transition.durationInSeconds}s ${transition.timing} ${transition.delay}s';    
@@ -132,9 +134,6 @@ class FrameworkAnimation
     sb.add(props.last());
     
     _Dom.setXPCSS(property.sourceObject._component, 'transition', sb.toString());
-
-
-    
   }
   
   BuckshotAnimation(){
@@ -144,7 +143,7 @@ class FrameworkAnimation
 
 
 aTest(){
-  document.head.elements.add(new Element.html('<style id="__BuckshotStyle__">.luca_ui_textblock {font-size:30px;}</style>'));
+  document.head.elements.add(new Element.html('<style id="__BuckshotCSS__"></style>'));
   StyleElement test = document.head.query('#__BuckshotStyle__');
   test.innerHTML = ".luca_ui_textblock {font-size:10px;}";
   //document.head.elements.add(new Element.html('<style>.luca_ui_textblock {font-size:10px;}</style>'));

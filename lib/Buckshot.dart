@@ -22,10 +22,12 @@
 /// ## Project Source Code Repository
 /// <https://github.com/prujohn/Buckshot>
 
+//TODO convert statebag properties to real properties
 
 #library('Buckshot_Client');
 
 #import('dart:html');
+//#import('../../reactive/lib/reactive_lib.dart');
 
 #source('MVVM/ViewModelBase.dart');
 #source('MVVM/IView.dart');
@@ -89,6 +91,8 @@
 #source('controls/DropDownList.dart');
 #source('controls/ListBox.dart');
 
+#source('exceptions/ExceptionBase.dart');
+#source('exceptions/AnimationException.dart');
 #source('exceptions/PresentationProviderException.dart');
 #source('exceptions/FrameworkException.dart');
 
@@ -103,6 +107,7 @@
 #source('converters/StringToColorConverter.dart');
 #source('converters/StringToSolidColorBrushConverter.dart');
 #source('converters/StringToRadialGradientDrawModeConverter.dart');
+#source('converters/StringToFrameworkElementConverter.dart');
 
 #source('resources/FrameworkResource.dart');
 #source('resources/ResourceCollection.dart');
@@ -139,3 +144,7 @@
 #source('system/IFrameworkContainer.dart');
 
 #source('animation/FrameworkAnimation.dart');
+#source('animation/AnimationResource.dart');
+#source('animation/AnimationKeyFrame.dart');
+#source('animation/AnimationState.dart');
+

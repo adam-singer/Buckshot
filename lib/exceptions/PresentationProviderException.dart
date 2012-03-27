@@ -21,11 +21,9 @@
 * ## See Also
 * * [LucaxmlPresentationProvider]
 */
-class PresentationProviderException implements Exception 
+class PresentationProviderException extends ExceptionBase
 {
-  final String message;
+  const PresentationProviderException(String message);
   
-  const PresentationProviderException(String this.message);
-  
-  String get _type() => "PresentationProviderException";
+  String get type() => "PresentationProviderException";
 }
