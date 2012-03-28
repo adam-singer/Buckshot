@@ -277,15 +277,15 @@ class FrameworkElement extends FrameworkObject {
       "actualHeight",
       (int value){}, 0, converter:const StringToNumericConverter());
     
-    widthProperty = new FrameworkProperty(
+    widthProperty = new AnimatingFrameworkProperty(
       this,
       "width",
-      (Dynamic value) => calculateWidth(value), "auto", converter:const StringToNumericConverter());
+      (Dynamic value) => calculateWidth(value), const Tuple('width','px'), value:"auto", converter:const StringToNumericConverter());
     
-    heightProperty = new FrameworkProperty(
+    heightProperty = new AnimatingFrameworkProperty(
       this,
       "height",
-      (Dynamic value) => calculateHeight(value), "auto", converter:const StringToNumericConverter());
+      (Dynamic value) => calculateHeight(value), const Tuple('height','px'), value:"auto", converter:const StringToNumericConverter());
     
     minHeightProperty = new FrameworkProperty(
       this,
