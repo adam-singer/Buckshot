@@ -10,7 +10,7 @@
 #source('BorderDemoView.dart');
 #source('StackPanelDebug.dart');
 
-// This project is used for development of the LUCA UI project.
+// This project is used for development of the Buckshot project.
 // Anything here may or may not be working properly, or may look strange.
 
 class Debug {
@@ -70,10 +70,10 @@ void main() {
   try{
     new BuckshotSystem();
     }catch(FrameworkException e){
-      print("LUCA UI Framework initialization failed: ${e.message}");
+      print("Buckshot Framework initialization failed: ${e}");
     }
     catch(Exception e){
-      print("*SYSTEM EXCEPTION* LUCA UI Framework initialization failed: ${e.toString()}");
+      print("*SYSTEM EXCEPTION* Buckshot Framework initialization failed: ${e.toString()}");
       return;
     }
 

@@ -18,8 +18,10 @@
 /**
 * Enumerates visibility states. */
 class Visibility{ 
-  const Visibility(this._bool);
-  final bool _bool;
-  static final visible = const Visibility(true);
-  static final collapsed = const Visibility(false); 
+  const Visibility(this._str);
+  final String _str;
+  static final visible = const Visibility('visible');
+  static final collapsed = const Visibility('hidden');
+  
+  String toString() => _str;
 }

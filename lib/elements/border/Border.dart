@@ -29,7 +29,7 @@ class Border extends _ContainerElement implements IFrameworkContainer
   FrameworkProperty paddingProperty;
   
   /// Represents the rounding value of the border frame corners.
-  FrameworkProperty cornerRadiusProperty; 
+  AnimatingFrameworkProperty cornerRadiusProperty; 
   
   /// Represents the [Color] of the border frame.
   AnimatingFrameworkProperty borderColorProperty;
@@ -40,8 +40,8 @@ class Border extends _ContainerElement implements IFrameworkContainer
   /// Represents the content inside the border.
   FrameworkProperty contentProperty;
   
-  FrameworkProperty horizontalScrollEnabledProperty;
-  FrameworkProperty verticalScrollEnabledProperty;
+  AnimatingFrameworkProperty horizontalScrollEnabledProperty;
+  AnimatingFrameworkProperty verticalScrollEnabledProperty;
   
   _BorderContainer _vc;
   
@@ -114,7 +114,7 @@ class Border extends _ContainerElement implements IFrameworkContainer
         }
         value.renderBrush(_component);
       },
-      const Tuple("background",''),
+      'background',
       converter:const StringToSolidColorBrushConverter());
     
     paddingProperty = new FrameworkProperty(
@@ -124,42 +124,44 @@ class Border extends _ContainerElement implements IFrameworkContainer
         _component.style.padding = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
       }, new Thickness(0), converter:const StringToThicknessConverter());
     
-    cornerRadiusProperty = new FrameworkProperty(
+    cornerRadiusProperty = new AnimatingFrameworkProperty(
       this,
       "cornerRadius",
       (value){
         if (value == null || value < 0) value = 0;
         _component.style.borderRadius = '${value}px';
-      }, converter:const StringToNumericConverter());
+      }, 'border-radius', converter:const StringToNumericConverter());
     
     borderColorProperty = new AnimatingFrameworkProperty(
       this,
       "borderColor",
       (value){
         _component.style.borderColor = value.color.toString();
-      }, const Tuple("border-color",''), new SolidColorBrush(new Color.predefined(Colors.White)), converter:const StringToSolidColorBrushConverter());
+      }, 'border', converter:const StringToSolidColorBrushConverter());
     
     borderThicknessProperty = new FrameworkProperty(
       this,
       "borderThickness",
       (value){
         
-        String color = borderColor != null ? borderColor.color.toString() : Colors.White.toString();
+        String color = borderColor != null ? _component.style.borderColor : Colors.White.toString();
         
         //TODO support border hatch styles
+        
         _component.style.borderTop = 'solid ${value.top}px $color';
         _component.style.borderRight = 'solid ${value.right}px $color';
         _component.style.borderLeft = 'solid ${value.left}px $color';
         _component.style.borderBottom = 'solid ${value.bottom}px $color';
-      },  new Thickness(0), converter:const StringToThicknessConverter());
+        
+      }, new Thickness(0), converter:const StringToThicknessConverter());
     
-    horizontalScrollEnabledProperty = new FrameworkProperty(this, "horizontalScrollEnabled", (bool value){      
+    horizontalScrollEnabledProperty = new AnimatingFrameworkProperty(this, "horizontalScrollEnabled", (bool value){      
       if (_vc != null) _assignOverflowX(value);
-    }, false, converter:const StringToBooleanConverter());
+    }, 'overflow', false, converter:const StringToBooleanConverter());
     
-    verticalScrollEnabledProperty = new FrameworkProperty(this, "verticalScrollEnabled", (bool value){
+    verticalScrollEnabledProperty = new AnimatingFrameworkProperty(this, "verticalScrollEnabled", (bool value){
       if (_vc != null) _assignOverflowY(value);
-    }, false, converter:const StringToBooleanConverter());
+    }, 'overflow', false, converter:const StringToBooleanConverter());
   }
   
   void _assignOverflowX(bool value){

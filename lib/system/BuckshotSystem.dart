@@ -170,6 +170,10 @@ class BuckshotSystem extends FrameworkObject {
   static void _registerCoreElements(){
     //registering elements we need ahead of time (poor man's reflection...)
     
+    //shapes
+    BuckshotSystem.registerElement(new Ellipse());
+    BuckshotSystem.registerElement(new Rectangle());
+    
     //elements
     BuckshotSystem.registerElement(new StackPanel());
     BuckshotSystem.registerElement(new Grid());

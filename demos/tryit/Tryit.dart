@@ -29,6 +29,12 @@ void main() {
   new BuckshotSystem();
   
   Views views = new Views();
+
+//  SVGSVGElement svge = new SVGSVGElement();
+//  SVGCircleElement se = new SVGElement.tag('circle');
+//  se.attributes = {'fill':'red', 'r':50, 'cx':50, 'cy':50};
+//  svge.elements.add(se);
+//  document.body.elements.add(svge);
   
   //register extensions
   BuckshotSystem.registerElement(new YouTube());
@@ -89,6 +95,7 @@ void main() {
   };
     
   btnClear.click + (_,__){
+    
     tbUserInput.text = "";
     
     //TODO this should support '= null' but does not

@@ -17,6 +17,7 @@
 
 #import('dart:html');
 
+// point this to wherever your copy of the dart source code is
 #import('../../../src/dart/client/testing/unittest/unittest_html.dart');
 
 #import('../lib/Buckshot.dart');
@@ -48,6 +49,7 @@
 #source('ResourceTests.dart');
 #source('VarResourceTests.dart');
 #source('FrameworkAnimationTests.dart');
+#source('DartBugs.dart');
 
 void main() {
   final List<TestGroupBase> _tList = new List<TestGroupBase>();
@@ -65,6 +67,7 @@ void main() {
 //      return;
 //    }
     
+  _tList.add(new DartBugs());  
   _tList.add(new InitializationTests());
   _tList.add(new FrameworkFundamentalsTests());
   _tList.add(new FrameworkElementTests());

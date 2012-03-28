@@ -19,7 +19,6 @@
 //intermediate data structure used during animation css compilation
 class _CssAnimationObject{
   final StringBuffer css;
-  final HashMap<String, Dynamic> carryOverTransforms;
   final HashMap<String, Dynamic> standardPropertyCarryOver;
   
   FrameworkElement concreteElement;
@@ -27,16 +26,12 @@ class _CssAnimationObject{
   _CssAnimationObject() 
   : 
     css = new StringBuffer(),
-    carryOverTransforms = new HashMap<String, Dynamic>(),
     standardPropertyCarryOver = new HashMap<String, Dynamic>();
 }
 
+//compiles an AnimationResource object into valid css3
 class _CssCompiler
-{
-  static final List<String> transformProperties = const ['translateX','translateY','translateZ','scaleX','scaleY','scaleZ','rotateX','rotateY','rotateZ'];
-  
-  static bool isTransformProperty(String property) => transformProperties.indexOf(property) > -1;
-  
+{   
   static void compileAnimation(AnimationResource anim){
     
     if (anim._cachedAnimation != null || anim.keyFrames == null || anim.keyFrames.length == 0) return;
@@ -70,40 +65,35 @@ class _CssCompiler
         s.css.add(' ${k._percentage}% {');
       });
       
-      //write the properties
-      //TODO handle value conversion from complex properties, like gradient brushes
-      
+      //write the properties      
       k.states.forEach((AnimationState s){        
-          _CssAnimationObject ao = animHash[s.target];
+         _CssAnimationObject ao = animHash[s.target];
         AnimatingFrameworkProperty prop = ao.concreteElement._getPropertyByName(s.property);
         if (prop == null) throw new AnimationException('Unable to find specified property: ${s.property}');
         if (prop is! AnimatingFrameworkProperty) throw new AnimationException('Attempted to animate property ${s.property} that is not type AnimatingFrameworkProperty.');
 
-        if (isTransformProperty(prop.cssPropertyPeerAndUnit.first)){
-          ao.carryOverTransforms[prop.cssPropertyPeerAndUnit.first] = '${s.value}${prop.cssPropertyPeerAndUnit.second}';
-        }else{
-          ao.standardPropertyCarryOver[prop.cssPropertyPeerAndUnit.first] = '${s.value}${prop.cssPropertyPeerAndUnit.second}';
+        //set the value to the proxy element, then read back it's css output
+        if (prop.propertyName == 'fill'){
+          db('${prop.propertyName} ... ${s.value}');
         }
+        
+        setValue(prop, s.value);
+        
+        ao.standardPropertyCarryOver[prop.cssPropertyPeer] = _Dom.getXPCSS(ao.concreteElement._component, prop.cssPropertyPeer);
+
+        //BUG dartbug.com/2232
+        //style.borderRadius is returning null instead of assigned value.
         
       });
 
-
-            
-      //merge previous keyframe transforms
+      //write out the keyframe
       animHash.forEach((t, ah){
         if (ah.standardPropertyCarryOver.length > 0){
           ah.standardPropertyCarryOver.forEach((kk, v){
             ah.css.add('${kk}: ${v};');
           });
         }
-        
-        if (ah.carryOverTransforms.length > 0 != null){
-          ah.css.add('transform:');
-          ah.carryOverTransforms.forEach((kk, v){
-            ah.css.add(' ${kk}($v)');
-          });
-          ah.css.add(';}');
-        }
+        ah.css.add('}');
       });      
     });
     
@@ -132,9 +122,7 @@ class _CssCompiler
 
     BuckshotSystem._buckshotCSS.innerHTML = compiledCSS.toString();
     anim._cachedAnimation = compiledCSS.toString();
-  }
-  
-  
+  } 
   
   static void computeKeyFramePercentages(List<AnimationKeyFrame> keyFrames){
     var span = keyFrames.last().time;

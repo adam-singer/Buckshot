@@ -80,14 +80,14 @@ class FrameworkProperty extends FrameworkPropertyBase
 
 /// A [FrameworkProperty] that supports participation in transition/animation features.
 class AnimatingFrameworkProperty extends FrameworkProperty{
-  final Tuple<String, String> cssPropertyPeerAndUnit;
+  final String cssPropertyPeer;
   
-  AnimatingFrameworkProperty(FrameworkElement sourceObject, String propertyName, Function propertyChangedCallback, Tuple<String, String> this.cssPropertyPeerAndUnit, [value = null, converter = null])
+  AnimatingFrameworkProperty(FrameworkElement sourceObject, String propertyName, Function propertyChangedCallback, String this.cssPropertyPeer, [value = null, converter = null])
   : super(sourceObject, propertyName, propertyChangedCallback, value:value, converter:converter)
   {
-    if (sourceObject is! FrameworkElement) throw const FrameworkException('AnimationFrameworkProperties can only be used with elements that derive from FrameworkElement.');
+    if (sourceObject is! FrameworkElement) throw const FrameworkException('AnimatingFrameworkProperty can only be used with elements that derive from FrameworkElement.');
   }
   
   
-  String get type() => "AnimationFrameworkProperty";
+  String get type() => "AnimatingFrameworkProperty";
 }

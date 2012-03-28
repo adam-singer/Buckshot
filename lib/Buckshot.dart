@@ -108,6 +108,7 @@
 #source('converters/StringToSolidColorBrushConverter.dart');
 #source('converters/StringToRadialGradientDrawModeConverter.dart');
 #source('converters/StringToFrameworkElementConverter.dart');
+#source('converters/StringToVisibilityConverter.dart');
 
 #source('resources/FrameworkResource.dart');
 #source('resources/ResourceCollection.dart');
@@ -148,4 +149,8 @@
 #source('animation/AnimationKeyFrame.dart');
 #source('animation/AnimationState.dart');
 #source('animation/_CssCompiler.dart');
+
+#source('elements/shape/Shape.dart');
+#source('elements/shape/Ellipse.dart');
+#source('elements/shape/Rectangle.dart');
 

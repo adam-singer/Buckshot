@@ -43,6 +43,7 @@ class SolidColorBrush extends Brush
   
   void renderBrush(Element element){
     element.style.background = "${color}";
+    element.style.setProperty('fill', "${color}");
   }
   
   String get type() => "SolidColorBrush";
