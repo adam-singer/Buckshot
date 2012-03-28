@@ -22,7 +22,7 @@ class Shape extends FrameworkElement
   SVGSVGElement _svgWrapper;
   
   AnimatingFrameworkProperty fillProperty;
-  AnimatingFrameworkProperty strokeColorProperty;
+  AnimatingFrameworkProperty strokeProperty;
   AnimatingFrameworkProperty strokeWidthProperty;
   
   FrameworkProperty _swProperty;
@@ -34,6 +34,19 @@ class Shape extends FrameworkElement
   }
   
   _initShapeProperties(){
+    
+    strokeWidthProperty = new AnimatingFrameworkProperty(this, 'strokeWidth', (value){
+      shapeElement.style.setProperty('stroke-width', '${value}');
+      
+    }, 'stroke-width', 0, converter:const StringToNumericConverter());
+    
+    strokeProperty = new AnimatingFrameworkProperty(this, 'stroke', (value){
+      
+      shapeElement.style.setProperty('stroke', value.color.toString());
+      
+    }, 'stroke', converter:const StringToSolidColorBrushConverter());
+    
+    
     fillProperty = new AnimatingFrameworkProperty(this, 'fill', (Brush value){
       
       //TODO Animation hooks won't work because shapeElement is not root
@@ -65,8 +78,9 @@ class Shape extends FrameworkElement
   
   void CreateElement(){
     _component = Dom.createByTag('div');
-           
+    
     _svgWrapper = new SVGSVGElement();
+    
     shapeElement = new SVGElement.tag(shapeTag);
     _svgWrapper.elements.add(shapeElement);
     _component.elements.add(_svgWrapper); 

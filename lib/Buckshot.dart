@@ -153,4 +153,6 @@
 #source('elements/shape/Shape.dart');
 #source('elements/shape/Ellipse.dart');
 #source('elements/shape/Rectangle.dart');
-
+#source('elements/shape/Line.dart');
+#source('elements/shape/PolyLine.dart');
+#source('elements/shape/Polygon.dart');

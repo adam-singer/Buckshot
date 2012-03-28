@@ -173,6 +173,9 @@ class BuckshotSystem extends FrameworkObject {
     //shapes
     BuckshotSystem.registerElement(new Ellipse());
     BuckshotSystem.registerElement(new Rectangle());
+    BuckshotSystem.registerElement(new Line());
+    BuckshotSystem.registerElement(new PolyLine());
+    BuckshotSystem.registerElement(new Polygon());
     
     //elements
     BuckshotSystem.registerElement(new StackPanel());

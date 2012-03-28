@@ -36,7 +36,7 @@ class Ellipse extends Shape{
       
       var result = v / 2;
       shapeElement.attributes['cx'] = result;
-      setValue(_rxProperty, '$result');
+      setValue(_rxProperty, result);
       
     });
     
@@ -45,15 +45,15 @@ class Ellipse extends Shape{
       
       var result = v / 2;
       shapeElement.attributes['cy'] = result;
-      setValue(_ryProperty, '$result');
+      setValue(_ryProperty, result);
 
     });
     
     _rxProperty = new FrameworkProperty(this, '_rx', (v){
-      shapeElement.attributes['rx'] = v;
+      shapeElement.attributes['rx'] = '${v - getValue(strokeWidthProperty) / 2}';
     });
     _ryProperty = new FrameworkProperty(this, '_ry', (v){
-      shapeElement.attributes['ry'] = v;
+      shapeElement.attributes['ry'] = '${v - getValue(strokeWidthProperty) / 2}';
     });
     
     new Binding(widthProperty, _cxProperty);

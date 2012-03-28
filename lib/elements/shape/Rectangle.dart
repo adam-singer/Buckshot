@@ -15,7 +15,7 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-/// A primitive [Shape] representing an ellipse.
+/// A primitive [Shape] representing rectangle.
 class Rectangle extends Shape{
   
   BuckshotObject makeMe() => new Rectangle();
@@ -31,12 +31,12 @@ class Rectangle extends Shape{
   void _initRectangleProperties(){    
     _cwProperty = new FrameworkProperty(this, '_cw', (v){
       if (v is! num) return;
-      shapeElement.attributes['width'] = v;
+      shapeElement.attributes['width'] = '${v}';
     });
     
     _chProperty = new FrameworkProperty(this, '_cy', (v){
       if (v is! num) return;
-      shapeElement.attributes['height'] = v;
+      shapeElement.attributes['height'] = '${v}';
     });
     
     new Binding(widthProperty, _cwProperty);
