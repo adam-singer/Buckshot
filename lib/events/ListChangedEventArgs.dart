@@ -25,5 +25,7 @@ class ListChangedEventArgs<T> extends EventArgs{
   
   ListChangedEventArgs(this.oldItems, this.newItems){}
   
+  BuckshotObject makeMe() => null;
+  
   String get _type() => "ListChangedEventArgs";
 }

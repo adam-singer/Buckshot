@@ -51,6 +51,8 @@ class DemoModel {
 class SomeColors extends BuckshotObject{
   FrameworkProperty redProperty, orangeProperty, blueProperty;
   
+  BuckshotObject makeMe() => new SomeColors();
+  
   SomeColors(){
     redProperty = new FrameworkProperty(this, "red", (_){}, "Red");
     orangeProperty = new FrameworkProperty(this, "orange", (_){}, "Orange");

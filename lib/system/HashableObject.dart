@@ -27,4 +27,7 @@ class HashableObject implements Hashable
   {}
   
   int hashCode() => _assignedHash;
+  
+  abstract String get type();
+  String toString() => type;
 }

@@ -308,4 +308,5 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
     throw const NotImplementedException();
   }
   
+  String get type() => 'BuckshotTemplateProvider';
 }

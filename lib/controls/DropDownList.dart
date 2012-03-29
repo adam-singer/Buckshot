@@ -26,7 +26,7 @@ class DropDownList extends Control
   FrameworkProperty selectedItemProperty;
   
   FrameworkEvent<SelectedItemChangedEventArgs<DropDownListItem>> selectionChanged;
-  
+    
   DropDownList()
   :
     selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs<DropDownListItem>>()

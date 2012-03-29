@@ -26,8 +26,8 @@ class MainUIView implements IView
     
     rootBorder.background = lgb;
     
-    new Binding(BuckshotSystem.windowWidthProperty, rootBorder.widthProperty);
-    new Binding(BuckshotSystem.windowHeightProperty, rootBorder.heightProperty);
+    new Binding(Buckshot.windowWidthProperty, rootBorder.widthProperty);
+    new Binding(Buckshot.windowHeightProperty, rootBorder.heightProperty);
     
     Grid g = new Grid();
     //g.background = new SolidColorBrush(new Color(Colors.Yellow));

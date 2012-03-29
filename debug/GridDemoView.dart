@@ -24,8 +24,8 @@ class GridDemoView implements IView
 //    g.height = 500;
 //    g.maxWidth = 300;
     g.margin = new Thickness(10);
-    new Binding(BuckshotSystem.windowWidthProperty, g.widthProperty);
-    new Binding(BuckshotSystem.windowHeightProperty, g.heightProperty);
+    new Binding(Buckshot.windowWidthProperty, g.widthProperty);
+    new Binding(Buckshot.windowHeightProperty, g.heightProperty);
     //g.background = new SolidColorBrush(new Color(Colors.Orange));
         
     g.rowDefinitions.add(new RowDefinition.with(new GridLength.auto()));

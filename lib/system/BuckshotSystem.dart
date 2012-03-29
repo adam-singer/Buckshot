@@ -193,6 +193,8 @@ class Buckshot extends FrameworkObject {
     Buckshot.registerElement(new RowDefinition());
     Buckshot.registerElement(new DropDownListItem());
     Buckshot.registerElement(new CollectionPresenter());
+    Buckshot.registerElement(new AnimationAction());
+    Buckshot.registerElement(new SetPropertyAction());
     
     //resources
     Buckshot.registerElement(new ResourceCollection());
@@ -253,11 +255,6 @@ class Buckshot extends FrameworkObject {
   /// Registers a resource to the framework.
   static void registerResource(FrameworkResource resource){
     Buckshot._resourceRegistry[resource.key.trim().toLowerCase()] = resource;
-    
-    //pre-cache the compiled animation
-    if (resource is AnimationResource){
-      _CssCompiler.compileAnimation(resource);
-    }
   }
   
   /// Registers a BuckshotObject to the framework.  Useful for registering

@@ -136,6 +136,7 @@ class TextChangedEventArgs extends EventArgs {
   
   TextChangedEventArgs.with(this.oldText, this.newText);
   
+  BuckshotObject makeMe() => null;
 }
 
 interface IValidatable

@@ -31,6 +31,8 @@
 class DataTemplate extends BuckshotObject{
   final HashMap<String, FrameworkProperty> _properties;
   
+  BuckshotObject makeMe() => new DataTemplate();
+  
   /// Constructs a DataTemplate with no properties.
   DataTemplate() 
   : _properties = new HashMap<String, FrameworkProperty>()

@@ -89,6 +89,8 @@ class FrameworkElement extends FrameworkObject {
   FrameworkProperty transformOriginZProperty;
   FrameworkProperty perspectiveProperty;
   
+  FrameworkProperty actionsProperty;
+  
   //events
   /// Fires when the FrameworkElement is inserted into the DOM.
   final FrameworkEvent<RoutedEventArgs> loaded;
@@ -115,6 +117,8 @@ class FrameworkElement extends FrameworkObject {
   
 
   //TODO mouseWheel, onScroll;
+  
+  BuckshotObject makeMe() => new FrameworkElement();
   
   FrameworkElement() :
     lateBindings = new HashMap<FrameworkProperty, BindingData>(),
@@ -145,6 +149,7 @@ class FrameworkElement extends FrameworkObject {
     _initFrameworkEvents();
   }
   
+  //TODO remove _transforms[] data structure and call getValue on each instead
   static void doTransform(FrameworkElement e){
     _Dom.setXPCSS(e._component, 'transform', 
       '''translateX(${e._transforms[Transforms.translateX]}px) translateY(${e._transforms[Transforms.translateY]}px) translateZ(${e._transforms[Transforms.translateZ]}px)
@@ -156,6 +161,22 @@ class FrameworkElement extends FrameworkObject {
   
   void _initFrameworkProperties(){
 
+    actionsProperty = new FrameworkProperty(this, 'actions', (ObservableList<ActionBase> aList){
+      if (actionsProperty != null){
+        throw const FrameworkException('FrameworkElement.actionsProperty collection can only be assigned once.');
+      }
+      
+      aList.listChanged + (_, ListChangedEventArgs args){
+        if (args.oldItems.length > 0) throw const FrameworkException('Actions cannot be removed once added to the collection.');
+        
+        //assign this element as the source to any new actions
+        args.newItems.forEach((ActionBase action){ 
+          action._source = this;
+        });
+      };
+    }, new ObservableList<ActionBase>());
+    
+    
     //TODO: propogate this property in elements that use virtual containers
     
     perspectiveProperty = new FrameworkProperty(this, "perspective", (num value){
@@ -666,8 +687,9 @@ class FrameworkElement extends FrameworkObject {
   
   
   void _initFrameworkEvents(){
-        
+    
     _component.on.mouseUp.add((e){
+     
       if (!mouseUp.hasHandlers) return;
 
       _component.rect.then((ElementRect r){
@@ -676,12 +698,12 @@ class FrameworkElement extends FrameworkObject {
           MouseEventArgs args = new MouseEventArgs(x, y, e.pageX, e.pageY);
           mouseUp.invoke(this, args);
       });
-        
-        
-      if (e.cancelable) e.cancelBubble = true;
+
+      e.stopPropagation();
     });
 
     _component.on.mouseDown.add((e){
+     
       if (!mouseDown.hasHandlers) return;
            
         _component.rect.then((ElementRect r){
@@ -690,10 +712,11 @@ class FrameworkElement extends FrameworkObject {
           mouseDown.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
         });
         
-      if (e.cancelable) e.cancelBubble = true;
+        e.stopPropagation();
     });
     
     _component.on.mouseMove.add((e) {
+           
       if (!mouseMove.hasHandlers) return;
                  
       _component.rect.then((ElementRect r){
@@ -701,11 +724,11 @@ class FrameworkElement extends FrameworkObject {
         int y = (e.pageY - r.offset.top);
         mouseMove.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
       });
-     
-      if (e.cancelable) e.cancelBubble = true;
+      
+      e.stopPropagation();
     });
     
-    _component.on.click.add((e) {
+    _component.on.click.add((e) {     
       if (!click.hasHandlers) return;
       // FIX
       _component.rect.then((ElementRect r){
@@ -714,50 +737,63 @@ class FrameworkElement extends FrameworkObject {
         click.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
       });
       
-      if (e.cancelable) e.cancelBubble = true;  
+      e.stopPropagation();
     });
 
     _component.on.focus.add((e){
+      e.stopPropagation();
+      
       if (!gotFocus.hasHandlers) return;
       
       gotFocus.invoke(this, new EventArgs());
       
-      if (e.cancelable) e.cancelBubble = true;
     });
 
     _component.on.blur.add((e){
+      e.stopPropagation();
+      
       if (!lostFocus.hasHandlers) return;
 
       lostFocus.invoke(this, new EventArgs());
       
-      if (e.cancelable) e.cancelBubble = true;
     });
     
+    bool isMouseReallyOut = true;
+    
     _component.on.mouseOver.add((e){
-      if (!mouseEnter.hasHandlers) return;
-      
-      mouseEnter.invoke(this, new EventArgs());
-      
-      if (e.cancelable) e.cancelBubble = true;
+       e.stopPropagation();
+ 
+       if (!mouseEnter.hasHandlers) return;
+                   
+      if (isMouseReallyOut){
+        isMouseReallyOut = false;
+        mouseEnter.invoke(this, new EventArgs());
+      }
     });
 
     _component.on.mouseOut.add((e){
-      if (!mouseLeave.hasHandlers) return;
-      
-      mouseLeave.invoke(this, new EventArgs());
-      
-      if (e.cancelable) e.cancelBubble = true;
+      e.stopPropagation();
+            
+      _component.rect.then((ElementRect r){
+        int x = e.pageX;
+        int y = e.pageY;
+
+        //check if mouse really left
+
+        if (x > r.offset.left && x < r.offset.right && y> r.offset.top && y < r.offset.bottom){
+          isMouseReallyOut = false;
+          return;
+        }else{
+          isMouseReallyOut = true;
+        }
+        
+        if (!mouseLeave.hasHandlers) return;
+        
+          mouseLeave.invoke(this, new EventArgs());
+      });
     });
-    
   }
   
-  bool _isPropertySet(String property){
-    if (_component == null) return false;
-    
-    if (_component.style.getPropertyValue(property) == null) return false;
-    
-    return true;
-  }    
   
   /// Overridden [FrameworkObject] method.
   void CreateElement(){

@@ -63,6 +63,8 @@ class _BindingImplementation extends BuckshotObject implements Binding
   
   bool bindingSet = false;
   
+  BuckshotObject makeMe() => null;
+  
   _BindingImplementation(this._fromProperty, this._toProperty, [this.bindingMode = BindingMode.OneWay, this.converter = const _DefaultConverter()])
   {
     if (_fromProperty == null || _toProperty == null)

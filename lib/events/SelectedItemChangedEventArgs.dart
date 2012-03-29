@@ -26,4 +26,6 @@ class SelectedItemChangedEventArgs<T> extends EventArgs {
   final T selectedItem;
   
   SelectedItemChangedEventArgs(this.selectedItem){}
+  
+  BuckshotObject makeMe() => null;
 }

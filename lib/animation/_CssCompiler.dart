@@ -69,7 +69,9 @@ class _CssCompiler
       k.states.forEach((AnimationState s){        
          _CssAnimationObject ao = animHash[s.target];
         AnimatingFrameworkProperty prop = ao.concreteElement._getPropertyByName(s.property);
-        if (prop == null) throw new AnimationException('Unable to find specified property: ${s.property}');
+        if (prop == null){
+          throw new AnimationException('Unable to find specified property: ${s.property}');
+        }
         if (prop is! AnimatingFrameworkProperty) throw new AnimationException('Attempted to animate property ${s.property} that is not type AnimatingFrameworkProperty.');
 
         //set the value to the proxy element, then read back it's css output
@@ -120,7 +122,6 @@ class _CssCompiler
       compiledCSS.add(sb.toString());
     });
 
-    Buckshot._buckshotCSS.innerHTML = compiledCSS.toString();
     anim._cachedAnimation = compiledCSS.toString();
   } 
   

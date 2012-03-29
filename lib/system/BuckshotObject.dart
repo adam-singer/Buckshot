@@ -30,7 +30,7 @@ class BuckshotObject extends HashableObject{
     _frameworkProperties = new Set<FrameworkProperty>();
   
   /// Factory method for creating derived BuckshotObjects.
-  BuckshotObject makeMe() => new BuckshotObject();  
+  abstract BuckshotObject makeMe();  
   
   /// Gets the stateBag [HashMap<String, Dynamic>] for the object.
   HashMap<String, Dynamic> get stateBag() => _stateBag;

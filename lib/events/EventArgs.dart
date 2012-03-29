@@ -18,6 +18,6 @@
 /**
 * Base class for parameters which are passed to the event handler. */
 class EventArgs extends BuckshotObject {
-  
+  BuckshotObject makeMe() => new EventArgs();
   String get type() => "EventArgs";
 }

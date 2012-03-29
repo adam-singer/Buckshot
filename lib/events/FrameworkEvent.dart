@@ -55,6 +55,9 @@ interface FrameworkEvent<T extends EventArgs>  default _FrameworkEventImplementa
 
 class _FrameworkEventImplementation<T extends EventArgs> extends BuckshotObject implements FrameworkEvent
 {
+  
+  BuckshotObject makeMe() => null;
+  
   final List<EventHandlerReference> _handlers;
   
   _FrameworkEventImplementation() : _handlers = new List<EventHandlerReference>();

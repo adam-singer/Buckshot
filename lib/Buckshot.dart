@@ -77,6 +77,9 @@
 #source('elements/grid/GridLayoutDefinition.dart');
 #source('elements/grid/GridLength.dart');
 #source('elements/CollectionPresenter.dart');
+#source('elements/actions/ActionBase.dart');
+#source('elements/actions/AnimationAction.dart');
+#source('elements/actions/SetPropertyAction.dart');
 
 #source('controls/TextBox.dart');
 #source('controls/control/Control.dart');
@@ -131,7 +134,6 @@
 #source('system/_VirtualContainer.dart');
 #source('system/HashableObject.dart');
 #source('system/_ContainerElement.dart');
-#source('system/FrameworkDebug.dart');
 #source('system/IValueConverter.dart');
 #source('system/_RootElement.dart');
 #source('system/DomHelpers.dart');

@@ -51,6 +51,20 @@ class PropertyTransition
 class FrameworkAnimation
 {
   
+  static void playAnimation(String name){
+    
+    AnimationResource anim = Buckshot._resourceRegistry['$name'];
+    
+    if (anim == null) return;
+    
+    if (anim._cachedAnimation == null){
+      _CssCompiler.compileAnimation(anim);
+    }
+    
+    Buckshot._buckshotCSS.innerHTML = '';
+    Buckshot._buckshotCSS.innerHTML = anim._cachedAnimation;
+  }
+  
   /// Low-level function that clears a CSS3 transition property for a given [AnimatingFrameworkProperty].
   static void clearPropertyTransition(AnimatingFrameworkProperty property){
     String transProp = _Dom.getXPCSS(property.sourceObject._component, 'transition');

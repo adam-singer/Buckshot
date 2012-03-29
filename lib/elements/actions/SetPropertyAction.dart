@@ -15,32 +15,14 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-/**
-* Base class for Grid row/column definition types.
-* 
-* ## See Also
-* * [ColumnDefinition]
-* * [RowDefinition]
-*/
-class GridLayoutDefinition extends BuckshotObject{
+class SetPropertyAction extends ActionBase
+{
   
-  int _adjustedLengthInternal = 0;
-  Node _htmlNode;
+  BuckshotObject makeMe() => new SetPropertyAction();
   
-  GridLength _value;
-  int _adjustedOffset = 0;
-  
-  set _adjustedLength(int value){
-    if (value < minLength) value = minLength;
-    if (value > maxLength) value = maxLength;
+  void onEventTrigger(){
     
-    _adjustedLengthInternal = value;
   }
-  int get _adjustedLength() => _adjustedLengthInternal;
-    
-  int maxLength = 32767; //why not? ;)
-  int minLength = 0;
   
-  BuckshotObject makeMe() => new GridLayoutDefinition();
-  String get _type() => "GridLayoutDefinition";
+  String get type() => "SetPropertyAction";
 }

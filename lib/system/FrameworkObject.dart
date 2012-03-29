@@ -123,7 +123,7 @@ class FrameworkObject extends BuckshotObject {
   /// Called by the framework to allow an element to construct it's HTML representation
   /// and assign to [component].
   void CreateElement(){
-    _component = _Dom.createByTag("div");
+    _component = _Dom.createByTag('div');
   }
   
   /// Called by the framework to request that an element update it's visual layout.
