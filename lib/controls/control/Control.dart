@@ -61,10 +61,10 @@ class Control extends FrameworkElement
     _visualTemplateApplied = true;
     
     if (!defaultControlTemplate.isEmpty()){
-      BuckshotSystem.defaultPresentationProvider.deserialize(defaultControlTemplate);
+      Buckshot.defaultPresentationProvider.deserialize(defaultControlTemplate);
     }
     
-    var t = BuckshotSystem.retrieveResource(this.templateName);
+    var t = Buckshot.retrieveResource(this.templateName);
     
     if (t == null){
       template = this;

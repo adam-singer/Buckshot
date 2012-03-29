@@ -70,7 +70,7 @@ class FrameworkObject extends BuckshotObject {
           }
           
           if (value != null){
-            BuckshotSystem.namedElements[value] = this;
+            Buckshot.namedElements[value] = this;
             if (_component != null) _component.attributes["ID"] = value;
           }
           
@@ -95,7 +95,7 @@ class FrameworkObject extends BuckshotObject {
   * Sets the value of a given AttachedFrameworkProperty for a given Element. */
   static void setAttachedValue(FrameworkElement element, AttachedFrameworkProperty property, Dynamic value)
   {
-    HashMap<FrameworkElement, Dynamic> aDepInfo = BuckshotSystem._attachedProperties[property];
+    HashMap<FrameworkElement, Dynamic> aDepInfo = Buckshot._attachedProperties[property];
 
     //no need to invoke if nothing has changed
     if (aDepInfo[element] == value) return;
@@ -115,7 +115,7 @@ class FrameworkObject extends BuckshotObject {
   static Dynamic getAttachedValue(FrameworkElement element, AttachedFrameworkProperty property){
       if (property == null) return null;
 
-      HashMap<FrameworkElement, Dynamic> aDepInfo = BuckshotSystem._attachedProperties[property];
+      HashMap<FrameworkElement, Dynamic> aDepInfo = Buckshot._attachedProperties[property];
       
       return (aDepInfo.containsKey(element)) ? aDepInfo[element] : null;
   }

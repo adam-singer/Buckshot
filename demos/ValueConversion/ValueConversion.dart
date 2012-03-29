@@ -11,14 +11,14 @@ StyleResources resources;
 
   void run() {
     //init LUCA UI
-    new BuckshotSystem();
+    new Buckshot();
     
     //instantiate style resources
     resources = new StyleResources();
     
-    //bind BuckshotSystem.visualRoot to window dimensions
-    new Binding(BuckshotSystem.windowWidthProperty, BuckshotSystem.visualRoot.widthProperty);
-    new Binding(BuckshotSystem.windowHeightProperty, BuckshotSystem.visualRoot.heightProperty);
+    //bind Buckshot.visualRoot to window dimensions
+    new Binding(Buckshot.windowWidthProperty, Buckshot.visualRoot.widthProperty);
+    new Binding(Buckshot.windowHeightProperty, Buckshot.visualRoot.heightProperty);
     
     //make the mainGrid and set it's style
     Grid mainGrid = new Grid();
@@ -49,7 +49,7 @@ StyleResources resources;
     
     generateContent(contentGrid);
     
-    BuckshotSystem.renderRaw(mainGrid);
+    Buckshot.renderRaw(mainGrid);
   }
   
   void generateContent(Grid contentGrid){

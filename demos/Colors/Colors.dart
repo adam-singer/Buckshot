@@ -18,7 +18,7 @@ class ColorsDemo {
   
   void run() {
     //init Buckshot
-    new BuckshotSystem();
+    new Buckshot();
 
     resources = new StyleResources();
     
@@ -28,9 +28,9 @@ class ColorsDemo {
     num rows = (colors.length / 14).ceil();
         
     //since we know this app owns the entire browser window space...
-    //bind BuckshotSystem.visualRoot to window dimensions
-    new Binding(BuckshotSystem.windowWidthProperty, BuckshotSystem.visualRoot.widthProperty);
-    new Binding(BuckshotSystem.windowHeightProperty, BuckshotSystem.visualRoot.heightProperty);
+    //bind Buckshot.visualRoot to window dimensions
+    new Binding(Buckshot.windowWidthProperty, Buckshot.visualRoot.widthProperty);
+    new Binding(Buckshot.windowHeightProperty, Buckshot.visualRoot.heightProperty);
     
     Grid mainGrid = new Grid();
     mainGrid.style = resources.mainGridStyle;
@@ -85,7 +85,7 @@ class ColorsDemo {
       }
     }
     
-    BuckshotSystem.renderRaw(mainGrid);
+    Buckshot.renderRaw(mainGrid);
   }
 
   Grid buildColorGrid(int columns, int rows)

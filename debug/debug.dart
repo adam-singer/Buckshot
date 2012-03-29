@@ -59,7 +59,7 @@ class Debug {
     
     //passing the view, which triggers rendering on the page. 
     //LucaSystem.rootView = new MainUIView();
-    BuckshotSystem.rootView = new GridDemoView.with(_vm);
+    Buckshot.rootView = new GridDemoView.with(_vm);
     //LucaSystem.rootView = new BorderDemoView();
     //LucaSystem.rootView = new StackPanelDebug();
         
@@ -68,7 +68,7 @@ class Debug {
 
 void main() {
   try{
-    new BuckshotSystem();
+    new Buckshot();
     }catch(FrameworkException e){
       print("Buckshot Framework initialization failed: ${e}");
     }

@@ -56,7 +56,7 @@ class ListBox extends Control implements IFrameworkContainer
     if (template == null)
       throw const FrameworkException('control template was not found.');
     
-    _presenter = BuckshotSystem.findByName("__buckshot_listbox_presenter__", template);
+    _presenter = Buckshot.findByName("__buckshot_listbox_presenter__", template);
     
     if (_presenter == null)
       throw const FrameworkException('element not found in control template');

@@ -42,10 +42,10 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
     //html parser converts 'image' to 'img', so convert it back.
     if (lowerTagName == "img") lowerTagName = "image";
 
-    if (!BuckshotSystem._objectRegistry.containsKey(lowerTagName))
+    if (!Buckshot._objectRegistry.containsKey(lowerTagName))
       throw new PresentationProviderException('Element "${lowerTagName}" not found in object registry.');
     
-    var newElement = BuckshotSystem._objectRegistry[lowerTagName].makeMe();
+    var newElement = Buckshot._objectRegistry[lowerTagName].makeMe();
     
     if (xmlElement.elements.length > 0){
       //process nodes
@@ -54,12 +54,12 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
         String elementLowerTagName = e.tagName.toLowerCase();
         if (elementLowerTagName == "img") elementLowerTagName = "image";
         
-        if (BuckshotSystem._objectRegistry.containsKey(elementLowerTagName)){
+        if (Buckshot._objectRegistry.containsKey(elementLowerTagName)){
           if (e.tagName.contains(".")){
             //attached property
-            if (BuckshotSystem._objectRegistry.containsKey(elementLowerTagName)){    
+            if (Buckshot._objectRegistry.containsKey(elementLowerTagName)){    
 
-              Function setAttachedPropertyFunction = BuckshotSystem._objectRegistry[elementLowerTagName];
+              Function setAttachedPropertyFunction = Buckshot._objectRegistry[elementLowerTagName];
               
               //no data binding for attached properties
               setAttachedPropertyFunction(newElement, Math.parseInt(e.text.trim()));
@@ -199,7 +199,7 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
         if (words.length != 2)
           throw const PresentationProviderException('Binding syntax incorrect.');
         
-        setValue(p, BuckshotSystem.retrieveResource(words[1]));
+        setValue(p, Buckshot.retrieveResource(words[1]));
         break;
       case "template":
         if (words.length != 2)
@@ -233,21 +233,21 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
           var ne = words[1].substring(0, words[1].indexOf('.'));
           var prop = words[1].substring(words[1].indexOf('.') + 1);
           
-          if (!BuckshotSystem.namedElements.containsKey(ne))
+          if (!Buckshot.namedElements.containsKey(ne))
             throw new PresentationProviderException("Named element '${ne}' not found.");
           
           Binding b;
           try{
-            new Binding(BuckshotSystem.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);  
+            new Binding(Buckshot.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);  
           }catch (Exception err){
             //try to bind late...
-            FrameworkProperty theProperty = BuckshotSystem.namedElements[ne].resolveFirstProperty(prop);
+            FrameworkProperty theProperty = Buckshot.namedElements[ne].resolveFirstProperty(prop);
             theProperty.propertyChanging + (_, __) {
               
               //unregister previous binding if one already exists.
               if (b != null) b.unregister();
               
-              b = new Binding(BuckshotSystem.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);
+              b = new Binding(Buckshot.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);
             }; 
           }        
           
@@ -270,7 +270,7 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
       throw const PresentationProviderException("Resource is missing a key identifier.");
     
     //add/replace resource at given key
-    BuckshotSystem.registerResource(resource);
+    Buckshot.registerResource(resource);
   }
   
   void _assignAttributeProperties(FrameworkObject element, Element xmlElement){
@@ -281,9 +281,9 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
 
       if (k.contains(".")){
         //attached property    
-        if (BuckshotSystem._objectRegistry.containsKey("$k")){    
+        if (Buckshot._objectRegistry.containsKey("$k")){    
           
-          Function setAttachedPropertyFunction = BuckshotSystem._objectRegistry["$k"];
+          Function setAttachedPropertyFunction = Buckshot._objectRegistry["$k"];
           
           setAttachedPropertyFunction(element, Math.parseInt(v));
         }

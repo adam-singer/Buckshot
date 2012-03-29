@@ -56,7 +56,7 @@ void main() {
   
   
 //  try{
-    new BuckshotSystem();
+    new Buckshot();
 //    }
 //    catch(FrameworkException e){
 //      window.alert("Buckshot Framework initialization failed: ${e}");

@@ -29,7 +29,7 @@ class InitializationTests extends TestGroupBase
   }
   
   void frameworkReadyTest(){
-    Expect.isNotNull(BuckshotSystem.visualRoot);
+    Expect.isNotNull(Buckshot.visualRoot);
   }
    
 

@@ -54,7 +54,7 @@ class _CssCompiler
       k.states.forEach((AnimationState s){
         if (!animHash.containsKey(s.target)){
           animHash[s.target] = new _CssAnimationObject();
-          animHash[s.target].concreteElement = BuckshotSystem.namedElements[s.target].makeMe();
+          animHash[s.target].concreteElement = Buckshot.namedElements[s.target].makeMe();
           animHash[s.target].css.add('@keyframes ${anim.key}${s.target} { ');
           if (animHash[s.target].concreteElement == null) throw const AnimationException('Unable to find target name in object registry.');
         }
@@ -120,7 +120,7 @@ class _CssCompiler
       compiledCSS.add(sb.toString());
     });
 
-    BuckshotSystem._buckshotCSS.innerHTML = compiledCSS.toString();
+    Buckshot._buckshotCSS.innerHTML = compiledCSS.toString();
     anim._cachedAnimation = compiledCSS.toString();
   } 
   

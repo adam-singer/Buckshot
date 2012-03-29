@@ -16,8 +16,8 @@
 //   limitations under the License.
 
 #import('../../lib/Buckshot.dart');
-#import('../../extensions/media/lucaui_extension_media.dart');
-#import('../../extensions/social/lucaui_extension_social.dart');
+#import('../../extensions/media/buckshot_extension_media.dart');
+#import('../../extensions/social/buckshot_extension_social.dart');
 #import('dart:html');
 #source('Views.dart');
 #source('DemoViewModel.dart');
@@ -26,7 +26,7 @@
 void main() { 
  // aTest();
   
-  new BuckshotSystem();
+  new Buckshot();
   
   Views views = new Views();
 
@@ -37,29 +37,29 @@ void main() {
 //  document.body.elements.add(svge);
   
   //register extensions
-  BuckshotSystem.registerElement(new YouTube());
-  BuckshotSystem.registerElement(new Hulu());
-  BuckshotSystem.registerElement(new Vimeo());
-  BuckshotSystem.registerElement(new FunnyOrDie());
-  BuckshotSystem.registerElement(new PlusOne());
+  Buckshot.registerElement(new YouTube());
+  Buckshot.registerElement(new Hulu());
+  Buckshot.registerElement(new Vimeo());
+  Buckshot.registerElement(new FunnyOrDie());
+  Buckshot.registerElement(new PlusOne());
   
   // initialize the presentation provider.  this will eventually be done by the framework
-  IPresentationFormatProvider p = BuckshotSystem.defaultPresentationProvider;
+  IPresentationFormatProvider p = Buckshot.defaultPresentationProvider;
     
   // create our main view and error view
   FrameworkObject o = p.deserialize(views.ui);
   FrameworkObject errorUI = p.deserialize(views.errorUI);
   
   // get references to all the ui interactives that we need    
-  TextBlock tbError = BuckshotSystem.namedElements["tbErrorMessage"];  
-  Border borderContent = BuckshotSystem.namedElements["borderContent"];
-  Button btnRefresh = BuckshotSystem.namedElements["btnRefresh"];
-  Button btnClear = BuckshotSystem.namedElements["btnClear"];
-  TextArea tbUserInput = BuckshotSystem.namedElements["tbUserInput"];
-  DropDownList ddlElements = BuckshotSystem.namedElements["ddlElements"];
-  DropDownList ddlControls = BuckshotSystem.namedElements["ddlControls"];
-  DropDownList ddlBinding = BuckshotSystem.namedElements["ddlBinding"];
-  DropDownList ddlMediaExtensions = BuckshotSystem.namedElements["ddlMediaExtensions"];  
+  TextBlock tbError = Buckshot.namedElements["tbErrorMessage"];  
+  Border borderContent = Buckshot.namedElements["borderContent"];
+  Button btnRefresh = Buckshot.namedElements["btnRefresh"];
+  Button btnClear = Buckshot.namedElements["btnClear"];
+  TextArea tbUserInput = Buckshot.namedElements["tbUserInput"];
+  DropDownList ddlElements = Buckshot.namedElements["ddlElements"];
+  DropDownList ddlControls = Buckshot.namedElements["ddlControls"];
+  DropDownList ddlBinding = Buckshot.namedElements["ddlBinding"];
+  DropDownList ddlMediaExtensions = Buckshot.namedElements["ddlMediaExtensions"];  
   
   // set a demo view model into the borderContent's datacontext
   borderContent.dataContext = new DemoViewModel();
@@ -202,7 +202,7 @@ void main() {
   ddlControls.selectionChanged + handleSelection;
     
   // render the main view
-  BuckshotSystem.renderRaw(o);
+  Buckshot.renderRaw(o);
 }
 
 

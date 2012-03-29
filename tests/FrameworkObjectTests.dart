@@ -26,40 +26,40 @@ class FrameworkObjectTests extends TestGroupBase {
   }
   
   // Tests that assignment to the name property of a FrameworkObject
-  // properly registers it with BuckshotSystem.namedElements
+  // properly registers it with Buckshot.namedElements
   void namePropertyRegistration(){
     var b = new Border();
     b.name = "hello";
     
-    Expect.isTrue(BuckshotSystem.namedElements.containsKey("hello"));
+    Expect.isTrue(Buckshot.namedElements.containsKey("hello"));
   }
   
   // Tests that renaming the name property of a FrameworkObject
-  // properly updates the registration in BuckshotSystem.namedElements
+  // properly updates the registration in Buckshot.namedElements
   void namePropertyRenaming(){
     var b = new Border();
     b.name = "hello";
     
-    Expect.isTrue(BuckshotSystem.namedElements.containsKey("hello"));
+    Expect.isTrue(Buckshot.namedElements.containsKey("hello"));
     
     b.name = "world";
     
-    Expect.isFalse(BuckshotSystem.namedElements.containsKey("hello"));
-    Expect.isTrue(BuckshotSystem.namedElements.containsKey("world"));
+    Expect.isFalse(Buckshot.namedElements.containsKey("hello"));
+    Expect.isTrue(Buckshot.namedElements.containsKey("world"));
     
   }
   
   // Tests that blanking the name property of a FrameworkObject
-  // will properly unregister it from BuckshotSystem.namedElements
+  // will properly unregister it from Buckshot.namedElements
   void namePropertyUnregister(){
     var b = new Border();
     b.name = "hello";
     
-    Expect.isTrue(BuckshotSystem.namedElements.containsKey("hello"));
+    Expect.isTrue(Buckshot.namedElements.containsKey("hello"));
     
     b.name = "";
     
-    Expect.isFalse(BuckshotSystem.namedElements.containsKey("hello"), 'hello should not exist');
-    Expect.isFalse(BuckshotSystem.namedElements.containsKey(""), 'blank should not exist');
+    Expect.isFalse(Buckshot.namedElements.containsKey("hello"), 'hello should not exist');
+    Expect.isFalse(Buckshot.namedElements.containsKey(""), 'blank should not exist');
   }
 }

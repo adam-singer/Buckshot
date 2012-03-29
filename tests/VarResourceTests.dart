@@ -40,7 +40,7 @@ class VarResourceTests extends TestGroupBase
     
     p.deserialize(t);
     
-    var result = BuckshotSystem.retrieveResource("contenttest");
+    var result = Buckshot.retrieveResource("contenttest");
     
     Expect.isTrue(result is TextBlock);
   }
@@ -56,9 +56,9 @@ class VarResourceTests extends TestGroupBase
 ''';
     p.deserialize(t);
     
-    Expect.equals("hello world!", BuckshotSystem.retrieveResource("test"));
-    Expect.equals("#007777", BuckshotSystem.retrieveResource("colortest"));
-    Expect.equals("150", BuckshotSystem.retrieveResource("numtest"));
-    Expect.equals("http://www.lucastudios.com/img/lucaui_logo_candidate2.png", BuckshotSystem.retrieveResource("urltest"));
+    Expect.equals("hello world!", Buckshot.retrieveResource("test"));
+    Expect.equals("#007777", Buckshot.retrieveResource("colortest"));
+    Expect.equals("150", Buckshot.retrieveResource("numtest"));
+    Expect.equals("http://www.lucastudios.com/img/lucaui_logo_candidate2.png", Buckshot.retrieveResource("urltest"));
   }
 }

@@ -5,6 +5,6 @@ class StringToFrameworkElementConverter implements IValueConverter
   Dynamic convert(Dynamic value, [Dynamic parameter]){
     if (!(value is String)) return value;
 
-    return (BuckshotSystem.namedElements.containsKey(value)) ? BuckshotSystem.namedElements[value] : null;
+    return (Buckshot.namedElements.containsKey(value)) ? Buckshot.namedElements[value] : null;
   }
 }

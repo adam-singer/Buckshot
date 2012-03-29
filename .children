@@ -1,11 +1,11 @@
-extensions/social/lucaui_extension_social.dart
 tests/tests.dart
 demos/DemoStyles/DemoStyles.dart
 demos/tryit/Tryit.dart
 demos/ValueConversion/ValueConversion.dart
+extensions/media/buckshot_extension_media.dart
 demos/Colors/Colors.dart
 demos/Life/GameOfLife.dart
 debug/debug.dart
-extensions/media/lucaui_extension_media.dart
 lib/Buckshot.dart
+extensions/social/buckshot_extension_social.dart
 demos/todo/todo.dart

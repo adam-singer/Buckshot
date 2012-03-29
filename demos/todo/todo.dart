@@ -11,9 +11,9 @@ class todo {
 
   void run() {
     //initialize the framework (I hope to do away with this step eventually)
-    new BuckshotSystem();
+    new Buckshot();
     
-    BuckshotSystem.rootView = new View();
+    Buckshot.rootView = new View();
     
   }
 
