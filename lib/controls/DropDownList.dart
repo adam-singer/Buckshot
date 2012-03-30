@@ -24,6 +24,7 @@ class DropDownList extends Control
   FrameworkProperty itemsProperty;
   FrameworkProperty itemsSourceProperty;
   FrameworkProperty selectedItemProperty;
+  FrameworkProperty selectedIndexProperty; //TODO implement this property
   
   FrameworkEvent<SelectedItemChangedEventArgs<DropDownListItem>> selectionChanged;
     

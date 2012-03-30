@@ -16,6 +16,9 @@
 //   limitations under the License.
 
 
+/**
+* Base class for event-driven Element actions.
+*/
 class ActionBase extends BuckshotObject {
   
   FrameworkProperty eventProperty;
@@ -82,6 +85,12 @@ class ActionBase extends BuckshotObject {
         break;
       case 'lostfocus':
         _ref[ee] = _source.lostFocus + (_, __) => onEventTrigger();
+        break;
+      case 'loaded':
+        _ref[ee] = _source.loaded + (_, __) => onEventTrigger();
+        break;
+      case 'unloaded':
+        _ref[ee] = _source.unloaded + (_,__) => onEventTrigger();
         break;
     }
   }

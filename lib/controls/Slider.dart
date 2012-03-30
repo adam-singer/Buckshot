@@ -36,11 +36,8 @@ class Slider extends Control
   void _initSliderEvents(){
     _component.on.change.add((e){
       if (value == _component.dynamic.value) return; //no change
-      
-      int oldValue = value;
       value = _component.dynamic.value;
-      
-      if (e.cancelable) e.cancelBubble = true;  
+      e.stopPropagation();
     });    
   }
   
@@ -58,7 +55,7 @@ class Slider extends Control
     });
     
     valueProperty = new FrameworkProperty(this, "value", (int v){
-      _component.attributes["value"] = v.toString();
+      _component.dynamic.value = v.toString();
     });
   }
   

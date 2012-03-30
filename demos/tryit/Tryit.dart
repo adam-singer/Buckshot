@@ -47,7 +47,7 @@ void main() {
   IPresentationFormatProvider p = Buckshot.defaultPresentationProvider;
     
   // create our main view and error view
-  FrameworkObject o = p.deserialize(views.ui);
+  FrameworkObject o = p.deserialize(document.query('#main').text);
   FrameworkObject errorUI = p.deserialize(views.errorUI);
   
   // get references to all the ui interactives that we need    
@@ -103,7 +103,7 @@ void main() {
   };
     
   void handleSelection(_, SelectedItemChangedEventArgs<DropDownListItem> args){
-    
+
     switch(args.selectedItem.value){
       case "helloworld":
         tbUserInput.text = views.helloWorldView;
@@ -130,8 +130,8 @@ void main() {
         borderContent.content = p.deserialize(views.sliderView);
         break;
       case "thispage":
-        tbUserInput.text = views.ui;
-        borderContent.content = p.deserialize(views.ui);
+        tbUserInput.text = document.query('#main').text;
+        borderContent.content = p.deserialize(tbUserInput.text);
         break;
       case "border":
         tbUserInput.text = views.borderView;

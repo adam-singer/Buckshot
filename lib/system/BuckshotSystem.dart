@@ -195,6 +195,7 @@ class Buckshot extends FrameworkObject {
     Buckshot.registerElement(new CollectionPresenter());
     Buckshot.registerElement(new AnimationAction());
     Buckshot.registerElement(new SetPropertyAction());
+    Buckshot.registerElement(new TogglePropertyAction());
     
     //resources
     Buckshot.registerElement(new ResourceCollection());

@@ -16,23 +16,26 @@
 //   limitations under the License.
 
 /**
-* Event-driven action that sets the property of a given element with a given value.
+* Event-driven action that alternates the value of a property as each event occurs.
 */
-class SetPropertyAction extends ActionBase
+class TogglePropertyAction extends ActionBase 
 {
   FrameworkProperty targetProperty;
   FrameworkProperty propertyProperty;
-  FrameworkProperty valueProperty;
+  FrameworkProperty firstValueProperty;
+  FrameworkProperty secondValueProperty;
   
+  Dynamic _currentValue;
   
-  SetPropertyAction(){
-    _initSetPropertyActionProperties();
+  TogglePropertyAction(){
+    _initTogglePropertyActionProperties();
   }
   
-  void _initSetPropertyActionProperties(){
+  void _initTogglePropertyActionProperties(){
     targetProperty = new FrameworkProperty(this, 'target', (_){});
     propertyProperty = new FrameworkProperty(this, 'property', (_){});
-    valueProperty = new FrameworkProperty(this, 'value', (_){});
+    firstValueProperty = new FrameworkProperty(this, 'firstValue', (_){});
+    secondValueProperty = new FrameworkProperty(this, 'secondValue', (_){});
   }
   
   String get target() => getValue(targetProperty);
@@ -41,15 +44,18 @@ class SetPropertyAction extends ActionBase
   String get property() => getValue(propertyProperty);
   set property(String v) => setValue(propertyProperty, v);
   
-  Dynamic get value() => getValue(valueProperty);
-  set value(Dynamic v) => setValue(valueProperty, v);
+  Dynamic get firstValue() => getValue(firstValueProperty);
+  set firstValue(Dynamic v) => setValue(firstValueProperty, v);
   
-  BuckshotObject makeMe() => new SetPropertyAction();
+  Dynamic get secondValue() => getValue(secondValueProperty);
+  set secondValue(Dynamic v) => setValue(secondValueProperty, v);
+  
+  BuckshotObject makeMe() => new TogglePropertyAction();
   
   void onEventTrigger(){
     
     //TODO throw?
-    if (target == null || property == null || value == null) return;
+    if (target == null || property == null || firstValue == null || secondValue == null) return;
     
     var el = Buckshot.namedElements[target];
 
@@ -59,8 +65,17 @@ class SetPropertyAction extends ActionBase
     
     if (prop == null) return;
     
-    setValue(prop, value);
+    if (_currentValue == null){
+      _currentValue = secondValue;
+      setValue(prop, secondValue);
+      return;
+    }
+    
+    _currentValue = (_currentValue == firstValue) ? secondValue : firstValue;
+    
+    setValue(prop, _currentValue);
+    
   }
   
-  String get type() => "SetPropertyAction";
+  String get type() => "TogglePropertyAction";
 }
