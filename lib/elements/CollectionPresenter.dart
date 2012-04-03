@@ -42,7 +42,7 @@
 *     </collectionpresenter>
 *
 * ## Try It Yourself
-* Select the "Collections" example on the LUCA UI Try It website: [Try LUCA UI](http://www.lucastudios.com/trylucaui) 
+* Select the "Collections" example on the Buckshot Sandbox: [Try Buckshot](http://www.lucastudios.com/trybuckshot) 
 */
 class CollectionPresenter extends FrameworkElement implements IFrameworkContainer
 {

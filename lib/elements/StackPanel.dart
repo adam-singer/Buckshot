@@ -16,11 +16,7 @@
 //   limitations under the License.
 
 /**
-* Provides a container that stacks child elements vertically or horizontally.
-* See:
-* * [Border]
-* * [Grid]
-* * [LayoutCanvas] */
+* Provides a container that stacks child elements vertically or horizontally. */
 class StackPanel extends Panel
 {
   FrameworkProperty orientationProperty;

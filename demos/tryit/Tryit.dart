@@ -24,17 +24,10 @@
 #source('DemoModel.dart');
 
 void main() { 
- // aTest();
   
   new Buckshot();
   
   Views views = new Views();
-
-//  SVGSVGElement svge = new SVGSVGElement();
-//  SVGCircleElement se = new SVGElement.tag('circle');
-//  se.attributes = {'fill':'red', 'r':50, 'cx':50, 'cy':50};
-//  svge.elements.add(se);
-//  document.body.elements.add(svge);
   
   //register extensions
   Buckshot.registerElement(new YouTube());

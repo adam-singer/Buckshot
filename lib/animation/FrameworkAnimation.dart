@@ -156,11 +156,11 @@ class FrameworkAnimation
 }
 
 
-aTest(){
-  document.head.elements.add(new Element.html('<style id="__BuckshotCSS__"></style>'));
-  StyleElement test = document.head.query('#__BuckshotStyle__');
-  test.innerHTML = ".luca_ui_textblock {font-size:10px;}";
-  //document.head.elements.add(new Element.html('<style>.luca_ui_textblock {font-size:10px;}</style>'));
-   //new CSSStyleDeclaration.css(".luca_ui_textblock {font-size:30px}");
-}
+//aTest(){
+//  document.head.elements.add(new Element.html('<style id="__BuckshotCSS__"></style>'));
+//  StyleElement test = document.head.query('#__BuckshotStyle__');
+//  test.innerHTML = ".luca_ui_textblock {font-size:10px;}";
+//  //document.head.elements.add(new Element.html('<style>.luca_ui_textblock {font-size:10px;}</style>'));
+//   //new CSSStyleDeclaration.css(".luca_ui_textblock {font-size:30px}");
+//}
 

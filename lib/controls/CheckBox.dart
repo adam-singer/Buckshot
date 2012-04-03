@@ -21,7 +21,7 @@
 * ## Lucaxml Usage Example:
 *     <checkbox value="1" groupname="group1"></checkbox>
 */
-class CheckBox extends FrameworkElement
+class CheckBox extends Control
 {
   /// Represents the value of the checkbox.
   FrameworkProperty valueProperty;

@@ -131,7 +131,7 @@ class Buckshot extends FrameworkObject {
     _registerCoreElements();
     
     // load in control template resources for core controls
-    defaultPresentationProvider.deserialize(Globals._controlTemplates);
+    //defaultPresentationProvider.deserialize(Globals._controlTemplates);
     
     // now register controls that may depend on control templates for visuals
     _registerCoreControls();

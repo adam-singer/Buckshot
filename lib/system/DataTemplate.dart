@@ -15,7 +15,6 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-
 /**
 * DataTemplate provides a dynamic way to declare a group of [FrameworkProperty]'s
 * at runtime.  This is useful for scenarios where you want to quickly work up
@@ -25,8 +24,8 @@
 * declarative Lucaxml files.
 *
 * ## See Also
-* * Select the "Collections" example on the LUCA UI Try It website: [Try LUCA UI](http://www.lucastudios.com/trylucaui)
-* * [Example view model that uses DataTemplate](https://github.com/LUCA-Studios-LLC/LUCA-UI-Framework-for-Dart/blob/master/demos/tryit/DemoViewModel.dart)
+* * Select the "Collections" example on the Buckshot Online Sandbox: [Try Buckshot](http://www.lucastudios.com/trybuckshot)
+* * [Example view model that uses DataTemplate](https://github.com/prujohn/Buckshot/blob/master/demos/tryit/DemoViewModel.dart)
 */
 class DataTemplate extends BuckshotObject{
   final HashMap<String, FrameworkProperty> _properties;
