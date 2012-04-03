@@ -7,6 +7,7 @@ Buckshot is a UI Framework for modern web applications. It is written in Google 
 If you've worked with .net WPF or Silverlight then this framework will feel very familiar to you.
 
 ## Getting Started
+* [API Reference](http://www.lucastudios.com/trybuckshot/docs/)
 * [Wiki Documentation](https://github.com/prujohn/Buckshot/wiki/_pages)
 * [Developers: How To Contribute](https://github.com/prujohn/Buckshot/wiki/How-To-Contribute)
 
