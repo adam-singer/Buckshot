@@ -21,8 +21,7 @@ class FrameworkObjectTests extends TestGroupBase {
     this.testGroupName = "FrameworkObject Tests";
     
     testList["name property registration"] = namePropertyRegistration;
-    testList["name property renaming"] = namePropertyRenaming;
-    testList["name property unregister"] = namePropertyUnregister;
+    //TODO test for throws on attempts to assign name more than once.
   }
   
   // Tests that assignment to the name property of a FrameworkObject
@@ -34,32 +33,4 @@ class FrameworkObjectTests extends TestGroupBase {
     Expect.isTrue(Buckshot.namedElements.containsKey("hello"));
   }
   
-  // Tests that renaming the name property of a FrameworkObject
-  // properly updates the registration in Buckshot.namedElements
-  void namePropertyRenaming(){
-    var b = new Border();
-    b.name = "hello";
-    
-    Expect.isTrue(Buckshot.namedElements.containsKey("hello"));
-    
-    b.name = "world";
-    
-    Expect.isFalse(Buckshot.namedElements.containsKey("hello"));
-    Expect.isTrue(Buckshot.namedElements.containsKey("world"));
-    
-  }
-  
-  // Tests that blanking the name property of a FrameworkObject
-  // will properly unregister it from Buckshot.namedElements
-  void namePropertyUnregister(){
-    var b = new Border();
-    b.name = "hello";
-    
-    Expect.isTrue(Buckshot.namedElements.containsKey("hello"));
-    
-    b.name = "";
-    
-    Expect.isFalse(Buckshot.namedElements.containsKey("hello"), 'hello should not exist');
-    Expect.isFalse(Buckshot.namedElements.containsKey(""), 'blank should not exist');
-  }
 }

@@ -34,8 +34,8 @@ class BorderDemoView implements IView
     //rootBorder.cornerRadius = 7;
     
     //bind the window width to the Border's width
-    //new Binding(LucaSystem.windowWidthProperty, rootBorder.widthProperty);
-    //new Binding(LucaSystem.windowHeightProperty, rootBorder.heightProperty);
+    //new Binding(Buckshot.windowWidthProperty, rootBorder.widthProperty);
+    //new Binding(Buckshot.windowHeightProperty, rootBorder.heightProperty);
         
     TextBlock tb = new TextBlock();
     tb.margin = new Thickness(10);

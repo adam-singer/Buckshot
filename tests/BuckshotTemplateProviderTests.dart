@@ -23,7 +23,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
   BuckshotTemplateProviderTests() : p = new BuckshotTemplateProvider() {}
   
   registerTests(){
-    this.testGroupName = "LucaxmlPresentationProvider Tests";
+    this.testGroupName = "Buckshot XML Tests";
     
     testList["registry lookup not found throws"] = registryLookupNotFoundThrows;
     testList["core elements"] = coreElements;
@@ -105,7 +105,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
     
     Expect.throws(
     ()=> p.deserialize(t),
-    (err) => (err is PresentationProviderException && err.message.startsWith("Expected container context to be property")));
+    (err) => (err is PresentationProviderException));
   }
   
   
@@ -114,7 +114,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
     
     Expect.throws(
     ()=> p.deserialize(t),
-    (err) => (err is PresentationProviderException && err.message.startsWith("Text node found in element")));
+    (err) => (err is PresentationProviderException));
   }
     
   void invalidPropertyNodeThrows(){
@@ -130,7 +130,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
     
     Expect.throws(
     ()=> p.deserialize(t),
-    (err) => (err is PresentationProviderException && err.message.startsWith("Attempted to add element to another"))
+    (err) => (err is PresentationProviderException)
     );
   }
   

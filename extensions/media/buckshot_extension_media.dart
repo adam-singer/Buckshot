@@ -24,4 +24,4 @@
 #source('Vimeo.dart');
 #source('FunnyOrDie.dart');
 
-/* Video and Audio Extensions for LUCA UI Framework */ 
+/* Video and Audio Extensions for Buckshot Framework */ 

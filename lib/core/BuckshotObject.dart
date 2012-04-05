@@ -37,7 +37,7 @@ class BuckshotObject extends HashableObject{
   
   /// Gets a boolean value indicating whether the given object
   /// is a container or not.
-  bool get isContainer() => false;  
+  bool get isContainer() => this is IFrameworkContainer; 
   
   /// Returns a boolean value indicting whether the object contains
   /// a [FrameworkProperty] by the given friendly [propertyName].

@@ -19,7 +19,7 @@
 * Implements an [Exception] object for [IPresentationFormatProvider] operations.
 *
 * ## See Also
-* * [LucaxmlPresentationProvider]
+* * [BuckshotTemplateProvider]
 */
 class PresentationProviderException extends ExceptionBase
 {

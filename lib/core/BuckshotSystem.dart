@@ -83,7 +83,7 @@ class Buckshot extends FrameworkObject {
       throw new FrameworkException("Unable to locate required root element (must be <div id='$rootID' />)");
     
     if (Buckshot._domRootElement.tagName != "DIV")
-      throw new FrameworkException("Root element for LUCA UI must be a <div>. Element given was a <${Buckshot._domRootElement.tagName.toLowerCase()}>");
+      throw new FrameworkException("Root element for Buckshot must be a <div>. Element given was a <${Buckshot._domRootElement.tagName.toLowerCase()}>");
     
     document.head.elements.add(new Element.html('<style id="__BuckshotCSS__"></style>'));
     _buckshotCSS = document.head.query('#__BuckshotCSS__');

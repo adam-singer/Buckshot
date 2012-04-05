@@ -44,7 +44,7 @@ class PanelTests extends TestGroupBase
     
     Expect.throws(
     ()=> p2.children.add(tbTest),
-    (e)=> (e is FrameworkException) && (e.message == Panel.childHasParentExceptionMessage)
+    (e)=> (e is FrameworkException)
     );
   }
 }

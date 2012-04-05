@@ -15,22 +15,6 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-/**
-* Tests for the initialization phase of the framework */
-class InitializationTests extends TestGroupBase 
-{
-  
-  void registerTests()
-  {
-    testGroupName = "Initialization Tests";
-    
-    //reflection would sure be nice instead of this...
-    testList["Framework Ready"] = frameworkReadyTest;
-  }
-  
-  void frameworkReadyTest(){
-    Expect.isNotNull(Buckshot.visualRoot);
-  }
-   
-
+void frameworkReadyTest(){
+  Expect.isNotNull(Buckshot.visualRoot);
 }

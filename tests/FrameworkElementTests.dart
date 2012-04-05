@@ -164,69 +164,69 @@ class FrameworkElementTests extends TestGroupBase
     //check default values
     //these checks may seem trivial but we are also validating 
     //the underlying dependency property model for these properties
-    Expect.equals(fp.width, "auto");
-    Expect.equals(fp.height, "auto");
-    Expect.equals(fp.actualWidth, 0);
-    Expect.equals(fp.actualHeight, 0);
-    Expect.isNull(fp.maxWidth);
-    Expect.isNull(fp.maxHeight);
-    Expect.isNull(fp.minWidth);
-    Expect.isNull(fp.minHeight);
-    Expect.equals(fp.opacity, 1.0);
-    Expect.equals(fp.visibility, Visibility.visible);
-    Expect.equals(fp.margin.toString(), new Thickness(0).toString());
-    Expect.isNull(fp.cursor);
-    Expect.isNull(fp.tag);
-    Expect.isNull(fp.dataContext);
-    Expect.equals(fp.name, "");
-    Expect.equals(fp.horizontalAlignment, HorizontalAlignment.left);
-    Expect.equals(fp.verticalAlignment, VerticalAlignment.top);
+    Expect.equals(fp.width, "auto", 'width default');
+    Expect.equals(fp.height, "auto", 'height default');
+    Expect.equals(fp.actualWidth, 0, 'actual width default');
+    Expect.equals(fp.actualHeight, 0, 'actual height default');
+    Expect.isNull(fp.maxWidth, 'maxWidth default');
+    Expect.isNull(fp.maxHeight, 'maxHeight default');
+    Expect.isNull(fp.minWidth, 'minWidth default');
+    Expect.isNull(fp.minHeight, 'minHeight default');
+    Expect.equals(fp.opacity, 1.0, 'opacity default');
+    Expect.equals(fp.visibility, Visibility.visible, 'visibility default');
+    Expect.equals(fp.margin.toString(), new Thickness(0).toString(), 'margin default');
+    Expect.isNull(fp.cursor, 'cursor default');
+    Expect.isNull(fp.tag, 'tag default');
+    Expect.isNull(fp.dataContext, 'dataContext default');
+    Expect.equals(fp.name, null, 'name default');
+    Expect.equals(fp.horizontalAlignment, HorizontalAlignment.left, 'horizontalAlignment default');
+    Expect.equals(fp.verticalAlignment, VerticalAlignment.top, 'verticalAlignment default');
     
     //make sure property get/set is working correctly
     //(the underlying dependency property system actually)
     fp.width = 30;
-    Expect.equals(fp.width, 30);
+    Expect.equals(fp.width, 30, 'width assignment');
     
     fp.height = 40;
-    Expect.equals(fp.height, 40);
+    Expect.equals(fp.height, 40, 'height assignment');
     
     fp.maxWidth = 100;
-    Expect.equals(fp.maxWidth, 100);
+    Expect.equals(fp.maxWidth, 100, 'maxWidth assignment');
     
     fp.minWidth = 0;
-    Expect.equals(fp.minWidth, 0);
+    Expect.equals(fp.minWidth, 0, 'maxHeight assignment');
     
     fp.maxHeight = 100;
-    Expect.equals(fp.maxHeight, 100);
+    Expect.equals(fp.maxHeight, 100, 'maxHeight assignment');
     
     fp.minHeight = 0;
-    Expect.equals(fp.minHeight, 0);
+    Expect.equals(fp.minHeight, 0, 'maxWidth assignment');
     
     fp.opacity = .5;
-    Expect.equals(fp.opacity, .5);
+    Expect.equals(fp.opacity, .5, 'opacity assignment');
      
     fp.visibility = Visibility.collapsed;
-    Expect.equals(fp.visibility, Visibility.collapsed);
+    Expect.equals(fp.visibility, Visibility.collapsed, 'visibility assignment');
     
     fp.margin = new Thickness.specified(1,2,3,4);
-    Expect.equals(fp.margin.toString(), new Thickness.specified(1,2,3,4).toString());
+    Expect.equals(fp.margin.toString(), new Thickness.specified(1,2,3,4).toString(), 'margin assignment');
     
     fp.cursor = Cursors.Crosshair;
-    Expect.equals(fp.cursor, Cursors.Crosshair);
+    Expect.equals(fp.cursor, Cursors.Crosshair, 'cursor assignment');
     
     fp.tag = "hello world";
-    Expect.equals(fp.tag, "hello world");
+    Expect.equals(fp.tag, "hello world", 'tag assignment');
     
     fp.dataContext = "data context";
-    Expect.equals(fp.dataContext, "data context");
+    Expect.equals(fp.dataContext, "data context", 'data context assignment');
     
     fp.name = "control name";
-    Expect.equals(fp.name, "control name");
+    Expect.equals(fp.name, "control name", 'name assignment');
     
     fp.horizontalAlignment = HorizontalAlignment.right;
-    Expect.equals(fp.horizontalAlignment, HorizontalAlignment.right);
+    Expect.equals(fp.horizontalAlignment, HorizontalAlignment.right, 'horizontalAlignment assignment');
     
     fp.verticalAlignment = VerticalAlignment.bottom;
-    Expect.equals(fp.verticalAlignment, VerticalAlignment.bottom);
+    Expect.equals(fp.verticalAlignment, VerticalAlignment.bottom, 'verticalAlignment assignment');
   }
 }

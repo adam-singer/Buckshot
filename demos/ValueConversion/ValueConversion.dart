@@ -10,7 +10,7 @@ class ValueConversion {
 StyleResources resources;
 
   void run() {
-    //init LUCA UI
+    //init Buckshot
     new Buckshot();
     
     //instantiate style resources

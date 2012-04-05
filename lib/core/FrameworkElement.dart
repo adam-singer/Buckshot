@@ -338,6 +338,7 @@ class FrameworkElement extends FrameworkObject {
       (value){
         
         _component.style.maxWidth = '${value}px';
+
       }, converter:const StringToNumericConverter());
     
     cursorProperty = new FrameworkProperty(
@@ -692,44 +693,47 @@ class FrameworkElement extends FrameworkObject {
      
       if (!mouseUp.hasHandlers) return;
 
+      e.stopPropagation();
+      
       _component.rect.then((ElementRect r){
           int x = (e.pageX - r.offset.left);
           int y = (e.pageY - r.offset.top);
           MouseEventArgs args = new MouseEventArgs(x, y, e.pageX, e.pageY);
           mouseUp.invoke(this, args);
       });
-
-      e.stopPropagation();
     });
 
     _component.on.mouseDown.add((e){
      
       if (!mouseDown.hasHandlers) return;
-           
+
+      e.stopPropagation();
+      
         _component.rect.then((ElementRect r){
           int x = (e.pageX - r.offset.left);
           int y = (e.pageY - r.offset.top);
           mouseDown.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
         });
-        
-        e.stopPropagation();
     });
     
     _component.on.mouseMove.add((e) {
            
       if (!mouseMove.hasHandlers) return;
-                 
+
+      e.stopPropagation();
+      
       _component.rect.then((ElementRect r){
         int x = (e.pageX - r.offset.left);
         int y = (e.pageY - r.offset.top);
         mouseMove.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
       });
       
-      e.stopPropagation();
     });
     
     _component.on.click.add((e) {     
       if (!click.hasHandlers) return;
+
+      e.stopPropagation();
       // FIX
       _component.rect.then((ElementRect r){
         int x = (e.pageX - r.offset.left);
@@ -737,23 +741,22 @@ class FrameworkElement extends FrameworkObject {
         click.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
       });
       
-      e.stopPropagation();
     });
 
     _component.on.focus.add((e){
-      e.stopPropagation();
-      
       if (!gotFocus.hasHandlers) return;
       
+      e.stopPropagation();
+           
       gotFocus.invoke(this, new EventArgs());
       
     });
 
     _component.on.blur.add((e){
+      if (!lostFocus.hasHandlers) return;
+      
       e.stopPropagation();
       
-      if (!lostFocus.hasHandlers) return;
-
       lostFocus.invoke(this, new EventArgs());
       
     });
@@ -761,10 +764,10 @@ class FrameworkElement extends FrameworkObject {
     bool isMouseReallyOut = true;
     
     _component.on.mouseOver.add((e){
-       e.stopPropagation();
- 
        if (!mouseEnter.hasHandlers) return;
-                   
+
+       e.stopPropagation(); 
+       
       if (isMouseReallyOut){
         isMouseReallyOut = false;
         mouseEnter.invoke(this, new EventArgs());
@@ -772,24 +775,23 @@ class FrameworkElement extends FrameworkObject {
     });
 
     _component.on.mouseOut.add((e){
+      if (!mouseLeave.hasHandlers) return;
+      
       e.stopPropagation();
-            
+      
       _component.rect.then((ElementRect r){
         int x = e.pageX;
         int y = e.pageY;
 
-        //check if mouse really left
-
-        if (x > r.offset.left && x < r.offset.right && y> r.offset.top && y < r.offset.bottom){
+        var p = document.window.webkitConvertPointFromPageToNode(_component, new Point(x, y));
+        
+        if (p.x > -1 && p.y > -1 && p.x < r.bounding.width && p.y < r.bounding.height){
           isMouseReallyOut = false;
           return;
-        }else{
-          isMouseReallyOut = true;
         }
         
-        if (!mouseLeave.hasHandlers) return;
-        
-          mouseLeave.invoke(this, new EventArgs());
+        isMouseReallyOut = true;       
+        mouseLeave.invoke(this, new EventArgs());
       });
     });
   }

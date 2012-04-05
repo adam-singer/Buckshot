@@ -53,8 +53,9 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
       for(final e in xmlElement.elements){
         String elementLowerTagName = e.tagName.toLowerCase();
         if (elementLowerTagName == "img") elementLowerTagName = "image";
-        
+                
         if (Buckshot._objectRegistry.containsKey(elementLowerTagName)){
+
           if (e.tagName.contains(".")){
             //attached property
             if (Buckshot._objectRegistry.containsKey(elementLowerTagName)){    
@@ -66,8 +67,9 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
             }
           }else{
             //element or resource
+
             if (!newElement.isContainer) throw const PresentationProviderException("Attempted to add element to another element which is not a container.");
-                        
+            
             var cc = newElement._stateBag[FrameworkObject.CONTAINER_CONTEXT];
             
             FrameworkObject childElement = _getNextElement(e);

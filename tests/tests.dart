@@ -18,7 +18,7 @@
 #import('dart:html');
 
 // point this to wherever your copy of the dart source code is
-#import('../../../src/dart/client/testing/unittest/unittest_html.dart');
+#import('../../../src/lib/unittest/unittest_html.dart');
 
 #import('../lib/Buckshot.dart');
 
@@ -49,26 +49,38 @@
 #source('ResourceTests.dart');
 #source('VarResourceTests.dart');
 #source('FrameworkAnimationTests.dart');
-#source('DartBugs.dart');
 
 void main() {
-  final List<TestGroupBase> _tList = new List<TestGroupBase>();
+  final _tList = new List<TestGroupBase>();
   
-  
-//  try{
-    new Buckshot();
-//    }
-//    catch(FrameworkException e){
-//      window.alert("Buckshot Framework initialization failed: ${e}");
-//      return;
-//    }
-//    catch(Exception e, final stack){
-//      window.alert("General system exception: ${e} $stack");
-//      return;
-//    }
+  new Buckshot();
+     
+  group('Dart Bugs', (){
     
-  _tList.add(new DartBugs());  
-  _tList.add(new InitializationTests());
+    test('borderRadiusReturnsNull', (){
+      var e = new Element.tag('div');
+      e.style.borderRadius = '10px';
+
+      var result = e.style.borderRadius;
+      Expect.isNotNull(result);
+    });
+    
+    test('SVG elements returning css', (){
+      var se = new SVGSVGElement();
+      var r = new SVGElement.tag('rect');
+      se.elements.add(r);
+      
+      r.style.setProperty('fill','Red');
+      
+      var result = r.style.getPropertyValue('fill');
+      Expect.isNotNull(result);
+    });
+  });
+  
+  group('Initialization', (){
+    test('Buckshot Initialized', () => Expect.isNotNull(Buckshot.visualRoot));
+  });
+  
   _tList.add(new FrameworkFundamentalsTests());
   _tList.add(new FrameworkElementTests());
   _tList.add(new FrameworkPropertyTests());
@@ -103,8 +115,6 @@ void main() {
       });
     });
   });
-  
-
 }
 
 

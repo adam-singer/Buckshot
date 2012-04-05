@@ -1,10 +1,10 @@
-#library('LUCA UI Demo Style Templates');
+#library('Buckshot Demo Style Templates');
 #import('../../lib/Buckshot.dart');
 #import('dart:html');
 
 
 /**
-* Provides standard StyleTemplate's for LUCA UI Demo Projects */
+* Provides standard StyleTemplate's for Buckshot Demo Projects */
 interface StyleResources default _templateResources
 { 
   StyleResources();

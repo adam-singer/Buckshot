@@ -54,14 +54,14 @@ class Debug {
     
     FrameworkObject o = p.deserialize(test);
         
-    //LucaSystem.renderRaw(o);
+    //Buckshot.renderRaw(o);
     
     
     //passing the view, which triggers rendering on the page. 
-    //LucaSystem.rootView = new MainUIView();
+    //Buckshot.rootView = new MainUIView();
     Buckshot.rootView = new GridDemoView.with(_vm);
-    //LucaSystem.rootView = new BorderDemoView();
-    //LucaSystem.rootView = new StackPanelDebug();
+    //Buckshot.rootView = new BorderDemoView();
+    //Buckshot.rootView = new StackPanelDebug();
         
   }
 }

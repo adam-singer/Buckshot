@@ -21,7 +21,7 @@ class StringToGridLengthConverterTests extends TestGroupBase
   
   void registerTests()
   {
-    testGroupName = "String -> GridLength Converter Tests";
+    testGroupName = "String to GridLength Converter Tests";
     
     //reflection would sure be nice instead of this...
     testList["auto"] = testAuto;
