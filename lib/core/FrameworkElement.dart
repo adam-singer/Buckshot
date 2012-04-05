@@ -690,43 +690,31 @@ class FrameworkElement extends FrameworkObject {
   void _initFrameworkEvents(){
     
     _component.on.mouseUp.add((e){
-     
       if (!mouseUp.hasHandlers) return;
 
       e.stopPropagation();
       
-      _component.rect.then((ElementRect r){
-          int x = (e.pageX - r.offset.left);
-          int y = (e.pageY - r.offset.top);
-          MouseEventArgs args = new MouseEventArgs(x, y, e.pageX, e.pageY);
-          mouseUp.invoke(this, args);
-      });
+      var p = document.window.webkitConvertPointFromPageToNode(_component, new Point(e.pageX, e.pageY));
+      MouseEventArgs args = new MouseEventArgs(p.x, p.y, e.pageX, e.pageY);
+
     });
 
     _component.on.mouseDown.add((e){
-     
       if (!mouseDown.hasHandlers) return;
 
       e.stopPropagation();
       
-        _component.rect.then((ElementRect r){
-          int x = (e.pageX - r.offset.left);
-          int y = (e.pageY - r.offset.top);
-          mouseDown.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
-        });
+      var p = document.window.webkitConvertPointFromPageToNode(_component, new Point(e.pageX, e.pageY));
+      mouseDown.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
     });
     
     _component.on.mouseMove.add((e) {
-           
       if (!mouseMove.hasHandlers) return;
 
       e.stopPropagation();
       
-      _component.rect.then((ElementRect r){
-        int x = (e.pageX - r.offset.left);
-        int y = (e.pageY - r.offset.top);
-        mouseMove.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
-      });
+      var p = document.window.webkitConvertPointFromPageToNode(_component, new Point(e.pageX, e.pageY));
+      mouseMove.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
       
     });
     
@@ -734,12 +722,9 @@ class FrameworkElement extends FrameworkObject {
       if (!click.hasHandlers) return;
 
       e.stopPropagation();
-      // FIX
-      _component.rect.then((ElementRect r){
-        int x = (e.pageX - r.offset.left);
-        int y = (e.pageY - r.offset.top);
-        click.invoke(this, new MouseEventArgs(x, y, e.pageX, e.pageY));
-      });
+      
+      var p = document.window.webkitConvertPointFromPageToNode(_component, new Point(e.pageX, e.pageY));
+      click.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
       
     });
 
@@ -768,11 +753,17 @@ class FrameworkElement extends FrameworkObject {
 
        e.stopPropagation(); 
        
-      if (isMouseReallyOut){
+      if (isMouseReallyOut && mouseLeave.hasHandlers){
         isMouseReallyOut = false;
         mouseEnter.invoke(this, new EventArgs());
+      }else if(!mouseLeave.hasHandlers){
+        //TODO add a temp handler for mouse out so the 
+        //logic works correctly when only the mouseenter
+        //event is subscribed to (corner case).
+        mouseEnter.invoke(this, new EventArgs());
       }
-    });
+
+     });
 
     _component.on.mouseOut.add((e){
       if (!mouseLeave.hasHandlers) return;
@@ -780,10 +771,8 @@ class FrameworkElement extends FrameworkObject {
       e.stopPropagation();
       
       _component.rect.then((ElementRect r){
-        int x = e.pageX;
-        int y = e.pageY;
-
-        var p = document.window.webkitConvertPointFromPageToNode(_component, new Point(x, y));
+ 
+        var p = document.window.webkitConvertPointFromPageToNode(_component, new Point(e.pageX, e.pageY));
         
         if (p.x > -1 && p.y > -1 && p.x < r.bounding.width && p.y < r.bounding.height){
           isMouseReallyOut = false;
