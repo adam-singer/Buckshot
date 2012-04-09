@@ -60,8 +60,6 @@ class DataTemplate extends BuckshotObject{
       addProperty(p, v);
     });
   }
-  
-  //TODO DataTemplate.fromJSON?
 
   /// Sets a property's value in the DataTemplate.
   void setV(String propertyName, Dynamic value) => setValue(_properties[propertyName], value);

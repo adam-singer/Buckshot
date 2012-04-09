@@ -54,12 +54,14 @@ class TogglePropertyAction extends ActionBase
   
   void onEventTrigger(){
     
-    //TODO throw?
-    if (target == null || property == null || firstValue == null || secondValue == null) return;
+    if (target == null || property == null || firstValue == null || secondValue == null)
+      throw const FrameworkException('Event trigger failed because one or more properties is not assigned.');
+      
     
     var el = Buckshot.namedElements[target];
 
-    if (el == null) return; //TODO throw?
+    if (el == null)
+      throw const FrameworkException('Event trigger failed because target was not found.');
     
     var prop = el._getPropertyByName(property);
     

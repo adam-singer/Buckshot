@@ -20,9 +20,7 @@
 class StackPanel extends Panel
 {
   FrameworkProperty orientationProperty;
-  
-  //TODO convert to virtual child panels...?
-  
+    
   FrameworkObject makeMe() => new StackPanel();
   
   StackPanel()
@@ -37,15 +35,11 @@ class StackPanel extends Panel
       },
       Orientation.vertical, converter:new StringToOrientationConverter());
         
-    //TODO create override in Panel instead of dedicated event here
-    children.listChanged + _onListChanging;
   }
   
-  set orientation(Orientation value) => setValue(orientationProperty, value);
-  Orientation get orientation() => getValue(orientationProperty);
-  
-  void _onListChanging(Object _, ListChangedEventArgs args){
-
+  void onChildrenChanging(ListChangedEventArgs args){
+    super.onChildrenChanging(args);
+    
     if (!args.oldItems.isEmpty()){
       args.oldItems.forEach((FrameworkElement element){
         
@@ -62,6 +56,14 @@ class StackPanel extends Panel
      
       });
     }
+  }
+  
+  set orientation(Orientation value) => setValue(orientationProperty, value);
+  Orientation get orientation() => getValue(orientationProperty);
+  
+  void _onListChanging(Object _, ListChangedEventArgs args){
+
+
   }
   
  

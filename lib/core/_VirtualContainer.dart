@@ -56,7 +56,7 @@ class _VirtualContainer extends _ContainerElement
   int get innerWidth() => actualWidth;
   int get innerHeight() => actualHeight;
   
-  void calculateWidth(int value){
+  void calculateWidth(value){
     if (value == "auto"){
       _component.style.width = "auto";
       setValue(actualWidthProperty, innerWidth);
@@ -76,7 +76,7 @@ class _VirtualContainer extends _ContainerElement
     setValue(actualWidthProperty, value);
   }
   
-  void calculateHeight(int value){
+  void calculateHeight(value){
     if (value == "auto"){
       _component.style.height = "auto";
       setValue(actualHeightProperty, innerHeight);

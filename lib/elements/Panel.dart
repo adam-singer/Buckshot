@@ -49,20 +49,20 @@ class Panel extends _ContainerElement implements IFrameworkContainer {
         value.renderBrush(_component);
       }, converter:const StringToSolidColorBrushConverter());
         
-    children.listChanged + (_, args)
-    {
-      
-      args.oldItems.forEach((item){
-        item.parent = null;
-      });
-      
-      args.newItems.forEach((item){
-        if (item.parent != null){
-          throw const FrameworkException(childHasParentExceptionMessage);    
-        }
-        item.parent = this;
-      });
-    };
+    children.listChanged + (_, args) => onChildrenChanging(args);
+  }
+  
+  void onChildrenChanging(ListChangedEventArgs args){
+    args.oldItems.forEach((item){
+      item.parent = null;
+    });
+    
+    args.newItems.forEach((item){
+      if (item.parent != null){
+        throw const FrameworkException(childHasParentExceptionMessage);    
+      }
+      item.parent = this;
+    });
   }
   
   // IFrameworkContainer interface

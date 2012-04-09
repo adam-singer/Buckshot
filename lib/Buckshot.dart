@@ -113,6 +113,7 @@
 #source('converters/StringToRadialGradientDrawModeConverter.dart');
 #source('converters/StringToFrameworkElementConverter.dart');
 #source('converters/StringToVisibilityConverter.dart');
+#source('converters/StringToInputTypesConverter.dart');
 
 #source('resources/FrameworkResource.dart');
 #source('resources/ResourceCollection.dart');

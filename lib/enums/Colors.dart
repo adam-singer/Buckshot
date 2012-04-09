@@ -24,7 +24,8 @@ class Colors{
   
   //source: http://msdn.microsoft.com/en-us/library/system.windows.media.solidcolorbrush.Color.hex(VS.95).aspx
   
-  toString() => _hex;
+  String toString() => _hex;
+  
   String get name() => _name;
   
   static final AliceBlue = const Colors("#F0F8FF", "AliceBlue");

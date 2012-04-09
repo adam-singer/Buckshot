@@ -58,7 +58,6 @@ class ActionBase extends BuckshotObject {
     var ee = eventName.toLowerCase();
     
     //only allow one registration per event
-    //TODO should this constraint be in place?
     if (_ref.containsKey(ee)) return;
     
     switch(ee){

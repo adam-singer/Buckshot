@@ -35,12 +35,11 @@ class LayoutCanvas extends Panel
   LayoutCanvas(){
     _Dom.appendBuckshotClass(_component, "layoutcanvas");
     
-    //TODO override panel delegate instead
-    children.listChanged + _onListChanging;
   }
   
-  void _onListChanging(Object _, ListChangedEventArgs args){
-    
+  void onChildrenChanging(ListChangedEventArgs args){
+      super.onChildrenChanging(args);
+  
       args.oldItems.forEach((element){
         
         //restore the element's previous 'margin' state

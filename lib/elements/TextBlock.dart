@@ -56,7 +56,7 @@ class TextBlock extends FrameworkElement
     textProperty = new FrameworkProperty(
       this,
       "text",
-      (String value){
+      (value){
         _component.text = "$value";
       });
     

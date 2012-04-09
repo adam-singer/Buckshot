@@ -21,7 +21,6 @@
 class BuckshotObject extends HashableObject{
   final HashMap<String, Dynamic> _stateBag;
   final List<Binding> _bindings;
-  //TODO convert to HashMap?
   final Set<FrameworkProperty> _frameworkProperties;
   
   BuckshotObject():

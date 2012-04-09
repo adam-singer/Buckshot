@@ -126,7 +126,7 @@ void _onChildrenChanging(Object _, ListChangedEventArgs args){
 }
 
 num _totalLengthOf(List<GridLayoutDefinition> definitions){
-  int total = 0;
+  num total = 0;
  
   definitions.forEach((item){
     total += item._adjustedLength;
@@ -155,10 +155,10 @@ void _updateMeasurements(){
 }
 
 // Updates the column layout of the Grid based on given [gridWidth]
-void _updateColumnLayout(int gridMeasurement){
+void _updateColumnLayout(num gridMeasurement){
   if (!_isLoaded) return;
    
-  int gridWidth = gridMeasurement;
+  num gridWidth = gridMeasurement;
   
   if (columnDefinitions.length == 0){
     //handle case where no columnDefinitions are set
@@ -198,7 +198,7 @@ void _updateColumnLayout(int gridMeasurement){
                     && Grid.getColumnSpan(child.content) < 2;
           })
           .forEach((FrameworkElement child){
-            int childWidth = child.mostRecentMeasurement.client.width;
+            num childWidth = child.mostRecentMeasurement.client.width;
             if (childWidth > widestAuto) 
               widestAuto = childWidth;
           });
@@ -208,11 +208,11 @@ void _updateColumnLayout(int gridMeasurement){
       }
     });    
 
-    int availColWidth = gridWidth - totalPixelValue;
+    num availColWidth = gridWidth - totalPixelValue;
     
     //now determine the offsets for each column
-    int ii = 0;
-    int totalStarLength = 0;
+    num ii = 0;
+    num totalStarLength = 0;
     columnDefinitions.forEach((ColumnDefinition c){
       
       // if star type calculate adjusted length
@@ -227,7 +227,7 @@ void _updateColumnLayout(int gridMeasurement){
       }
       
       //calculate the offset for each column
-      int id = ii - 1;
+      num id = ii - 1;
       c._adjustedOffset = ii == 0 ? 0 : columnDefinitions[id]._adjustedOffset + columnDefinitions[id]._adjustedLength;
 
       ii++;
@@ -235,9 +235,9 @@ void _updateColumnLayout(int gridMeasurement){
     
     //set child wrappers to column offsets
     _internalChildren.forEach((child){
-      int colIndex = Grid.getColumn(child.content);
+      num colIndex = Grid.getColumn(child.content);
            
-      int childColumnSpan = Grid.getColumnSpan(child.content);
+      num childColumnSpan = Grid.getColumnSpan(child.content);
       child.margin = new Thickness.specified(child.margin.top, 0, 0, columnDefinitions[colIndex]._adjustedOffset);
       
       if (childColumnSpan > 1){
@@ -252,7 +252,7 @@ void _updateColumnLayout(int gridMeasurement){
 }  
 
 // Updates the row layout of the Grid based on the given [gridHeight]
-void _updateRowLayout(int gridHeight){
+void _updateRowLayout(num gridHeight){
   
   if (!_isLoaded) return;
 
@@ -268,8 +268,8 @@ void _updateRowLayout(int gridHeight){
     return;
   }
 
-  int totalPixelValue = 0;
-  int totalStarValue = 0;   
+  num totalPixelValue = 0;
+  num totalStarValue = 0;   
   RowDefinition lastStar = null;
   
   //initialize values for rows
@@ -293,7 +293,7 @@ void _updateRowLayout(int gridHeight){
                 && Grid.getRowSpan(child.content) < 2;
         })
         .forEach((_GridCell child){
-          int childHeight = child._getHeight();
+          num childHeight = child._getHeight();
           if (childHeight > widestAuto) 
             widestAuto = childHeight;
         });
@@ -303,9 +303,9 @@ void _updateRowLayout(int gridHeight){
     }
   });
   
-  int availRowHeight = gridHeight - totalPixelValue;
-  int ii = 0;
-  int totalStarLength = 0;
+  num availRowHeight = gridHeight - totalPixelValue;
+  num ii = 0;
+  num totalStarLength = 0;
   rowDefinitions.forEach((RowDefinition c){
     
     if (c.height.gridUnitType == GridUnitType.star){
@@ -318,15 +318,15 @@ void _updateRowLayout(int gridHeight){
     }
     
     //calculate the offset
-    int id = ii - 1;
+    num id = ii - 1;
     c._adjustedOffset = ii == 0 ? 0 : (rowDefinitions[id]._adjustedOffset + rowDefinitions[id]._adjustedLength);      
     ii++;
   });    
   
   //assign child wrappers to row offsets
   _internalChildren.forEach((child){
-    int rowIndex = Grid.getRow(child.content);
-    int childRowSpan = Grid.getRowSpan(child.content);
+    num rowIndex = Grid.getRow(child.content);
+    num childRowSpan = Grid.getRowSpan(child.content);
     child.margin = new Thickness.specified(rowDefinitions[rowIndex]._adjustedOffset, 0, 0, child.margin.left);
 
     if (childRowSpan > 1){
@@ -351,13 +351,13 @@ void _updateRowLayout(int gridHeight){
 /**
 * Attaches a [column] value to the given [element].
 * This will be used later by Grid to layout the element at the correct location. */
-static void setColumn(FrameworkElement element, int column){
+static void setColumn(FrameworkElement element, num column){
   if (element == null) return;
   
   if (column < 0) column = 0;
   
   if (Grid.columnProperty == null){
-    Grid.columnProperty = new AttachedFrameworkProperty("column", (FrameworkElement e, int value){     
+    Grid.columnProperty = new AttachedFrameworkProperty("column", (FrameworkElement e, num value){     
     });
   }
   
@@ -365,7 +365,7 @@ static void setColumn(FrameworkElement element, int column){
 }
 
 
-static int getColumn(FrameworkElement element){
+static num getColumn(FrameworkElement element){
   if (element == null) return 0;
   
   var value = getAttachedValue(element, Grid.columnProperty);
@@ -376,13 +376,13 @@ static int getColumn(FrameworkElement element){
   return getAttachedValue(element, columnProperty);
 }
 
-static void setRow(FrameworkElement element, int row){
+static void setRow(FrameworkElement element, num row){
   if (element == null) return;
   
   if (row < 0) row = 0;
   
   if (Grid.rowProperty == null){
-    Grid.rowProperty = new AttachedFrameworkProperty("row", (FrameworkElement e, int value){
+    Grid.rowProperty = new AttachedFrameworkProperty("row", (FrameworkElement e, num value){
       
     });
   }
@@ -390,7 +390,7 @@ static void setRow(FrameworkElement element, int row){
   setAttachedValue(element, rowProperty, row);
 }
 
-static int getRow(FrameworkElement element){
+static num getRow(FrameworkElement element){
   if (element == null) return 0;
   
   var value = getAttachedValue(element, Grid.rowProperty);
@@ -401,13 +401,13 @@ static int getRow(FrameworkElement element){
   return getAttachedValue(element, rowProperty);
 }
 
-static void setColumnSpan(FrameworkElement element, int columnSpan){
+static void setColumnSpan(FrameworkElement element, num columnSpan){
   if (element == null) return;
   
   if (columnSpan < 0) columnSpan = 0;
 
   if (Grid.columnSpanProperty == null){
-    Grid.columnSpanProperty = new AttachedFrameworkProperty("columnSpan", (FrameworkElement e, int value){
+    Grid.columnSpanProperty = new AttachedFrameworkProperty("columnSpan", (FrameworkElement e, num value){
       
     });
   }
@@ -415,7 +415,7 @@ static void setColumnSpan(FrameworkElement element, int columnSpan){
   setAttachedValue(element, columnSpanProperty, columnSpan);
 }
 
-static int getColumnSpan(FrameworkElement element){
+static num getColumnSpan(FrameworkElement element){
   if (element == null) return 0;
 
   var value = getAttachedValue(element, Grid.columnSpanProperty);
@@ -426,13 +426,13 @@ static int getColumnSpan(FrameworkElement element){
   return getAttachedValue(element, Grid.columnSpanProperty);
 }
 
-static void setRowSpan(FrameworkElement element, int rowSpan){
+static void setRowSpan(FrameworkElement element, num rowSpan){
   if (element == null) return;
   
   if (rowSpan < 0) rowSpan = 0;
   
   if (Grid.rowSpanProperty == null){
-    Grid.rowSpanProperty = new AttachedFrameworkProperty("rowSpan", (FrameworkElement e, int value){
+    Grid.rowSpanProperty = new AttachedFrameworkProperty("rowSpan", (FrameworkElement e, num value){
       
     });
   }
@@ -440,7 +440,7 @@ static void setRowSpan(FrameworkElement element, int rowSpan){
   setAttachedValue(element, rowSpanProperty, rowSpan);
 }
 
-static int getRowSpan(FrameworkElement element){
+static num getRowSpan(FrameworkElement element){
   if (element == null) return 0;
   
   var value = getAttachedValue(element, Grid.rowSpanProperty);

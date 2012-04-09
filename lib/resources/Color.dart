@@ -44,7 +44,6 @@ class Color extends FrameworkResource
     value = "#${r.toRadixString(16)}${g.toRadixString(16)}${b.toRadixString(16)}";
   }
   
-  //TODO Color.fromHSV(...)
   /// Allows construction of the color from a pre-defined color from the [Colors] enumeration.
   Color.predefined(Colors predefinedColor){
     _initColorProperties();

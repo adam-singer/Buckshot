@@ -41,14 +41,14 @@ class Hulu extends FrameworkElement
   String get videoID() => getValue(videoIDProperty);
   set videoID(String value) => setValue(videoIDProperty, value);
   
-  void calculateWidth(int value){
+  void calculateWidth(value){
     super.calculateWidth(value);
     if (actualWidth == null) return;
     component.attributes["width"] = '${actualWidth.toString()}px';
     embed.attributes["width"] = '${actualWidth.toString()}px';
   }
   
-  void calculateHeight(int value){
+  void calculateHeight(value){
     super.calculateHeight(value);
     if (actualHeight == null) return;
     component.attributes["height"] = '${actualHeight.toString()}px';

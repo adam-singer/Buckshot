@@ -50,13 +50,13 @@ class TextBox extends Control
       _component.dynamic.value = value;
     },"");
     
-    inputTypeProperty = new FrameworkProperty(this, "inputType", (String value){
+    inputTypeProperty = new FrameworkProperty(this, "inputType", (InputTypes value){
       if (InputTypes._isValidInputType(value)){
-        _component.attributes["type"] = value;
+        _component.attributes["type"] = value.toString();
       }else{
         throw new FrameworkException("Invalid input '${value}' type passed to TextBox.inputType. Use InputTypes.{type} for safe assignment.");
       }
-    }, InputTypes.text);
+    }, InputTypes.text, converter:const StringToInputTypesConverter());
   }
   
   
@@ -92,8 +92,8 @@ class TextBox extends Control
   String get text() => getValue(textProperty);
   set text(String value) => setValue(textProperty, value);
   
-  String get inputType() => getValue(inputTypeProperty);
-  set inputType(String value) => setValue(inputTypeProperty, value);
+  InputTypes get inputType() => getValue(inputTypeProperty);
+  set inputType(InputTypes value) => setValue(inputTypeProperty, value);
   
   set placeholder(String value) => setValue(placeholderProperty, value);
   String get placeholder() => getValue(placeholderProperty);
@@ -107,24 +107,29 @@ class TextBox extends Control
   String get type() => "TextBox";
 }
 
-//TODO convert to Nystrom enum pattern
 class InputTypes{
-  static final String password = "password";
-  static final String email = "email";
-  static final String date = "date";
-  static final String datetime = "datetime";
-  static final String month = "month";
-  static final String search = "search";
-  static final String telephone = "tel";
-  static final String text = "text";
-  static final String time = "time";
-  static final String url = "url";
-  static final String week = "week";
-  static final List<String> _validInputTypes = const <String>[password, email, date, datetime, month, search, telephone, text, time, url, week];
+  final String _str;
+  const InputTypes(this._str);
   
-  static bool _isValidInputType(String candidate){
+  static final password = const InputTypes("password");
+  static final email = const InputTypes("email");
+  static final date = const InputTypes("date");
+  static final datetime = const InputTypes("datetime");
+  static final month = const InputTypes("month");
+  static final search = const InputTypes("search");
+  static final telephone = const InputTypes("tel");
+  static final text = const InputTypes("text");
+  static final time = const InputTypes("time");
+  static final url = const InputTypes("url");
+  static final week = const InputTypes("week");
+  
+  static final List<InputTypes> _validInputTypes = const <InputTypes>[password, email, date, datetime, month, search, telephone, text, time, url, week];
+  
+  static bool _isValidInputType(InputTypes candidate){
     return _validInputTypes.indexOf(candidate, 0) > -1;
   }
+  
+  String toString() => _str;
 }
 
 

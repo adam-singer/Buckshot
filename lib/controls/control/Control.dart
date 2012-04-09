@@ -102,10 +102,10 @@ class Control extends FrameworkElement
     
     tb.forEach((FrameworkProperty k, String v){
       var prop = this._getPropertyByName(v);
-      if (prop != null){
-        //TODO throw if null
-        new Binding(prop, k);
+      if (prop == null){
+        throw const FrameworkException('Attempted binding to null property in Control.');
       }
+        new Binding(prop, k);
     });
   }
   

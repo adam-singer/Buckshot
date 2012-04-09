@@ -34,10 +34,10 @@ class _GridCell extends _VirtualContainer
     _parent = value;
   }
   
-  int _getHeight(){
+  num _getHeight(){
     if (content == null) return 0;
     
-    int h = this.mostRecentMeasurement.bounding.height; // this._rawElement.getBoundingClientRect().height;
+    num h = this.mostRecentMeasurement.bounding.height; // this._rawElement.getBoundingClientRect().height;
         
     if (content.verticalAlignment != VerticalAlignment.stretch) return h;
 

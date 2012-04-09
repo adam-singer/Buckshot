@@ -36,7 +36,7 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
     return _getNextElement(e);
   }
   
-  FrameworkObject _getNextElement(Element xmlElement){
+  BuckshotObject _getNextElement(Element xmlElement){
     String lowerTagName = xmlElement.tagName.toLowerCase();
     
     //html parser converts 'image' to 'img', so convert it back.
@@ -135,9 +135,7 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
     }
        
     _assignAttributeProperties(newElement, xmlElement);
-    
-    //TODO defer processing AnimationResources until remainder of parsing is complete?
-    
+        
     if (newElement is FrameworkResource){
       newElement.rawData = xmlElement.outerHTML;
       _processResource(newElement);
@@ -275,7 +273,7 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
     Buckshot.registerResource(resource);
   }
   
-  void _assignAttributeProperties(FrameworkObject element, Element xmlElement){
+  void _assignAttributeProperties(BuckshotObject element, Element xmlElement){
 
     if (xmlElement.attributes.length == 0) return;
     

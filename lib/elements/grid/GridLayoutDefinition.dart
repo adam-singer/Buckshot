@@ -24,22 +24,22 @@
 */
 class GridLayoutDefinition extends BuckshotObject{
   
-  int _adjustedLengthInternal = 0;
+  num _adjustedLengthInternal = 0;
   Node _htmlNode;
   
   GridLength _value;
-  int _adjustedOffset = 0;
+  num _adjustedOffset = 0;
   
-  set _adjustedLength(int value){
+  set _adjustedLength(num value){
     if (value < minLength) value = minLength;
     if (value > maxLength) value = maxLength;
     
     _adjustedLengthInternal = value;
   }
-  int get _adjustedLength() => _adjustedLengthInternal;
+  num get _adjustedLength() => _adjustedLengthInternal;
     
-  int maxLength = 32767; //why not? ;)
-  int minLength = 0;
+  num maxLength = 32767; //why not? ;)
+  num minLength = 0;
   
   BuckshotObject makeMe() => new GridLayoutDefinition();
   String get _type() => "GridLayoutDefinition";

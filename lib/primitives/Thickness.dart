@@ -18,7 +18,7 @@
 /**
 * Describes the thickness of a frame around a rectangle. */
 class Thickness{
-  final int left, top, right, bottom;
+  final num left, top, right, bottom;
   
   Thickness(int uniformThickness) : 
     left = uniformThickness,

@@ -164,7 +164,7 @@ class Border extends _ContainerElement implements IFrameworkContainer
     }, 'overflow', false, converter:const StringToBooleanConverter());
   }
   
-  void _assignOverflowX(bool value){
+  void _assignOverflowX(value){
     if (value == true){
       this._vc._component.style.overflowX = "auto";
     }else{
@@ -172,7 +172,7 @@ class Border extends _ContainerElement implements IFrameworkContainer
     }
   }
   
-  void _assignOverflowY(bool value){
+  void _assignOverflowY(value){
     if (value == true){
       this._vc._component.style.overflowY = "auto";
     }else{
@@ -181,14 +181,14 @@ class Border extends _ContainerElement implements IFrameworkContainer
   }
   
   /// Calculates the [actualWidth] of the border with margin, border, and padding taken into account. ** For internal use by the framework only. **
-  void calculateWidth(int value){
+  void calculateWidth(value){
     super.calculateWidth(value);
     if (value == "auto") return;
     setValue(actualWidthProperty, value - (margin.left + margin.right + borderThickness.left + borderThickness.right + padding.left + padding.right));
   }
   
   /// Calculates the [actualHeight] of the border with margin, border, and padding taken into account.  ** For internal use by the framework only. **
-  void calculateHeight(int value){
+  void calculateHeight(value){
     super.calculateHeight(value);
     if (value == "auto") return;
     

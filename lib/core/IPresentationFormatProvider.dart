@@ -28,7 +28,6 @@ interface IPresentationFormatProvider extends Hashable{
   * Returns the file extension supported by the implementing class. */
   String get fileExtension();
   
-  //TODO support filestream?
   /**
   * Takes a string representation of elements in [fileData] and attempts to convert it to an object tree
   * using parsing rules from the implementing class. */

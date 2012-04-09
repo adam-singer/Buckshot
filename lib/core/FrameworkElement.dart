@@ -25,7 +25,6 @@ class FrameworkElement extends FrameworkObject {
   FrameworkElement _containerParent;
   FrameworkElement _parent;
   StyleTemplate _style;
-  final List<num> _transforms;
 
   /// Represents a map of [Binding]s that will be bound just before
   /// the element renders to the DOM.
@@ -93,19 +92,19 @@ class FrameworkElement extends FrameworkObject {
   
   //events
   /// Fires when the FrameworkElement is inserted into the DOM.
-  final FrameworkEvent<RoutedEventArgs> loaded;
+  final FrameworkEvent<EventArgs> loaded;
   /// Fires when the FrameworkElement is removed from the DOM.
-  final FrameworkEvent<RoutedEventArgs> unloaded;
+  final FrameworkEvent<EventArgs> unloaded;
   /// Fires when the DOM gives the FrameworkElement focus.
-  final FrameworkEvent<RoutedEventArgs> gotFocus;
+  final FrameworkEvent<EventArgs> gotFocus;
   /// Fires when the DOM removes focus from the FrameworkElement.
-  final FrameworkEvent<RoutedEventArgs> lostFocus;
+  final FrameworkEvent<EventArgs> lostFocus;
   /// Fires when the mouse enters the boundary of the FrameworkElement.
-  final FrameworkEvent<RoutedEventArgs> mouseEnter;
+  final FrameworkEvent<EventArgs> mouseEnter;
   /// Fires when the mouse leaves the boundary of the FrameworkElement.
-  final FrameworkEvent<RoutedEventArgs> mouseLeave;
+  final FrameworkEvent<EventArgs> mouseLeave;
   /// Fires when the FrameworkElement's size changes.
-  final FrameworkEvent<RoutedEventArgs> sizeChanged;
+  final FrameworkEvent<EventArgs> sizeChanged;
   /// Fires when a mouse click occurs on the FrameworkElement.
   final FrameworkEvent<MouseEventArgs> click;
   /// Fires when the mouse position changes over the FrameworkElement.
@@ -123,18 +122,17 @@ class FrameworkElement extends FrameworkObject {
   FrameworkElement() :
     lateBindings = new HashMap<FrameworkProperty, BindingData>(),
     _templateBindings = new HashMap<FrameworkProperty, String>(),
-    loaded = new FrameworkEvent<RoutedEventArgs>(),
-    unloaded = new FrameworkEvent<RoutedEventArgs>(),
+    loaded = new FrameworkEvent<EventArgs>(),
+    unloaded = new FrameworkEvent<EventArgs>(),
     click = new FrameworkEvent<MouseEventArgs>(),
-    gotFocus = new FrameworkEvent<RoutedEventArgs>(),
-    lostFocus = new FrameworkEvent<RoutedEventArgs>(),
-    mouseEnter = new FrameworkEvent<RoutedEventArgs>(),
-    mouseLeave = new FrameworkEvent<RoutedEventArgs>(),
-    sizeChanged = new FrameworkEvent<RoutedEventArgs>(),
+    gotFocus = new FrameworkEvent<EventArgs>(),
+    lostFocus = new FrameworkEvent<EventArgs>(),
+    mouseEnter = new FrameworkEvent<EventArgs>(),
+    mouseLeave = new FrameworkEvent<EventArgs>(),
+    sizeChanged = new FrameworkEvent<EventArgs>(),
     mouseMove = new FrameworkEvent<MouseEventArgs>(),
     mouseDown = new FrameworkEvent<MouseEventArgs>(),
     mouseUp = new FrameworkEvent<MouseEventArgs>(),
-    _transforms = [50, 50, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
     _transitionProperties = new HashMap<String, String>()
   {   
     _Dom.appendBuckshotClass(_component, "frameworkelement");
@@ -148,19 +146,18 @@ class FrameworkElement extends FrameworkObject {
     
     _initFrameworkEvents();
   }
-  
-  //TODO remove _transforms[] data structure and call getValue on each instead
-  static void doTransform(FrameworkElement e){
-    _Dom.setXPCSS(e._component, 'transform', 
-      '''translateX(${e._transforms[Transforms.translateX]}px) translateY(${e._transforms[Transforms.translateY]}px) translateZ(${e._transforms[Transforms.translateZ]}px)
-         scaleX(${e._transforms[Transforms.scaleX]}) scaleY(${e._transforms[Transforms.scaleY]}) scaleZ(${e._transforms[Transforms.scaleZ]}) 
-         rotateX(${e._transforms[Transforms.rotateX]}deg) rotateY(${e._transforms[Transforms.rotateY]}deg) rotateZ(${e._transforms[Transforms.rotateZ]}deg)
-      ''');
-  }
-  
+   
   
   void _initFrameworkProperties(){
 
+    void doTransform(FrameworkElement e){
+      _Dom.setXPCSS(e._component, 'transform', 
+        '''translateX(${getValue(translateXProperty)}px) translateY(${getValue(translateYProperty)}px) translateZ(${getValue(translateZProperty)}px)
+           scaleX(${getValue(scaleXProperty)}) scaleY(${getValue(scaleYProperty)}) scaleZ(${getValue(scaleZProperty)}) 
+           rotateX(${getValue(rotateXProperty)}deg) rotateY(${getValue(rotateYProperty)}deg) rotateZ(${getValue(rotateZProperty)}deg)
+        ''');
+    }
+    
     actionsProperty = new FrameworkProperty(this, 'actions', (ObservableList<ActionBase> aList){
       if (actionsProperty != null){
         throw const FrameworkException('FrameworkElement.actionsProperty collection can only be assigned once.');
@@ -184,63 +181,51 @@ class FrameworkElement extends FrameworkObject {
     },converter:const StringToNumericConverter());
     
     translateXProperty = new AnimatingFrameworkProperty(this, "translateX", (num value){
-      _transforms[Transforms.translateX] = value;
       doTransform(this);
     }, 'transform', converter:const StringToNumericConverter());
         
     translateYProperty = new AnimatingFrameworkProperty(this, "translateY", (num value){
-      _transforms[Transforms.translateY] = value;
       doTransform(this);
     }, 'transform', converter:const StringToNumericConverter());
     
     translateZProperty = new AnimatingFrameworkProperty(this, "translateZ", (num value){
-      _transforms[Transforms.translateZ] = value;
       doTransform(this);
     }, 'transform', converter:const StringToNumericConverter());
     
     scaleXProperty = new AnimatingFrameworkProperty(this, "scaleX", (num value){
-      _transforms[Transforms.scaleX] = value;
       doTransform(this);
     }, 'transform', converter:const StringToNumericConverter());
     
     scaleYProperty = new AnimatingFrameworkProperty(this, "scaleY", (num value){
-      _transforms[Transforms.scaleY] = value;
       doTransform(this);
     }, 'transform', converter:const StringToNumericConverter());
     
     scaleZProperty = new AnimatingFrameworkProperty(this, "scaleZ", (num value){
-      _transforms[Transforms.scaleZ] = value;
       doTransform(this);
     }, 'transform', converter:const StringToNumericConverter());
     
     rotateXProperty = new AnimatingFrameworkProperty(this, "rotateX", (num value){
-      _transforms[Transforms.rotateX] = value;
       doTransform(this);
     }, 'transform', converter:const StringToNumericConverter());
     
     rotateYProperty = new AnimatingFrameworkProperty(this, "rotateY", (num value){
-      _transforms[Transforms.rotateY] = value;
       doTransform(this);
     }, 'transform', converter:const StringToNumericConverter());
     
     rotateZProperty = new AnimatingFrameworkProperty(this, "rotateZ", (num value){
-      _transforms[Transforms.rotateZ] = value;
       doTransform(this);
     }, 'transform', converter:const StringToNumericConverter());
         
     transformOriginXProperty = new FrameworkProperty(this, "transformOriginX", (num value){
-      _transforms[Transforms.originX] = value;
-      _Dom.setXPCSS(_component, 'transform-origin', '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px');
+      _Dom.setXPCSS(_component, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
     }, converter:const StringToNumericConverter());
     
     transformOriginYProperty = new FrameworkProperty(this, "transformOriginY", (num value){
-      _transforms[Transforms.originY] = value;
-      _Dom.setXPCSS(_component, 'transform-origin', '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px');
+      _Dom.setXPCSS(_component, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
     }, converter:const StringToNumericConverter());
     
     transformOriginZProperty = new FrameworkProperty(this, "transformOriginZ", (num value){
-      _transforms[Transforms.originZ] = value;
-      _Dom.setXPCSS(_component, 'transform-origin', '${_transforms[Transforms.originX]}% ${_transforms[Transforms.originY]}% ${_transforms[Transforms.originZ]}px');
+      _Dom.setXPCSS(_component, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
     }, converter:const StringToNumericConverter());
        
     opacityProperty = new AnimatingFrameworkProperty(
@@ -291,22 +276,22 @@ class FrameworkElement extends FrameworkObject {
     actualWidthProperty = new FrameworkProperty(
       this,
       "actualWidth",
-      (int value){}, 0, converter:const StringToNumericConverter());
+      (num value){}, 0, converter:const StringToNumericConverter());
     
     actualHeightProperty = new FrameworkProperty(
       this,
       "actualHeight",
-      (int value){}, 0, converter:const StringToNumericConverter());
+      (num value){}, 0, converter:const StringToNumericConverter());
     
     widthProperty = new FrameworkProperty(
       this,
       "width",
-      (Dynamic value) => calculateWidth(value), value:"auto", converter:const StringToNumericConverter());
+      (Dynamic value) => calculateWidth(value), "auto", converter:const StringToNumericConverter());
     
     heightProperty = new FrameworkProperty(
       this,
       "height",
-      (Dynamic value) => calculateHeight(value), value:"auto", converter:const StringToNumericConverter());
+      (Dynamic value) => calculateHeight(value), "auto", converter:const StringToNumericConverter());
     
     minHeightProperty = new FrameworkProperty(
       this,
@@ -404,15 +389,15 @@ class FrameworkElement extends FrameworkObject {
   
   // FIX
   /// Gets the inner width value.
-  int get innerWidth() => 0; //_rawElement.clientWidth - (margin.left + margin.right);
+  num get innerWidth() => 0; //_rawElement.clientWidth - (margin.left + margin.right);
   /// Gets the inner height value.
-  int get innerHeight() => 0; //_rawElement.clientHeight - (margin.top + margin.bottom);
+  num get innerHeight() => 0; //_rawElement.clientHeight - (margin.top + margin.bottom);
   
   /// Gets the inner width of the element less any bordering offsets (margin, padding, borderThickness)
-  int get actualWidth() => getValue(actualWidthProperty);
+  num get actualWidth() => getValue(actualWidthProperty);
   
   /// Gets the inner height of the element less any bordering offsets (margin, padding, borderThickness)
-  int get actualHeight() => getValue(actualHeightProperty);
+  num get actualHeight() => getValue(actualHeightProperty);
   
   /// Gets the raw html Element component of the Framework Element.
   Element get component() => _component;
@@ -440,9 +425,9 @@ class FrameworkElement extends FrameworkObject {
   Visibility get visibility() => getValue(visibilityProperty);
   
   /// Sets the [zOrderProperty] value.
-  set zOrder(int value) => setValue(zOrderProperty, value);
+  set zOrder(num value) => setValue(zOrderProperty, value);
   /// Gets the [zOrderProperty] value.
-  int get zOrder() => getValue(zOrderProperty);
+  num get zOrder() => getValue(zOrderProperty);
   
   /// Sets the [dataContextProperty] value.
   set dataContext(Dynamic value) => setValue(dataContextProperty, value);
@@ -511,15 +496,7 @@ class FrameworkElement extends FrameworkObject {
       .rect
       .then((ElementRect r) { mostRecentMeasurement = r;});
   }
-  
-  /*
-  ** Methods
-  */
-  
-  
-  //TODO Async?
-  
-  ///
+    
   /// Returns the first non-null [dataContext] [FrameworkProperty]
   /// in the this [FrameworkElement]'s heirarchy.
   ///
@@ -569,7 +546,7 @@ class FrameworkElement extends FrameworkObject {
   }
   
   /// ** Internal Use Only **
-  void calculateWidth(int value){
+  void calculateWidth(value){
     if (value == "auto"){
       _component.style.width = "auto"; //, null);
       setValue(actualWidthProperty, innerWidth);
@@ -585,7 +562,7 @@ class FrameworkElement extends FrameworkObject {
       width = maxWidth;
     }
 
-    int adjustedValue = value - (margin.left + margin.right);
+    var adjustedValue = value - (margin.left + margin.right);
     _component.style.width = '${adjustedValue}px';
     setValue(actualWidthProperty, adjustedValue);
     if (this is Panel) updateLayout();
@@ -593,7 +570,7 @@ class FrameworkElement extends FrameworkObject {
   }
   
   /// ** Internal Use Only **
-  void calculateHeight(int value){
+  void calculateHeight(value){
     if (value == "auto"){
       _component.style.height = "auto";//, null);
       setValue(actualHeightProperty, innerHeight);
@@ -609,13 +586,13 @@ class FrameworkElement extends FrameworkObject {
       height =  maxHeight;
     }
     
-    int adjustedValue = value - (margin.top + margin.bottom);
+    var adjustedValue = value - (margin.top + margin.bottom);
     _component.style.height = '${adjustedValue}px'; //, null);
     setValue(actualHeightProperty, adjustedValue);
     if (this is Panel) updateLayout();
   }
   
-  //TODO load/unload should be asynchronous
+  //TODO load/unload should be asynchronous?
   void addToLayoutTree(FrameworkElement parentElement){
 
     parentElement._component.elements.add(_component);

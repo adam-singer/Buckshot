@@ -19,10 +19,10 @@
 * Event arguements for mouseMove events */
 class MouseEventArgs extends RoutedEventArgs
 {
-  final int mouseX;
-  final int mouseY;
-  final int windowX;
-  final int windowY;
+  final num mouseX;
+  final num mouseY;
+  final num windowX;
+  final num windowY;
   
   MouseEventArgs(this.mouseX, this.mouseY, this.windowX, this.windowY);
   

@@ -67,7 +67,7 @@ class LinearGradientBrush extends Brush
     }, LinearGradientDirection.horizontal, converter:const StringToLinearGradientDirectionConverter());
     
     fallbackColorProperty = new FrameworkProperty(this, "fallbackColor", (v){},
-      new Color.predefined(Colors.White));
+      new Color.predefined(Colors.White), converter:const StringToColorConverter());
   }
   
   /// Overridden [Brush] method.
