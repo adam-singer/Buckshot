@@ -154,7 +154,7 @@ class ListBox extends Control implements IFrameworkContainer
     borderThicknessProperty = new FrameworkProperty(this, "borderThickness", (v){
       if (_border == null) return;
       _border.borderThickness = v;
-    }, 1, converter:const StringToThicknessConverter());
+    }, new Thickness(1), converter:const StringToThicknessConverter());
     
     selectedItemProperty = new FrameworkProperty(this, "selectedItem", (_){});
     
