@@ -672,7 +672,7 @@ class FrameworkElement extends FrameworkObject {
       e.stopPropagation();
       
       var p = document.window.webkitConvertPointFromPageToNode(_component, new Point(e.pageX, e.pageY));
-      MouseEventArgs args = new MouseEventArgs(p.x, p.y, e.pageX, e.pageY);
+      mouseUp.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
 
     });
 
