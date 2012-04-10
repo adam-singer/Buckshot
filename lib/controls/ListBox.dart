@@ -32,6 +32,8 @@ class ListBox extends Control implements IFrameworkContainer
   
   FrameworkProperty borderColorProperty;
   FrameworkProperty borderThicknessProperty;
+  FrameworkProperty highlightColorProperty;
+  FrameworkProperty selectColorProperty;
   
   CollectionPresenter _presenter;
   Border _border;
@@ -114,15 +116,19 @@ class ListBox extends Control implements IFrameworkContainer
   
   get content() => template;
   
+  /// Override this method to implement your own mouse over behavior for items in
+  /// the ListBox.
   void onItemMouseDown(item){
     if (item.hasProperty("background")){
-      item.dynamic.background = new SolidColorBrush(new Color.predefined(Colors.SkyBlue));
+      item.dynamic.background = getValue(selectColorProperty);
     }
   }
   
+  /// Override this method to implement your own mouse over behavior for items in
+  /// the ListBox.
   void onItemMouseUp(item){
     if (item.hasProperty("background")){
-      item.dynamic.background = new SolidColorBrush(new Color.predefined(Colors.PowderBlue));
+      item.dynamic.background = getValue(highlightColorProperty);
     }
   }
   
@@ -131,7 +137,7 @@ class ListBox extends Control implements IFrameworkContainer
   void onItemMouseEnter(FrameworkElement item){
     if (item.hasProperty("background")){
       item._stateBag["__lb_item_bg_brush__"] = item.dynamic.background;
-      item.dynamic.background = new SolidColorBrush(new Color.predefined(Colors.PowderBlue));
+      item.dynamic.background = getValue(highlightColorProperty);
     }
   }
   
@@ -145,6 +151,12 @@ class ListBox extends Control implements IFrameworkContainer
   
   
   void _initListBoxProperties(){
+    
+    highlightColorProperty = new FrameworkProperty(this, "highlightColor", (_){
+    }, new SolidColorBrush(new Color.predefined(Colors.PowderBlue)), converter:const StringToSolidColorBrushConverter());
+    
+    selectColorProperty = new FrameworkProperty(this, "selectColor", (_){ 
+    }, new SolidColorBrush(new Color.predefined(Colors.SkyBlue)), converter:const StringToSolidColorBrushConverter());
     
     borderColorProperty = new FrameworkProperty(this, "borderColor", (v){
       if (_border == null) return;
@@ -167,14 +179,11 @@ class ListBox extends Control implements IFrameworkContainer
       if (_presenter == null) return;
       _presenter.itemsTemplate = value;
     });
-    
-    
+        
     horizontalScrollEnabledProperty = new FrameworkProperty(this, "horizontalScrollEnabled", (bool value){
-
     }, false, converter:const StringToBooleanConverter());
     
     verticalScrollEnabledProperty = new FrameworkProperty(this, "verticalScrollEnabled", (bool value){
-
     }, true, converter:const StringToBooleanConverter());
   }
   
