@@ -11,7 +11,7 @@
 #resource('readme.txt');
 
 // See readme.txt for information about this adaptation of Conway's Game Of Life
-
+  
 class GameOfLife {
 final ViewModel vm;
   GameOfLife(): vm = new ViewModel()

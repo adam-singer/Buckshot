@@ -19,31 +19,49 @@
 class Rectangle extends Shape{
   
   BuckshotObject makeMe() => new Rectangle();
-      
-  FrameworkProperty _cwProperty;
-  FrameworkProperty _chProperty;
-  
+        
   Rectangle(){
     _Dom.appendBuckshotClass(_component, "rectangle");
-    _initRectangleProperties();
   }
   
-  void _initRectangleProperties(){    
-    _cwProperty = new FrameworkProperty(this, '_cw', (v){
-      if (v is! num) return;
-      shapeElement.attributes['width'] = '${v}';
-    });
+  //override shape properties since we are just using a div here instead of SVG element
+  _initShapeProperties(){
     
-    _chProperty = new FrameworkProperty(this, '_cy', (v){
-      if (v is! num) return;
-      shapeElement.attributes['height'] = '${v}';
-    });
+    strokeWidthProperty = new AnimatingFrameworkProperty(this, 'strokeWidth', (value){
+      String color = getValue(strokeProperty) != null ? getValue(strokeProperty) : Colors.White.toString();
+      
+      //TODO support border hatch styles
+      
+      _component.style.borderTop = 'solid ${value.top}px $color';
+      _component.style.borderRight = 'solid ${value.right}px $color';
+      _component.style.borderLeft = 'solid ${value.left}px $color';
+      _component.style.borderBottom = 'solid ${value.bottom}px $color';
+      
+    }, 'border-thickness', converter:const StringToNumericConverter());
     
-    new Binding(widthProperty, _cwProperty);
-    new Binding(heightProperty, _chProperty);
+    strokeProperty = new AnimatingFrameworkProperty(this, 'stroke', (value){
+      
+      shapeElement.style.borderColor = value.color.toString();
+      
+    }, 'border-color', converter:const StringToSolidColorBrushConverter());
+    
+    
+    fillProperty = new AnimatingFrameworkProperty(this, 'fill', (Brush value){
+      
+      //TODO Animation hooks won't work because shapeElement is not root
+      //need to implement some sort of proxy element solution
+      
+      value.renderBrush(_component);
+
+    }, 'background', converter:const StringToSolidColorBrushConverter());
+    
   }
   
   String get shapeTag() => 'rect';
   
   String get type() => 'Rectangle';
+  
+  void CreateElement(){
+    _component = Dom.createByTag('div');
+  }
 }

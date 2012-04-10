@@ -39,8 +39,6 @@ class _PlayfieldViewModelImplementation extends ViewModelBase implements Playfie
   {
     view = new PlayfieldView(this);
     
-    _initStyles();
-    
     _initProperties();
   }
    
@@ -65,93 +63,90 @@ class _PlayfieldViewModelImplementation extends ViewModelBase implements Playfie
     int delta = length - oldLength;
 
     int size = (600 / length).toInt();
-    int elementSize = size - 1;
 
     view.width = size * length;
     view.height = size * length;
     
+    var cells = new List(length * delta);
+    
     if (delta < 0){
       // remove uneeded elements from the UI
       for(int i = 0; i < -delta; i++){
-        view.columnDefinitions.removeLast();
-        view.rowDefinitions.removeLast();
         view.children.removeLast();
       }      
     }else{
       // add needed elements to the UI
-      for (int i = 0; i < delta; i++){       
-        view.columnDefinitions.add(new ColumnDefinition.with(new GridLength.pixel(size)));
-        view.rowDefinitions.add(new RowDefinition.with(new GridLength.pixel(size)));
-        
-        for (int c = 0; c < length; c++){
-          Border b = new Border();
-          b.width = elementSize;
-          b.height = elementSize;
-          b.background = empty;
-          b.click + cellClick;
-          view.children.add(b);
-        }
+      print('creating elements');
+      for (var i = 0; i < delta * length; i++){                       
+          Rectangle b = new Rectangle();
+          
+//          b.width = size;
+//          b.height = size;
+//          b.fill = empty;
+//          b.click + cellClick;
+          var row = (i / length).floor();
+          var col = i - (row * length);
+//          b.tag = [col.toInt(), row.toInt()];
+//          LayoutCanvas.setLeft(b, col * size);
+//          LayoutCanvas.setTop(b, row * size);
+          cells[i] = i;
+          print('$i, ${b.hashCode()}');
       }
+      print('finished creating elements');
     }
-    //reposition the child locations
-    int index = 0;
-    for(int r = 0; r < length; r++){
-      for (int c = 0; c < length; c++){
-        Grid.setRow(view.children[index], r);
-        Grid.setColumn(view.children[index], c);
-        index++;        
-      }
-    }
+    
+    print('adding to collection');
+    view.children.addAll(cells);
+    print('finished adding to collection');
     
     model = new Life(length);
   }
-  
-  static bool redrawing = false;
-  void _generate(){
-    if (redrawing) return;
-    redrawing = true;
-    model.nextStep();
-    
-    generationCount = generationCount + 1;
-    
-    if (model.highestPopulation > highestPopulation) highestPopulation = model.highestPopulation;
-    
-    SolidColorBrush color;
 
-    for (int r = 0; r < model.matrix.length; r++){
-      for (int c = 0; c < model.matrix.length; c++){
-        color = model.matrix[c][r] == 1 ? occupied : empty;
+  var _lastRedraw = 0;
+  void _generate(num time){
 
-        view.children[(model.matrix.length * r) + c].dynamic.background = color;
-        
-//        var result = view
-//          .children
-//          .filter((child){return Grid.getColumn(child) == c && Grid.getRow(child) == r;});
-        
-//          .iterator()
-//          .next()
-//          .background = color;
+    doRedraw(){
+      model.nextStep();
+      
+      generationCount = generationCount + 1;
+      
+      if (model.highestPopulation > highestPopulation) highestPopulation = model.highestPopulation;
+      
+      SolidColorBrush color;
+
+      for (int r = 0; r < model.matrix.length; r++){
+        for (int c = 0; c < model.matrix.length; c++){
+         // color = model.matrix[c][r] == 1 ? occupied : empty;
+
+          view.children[(model.matrix.length * r) + c].dynamic.fill = (model.matrix[c][r] == 1) ? occupied : empty;
+        }
       }
     }
 
-    redrawing = false;
+    if (!isPaused){
+      var diff = time - _lastRedraw;
+      if (diff >= speed){
+        doRedraw();
+        _lastRedraw = time;
+      }
+    
+      window.webkitRequestAnimationFrame(_generate, document.body);
+    }
   }
   
   void play()
   {
     isPaused = false;
-    intervalHandler = window.setInterval(_generate, speed);
+    _generate(new Date.now().milliseconds);
   }
   
   void pause()
   {
     isPaused = true;
-    if (intervalHandler != null)
-      window.clearInterval(intervalHandler);
   }
   
   void reset(){
-    view.children.forEach((var child) => child.background = empty );
+    view.children.forEach((var child) => child.fill = empty );
     
     model.reset();
     generationCount = 0;
@@ -159,10 +154,10 @@ class _PlayfieldViewModelImplementation extends ViewModelBase implements Playfie
   }
   
   void cellClick(Dynamic sender, EventArgs _){
-    int isSet = sender.background == empty ? 1 : 0;
-    sender.background = (isSet == 1) ? occupied : empty; 
+    int isSet = sender.fill == empty ? 1 : 0;
+    sender.fill = (isSet == 1) ? occupied : empty; 
 
-    model.matrix[Grid.getColumn(sender)][Grid.getRow(sender)] = isSet;
+    model.matrix[sender.tag[0]][sender.tag[1]] = isSet;
   }
   
   set generationCount(int value) => setValue(generationCountProperty, value);
@@ -175,8 +170,5 @@ class _PlayfieldViewModelImplementation extends ViewModelBase implements Playfie
     generationCountProperty = new FrameworkProperty(this, "generationCount", (_){}, 0);
     highestPopulationProperty = new FrameworkProperty(this, "highestPopulation", (_){}, 0);
   }
-  
-  void _initStyles(){
 
-  }
 }

@@ -64,11 +64,11 @@ class FrameworkObject extends BuckshotObject {
         this,
         "name",
         (String value){
-                    
+      
           if (nameProperty.previousValue != null){
             throw new FrameworkException('Attempted to assign name "${value}" to element that already has a name "${nameProperty.previousValue}" assigned.');
           }
-          
+
           if (value != null){
             Buckshot.namedElements[value] = this;
             if (_component != null) _component.attributes["ID"] = value;

@@ -30,7 +30,11 @@ class ListBox extends Control implements IFrameworkContainer
   /// Represents the UI that will display for each item in the collection.
   FrameworkProperty itemsTemplateProperty;
   
+  FrameworkProperty borderColorProperty;
+  FrameworkProperty borderThicknessProperty;
+  
   CollectionPresenter _presenter;
+  Border _border;
   
   int _selectedIndex = -1;
   
@@ -57,6 +61,7 @@ class ListBox extends Control implements IFrameworkContainer
       throw const FrameworkException('control template was not found.');
     
     _presenter = Buckshot.findByName("__buckshot_listbox_presenter__", template);
+    _border = Buckshot.findByName("__buckshot_listbox_border__", template);
     
     if (_presenter == null)
       throw const FrameworkException('element not found in control template');
@@ -71,10 +76,11 @@ class ListBox extends Control implements IFrameworkContainer
     return 
     '''<controltemplate controlType="${this.templateName}">
           <template>
-            <border bordercolor=Black 
-                    borderthickness=1 
+            <border bordercolor="{template bordercolor}" 
+                    borderthickness="{template borderThickness}" 
                     horizontalScrollEnabled="{template horizontalScrollEnabled}" 
-                    verticalScrollEnabled="{template verticalScrollEnabled}">
+                    verticalScrollEnabled="{template verticalScrollEnabled}"
+                    name="__buckshot_listbox_border__">
                 <collectionPresenter name="__buckshot_listbox_presenter__" 
                                       horizontalAlignment=stretch>
                 </collectionPresenter>
@@ -139,6 +145,16 @@ class ListBox extends Control implements IFrameworkContainer
   
   
   void _initListBoxProperties(){
+    
+    borderColorProperty = new FrameworkProperty(this, "borderColor", (v){
+      if (_border == null) return;
+      _border.borderColor = v;
+    }, new Color.predefined(Colors.Black), converter:const StringToColorConveter());
+    
+    borderThicknessProperty = new FrameworkProperty(this, "borderThickness", (v){
+      if (_border == null) return;
+      _border.borderThickness = v
+    }, 1, converter:const StringToThicknessConverter());
     
     selectedItemProperty = new FrameworkProperty(this, "selectedItem", (_){});
     

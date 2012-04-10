@@ -50,7 +50,7 @@ class _ViewModelImplementation extends ViewModelBase implements ViewModel
     
     view = new View(this);
        
-    playfield.setLength(20);
+    playfield.setLength(200);
 
     contentArea = playfield.view;
     
