@@ -45,6 +45,17 @@ class Globals
 
 }
 
+Future _functionToFuture(Function f){
+  Completer c = new Completer();
+  
+  try{
+    c.complete(f());
+  }catch (Exception e){
+    c.completeException(e);
+  }
+  
+  return c.future;
+}
 
 /**
  * Sets the value of a given [FrameworkProperty] to a given [value]. */

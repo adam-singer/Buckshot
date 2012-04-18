@@ -168,7 +168,7 @@ class FrameworkElement extends FrameworkObject {
         
         //assign this element as the source to any new actions
         args.newItems.forEach((ActionBase action){ 
-          action._source = this;
+          setValue(action._sourceProperty, this);
         });
       };
     }, new ObservableList<ActionBase>());

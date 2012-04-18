@@ -42,6 +42,9 @@ class BuckshotObject extends HashableObject{
   /// a [FrameworkProperty] by the given friendly [propertyName].
   bool hasProperty(String propertyName) => _frameworkProperties.some((FrameworkProperty p) => p.propertyName.toLowerCase() == propertyName.toLowerCase());
   
+  ///A [Future] that returns a [FrameworkProperty] matching the given [propertyName].
+  Future<FrameworkProperty> getPropertyByName(String propertyName) => _functionToFuture(() => _getPropertyByName(propertyName));
+  
   FrameworkProperty _getPropertyByName(String propertyName){
     Collection<FrameworkProperty> result = _frameworkProperties.filter((FrameworkProperty p) => p.propertyName.toLowerCase() == propertyName.toLowerCase());
     
@@ -63,10 +66,12 @@ class BuckshotObject extends HashableObject{
   /// As long as a property in the dot chain is a [BuckshotObject] then resolve() will continue
   /// along until the last dot property is resolved, and then return it.
   FrameworkProperty resolveProperty(String propertyNameChain){
+    //TODO Make this a Future<FrameworkProperty> instead?
     return BuckshotObject._resolvePropertyInternal(this, propertyNameChain.trim().split('.'));
   }
   
   FrameworkProperty resolveFirstProperty(String propertyNameChain){
+    //TODO Make this a Future<FrameworkProperty> instead?
     return BuckshotObject._resolvePropertyInternal(this, [propertyNameChain.trim().split('.')[0]]);
   }
   

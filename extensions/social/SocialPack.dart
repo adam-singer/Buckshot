@@ -15,13 +15,13 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-#library('Buckshot_Extensions_Media');
+#library('Buckshot_Extensions_Social');
 
-#import('dart:html');
 #import('../../lib/Buckshot.dart');
-#source('YouTube.dart');
-#source('Hulu.dart');
-#source('Vimeo.dart');
-#source('FunnyOrDie.dart');
+#import('PlusOne.dart');
 
-/* Video and Audio Extensions for Buckshot Framework */ 
+
+void initializeSocialPackExtensions(){
+  Buckshot.registerElement(new PlusOne());
+  
+}

@@ -15,12 +15,15 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+#library('extensions_actions_setpropertyaction');
+#import('../../lib/Buckshot.dart');
+
+
 /**
 * Event-driven action that sets the property of a given element with a given value.
 */
 class SetPropertyAction extends ActionBase
 {
-  FrameworkProperty targetProperty;
   FrameworkProperty propertyProperty;
   FrameworkProperty valueProperty;
   
@@ -30,14 +33,10 @@ class SetPropertyAction extends ActionBase
   }
   
   void _initSetPropertyActionProperties(){
-    targetProperty = new FrameworkProperty(this, 'target', (_){});
     propertyProperty = new FrameworkProperty(this, 'property', (_){});
     valueProperty = new FrameworkProperty(this, 'value', (_){});
   }
-  
-  String get target() => getValue(targetProperty);
-  set target(String v) => setValue(targetProperty, v);
-  
+    
   String get property() => getValue(propertyProperty);
   set property(String v) => setValue(propertyProperty, v);
   
@@ -47,20 +46,21 @@ class SetPropertyAction extends ActionBase
   BuckshotObject makeMe() => new SetPropertyAction();
   
   void onEventTrigger(){
-
-    if (target == null || property == null || value == null)
+    setTargetToSourceIfNull();
+    
+    if (property == null || value == null)
       throw const FrameworkException('Event trigger failed because one or more properties is not assigned.');
     
-    var el = Buckshot.namedElements[target];
+    var el = Buckshot.namedElements[targetName];
 
     if (el == null) 
       throw const FrameworkException('Event trigger failed because target element is not found.');
     
-    var prop = el._getPropertyByName(property);
-    
-    if (prop == null) return;
-    
-    setValue(prop, value);
+    el.getPropertyByName(property).then((prop){
+      if (prop == null) return;
+      
+      setValue(prop, value);  
+    });
   }
   
   String get type() => "SetPropertyAction";

@@ -15,6 +15,9 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+#library('extensions_media_funnyordie');
+#import('../../lib/Buckshot.dart');
+
 class FunnyOrDie extends FrameworkElement
 {
   FrameworkProperty videoIDProperty;
@@ -22,7 +25,7 @@ class FunnyOrDie extends FrameworkElement
   FrameworkObject makeMe() => new FunnyOrDie();
   
   FunnyOrDie(){
-    Dom.appendClass(component, "luca_ui_funnyordie");
+    Dom.appendClass(component, "buckshot_funnyordie");
     
     _initializeFunnyOrDieProperties();
     

@@ -15,6 +15,10 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+
+#library('extensions_social_plusone');
+#import('../../lib/Buckshot.dart');
+
 /**
 * Implements a Google+ +1 button element.
 *
@@ -38,7 +42,7 @@ class PlusOne extends FrameworkElement
   FrameworkObject makeMe() => new PlusOne();
   
   PlusOne(){
-    Dom.appendClass(component, "luca_ui_plusone");
+    Dom.appendClass(component, "buckshot_plusone");
     
     _initializePlusOneProperties();
     

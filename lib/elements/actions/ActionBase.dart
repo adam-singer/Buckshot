@@ -23,9 +23,15 @@ class ActionBase extends BuckshotObject {
   
   FrameworkProperty eventProperty;
   
-  FrameworkElement _source;
+  /// A [String] representing the name of the target element to be operated
+  /// on by the action.
+  FrameworkProperty targetNameProperty;
+  FrameworkProperty _sourceProperty;
   
-  FrameworkElement get source() => _source;
+  FrameworkElement get source() => getValue(_sourceProperty);
+  
+  String get targetName() => getValue(targetNameProperty);
+  set targetName(String v) => setValue(targetNameProperty, v);
   
   final HashMap <String, EventHandlerReference> _ref;
   
@@ -34,23 +40,31 @@ class ActionBase extends BuckshotObject {
   {
     _initActionBaseProperties();
   }
-  
+    
   void _initActionBaseProperties(){
-    eventProperty = new FrameworkProperty(this, 'event', (e){
-      if (_source != null){ 
+  
+    targetNameProperty = new FrameworkProperty(this, 'targetName', (_){});
+    
+    _sourceProperty = new FrameworkProperty(this, '_source', (_){});
+    
+    eventProperty = new FrameworkProperty(this, 'event', (String e){
+      
+      var src = getValue(_sourceProperty);
+      
+      // set the event against the source element if it is available,
+      // otherwise we wait until the source is available and set the
+      // event then.
+      if (src != null){
         _setEvent(e);
       }else{
-        void checkSource(){
-          if (_source != null){
-            _setEvent(e);
-          }else{
-            window.setTimeout(checkSource, 1);
-          }
-        }
-        
-        window.setTimeout(checkSource, 1);
+        var ref;
+        ref = _sourceProperty.propertyChanging + (_, PropertyChangingEventArgs args) {
+          _setEvent(e);
+          _sourceProperty.propertyChanging - ref;
+        };
       }
-    });
+      
+    });    
   }
   
   //TODO optimize this once reflection is in place.
@@ -59,6 +73,12 @@ class ActionBase extends BuckshotObject {
     
     //only allow one registration per event
     if (_ref.containsKey(ee)) return;
+    
+    var _source = getValue(_sourceProperty);
+    
+    if (_source == null && _source is! FrameworkElement){
+      throw const FrameworkException('action source is null or is not a FrameworkElement');
+    }
     
     switch(ee){
       case 'click':
@@ -95,6 +115,16 @@ class ActionBase extends BuckshotObject {
   }
   
   abstract void onEventTrigger();
+  
+  /// Helper function that can be used to set the target property to the [FrameworkElement]
+  /// source if the target is not otherwise specified.  This is not a persistent
+  /// binding.
+  void setTargetToSourceIfNull(){
+    var tgt = getValue(targetNameProperty);
+    if (tgt == null){
+      setValue(targetNameProperty, source.name);
+    }
+  }
   
   String get type() => "ActionBase";
   

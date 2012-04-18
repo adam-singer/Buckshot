@@ -15,12 +15,14 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+#library('extensions_actions_togglepropertyaction');
+#import('../../lib/Buckshot.dart');
+
 /**
 * Event-driven action that alternates the value of a property as each event occurs.
 */
 class TogglePropertyAction extends ActionBase 
 {
-  FrameworkProperty targetProperty;
   FrameworkProperty propertyProperty;
   FrameworkProperty firstValueProperty;
   FrameworkProperty secondValueProperty;
@@ -32,15 +34,11 @@ class TogglePropertyAction extends ActionBase
   }
   
   void _initTogglePropertyActionProperties(){
-    targetProperty = new FrameworkProperty(this, 'target', (_){});
     propertyProperty = new FrameworkProperty(this, 'property', (_){});
     firstValueProperty = new FrameworkProperty(this, 'firstValue', (_){});
     secondValueProperty = new FrameworkProperty(this, 'secondValue', (_){});
   }
-  
-  String get target() => getValue(targetProperty);
-  set target(String v) => setValue(targetProperty, v);
-  
+    
   String get property() => getValue(propertyProperty);
   set property(String v) => setValue(propertyProperty, v);
   
@@ -53,30 +51,30 @@ class TogglePropertyAction extends ActionBase
   BuckshotObject makeMe() => new TogglePropertyAction();
   
   void onEventTrigger(){
+    setTargetToSourceIfNull();
     
-    if (target == null || property == null || firstValue == null || secondValue == null)
+    if (property == null || firstValue == null || secondValue == null)
       throw const FrameworkException('Event trigger failed because one or more properties is not assigned.');
       
     
-    var el = Buckshot.namedElements[target];
+    var el = Buckshot.namedElements[targetName];
 
     if (el == null)
       throw const FrameworkException('Event trigger failed because target was not found.');
     
-    var prop = el._getPropertyByName(property);
-    
-    if (prop == null) return;
-    
-    if (_currentValue == null){
-      _currentValue = secondValue;
-      setValue(prop, secondValue);
-      return;
-    }
-    
-    _currentValue = (_currentValue == firstValue) ? secondValue : firstValue;
-    
-    setValue(prop, _currentValue);
-    
+    el.getPropertyByName(property).then((prop){
+      if (prop == null) return;
+      
+      if (_currentValue == null){
+        _currentValue = secondValue;
+        setValue(prop, secondValue);
+        return;
+      }
+      
+      _currentValue = (_currentValue == firstValue) ? secondValue : firstValue;
+      
+      setValue(prop, _currentValue);
+    });
   }
   
   String get type() => "TogglePropertyAction";

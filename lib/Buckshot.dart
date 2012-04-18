@@ -78,9 +78,6 @@
 #source('elements/grid/GridLength.dart');
 #source('elements/CollectionPresenter.dart');
 #source('elements/actions/ActionBase.dart');
-#source('elements/actions/AnimationAction.dart');
-#source('elements/actions/SetPropertyAction.dart');
-#source('elements/actions/TogglePropertyAction.dart');
 
 #source('controls/TextBox.dart');
 #source('controls/control/Control.dart');

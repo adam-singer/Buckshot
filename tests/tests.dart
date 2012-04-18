@@ -18,7 +18,8 @@
 #import('dart:html');
 
 // point this to wherever your copy of the dart source code is
-#import('../../../src/lib/unittest/unittest_html.dart');
+#import('../../../src/lib/unittest/unittest.dart');
+#import('../../../src/lib/unittest/html_enhanced_config.dart');
 
 #import('../lib/Buckshot.dart');
 
@@ -54,6 +55,8 @@ void main() {
   final _tList = new List<TestGroupBase>();
   
   new Buckshot();
+  
+  useHtmlEnhancedConfiguration();
      
   group('Dart Bugs', (){
     

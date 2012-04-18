@@ -15,7 +15,14 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+#library('extensions_actions_animationaction');
+#import('../../lib/Buckshot.dart');
 
+
+/**
+* Event-driven action that directs a [AnimationResource] to start/stop/pause,
+*  etc.
+*/
 class AnimationAction extends ActionBase {
 
   FrameworkProperty animationProperty;
@@ -41,6 +48,8 @@ class AnimationAction extends ActionBase {
   void onEventTrigger(){
     if (animation == null || action == null) return;
     
+    // TODO use the action property to do more than
+    // just play the animation. 
     FrameworkAnimation.playAnimation(animation);
   }
   

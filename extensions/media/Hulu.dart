@@ -15,6 +15,10 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+#library('extensions_media_hulu');
+#import('dart:html');
+#import('../../lib/Buckshot.dart');
+
 class Hulu extends FrameworkElement
 {
   Element embed;
@@ -24,7 +28,7 @@ class Hulu extends FrameworkElement
   FrameworkObject makeMe() => new Hulu();
   
   Hulu(){
-    Dom.appendClass(component, "luca_ui_hulu");
+    Dom.appendClass(component, "buckshot_hulu");
     
     _initializeHuluProperties();
     

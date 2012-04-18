@@ -15,6 +15,9 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+#library('extensions_media_vimeo');
+#import('../../lib/Buckshot.dart');
+
 class Vimeo extends FrameworkElement
 {
   FrameworkProperty videoIDProperty;
@@ -22,7 +25,7 @@ class Vimeo extends FrameworkElement
   FrameworkObject makeMe() => new Vimeo();
   
   Vimeo(){
-    Dom.appendClass(component, "luca_ui_vimeo");
+    Dom.appendClass(component, "buckshot_vimeo");
     
     _initializeVimeoProperties();
     

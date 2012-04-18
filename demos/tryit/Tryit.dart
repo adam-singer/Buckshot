@@ -16,8 +16,9 @@
 //   limitations under the License.
 
 #import('../../lib/Buckshot.dart');
-#import('../../extensions/media/buckshot_extension_media.dart');
-#import('../../extensions/social/buckshot_extension_social.dart');
+#import('../../extensions/media/MediaPack.dart');
+#import('../../extensions/social/SocialPack.dart');
+#import('../../extensions/actions/ActionPack.dart');
 #import('dart:html');
 #source('Views.dart');
 #source('DemoViewModel.dart');
@@ -29,12 +30,12 @@ void main() {
   
   Views views = new Views();
   
-  //register extensions
-  Buckshot.registerElement(new YouTube());
-  Buckshot.registerElement(new Hulu());
-  Buckshot.registerElement(new Vimeo());
-  Buckshot.registerElement(new FunnyOrDie());
-  Buckshot.registerElement(new PlusOne());
+  // Register extensions
+  // These are exposed by the extension libraries.
+  // You could also import individual extensions instead.
+  initializeSocialPackExtensions();
+  initializeMediaPackExtensions();
+  initializeActionPackExtensions();
   
   // initialize the presentation provider.  this will eventually be done by the framework
   IPresentationFormatProvider p = Buckshot.defaultPresentationProvider;

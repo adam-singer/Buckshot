@@ -130,7 +130,7 @@ class _PlayfieldViewModelImplementation extends ViewModelBase implements Playfie
         _lastRedraw = time;
       }
     
-      window.webkitRequestAnimationFrame(_generate, document.body);
+      window.webkitRequestAnimationFrame(_generate);
     }
   }
   

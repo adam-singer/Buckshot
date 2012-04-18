@@ -15,6 +15,8 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+#library('extensions_media_youtube');
+#import('../../lib/Buckshot.dart');
 
 class YouTube extends FrameworkElement
 {
@@ -23,7 +25,7 @@ class YouTube extends FrameworkElement
   FrameworkObject makeMe() => new YouTube();
   
   YouTube(){
-    Dom.appendClass(component, "luca_ui_youtube");
+    Dom.appendClass(component, "buckshot_youtube");
     
     _initializeYouTubeProperties();
     
