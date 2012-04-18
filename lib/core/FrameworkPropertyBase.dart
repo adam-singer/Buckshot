@@ -25,7 +25,7 @@
 */
 class FrameworkPropertyBase extends HashableObject{
   /// Holds a reference to the object that the property belongs to.
-  final sourceObject;
+  final BuckshotObject sourceObject;
   /// Holds a callback function that is invoked whenever the value
   /// of a property changes.
   final Function propertyChangedCallback;

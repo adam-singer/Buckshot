@@ -1,3 +1,4 @@
+util/ControlGenerator.dart
 tests/tests.dart
 demos/DemoStyles/DemoStyles.dart
 demos/tryit/Tryit.dart
@@ -10,11 +11,13 @@ extensions/media/MediaPack.dart
 extensions/media/YouTube.dart
 demos/Colors/Colors.dart
 extensions/actions/TogglePropertyAction.dart
+util/test_lib.dart
 extensions/media/Hulu.dart
 demos/Life/GameOfLife.dart
 extensions/social/PlusOne.dart
 debug/debug.dart
 extensions/media/FunnyOrDie.dart
+util/test.dart
 extensions/media/Vimeo.dart
 lib/Buckshot.dart
 demos/todo/todo.dart

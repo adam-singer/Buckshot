@@ -17,7 +17,7 @@
 
 
 /**
-* Base class for event-driven Element actions.
+* Base class for event-driven [FrameworkElement] actions.
 */
 class ActionBase extends BuckshotObject {
   

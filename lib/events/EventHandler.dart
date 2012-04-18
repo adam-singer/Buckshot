@@ -15,7 +15,7 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-/** Type definition for EventHandler types.
-*     typedef void EventHandler<T extends EventArgs>(Object sender, T args);
+/** 
+* Type definition for EventHandler types.
 */
 typedef void EventHandler<T extends EventArgs>(Object sender, T args);
