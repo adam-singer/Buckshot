@@ -27,9 +27,11 @@ class ActionBase extends BuckshotObject {
   /// on by the action.
   FrameworkProperty targetNameProperty;
   FrameworkProperty _sourceProperty;
+  FrameworkElement _target;
   
   FrameworkElement get source() => getValue(_sourceProperty);
-  
+  FrameworkElement get target() => _target;
+      
   String get targetName() => getValue(targetNameProperty);
   set targetName(String v) => setValue(targetNameProperty, v);
   
@@ -116,13 +118,24 @@ class ActionBase extends BuckshotObject {
   
   abstract void onEventTrigger();
   
-  /// Helper function that can be used to set the target property to the [FrameworkElement]
-  /// source if the target is not otherwise specified.  This is not a persistent
-  /// binding.
-  void setTargetToSourceIfNull(){
+  /// Helper method used to set the target for the given action.
+  /// Should 
+  void resolveTarget(){
     var tgt = getValue(targetNameProperty);
     if (tgt == null){
-      setValue(targetNameProperty, source.name);
+      if (source.name != null)
+      {
+        setValue(targetNameProperty, source.name);
+      }
+      
+      _target = source;           
+    }else{
+      var el = Buckshot.namedElements[targetName];
+      
+      if (el == null)
+        throw const FrameworkException('action Target was not found.');
+      
+      _target = el;
     }
   }
   

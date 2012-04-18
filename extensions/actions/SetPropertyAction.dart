@@ -46,17 +46,16 @@ class SetPropertyAction extends ActionBase
   BuckshotObject makeMe() => new SetPropertyAction();
   
   void onEventTrigger(){
-    setTargetToSourceIfNull();
-    
+   
     if (property == null || value == null)
       throw const FrameworkException('Event trigger failed because one or more properties is not assigned.');
     
-    var el = Buckshot.namedElements[targetName];
 
-    if (el == null) 
-      throw const FrameworkException('Event trigger failed because target element is not found.');
+    if (target == null){
+      resolveTarget();
+    }
     
-    el.getPropertyByName(property).then((prop){
+    target.getPropertyByName(property).then((prop){
       if (prop == null) return;
       
       setValue(prop, value);  
