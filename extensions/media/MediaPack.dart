@@ -26,8 +26,8 @@
 /* Video and Audio Extensions for Buckshot Framework */ 
 
 void initializeMediaPackExtensions(){
-  Buckshot.registerElement(new YouTube());
-  Buckshot.registerElement(new Hulu());
-  Buckshot.registerElement(new Vimeo());
-  Buckshot.registerElement(new FunnyOrDie());
+  buckshot.registerElement(new YouTube());
+  buckshot.registerElement(new Hulu());
+  buckshot.registerElement(new Vimeo());
+  buckshot.registerElement(new FunnyOrDie());
 }

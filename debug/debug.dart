@@ -10,7 +10,7 @@
 #source('BorderDemoView.dart');
 #source('StackPanelDebug.dart');
 
-// This project is used for development of the Buckshot project.
+// This project is used for development of the buckshot project.
 // Anything here may or may not be working properly, or may look strange.
 
 class Debug {
@@ -54,26 +54,25 @@ class Debug {
     
     FrameworkObject o = p.deserialize(test);
         
-    //Buckshot.renderRaw(o);
+    //buckshot.renderRaw(o);
     
     
     //passing the view, which triggers rendering on the page. 
-    //Buckshot.rootView = new MainUIView();
-    Buckshot.rootView = new GridDemoView.with(_vm);
-    //Buckshot.rootView = new BorderDemoView();
-    //Buckshot.rootView = new StackPanelDebug();
+    //buckshot.rootView = new MainUIView();
+    buckshot.rootView = new GridDemoView.with(_vm);
+    //buckshot.rootView = new BorderDemoView();
+    //buckshot.rootView = new StackPanelDebug();
         
   }
 }
 
 void main() {
   try{
-    new Buckshot();
     }catch(FrameworkException e){
-      print("Buckshot Framework initialization failed: ${e}");
+      print("buckshot Framework initialization failed: ${e}");
     }
     catch(Exception e){
-      print("*SYSTEM EXCEPTION* Buckshot Framework initialization failed: ${e.toString()}");
+      print("*SYSTEM EXCEPTION* buckshot Framework initialization failed: ${e.toString()}");
       return;
     }
 

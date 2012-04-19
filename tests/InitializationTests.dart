@@ -16,5 +16,5 @@
 //   limitations under the License.
 
 void frameworkReadyTest(){
-  Expect.isNotNull(Buckshot.visualRoot);
+  Expect.isNotNull(buckshot.visualRoot);
 }

@@ -80,7 +80,7 @@ class BuckshotObject extends HashableObject{
     
     // couldn't resolve current property name to a property
     if (prop == null){
-      print('err: ${propertyChain[0]}');
+      db('err: ${propertyChain[0]}');
       throw new FrameworkPropertyResolutionException('Unable to resolve FrameworkProperty: "${propertyChain[0]}".');
     }
     

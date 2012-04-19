@@ -38,7 +38,7 @@ class Dom {
     s.attributes["type"] = "text/javascript";
     s.text = javascript;
     
-    window.document.body.nodes.add(s);
+    document.body.nodes.add(s);
     
     if (removeAfter != null && removeAfter)
       s.remove();

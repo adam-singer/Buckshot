@@ -22,6 +22,6 @@
 
 
 void initializeSocialPackExtensions(){
-  Buckshot.registerElement(new PlusOne());
+  buckshot.registerElement(new PlusOne());
   
 }

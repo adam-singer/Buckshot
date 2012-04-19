@@ -10,10 +10,8 @@ class todo {
   }
 
   void run() {
-    //initialize the framework (I hope to do away with this step eventually)
-    new Buckshot();
-    
-    Buckshot.rootView = new View();
+  
+    buckshot.rootView = new View();
     
   }
 

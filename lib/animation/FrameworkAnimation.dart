@@ -53,7 +53,7 @@ class FrameworkAnimation
   
   static void playAnimation(String name){
     
-    AnimationResource anim = Buckshot._resourceRegistry['$name'];
+    AnimationResource anim = buckshot._resourceRegistry['$name'];
     
     if (anim == null) return;
     
@@ -61,20 +61,20 @@ class FrameworkAnimation
       _CssCompiler.compileAnimation(anim);
     }
     
-    Buckshot._buckshotCSS.innerHTML = '';
-    Buckshot._buckshotCSS.innerHTML = anim._cachedAnimation;
+    buckshot._buckshotCSS.innerHTML = '';
+    buckshot._buckshotCSS.innerHTML = anim._cachedAnimation;
   }
   
   /// Low-level function that clears a CSS3 transition property for a given [AnimatingFrameworkProperty].
   static void clearPropertyTransition(AnimatingFrameworkProperty property){
-    String transProp = _Dom.getXPCSS(property.sourceObject._component, 'transition');
+    String transProp = _Dom.getXPCSS(property.sourceObject.dynamic._component, 'transition');
         
     if (transProp == null || !transProp.contains(property.cssPropertyPeer)) return;
     
     List props = transProp != null ? transProp.split(',') : [];
     
     if (props.length == 1){
-      _Dom.setXPCSS(property.sourceObject._component, 'transition', '');
+      _Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', '');
       return;
     }
 
@@ -97,7 +97,7 @@ class FrameworkAnimation
 
     sb.add(props.last());
     
-    _Dom.setXPCSS(property.sourceObject._component, 'transition', sb.toString());
+    _Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', sb.toString());
   }
   
   /// Low-level function that sets a CSS3 transition property for a given [AnimatingFrameworkProperty].
@@ -105,17 +105,17 @@ class FrameworkAnimation
     
     String newProp = '${property.cssPropertyPeer} ${transition.durationInSeconds}s ${transition.timing} ${transition.delay}s';    
     
-    String transProp = _Dom.getXPCSS(property.sourceObject._component, 'transition');
+    String transProp = _Dom.getXPCSS(property.sourceObject.dynamic._component, 'transition');
     
     if (transProp == null){
       //create and return;
-      _Dom.setXPCSS(property.sourceObject._component, 'transition', newProp);
+      _Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', newProp);
       return;
     }
     
     if (transProp != null && !transProp.contains(property.cssPropertyPeer)){
       //append and return;
-      _Dom.setXPCSS(property.sourceObject._component, 'transition', '${transProp}, $newProp');
+      _Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', '${transProp}, $newProp');
       return;
     }
 
@@ -147,7 +147,7 @@ class FrameworkAnimation
 
     sb.add(props.last());
     
-    _Dom.setXPCSS(property.sourceObject._component, 'transition', sb.toString());
+    _Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', sb.toString());
   }
   
   BuckshotAnimation(){

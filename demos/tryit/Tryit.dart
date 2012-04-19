@@ -25,9 +25,7 @@
 #source('DemoModel.dart');
 
 void main() { 
-  
-  new Buckshot();
-  
+    
   Views views = new Views();
   
   // Register extensions
@@ -38,22 +36,22 @@ void main() {
   initializeActionPackExtensions();
   
   // initialize the presentation provider.  this will eventually be done by the framework
-  IPresentationFormatProvider p = Buckshot.defaultPresentationProvider;
+  IPresentationFormatProvider p = buckshot.defaultPresentationProvider;
     
   // create our main view and error view
   FrameworkObject o = p.deserialize(document.query('#main').text);
   FrameworkObject errorUI = p.deserialize(views.errorUI);
   
   // get references to all the ui interactives that we need    
-  TextBlock tbError = Buckshot.namedElements["tbErrorMessage"];  
-  Border borderContent = Buckshot.namedElements["borderContent"];
-  Button btnRefresh = Buckshot.namedElements["btnRefresh"];
-  Button btnClear = Buckshot.namedElements["btnClear"];
-  TextArea tbUserInput = Buckshot.namedElements["tbUserInput"];
-  DropDownList ddlElements = Buckshot.namedElements["ddlElements"];
-  DropDownList ddlControls = Buckshot.namedElements["ddlControls"];
-  DropDownList ddlBinding = Buckshot.namedElements["ddlBinding"];
-  DropDownList ddlMediaExtensions = Buckshot.namedElements["ddlMediaExtensions"];  
+  TextBlock tbError = buckshot.namedElements["tbErrorMessage"];  
+  Border borderContent = buckshot.namedElements["borderContent"];
+  Button btnRefresh = buckshot.namedElements["btnRefresh"];
+  Button btnClear = buckshot.namedElements["btnClear"];
+  TextArea tbUserInput = buckshot.namedElements["tbUserInput"];
+  DropDownList ddlElements = buckshot.namedElements["ddlElements"];
+  DropDownList ddlControls = buckshot.namedElements["ddlControls"];
+  DropDownList ddlBinding = buckshot.namedElements["ddlBinding"];
+  DropDownList ddlMediaExtensions = buckshot.namedElements["ddlMediaExtensions"];  
   
   // set a demo view model into the borderContent's datacontext
   borderContent.dataContext = new DemoViewModel();
@@ -196,7 +194,7 @@ void main() {
   ddlControls.selectionChanged + handleSelection;
     
   // render the main view
-  Buckshot.renderRaw(o);
+  buckshot.renderRaw(o);
 }
 
 

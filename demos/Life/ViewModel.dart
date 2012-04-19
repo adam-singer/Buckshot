@@ -55,7 +55,7 @@ class _ViewModelImplementation extends ViewModelBase implements ViewModel
     contentArea = playfield.view;
     
     //set the view
-    Buckshot.rootView = view;
+    buckshot.rootView = view;
 
     //bindings to the playfield view model
     new Binding(playfield.highestPopulationProperty, highestPopulationProperty);

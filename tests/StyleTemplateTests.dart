@@ -146,12 +146,12 @@ class StyleTemplateTests extends TestGroupBase
     b.style = st;
     Expect.equals(Colors.Red.toString(), b.background.color.toString());
     Expect.equals(statebagCount + 1, b.stateBag.length);
-    Expect.isTrue(st._registeredElements.contains(b));
-    Binding bi = b.stateBag[st.stateBagPrefix+"background__"];
+    Expect.isTrue(st.dynamic._registeredElements.contains(b));
+    Binding bi = b.stateBag[st.dynamic.stateBagPrefix+"background__"];
 
     b.style = st2;
-    Expect.isFalse(st._registeredElements.contains(b));
-    Expect.isTrue(st2._registeredElements.contains(b));
+    Expect.isFalse(st.dynamic._registeredElements.contains(b));
+    Expect.isTrue(st2.dynamic._registeredElements.contains(b));
     Expect.equals(Colors.Green.toString(), b.background.color.toString());
     Expect.isFalse(bi.bindingSet);
   }
@@ -169,12 +169,12 @@ class StyleTemplateTests extends TestGroupBase
     b.style = st;
     Expect.equals(Colors.Red.toString(), b.background.color.toString());
     Expect.equals(statebagCount + 1, b.stateBag.length);
-    Expect.isTrue(st._registeredElements.contains(b));
-    Binding bi = b.stateBag[st.stateBagPrefix+"background__"];
+    Expect.isTrue(st.dynamic._registeredElements.contains(b));
+    Binding bi = b.stateBag[st.dynamic.stateBagPrefix+"background__"];
 
     b.style = null;
     Expect.equals(statebagCount, b.stateBag.length);
-    Expect.isFalse(st._registeredElements.contains(b));
+    Expect.isFalse(st.dynamic._registeredElements.contains(b));
     Expect.isFalse(bi.bindingSet);
 
     //style is actually reset to a blank style
@@ -217,21 +217,21 @@ class StyleTemplateTests extends TestGroupBase
   void newSetterProperty(){
     StyleTemplate st = new StyleTemplate();
 
-    Expect.equals(0, st._setters.length);
+    Expect.equals(0, st.dynamic._setters.length);
 
     st.setProperty("background", new SolidColorBrush(new Color.predefined(Colors.Red)));
 
-    Expect.equals(1, st._setters.length);
-    Expect.isNotNull(st._setters["background"]);
+    Expect.equals(1, st.dynamic._setters.length);
+    Expect.isNotNull(st.dynamic._setters["background"]);
   }
 
   void existingSetterProperty(){
     StyleTemplate st = new StyleTemplate();
 
     st.setProperty("foo", "bar");
-    Expect.equals("bar", st._setters["foo"].value.toString());
+    Expect.equals("bar", st.dynamic._setters["foo"].value.toString());
 
     st.setProperty("foo", "apple");
-    Expect.equals("apple", st._setters["foo"].value.toString());
+    Expect.equals("apple", st.dynamic._setters["foo"].value.toString());
   }
 }

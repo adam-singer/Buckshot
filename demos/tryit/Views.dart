@@ -418,9 +418,9 @@ declarative element-to-element binding.
       <!-- using declarative actions, we reset the values of the controls when the user clicks the button -->
       <button grid.row=4 content='Reset'>
         <actions>
-          <setpropertyaction event=click target=slWidth property=value value=150></setpropertyaction>
-          <setpropertyaction event=click target=slHeight property=value value=150></setpropertyaction>
-          <setpropertyaction event=click target=slCorner property=value value=1></setpropertyaction>
+          <setpropertyaction event=click targetName=slWidth property=value value=150></setpropertyaction>
+          <setpropertyaction event=click targetName=slHeight property=value value=150></setpropertyaction>
+          <setpropertyaction event=click targetName=slCorner property=value value=1></setpropertyaction>
         </actions>
       </button>
 

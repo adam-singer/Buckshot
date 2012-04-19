@@ -10,15 +10,13 @@ class ValueConversion {
 StyleResources resources;
 
   void run() {
-    //init Buckshot
-    new Buckshot();
-    
+   
     //instantiate style resources
     resources = new StyleResources();
     
-    //bind Buckshot.visualRoot to window dimensions
-    new Binding(Buckshot.windowWidthProperty, Buckshot.visualRoot.widthProperty);
-    new Binding(Buckshot.windowHeightProperty, Buckshot.visualRoot.heightProperty);
+    //bind buckshot.visualRoot to window dimensions
+    new Binding(buckshot.windowWidthProperty, buckshot.visualRoot.widthProperty);
+    new Binding(buckshot.windowHeightProperty, buckshot.visualRoot.heightProperty);
     
     //make the mainGrid and set it's style
     Grid mainGrid = new Grid();
@@ -49,7 +47,7 @@ StyleResources resources;
     
     generateContent(contentGrid);
     
-    Buckshot.renderRaw(mainGrid);
+    buckshot.renderRaw(mainGrid);
   }
   
   void generateContent(Grid contentGrid){

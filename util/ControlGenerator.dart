@@ -23,7 +23,6 @@
 #import('dart:json');
 #import('dart:html');
 
-
 /** 
 * Takes a string of BuckshotXML and returns a string representing a dart Class of the resulting object.
 */

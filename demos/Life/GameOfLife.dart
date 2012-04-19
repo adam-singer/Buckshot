@@ -21,7 +21,7 @@ final ViewModel vm;
 
 void main() {
   //initialize the framework
-  new Buckshot();
+
   
   new GameOfLife();
   

@@ -130,7 +130,7 @@ class ActionBase extends BuckshotObject {
       
       _target = source;           
     }else{
-      var el = Buckshot.namedElements[targetName];
+      var el = buckshot.namedElements[targetName];
       
       if (el == null)
         throw const FrameworkException('action Target was not found.');

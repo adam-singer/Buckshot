@@ -5,7 +5,7 @@
 #import('AnimationAction.dart');
 
 void initializeActionPackExtensions(){
-  Buckshot.registerElement(new AnimationAction());
-  Buckshot.registerElement(new SetPropertyAction());
-  Buckshot.registerElement(new TogglePropertyAction());
+  buckshot.registerElement(new AnimationAction());
+  buckshot.registerElement(new SetPropertyAction());
+  buckshot.registerElement(new TogglePropertyAction());
 }

@@ -25,12 +25,12 @@ class FrameworkObjectTests extends TestGroupBase {
   }
   
   // Tests that assignment to the name property of a FrameworkObject
-  // properly registers it with Buckshot.namedElements
+  // properly registers it with buckshot.namedElements
   void namePropertyRegistration(){
     var b = new Border();
     b.name = "hello";
     
-    Expect.isTrue(Buckshot.namedElements.containsKey("hello"));
+    Expect.isTrue(buckshot.namedElements.containsKey("hello"));
   }
   
 }

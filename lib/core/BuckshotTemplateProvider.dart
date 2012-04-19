@@ -18,7 +18,7 @@
 //TODO event handlers (waiting for reflection)
 
 /**
-* The default presentation format provider for Buckshot.
+* The default presentation format provider for buckshot.
 */
 class BuckshotTemplateProvider extends HashableObject implements IPresentationFormatProvider {
   //a very ugly brute force implementation of an xml <-> object converter
@@ -42,10 +42,10 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
     //html parser converts 'image' to 'img', so convert it back.
     if (lowerTagName == "img") lowerTagName = "image";
 
-    if (!Buckshot._objectRegistry.containsKey(lowerTagName))
+    if (!buckshot._objectRegistry.containsKey(lowerTagName))
       throw new PresentationProviderException('Element "${lowerTagName}" not found in object registry.');
     
-    var newElement = Buckshot._objectRegistry[lowerTagName].makeMe();
+    var newElement = buckshot._objectRegistry[lowerTagName].makeMe();
     
     if (xmlElement.elements.length > 0){
       //process nodes
@@ -54,13 +54,13 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
         String elementLowerTagName = e.tagName.toLowerCase();
         if (elementLowerTagName == "img") elementLowerTagName = "image";
                 
-        if (Buckshot._objectRegistry.containsKey(elementLowerTagName)){
+        if (buckshot._objectRegistry.containsKey(elementLowerTagName)){
 
           if (e.tagName.contains(".")){
             //attached property
-            if (Buckshot._objectRegistry.containsKey(elementLowerTagName)){    
+            if (buckshot._objectRegistry.containsKey(elementLowerTagName)){    
 
-              Function setAttachedPropertyFunction = Buckshot._objectRegistry[elementLowerTagName];
+              Function setAttachedPropertyFunction = buckshot._objectRegistry[elementLowerTagName];
               
               //no data binding for attached properties
               setAttachedPropertyFunction(newElement, Math.parseInt(e.text.trim()));
@@ -199,13 +199,13 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
         if (words.length != 2)
           throw const PresentationProviderException('Binding syntax incorrect.');
         
-        setValue(p, Buckshot.retrieveResource(words[1]));
+        setValue(p, buckshot.retrieveResource(words[1]));
         break;
       case "template":
         if (words.length != 2)
           throw const FrameworkException('{template} bindings must contain a property name parameter: {template [propertyName]}');
         
-          p.sourceObject._templateBindings[p] = words[1];
+          p.sourceObject.dynamic._templateBindings[p] = words[1];
         break;
       case "data":
         if (!(p.sourceObject is FrameworkElement)){
@@ -215,11 +215,11 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
         switch(words.length){
           case 1:
             //dataContext directly
-            p.sourceObject.lateBindings[p] = new BindingData("", null, mode);
+            p.sourceObject.dynamic.lateBindings[p] = new BindingData("", null, mode);
             break;
           case 2:
             //dataContext object via property resolution
-            p.sourceObject.lateBindings[p] = new BindingData(words[1], null, mode);
+            p.sourceObject.dynamic.lateBindings[p] = new BindingData(words[1], null, mode);
             break;
           default:
             throw const PresentationProviderException('Binding syntax incorrect.');
@@ -233,21 +233,21 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
           var ne = words[1].substring(0, words[1].indexOf('.'));
           var prop = words[1].substring(words[1].indexOf('.') + 1);
           
-          if (!Buckshot.namedElements.containsKey(ne))
+          if (!buckshot.namedElements.containsKey(ne))
             throw new PresentationProviderException("Named element '${ne}' not found.");
           
           Binding b;
           try{
-            new Binding(Buckshot.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);  
+            new Binding(buckshot.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);  
           }catch (Exception err){
             //try to bind late...
-            FrameworkProperty theProperty = Buckshot.namedElements[ne].resolveFirstProperty(prop);
+            FrameworkProperty theProperty = buckshot.namedElements[ne].resolveFirstProperty(prop);
             theProperty.propertyChanging + (_, __) {
               
               //unregister previous binding if one already exists.
               if (b != null) b.unregister();
               
-              b = new Binding(Buckshot.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);
+              b = new Binding(buckshot.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);
             }; 
           }        
           
@@ -270,7 +270,7 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
       throw const PresentationProviderException("Resource is missing a key identifier.");
     
     //add/replace resource at given key
-    Buckshot.registerResource(resource);
+    buckshot.registerResource(resource);
   }
   
   void _assignAttributeProperties(BuckshotObject element, Element xmlElement){
@@ -281,9 +281,9 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
 
       if (k.contains(".")){
         //attached property    
-        if (Buckshot._objectRegistry.containsKey("$k")){    
+        if (buckshot._objectRegistry.containsKey("$k")){    
           
-          Function setAttachedPropertyFunction = Buckshot._objectRegistry["$k"];
+          Function setAttachedPropertyFunction = buckshot._objectRegistry["$k"];
           
           setAttachedPropertyFunction(element, Math.parseInt(v));
         }

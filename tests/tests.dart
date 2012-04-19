@@ -56,8 +56,6 @@
 void main() {
   final _tList = new List<TestGroupBase>();
 
-  new Buckshot();
-
   useHtmlEnhancedConfiguration();
   //useHtmlConfiguration();
 
@@ -84,7 +82,7 @@ void main() {
   });
 
   group('Initialization', (){
-    test('Buckshot Initialized', () => Expect.isNotNull(Buckshot.visualRoot));
+    test('Buckshot Initialized', () => Expect.isNotNull(buckshot.visualRoot));
   });
 
   _tList.add(new FrameworkFundamentalsTests());

@@ -106,7 +106,7 @@ class _BindingImplementation extends BuckshotObject implements Binding
       other._twoWayPartner = this;
       
       //now set it to the proper binding type
-      _toProperty.sourceObject._bindings.last().bindingMode = BindingMode.TwoWay; 
+      _toProperty.sourceObject._bindings.last().dynamic.bindingMode = BindingMode.TwoWay; 
       
     }else{
       _fromProperty.sourceObject._bindings.add(this);
