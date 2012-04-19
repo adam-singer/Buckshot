@@ -11,7 +11,6 @@ extensions/media/MediaPack.dart
 extensions/media/YouTube.dart
 demos/Colors/Colors.dart
 extensions/actions/TogglePropertyAction.dart
-util/test_lib.dart
 extensions/media/Hulu.dart
 demos/Life/GameOfLife.dart
 extensions/social/PlusOne.dart

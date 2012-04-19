@@ -18,34 +18,141 @@
 #library('Buckshot Control Generator');
 
 #import('../lib/Buckshot.dart');
-#import('test_lib.dart');
-#import('dart:isolate');
 #import('dart:json');
 #import('dart:html');
 
 /** 
 * Takes a string of BuckshotXML and returns a string representing a dart Class of the resulting object.
 */
-Future<String> generateClassFromXmlTemplate(String buckshotXml){
-  // run in an isolate so that a completely new Buckshot instance
-  // used without crashing into the main one
-  //new Buckshot();
+Future<String> generateClassFromXmlTemplate(String buckshotXml){  
+  var c = new Completer();
   
-  SendPort sp = spawnFunction(_generateClassIsolate);
+  try{
+    c.complete(_generateTemplate(buckshotXml));
+  }catch (Exception e){
+    c.completeException(e);
+  }
   
-  return sp.call(buckshotXml);
-  
+  return c.future;
 }
 
-_generateClassIsolate(){
-  port.receive((String msg, SendPort reply){
-    //any of these yields 'aww snap' from Dartium
-    //new Buckshot();
-    //var test = new FrameworkElement();
-    //FrameworkElement el = Buckshot.defaultPresentationProvider.deserialize(msg);
+String _generateTemplate(String xml){
+  Buckshot b = new Buckshot('#BuckshotHost');
+  var oldContext = buckshot.switchContextTo(b);
+  
+  var result = b.defaultPresentationProvider.deserialize(xml);
+  
+  StringBuffer s = new StringBuffer();
+  
+  s.add(
+'''
+/**
+* ** GENERATED CODE **
+*/
+class UserView implements IView
+{
+''');
+  
+  if (b.namedElements.length > 0){    
+    b.namedElements.forEach((name, FrameworkObject el){
+      s.add(
+'''
+  /// Object representation of the named [FrameworkElement]: ${name} ${el.type}
+  final ${el.type} ${name};
 
-    
-    //just pinging back the message for now
-    reply.send(msg, port.toSendPort());
+''');
+    });
+  }
+  
+  s.add(
+'''
+
+  // Raw template representing the view.
+  static final String _viewTemplate = 
+\'\'\'
+${xml}
+\'\'\';
+
+  // Deserialized view.
+  final FrameworkElement _view;
+
+  /// Gets the visual root of the view. (IView interface)
+  FrameworkElement get rootVisual() => _view;
+''');  
+  
+s.add(
+'''
+
+  UserView()
+  : 
+''');
+
+if (b.namedElements.length > 0){
+  b.namedElements.forEach((name, FrameworkObject el){
+    s.add(
+'''
+  ${name} = buckshot.namedElements["${name}"],
+''');
   });
 }
+
+s.add(
+'''
+  _view = buckshot.defaultPresentationProvider.deserialize(_viewTemplate)
+{}
+''');
+  
+  s.add(
+'''
+}
+''');
+  
+  buckshot.switchContextTo(oldContext);
+  UserView v = new UserView();
+  buckshot.rootView = v;
+  var r = s.toString();
+  
+//  var content='data:text/plain, $r';
+//  
+//  window.location.href = content;
+  
+  return s.toString();
+}
+
+
+/**
+* ** GENERATED CODE **
+*/
+class UserView implements IView
+{
+  /// Object representation of the named [FrameworkElement]: tbNextLine TextBlock
+  final TextBlock tbNextLine;
+
+  /// Object representation of the named [FrameworkElement]: tbTest TextBlock
+  final TextBlock tbTest;
+
+
+  // Raw template representing the view.
+  static final String _viewTemplate = 
+'''
+<stackpanel>
+  <textblock name='tbTest' text='hello world'></textblock>
+  <textblock name='tbNextLine' text='This is opportunity knocking.'></textblock>
+</stackpanel>
+
+''';
+
+  // Deserialized view.
+  final FrameworkElement _view;
+
+  /// Gets the visual root of the view. (IView interface)
+  FrameworkElement get rootVisual() => _view;
+
+  UserView()
+  : 
+  tbNextLine = buckshot.namedElements["tbNextLine"],
+  tbTest = buckshot.namedElements["tbTest"],
+  _view = buckshot.defaultPresentationProvider.deserialize(_viewTemplate)
+{}
+}
+ 

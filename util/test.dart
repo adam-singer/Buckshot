@@ -3,7 +3,8 @@
 String get testTemplate() => 
 '''
 <stackpanel>
-<textbock text='hello world'></textblock>
+  <textblock name='tbTest' text='hello world'></textblock>
+  <textblock name='tbNextLine' text='This is opportunity knocking.'></textblock>
 </stackpanel>
 ''';
 

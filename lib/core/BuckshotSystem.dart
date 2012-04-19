@@ -62,9 +62,10 @@ class Buckshot extends FrameworkObject {
   //"Singleton?"
   static Buckshot _ref;
   
-  Buckshot()
+  /// Pass the ID of the element in the DOM where buckshot will render content.
+  Buckshot(String buckshotRootID)
   { 
-    _initBuckshotSystem(Buckshot._defaultRootID);
+    _initBuckshotSystem(buckshotRootID);
   }
   
   factory Buckshot._cached()
@@ -295,7 +296,16 @@ class Buckshot extends FrameworkObject {
   void renderRaw(FrameworkElement element){
     rootView = new IView(element);
   }
-    
-    
+   
+  /// Changes the active context for the framework and returns the previous context.
+  /// 
+  /// Caution! Only use this if you know exactly what you are doing.
+  /// Switching context may have undesirable consequences.
+  Buckshot switchContextTo(Buckshot context){
+    var temp = Buckshot._ref;
+    Buckshot._ref = context;
+    return temp;
+  }
+  
   String get type() => "BuckshotSystem";
   }
