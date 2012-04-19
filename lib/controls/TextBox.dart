@@ -21,35 +21,35 @@ class TextBox extends Control
 {
   FrameworkProperty textProperty, inputTypeProperty, placeholderProperty;
   final FrameworkEvent<TextChangedEventArgs> textChanged;
-  
+
   FrameworkObject makeMe() => new TextBox();
-  
+
   TextBox() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {
     _Dom.appendBuckshotClass(_component, "textbox");
-    
+
     _initTextBoxProperties();
 
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
-    
+
     _initEvents();
   }
-  
+
   void _initTextBoxProperties(){
-    
+
     placeholderProperty = new FrameworkProperty(
       this,
       "placeholder",
       (String value){
         _component.attributes["placeholder"] = value;
       });
-    
-    
+
+
     textProperty = new FrameworkProperty(this, "text", (String value){
       _component.dynamic.value = value;
     },"");
-    
+
     inputTypeProperty = new FrameworkProperty(this, "inputType", (InputTypes value){
       if (InputTypes._isValidInputType(value)){
         _component.attributes["type"] = value.toString();
@@ -58,59 +58,59 @@ class TextBox extends Control
       }
     }, InputTypes.text, converter:const StringToInputTypesConverter());
   }
-  
-  
+
+
   void _initEvents(){
-    
+
     _component.on.keyUp.add((e){
       if (text == _component.dynamic.value) return; //no change from previous keystroke
-      
+
       String oldValue = text;
       text = _component.dynamic.value;
 
       if (!textChanged.hasHandlers) return;
       textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));
-      
+
       if (e.cancelable) e.cancelBubble = true;
     });
-    
+
     _component.on.change.add((e){
       if (text == _component.dynamic.value) return; //no change from previous keystroke
-      
+
       String oldValue = text;
       text = _component.dynamic.value;
-      
+
       if (!textChanged.hasHandlers) return;
       textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));
-      
-      if (e.cancelable) e.cancelBubble = true;  
-    });     
+
+      if (e.cancelable) e.cancelBubble = true;
+    });
 
   }
-  
+
   //framework property exposure
   String get text() => getValue(textProperty);
   set text(String value) => setValue(textProperty, value);
-  
+
   InputTypes get inputType() => getValue(inputTypeProperty);
   set inputType(InputTypes value) => setValue(inputTypeProperty, value);
-  
+
   set placeholder(String value) => setValue(placeholderProperty, value);
   String get placeholder() => getValue(placeholderProperty);
-  
-  
+
+
   void CreateElement(){
     _component = _Dom.createByTag("input");
     _component.attributes["type"] = "text";
   }
-  
+
   String get type() => "TextBox";
 }
 
 class InputTypes{
   final String _str;
   const InputTypes(this._str);
-  
+
   static final password = const InputTypes("password");
   static final email = const InputTypes("email");
   static final date = const InputTypes("date");
@@ -122,13 +122,13 @@ class InputTypes{
   static final time = const InputTypes("time");
   static final url = const InputTypes("url");
   static final week = const InputTypes("week");
-  
-  static final List<InputTypes> _validInputTypes = const <InputTypes>[password, email, date, datetime, month, search, telephone, text, time, url, week];
-  
+
+  static final List<InputTypes> validInputTypes = const <InputTypes>[password, email, date, datetime, month, search, telephone, text, time, url, week];
+
   static bool _isValidInputType(InputTypes candidate){
-    return _validInputTypes.indexOf(candidate, 0) > -1;
+    return validInputTypes.indexOf(candidate, 0) > -1;
   }
-  
+
   String toString() => _str;
 }
 
@@ -136,22 +136,22 @@ class InputTypes{
 class TextChangedEventArgs extends EventArgs {
   String newText;
   String oldText;
-  
+
   TextChangedEventArgs(){}
-  
+
   TextChangedEventArgs.with(this.oldText, this.newText);
-  
+
   BuckshotObject makeMe() => null;
 }
 
 interface IValidatable
-{  
+{
   bool isValid;
-  
+
   FrameworkProperty get textProperty();
-  
+
   setInvalid();
-  
+
   void setValid();
 }
 
@@ -159,29 +159,29 @@ interface IValidatable
 * Provides a validation service for IValidatable elements */
 class Validation{
   static AttachedFrameworkProperty validationProperty;
-  
-  
+
+
   static void setValidation(FrameworkElement element, List<String> validationRules){
     if (element == null || validationRules == null) return;
-    
+
     if (Validation.validationProperty == null){
       Validation.validationProperty = new AttachedFrameworkProperty("validation",
         (FrameworkElement e, List<String> vr){
-        
+
       });
     }
   }
-  
+
   static List<String> getValidation(FrameworkElement element){
     if (element == null) return null;
-    
+
     List<String> value = FrameworkObject.getAttachedValue(element, validationProperty);
-    
+
     if (Validation.validationProperty == null || value == null)
       setValidation(element, new List<String>());
-    
+
     return FrameworkObject.getAttachedValue(element, validationProperty);
   }
-  
+
 
 }

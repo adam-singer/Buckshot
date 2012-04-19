@@ -16,28 +16,28 @@
 //   limitations under the License.
 
 class TextBoxTests extends TestGroupBase {
-  
+
   registerTests(){
     this.testGroupName = "TextBox Tests";
-    
+
     testList["Throw on incorrect input type"] = failOnIncorrectInputType;
     testList["Accepts correct input types"] = acceptCorrectInputTypes;
   }
-  
+
   void failOnIncorrectInputType(){
     TextBox t = new TextBox();
-    
+
     Expect.throws(
     ()=> t.inputType = "_foo_".dynamic,
     (e)=> (e is FrameworkException)
     );
   }
-  
+
   void acceptCorrectInputTypes(){
     TextBox t = new TextBox();
-    
+
     //iterate through all the available types
-    for(InputTypes s in InputTypes._validInputTypes){
+    for(InputTypes s in InputTypes.validInputTypes){
       t.inputType = s;
     }
   }

@@ -21,6 +21,8 @@
 #import('../../../src/lib/unittest/unittest.dart');
 #import('../../../src/lib/unittest/html_enhanced_config.dart');
 
+//#import('../../../src/lib/unittest/html_config.dart');
+
 #import('../lib/Buckshot.dart');
 
 #source('InitializationTests.dart');
@@ -53,13 +55,14 @@
 
 void main() {
   final _tList = new List<TestGroupBase>();
-  
+
   new Buckshot();
-  
+
   useHtmlEnhancedConfiguration();
-     
+  //useHtmlConfiguration();
+
   group('Dart Bugs', (){
-    
+
     test('borderRadiusReturnsNull', (){
       var e = new Element.tag('div');
       e.style.borderRadius = '10px';
@@ -67,23 +70,23 @@ void main() {
       var result = e.style.borderRadius;
       Expect.isNotNull(result);
     });
-    
+
     test('SVG elements returning css', (){
       var se = new SVGSVGElement();
       var r = new SVGElement.tag('rect');
       se.elements.add(r);
-      
+
       r.style.setProperty('fill','Red');
-      
+
       var result = r.style.getPropertyValue('fill');
       Expect.isNotNull(result);
     });
   });
-  
+
   group('Initialization', (){
     test('Buckshot Initialized', () => Expect.isNotNull(Buckshot.visualRoot));
   });
-  
+
   _tList.add(new FrameworkFundamentalsTests());
   _tList.add(new FrameworkElementTests());
   _tList.add(new FrameworkPropertyTests());
@@ -110,7 +113,7 @@ void main() {
   _tList.add(new ResourceTests());
   _tList.add(new VarResourceTests());
   _tList.add(new FrameworkAnimationTests());
-  
+
   _tList.forEach((TestGroupBase t){
     group(t.testGroupName, (){
       t.testList.forEach((String name, Function testFunc){
@@ -126,15 +129,15 @@ void main() {
 /**
 * A base class for defining groups of tests to be performed. */
 class TestGroupBase {
-  
+
   final LinkedHashMap<String, Function> testList;
   String testGroupName;
-  
+
   TestGroupBase() : testList = new LinkedHashMap<String, Function>()
   {
     registerTests();
   }
-  
+
   abstract void registerTests();
-  
+
 }
