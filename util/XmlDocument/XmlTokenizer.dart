@@ -31,20 +31,27 @@ class XmlTokenizer {
   static final int Q = 63;  //?
   static final int B = 33;  //!
   
+  final Queue<_XmlToken> _tq;
   final String _xml;
   int _length;
   int _i = 0;
   
   XmlTokenizer(this._xml) 
   :
-    _i = 0
+    _i = 0,
+    _tq = new Queue<_XmlToken>()
   {
     _length = _xml.length;
   }
   
-  
-  next()
+    
+  _XmlToken next()
   {
+    void addToQueue(_XmlToken token) => _tq.addLast(token);
+    
+    _XmlToken getNextToken() =>  _tq.isEmpty() ? null : _tq.removeFirst();
+    
+    
     //returns the first char in the list that appears ahead
     int peekUntil(List chars){
       int z = _i;
@@ -56,6 +63,8 @@ class XmlTokenizer {
       return _xml.charCodeAt(z);
     }
     
+    if (!_tq.isEmpty()) return getNextToken();
+        
     while(_i < _length && isWhitespace(_xml.charCodeAt(_i)))
       {
         _i++;
@@ -68,38 +77,43 @@ class XmlTokenizer {
     switch(char){
       case Q:
         _i++;
-        return new _XmlToken(_XmlToken.QUESTION);
+        addToQueue(new _XmlToken(_XmlToken.QUESTION));
+        break;
       case B:
         _i++;
-        return new _XmlToken(_XmlToken.BANG);
+        addToQueue(new _XmlToken(_XmlToken.BANG));
+        break;
       case COLON:
         _i++;
-        return new _XmlToken(_XmlToken.COLON);
+        addToQueue(new _XmlToken(_XmlToken.COLON));
+        break;
       case SLASH:
         _i++;
-        return new _XmlToken(_XmlToken.SLASH);
+        addToQueue(new _XmlToken(_XmlToken.SLASH));
+        break;
       case LT:
         _i++;
+        addToQueue(new _XmlToken(_XmlToken.LT));
         int c = peekUntil([SPACE, GT]);
         if (c == SPACE){
           var _ii = _i;
           _i = _xml.indexOf(' ', _ii) + 1;
-          return [new _XmlToken(_XmlToken.LT), new _XmlToken.string(_xml.substring(_ii, _i - 1))];
-          
-        }else{
-          return new _XmlToken(_XmlToken.LT);
+          addToQueue(new _XmlToken.string(_xml.substring(_ii, _i - 1)));
         }
-       
+        break;
       case GT:
         _i++;
-        return new _XmlToken(_XmlToken.GT);
+        addToQueue(new _XmlToken(_XmlToken.GT));
+        break;
       case EQ:
         _i++;
-        return new _XmlToken(_XmlToken.EQ);
+        addToQueue(new _XmlToken(_XmlToken.EQ));
+        break;
       case QUOTE:
       case SQUOTE:
         _i++;
-        return new _XmlToken(_XmlToken.QUOTE);
+        addToQueue(new _XmlToken(_XmlToken.QUOTE));
+        break;
       default:
         StringBuffer s = new StringBuffer();
         
@@ -107,9 +121,11 @@ class XmlTokenizer {
           s.add(_xml.substring(_i, _i + 1));
           _i++;
         }
-
-        return new _XmlToken.string(s.toString());
+        
+        addToQueue(new _XmlToken.string(s.toString()));
+        break;
     }
+    return getNextToken();
   }
 
   static bool isReserved(int c){
