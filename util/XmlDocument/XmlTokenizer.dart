@@ -15,7 +15,9 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-
+/**
+* Returns tokenized parts of Xml document.
+*/
 class XmlTokenizer {
   static final int TAB = 9;
   static final int NEW_LINE = 10;
@@ -52,7 +54,7 @@ class XmlTokenizer {
     _XmlToken getNextToken() =>  _tq.isEmpty() ? null : _tq.removeFirst();
     
     
-    //returns the first char in the list that appears ahead
+    // Returns the first char in the list that appears ahead.
     int peekUntil(List chars){
       int z = _i;
       
@@ -63,6 +65,7 @@ class XmlTokenizer {
       return _xml.charCodeAt(z);
     }
     
+    // Peel off and return a token if there are any in the queue.
     if (!_tq.isEmpty()) return getNextToken();
         
     while(_i < _length && isWhitespace(_xml.charCodeAt(_i)))
