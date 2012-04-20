@@ -18,7 +18,7 @@
 #library('Buckshot Control Generator');
 
 #import('../lib/Buckshot.dart');
-#import('dart:json');
+#import('dart:io');
 #import('dart:html');
 
 /** 
