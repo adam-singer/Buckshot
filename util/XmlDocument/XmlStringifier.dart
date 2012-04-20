@@ -31,6 +31,10 @@ class XmlStringifier {
   
   void _stringifyInternal(StringBuffer b, XmlNode n, int indent){
     switch(n.type){
+      case XmlNodeType.Document:
+        //TODO support prolog & doctype
+        _stringifyInternal(b, n.dynamic.root, 0);
+        break;
       case XmlNodeType.Element:
         b.add('\r${_space(indent)}<${n.dynamic.tagName}');
         if (n.hasChildNodes()){

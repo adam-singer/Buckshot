@@ -30,8 +30,8 @@
 
 
 /**
-* Utility class to parse XML. To get deserialized string, call
-* toString() on any [XmlNode].
+* Utility class to parse XML. To get serialized [String], call
+* .toString() on any [XmlNode].
 */
 class XML{
   
@@ -39,5 +39,18 @@ class XML{
     throw new NotImplementedException();
     
   }
- 
+}
+
+/**
+* Represents a root document of Xml.
+*/
+class XmlDocument extends XmlNode
+{
+  XmlNode prolog;
+  XmlNode docType;
+  final XmlElement root;
+  
+  XmlDocument(this.root)
+  :
+    super(XmlNodeType.Document, const []);
 }
