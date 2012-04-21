@@ -7,7 +7,6 @@ demos/ValueConversion/ValueConversion.dart
 extensions/actions/SetPropertyAction.dart
 extensions/actions/AnimationAction.dart
 extensions/actions/ActionPack.dart
-util/XmlDocument/XmlDocument.dart
 extensions/media/MediaPack.dart
 extensions/media/YouTube.dart
 demos/Colors/Colors.dart
@@ -20,5 +19,4 @@ extensions/media/FunnyOrDie.dart
 util/test.dart
 extensions/media/Vimeo.dart
 lib/Buckshot.dart
-util/vmtest/vmtest.dart
 demos/todo/todo.dart
