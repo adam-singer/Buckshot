@@ -7,7 +7,7 @@ Buckshot is a UI Framework for modern web applications. It is written in Google 
 If you've worked with .net WPF or Silverlight then this framework will feel very familiar to you.
 
 ## Status
-Project is currently in the Alpha stage of development.  It will likely not move to beta or v1.0 until after Dart ships v1.0, this is to ensure that that library is working correctly with the Dart APIs, which are still in flux.
+Project is currently in the Alpha stage of development.  It will likely not move to beta or v1.0 until after Dart ships v1.0. This is to ensure that that library is working correctly with the Dart APIs, which are still in flux.
 
 ## Getting Started
 * [API Reference](http://www.lucastudios.com/trybuckshot/docs/)
