@@ -48,8 +48,12 @@ class Globals
 Future _functionToFuture(Function f){
   Completer c = new Completer();
   
-  try{
+  void doIt() {
     c.complete(f());
+  }
+
+  try{
+    window.setTimeout(doIt, 0);
   }catch (Exception e){
     c.completeException(e);
   }
