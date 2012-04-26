@@ -1,6 +1,9 @@
 #import('ControlGenerator.dart');
+#import('dart:html');
 
-String get testTemplate() => 
+//blah
+
+String get testTemplate() =>
 '''
 <stackpanel orientation="horizontal" horizontalAlignment="center">
   <resourcecollection>
@@ -153,6 +156,9 @@ String get testTemplate() =>
 
 main(){
   generateClassFromXmlTemplate(testTemplate).then((reply){
+    var e = new Element.tag('pre');
+    e.text = reply;
+    document.body.elements.add(e);
     print(reply);
   });
 }

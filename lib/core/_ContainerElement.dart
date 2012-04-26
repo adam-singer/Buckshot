@@ -73,7 +73,8 @@ class _ContainerElement extends FrameworkElement
     _horizontalBinding.unregister();
     _horizontalBinding = null;
     
-    child._containerParent.updateLayout();
+    if (child._containerParent != null)
+      child._containerParent.updateLayout();
   }
   
   void _clearVerticalBinding(FrameworkElement child){
@@ -82,7 +83,8 @@ class _ContainerElement extends FrameworkElement
     _verticalBinding.unregister();
     _verticalBinding = null;
     
-    child._containerParent.updateLayout();
+    if (child._containerParent != null)
+      child._containerParent.updateLayout();
   }
   
   void _setHorizontalBinding(FrameworkElement child){

@@ -18,53 +18,59 @@
 #library('Buckshot Control Generator');
 
 #import('../lib/Buckshot.dart');
-#import('dart:io');
+#import('../external/dartxml/Xml.dart');
 #import('dart:html');
 
-/** 
-* Takes a string of BuckshotXML and returns a string representing a dart Class of the resulting object.
+/**
+* Takes a string of BuckshotXML and returns a string representing a
+* dart Class of the resulting object.
 */
-Future<String> generateClassFromXmlTemplate(String buckshotXml){  
+Future<String> generateClassFromXmlTemplate(String buckshotXml){
   var c = new Completer();
-  
+
+  doIt() => c.complete(_generateTemplate(buckshotXml));
+  //doIt() => c.complete('hello world');
+
   try{
-    c.complete(_generateTemplate(buckshotXml));
+    window.setTimeout(doIt, 0);
   }catch (Exception e){
     c.completeException(e);
   }
-  
+
   return c.future;
 }
 
 String _generateTemplate(String xml){
   Buckshot b = new Buckshot('#BuckshotHost');
   var oldContext = buckshot.switchContextTo(b);
-  
+
   var result = b.defaultPresentationProvider.deserialize(xml);
-  
+
   StringBuffer s = new StringBuffer();
-  
+
   _header(s, 'UserView');
-  
+
   _constructor(s, b, 'UserView');
-  
+
   _namedElementsDeclaration(s, b);
-  
+
   _template(s, xml);
-  
+
   _IView(s);
-      
+
   _footer(s);
 
   buckshot.switchContextTo(oldContext);
-  
+
   UserView v = new UserView();
   buckshot.rootView = v;
-  
+
+  v.btnClear.click + (_, __) => document.body.elements.clear();
+
 //  var content='data:text/plain, $r';
-//  
+//
 //  window.location.href = content;
-  
+
   return s.toString();
 }
 
@@ -79,7 +85,7 @@ void _header(StringBuffer s, String className)
 class ${className} implements IView
 {
 ''');
-  
+
 }
 
 void _footer(StringBuffer s){
@@ -94,13 +100,12 @@ void _namedElementsDeclaration(StringBuffer s, Buckshot b){
   if (b.namedElements.length > 0){
 s.add('''
 
+  /// Strongly typed representations of all named elements.
 ''');
     b.namedElements.forEach((name, FrameworkObject el){
       s.add(
 '''
-  /// Object representation of the named [FrameworkElement]: ${name} ${el.type}
   final ${el.type} ${name};
-
 ''');
     });
   }
@@ -117,7 +122,7 @@ void _template(StringBuffer s, String templateXml){
 ${templateXml}
 \'\'\';
 ''');
-  
+
 }
 
 void _IView(StringBuffer s){
@@ -127,8 +132,8 @@ void _IView(StringBuffer s){
 
   /// Gets the visual root of the view. (IView interface)
   FrameworkElement get rootVisual() => _view;
-''');  
-  
+''');
+
 }
 
 void _constructor(StringBuffer s, Buckshot b, String className){
@@ -144,7 +149,7 @@ ${className}()
 '''
   _view = buckshot.defaultPresentationProvider.deserialize(_viewTemplate),
 ''');
-      
+
       int i = 0;
       b.namedElements.forEach((name, FrameworkObject el){
         s.add(
@@ -158,7 +163,7 @@ ${className}()
   _view = buckshot.defaultPresentationProvider.deserialize(_viewTemplate);
 ''');
     }
-  
+
 }
 
 
@@ -195,7 +200,7 @@ class UserView implements IView
 
 
   // Raw template representing the view.
-  static final String _viewTemplate = 
+  static final String _viewTemplate =
 '''
 <stackpanel orientation="horizontal" horizontalAlignment="center">
   <resourcecollection>

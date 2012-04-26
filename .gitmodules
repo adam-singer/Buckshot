@@ -1,0 +1,3 @@
+[submodule "external/dartxml"]
+	path = external/dartxml
+	url = https://github.com/prujohn/dart-xml

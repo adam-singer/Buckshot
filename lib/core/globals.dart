@@ -20,7 +20,7 @@
 class Globals
 {
   static final bool addPropertyAttributes = false;
-  
+
   /**
   * Sets an attribute on the element with the given FrameworkProperty value */
   static satt(FrameworkProperty property){
@@ -29,7 +29,7 @@ class Globals
     FrameworkElement fl = property.sourceObject;
     fl._component.attributes["data-lucaui-${property.propertyName}"] = getValue(property);
   }
-  
+
   //remove
 //  static final String _controlTemplates =
 //'''
@@ -47,50 +47,48 @@ class Globals
 
 Future _functionToFuture(Function f){
   Completer c = new Completer();
-  
-  void doIt() {
-    c.complete(f());
-  }
+
+  void doIt() => c.complete(f());
 
   try{
     window.setTimeout(doIt, 0);
   }catch (Exception e){
     c.completeException(e);
   }
-  
+
   return c.future;
 }
 
 /**
  * Sets the value of a given [FrameworkProperty] to a given [value]. */
 void setValue(FrameworkProperty property, Dynamic value)
-{     
+{
     //if (Globals.addPropertyAttributes)
            // Globals.satt(property);
-   
+
    if (property.stringToValueConverter != null && value is String){
      value = property.stringToValueConverter.convert(value);
    }
-   
-  
+
+
    if (property.value == value) return;
-    
+
     property._previousValue = property.value;
-    property.value = value;   
+    property.value = value;
 
     // 3 different activities take place when a FrameworkProperty value changes,
     // in this order of precedence:
     //    1) callback - lets the FrameworkProperty do any work it wants to do
     //    2) bindings - fires any bindings associated with the FrameworkProperty
     //    3) event - notifies any subscribers that the FrameworkProperty value changed
-    
+
     // 1) callback
     Function f = property.propertyChangedCallback;
     f(value);
-    
+
     // 2) bindings
     _BindingImplementation._executeBindingsFor(property);
-    
+
     // 3) event
     if (property.propertyChanging.hasHandlers)
       property.propertyChanging.invoke(property.sourceObject, new PropertyChangingEventArgs(property.previousValue, value));
@@ -101,7 +99,7 @@ void setValue(FrameworkProperty property, Dynamic value)
  * Returns null if the [propertyInfo] object does not exist or if the underlying
  * property is not found. */
 Dynamic getValue(FrameworkProperty propertyInfo)
-{  
+{
   return (propertyInfo == null) ? null : propertyInfo.value;
 }
 
