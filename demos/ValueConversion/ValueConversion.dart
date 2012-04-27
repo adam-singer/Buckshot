@@ -15,8 +15,8 @@ StyleResources resources;
     resources = new StyleResources();
     
     //bind buckshot.visualRoot to window dimensions
-    new Binding(buckshot.windowWidthProperty, buckshot.visualRoot.widthProperty);
-    new Binding(buckshot.windowHeightProperty, buckshot.visualRoot.heightProperty);
+    new Binding(buckshot.windowWidthProperty, buckshot.domRoot.widthProperty);
+    new Binding(buckshot.windowHeightProperty, buckshot.domRoot.heightProperty);
     
     //make the mainGrid and set it's style
     Grid mainGrid = new Grid();

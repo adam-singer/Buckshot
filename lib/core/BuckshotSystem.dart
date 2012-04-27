@@ -46,7 +46,7 @@ class Buckshot extends FrameworkObject {
   HashMap<String, Dynamic> _objectRegistry;
   
   /// The root container that all elements are children of.
-  _RootElement visualRoot;
+  _RootElement domRoot;
   
   /// **deprecated**
   bool unitTestEnabled = false; //flag used to accomodate unit testing scenarios
@@ -58,6 +58,8 @@ class Buckshot extends FrameworkObject {
   FrameworkProperty windowWidthProperty;
   /// Bindable window width/height properties.  Readonly so can only bind from, not to.
   FrameworkProperty windowHeightProperty;
+  
+  FrameworkProperty versionProperty;
   
   //"Singleton?"
   static Buckshot _ref;
@@ -98,7 +100,7 @@ class Buckshot extends FrameworkObject {
     
     namedElements = new HashMap<String, FrameworkObject>();
     
-    visualRoot = new _RootElement();
+    domRoot = new _RootElement();
     
     _resourceRegistry = new HashMap<String, FrameworkResource>();
     
@@ -109,6 +111,9 @@ class Buckshot extends FrameworkObject {
     defaultPresentationProvider = new BuckshotTemplateProvider();
         
     _attachedProperties = new HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject, Dynamic>>();
+    
+    versionProperty = new FrameworkProperty(Buckshot._ref, "version", (_){}, '0.4 Alpha');
+    versionProperty.readOnly = true;
     
     windowWidthProperty = new FrameworkProperty(
       Buckshot._ref,
@@ -279,11 +284,11 @@ class Buckshot extends FrameworkObject {
     //remove child nodes from the root dom element
     _domRootElement.elements.clear();  
        
-    _domRootElement.elements.add(visualRoot._component);
+    _domRootElement.elements.add(domRoot._component);
 
-    visualRoot._isLoaded = true;
+    domRoot._isLoaded = true;
     //db('(BuckshotSystem)Updating visualRoot content', visualRoot);
-    visualRoot.content = view.rootVisual;
+    domRoot.content = view.rootVisual;
     //    visualRoot._isLoaded = true;
 //    visualRoot._onAddedToDOM();
   }

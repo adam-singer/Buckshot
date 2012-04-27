@@ -26,8 +26,8 @@ class ColorsDemo {
         
     //since we know this app owns the entire browser window space...
     //bind buckshot.visualRoot to window dimensions
-    new Binding(buckshot.windowWidthProperty, buckshot.visualRoot.widthProperty);
-    new Binding(buckshot.windowHeightProperty, buckshot.visualRoot.heightProperty);
+    new Binding(buckshot.windowWidthProperty, buckshot.domRoot.widthProperty);
+    new Binding(buckshot.windowHeightProperty, buckshot.domRoot.heightProperty);
     
     Grid mainGrid = new Grid();
     mainGrid.style = resources.mainGridStyle;

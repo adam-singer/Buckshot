@@ -82,7 +82,7 @@ void main() {
   });
 
   group('Initialization', (){
-    test('Buckshot Initialized', () => Expect.isNotNull(buckshot.visualRoot));
+    test('Buckshot Initialized', () => Expect.isNotNull(buckshot.domRoot));
   });
 
   _tList.add(new FrameworkFundamentalsTests());

@@ -20,16 +20,14 @@
 */
 class StringToNumericConverter implements IValueConverter {
   const StringToNumericConverter();
-  
+
   Dynamic convert(Dynamic value, [Dynamic parameter]){
-    if (!(value is String)) return value;
-    
-    if (value == "auto") return value;
-    
+    if (value is! String || value == 'auto') return value;
+
     try{
       return Math.parseDouble(value);
     }catch(Exception e){
-      return value;      
+      return value;
     }
   }
 }

@@ -52,6 +52,10 @@ void main() {
   DropDownList ddlControls = buckshot.namedElements["ddlControls"];
   DropDownList ddlBinding = buckshot.namedElements["ddlBinding"];
   DropDownList ddlMediaExtensions = buckshot.namedElements["ddlMediaExtensions"];  
+  StackPanel spRoot = buckshot.namedElements['spRoot'];
+  
+  // set buckshot to the root's datacontext
+  spRoot.dataContext = buckshot;
   
   // set a demo view model into the borderContent's datacontext
   borderContent.dataContext = new DemoViewModel();

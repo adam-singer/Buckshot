@@ -16,7 +16,7 @@
 This is the actual xml that is rendering the page.
 -->
 
-<stackpanel orientation="horizontal" horizontalAlignment="center">
+<stackpanel name='spRoot' orientation="horizontal" horizontalAlignment="center">
   <resourcecollection>
     <color key="buckshotBlue" value="#165284"></color>
 
@@ -65,6 +65,10 @@ This is the actual xml that is rendering the page.
       <stackpanel>
           <textblock foreground="White" fontSize="48" text="Buckshot"></textblock>
           <textblock fontfamily="arial" foreground="White" text="A Better Way To Web"></textblock>
+          <stackpanel orientation=horizontal margin="5,0,0,0">
+          		<textblock fontSize='10' fontfamily="arial" foreground="White" text="Version:"></textblock>
+  	            <textblock margin='0,0,0,5' fontSize='10' fontfamily="arial" foreground="White" text="{data version}"></textblock>
+          </stackpanel>
       </stackpanel>
     </border>
     <border style="{resource sidebox}">

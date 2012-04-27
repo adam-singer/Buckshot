@@ -13,8 +13,8 @@ class View extends Grid implements IView {
   void _initUI(){
 
     //we'll make the visual root container bound to the window's size. stretchy...
-    new Binding(buckshot.windowWidthProperty, buckshot.visualRoot.widthProperty);
-    new Binding(buckshot.windowHeightProperty, buckshot.visualRoot.heightProperty);
+    new Binding(buckshot.windowWidthProperty, buckshot.domRoot.widthProperty);
+    new Binding(buckshot.windowHeightProperty, buckshot.domRoot.heightProperty);
     
     //UI for this (Grid)
     LinearGradientBrush lgb = new LinearGradientBrush();

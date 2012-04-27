@@ -66,6 +66,7 @@ class LayoutCanvas extends Panel
         element.margin = new Thickness.specified(t, 0, 0, l);
 
         _component.nodes.add(element._component);
+
         element.attachedPropertyChanged + _onAttachedPropertyChanging;
       });
 
@@ -73,6 +74,7 @@ class LayoutCanvas extends Panel
 
   void _onAttachedPropertyChanging(Object sender, AttachedPropertyChangedEventArgs args){
     //the attached property value changed so call it's callback to adjust the value
+//    db('sender', sender);
     Function f = args.property.propertyChangedCallback;
     f(sender, args.value);
   }
@@ -88,7 +90,7 @@ class LayoutCanvas extends Panel
     if (LayoutCanvas.topProperty == null)
       LayoutCanvas.topProperty = new AttachedFrameworkProperty("top",
         (FrameworkElement e, int v){
-        element.margin = new Thickness.specified(v, 0, 0, LayoutCanvas.getLeft(e));
+        e.margin = new Thickness.specified(v, 0, 0, LayoutCanvas.getLeft(e));
       });
 
     FrameworkObject.setAttachedValue(element, topProperty, value);
@@ -118,9 +120,8 @@ class LayoutCanvas extends Panel
     if (LayoutCanvas.leftProperty == null)
       LayoutCanvas.leftProperty = new AttachedFrameworkProperty("left",
         (FrameworkElement e, int v){
-          element.margin = new Thickness.specified(LayoutCanvas.getTop(e),0, 0, v);
+          e.margin = new Thickness.specified(LayoutCanvas.getTop(e), 0, 0, v);
       });
-
 
     FrameworkObject.setAttachedValue(element, leftProperty, value);
   }

@@ -41,16 +41,25 @@
  */
 class FrameworkProperty extends FrameworkPropertyBase
 {
+  Dynamic _value;
+  
   /// Represents the stored value of the FrameworkProperty.
   ///
   /// Generally, this should not be access directly, but through:
   ///     getValue({propertyName});
-  Dynamic value = null;
+  Dynamic get value() => _value;
+  set value(Dynamic v) {
+    if (readOnly){
+      throw const FrameworkException('Attempted to write to a read-only property.');
+    }
+    _value = v;
+  }
  
   
   /// Gets the previous value assigned to the FrameworkProperty.
   Dynamic get previousValue() => _previousValue;
   Dynamic _previousValue;
+  bool readOnly = false;
     
   /// Constructs a FrameworkProperty and initializes it to the framework.
   ///
@@ -59,7 +68,7 @@ class FrameworkProperty extends FrameworkPropertyBase
   /// * [String] propertyName - the friendly public name for the property.
   /// * [Function] propertyChangedCallback - called by the framework when the property value changes.
   /// * [Dynamic] value - optional default value assigned to the property at initialization.
-  FrameworkProperty(BuckshotObject sourceObject, String propertyName, Function propertyChangedCallback, [this.value = null, converter = null])
+  FrameworkProperty(BuckshotObject sourceObject, String propertyName, Function propertyChangedCallback, [defaultValue = null, converter = null])
   : super(sourceObject, propertyName, propertyChangedCallback, stringToValueConverter:converter)
   {
 
@@ -69,7 +78,8 @@ class FrameworkProperty extends FrameworkPropertyBase
     if (propertyChangedCallback == null) propertyChangedCallback = (v) {};
     
     // If the value is provided, then call it's propertyChanged function to set the value on the property.
-    if (value !== null){
+    if (defaultValue !== null){
+      value = defaultValue;
       propertyChangedCallback(value);
       propertyChanging.invoke(this, new PropertyChangingEventArgs(null, value));
     }
@@ -83,7 +93,7 @@ class AnimatingFrameworkProperty extends FrameworkProperty{
   final String cssPropertyPeer;
   
   AnimatingFrameworkProperty(FrameworkElement sourceObject, String propertyName, Function propertyChangedCallback, String this.cssPropertyPeer, [value = null, converter = null])
-  : super(sourceObject, propertyName, propertyChangedCallback, value:value, converter:converter)
+  : super(sourceObject, propertyName, propertyChangedCallback, defaultValue:value, converter:converter)
   {
     if (sourceObject is! FrameworkElement) throw const FrameworkException('AnimatingFrameworkProperty can only be used with elements that derive from FrameworkElement.');
   }

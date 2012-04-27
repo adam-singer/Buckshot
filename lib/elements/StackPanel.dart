@@ -20,9 +20,11 @@
 class StackPanel extends Panel
 {
   FrameworkProperty orientationProperty;
-    
+  FrameworkProperty childVerticalAlignmentProperty;
+  FrameworkProperty childHorizontalAlignmentProperty;
+
   FrameworkObject makeMe() => new StackPanel();
-  
+
   StackPanel()
   {
     _Dom.appendBuckshotClass(_component, "stackpanel");
@@ -34,46 +36,54 @@ class StackPanel extends Panel
 
       },
       Orientation.vertical, converter:new StringToOrientationConverter());
-        
+
+    childVerticalAlignmentProperty = new FrameworkProperty(this,
+      'childVerticalAlignment', (v){
+      _Dom.setVerticalFlexBoxAlignment(this, v);
+    }, converter:const StringToVerticalAlignmentConverter());
+
+    childHorizontalAlignmentProperty = new FrameworkProperty(this,
+      'childHorizontalAlignment', (v){
+      _Dom.setHorizontalFlexBoxAlignment(this, v);
+    }, converter:const StringToHorizontalAlignmentConverter());
+
   }
-  
+
   void onChildrenChanging(ListChangedEventArgs args){
     super.onChildrenChanging(args);
-    
+
     if (!args.oldItems.isEmpty()){
       args.oldItems.forEach((FrameworkElement element){
-        
+
         element.removeFromLayoutTree();
         element._containerParent = null;
       });
     }
-    
+
     if (!args.newItems.isEmpty()){
       args.newItems.forEach((FrameworkElement element){
         element.addToLayoutTree(this);
 //        _component.nodes.add(element._component);
         element._containerParent = this;
-     
+
       });
     }
   }
-  
+
   set orientation(Orientation value) => setValue(orientationProperty, value);
   Orientation get orientation() => getValue(orientationProperty);
-  
+
   void _onListChanging(Object _, ListChangedEventArgs args){
 
 
   }
-  
- 
+
   void CreateElement(){
     _component = _Dom.createByTag("div");
     _component.style.overflow = "visible";
   }
-  
-  void updateLayout()
-  { }
-  
+
+  void updateLayout(){}
+
   String get type() => "StackPanel";
 }
