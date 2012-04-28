@@ -37,6 +37,9 @@ Project is currently in the **alpha** stage of development.  It will likely not 
 * Server-side integration (Dart works on both client and server)
 * Free beer (no, but wouldn't it be nice?)
 
+## Dependencies (in the 'external' folder)
+* [Dart-XML](https://github.com/prujohn/dart-xml)
+
 ## License
 Apache 2.0. See license.txt for project licensing information.
 

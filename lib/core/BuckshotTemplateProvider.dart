@@ -27,14 +27,9 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
   //TODO MIME as identifier type instead?
   String get fileExtension() => "BuckXml";
 
-  FrameworkElement deserialize(String fileData){
+  FrameworkElement deserialize(String fileData) =>
+   _getNextElement(XML.parse(fileData, withQuirks:true));
 
-    //move the file data into an HTML element node tree
-    //does much of low-level xml parsing work for us...
-    XmlElement e = XML.parse(fileData, withQuirks:true);
-
-    return _getNextElement(e);
-  }
 
   BuckshotObject _getNextElement(XmlElement xmlElement){
     String lowerTagName = xmlElement.name.toLowerCase();
