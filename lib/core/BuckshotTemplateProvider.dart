@@ -23,42 +23,42 @@
 class BuckshotTemplateProvider extends HashableObject implements IPresentationFormatProvider {
   //a very ugly brute force implementation of an xml <-> object converter
   //but it works..
-  
+
   //TODO MIME as identifier type instead?
   String get fileExtension() => "BuckXml";
-  
+
   FrameworkElement deserialize(String fileData){
-    
+
     //move the file data into an HTML element node tree
     //does much of low-level xml parsing work for us...
     XmlElement e = XML.parse(fileData, withQuirks:true);
-    
+
     return _getNextElement(e);
   }
-  
+
   BuckshotObject _getNextElement(XmlElement xmlElement){
     String lowerTagName = xmlElement.name.toLowerCase();
-    
+
     if (!buckshot._objectRegistry.containsKey(lowerTagName))
       throw new PresentationProviderException('Element "${lowerTagName}" not found in object registry.');
-    
+
     var newElement = buckshot._objectRegistry[lowerTagName].makeMe();
-    
+
     if (xmlElement.children.length > 0 && xmlElement.children.every((n) => n is! XmlText)){
       //process nodes
-      
+
       for(final e in xmlElement.children){
         String elementLowerTagName = e.name.toLowerCase();
         if (elementLowerTagName == "img") elementLowerTagName = "image";
-                
+
         if (buckshot._objectRegistry.containsKey(elementLowerTagName)){
 
           if (e.name.contains(".")){
             //attached property
-            if (buckshot._objectRegistry.containsKey(elementLowerTagName)){    
+            if (buckshot._objectRegistry.containsKey(elementLowerTagName)){
 
               Function setAttachedPropertyFunction = buckshot._objectRegistry[elementLowerTagName];
-              
+
               //no data binding for attached properties
               setAttachedPropertyFunction(newElement, Math.parseInt(e.text.trim()));
             }
@@ -66,13 +66,13 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
             //element or resource
 
             if (!newElement.isContainer) throw const PresentationProviderException("Attempted to add element to another element which is not a container.");
-            
+
             var cc = newElement._stateBag[FrameworkObject.CONTAINER_CONTEXT];
-            
+
             FrameworkObject childElement = _getNextElement(e);
-            
+
             if (childElement == null) continue; // is a resource
-            
+
             if (cc is List){
               //list content
               cc.add(childElement);
@@ -89,31 +89,34 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
           if (p == null) throw new PresentationProviderException("Property node name '${elementLowerTagName}' is not a valid property of '${lowerTagName}'.");
 
           if (elementLowerTagName == "itemstemplate"){
-            //accomodation for controls that use  itemstemplates...
-            setValue(p, e.innerHTML); // defer parsing of the template xml, the template iterator should handle later.
+            //accomodation for controls that use itemstemplates...
+            if (e.children.length != 1){
+              throw const PresentationProviderException('ItemsTemplate can only have a single child.');
+            }
+            setValue(p, e.children[0].toString()); // defer parsing of the template xml, the template iterator should handle later.
           }else{
-          
+
             var testValue = getValue(p);
-            
+
             if (testValue != null && testValue is List){
              //complex property (list)
               for (final se in e.children){
-                testValue.add(_getNextElement(se));                
+                testValue.add(_getNextElement(se));
               }
             }else if (e.text.trim().startsWith("{")){
-              
+
               //binding or resource
               _resolveBinding(p, e.text.trim());
             }else{
               //property node
-              
+
               if (e.children.isEmpty()){
                 //assume text assignment
-                setValue(p, e.text.trim());  
+                setValue(p, e.text.trim());
               }else{
                 //assume node assignment to property
                 setValue(p, _getNextElement(e.children[0]));
-              }              
+              }
             }
           }
         }
@@ -122,17 +125,17 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
       //no nodes, check for text element
       if (xmlElement.text.trim() != ""){
         if (!newElement.isContainer) throw const PresentationProviderException("Text node found in element which does not have a container context defined.");
-        
+
         var cc = newElement._stateBag[FrameworkObject.CONTAINER_CONTEXT];
-        
+
         if (cc is List) throw const PresentationProviderException("Expected container context to be property.  Found list.");
-        
+
         setValue(cc, xmlElement.text.trim());
       }
     }
-       
+
     _assignAttributeProperties(newElement, xmlElement);
-        
+
     if (newElement is FrameworkResource){
       newElement.rawData = xmlElement.toString();
       _processResource(newElement);
@@ -142,23 +145,23 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
       return newElement;
     }
   }
-  
+
   void _resolveBinding(FrameworkProperty p, String binding){
     if (!binding.startsWith("{") || !binding.endsWith("}"))
       throw const PresentationProviderException('Binding must begin with "{" and end with "}"');
-    
+
     FrameworkProperty placeholder = new FrameworkProperty(null, "placeholder",(_){});
-    
+
     String stripped = binding.substring(1, binding.length - 1);
 
     BindingMode mode = BindingMode.OneWay;
     IValueConverter vc = null;
-        
+
     //TODO support converters...
     List<String> params = stripped.split(',');
-    
+
     List<String> words = params[0].trim().split(' ');
-    
+
     if (params.length > 1 && words[0] != "template"){
       params
         .getRange(1, params.length - 1)
@@ -176,39 +179,39 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
                   break;
               }
             } //TODO: else throw?
-            
+
           }
           else if (lParam.startsWith('converter=') || lParam.startsWith('converter ='))
           {
             var converterSplit = lParam.split('=');
-            
+
             if (converterSplit.length == 2 && converterSplit[1].startsWith('{resource ') && converterSplit[1].endsWith('}')){
               _resolveBinding(placeholder, converterSplit[1]);
               var testValueConverter = getValue(placeholder);
               if (testValueConverter is IValueConverter) vc = testValueConverter;
             } //TODO: else throw?
-          }  
+          }
         });
     }
-    
+
     switch(words[0]){
       case "resource":
         if (words.length != 2)
           throw const PresentationProviderException('Binding syntax incorrect.');
-        
+
         setValue(p, buckshot.retrieveResource(words[1]));
         break;
       case "template":
         if (words.length != 2)
           throw const FrameworkException('{template} bindings must contain a property name parameter: {template [propertyName]}');
-        
+
           p.sourceObject.dynamic._templateBindings[p] = words[1];
         break;
       case "data":
         if (!(p.sourceObject is FrameworkElement)){
           throw const PresentationProviderException('{data...} binding only supported on types that derive from FrameworkElement.');
         }
-        
+
         switch(words.length){
           case 1:
             //dataContext directly
@@ -225,30 +228,30 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
       case "element":
         if (words.length != 2)
           throw const PresentationProviderException('Binding syntax incorrect.');
-        
+
         if (words[1].contains(".")){
           var ne = words[1].substring(0, words[1].indexOf('.'));
           var prop = words[1].substring(words[1].indexOf('.') + 1);
-          
+
           if (!buckshot.namedElements.containsKey(ne))
             throw new PresentationProviderException("Named element '${ne}' not found.");
-          
+
           Binding b;
           try{
-            new Binding(buckshot.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);  
+            new Binding(buckshot.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);
           }catch (Exception err){
             //try to bind late...
             FrameworkProperty theProperty = buckshot.namedElements[ne].resolveFirstProperty(prop);
             theProperty.propertyChanging + (_, __) {
-              
+
               //unregister previous binding if one already exists.
               if (b != null) b.unregister();
-              
+
               b = new Binding(buckshot.namedElements[ne].resolveProperty(prop), p, bindingMode:mode);
-            }; 
-          }        
-          
-          
+            };
+          }
+
+
         }else{
           throw const PresentationProviderException("Element binding requires a minimum named element/property pairing (usage '{element name.property}')");
         }
@@ -257,7 +260,7 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
         throw const PresentationProviderException('Binding syntax incorrect.');
     }
   }
-  
+
   void _processResource(FrameworkResource resource){
     //ignore the collection object, the resources will come here anyway
     //TODO: maybe support merged resource collections in the future...
@@ -265,23 +268,23 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
 
     if (resource.key.isEmpty())
       throw const PresentationProviderException("Resource is missing a key identifier.");
-    
+
     //add/replace resource at given key
     buckshot.registerResource(resource);
   }
-  
+
   void _assignAttributeProperties(BuckshotObject element, XmlElement xmlElement){
 
     if (xmlElement.attributes.length == 0) return;
-    
+
     xmlElement.attributes.forEach((String k, String v){
 
       if (k.contains(".")){
-        //attached property    
-        if (buckshot._objectRegistry.containsKey("$k")){    
-          
+        //attached property
+        if (buckshot._objectRegistry.containsKey("$k")){
+
           Function setAttachedPropertyFunction = buckshot._objectRegistry["$k"];
-          
+
           setAttachedPropertyFunction(element, Math.parseInt(v));
         }
       }else{
@@ -289,7 +292,7 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
         FrameworkProperty p = element.resolveProperty(k);
 
         if (p == null) return; //TODO throw?
-          
+
         if (v.trim().startsWith("{")){
           //binding or resource
           _resolveBinding(p, v.trim());
@@ -300,10 +303,10 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
       }
     });
   }
-  
+
   String serialize(FrameworkElement elementRoot){
     throw const NotImplementedException();
   }
-  
+
   String get type() => 'BuckshotTemplateProvider';
 }

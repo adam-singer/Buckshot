@@ -42,9 +42,9 @@ class Views{
   String collectionsView;
   String dropDownListView;
   String listBoxView;
-  
+
   Views(){
-  
+
     listBoxView =
 ''' 
 <!--
@@ -138,7 +138,7 @@ each list.
               <image horizontalalignment="center" verticalalignment="center" sourceuri="{data uri}"></image>
             </border>
             <textblock foreground="Black" fontfamily="arial" text="{data name}"></textblock>
-            <textblock foreground="Black" fontsize="12" text="{data description}">   
+            <textblock foreground="Black" fontsize="12" text="{data description}"></textblock>
           </stackpanel>
         </border>
       </itemstemplate>
@@ -161,8 +161,8 @@ each list.
 </stackpanel>
 
 ''';
-    
-    dropDownListView = 
+
+    dropDownListView =
 '''
 <!--
 DropDownList provides an easy way to display a list of choices to the user.
@@ -205,7 +205,7 @@ data source 'fruit' the entire demo required no Dart coding in order to work.
 
 </stackpanel>
 ''';
-    
+
     collectionsView=
 '''
 <stackpanel margin="10">
@@ -290,8 +290,8 @@ data source 'fruit' the entire demo required no Dart coding in order to work.
   <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
 </stackpanel>
 ''';
-    
-    dataBindingView = 
+
+    dataBindingView =
 ''' 
 <!-- 
 Data Binding Demo
@@ -355,7 +355,7 @@ soon as they are declared.
   <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
 </stackpanel>
 ''';
-    
+
     interactiveView =
 '''<!--
 This demo shows how easy it is to build a simple, but interactive 
@@ -367,7 +367,7 @@ declarative element-to-element binding.
 -->
 
 <stackpanel margin="5">
-<textblock fontsize=24 text='This demo is written entirely with Buckshot XML - no code.'></textblock>
+  <textblock fontsize="24" text='This demo is written entirely with Buckshot XML - no code.'></textblock>
   <stackpanel width="650" orientation="horizontal">
   
     <grid margin="5" width="210">
@@ -416,11 +416,11 @@ declarative element-to-element binding.
       <textblock grid.column="2" grid.row="3" text="{element slCorner.value}"></textblock>
 
       <!-- using declarative actions, we reset the values of the controls when the user clicks the button -->
-      <button grid.row=4 content='Reset'>
+      <button grid.row="4" content='Reset'>
         <actions>
-          <setpropertyaction event=click targetName=slWidth property=value value=150></setpropertyaction>
-          <setpropertyaction event=click targetName=slHeight property=value value=150></setpropertyaction>
-          <setpropertyaction event=click targetName=slCorner property=value value=1></setpropertyaction>
+          <setpropertyaction event="click" targetName="slWidth" property="value" value="150"></setpropertyaction>
+          <setpropertyaction event="click" targetName="slHeight" property="value" value="150"></setpropertyaction>
+          <setpropertyaction event="click" targetName="slCorner" property="value" value="1"></setpropertyaction>
         </actions>
       </button>
 
@@ -442,8 +442,8 @@ declarative element-to-element binding.
   <youtube width="300" height="250" videoid="WC25C5AHYAI"></youtube>
 </stackpanel>
 ''';
-    
-    
+
+
     resourcesView =
 '''
 <!--
@@ -575,8 +575,8 @@ property="{resource [nameOfResource]}"
   <youtube width="300" height="250" videoid="cFxf3OBIj8Q"></youtube>
 </StackPanel>
 ''';
-    
-    
+
+
     gridView =
 '''
 <!--
@@ -666,8 +666,8 @@ The fourth column is pixel-type of 100, and remains fixed in place.
   </grid>
 </stackpanel>
 ''';
-    
-    funnyOrDieView = 
+
+    funnyOrDieView =
 '''
 <!-- FunnyOrDie element is part of the media extension library for Buckshot. -->
 <stackpanel margin="10">
@@ -678,7 +678,7 @@ The fourth column is pixel-type of 100, and remains fixed in place.
 
 </stackpanel>
 ''';
-    
+
     vimeoView =
 '''
 <!-- Vimeo element is part of the media extension library for Buckshot. -->
@@ -690,7 +690,7 @@ The fourth column is pixel-type of 100, and remains fixed in place.
 
 </stackpanel>
 ''';
-    
+
     huluView =
 '''
 <!-- 
@@ -701,7 +701,7 @@ Hulu requires Flash and that only works on USA data networks.
 
 <hulu margin="10" width="400" height="300" videoID="QRNTv9APf02C6J_xFpY0Dg"></hulu>
 ''';
-    
+
     youtubeView =
 '''
 <!-- YouTube element is part of the media extension library for Buckshot. -->
@@ -713,7 +713,7 @@ Hulu requires Flash and that only works on USA data networks.
 
 </stackpanel>   
 ''';
-    
+
     imageView =
 '''
 <stackpanel margin="10">
@@ -721,7 +721,7 @@ Hulu requires Flash and that only works on USA data networks.
   <image alt="Buckshot Logo Candidate" sourceuri="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></image>
 </stackpanel>
 ''';
-    
+
     hyperlinkView =
 '''
 <stackpanel margin="10">
@@ -741,7 +741,7 @@ Hulu requires Flash and that only works on USA data networks.
 
 </stackpanel>
 ''';
-    
+
     checkBoxView =
 '''
 <stackpanel margin="10">
@@ -756,8 +756,6 @@ Hulu requires Flash and that only works on USA data networks.
 
   </stackpanel>
 
-  <stackpanel>
-
   <stackpanel orientation="horizontal">
 
     <checkbox groupname="1"></checkbox>
@@ -766,8 +764,6 @@ Hulu requires Flash and that only works on USA data networks.
 
   </stackpanel>
 
-  <stackpanel>
-
   <stackpanel orientation="horizontal">
 
     <checkbox groupname="1"></checkbox>
@@ -775,8 +771,6 @@ Hulu requires Flash and that only works on USA data networks.
     <textblock margin="0,0,0,5">Option 3</textblock>
 
   </stackpanel>
-
-  <stackpanel>
 
   <stackpanel orientation="horizontal">
 
@@ -788,8 +782,8 @@ Hulu requires Flash and that only works on USA data networks.
 
 </stackpanel>
 ''';
-    
-    
+
+
     radioButtonView =
 '''
 <stackpanel margin="10">
@@ -830,7 +824,7 @@ Hulu requires Flash and that only works on USA data networks.
 
 </stackpanel>
 ''';
-    
+
     buttonView =
 '''
 <stackpanel margin="10">
@@ -850,7 +844,7 @@ Hulu requires Flash and that only works on USA data networks.
 
 </stackpanel>
 ''';
-    
+
     layoutCanvasView =
 '''
 <LayoutCanvas width="400" height="400" background="WhiteSmoke">
@@ -865,7 +859,7 @@ Hulu requires Flash and that only works on USA data networks.
 
 <!-- LayoutCanvas allows you to position children at explicit locations, with overlap and z-ordering supported.  Notice how the positions of the elements are set using attached properties (LayoutCanvas.left & LayoutCanvas.top)-->
 ''';
-    
+
     sliderView =
 '''
 <!-- 
@@ -895,9 +889,9 @@ each slider's 'value' property to the corresponding textblock's
    </StackPanel>
 </border>
 ''';
-    
-    
-    borderView = 
+
+
+    borderView =
 '''
 <border borderthickness="2" bordercolor="Green" background="Yellow" cornerradius="9" padding="10" margin="10" width="400" height="400">
   <border borderthickness="2" bordercolor="Green" background="Pink" cornerradius="9" padding="10" margin="10" horizontalAlignment="stretch" verticalalignment="stretch">
@@ -941,9 +935,9 @@ each slider's 'value' property to the corresponding textblock's
   </StackPanel>
 </StackPanel>
 ''';
-    
-    
-    helloWorldView = 
+
+
+    helloWorldView =
 '''
 <TextBlock text="Hello World!" />
 
@@ -962,13 +956,13 @@ or an even more verbose form if you like:
 -->
 
 ''';
-    
-    errorUI = 
+
+    errorUI =
 '''
 <Border borderColor="Red" borderThickness="3" padding="5" background="Yellow">
   <TextBlock name="tbErrorMessage" foreground="Red" text="" />
 </Border>
 ''';
-    
+
   }
 }
