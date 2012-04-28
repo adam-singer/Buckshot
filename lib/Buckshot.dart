@@ -27,6 +27,7 @@
 #library('Buckshot_Client');
 
 #import('dart:html');
+#import('../external/dartxml/Xml.dart');
 //#import('../../reactive/lib/reactive_lib.dart');
 
 #source('MVVM/ViewModelBase.dart');

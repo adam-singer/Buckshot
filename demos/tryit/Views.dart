@@ -804,8 +804,6 @@ Hulu requires Flash and that only works on USA data networks.
 
   </stackpanel>
 
-  <stackpanel>
-
   <stackpanel orientation="horizontal">
 
     <radiobutton groupname="1"></radiobutton>
@@ -814,8 +812,6 @@ Hulu requires Flash and that only works on USA data networks.
 
   </stackpanel>
 
-  <stackpanel>
-
   <stackpanel orientation="horizontal">
 
     <radiobutton groupname="1"></radiobutton>
@@ -823,8 +819,6 @@ Hulu requires Flash and that only works on USA data networks.
     <textblock margin="0,0,0,5">Option 3</textblock>
 
   </stackpanel>
-
-  <stackpanel>
 
   <stackpanel orientation="horizontal">
 

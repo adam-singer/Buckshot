@@ -31,32 +31,29 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
     
     //move the file data into an HTML element node tree
     //does much of low-level xml parsing work for us...
-    Element e = new Element.html(fileData);
+    XmlElement e = XML.parse(fileData, withQuirks:true);
     
     return _getNextElement(e);
   }
   
-  BuckshotObject _getNextElement(Element xmlElement){
-    String lowerTagName = xmlElement.tagName.toLowerCase();
+  BuckshotObject _getNextElement(XmlElement xmlElement){
+    String lowerTagName = xmlElement.name.toLowerCase();
     
-    //html parser converts 'image' to 'img', so convert it back.
-    if (lowerTagName == "img") lowerTagName = "image";
-
     if (!buckshot._objectRegistry.containsKey(lowerTagName))
       throw new PresentationProviderException('Element "${lowerTagName}" not found in object registry.');
     
     var newElement = buckshot._objectRegistry[lowerTagName].makeMe();
     
-    if (xmlElement.elements.length > 0){
+    if (xmlElement.children.length > 0 && xmlElement.children.every((n) => n is! XmlText)){
       //process nodes
       
-      for(final e in xmlElement.elements){
-        String elementLowerTagName = e.tagName.toLowerCase();
+      for(final e in xmlElement.children){
+        String elementLowerTagName = e.name.toLowerCase();
         if (elementLowerTagName == "img") elementLowerTagName = "image";
                 
         if (buckshot._objectRegistry.containsKey(elementLowerTagName)){
 
-          if (e.tagName.contains(".")){
+          if (e.name.contains(".")){
             //attached property
             if (buckshot._objectRegistry.containsKey(elementLowerTagName)){    
 
@@ -100,7 +97,7 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
             
             if (testValue != null && testValue is List){
              //complex property (list)
-              for (final se in e.elements){
+              for (final se in e.children){
                 testValue.add(_getNextElement(se));                
               }
             }else if (e.text.trim().startsWith("{")){
@@ -110,12 +107,12 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
             }else{
               //property node
               
-              if (e.elements.isEmpty()){
+              if (e.children.isEmpty()){
                 //assume text assignment
                 setValue(p, e.text.trim());  
               }else{
                 //assume node assignment to property
-                setValue(p, _getNextElement(e.elements[0]));
+                setValue(p, _getNextElement(e.children[0]));
               }              
             }
           }
@@ -137,7 +134,7 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
     _assignAttributeProperties(newElement, xmlElement);
         
     if (newElement is FrameworkResource){
-      newElement.rawData = xmlElement.outerHTML;
+      newElement.rawData = xmlElement.toString();
       _processResource(newElement);
       // don't return resource nodes; they aren't added to the DOM
       return null;
@@ -273,7 +270,7 @@ class BuckshotTemplateProvider extends HashableObject implements IPresentationFo
     buckshot.registerResource(resource);
   }
   
-  void _assignAttributeProperties(BuckshotObject element, Element xmlElement){
+  void _assignAttributeProperties(BuckshotObject element, XmlElement xmlElement){
 
     if (xmlElement.attributes.length == 0) return;
     
