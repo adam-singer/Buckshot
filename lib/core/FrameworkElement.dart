@@ -260,8 +260,8 @@ class FrameworkElement extends FrameworkObject {
     zOrderProperty = new FrameworkProperty(
       this,
       "zOrder",
-      (value){
-        _component.style.zIndex = value.toString(); //, null);
+      (num value){
+        _component.style.zIndex = value.toInt().toString(); //, null);
       }, converter:const StringToNumericConverter());
 
     marginProperty = new FrameworkProperty(

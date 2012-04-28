@@ -22,59 +22,59 @@ class Slider extends Control
 {
 
   FrameworkProperty minProperty, maxProperty, stepProperty, valueProperty;
-  
+
   FrameworkObject makeMe() => new Slider();
-  
+
   Slider(){
     _Dom.appendBuckshotClass(_component, "slider");
-    
+
     _initSliderProperties();
-    
+
     _initSliderEvents();
   }
-  
+
   void _initSliderEvents(){
     _component.on.change.add((e){
       if (value == _component.dynamic.value) return; //no change
       value = _component.dynamic.value;
       e.stopPropagation();
-    });    
+    });
   }
-  
+
   void _initSliderProperties(){
     minProperty = new FrameworkProperty(this, "min", (num v){
       _component.attributes["min"] = v.toString();
     }, 0, converter:const StringToNumericConverter());
-    
+
     maxProperty = new FrameworkProperty(this, "max", (num v){
-      _component.attributes["max"] = v.toString();
+      _component.attributes["max"] = v.toInt().toString();
     }, 100, converter:const StringToNumericConverter());
-    
+
     stepProperty = new FrameworkProperty(this, "step", (num v){
-      _component.attributes["step"] = v.toString(); 
+      _component.attributes["step"] = v.toString();
     }, converter:const StringToNumericConverter());
-    
+
     valueProperty = new FrameworkProperty(this, "value", (num v){
       _component.dynamic.value = v.toString();
     }, converter:const StringToNumericConverter());
   }
-  
+
   num get value() => getValue(valueProperty);
   set value(v) => setValue(valueProperty, v);
-  
+
   num get step() => getValue(stepProperty);
   set step(v) => setValue(stepProperty, v);
-  
+
   num get min() => getValue(minProperty);
   set min(v) => setValue(minProperty, v);
-  
+
   num get max() => getValue(maxProperty);
   set max(v) => setValue(maxProperty, v);
-    
+
   void CreateElement(){
     _component = _Dom.createByTag("input");
     _component.attributes["type"] = "range";
   }
-  
+
   String get type() => "Slider";
 }

@@ -848,12 +848,12 @@ Hulu requires Flash and that only works on USA data networks.
     layoutCanvasView =
 '''
 <LayoutCanvas width="400" height="400" background="WhiteSmoke">
-  <Border LayoutCanvas.top="40" LayoutCanvas.left="40" width="80" height="80" background="Red">
+  <Border layoutcanvas.top="40" layoutcanvas.left="40" width="80" height="80" background="Red">
   </Border>
   <!-- set zorder of next border above the others -->
-  <Border LayoutCanvas.top="60" LayoutCanvas.left="60" width="80" height="80" background="Green" zorder="4">
+  <Border layoutcanvas.top="60" layoutcanvas.left="60" width="80" height="80" background="Green" zorder="4">
   </Border>
-  <Border LayoutCanvas.top="80" LayoutCanvas.left="80" width="80" height="80" background="Blue">
+  <Border layoutcanvas.top="80" layoutcanvas.left="80" width="80" height="80" background="Blue">
   </Border>
 </LayoutCanvas>
 
