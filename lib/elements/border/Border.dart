@@ -15,12 +15,11 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+
 /**
 * A container element that holds a single child and provides visual border properties. */
-class Border extends _ContainerElement implements IFrameworkContainer
+class Border extends FrameworkElement implements IFrameworkContainer
 {
-  var _previousWidth = -1;
-  var _previousHeight = -1;
   
   /// Represents the [Color] of the border background.
   AnimatingFrameworkProperty backgroundProperty;
@@ -43,13 +42,14 @@ class Border extends _ContainerElement implements IFrameworkContainer
   AnimatingFrameworkProperty horizontalScrollEnabledProperty;
   AnimatingFrameworkProperty verticalScrollEnabledProperty;
   
-  _BorderContainer _vc;
-  
+  final AlignmentPanel _aPanel;
   
   /// Overridden [LucaObject] method for creating new borders.
   FrameworkObject makeMe() => new Border();
   
   Border()
+  :
+    _aPanel = new AlignmentPanel()
   {
     _Dom.appendBuckshotClass(_component, "border");
        
@@ -62,47 +62,14 @@ class Border extends _ContainerElement implements IFrameworkContainer
     //register the dependency properties
     contentProperty = new FrameworkProperty(
       this,
-      "content",
-      (FrameworkElement value){
-        if (_vc != null){      
-          _vc.content = null;
-
-          if (contentProperty.previousValue != null)
-            contentProperty.previousValue.parent = null; //content.parent = null;
+      "content",(c)
+      {
+        if (contentProperty.previousValue != null){
+          contentProperty.previousValue.removeFromLayoutTree();
         }
-            
-        if (value != null)
-        {
-            if (value.parent != null)
-              throw const FrameworkException("Element is already child of another element.");
-           
-            value.parent = this;
-            
-            //initialize the virtual container on first content add
-            if (_vc == null){
-              _vc = new _BorderContainer();
-              _vc._containerParent = this;
-              
-              _assignOverflowX(getValue(horizontalAlignmentProperty));
-              _assignOverflowY(getValue(verticalAlignmentProperty));
-              
-              _vc.addToLayoutTree(this);
-                            
-              _registerChild(_vc);
-            }
-            
-            _vc.content = value;
-            _vc.parent = this;
-            
-            updateLayout();
-        }else{
-          if (_vc != null){
-            _vc.removeFromLayoutTree();
-            _unRegisterChild(_vc);
-            _vc = null;
-          }
-        }
-      }, null);
+        if (c != null)
+          c.addToLayoutTree(this);
+      });
         
     backgroundProperty = new AnimatingFrameworkProperty(
       this,
@@ -156,44 +123,30 @@ class Border extends _ContainerElement implements IFrameworkContainer
       }, new Thickness(0), converter:const StringToThicknessConverter());
     
     horizontalScrollEnabledProperty = new AnimatingFrameworkProperty(this, "horizontalScrollEnabled", (bool value){      
-      if (_vc != null) _assignOverflowX(value);
+      _assignOverflowX(value);
     }, 'overflow', false, converter:const StringToBooleanConverter());
     
     verticalScrollEnabledProperty = new AnimatingFrameworkProperty(this, "verticalScrollEnabled", (bool value){
-      if (_vc != null) _assignOverflowY(value);
+      _assignOverflowY(value);
     }, 'overflow', false, converter:const StringToBooleanConverter());
   }
   
   void _assignOverflowX(value){
     if (value == true){
-      this._vc._component.style.overflowX = "auto";
+      _aPanel._component.style.overflowX = "auto";
     }else{
-      this._vc._component.style.overflowX = "hidden";
+      _aPanel._component.style.overflowX = "hidden";
     }
   }
   
   void _assignOverflowY(value){
     if (value == true){
-      this._vc._component.style.overflowY = "auto";
+      _aPanel._component.style.overflowY = "auto";
     }else{
-      this._vc._component.style.overflowY = "hidden";
+      _aPanel._component.style.overflowY = "hidden";
     }
   }
   
-  /// Calculates the [actualWidth] of the border with margin, border, and padding taken into account. ** For internal use by the framework only. **
-  void calculateWidth(value){
-    super.calculateWidth(value);
-    if (value == "auto") return;
-    setValue(actualWidthProperty, value - (margin.left + margin.right + borderThickness.left + borderThickness.right + padding.left + padding.right));
-  }
-  
-  /// Calculates the [actualHeight] of the border with margin, border, and padding taken into account.  ** For internal use by the framework only. **
-  void calculateHeight(value){
-    super.calculateHeight(value);
-    if (value == "auto") return;
-    
-    setValue(actualHeightProperty, value - (margin.top + margin.bottom + borderThickness.top + borderThickness.bottom + padding.top + padding.bottom));
-  }
   
 //  /// Returns the adjusted inner width of the border.
 //  int get innerWidth() => (margin != null && padding != null && borderThickness != null) ? _rawElement.clientWidth - (margin.left + padding.left + borderThickness.left + margin.right + padding.right + borderThickness.right) : 0;
@@ -233,45 +186,31 @@ class Border extends _ContainerElement implements IFrameworkContainer
     
   /// Overridden [FrameworkObject] method for generating the html representation of the border.
   void CreateElement(){
-    _component = _Dom.createByTag("div");
+    _component = _Dom.createByTag('div');
     _component.style.overflow = "hidden";
-    _component.style.display = "inline-block";
-    _component.style.boxSizing = "border-box";
+  //  _component.style.display = "table-cell";
+    
+   // _component.style.boxSizing = "border-box";
+    _Dom.makeFlexBox(this);
   }
   
   /// Overridden [FrameworkObject] method is called when the framework requires elements to recalculate layout.
   void updateLayout(){
-    if (_vc == null) return;
-    
-    //we want to make sure the virtual container is 
-    //set to auto if the respective border width/height is auto
-    //otherwise set virtual width/height to stretch
-    
-    //doing this makes sure that layouts work as expected
-    
-    if (_previousWidth == width && _previousHeight == height) return;
-    
-    _unRegisterChild(_vc); //prevent extra events from firing
-    
-    if (width == "auto"){
-      _vc.horizontalAlignment = HorizontalAlignment.left;
-      _vc.width = "auto";
-    }else{
-      _vc.horizontalAlignment = HorizontalAlignment.stretch;
+    if (content != null){
+      if (content.horizontalAlignment != null){
+        if (content.horizontalAlignment == HorizontalAlignment.stretch){
+          _Dom.setHorizontalFlexBoxAlignment(content, content.horizontalAlignment);
+        }else{
+          _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
+        }
+      }
+      
+      if (content.verticalAlignment != null){
+          _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);          
+      }
     }
     
-    if (height == "auto"){
-      _vc.verticalAlignment = VerticalAlignment.top;
-      _vc.height = "auto";
-    }else{
-      _vc.verticalAlignment = VerticalAlignment.stretch;
-    }
-    
-    _registerChild(_vc);
-    
-    //hold changes to optimize next updateLayout();
-    _previousWidth = width;
-    _previousHeight = height;
+    super.updateLayout();
   }
   
   String get type() => "Border";

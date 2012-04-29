@@ -67,11 +67,11 @@ class _Dom {
     return new Element.tag(tagName);
   }
   
-  static void makeFlexBox(FrameworkElement element){
+  static void makeFlexBox(FrameworkElement element){   
     prefixes.forEach((String p){
       var pre = '${p}box'; //assigning here because some bug won't let me pass it directly in .setProperty
-      element._component.style.setProperty('display', pre);
-      });
+      element._component.style.display = pre;
+    });
     
   }
   
@@ -130,7 +130,7 @@ class _Dom {
       case HorizontalAlignment.stretch:
         //this doesn't work as intended for boxes containing single items
         //_setXPCSS(element._component, 'box-pack', 'justify'); 
-        element._component.style.boxFlex = '1.0';
+        element._component.style.boxFlex = '1';
         break;
       }
   }
@@ -150,7 +150,7 @@ class _Dom {
         element._component.style.boxAlign = 'center';
         break;
       case VerticalAlignment.stretch:
-        element._component.style.boxAlign = 'stretch';
+        element._component.style.flexAlign = 'stretch';
         break;
     }
   }

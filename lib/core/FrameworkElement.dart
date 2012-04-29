@@ -255,7 +255,7 @@ class FrameworkElement extends FrameworkObject {
 
           _component.style.display = "none";
         }
-      }, 'visibility', Visibility.visible, converter:const StringToVisibilityConverter());
+      }, 'visibility', converter:const StringToVisibilityConverter());
 
     zOrderProperty = new FrameworkProperty(
       this,
@@ -347,7 +347,8 @@ class FrameworkElement extends FrameworkObject {
       this,
       "horizontalAlignment",
       (HorizontalAlignment value){
-        updateLayout();
+        if (parent != null)
+          parent.updateLayout();
       },
       HorizontalAlignment.left, converter:const StringToHorizontalAlignmentConverter());
 
@@ -355,7 +356,8 @@ class FrameworkElement extends FrameworkObject {
       this,
       "verticalAlignment",
       (VerticalAlignment value){
-        updateLayout();
+        if (parent != null)
+          parent.updateLayout();
       },
       VerticalAlignment.top, converter:const StringToVerticalAlignmentConverter());
 
@@ -574,7 +576,7 @@ class FrameworkElement extends FrameworkObject {
     if (value == "auto"){
       _component.style.height = "auto";//, null);
       setValue(actualHeightProperty, innerHeight);
-      if (this is Panel) updateLayout();
+      if (this is Panel || this is Border) updateLayout();
       return;
     }
 

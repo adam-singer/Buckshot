@@ -124,8 +124,13 @@ class BuckshotTemplateProvider
                 //assume text assignment
                 setValue(p, e.text.trim());
               }else{
-                //assume node assignment to property
-                setValue(p, _getNextElement(e.children[0]));
+                if (e.children.every((n) => n is XmlText)){
+                  // text assignment to property
+                  setValue(p, e.text.trim());
+                }else if (e.children.length == 1 && e.children[0] is! XmlText){
+                  // node assignment to property
+                  setValue(p, _getNextElement(e.children[0]));                  
+                }
               }
             }
           }

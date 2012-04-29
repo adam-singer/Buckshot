@@ -71,6 +71,7 @@
 #source('elements/LayoutCanvas.dart');
 #source('elements/Image.dart');
 #source('elements/RawHtml.dart');
+#source('elements/AlignmentPanel.dart');
 #source('elements/grid/Grid.dart');
 #source('elements/grid/RowDefinition.dart');
 #source('elements/grid/ColumnDefinition.dart');
