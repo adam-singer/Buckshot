@@ -16,47 +16,47 @@
 //   limitations under the License.
 
 /**
-* A button control element. 
+* A button control element.
 */
 class Button extends Control implements IFrameworkContainer
-{ 
+{
   Dynamic _content;
- 
+
   /// Represents the content inside the button.
   FrameworkProperty contentProperty;
-  
+
   /// Overridden [LucaObject] method for creating new buttons.
   FrameworkObject makeMe() => new Button();
-  
+
   Button()
   {
     _Dom.appendBuckshotClass(_component, "button");
-        
+
     // Initialize FrameworkProperty declarations.
     contentProperty = new FrameworkProperty(
       this,
       "content",
       (value) {
-        
+
         //if the content is previously a textblock and the value is a String then just
         //replace the text property with the new string
         if (_content is TextBlock && value is String){
           _content.text = value;
           return;
         }
-        
+
         //accomodate strings by converting them silently to TextBlock
         if (value is String){
             var tempStr = value;
             value = new TextBlock();
             value.text = tempStr;
-        }        
+        }
 
         if (_content != null){
           _content._component.remove();
           _content.parent = null;
         }
-        
+
         if (value != null){
           _content = value;
           _content.parent = this;
@@ -66,7 +66,7 @@ class Button extends Control implements IFrameworkContainer
         }
 
       });
-    
+
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
 
@@ -74,12 +74,12 @@ class Button extends Control implements IFrameworkContainer
   Dynamic get content() => getValue(contentProperty);
   /// Sets the [contentProperty] value.
   set content(Dynamic value) => setValue(contentProperty, value);
-  
+
   /// Overridden [FrameworkObject] method.
   void CreateElement()
   {
-    _component = _Dom.createByTag("button");   
+    _component = _Dom.createByTag("button");
   }
-  
+
   String get type() => "Button";
 }

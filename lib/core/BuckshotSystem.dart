@@ -16,7 +16,7 @@
 //   limitations under the License.
 
 
-/** 
+/**
 * Represents the globally available instance of buckshot.
 * It should not be necessary to create your own instance
 * of [Buckshot].
@@ -26,7 +26,7 @@ Buckshot get buckshot() => new Buckshot._cached();
 
 /**
 * Buckshot provides a central initialization and registration facility for the framework.
-*/ 
+*/
 class Buckshot extends FrameworkObject {
   static final String _defaultRootID = "#BuckshotHost";
   IView _currentRootView;
@@ -34,100 +34,107 @@ class Buckshot extends FrameworkObject {
   Element _domRootElement;
   StyleElement _buckshotCSS;
   HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject, Dynamic>> _attachedProperties;
-  
+
   //TODO: Eventually support multiple presentation providers
   Set<IPresentationFormatProvider> presentationProviders;
-  
+
   IPresentationFormatProvider defaultPresentationProvider;
-  
+
   HashMap<String, FrameworkResource> _resourceRegistry;
-  
+
   //poor man's reflection...
   HashMap<String, Dynamic> _objectRegistry;
-  
+
   /// The root container that all elements are children of.
   _RootElement domRoot;
-  
+
   /// **deprecated**
   bool unitTestEnabled = false; //flag used to accomodate unit testing scenarios
-  
+
   /// Central registry of named [FrameworkObject] elements.
   HashMap<String, FrameworkObject> namedElements;
-  
+
   /// Bindable window width/height properties.  Readonly so can only bind from, not to.
   FrameworkProperty windowWidthProperty;
   /// Bindable window width/height properties.  Readonly so can only bind from, not to.
   FrameworkProperty windowHeightProperty;
-  
+
   FrameworkProperty versionProperty;
-  
+
   //"Singleton?"
   static Buckshot _ref;
-  
+
   /// Pass the ID of the element in the DOM where buckshot will render content.
   Buckshot(String buckshotRootID)
-  { 
+  {
     _initBuckshotSystem(buckshotRootID);
   }
-  
+
   factory Buckshot._cached()
   {
     if (_ref != null) return _ref;
     return new Buckshot._init();
   }
-    
+
   Buckshot._init([String rootID = Buckshot._defaultRootID])
   {
     _ref = this;
     _initBuckshotSystem(rootID);
-  } 
-  
+  }
+
   void _initBuckshotSystem(String rootID)
   {
     _domRootElement = document.query(rootID);
-    
+
     if (_domRootElement == null)
-      throw new FrameworkException("Unable to locate required root element (must be <div id='$rootID' />)");
-    
+      throw new FrameworkException("Unable to locate required root"
+        " element (must be <div id='$rootID' />)");
+
     if (_domRootElement.tagName != "DIV")
-      throw new FrameworkException("Root element for Buckshot must be a <div>. Element given was a <${_domRootElement.tagName.toLowerCase()}>");
-    
-    document.head.elements.add(new Element.html('<style id="__BuckshotCSS__"></style>'));
+      throw new FrameworkException("Root element for Buckshot"
+        " must be a <div>. Element given was"
+        " a <${_domRootElement.tagName.toLowerCase()}>");
+
+    document.head.elements.add(
+      new Element.html('<style id="__BuckshotCSS__"></style>'));
+
     _buckshotCSS = document.head.query('#__BuckshotCSS__');
-    
+
     if (_buckshotCSS == null)
       throw const FrameworkException('Unable to initialize Buckshot StyleSheet.');
-    
+
     namedElements = new HashMap<String, FrameworkObject>();
-    
+
     domRoot = new _RootElement();
-    
+
     _resourceRegistry = new HashMap<String, FrameworkResource>();
-    
+
     _objectRegistry = new HashMap<String, Dynamic>();
-        
+
     presentationProviders = new Set<IPresentationFormatProvider>();
-    
+
     defaultPresentationProvider = new BuckshotTemplateProvider();
-        
-    _attachedProperties = new HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject, Dynamic>>();
-    
-    versionProperty = new FrameworkProperty(Buckshot._ref, "version", (_){}, '0.4 Alpha');
+
+    _attachedProperties = new HashMap<AttachedFrameworkProperty,
+                                HashMap<FrameworkObject, Dynamic>>();
+
+    versionProperty = new FrameworkProperty(Buckshot._ref,
+                                              "version", (_){}, '0.4 Alpha');
     versionProperty.readOnly = true;
-    
+
     windowWidthProperty = new FrameworkProperty(
       Buckshot._ref,
       "windowWidth",
-      (value){}, window.innerWidth); //subtracting 1 removes scrollbars in chrome.  haven't tested cross-browser yet.
-    
+      (value){}, window.innerWidth);
+
     windowHeightProperty = new FrameworkProperty(
       Buckshot._ref,
       "windowHeight",
       (value){}, window.innerHeight);
-    
+
     window.on.resize.add((e){
       if (_ref == null) return;
-                 
+
       //any elements bound to these properties will also get updated...
       if (window.innerWidth != windowWidth){
         setValue(windowWidthProperty, window.innerWidth);
@@ -139,35 +146,38 @@ class Buckshot extends FrameworkObject {
 
     // register core elements that do not derive from Control
     _registerCoreElements();
-    
+
     // load in control template resources for core controls
     //defaultPresentationProvider.deserialize(Globals._controlTemplates);
-    
+
     // now register controls that may depend on control templates for visuals
     _registerCoreControls();
-    
+
     initialized = true;
   }
 
-  /// Performs a search of the element tree starting from the given [FrameworkElement]
-  /// and returns the first named Element matching the given name.
+  // TODO move this to BuckshotObject as instance method?
+
+  /// Performs a search of the element tree starting from the given
+  /// [FrameworkElement] and returns the first named Element matching
+  /// the given name.
   ///
   /// ** Deprecated **
   ///
   /// ## Instead use:
   ///     Buckshot.namedElements[elementName];
   static FrameworkElement findByName(String name, FrameworkElement startingWith){
-    
+
     if (startingWith.name != null && startingWith.name == name) return startingWith;
-    
+
     if (!startingWith.isContainer) return null;
-    
+
     var cc = startingWith._stateBag[FrameworkObject.CONTAINER_CONTEXT];
     if (cc is List){
       for (final el in cc){
         var result = findByName(name, el);
         if (result != null) return result;
-      }  
+      }
     }else if (cc is FrameworkProperty){
       FrameworkElement obj = getValue(cc);
       if (obj == null || !(obj is FrameworkElement)) return null;
@@ -176,17 +186,17 @@ class Buckshot extends FrameworkObject {
       return null;
     }
   }
-    
+
   void _registerCoreElements(){
     //registering elements we need ahead of time (poor man's reflection...)
-    
+
     //shapes
     registerElement(new Ellipse());
     registerElement(new Rectangle());
     registerElement(new Line());
     registerElement(new PolyLine());
     registerElement(new Polygon());
-    
+
     //elements
     registerElement(new StackPanel());
     registerElement(new Grid());
@@ -203,7 +213,7 @@ class Buckshot extends FrameworkObject {
     registerElement(new RowDefinition());
     registerElement(new DropDownListItem());
     registerElement(new CollectionPresenter());
-    
+
     //resources
     registerElement(new ResourceCollection());
     registerElement(new Color());
@@ -218,18 +228,18 @@ class Buckshot extends FrameworkObject {
     registerElement(new AnimationResource());
     registerElement(new AnimationKeyFrame());
     registerElement(new AnimationState());
-    
+
     //attached properties
     _objectRegistry["grid.column"] = Grid.setColumn;
     _objectRegistry["grid.row"] = Grid.setRow;
     _objectRegistry["grid.columnspan"] = Grid.setColumnSpan;
     _objectRegistry["grid.rowspan"] = Grid.setRowSpan;
-    
+
     _objectRegistry["layoutcanvas.top"] = LayoutCanvas.setTop;
     _objectRegistry["layoutcanvas.left"] = LayoutCanvas.setLeft;
-    
-  } 
-  
+
+  }
+
   //NOTE: This accomodation is necessary until reflection is in place
   //doing this makes the framework more brittle because controls that
   //use control template may try to implement a control that isn't yet
@@ -241,7 +251,7 @@ class Buckshot extends FrameworkObject {
     registerElement(new DropDownList());
     registerElement(new ListBox());
   }
-  
+
   /// Returns a resource that is registered with the given [resourceKey].
   retrieveResource(String resourceKey){
     String lowered = resourceKey.trim().toLowerCase();
@@ -249,7 +259,7 @@ class Buckshot extends FrameworkObject {
     if (!_resourceRegistry.containsKey(lowered)) return null;
 
     var res = _resourceRegistry[lowered];
-    
+
     if (res._stateBag.containsKey(FrameworkResource.RESOURCE_PROPERTY)){
 //      db('$lowered ${res._type} ${getValue(res._stateBag[FrameworkResource.RESOURCE_PROPERTY])}');
       // resource property defined so return it's value
@@ -259,31 +269,31 @@ class Buckshot extends FrameworkObject {
       return res;
     }
   }
-  
+
   /// Registers a resource to the framework.
   void registerResource(FrameworkResource resource){
     _resourceRegistry[resource.key.trim().toLowerCase()] = resource;
   }
-  
+
   /// Registers a BuckshotObject to the framework.  Useful for registering
   /// extension elements.
   void registerElement(BuckshotObject o){
     _objectRegistry[o.type.trim().toLowerCase()] = o;
-  }  
-  
+  }
+
   /// Gets the innerWidth of the window
   int get windowWidth() => (_ref != null) ? getValue(windowWidthProperty) : -1;
-  
+
   /// Gets the innerHeight of the window
   int get windowHeight() => (_ref != null) ? getValue(windowHeightProperty) : -1;
-  
+
   /// Sets the given view as the root visual element.
   set rootView(IView view){
     _currentRootView = view;
-    
+
     //remove child nodes from the root dom element
-    _domRootElement.elements.clear();  
-       
+    _domRootElement.elements.clear();
+
     _domRootElement.elements.add(domRoot._component);
 
     domRoot._isLoaded = true;
@@ -292,18 +302,18 @@ class Buckshot extends FrameworkObject {
     //    visualRoot._isLoaded = true;
 //    visualRoot._onAddedToDOM();
   }
-  
+
   /// Gets the currently assigned view.
   IView get rootView() => _currentRootView;
-  
+
 
   /// Wraps a FrameworkElement into an [IView] and sets it as the root view.
   void renderRaw(FrameworkElement element){
     rootView = new IView(element);
   }
-   
+
   /// Changes the active context for the framework and returns the previous context.
-  /// 
+  ///
   /// Caution! Only use this if you know exactly what you are doing.
   /// Switching context may have undesirable consequences.
   Buckshot switchContextTo(Buckshot context){
@@ -311,6 +321,6 @@ class Buckshot extends FrameworkObject {
     Buckshot._ref = context;
     return temp;
   }
-  
+
   String get type() => "BuckshotSystem";
   }

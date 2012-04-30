@@ -24,9 +24,6 @@ class BuckshotTemplateProvider
   extends HashableObject
   implements IPresentationFormatProvider {
 
-  //a very ugly brute force implementation of an xml <-> object converter
-  //but it works..
-
   //TODO MIME as identifier type instead?
   String get fileExtension() => "BuckXml";
 

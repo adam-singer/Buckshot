@@ -389,12 +389,6 @@ class FrameworkElement extends FrameworkObject {
   /// Sets the [styleProperty] value.
   set style(StyleTemplate value) => setValue(styleProperty, value);
 
-  // FIX
-  /// Gets the inner width value.
-  num get innerWidth() => 0; //_rawElement.clientWidth - (margin.left + margin.right);
-  /// Gets the inner height value.
-  num get innerHeight() => 0; //_rawElement.clientHeight - (margin.top + margin.bottom);
-
   /// Gets the inner width of the element less any bordering offsets (margin, padding, borderThickness)
   num get actualWidth() => getValue(actualWidthProperty);
 
@@ -551,8 +545,7 @@ class FrameworkElement extends FrameworkObject {
   void calculateWidth(value){
     if (value == "auto"){
       _component.style.width = "auto"; //, null);
-      setValue(actualWidthProperty, innerWidth);
-      if (this is Panel) updateLayout();
+      if (this is Panel || this is Border) updateLayout();
       return;
     }
 
@@ -564,10 +557,10 @@ class FrameworkElement extends FrameworkObject {
       width = maxWidth;
     }
 
-    var adjustedValue = value - (margin.left + margin.right);
-    _component.style.width = '${adjustedValue}px';
-    setValue(actualWidthProperty, adjustedValue);
-    if (this is Panel) updateLayout();
+//    var adjustedValue = value - (margin.left + margin.right);
+    _component.style.width = '${value}px';
+//    setValue(actualWidthProperty, adjustedValue);
+    if (this is Panel || this is Border) updateLayout();
 
   }
 
@@ -575,7 +568,6 @@ class FrameworkElement extends FrameworkObject {
   void calculateHeight(value){
     if (value == "auto"){
       _component.style.height = "auto";//, null);
-      setValue(actualHeightProperty, innerHeight);
       if (this is Panel || this is Border) updateLayout();
       return;
     }
@@ -588,10 +580,10 @@ class FrameworkElement extends FrameworkObject {
       height =  maxHeight;
     }
 
-    var adjustedValue = value - (margin.top + margin.bottom);
-    _component.style.height = '${adjustedValue}px'; //, null);
-    setValue(actualHeightProperty, adjustedValue);
-    if (this is Panel) updateLayout();
+//    var adjustedValue = value - (margin.top + margin.bottom);
+   _component.style.height = '${value}px'; //, null);
+//    setValue(actualHeightProperty, adjustedValue);
+    if (this is Panel || this is Border) updateLayout();
   }
 
   //TODO load/unload should be asynchronous?

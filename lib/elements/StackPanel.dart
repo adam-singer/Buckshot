@@ -20,8 +20,6 @@
 class StackPanel extends Panel
 {
   FrameworkProperty orientationProperty;
-  FrameworkProperty childVerticalAlignmentProperty;
-  FrameworkProperty childHorizontalAlignmentProperty;
 
   FrameworkObject makeMe() => new StackPanel();
 
@@ -33,20 +31,14 @@ class StackPanel extends Panel
       "orientation",
       (Orientation value){
         _Dom.setFlexBoxOrientation(this, value);
+        if (value == Orientation.vertical){
+          _Dom.setXPCSS(_component, 'flex-direction', 'column');
+        }else{
+          _Dom.setXPCSS(_component, 'flex-direction', 'row');
+        }
 
       },
       Orientation.vertical, converter:new StringToOrientationConverter());
-
-    childVerticalAlignmentProperty = new FrameworkProperty(this,
-      'childVerticalAlignment', (v){
-      _Dom.setVerticalFlexBoxAlignment(this, v);
-    }, converter:const StringToVerticalAlignmentConverter());
-
-    childHorizontalAlignmentProperty = new FrameworkProperty(this,
-      'childHorizontalAlignment', (v){
-      _Dom.setHorizontalFlexBoxAlignment(this, v);
-    }, converter:const StringToHorizontalAlignmentConverter());
-
   }
 
   void onChildrenChanging(ListChangedEventArgs args){
@@ -54,7 +46,6 @@ class StackPanel extends Panel
 
     if (!args.oldItems.isEmpty()){
       args.oldItems.forEach((FrameworkElement element){
-
         element.removeFromLayoutTree();
         element._containerParent = null;
       });
@@ -63,7 +54,6 @@ class StackPanel extends Panel
     if (!args.newItems.isEmpty()){
       args.newItems.forEach((FrameworkElement element){
         element.addToLayoutTree(this);
-//        _component.nodes.add(element._component);
         element._containerParent = this;
 
       });
@@ -73,17 +63,24 @@ class StackPanel extends Panel
   set orientation(Orientation value) => setValue(orientationProperty, value);
   Orientation get orientation() => getValue(orientationProperty);
 
-  void _onListChanging(Object _, ListChangedEventArgs args){
-
-
-  }
-
   void CreateElement(){
     _component = _Dom.createByTag("div");
-    _component.style.overflow = "visible";
+    _Dom.makeFlexBox(this);
+    _Dom.setXPCSS(_component, 'flex-direction', 'column');
   }
 
-  void updateLayout(){}
+  void updateLayout(){
+    if (orientation == Orientation.vertical){
+      children.forEach((child){
+        _Dom.setHorizontalItemFlexAlignment(child, child.horizontalAlignment);
+      });
+    }else{
+      children.forEach((child){
+        _Dom.setVerticalItemFlexAlignment(child, child.verticalAlignment);
+      });
+    }
+
+  }
 
   String get type() => "StackPanel";
 }

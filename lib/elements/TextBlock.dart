@@ -95,7 +95,7 @@ class TextBlock extends FrameworkElement
   String get text() => getValue(textProperty);
 
   void CreateElement(){
-    _component = _Dom.createByTag("div");
+    _component = _Dom.createByTag("p");
   }
 
   void updateLayout(){

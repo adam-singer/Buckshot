@@ -16,20 +16,20 @@
 
 class Debug {
   ViewModel _vm;
-  
+
   Debug():
   _vm = new ViewModel(){}
-   
+
   void run() {
     if (_vm == null) br("is null");
 
-    _vm.title = "Demo"; //view can bind to this property   
-           
-     
+    _vm.title = "Demo"; //view can bind to this property
+
+
 //    FrameworkObject o = p.deserialize('''
 //      <textblock>Hello World.</textblock>
 //      ''');
-    
+
 //    String test =
 //'''
 //<stackpanel grid.column="2">
@@ -50,23 +50,23 @@ class Debug {
 //
 //</stackpanel>
 //''';
-    
+
    // FrameworkObject o = buckshot.defaultPresentationProvider.deserialize(test);
-        
+
     //buckshot.renderRaw(o);
-    
-    
-    //passing the view, which triggers rendering on the page. 
+
+
+    //passing the view, which triggers rendering on the page.
     //buckshot.rootView = new MainUIView();
     //buckshot.rootView = new GridDemoView.with(_vm);
     //buckshot.rootView = new BorderDemoView();
-    //buckshot.rootView = new StackPanelDebug();
-    buckshot.rootView = new AlignmentPanelTestingView();
+    buckshot.rootView = new StackPanelDebug();
+    //buckshot.rootView = new AlignmentPanelTestingView();
   }
 }
 
 void main() {
-    
+
 //  if (DEBUG){
 //    try{
 //      new Debug().run();

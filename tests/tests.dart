@@ -60,7 +60,6 @@
 #source('../lib/elements/StackPanel.dart');
 #source('../lib/elements/TextBlock.dart');
 #source('../lib/elements/border/Border.dart');
-#source('../lib/elements/border/BorderContainer.dart');
 #source('../lib/elements/LayoutCanvas.dart');
 #source('../lib/elements/Image.dart');
 #source('../lib/elements/RawHtml.dart');

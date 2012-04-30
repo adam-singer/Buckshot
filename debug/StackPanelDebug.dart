@@ -1,32 +1,27 @@
 class StackPanelDebug implements IView {
 
-  FrameworkElement _rootElement;
-  
-  StackPanelDebug(){
-    _rootElement = _stackPanelTesting();
-  }
-  
+  final FrameworkElement _rootElement;
+
+  StackPanelDebug()
+  :
+    _rootElement = buckshot.defaultPresentationProvider.deserialize(view);
+
   FrameworkElement get rootVisual() => _rootElement;
-  
-  FrameworkElement _stackPanelTesting(){
-    
-    StackPanel sp = new StackPanel();
-    sp.background = new SolidColorBrush(new Color.predefined(Colors.Orange));
-    sp.orientation = Orientation.vertical;
-    
-    for (int i = 0; i < 10; i++){
-      TextBlock tb = new TextBlock();
-      tb.background = new SolidColorBrush(new Color.predefined(Colors.Yellow));
-      tb.text = "Hello Moto $i";
-      tb.margin = new Thickness(5);
-      
-      sp.children.add(tb);
-    }
-    
 
-    return sp;
+  static final String view =
+'''
+<stackpanel background='Orange' margin='10'>
+  <stackpanel orientation='horizontal' horizontalalignment='center'>
+    <border margin='10' background='Black' width='10' height='10'></border>
+    <border margin='10' background='Black' width='10' height='10'></border>
+    <border margin='10' background='Black' width='10' height='10'></border>
+    <border margin='10' background='Black' width='10' height='10'></border>
+  </stackpanel>
 
-    
-  }
-  
+  <textblock horizontalalignment='center'>short</textblock>
+  <textblock horizontalalignment='right'>medium medium medium</textblock>
+  <textblock>long long long long long long long long</textblock>
+</stackpanel>
+''';
+
 }

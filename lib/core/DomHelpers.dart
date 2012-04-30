@@ -16,138 +16,170 @@
 //   limitations under the License.
 
 /**
-* Static helpers for working with the DOM. 
+* Static helpers for working with the DOM.
 *
 */
 class Dom {
-  
+
   /// Appends the given [String] as a class to the given [Element].
   static void appendClass(Element element, String classToAppend){
     String currentClasses = element.attributes["class"];
     currentClasses = currentClasses == null || currentClasses == "null" ? "" : currentClasses;
     element.attributes["class"] = currentClasses != "" ? currentClasses + " " + classToAppend : classToAppend;
   }
-  
+
   /// Creates an [Element] from the given [String] html tag name.
   static Element createByTag(String tagName) => new Element.tag(tagName);
-  
+
   /**
   * Injects javascript into the DOM, and optionally removes it after the script has run. */
   static void inject(String javascript, [bool removeAfter = false]){
     var s = Dom.createByTag("script");
     s.attributes["type"] = "text/javascript";
     s.text = javascript;
-    
+
     document.body.nodes.add(s);
-    
+
     if (removeAfter != null && removeAfter)
       s.remove();
   }
-  
+
   static void setXPCSS(Element e, String declaration, String value) => _Dom.setXPCSS(e, declaration, value);
   static String getXPCSS(Element e, String declaration) => _Dom.getXPCSS(e, declaration);
-  
+
 }
 
 class _Dom {
 
   static final prefixes = const ['','-webkit-','-moz-','-o-','-ms-'];
-  
+
   static void appendBuckshotClass(Element element, String classToAppend){
     _Dom.appendClass(element, 'buckshot_' + classToAppend);
   }
-  
+
   static void appendClass(Element element, String classToAppend){
     String currentClasses = element.attributes["class"];
     currentClasses = currentClasses == null || currentClasses == "null" ? "" : currentClasses;
     element.attributes["class"] = currentClasses != "" ? currentClasses + " " + classToAppend : classToAppend;
   }
-  
+
   static Element createByTag(String tagName){
     return new Element.tag(tagName);
   }
-  
-  static void makeFlexBox(FrameworkElement element){   
+
+  static void makeFlexBox(FrameworkElement element){
     prefixes.forEach((String p){
-      var pre = '${p}box'; //assigning here because some bug won't let me pass it directly in .setProperty
+      var pre = '${p}flexbox'; //assigning here because some bug won't let me pass it directly in .setProperty
       element._component.style.display = pre;
     });
-    
+
   }
-  
+
   static String generateXPCSS(String declaration, String value){
     StringBuffer sb = new StringBuffer();
-    
+
     prefixes.forEach((String p){
-      sb.add('${p}${declaration}: ${value};');  
+      sb.add('${p}${declaration}: ${value};');
     });
-    
+
     return sb.toString();
   }
-  
+
   static void setXPCSS(Element e, String declaration, String value){
-    
+
     prefixes.forEach((String p){
      var pre = '${p}${declaration}'; //assigning here because some bug won't let me pass it directly in .setProperty
      e.style.setProperty(pre, value);
      });
   }
-  
+
   static String getXPCSS(Element e, String declaration){
-    
+
     for(final String p in prefixes){
       var pre = '${p}${declaration}'; //assigning here because some bug won't let me pass it directly in .setProperty
       String result = e.style.getPropertyValue(pre);
-      
+
       if (result != null) return result;
     }
-    
+
     return null;
   }
-    
+
   static void setFlexBoxOrientation(FrameworkElement element, Orientation orientation){
-    
+
     makeFlexBox(element);
-    
-    element._component.style.boxOrient = (orientation == Orientation.horizontal) ? 'horizontal' : 'vertical';  
+    element._component.style.boxOrient = (orientation == Orientation.horizontal) ? 'horizontal' : 'vertical';
 
   }
-  
-  static void setHorizontalFlexBoxAlignment(FrameworkElement element, HorizontalAlignment alignment){
-    
-    makeFlexBox(element);
-    
+
+  /// For individual items within a flexbox.
+  static void setHorizontalItemFlexAlignment(FrameworkElement element, HorizontalAlignment alignment){
+
     switch(alignment){
       case HorizontalAlignment.left:
-        element._component.style.boxPack = 'start';
+        setXPCSS(element.rawElement, 'flex-item-align', 'start');
         break;
       case HorizontalAlignment.right:
-        element._component.style.boxPack = 'end';
+        setXPCSS(element.rawElement, 'flex-item-align', 'end');
         break;
       case HorizontalAlignment.center:
-        element._component.style.boxPack = 'center';
+        setXPCSS(element.rawElement, 'flex-item-align', 'center');
         break;
       case HorizontalAlignment.stretch:
-        //this doesn't work as intended for boxes containing single items
-        //_setXPCSS(element._component, 'box-pack', 'justify'); 
-        element._component.style.boxFlex = '1';
+        setXPCSS(element.rawElement, 'flex-item-align', 'stretch');
+        break;
+      }
+
+  }
+
+  /// For individual items within a flexbox.
+  static void setVerticalItemFlexAlignment(FrameworkElement element, VerticalAlignment alignment){
+
+    switch(alignment){
+      case VerticalAlignment.top:
+        setXPCSS(element.rawElement, 'flex-item-align', 'start');
+        break;
+      case VerticalAlignment.bottom:
+        setXPCSS(element.rawElement, 'flex-item-align', 'end');
+        break;
+      case VerticalAlignment.center:
+        setXPCSS(element.rawElement, 'flex-item-align', 'center');
+        break;
+      case VerticalAlignment.stretch:
+        setXPCSS(element.rawElement, 'flex-item-align', 'stretch');
+        break;
+      }
+
+  }
+
+  static void setHorizontalFlexBoxAlignment(FrameworkElement element, HorizontalAlignment alignment){
+    switch(alignment){
+      case HorizontalAlignment.left:
+        element._component.style.flexPack = 'start';
+        break;
+      case HorizontalAlignment.right:
+        element._component.style.flexPack = 'end';
+        break;
+      case HorizontalAlignment.center:
+        element._component.style.flexPack = 'center';
+        break;
+      case HorizontalAlignment.stretch:
+        db('hi', element);
+        element._component.style.flexPack = 'distribute';
         break;
       }
   }
-  
+
   static void setVerticalFlexBoxAlignment(FrameworkElement element, VerticalAlignment alignment){
-    
-    makeFlexBox(element);
-    
     switch(alignment){
       case VerticalAlignment.top:
-        element._component.style.boxAlign = 'start';
+        element._component.style.flexAlign = 'start';
         break;
       case VerticalAlignment.bottom:
-        element._component.style.boxAlign = 'end';
+        element._component.style.flexAlign = 'end';
         break;
       case VerticalAlignment.center:
-        element._component.style.boxAlign = 'center';
+        element._component.style.flexAlign = 'center';
         break;
       case VerticalAlignment.stretch:
         element._component.style.flexAlign = 'stretch';
