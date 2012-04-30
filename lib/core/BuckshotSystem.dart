@@ -29,6 +29,7 @@ Buckshot get buckshot() => new Buckshot._cached();
 */
 class Buckshot extends FrameworkObject {
   static final String _defaultRootID = "#BuckshotHost";
+  static final String _version = '0.41 Alpha';
   IView _currentRootView;
   bool initialized = false;
   Element _domRootElement;
@@ -119,7 +120,7 @@ class Buckshot extends FrameworkObject {
                                 HashMap<FrameworkObject, Dynamic>>();
 
     versionProperty = new FrameworkProperty(Buckshot._ref,
-                                              "version", (_){}, '0.4 Alpha');
+                                              "version", (_){}, _version);
     versionProperty.readOnly = true;
 
     windowWidthProperty = new FrameworkProperty(
