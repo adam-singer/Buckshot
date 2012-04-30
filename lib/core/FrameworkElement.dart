@@ -606,7 +606,7 @@ class FrameworkElement extends FrameworkObject {
 
     _isLoaded = true;
 
-    updateLayout();
+    parent.updateLayout();
 
     onLoaded();
     loaded.invoke(this, new EventArgs());

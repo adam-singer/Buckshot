@@ -106,8 +106,6 @@ class _Dom {
   }
 
   static void setFlexBoxOrientation(FrameworkElement element, Orientation orientation){
-
-    makeFlexBox(element);
     element._component.style.boxOrient = (orientation == Orientation.horizontal) ? 'horizontal' : 'vertical';
 
   }
@@ -164,8 +162,7 @@ class _Dom {
         element._component.style.flexPack = 'center';
         break;
       case HorizontalAlignment.stretch:
-        db('hi', element);
-        element._component.style.flexPack = 'distribute';
+        element._component.style.flexPack = 'start';
         break;
       }
   }

@@ -59,7 +59,7 @@
 #source('../lib/elements/Panel.dart');
 #source('../lib/elements/StackPanel.dart');
 #source('../lib/elements/TextBlock.dart');
-#source('../lib/elements/border/Border.dart');
+#source('../lib/elements/Border.dart');
 #source('../lib/elements/LayoutCanvas.dart');
 #source('../lib/elements/Image.dart');
 #source('../lib/elements/RawHtml.dart');
@@ -188,12 +188,14 @@ void main() {
 
   group('Dart Bugs', (){
 
+    //fails in JS, OK in Dartium
     test('borderRadiusReturnsNull', (){
       var e = new Element.tag('div');
       e.style.borderRadius = '10px';
 
       var result = e.style.borderRadius;
       Expect.isNotNull(result);
+      Expect.equals('10px', e.style.borderRadius);
     });
 
     test('SVG elements returning css', (){

@@ -9,6 +9,11 @@ If you've worked with .net WPF or Silverlight then this framework will feel very
 ## Status: Alpha
 Project is currently in the **alpha** stage of development.  It will likely not move to beta or v1.0 until after Dart ships v1.0. This is to ensure that that library is working correctly with the Dart APIs, which are still in flux.
 
+## Bleeding Edge
+Buckshot uses the very latest in HTML5/CSS3 standards.  No shims are yet in place to compensate for older or non-compliant browsers.
+
+Buckshot is validated to work well on Chromium v20+ and Dartium v20+.
+
 ## Getting Started
 * [API Reference](http://www.lucastudios.com/trybuckshot/docs/)
 * [Wiki Documentation](https://github.com/prujohn/Buckshot/wiki/_pages)

@@ -24,6 +24,6 @@ class _RootElement extends Border
 
      name = "buckshot_root";
   }
-  
+
   String get type() => "RootElement";
 }

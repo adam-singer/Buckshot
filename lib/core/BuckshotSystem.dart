@@ -297,10 +297,9 @@ class Buckshot extends FrameworkObject {
     _domRootElement.elements.add(domRoot._component);
 
     domRoot._isLoaded = true;
-    //db('(BuckshotSystem)Updating visualRoot content', visualRoot);
+
     domRoot.content = view.rootVisual;
-    //    visualRoot._isLoaded = true;
-//    visualRoot._onAddedToDOM();
+
   }
 
   /// Gets the currently assigned view.

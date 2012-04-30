@@ -79,6 +79,7 @@ class Button extends Control implements IFrameworkContainer
   void CreateElement()
   {
     _component = _Dom.createByTag("button");
+    _component.style.display = 'block';
   }
 
   String get type() => "Button";

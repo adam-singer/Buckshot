@@ -66,7 +66,8 @@ class StackPanel extends Panel
   void CreateElement(){
     _component = _Dom.createByTag("div");
     _Dom.makeFlexBox(this);
-    _Dom.setXPCSS(_component, 'flex-direction', 'column');
+    _component.style.flexFlow = 'column';
+    _component.style.overflow = 'hidden';
   }
 
   void updateLayout(){

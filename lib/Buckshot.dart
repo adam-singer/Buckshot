@@ -66,7 +66,7 @@
 #source('elements/Panel.dart');
 #source('elements/StackPanel.dart');
 #source('elements/TextBlock.dart');
-#source('elements/border/Border.dart');
+#source('elements/Border.dart');
 #source('elements/LayoutCanvas.dart');
 #source('elements/Image.dart');
 #source('elements/RawHtml.dart');

@@ -60,8 +60,8 @@ class Debug {
     //buckshot.rootView = new MainUIView();
     //buckshot.rootView = new GridDemoView.with(_vm);
     //buckshot.rootView = new BorderDemoView();
-    buckshot.rootView = new StackPanelDebug();
-    //buckshot.rootView = new AlignmentPanelTestingView();
+    //buckshot.rootView = new StackPanelDebug();
+    buckshot.rootView = new AlignmentPanelTestingView();
   }
 }
 

@@ -833,9 +833,9 @@ Hulu requires Flash and that only works on USA data networks.
 
   <button width="80">text button</button>
 
-  <button width="170" margin="10,0,0,0">
+  <button margin="10,0,0,0">
 
-    <border margin="10" width="150" height="150" background="Green">
+    <border width="150" height="150" background="Green">
       <textblock foreground="White" horizontalalignment="center" verticalalignment="center">button with content</textblock>
 
     </border>
