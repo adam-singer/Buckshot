@@ -49,21 +49,18 @@ class BuckshotTemplateProvider
 
       for(final e in xmlElement.children){
         String elementLowerTagName = e.name.toLowerCase();
-        if (elementLowerTagName == "img") elementLowerTagName = "image";
 
         if (buckshot._objectRegistry.containsKey(elementLowerTagName)){
 
           if (e.name.contains(".")){
             //attached property
-            if (buckshot._objectRegistry.containsKey(elementLowerTagName)){
+           print('attached: ${elementLowerTagName}, value: ${e.text.trim()}');
+          Function setAttachedPropertyFunction =
+              buckshot._objectRegistry[elementLowerTagName];
 
-              Function setAttachedPropertyFunction =
-                  buckshot._objectRegistry[elementLowerTagName];
-
-              //no data binding for attached properties
-              setAttachedPropertyFunction(newElement,
-                Math.parseInt(e.text.trim()));
-            }
+          //no data binding for attached properties
+          setAttachedPropertyFunction(newElement,
+            Math.parseInt(e.text.trim()));
           }else{
             //element or resource
 
@@ -129,7 +126,7 @@ class BuckshotTemplateProvider
                   setValue(p, e.text.trim());
                 }else if (e.children.length == 1 && e.children[0] is! XmlText){
                   // node assignment to property
-                  setValue(p, _getNextElement(e.children[0]));                  
+                  setValue(p, _getNextElement(e.children[0]));
                 }
               }
             }
@@ -319,10 +316,11 @@ class BuckshotTemplateProvider
     xmlElement.attributes.forEach((String k, String v){
 
       if (k.contains(".")){
+        var prop = k.toLowerCase();
         //attached property
-        if (buckshot._objectRegistry.containsKey("$k")){
+        if (buckshot._objectRegistry.containsKey(prop)){
 
-          Function setAttachedPropertyFunction = buckshot._objectRegistry["$k"];
+          Function setAttachedPropertyFunction = buckshot._objectRegistry[prop];
 
           setAttachedPropertyFunction(element, Math.parseInt(v));
         }

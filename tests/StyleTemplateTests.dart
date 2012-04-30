@@ -96,7 +96,7 @@ class StyleTemplateTests extends TestGroupBase
     b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
 
     b.style = st;
-    Expect.equals(1, b.opacity);
+    Expect.isNull(b.opacity);
 
     b.style.mergeWith([st2]);
     Expect.equals(.5, b.opacity);
