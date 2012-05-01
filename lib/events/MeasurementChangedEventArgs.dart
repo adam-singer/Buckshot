@@ -15,17 +15,14 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-/**
-* Event arguement class for the [ObservableList] listChanged [FrameworkEvent]. */
-class ListChangedEventArgs<T> extends EventArgs{
-  /// Represents a list of items that were removed from the List.
-  final List<T> oldItems;
-  /// Represents a list of items that were added to the List.
-  final List<T> newItems;
 
-  ListChangedEventArgs(this.oldItems, this.newItems){}
+class MeasurementChangedEventArgs extends EventArgs {
+  final ElementRect oldMeasurement;
+  final ElementRect newMeasurement;
 
   BuckshotObject makeMe() => null;
 
-  String get type() => "ListChangedEventArgs";
+  MeasurementChangedEventArgs(this.oldMeasurement, this.newMeasurement);
+
+  String get type() => "MeasurementChangedEventArgs";
 }

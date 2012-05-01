@@ -82,11 +82,14 @@ _internalChildren = new List<_GridCell>()
   columnDefinitions.listChanged + (_,__) => _updateColumnLayout(actualWidth);
   rowDefinitions.listChanged + (_,__) => _updateRowLayout(actualHeight);
 
-  widthProperty.propertyChanging + (_, __) => _updateColumnLayout(actualWidth);
-  heightProperty.propertyChanging + (_, __){
-    _updateRowLayout(actualHeight);
+  measurementChanged + (_, MeasurementChangedEventArgs args){
+    window.requestAnimationFrame((__){
+      updateLayout();
+//      _updateRowLayout(this.mostRecentMeasurement.bounding.height);
+//
+//      _updateColumnLayout(this.mostRecentMeasurement.bounding.width);
+    });
   };
-
 }
 
 /// Gets the [columnDefinitionsProperty] [ObservableList].
@@ -167,7 +170,7 @@ void _updateColumnLayout(num gridMeasurement){
 
     _internalChildren.forEach((child){
       child.margin = new Thickness.specified(child.margin.top, 0, 0, 0);
-      child.width = gridWidth;
+      child.content.width = gridWidth;
     });
 
     return;
@@ -199,7 +202,7 @@ void _updateColumnLayout(num gridMeasurement){
                     && Grid.getColumnSpan(child.content) < 2;
           })
           .forEach((_GridCell child){
-            num childWidth = child.mostRecentMeasurement.client.width;
+            num childWidth = child.content.mostRecentMeasurement.client.width;
             if (childWidth > widestAuto)
               widestAuto = childWidth;
           });
@@ -263,7 +266,7 @@ void _updateRowLayout(num gridHeight){
 
     _internalChildren.forEach((child){
       child.margin = new Thickness.specified(0, 0, 0, child.margin.left);
-      child.height = gridHeight;
+      child.content.height = gridHeight;
     });
 
     return;
@@ -294,7 +297,7 @@ void _updateRowLayout(num gridHeight){
                 && Grid.getRowSpan(child.content) < 2;
         })
         .forEach((_GridCell child){
-          num childHeight = child.mostRecentMeasurement.bounding.height;
+          num childHeight = child.content.mostRecentMeasurement.bounding.height;
           if (childHeight > widestAuto)
             widestAuto = childHeight;
         });

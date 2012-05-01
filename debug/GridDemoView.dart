@@ -12,9 +12,13 @@ class GridDemoView implements IView
 
     _rootElement.dataContext = _vm;
 
-    _rootElement.mouseMove + (_, MouseEventArgs args){
-     _vm.title = "Grid: (${args.mouseX}, ${args.mouseY}), (${args.windowX}, ${args.windowY})";
+    _rootElement.measurementChanged + (_, MeasurementChangedEventArgs args){
+      _vm.title = "Grid: (${args.newMeasurement.bounding.left}, ${args.newMeasurement.bounding.top}), (${args.newMeasurement.bounding.width}, ${args.newMeasurement.bounding.height})";
     };
+
+//    _rootElement.mouseMove + (_, MouseEventArgs args){
+//     _vm.title = "Grid: (${args.mouseX}, ${args.mouseY}), (${args.windowX}, ${args.windowY})";
+//    };
   }
 
   FrameworkElement get rootVisual() => _rootElement;
@@ -22,7 +26,7 @@ class GridDemoView implements IView
 
   static final String view =
 '''
-<grid background='Orange' margin='10' 
+<grid margin='10' 
 horizontalalignment='stretch' verticalalignment='stretch'>
 <resourcecollection>
   <styletemplate key='_border'>
@@ -31,6 +35,7 @@ horizontalalignment='stretch' verticalalignment='stretch'>
       <stylesetter property="borderThickness" value="1"></stylesetter>
       <stylesetter property="verticalAlignment" value="stretch"></stylesetter>
       <stylesetter property="horizontalAlignment" value="stretch"></stylesetter>
+      <stylesetter property="padding" value="5"></stylesetter>
     </setters>
   </styletemplate>
   <styletemplate key='_text'>
@@ -43,7 +48,7 @@ horizontalalignment='stretch' verticalalignment='stretch'>
   <rowdefinitions>
     <rowdefinition height='50'></rowdefinition>
     <rowdefinition height='*'></rowdefinition>
-    <rowdefinition height='*'></rowdefinition>
+    <rowdefinition height='*.5'></rowdefinition>
     <rowdefinition height='*'></rowdefinition>
   </rowdefinitions>
   <columndefinitions>

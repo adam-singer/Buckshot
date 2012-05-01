@@ -21,67 +21,85 @@
 * in static checks.
 */
 interface FrameworkEvent<T extends EventArgs>  default _FrameworkEventImplementation<T extends EventArgs>{
-  
-  const FrameworkEvent();
-  
+  Function _watchSubscriberCallback;
+
+  FrameworkEvent();
+
+  FrameworkEvent._watchFirstSubscriber(this._watchSubscriberCallback);
+
   /**
   * Returns true if the FrameworkEvent has handlers registered. */
   bool get hasHandlers();
-  
+
   /**
   * Registers an EventHandler to the LucaEvent, and returns an
-  * EventHandlerReference, which can be used to unregister the 
+  * EventHandlerReference, which can be used to unregister the
   * handler at some later time. */
   EventHandlerReference register(Function handler);
-  
+
   /**
   * Unregisters an EventHandler (via it's EventHandlerReference from the LucaEvent */
   void unregister(EventHandlerReference handlerReference);
-  
+
   /**
   * This operator overload is syntactic sugar for the register() method. */
   EventHandlerReference operator +(Function handler);
-  
+
   /**
   * This operator overload is syntactic sugar for the unregister() method. */
   void operator -(EventHandlerReference handlerReference);
-  
+
   /**
   * Call each EventHandler function that is registered to the FrameworkEvent */
   void invoke(sender, T args);
-  
+
   String get type();
 }
 
 class _FrameworkEventImplementation<T extends EventArgs> extends BuckshotObject implements FrameworkEvent
 {
-  
+  Function _watchSubscriberCallback;
+
   BuckshotObject makeMe() => null;
-  
+
   final List<EventHandlerReference> _handlers;
-  
+
   _FrameworkEventImplementation() : _handlers = new List<EventHandlerReference>();
 
+  _FrameworkEventImplementation._watchFirstSubscriber(this._watchSubscriberCallback)
+  :
+    _handlers = new List<EventHandlerReference>();
+
+
   bool get hasHandlers() => !_handlers.isEmpty();
-  
+
   EventHandlerReference register(Function handler){
     var hr = new EventHandlerReference(handler);
     _handlers.add(hr);
+
+    if (_watchSubscriberCallback != null && _handlers.length == 1){
+      _watchSubscriberCallback();
+    }
+
     return hr;
   }
-  
+
   void unregister(EventHandlerReference handlerReference){
-    int i = _handlers.indexOf(handlerReference, 0);   
+    int i = _handlers.indexOf(handlerReference, 0);
     if (i < 0) return;
     _handlers.removeRange(i, 1);
+
+    if (_watchSubscriberCallback != null && _handlers.isEmpty()){
+      _watchSubscriberCallback();
+    }
   }
-  
+
   EventHandlerReference operator +(Function handler) => register(handler);
-  
+
   void operator -(EventHandlerReference handlerReference) => unregister(handlerReference);
-    
+
   void invoke(sender, T args) => _handlers.forEach((handlerReference) => handlerReference.handler(sender, args));
-  
+
   String get type() => "FrameworkEvent";
 }
 

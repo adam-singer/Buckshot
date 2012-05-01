@@ -4,9 +4,6 @@
 #source('InHalfValueConverter.dart');
 
 
-// To compile:
-// minfrog --out=Colors.dart.app.js --compile-only Colors.dart
-
 /**
 * Demonstrates Buckshot pre-defined colors.
 *
@@ -15,20 +12,20 @@
 class ColorsDemo {
   //instantiate style resources
   StyleResources resources;
-  
+
   void run() {
     resources = new StyleResources();
-    
+
     List<Colors> colors = getColorList();
-    
+
     num columns = 14;
     num rows = (colors.length / 14).ceil();
-        
+
     //since we know this app owns the entire browser window space...
     //bind buckshot.visualRoot to window dimensions
     new Binding(buckshot.windowWidthProperty, buckshot.domRoot.widthProperty);
     new Binding(buckshot.windowHeightProperty, buckshot.domRoot.heightProperty);
-    
+
     Grid mainGrid = new Grid();
     mainGrid.style = resources.mainGridStyle;
 
@@ -36,76 +33,76 @@ class ColorsDemo {
     outerContentBorder.style = resources.contentBorderStyle;
     Grid.setRow(outerContentBorder, 2);
     mainGrid.children.add(outerContentBorder);
-    
+
     Border innerContentBorder = new Border();
     innerContentBorder.style = resources.innerBorderStyle;
     outerContentBorder.content = innerContentBorder;
-    
+
     TextBlock title = new TextBlock();
     title.style = resources.titleTextBlockStyle;
     title.text = "Buckshot Framework Pre-Defined Colors";
     mainGrid.children.add(title);
-    
+
     TextBlock subTitle = new TextBlock();
     subTitle.style = resources.subTitleTextBlockStyle;
     subTitle.text = "These standard colors are available for use in the framework. You can also specify your own RGB values when creating colors.";
     Grid.setRow(subTitle, 1);
     mainGrid.children.add(subTitle);
-      
+
     Grid colorGrid = buildColorGrid(columns, rows);
     colorGrid.name = "colorGrid";
     innerContentBorder.content = colorGrid;
-    
+
     for (int r = 0; r < rows; r++){
       for (int c = 0; c < columns; c++){
         int index = (r * columns) + c;
         Color nextColor = new Color.predefined(colors[index]);
-        
+
         Border b = new Border();
         b.style = resources.stretchedStyle;
         b.background = new SolidColorBrush(nextColor);
         Grid.setColumn(b, c);
         Grid.setRow(b, r);
-        
+
         TextBlock tb = new TextBlock();
         tb.text = colors[index].name;
         tb.fontSize = 10;
         tb.style = resources.centeredStyle;
-        
+
         //set the text to white for darker colors
         if ((nextColor.R + nextColor.G + nextColor.B) / 3 < 86)
           tb.foreground = new SolidColorBrush(new Color.predefined(Colors.White));
-        
+
         b.content = tb;
-        
+
         colorGrid.children.add(b);
       }
     }
-    
+
     buckshot.renderRaw(mainGrid);
   }
 
-  Grid buildColorGrid(int columns, int rows)
+  Grid buildColorGrid(num columns, num rows)
   {
     if (columns < 1 || rows < 1) throw const Exception("Invalid column or row value.");
-    
+
     Grid colorGrid = new Grid();
     colorGrid.background = new SolidColorBrush(new Color.predefined(Colors.Red));
     colorGrid.style = resources.stretchedStyle;
-    
+
     //build columns
     for(int i = 0; i < columns; i++){
       colorGrid.columnDefinitions.add(new ColumnDefinition.with(new GridLength.star(1)));
     }
-    
+
     //build rows
     for(int i = 0; i < rows; i++){
       colorGrid.rowDefinitions.add(new RowDefinition.with(new GridLength.star(1)));
     }
-    
+
     return colorGrid;
   }
-  
+
 }
 
 
