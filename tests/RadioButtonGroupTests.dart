@@ -47,7 +47,7 @@ class RadioButtonGroupTests extends TestGroupBase
     
     Expect.throws(
       () => rbg.addRadioButton(rb1),
-      (e) => (e is FrameworkException)
+      (e) => (e is BuckshotException)
     );
   }
   
@@ -66,7 +66,7 @@ class RadioButtonGroupTests extends TestGroupBase
     
     Expect.throws(
       () => rbg.addRadioButton(rb2),
-      (e) => (e is FrameworkException)
+      (e) => (e is BuckshotException)
     );
   }
   

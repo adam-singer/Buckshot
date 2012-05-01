@@ -63,7 +63,6 @@
 #source('../lib/elements/LayoutCanvas.dart');
 #source('../lib/elements/Image.dart');
 #source('../lib/elements/RawHtml.dart');
-#source('../lib/elements/AlignmentPanel.dart');
 #source('../lib/elements/grid/Grid.dart');
 #source('../lib/elements/grid/RowDefinition.dart');
 #source('../lib/elements/grid/ColumnDefinition.dart');
@@ -124,9 +123,7 @@
 #source('../lib/core/FrameworkProperty.dart');
 #source('../lib/core/ObservableList.dart');
 #source('../lib/core/FrameworkElement.dart');
-#source('../lib/core/_VirtualContainer.dart');
 #source('../lib/core/HashableObject.dart');
-#source('../lib/core/_ContainerElement.dart');
 #source('../lib/core/IValueConverter.dart');
 #source('../lib/core/_RootElement.dart');
 #source('../lib/core/DomHelpers.dart');

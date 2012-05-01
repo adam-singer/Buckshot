@@ -30,7 +30,7 @@ class StringToBooleanConverter implements IValueConverter
     }else if (value.toLowerCase() == "true"){
       return true;
     }else{
-      throw new FrameworkException("Invalid string passed to boolean converter: '${value}'.");
+      throw new BuckshotException("Invalid string passed to boolean converter: '${value}'.");
     }
   }
 }

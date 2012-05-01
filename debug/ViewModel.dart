@@ -14,7 +14,9 @@ set title(String value) => setValue(titleProperty, value);
 
 //view model contract
 interface IMainViewModel{
-  
+
   FrameworkProperty titleProperty;
-  
+
+  String get title();
+  set title(String value);
 }

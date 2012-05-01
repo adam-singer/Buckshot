@@ -28,8 +28,8 @@ class TextBoxTests extends TestGroupBase {
     TextBox t = new TextBox();
 
     Expect.throws(
-    ()=> t.inputType = "_foo_".dynamic,
-    (e)=> (e is FrameworkException)
+    ()=> t.inputType = null,
+    (e) => (e is BuckshotException)
     );
   }
 

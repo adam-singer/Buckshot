@@ -35,7 +35,7 @@ class StringToHorizontalAlignmentConverter implements IValueConverter{
       case "right":
         return HorizontalAlignment.right;
       default:
-        throw new FrameworkException('Invalid horizontalAlignment value "$value".');
+        throw new BuckshotException('Invalid horizontalAlignment value "$value".');
     }
   }
 }

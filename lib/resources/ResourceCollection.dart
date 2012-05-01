@@ -37,7 +37,7 @@ class ResourceCollection extends FrameworkResource
 
         //throw on non-resources in this collection or attempts to nest collections
         if (!(r is FrameworkResource) || r is ResourceCollection)
-          throw const FrameworkException("Invalid resource found in ResourceCollection.");
+          throw const BuckshotException("Invalid resource found in ResourceCollection.");
       });
     }
   }

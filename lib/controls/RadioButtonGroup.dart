@@ -32,14 +32,14 @@ class RadioButtonGroup {
     if (buttonToAdd == null) return;
     
     if (_radioButtonList.containsKey(buttonToAdd)){
-      throw const FrameworkException("RadioButton already exists in the RadioButtonGroup list.");
+      throw const BuckshotException("RadioButton already exists in the RadioButtonGroup list.");
     }
     
     if (!_radioButtonList.isEmpty()){
       //do a check to ensure groupName is the same
       String name = _radioButtonList.getKeys().iterator().next().groupName;
       if (name != buttonToAdd.groupName)
-        throw new FrameworkException("Attempted to add RadioButton with groupName='${buttonToAdd.groupName}' to RadioButtonGroup with groupName='$name'");
+        throw new BuckshotException("Attempted to add RadioButton with groupName='${buttonToAdd.groupName}' to RadioButtonGroup with groupName='$name'");
     }
     
     //register to the selection event of the button

@@ -44,7 +44,7 @@ class FrameworkFundamentalsTests extends TestGroupBase
     tb.text = testString;
 
     Expect.equals(tb.text, testString);
-    Expect.equals(tb.component.text, tb.text);
+    Expect.equals(tb.rawElement.text, tb.text);
 
     tb.text = "";
 
@@ -53,7 +53,7 @@ class FrameworkFundamentalsTests extends TestGroupBase
     tb.text = testString2;
 
     Expect.equals(tb.text, testString2);
-    Expect.equals(tb.component.text, tb.text);
+    Expect.equals(tb.rawElement.text, tb.text);
 
     _removeElement(tb);
   }
@@ -79,11 +79,11 @@ class FrameworkFundamentalsTests extends TestGroupBase
     Expect.equals(b.content, tb);
 
     //check if the correct information is rendered to the DOM
-    Expect.equals(b.component.nodes.length, 1);
+    Expect.equals(b.rawElement.nodes.length, 1);
 
-    Expect.equals(tb.component.nodes.length, 1);
+    Expect.equals(tb.rawElement.nodes.length, 1);
 
-    Expect.equals(tb.component.nodes[0].text, testString);
+    Expect.equals(tb.rawElement.nodes[0].text, testString);
 
     //now replace with a button
     var btn = new Button();
@@ -95,9 +95,9 @@ class FrameworkFundamentalsTests extends TestGroupBase
     Expect.equals(b.content, btn);
 
     //check if the correct information is rendered to the DOM
-    Expect.equals(b.component.nodes.length, 1);
+    Expect.equals(b.rawElement.nodes.length, 1);
 
-    Expect.equals(b.component.nodes[0].toString(), "BUTTON");
+    Expect.equals(b.rawElement.nodes[0].toString(), "BUTTON");
 
     _removeElement(b);
 

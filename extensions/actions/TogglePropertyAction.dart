@@ -52,7 +52,7 @@ class TogglePropertyAction extends ActionBase
   
   void onEventTrigger(){
     if (property == null || firstValue == null || secondValue == null)
-      throw const FrameworkException('Event trigger failed because one or more properties is not assigned.');
+      throw const BuckshotException('Event trigger failed because one or more properties is not assigned.');
     
     if (target == null){
       resolveTarget();

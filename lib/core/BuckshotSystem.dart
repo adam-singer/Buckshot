@@ -88,11 +88,11 @@ class Buckshot extends FrameworkObject {
     _domRootElement = document.query(rootID);
 
     if (_domRootElement == null)
-      throw new FrameworkException("Unable to locate required root"
+      throw new BuckshotException("Unable to locate required root"
         " element (must be <div id='$rootID' />)");
 
     if (_domRootElement.tagName != "DIV")
-      throw new FrameworkException("Root element for Buckshot"
+      throw new BuckshotException("Root element for Buckshot"
         " must be a <div>. Element given was"
         " a <${_domRootElement.tagName.toLowerCase()}>");
 
@@ -102,7 +102,7 @@ class Buckshot extends FrameworkObject {
     _buckshotCSS = document.head.query('#__BuckshotCSS__');
 
     if (_buckshotCSS == null)
-      throw const FrameworkException('Unable to initialize Buckshot StyleSheet.');
+      throw const BuckshotException('Unable to initialize Buckshot StyleSheet.');
 
     namedElements = new HashMap<String, FrameworkObject>();
 

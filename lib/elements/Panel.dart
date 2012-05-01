@@ -23,21 +23,21 @@
 * * [LayoutCanvas]
 * * [StackPanel]
 */
-class Panel extends _ContainerElement implements IFrameworkContainer {
+class Panel extends FrameworkElement implements IFrameworkContainer {
   /// An observable list of the child elements associated with the panel.
   final ObservableList<FrameworkElement> children;
   static final String childHasParentExceptionMessage = "Element is already child of another element.";
 
   /// Represents the background [Color] value of the panel.
   FrameworkProperty backgroundProperty;
-    
+
   Panel()
   : children = new ObservableList<FrameworkElement>()
   {
     _Dom.appendBuckshotClass(_component, "panel");
-    
+
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = children;
-    
+
     backgroundProperty = new FrameworkProperty(
       this,
       "background",
@@ -48,44 +48,38 @@ class Panel extends _ContainerElement implements IFrameworkContainer {
         }
         value.renderBrush(_component);
       }, converter:const StringToSolidColorBrushConverter());
-        
+
     children.listChanged + (_, args) => onChildrenChanging(args);
   }
-  
+
   void onChildrenChanging(ListChangedEventArgs args){
     args.oldItems.forEach((item){
       item.parent = null;
     });
-    
+
     args.newItems.forEach((item){
       if (item.parent != null){
-        throw const FrameworkException(childHasParentExceptionMessage);    
+        throw const BuckshotException(childHasParentExceptionMessage);
       }
       item.parent = this;
     });
   }
-  
+
   // IFrameworkContainer interface
   get content() => children;
-  
-  /// Returns true if the given [FrameworkElement] is a child of the panel.
-  bool contains(FrameworkElement newChild){
-    return children.indexOf(newChild, 0) > -1;
-  }
-  
+
   /// Sets the [backgroundProperty] value.
   set background(Brush value) => setValue(backgroundProperty, value);
   /// Gets the [backgroundProperty] value.
   Brush get background() => getValue(backgroundProperty);
-  
+
   String get type() => "Panel";
-  
+
   /// Overridden [FrameworkObject] method.
   void CreateElement(){
-    _component = _Dom.createByTag("div");
+    _component = _Dom.createByTag('div');
     _component.style.overflow = "hidden";
-    _component.style.display = "inline-block";
   }
- 
+
 }
 

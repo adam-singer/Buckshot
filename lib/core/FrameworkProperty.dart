@@ -50,7 +50,7 @@ class FrameworkProperty extends FrameworkPropertyBase
   Dynamic get value() => _value;
   set value(Dynamic v) {
     if (readOnly){
-      throw const FrameworkException('Attempted to write to a read-only property.');
+      throw const BuckshotException('Attempted to write to a read-only property.');
     }
     _value = v;
   }
@@ -95,7 +95,7 @@ class AnimatingFrameworkProperty extends FrameworkProperty{
   AnimatingFrameworkProperty(FrameworkElement sourceObject, String propertyName, Function propertyChangedCallback, String this.cssPropertyPeer, [value = null, converter = null])
   : super(sourceObject, propertyName, propertyChangedCallback, defaultValue:value, converter:converter)
   {
-    if (sourceObject is! FrameworkElement) throw const FrameworkException('AnimatingFrameworkProperty can only be used with elements that derive from FrameworkElement.');
+    if (sourceObject is! FrameworkElement) throw const BuckshotException('AnimatingFrameworkProperty can only be used with elements that derive from FrameworkElement.');
   }
   
   

@@ -15,60 +15,90 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-class _GridCell extends _VirtualContainer
-{ 
-  static final String parentErrorMessage = "GridCell parent must be of type Grid.";
-   
-  
-  _GridCell(){
-    _Dom.appendClass(_component, "luca_ui_gridcell");
-//    horizontalAlignment = HorizontalAlignment.Stretch;
-//    verticalAlignment = VerticalAlignment.Stretch;
-  }
-  
-  //enforce parental relationship
-  set parent(FrameworkElement value) {
-    if (!(value is Grid))
-      throw const FrameworkException(parentErrorMessage);
-    
-    _parent = value;
-  }
-  
-  num _getHeight(){
-    if (content == null) return 0;
-    
-    num h = this.mostRecentMeasurement.bounding.height; // this._rawElement.getBoundingClientRect().height;
-        
-    if (content.verticalAlignment != VerticalAlignment.stretch) return h;
+//render only, not used for template layout
+class _GridCell extends FrameworkObject
+{
+  /// Represents the content inside the border.
+  FrameworkProperty contentProperty;
+  FrameworkProperty marginProperty;
 
-    // if the content is stretched vertically, then we need to temporarily unstretch the width and height
-    // in order to measure it properly
-      
-    _unRegisterChild(content); //prevent extra events from firing
-    
-    content.height = "auto";
-    content.width = "auto";
-    content.updateLayout();
-    h = this.mostRecentMeasurement.client.height; // _rawElement.clientHeight;
-    _registerChild(content);
-    
-    content.updateLayout(); //restore the registration
+  _GridCell()
+  {
+    _Dom.appendBuckshotClass(_component, "GridCell");
 
-    return h;
+    _initGridCellProperties();
+
+    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
-  
-  
+
+  void _initGridCellProperties(){
+    //register the dependency properties
+    contentProperty = new FrameworkProperty(
+      this,
+      "content",(c)
+      {
+        if (contentProperty.previousValue != null){
+          contentProperty.previousValue.removeFromLayoutTree();
+        }
+        if (c != null)
+          c.addToLayoutTree(this);
+      });
+
+    marginProperty = new FrameworkProperty(
+      this,
+      "margin",
+      (value){
+        _component.style.margin = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
+      }, new Thickness(0), converter:const StringToThicknessConverter());
+  }
+
+  /// Gets the [contentProperty] value.
+  FrameworkElement get content() => getValue(contentProperty);
+  /// Sets the [contentProperty] value.
+  set content(FrameworkElement value) => setValue(contentProperty, value);
+  /// Sets the [marginProperty] value.
+  set margin(Thickness value) => setValue(marginProperty, value);
+  /// Gets the [marginProperty] value.
+  Thickness get margin() => getValue(marginProperty);
+
+  void updateMeasurement(){
+    _component
+      .rect
+      .then((ElementRect r) { mostRecentMeasurement = r;});
+  }
+
+
+  /// Overridden [FrameworkObject] method for generating the html representation of the border.
   void CreateElement(){
-    super.CreateElement();
-    _component.style.display = "table-cell";
+    _component = _Dom.createByTag('div');
+    _component.style.overflow = "hidden";
+    _component.style.position = "absolute";
+    _Dom.makeFlexBox(this);
   }
-  
 
-  updateLayout(){
-    if (content == null) return;
-    _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
-    _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
+  /// Overridden [FrameworkObject] method is called when the framework requires elements to recalculate layout.
+  void updateLayout(){
+    if (content != null){
+      if (content.horizontalAlignment != null){
+        if (content.horizontalAlignment == HorizontalAlignment.stretch){
+          //TODO this ignores margin and padding.. not good
+
+          //-webkit-flex not working in Chromium v18
+          // working in Dartium v20
+          // TODO shim if not supported.
+          _Dom.setXPCSS(content.rawElement, 'flex', '1');
+         // _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
+        }else{
+          _Dom.setXPCSS(content.rawElement, 'flex', 'none');
+          _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
+        }
+      }
+
+      if (content.verticalAlignment != null){
+          _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
+      }
+    }
   }
-  
-  String get type() => "GridCell";
+
+  String get type() => "_GridCell";
 }

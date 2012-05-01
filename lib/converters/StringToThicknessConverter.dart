@@ -32,7 +32,7 @@ class StringToThicknessConverter implements IValueConverter{
       case 4:
         return new Thickness.specified(Math.parseInt(svl[0].trim()),Math.parseInt(svl[1].trim()),Math.parseInt(svl[2].trim()),Math.parseInt(svl[3].trim()));
       default:
-        throw const FrameworkException("Unable to parse Thickness property string.  Use format '0', '0,0', or '0,0,0,0'");
+        throw const BuckshotException("Unable to parse Thickness property string.  Use format '0', '0,0', or '0,0,0,0'");
     }
   }
 }

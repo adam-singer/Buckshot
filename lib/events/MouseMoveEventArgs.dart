@@ -19,13 +19,17 @@
 * Event arguements for mouseMove events */
 class MouseEventArgs extends RoutedEventArgs
 {
+  /// X coords relative to the source [FrameworkElement].
   final num mouseX;
+  /// Y coords relative to the source [FrameworkElement].
   final num mouseY;
+  /// X coords relative to the browser window.
   final num windowX;
+  /// Y coords relative to the browser window.
   final num windowY;
-  
+
   MouseEventArgs(this.mouseX, this.mouseY, this.windowX, this.windowY);
-  
-  String get _type() => "MouseEventArgs";
-  
+
+  String get type() => "MouseEventArgs";
+
 }

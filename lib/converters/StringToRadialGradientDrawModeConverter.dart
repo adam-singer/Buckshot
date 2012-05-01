@@ -28,7 +28,7 @@ class StringToRadialGradientDrawModeConverter implements IValueConverter {
       case "contain":
         return RadialGradientDrawMode.contain;
       default:
-        throw const FrameworkException("Invalid string value. Unable to convert to RadialGradientDrawMode.");
+        throw const BuckshotException("Invalid string value. Unable to convert to RadialGradientDrawMode.");
     }
   }
 }

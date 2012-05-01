@@ -23,12 +23,7 @@
 */
 class FrameworkElement extends FrameworkObject {
   FrameworkElement _containerParent;
-  FrameworkElement _parent;
   StyleTemplate _style;
-
-  /// Represents a map of [Binding]s that will be bound just before
-  /// the element renders to the DOM.
-  final HashMap<FrameworkProperty, BindingData> lateBindings;
 
   final HashMap<FrameworkProperty, String> _templateBindings;
 
@@ -54,9 +49,6 @@ class FrameworkElement extends FrameworkObject {
   FrameworkProperty cursorProperty;
   /// Represents a general use [Object] property of the FrameworkElement.
   FrameworkProperty tagProperty;
-  /// Represents the data context assigned to the FrameworkElement.
-  /// Declarative xml binding can be used to bind to data context.
-  FrameworkProperty dataContextProperty;
   /// Represents the horizontal alignment of this FrameworkElement inside another element.
   FrameworkProperty horizontalAlignmentProperty;
   /// Represents the [VerticalAlignment] of this FrameworkElement inside another element.
@@ -91,10 +83,6 @@ class FrameworkElement extends FrameworkObject {
   FrameworkProperty actionsProperty;
 
   //events
-  /// Fires when the FrameworkElement is inserted into the DOM.
-  final FrameworkEvent<EventArgs> loaded;
-  /// Fires when the FrameworkElement is removed from the DOM.
-  final FrameworkEvent<EventArgs> unloaded;
   /// Fires when the DOM gives the FrameworkElement focus.
   final FrameworkEvent<EventArgs> gotFocus;
   /// Fires when the DOM removes focus from the FrameworkElement.
@@ -120,10 +108,7 @@ class FrameworkElement extends FrameworkObject {
   BuckshotObject makeMe() => new FrameworkElement();
 
   FrameworkElement() :
-    lateBindings = new HashMap<FrameworkProperty, BindingData>(),
     _templateBindings = new HashMap<FrameworkProperty, String>(),
-    loaded = new FrameworkEvent<EventArgs>(),
-    unloaded = new FrameworkEvent<EventArgs>(),
     click = new FrameworkEvent<MouseEventArgs>(),
     gotFocus = new FrameworkEvent<EventArgs>(),
     lostFocus = new FrameworkEvent<EventArgs>(),
@@ -160,11 +145,11 @@ class FrameworkElement extends FrameworkObject {
 
     actionsProperty = new FrameworkProperty(this, 'actions', (ObservableList<ActionBase> aList){
       if (actionsProperty != null){
-        throw const FrameworkException('FrameworkElement.actionsProperty collection can only be assigned once.');
+        throw const BuckshotException('FrameworkElement.actionsProperty collection can only be assigned once.');
       }
 
       aList.listChanged + (_, ListChangedEventArgs args){
-        if (args.oldItems.length > 0) throw const FrameworkException('Actions cannot be removed once added to the collection.');
+        if (args.oldItems.length > 0) throw const BuckshotException('Actions cannot be removed once added to the collection.');
 
         //assign this element as the source to any new actions
         args.newItems.forEach((ActionBase action){
@@ -338,11 +323,6 @@ class FrameworkElement extends FrameworkObject {
       "tag",
       (value){});
 
-    dataContextProperty = new FrameworkProperty(
-      this,
-      "dataContext",
-      (value){});
-
     horizontalAlignmentProperty = new FrameworkProperty(
       this,
       "horizontalAlignment",
@@ -395,16 +375,6 @@ class FrameworkElement extends FrameworkObject {
   /// Gets the inner height of the element less any bordering offsets (margin, padding, borderThickness)
   num get actualHeight() => getValue(actualHeightProperty);
 
-  /// Gets the raw html Element component of the Framework Element.
-  Element get component() => _component;
-  /// Sets the raw html Element component of the Framework Element.
-  set component(Element value) => _component = value;
-
-  /// Sets the parent FrameworkElement.
-  set parent(FrameworkElement value) => _parent = value;
-  /// Gets the parent FrameworkElement.
-  FrameworkElement get parent() => _parent;
-
   /// Sets the [htmlIDProperty] value.
   set htmlID(String value) => setValue(htmlIDProperty, value);
   /// Gets the [htmlIDProperty] value.
@@ -424,11 +394,6 @@ class FrameworkElement extends FrameworkObject {
   set zOrder(num value) => setValue(zOrderProperty, value);
   /// Gets the [zOrderProperty] value.
   num get zOrder() => getValue(zOrderProperty);
-
-  /// Sets the [dataContextProperty] value.
-  set dataContext(Dynamic value) => setValue(dataContextProperty, value);
-  /// Gets the [dataContextProperty] value.
-  Dynamic get dataContext() => getValue(dataContextProperty);
 
   /// Sets the [tagProperty] value.
   set tag(Dynamic value) => setValue(tagProperty, value);
@@ -485,62 +450,6 @@ class FrameworkElement extends FrameworkObject {
   /// Gets the [horizontalAlignmentProperty] value.
   HorizontalAlignment get horizontalAlignment() => getValue(horizontalAlignmentProperty);
 
-  ElementRect mostRecentMeasurement;
-
-  void updateMeasurement(){
-    _component
-      .rect
-      .then((ElementRect r) { mostRecentMeasurement = r;});
-  }
-
-  /// Returns the first non-null [dataContext] [FrameworkProperty]
-  /// in the this [FrameworkElement]'s heirarchy.
-  ///
-  /// Returns null if no non-null [dataContext] can be found.
-  FrameworkProperty resolveDataContext(){
-    if (dataContext != null) return dataContextProperty;
-    if (parent == null) return null;
-    return parent.resolveDataContext();
-  }
-
-  bool isChildOf(FrameworkElement candidate){
-    if (parent != null && parent == candidate)
-      return true;
-
-    if (parent == null) return false;
-
-    return parent.isChildOf(candidate);
-  }
-
-  bool _dataContextUpdated = false;
-  void updateDataContext(){
-    if (_dataContextUpdated) return;
-    _dataContextUpdated = true;
-
-    //TODO: Support multiple datacontext updates
-
-    var dc = resolveDataContext();
-    if (dc == null) return;
-
-    //binding each property in the lateBindings collection
-    //to the data context
-    lateBindings.forEach((FrameworkProperty p, BindingData bd){
-      if (bd.dataContextPath == ""){
-        new Binding(dc, p);
-      }else{
-        if (!(dc.value is BuckshotObject))
-          throw new FrameworkException("Datacontext binding attempted to resolve properties '${bd.dataContextPath}' on non-BuckshotObject type.");
-
-        //TODO keep a reference to these so they can be removed if the datacontext changes
-
-        if (bd.converter != null)
-          new Binding(dc.value.resolveProperty(bd.dataContextPath), p, bindingMode:bd.bindingMode, converter:bd.converter);
-        else
-          new Binding(dc.value.resolveProperty(bd.dataContextPath), p, bindingMode:bd.bindingMode);
-      }
-    });
-  }
-
   /// ** Internal Use Only **
   void calculateWidth(value){
     if (value == "auto"){
@@ -585,78 +494,6 @@ class FrameworkElement extends FrameworkObject {
 //    setValue(actualHeightProperty, adjustedValue);
     if (this is Panel || this is Border) updateLayout();
   }
-
-  //TODO load/unload should be asynchronous?
-  void addToLayoutTree(FrameworkElement parentElement){
-
-    parentElement._component.elements.add(_component);
-
-    parent = parentElement;
-
-   // db('Added to Layout Tree', this);
-    if (!parentElement._isLoaded) return;
-
-    _onAddedToDOM();
-  }
-
-  void _onAddedToDOM(){
-    //parent is in the DOM so we should call loaded event and check for children
-
-    updateDataContext();
-
-    _isLoaded = true;
-
-    parent.updateLayout();
-
-    onLoaded();
-    loaded.invoke(this, new EventArgs());
-
-    //db('Added to DOM', this);
-
-    if (this is! IFrameworkContainer) return;
-
-    if (this.dynamic.content is List){
-      this.dynamic.content.forEach((FrameworkElement child) => child._onAddedToDOM());
-    }else if (this.dynamic.content is FrameworkElement){
-      this.dynamic.content._onAddedToDOM();
-    }
-  }
-
-  void onLoaded(){}
-  void onUnloaded(){}
-
-  void removeFromLayoutTree(){
-  //    throw new FrameworkException('Attempted to remove element that is not already loaded into the DOM.');
-
-    this._component.remove();
-
-    //db('Removed from Layout Tree', this);
-    var p = parent;
-
-    parent = null;
-
-    if (!p._isLoaded) return;
-
-    _onRemoveFromDOM();
-  }
-
-  _onRemoveFromDOM(){
-    _isLoaded = false;
-
-    onUnloaded();
-    unloaded.invoke(this, new EventArgs());
-
-    //db('Removed from DOM', this);
-
-    if (this is! IFrameworkContainer) return;
-
-    if (this.dynamic.content is List){
-      this.dynamic.content.forEach((FrameworkElement child) => child._onRemoveFromDOM());
-    }else if (this.dynamic.content is FrameworkElement){
-      this.dynamic.content._onRemoveFromDOM();
-    }
-  }
-
 
   void _initFrameworkEvents(){
 

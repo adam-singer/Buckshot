@@ -48,7 +48,7 @@ class SetPropertyAction extends ActionBase
   void onEventTrigger(){
    
     if (property == null || value == null)
-      throw const FrameworkException('Event trigger failed because one or more properties is not assigned.');
+      throw const BuckshotException('Event trigger failed because one or more properties is not assigned.');
     
 
     if (target == null){

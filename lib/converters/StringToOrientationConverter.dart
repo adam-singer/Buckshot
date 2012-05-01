@@ -27,7 +27,7 @@ class StringToOrientationConverter implements IValueConverter{
       case "vertical":
         return Orientation.vertical;
       default:
-        throw new FrameworkException('Invalid orientation value "$value".');
+        throw new BuckshotException('Invalid orientation value "$value".');
     }
   } 
 }

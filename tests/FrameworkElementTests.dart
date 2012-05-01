@@ -158,8 +158,8 @@ class FrameworkElementTests extends TestGroupBase
     Expect.isNotNull(fp);
 
     //check that the default component in initialized properly
-    Expect.isNotNull(fp.component);
-    Expect.equals(fp.component.tagName, "DIV");
+    Expect.isNotNull(fp.rawElement);
+    Expect.equals(fp.rawElement.tagName, "DIV");
 
     //check default values
     //these checks may seem trivial but we are also validating

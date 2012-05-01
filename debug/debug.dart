@@ -23,7 +23,7 @@ class Debug {
   void run() {
     if (_vm == null) br("is null");
 
-    _vm.title = "Demo"; //view can bind to this property
+    _vm.title = "Demo Title"; //view can bind to this property
 
 
 //    FrameworkObject o = p.deserialize('''
@@ -58,10 +58,10 @@ class Debug {
 
     //passing the view, which triggers rendering on the page.
     //buckshot.rootView = new MainUIView();
-    //buckshot.rootView = new GridDemoView.with(_vm);
+    buckshot.rootView = new GridDemoView.with(_vm);
     //buckshot.rootView = new BorderDemoView();
     //buckshot.rootView = new StackPanelDebug();
-    buckshot.rootView = new AlignmentPanelTestingView();
+    //buckshot.rootView = new AlignmentPanelTestingView();
   }
 }
 

@@ -86,7 +86,7 @@ class StringToCursorConverter implements IValueConverter {
       case "Inherit":
         return Cursors.Inherit;
       default:
-        throw const FrameworkException("Cursor property value not recognized.");  
+        throw const BuckshotException("Cursor property value not recognized.");  
       
     }
   }

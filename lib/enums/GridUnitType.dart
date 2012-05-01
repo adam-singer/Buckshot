@@ -39,7 +39,7 @@ class GridUnitType{
       case 3:
         return "auto";
       default:
-        throw const FrameworkException("Invalid GridUntiType value.");
+        throw const BuckshotException("Invalid GridUntiType value.");
     }
   }
 }

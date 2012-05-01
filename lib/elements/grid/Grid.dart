@@ -86,6 +86,7 @@ _internalChildren = new List<_GridCell>()
   heightProperty.propertyChanging + (_, __){
     _updateRowLayout(actualHeight);
   };
+
 }
 
 /// Gets the [columnDefinitionsProperty] [ObservableList].
@@ -96,15 +97,16 @@ ObservableList<RowDefinition> get rowDefinitions() => getValue(rowDefinitionsPro
 
 void _onChildrenChanging(Object _, ListChangedEventArgs args){
 
-  args.oldItems.forEach((item){
-    var result = _internalChildren.filter((gc) => gc.content === item);
+  args.oldItems.forEach((FrameworkElement item){
 
-    if (result.length != 1)
-      throw new FrameworkException("Deleted element not found in internal Grid collection.");
+    var p = item.parent;
 
-    result[0].removeChild(item);
-    result[0]._component.remove();
-    item.parent = null;
+    if (p == null || p is! _GridCell)
+      throw new BuckshotException("Deleted element not found in internal Grid collection.");
+
+    item.removeFromLayoutTree();
+
+    p._component.remove();
   });
 
 
@@ -113,13 +115,9 @@ void _onChildrenChanging(Object _, ListChangedEventArgs args){
     _GridCell newGC = new _GridCell();
     newGC.content = item;
 
-    newGC._component.style.position = "absolute";
-
     _internalChildren.add(newGC);
 
-    _component.nodes.add(newGC._component);
-    //_positionElement(newGC);
-
+    newGC.addToLayoutTree(this);
   });
 
   updateLayout();
@@ -141,16 +139,19 @@ void updateLayout(){
   _updateMeasurements();
 
   window.requestLayoutFrame((){
-    _updateRowLayout(actualHeight);
+    _updateRowLayout(this.mostRecentMeasurement.bounding.height);
 
-    _updateColumnLayout(actualWidth);
+    _updateColumnLayout(this.mostRecentMeasurement.bounding.width);
   });
 
 }
 
 void _updateMeasurements(){
+
+  this.updateMeasurement();
+
   _internalChildren.forEach((child){
-    child.updateMeasurement();
+    child.content.updateMeasurement();
   });
 }
 
@@ -197,7 +198,7 @@ void _updateColumnLayout(num gridMeasurement){
             return Grid.getColumn(child.content) == columnDefinitions.indexOf(c, 0)
                     && Grid.getColumnSpan(child.content) < 2;
           })
-          .forEach((FrameworkElement child){
+          .forEach((_GridCell child){
             num childWidth = child.mostRecentMeasurement.client.width;
             if (childWidth > widestAuto)
               widestAuto = childWidth;
@@ -243,9 +244,9 @@ void _updateColumnLayout(num gridMeasurement){
       if (childColumnSpan > 1){
         if (childColumnSpan > columnDefinitions.length - colIndex)
           childColumnSpan = columnDefinitions.length - colIndex;
-        child.width = _totalLengthOf(columnDefinitions.getRange(colIndex, childColumnSpan));
+        child._component.style.width = '${_totalLengthOf(columnDefinitions.getRange(colIndex, childColumnSpan))}px';
       }else{
-        child.width = columnDefinitions[colIndex]._adjustedLength;
+        child._component.style.width = '${columnDefinitions[colIndex]._adjustedLength}px';
       }
       child.updateLayout();
     });
@@ -293,7 +294,7 @@ void _updateRowLayout(num gridHeight){
                 && Grid.getRowSpan(child.content) < 2;
         })
         .forEach((_GridCell child){
-          num childHeight = child._getHeight();
+          num childHeight = child.mostRecentMeasurement.bounding.height;
           if (childHeight > widestAuto)
             widestAuto = childHeight;
         });
@@ -324,7 +325,7 @@ void _updateRowLayout(num gridHeight){
   });
 
   //assign child wrappers to row offsets
-  _internalChildren.forEach((child){
+  _internalChildren.forEach((_GridCell child){
     num rowIndex = Grid.getRow(child.content);
     num childRowSpan = Grid.getRowSpan(child.content);
     child.margin = new Thickness.specified(rowDefinitions[rowIndex]._adjustedOffset, 0, 0, child.margin.left);
@@ -333,9 +334,9 @@ void _updateRowLayout(num gridHeight){
       if (childRowSpan > rowDefinitions.length - rowIndex)
         childRowSpan = rowDefinitions.length - rowIndex;
 
-      child.height = _totalLengthOf(rowDefinitions.getRange(rowIndex, childRowSpan));
+      child._component.style.height = '${_totalLengthOf(rowDefinitions.getRange(rowIndex, childRowSpan))}px';
     }else{
-      child.height = rowDefinitions[rowIndex]._adjustedLength;
+      child._component.style.height = '${rowDefinitions[rowIndex]._adjustedLength}px';
     }
 
     child.updateLayout();

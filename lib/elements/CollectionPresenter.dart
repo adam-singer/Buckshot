@@ -75,7 +75,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   void _initCollectionPresenterProperties(){
     presentationPanelProperty = new FrameworkProperty(this, "presentationPanel", (Panel p){
       if (p.parent != null)
-        throw const FrameworkException("Element is already child of another element.");
+        throw const BuckshotException("Element is already child of another element.");
       
       if (!_component.elements.isEmpty())
          _component.elements[0].remove();
@@ -119,7 +119,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       _eHandler = values.listChanged + (_, __) => _updateCollection();
     }
     
-    if (values is! Collection) throw const FrameworkException("Expected dataContext object to be of type Collection.");
+    if (values is! Collection) throw const BuckshotException("Expected dataContext object to be of type Collection.");
     
     presentationPanel._component.elements.clear();
     

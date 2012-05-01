@@ -79,7 +79,7 @@ class ActionBase extends BuckshotObject {
     var _source = getValue(_sourceProperty);
     
     if (_source == null && _source is! FrameworkElement){
-      throw const FrameworkException('action source is null or is not a FrameworkElement');
+      throw const BuckshotException('action source is null or is not a FrameworkElement');
     }
     
     switch(ee){
@@ -133,7 +133,7 @@ class ActionBase extends BuckshotObject {
       var el = buckshot.namedElements[targetName];
       
       if (el == null)
-        throw const FrameworkException('action Target was not found.');
+        throw const BuckshotException('action Target was not found.');
       
       _target = el;
     }

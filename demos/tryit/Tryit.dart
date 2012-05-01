@@ -80,7 +80,7 @@ void main() {
       tbError.text = "A framework error occured while attempting to resolve a property binding: ${pre}";
       borderContent.content = errorUI;
     }
-    catch(FrameworkException fe){
+    catch(BuckshotException fe){
       tbError.text = "A framework error occured while attempting to render the content: ${fe}";
       borderContent.content = errorUI;
     }

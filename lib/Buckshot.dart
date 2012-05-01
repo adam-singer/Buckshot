@@ -70,7 +70,6 @@
 #source('elements/LayoutCanvas.dart');
 #source('elements/Image.dart');
 #source('elements/RawHtml.dart');
-#source('elements/AlignmentPanel.dart');
 #source('elements/grid/Grid.dart');
 #source('elements/grid/RowDefinition.dart');
 #source('elements/grid/ColumnDefinition.dart');
@@ -131,9 +130,7 @@
 #source('core/FrameworkProperty.dart');
 #source('core/ObservableList.dart');
 #source('core/FrameworkElement.dart');
-#source('core/_VirtualContainer.dart');
 #source('core/HashableObject.dart');
-#source('core/_ContainerElement.dart');
 #source('core/IValueConverter.dart');
 #source('core/_RootElement.dart');
 #source('core/DomHelpers.dart');

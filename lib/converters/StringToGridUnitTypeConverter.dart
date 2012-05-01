@@ -30,7 +30,7 @@ class StringToGridUnitTypeConverter implements IValueConverter{
     case "auto":
       return GridUnitType.auto;
     default:
-      throw const FrameworkException("Invalid GridUntiType value.");
+      throw const BuckshotException("Invalid GridUntiType value.");
     }
   }
 }

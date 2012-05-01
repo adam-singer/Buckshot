@@ -47,7 +47,7 @@ class StringToInputTypesConverter implements IValueConverter{
     case "week":
       return InputTypes.week;
     default:
-      throw const FrameworkException("Invalid InputTypes value.");
+      throw const BuckshotException("Invalid InputTypes value.");
     }
   }
 }

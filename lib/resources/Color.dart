@@ -74,7 +74,7 @@ class Color extends FrameworkResource
     valueProperty = new FrameworkProperty(this, "value", (String c){
       if (!c.startsWith("#") || c.length != 7){
         db(c);
-        throw const FrameworkException("Invalid color format.  Use '#rrggbb'");
+        throw const BuckshotException("Invalid color format.  Use '#rrggbb'");
       }
     }, Colors.White.toString());
   }

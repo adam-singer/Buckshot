@@ -56,7 +56,7 @@ class Control extends FrameworkElement
 
   void applyVisualTemplate(){
     if (_visualTemplateApplied)
-      throw const FrameworkException('Attempted to apply visual template more than once.');
+      throw const BuckshotException('Attempted to apply visual template more than once.');
 
     _visualTemplateApplied = true;
 
@@ -103,7 +103,7 @@ class Control extends FrameworkElement
     tb.forEach((FrameworkProperty k, String v){
       var prop = this._getPropertyByName(v);
       if (prop == null){
-        throw const FrameworkException('Attempted binding to null property in Control.');
+        throw const BuckshotException('Attempted binding to null property in Control.');
       }
         new Binding(prop, k);
     });

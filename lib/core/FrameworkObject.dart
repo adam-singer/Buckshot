@@ -20,8 +20,21 @@
 * [Binding] and [FrameworkProperty] model. */
 class FrameworkObject extends BuckshotObject {
   Element _component;
-
+  FrameworkObject _parent;
   bool _isLoaded = false;
+
+  /// Represents the data context assigned to the FrameworkElement.
+  /// Declarative xml binding can be used to bind to data context.
+  FrameworkProperty dataContextProperty;
+
+  /// Represents a map of [Binding]s that will be bound just before
+  /// the element renders to the DOM.
+  final HashMap<FrameworkProperty, BindingData> lateBindings;
+
+  /// Fires when the FrameworkElement is inserted into the DOM.
+  final FrameworkEvent<EventArgs> loaded;
+  /// Fires when the FrameworkElement is removed from the DOM.
+  final FrameworkEvent<EventArgs> unloaded;
 
   /**
   * Accesses the underlying raw HTML element.
@@ -30,6 +43,7 @@ class FrameworkObject extends BuckshotObject {
   * cause undesirable results in the Buckshot framework.
   */
   Element get rawElement() => _component;
+  set rawElement(Element v) => _component = v;
 
   /// A meta-data tag that represents the container context of an element,
   /// if it has one.
@@ -52,6 +66,9 @@ class FrameworkObject extends BuckshotObject {
   bool get isContainer() => _stateBag.containsKey(CONTAINER_CONTEXT);
 
   FrameworkObject() :
+    lateBindings = new HashMap<FrameworkProperty, BindingData>(),
+    loaded = new FrameworkEvent<EventArgs>(),
+    unloaded = new FrameworkEvent<EventArgs>(),
     attachedPropertyChanged = new FrameworkEvent<AttachedPropertyChangedEventArgs>()
     {
       applyVisualTemplate();
@@ -67,28 +84,172 @@ class FrameworkObject extends BuckshotObject {
 
     }
 
-    void _initFrameworkObjectProperties(){
-      nameProperty = new FrameworkProperty(
-        this,
-        "name",
-        (String value){
+  void _initFrameworkObjectProperties(){
+    nameProperty = new FrameworkProperty(
+      this,
+      "name",
+      (String value){
 
-          if (nameProperty.previousValue != null){
-            throw new FrameworkException('Attempted to assign name "${value}" to element that already has a name "${nameProperty.previousValue}" assigned.');
-          }
+        if (nameProperty.previousValue != null){
+          throw new BuckshotException('Attempted to assign name "${value}" to element that already has a name "${nameProperty.previousValue}" assigned.');
+        }
 
-          if (value != null){
-            buckshot.namedElements[value] = this;
-            if (_component != null) _component.attributes["ID"] = value;
-          }
+        if (value != null){
+          buckshot.namedElements[value] = this;
+          if (_component != null) _component.attributes["ID"] = value;
+        }
 
-        });
+      });
+
+    dataContextProperty = new FrameworkProperty(
+      this,
+      "dataContext",
+      (value){});
+  }
+
+  //TODO load/unload should be asynchronous?
+  void addToLayoutTree(FrameworkObject parentElement){
+
+    parentElement._component.elements.add(_component);
+
+    parent = parentElement;
+
+   // db('Added to Layout Tree', this);
+    if (!parentElement._isLoaded) return;
+
+    _onAddedToDOM();
+  }
+
+  void _onAddedToDOM(){
+    //parent is in the DOM so we should call loaded event and check for children
+
+    updateDataContext();
+
+    _isLoaded = true;
+
+    parent.updateLayout();
+
+    onLoaded();
+    loaded.invoke(this, new EventArgs());
+
+    //db('Added to DOM', this);
+
+    if (this is! IFrameworkContainer) return;
+
+    if (this.dynamic.content is List){
+      this.dynamic.content.forEach((FrameworkElement child) => child._onAddedToDOM());
+    }else if (this.dynamic.content is FrameworkElement){
+      this.dynamic.content._onAddedToDOM();
     }
+  }
+
+  void onLoaded(){}
+  void onUnloaded(){}
+
+  bool _dataContextUpdated = false;
+  void updateDataContext(){
+    if (_dataContextUpdated) return;
+    _dataContextUpdated = true;
+
+    //TODO: Support multiple datacontext updates
+
+    var dc = resolveDataContext();
+    if (dc == null) return;
+
+    //binding each property in the lateBindings collection
+    //to the data context
+    lateBindings.forEach((FrameworkProperty p, BindingData bd){
+      if (bd.dataContextPath == ""){
+        new Binding(dc, p);
+      }else{
+        if (!(dc.value is BuckshotObject))
+          throw new BuckshotException("Datacontext binding attempted to resolve properties '${bd.dataContextPath}' on non-BuckshotObject type.");
+
+        //TODO keep a reference to these so they can be removed if the datacontext changes
+
+        if (bd.converter != null)
+          new Binding(dc.value.resolveProperty(bd.dataContextPath), p, bindingMode:bd.bindingMode, converter:bd.converter);
+        else
+          new Binding(dc.value.resolveProperty(bd.dataContextPath), p, bindingMode:bd.bindingMode);
+      }
+    });
+  }
+
+  void removeFromLayoutTree(){
+  //    throw new BuckshotException('Attempted to remove element that is not already loaded into the DOM.');
+
+    this._component.remove();
+
+    //db('Removed from Layout Tree', this);
+    var p = parent;
+
+    parent = null;
+
+    if (!p._isLoaded) return;
+
+    _onRemoveFromDOM();
+  }
+
+  _onRemoveFromDOM(){
+    _isLoaded = false;
+
+    onUnloaded();
+    unloaded.invoke(this, new EventArgs());
+
+    //db('Removed from DOM', this);
+
+    if (this is! IFrameworkContainer) return;
+
+    if (this.dynamic.content is List){
+      this.dynamic.content.forEach((FrameworkElement child) => child._onRemoveFromDOM());
+    }else if (this.dynamic.content is FrameworkElement){
+      this.dynamic.content._onRemoveFromDOM();
+    }
+  }
+
+
+  ElementRect mostRecentMeasurement;
+
+  void updateMeasurement(){
+    _component
+      .rect
+      .then((ElementRect r) { mostRecentMeasurement = r;});
+  }
+
+  /// Returns the first non-null [dataContext] [FrameworkProperty]
+  /// in the this [FrameworkElement]'s heirarchy.
+  ///
+  /// Returns null if no non-null [dataContext] can be found.
+  FrameworkProperty resolveDataContext(){
+    if (dataContext != null) return dataContextProperty;
+    if (parent == null) return null;
+    return parent.resolveDataContext();
+  }
+
+
+  bool isChildOf(FrameworkElement candidate){
+    if (parent != null && parent == candidate)
+      return true;
+
+    if (parent == null) return false;
+
+    return parent.isChildOf(candidate);
+  }
 
   /// Sets the [nameProperty] value.
   set name(String value) => setValue(nameProperty, value);
   /// Gets the [nameProperty] value.
   String get name() => getValue(nameProperty);
+
+  /// Sets the parent FrameworkElement.
+  set parent(FrameworkObject value) => _parent = value;
+  /// Gets the parent FrameworkElement.
+  FrameworkObject get parent() => _parent;
+
+  /// Sets the [dataContextProperty] value.
+  set dataContext(Dynamic value) => setValue(dataContextProperty, value);
+  /// Gets the [dataContextProperty] value.
+  Dynamic get dataContext() => getValue(dataContextProperty);
 
   void applyVisualTemplate() {
     //the base method just calls CreateElement

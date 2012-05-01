@@ -28,7 +28,7 @@ class Hulu extends FrameworkElement
   FrameworkObject makeMe() => new Hulu();
   
   Hulu(){
-    Dom.appendClass(component, "buckshot_hulu");
+    Dom.appendClass(rawElement, "buckshot_hulu");
     
     _initializeHuluProperties();
     
@@ -48,14 +48,14 @@ class Hulu extends FrameworkElement
   void calculateWidth(value){
     super.calculateWidth(value);
     if (actualWidth == null) return;
-    component.attributes["width"] = '${actualWidth.toString()}px';
+    rawElement.attributes["width"] = '${actualWidth.toString()}px';
     embed.attributes["width"] = '${actualWidth.toString()}px';
   }
   
   void calculateHeight(value){
     super.calculateHeight(value);
     if (actualHeight == null) return;
-    component.attributes["height"] = '${actualHeight.toString()}px';
+    rawElement.attributes["height"] = '${actualHeight.toString()}px';
     embed.attributes["height"] = '${actualHeight.toString()}px';
   }
   
@@ -67,7 +67,7 @@ class Hulu extends FrameworkElement
   
   void CreateElement(){
 
-    component = Dom.createByTag("object");
+    rawElement = Dom.createByTag("object");
     param1 = Dom.createByTag("param");
     param1.attributes["name"] = "movie";
 
@@ -80,9 +80,9 @@ class Hulu extends FrameworkElement
     embed.attributes["allowFullScreen"] = "true";
 
     
-    component.nodes.add(param1);
-    component.nodes.add(param2);
-    component.nodes.add(embed);
+    rawElement.nodes.add(param1);
+    rawElement.nodes.add(param2);
+    rawElement.nodes.add(embed);
   }
   
   String get type() => "Hulu";

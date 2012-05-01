@@ -25,7 +25,7 @@ class FunnyOrDie extends FrameworkElement
   FrameworkObject makeMe() => new FunnyOrDie();
   
   FunnyOrDie(){
-    Dom.appendClass(component, "buckshot_funnyordie");
+    Dom.appendClass(rawElement, "buckshot_funnyordie");
     
     _initializeFunnyOrDieProperties();
     
@@ -34,7 +34,7 @@ class FunnyOrDie extends FrameworkElement
   
   void _initializeFunnyOrDieProperties(){
     videoIDProperty = new FrameworkProperty(this, "videoID", (String value){
-      component.attributes["src"] = 'http://www.funnyordie.com/embed/${value.toString()}';
+      rawElement.attributes["src"] = 'http://www.funnyordie.com/embed/${value.toString()}';
     });
   }
   
@@ -43,8 +43,8 @@ class FunnyOrDie extends FrameworkElement
   
   
   void CreateElement(){
-    component = Dom.createByTag("iframe");
-    component.attributes["frameborder"] = "0";
+    rawElement = Dom.createByTag("iframe");
+    rawElement.attributes["frameborder"] = "0";
   }
   
   String get type() => "FunnyOrDie";

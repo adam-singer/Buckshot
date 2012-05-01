@@ -44,7 +44,7 @@ class DataTemplate extends BuckshotObject{
   : _properties = new HashMap<String, FrameworkProperty>()
   {
     propertyNames.forEach((String p){
-      if (!(p is String)) throw const FrameworkException("Expect String property name in DataTemplate.fromList constructor list.");
+      if (!(p is String)) throw const BuckshotException("Expect String property name in DataTemplate.fromList constructor list.");
       addProperty(p);
     });  
   }
@@ -56,7 +56,7 @@ class DataTemplate extends BuckshotObject{
   : _properties = new HashMap<String, FrameworkProperty>()
   {
     propertyMap.forEach((String p, v){
-      if (!(p is String)) throw const FrameworkException("Expect String property name in DataTemplate.fromList constructor list.");
+      if (!(p is String)) throw const BuckshotException("Expect String property name in DataTemplate.fromList constructor list.");
       addProperty(p, v);
     });
   }
@@ -70,7 +70,7 @@ class DataTemplate extends BuckshotObject{
   /// Adds a new [FrameworkProperty] to the DataTemplate with optional default data and callback.
   void addProperty(String propertyName, [Dynamic defaultData = null, Function changedCallback = null]){
     if (_properties.containsKey(propertyName))
-      throw new FrameworkException("Property name '${propertyName}' already exists in DataTemplate properties.");
+      throw new BuckshotException("Property name '${propertyName}' already exists in DataTemplate properties.");
     
     if (defaultData == null && changedCallback == null){
       _properties[propertyName] = new FrameworkProperty(this, propertyName, (_){});

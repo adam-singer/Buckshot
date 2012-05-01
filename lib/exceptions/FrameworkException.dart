@@ -19,9 +19,9 @@
 
 /**
 * Implements a general framework [Exception] object. */
-class FrameworkException extends ExceptionBase
+class BuckshotException extends ExceptionBase
 {
-  const FrameworkException([var msg]);
+  const BuckshotException([var msg]);
   
   String get type() => "FrameworkException";
 }

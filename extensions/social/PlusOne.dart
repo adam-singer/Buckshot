@@ -42,7 +42,7 @@ class PlusOne extends FrameworkElement
   FrameworkObject makeMe() => new PlusOne();
   
   PlusOne(){
-    Dom.appendClass(component, "buckshot_plusone");
+    Dom.appendClass(rawElement, "buckshot_plusone");
     
     _initializePlusOneProperties();
     
@@ -57,11 +57,11 @@ class PlusOne extends FrameworkElement
   
   void _initializePlusOneProperties(){
     annotationProperty = new FrameworkProperty(this, "annotation", (PlusOneAnnotationTypes value){
-      component.attributes["annotation"] = value.toString();
+      rawElement.attributes["annotation"] = value.toString();
     }, PlusOneAnnotationTypes.none, converter:const StringToPlusOneAnnotationTypeConverter());
     
     sizeProperty = new FrameworkProperty(this, "size", (PlusOneButtonSizes value){
-      component.attributes["size"] = value.toString();
+      rawElement.attributes["size"] = value.toString();
     }, PlusOneButtonSizes.standard, converter:const StringToPlusOneButtonSizeConverter());
   }
   
@@ -70,9 +70,9 @@ class PlusOne extends FrameworkElement
   
   
   void CreateElement(){
-    component = Dom.createByTag("g:plusone");
-    component.attributes["annotation"] = "none";
-    component.attributes["size"] = "standard";
+    rawElement = Dom.createByTag("g:plusone");
+    rawElement.attributes["annotation"] = "none";
+    rawElement.attributes["size"] = "standard";
   }
   
   String get type() => "PlusOne";

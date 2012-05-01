@@ -60,13 +60,13 @@ class ListBox extends Control implements IFrameworkContainer
     //applyVisualTemplate() is called before the constructor
     //so we expect template to be assigned
     if (template == null)
-      throw const FrameworkException('control template was not found.');
+      throw const BuckshotException('control template was not found.');
     
     _presenter = Buckshot.findByName("__buckshot_listbox_presenter__", template);
     _border = Buckshot.findByName("__buckshot_listbox_border__", template);
     
     if (_presenter == null)
-      throw const FrameworkException('element not found in control template');
+      throw const BuckshotException('element not found in control template');
         
     _presenter.itemCreated + _OnItemCreated;
     

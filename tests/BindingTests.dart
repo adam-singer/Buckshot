@@ -222,12 +222,12 @@ class BindingTests extends TestGroupBase
   void propertyToSelfFail(){
     Expect.throws(
     ()=> new Binding(e1._aProperty, e1._aProperty),
-    (err)=> (err is FrameworkException)
+    (err)=> (err is BuckshotException)
     );
 
     Expect.throws(
     ()=> new Binding.loose(e1._aProperty, e1._aProperty),
-    (err)=> (err is FrameworkException)
+    (err)=> (err is BuckshotException)
     );
   }
 
@@ -246,12 +246,12 @@ class BindingTests extends TestGroupBase
   void nullPropertyFail(){
     Expect.throws(
     ()=> new Binding(e1._aProperty, null, BindingMode.OneWay),
-    (err)=> (err is FrameworkException)
+    (err)=> (err is BuckshotException)
     );
 
     Expect.throws(
     ()=> new Binding(null, e1._bProperty, BindingMode.OneWay),
-    (err)=> (err is FrameworkException)
+    (err)=> (err is BuckshotException)
     );
   }
 

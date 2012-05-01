@@ -25,7 +25,7 @@ class Vimeo extends FrameworkElement
   FrameworkObject makeMe() => new Vimeo();
   
   Vimeo(){
-    Dom.appendClass(component, "buckshot_vimeo");
+    Dom.appendClass(rawElement, "buckshot_vimeo");
     
     _initializeVimeoProperties();
     
@@ -34,7 +34,7 @@ class Vimeo extends FrameworkElement
   
   void _initializeVimeoProperties(){
     videoIDProperty = new FrameworkProperty(this, "videoID", (String value){
-      component.attributes["src"] = 'http://player.vimeo.com/video/${value.toString()}';
+      rawElement.attributes["src"] = 'http://player.vimeo.com/video/${value.toString()}';
     });
   }
   
@@ -43,8 +43,8 @@ class Vimeo extends FrameworkElement
   
   
   void CreateElement(){
-    component = Dom.createByTag("iframe");
-    component.attributes["frameborder"] = "0";
+    rawElement = Dom.createByTag("iframe");
+    rawElement.attributes["frameborder"] = "0";
   }
   
   String get type() => "Vimeo";

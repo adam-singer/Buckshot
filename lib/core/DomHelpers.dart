@@ -67,7 +67,7 @@ class _Dom {
     return new Element.tag(tagName);
   }
 
-  static void makeFlexBox(FrameworkElement element){
+  static void makeFlexBox(FrameworkObject element){
     prefixes.forEach((String p){
       var pre = '${p}flexbox'; //assigning here because some bug won't let me pass it directly in .setProperty
       element._component.style.display = pre;
@@ -150,7 +150,7 @@ class _Dom {
 
   }
 
-  static void setHorizontalFlexBoxAlignment(FrameworkElement element, HorizontalAlignment alignment){
+  static void setHorizontalFlexBoxAlignment(FrameworkObject element, HorizontalAlignment alignment){
     switch(alignment){
       case HorizontalAlignment.left:
         element._component.style.flexPack = 'start';
@@ -167,7 +167,7 @@ class _Dom {
       }
   }
 
-  static void setVerticalFlexBoxAlignment(FrameworkElement element, VerticalAlignment alignment){
+  static void setVerticalFlexBoxAlignment(FrameworkObject element, VerticalAlignment alignment){
     switch(alignment){
       case VerticalAlignment.top:
         element._component.style.flexAlign = 'start';

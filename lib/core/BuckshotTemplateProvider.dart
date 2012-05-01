@@ -222,7 +222,7 @@ class BuckshotTemplateProvider
         break;
       case "template":
         if (words.length != 2)
-          throw const FrameworkException('{template} bindings must contain a'
+          throw const BuckshotException('{template} bindings must contain a'
             ' property name parameter: {template [propertyName]}');
 
           p.sourceObject.dynamic._templateBindings[p] = words[1];

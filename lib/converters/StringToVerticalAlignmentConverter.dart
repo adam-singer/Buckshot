@@ -34,7 +34,7 @@ class StringToVerticalAlignmentConverter implements IValueConverter{
     case "bottom":
        return VerticalAlignment.bottom;
     default:
-      throw new FrameworkException('Invalid verticalAlignment value "$value".');
+      throw new BuckshotException('Invalid verticalAlignment value "$value".');
     }
   }
 }

@@ -25,7 +25,7 @@ class YouTube extends FrameworkElement
   FrameworkObject makeMe() => new YouTube();
   
   YouTube(){
-    Dom.appendClass(component, "buckshot_youtube");
+    Dom.appendClass(rawElement, "buckshot_youtube");
     
     _initializeYouTubeProperties();
     
@@ -34,7 +34,7 @@ class YouTube extends FrameworkElement
   
   void _initializeYouTubeProperties(){
     videoIDProperty = new FrameworkProperty(this, "videoID", (String value){
-      component.attributes["src"] = 'http://www.youtube.com/embed/${value.toString()}';
+      rawElement.attributes["src"] = 'http://www.youtube.com/embed/${value.toString()}';
     });
   }
   
@@ -43,10 +43,10 @@ class YouTube extends FrameworkElement
   
   
   void CreateElement(){
-    component = Dom.createByTag("iframe");
-    Dom.appendClass(component, 'youtube-player');
-    component.attributes["type"] = "text/html";
-    component.attributes["frameborder"] = "0";
+    rawElement = Dom.createByTag("iframe");
+    Dom.appendClass(rawElement, 'youtube-player');
+    rawElement.attributes["type"] = "text/html";
+    rawElement.attributes["frameborder"] = "0";
   }
   
   String get type() => "YouTube";
