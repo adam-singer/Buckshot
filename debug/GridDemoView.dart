@@ -59,13 +59,89 @@ horizontalalignment='stretch' verticalalignment='stretch'>
   <textblock horizontalalignment='center' fontsize='36' fontfamily='Consolas'
   margin='5' grid.columnspan='3' text='{data title}'></textblock>
   <border background='#333333' grid.row='1' style='{resource _border}'>
-    <textblock text='0,0' style='{resource _text}'></textblock>
+    <grid horizontalalignment='stretch' verticalalignment='stretch'>
+      <rowdefinitions>
+        <rowdefinition height='*'></rowdefinition>
+        <rowdefinition height='*.5'></rowdefinition>
+        <rowdefinition height='*'></rowdefinition>
+      </rowdefinitions>
+      <columndefinitions>
+        <columndefinition width='*'></columndefinition>
+        <columndefinition width='*.5'></columndefinition>
+        <columndefinition width='*'></columndefinition>
+      </columndefinitions>
+      <border background='#333333' grid.row='0' style='{resource _border}'>
+        <textblock text='0,0' style='{resource _text}'></textblock>
+      </border>
+      <border background='#555555' grid.row='0' grid.column='1' style='{resource _border}'>
+        <textblock text='1,0' style='{resource _text}'></textblock>
+      </border>
+      <border background='#777777' grid.row='0' grid.column='2' style='{resource _border}'>
+        <textblock text='2,0' style='{resource _text}'></textblock>
+      </border>
+      <border background='#555555' grid.row='1' style='{resource _border}'>
+        <textblock text='0,1' style='{resource _text}'></textblock>
+      </border>
+      <border background='#999999' grid.row='1' grid.column='1' style='{resource _border}'>
+        <textblock text='1,1' style='{resource _text}'></textblock>
+      </border>
+      <border background='#BBBBBB' grid.row='1' grid.column='2' style='{resource _border}'>
+        <textblock text='2,1' style='{resource _text}'></textblock>
+      </border>
+      <border background='#777777' grid.row='2' style='{resource _border}'>
+        <textblock text='0,2' style='{resource _text}'></textblock>
+      </border>
+      <border background='#BBBBBB' grid.row='2' grid.column='1' style='{resource _border}'>
+        <textblock text='1,2' style='{resource _text}'></textblock>
+      </border>
+      <border background='#EEEEEE' grid.row='2' grid.column='2' style='{resource _border}'>
+        <textblock text='2,2' style='{resource _text}'></textblock>
+      </border>
+    </grid>
   </border>
   <border background='#555555' grid.row='1' grid.column='1' style='{resource _border}'>
     <textblock text='1,0' style='{resource _text}'></textblock>
   </border>
   <border background='#777777' grid.row='1' grid.column='2' style='{resource _border}'>
-    <textblock text='2,0' style='{resource _text}'></textblock>
+    <grid horizontalalignment='stretch' verticalalignment='stretch'>
+      <rowdefinitions>
+        <rowdefinition height='*'></rowdefinition>
+        <rowdefinition height='*.5'></rowdefinition>
+        <rowdefinition height='*'></rowdefinition>
+      </rowdefinitions>
+      <columndefinitions>
+        <columndefinition width='*'></columndefinition>
+        <columndefinition width='*.5'></columndefinition>
+        <columndefinition width='*'></columndefinition>
+      </columndefinitions>
+      <border background='#333333' grid.row='0' style='{resource _border}'>
+        <textblock text='0,0' style='{resource _text}'></textblock>
+      </border>
+      <border background='#555555' grid.row='0' grid.column='1' style='{resource _border}'>
+        <textblock text='1,0' style='{resource _text}'></textblock>
+      </border>
+      <border background='#777777' grid.row='0' grid.column='2' style='{resource _border}'>
+        <textblock text='2,0' style='{resource _text}'></textblock>
+      </border>
+      <border background='#555555' grid.row='1' style='{resource _border}'>
+        <textblock text='0,1' style='{resource _text}'></textblock>
+      </border>
+      <border background='#999999' grid.row='1' grid.column='1' style='{resource _border}'>
+        <textblock text='1,1' style='{resource _text}'></textblock>
+      </border>
+      <border background='#BBBBBB' grid.row='1' grid.column='2' style='{resource _border}'>
+        <textblock text='2,1' style='{resource _text}'></textblock>
+      </border>
+      <border background='#777777' grid.row='2' style='{resource _border}'>
+        <textblock text='0,2' style='{resource _text}'></textblock>
+      </border>
+      <border background='#BBBBBB' grid.row='2' grid.column='1' style='{resource _border}'>
+        <textblock text='1,2' style='{resource _text}'></textblock>
+      </border>
+      <border background='#EEEEEE' grid.row='2' grid.column='2' style='{resource _border}'>
+        <textblock text='2,2' style='{resource _text}'></textblock>
+      </border>
+    </grid>
   </border>
   <border background='#555555' grid.row='2' style='{resource _border}'>
     <textblock text='0,1' style='{resource _text}'></textblock>
@@ -77,13 +153,89 @@ horizontalalignment='stretch' verticalalignment='stretch'>
     <textblock text='2,1' style='{resource _text}'></textblock>
   </border>
   <border background='#777777' grid.row='3' style='{resource _border}'>
-    <textblock text='0,2' style='{resource _text}'></textblock>
+    <grid horizontalalignment='stretch' verticalalignment='stretch'>
+      <rowdefinitions>
+        <rowdefinition height='*'></rowdefinition>
+        <rowdefinition height='*.5'></rowdefinition>
+        <rowdefinition height='*'></rowdefinition>
+      </rowdefinitions>
+      <columndefinitions>
+        <columndefinition width='*'></columndefinition>
+        <columndefinition width='*.5'></columndefinition>
+        <columndefinition width='*'></columndefinition>
+      </columndefinitions>
+      <border background='#333333' grid.row='0' style='{resource _border}'>
+        <textblock text='0,0' style='{resource _text}'></textblock>
+      </border>
+      <border background='#555555' grid.row='0' grid.column='1' style='{resource _border}'>
+        <textblock text='1,0' style='{resource _text}'></textblock>
+      </border>
+      <border background='#777777' grid.row='0' grid.column='2' style='{resource _border}'>
+        <textblock text='2,0' style='{resource _text}'></textblock>
+      </border>
+      <border background='#555555' grid.row='1' style='{resource _border}'>
+        <textblock text='0,1' style='{resource _text}'></textblock>
+      </border>
+      <border background='#999999' grid.row='1' grid.column='1' style='{resource _border}'>
+        <textblock text='1,1' style='{resource _text}'></textblock>
+      </border>
+      <border background='#BBBBBB' grid.row='1' grid.column='2' style='{resource _border}'>
+        <textblock text='2,1' style='{resource _text}'></textblock>
+      </border>
+      <border background='#777777' grid.row='2' style='{resource _border}'>
+        <textblock text='0,2' style='{resource _text}'></textblock>
+      </border>
+      <border background='#BBBBBB' grid.row='2' grid.column='1' style='{resource _border}'>
+        <textblock text='1,2' style='{resource _text}'></textblock>
+      </border>
+      <border background='#EEEEEE' grid.row='2' grid.column='2' style='{resource _border}'>
+        <textblock text='2,2' style='{resource _text}'></textblock>
+      </border>
+    </grid>
   </border>
   <border background='#BBBBBB' grid.row='3' grid.column='1' style='{resource _border}'>
     <textblock text='1,2' style='{resource _text}'></textblock>
   </border>
   <border background='#EEEEEE' grid.row='3' grid.column='2' style='{resource _border}'>
-    <textblock text='2,2' style='{resource _text}'></textblock>
+    <grid horizontalalignment='stretch' verticalalignment='stretch'>
+      <rowdefinitions>
+        <rowdefinition height='*'></rowdefinition>
+        <rowdefinition height='*.5'></rowdefinition>
+        <rowdefinition height='*'></rowdefinition>
+      </rowdefinitions>
+      <columndefinitions>
+        <columndefinition width='*'></columndefinition>
+        <columndefinition width='*.5'></columndefinition>
+        <columndefinition width='*'></columndefinition>
+      </columndefinitions>
+      <border background='#333333' grid.row='0' style='{resource _border}'>
+        <textblock text='0,0' style='{resource _text}'></textblock>
+      </border>
+      <border background='#555555' grid.row='0' grid.column='1' style='{resource _border}'>
+        <textblock text='1,0' style='{resource _text}'></textblock>
+      </border>
+      <border background='#777777' grid.row='0' grid.column='2' style='{resource _border}'>
+        <textblock text='2,0' style='{resource _text}'></textblock>
+      </border>
+      <border background='#555555' grid.row='1' style='{resource _border}'>
+        <textblock text='0,1' style='{resource _text}'></textblock>
+      </border>
+      <border background='#999999' grid.row='1' grid.column='1' style='{resource _border}'>
+        <textblock text='1,1' style='{resource _text}'></textblock>
+      </border>
+      <border background='#BBBBBB' grid.row='1' grid.column='2' style='{resource _border}'>
+        <textblock text='2,1' style='{resource _text}'></textblock>
+      </border>
+      <border background='#777777' grid.row='2' style='{resource _border}'>
+        <textblock text='0,2' style='{resource _text}'></textblock>
+      </border>
+      <border background='#BBBBBB' grid.row='2' grid.column='1' style='{resource _border}'>
+        <textblock text='1,2' style='{resource _text}'></textblock>
+      </border>
+      <border background='#EEEEEE' grid.row='2' grid.column='2' style='{resource _border}'>
+        <textblock text='2,2' style='{resource _text}'></textblock>
+      </border>
+    </grid>
   </border>
 </grid>
 ''';

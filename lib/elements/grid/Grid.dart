@@ -242,6 +242,8 @@ void _updateColumnLayout(num gridMeasurement){
       num colIndex = Grid.getColumn(child.content);
 
       num childColumnSpan = Grid.getColumnSpan(child.content);
+      
+      //child._component.style.left = '${columnDefinitions[colIndex]._adjustedOffset}px';
       child.margin = new Thickness.specified(child.margin.top, 0, 0, columnDefinitions[colIndex]._adjustedOffset);
 
       if (childColumnSpan > 1){
@@ -331,6 +333,8 @@ void _updateRowLayout(num gridHeight){
   _internalChildren.forEach((_GridCell child){
     num rowIndex = Grid.getRow(child.content);
     num childRowSpan = Grid.getRowSpan(child.content);
+    
+    //child._component.style.top = '${rowDefinitions[rowIndex]._adjustedOffset}px';
     child.margin = new Thickness.specified(rowDefinitions[rowIndex]._adjustedOffset, 0, 0, child.margin.left);
 
     if (childRowSpan > 1){
