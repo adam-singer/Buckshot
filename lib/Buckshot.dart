@@ -133,7 +133,6 @@
 #source('core/FrameworkElement.dart');
 #source('core/HashableObject.dart');
 #source('core/IValueConverter.dart');
-#source('core/_RootElement.dart');
 #source('core/DomHelpers.dart');
 #source('core/BuckshotObject.dart');
 #source('core/IPresentationFormatProvider.dart');

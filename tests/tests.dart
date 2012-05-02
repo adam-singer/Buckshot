@@ -126,7 +126,6 @@
 #source('../lib/core/FrameworkElement.dart');
 #source('../lib/core/HashableObject.dart');
 #source('../lib/core/IValueConverter.dart');
-#source('../lib/core/_RootElement.dart');
 #source('../lib/core/DomHelpers.dart');
 #source('../lib/core/BuckshotObject.dart');
 #source('../lib/core/IPresentationFormatProvider.dart');

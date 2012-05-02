@@ -30,19 +30,6 @@ class Globals
     fl._component.attributes["data-lucaui-${property.propertyName}"] = getValue(property);
   }
 
-  //remove
-//  static final String _controlTemplates =
-//'''
-//<resourcecollection>
-//  <controltemplate controlType="template_ListBox">
-//    <template>
-//          <collectionPresenter name="__buckshot_listbox_presenter__">
-//          </collectionPresenter>
-//    </template>
-//  </controltemplate>
-//</resourcecollection>
-//''';
-
 }
 
 Future _functionToFuture(Function f){

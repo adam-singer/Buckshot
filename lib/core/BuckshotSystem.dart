@@ -17,56 +17,68 @@
 
 
 /**
-* Represents the globally available instance of buckshot.
-* It should not be necessary to create your own instance
-* of [Buckshot].
+* Represents the globally available instance of Buckshot.
+*
+* It is normally not be necessary to create your own instance
+* of the [Buckshot] class.
 */
 Buckshot get buckshot() => new Buckshot._cached();
 
 
 /**
-* Buckshot provides a central initialization and registration facility for the framework.
+* Buckshot provides a central initialization and registration facility
+* for the framework.
+*
+* Use the globally available 'buckshot' object to access the
+* framework system.  It is normally not necessary to create your own instance
+* of the [Buckshot] class.
 */
 class Buckshot extends FrameworkObject {
   static final String _defaultRootID = "#BuckshotHost";
   static final String _version = '0.41 Alpha';
   IView _currentRootView;
-  bool initialized = false;
   Element _domRootElement;
   StyleElement _buckshotCSS;
-  HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject, Dynamic>> _attachedProperties;
 
-  //TODO: Eventually support multiple presentation providers
-  Set<IPresentationFormatProvider> presentationProviders;
-
+  /// Represents the default [IPresentationProvider], which is the template
+  /// serializer/de-serializer used by the framework.
   IPresentationFormatProvider defaultPresentationProvider;
 
-  HashMap<String, FrameworkResource> _resourceRegistry;
+  final HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject,
+  Dynamic>> _attachedProperties;
+
+  final HashMap<String, FrameworkResource> _resourceRegistry;
 
   //poor man's reflection...
-  HashMap<String, Dynamic> _objectRegistry;
+  final HashMap<String, Dynamic> _objectRegistry;
 
   /// The root container that all elements are children of.
-  _RootElement domRoot;
-
-  /// **deprecated**
-  bool unitTestEnabled = false; //flag used to accomodate unit testing scenarios
+  final Border domRoot;
 
   /// Central registry of named [FrameworkObject] elements.
-  HashMap<String, FrameworkObject> namedElements;
+  final HashMap<String, FrameworkObject> namedElements;
 
-  /// Bindable window width/height properties.  Readonly so can only bind from, not to.
+  /// Bindable window width/height properties.  Readonly, so can only
+  /// bind from, not to.
   FrameworkProperty windowWidthProperty;
-  /// Bindable window width/height properties.  Readonly so can only bind from, not to.
+  /// Bindable window width/height properties.  Readonly, so can only
+  /// bind from, not to.
   FrameworkProperty windowHeightProperty;
 
+  /// Bindable property representing the current version of Buckshot
   FrameworkProperty versionProperty;
 
-  //"Singleton?"
   static Buckshot _ref;
 
   /// Pass the ID of the element in the DOM where buckshot will render content.
   Buckshot(String buckshotRootID)
+  :
+    namedElements = new HashMap<String, FrameworkObject>(),
+    _resourceRegistry = new HashMap<String, FrameworkResource>(),
+    _objectRegistry = new HashMap<String, Dynamic>(),
+    _attachedProperties = new HashMap<AttachedFrameworkProperty,
+            HashMap<FrameworkObject, Dynamic>>(),
+    domRoot = new Border()
   {
     _initBuckshotSystem(buckshotRootID);
   }
@@ -78,6 +90,13 @@ class Buckshot extends FrameworkObject {
   }
 
   Buckshot._init([String rootID = Buckshot._defaultRootID])
+  :
+    namedElements = new HashMap<String, FrameworkObject>(),
+    _resourceRegistry = new HashMap<String, FrameworkResource>(),
+    _objectRegistry = new HashMap<String, Dynamic>(),
+    _attachedProperties = new HashMap<AttachedFrameworkProperty,
+            HashMap<FrameworkObject, Dynamic>>(),
+    domRoot = new Border()
   {
     _ref = this;
     _initBuckshotSystem(rootID);
@@ -96,42 +115,46 @@ class Buckshot extends FrameworkObject {
         " must be a <div>. Element given was"
         " a <${_domRootElement.tagName.toLowerCase()}>");
 
+    _initCSS();
+
+    defaultPresentationProvider = new BuckshotTemplateProvider();
+
+    _initializeBuckshotProperties();
+
+    //set the domRoot
+    _domRootElement.elements.clear();
+    _domRootElement.elements.add(domRoot._component);
+
+    // register core elements that do not derive from Control
+    _registerCoreElements();
+
+    // now register controls that may depend on control templates for visuals
+    _registerCoreControls();
+  }
+
+  void _initCSS(){
     document.head.elements.add(
       new Element.html('<style id="__BuckshotCSS__"></style>'));
 
     _buckshotCSS = document.head.query('#__BuckshotCSS__');
 
     if (_buckshotCSS == null)
-      throw const BuckshotException('Unable to initialize Buckshot StyleSheet.');
+      throw const BuckshotException('Unable to initialize'
+        ' Buckshot StyleSheet.');
+  }
 
-    namedElements = new HashMap<String, FrameworkObject>();
-
-    domRoot = new _RootElement();
-
-    _resourceRegistry = new HashMap<String, FrameworkResource>();
-
-    _objectRegistry = new HashMap<String, Dynamic>();
-
-    presentationProviders = new Set<IPresentationFormatProvider>();
-
-    defaultPresentationProvider = new BuckshotTemplateProvider();
-
-    _attachedProperties = new HashMap<AttachedFrameworkProperty,
-                                HashMap<FrameworkObject, Dynamic>>();
-
+  void _initializeBuckshotProperties(){
     versionProperty = new FrameworkProperty(Buckshot._ref,
-                                              "version", (_){}, _version);
+      "version", (_){}, _version);
+
+    //TODO unit test
     versionProperty.readOnly = true;
 
     windowWidthProperty = new FrameworkProperty(
-      Buckshot._ref,
-      "windowWidth",
-      (value){}, window.innerWidth);
+      Buckshot._ref, "windowWidth", (_){}, window.innerWidth);
 
     windowHeightProperty = new FrameworkProperty(
-      Buckshot._ref,
-      "windowHeight",
-      (value){}, window.innerHeight);
+      Buckshot._ref, "windowHeight", (_){}, window.innerHeight);
 
     window.on.resize.add((e){
       if (_ref == null) return;
@@ -140,21 +163,11 @@ class Buckshot extends FrameworkObject {
       if (window.innerWidth != windowWidth){
         setValue(windowWidthProperty, window.innerWidth);
       }
+
       if (window.innerHeight != windowHeight){
         setValue(windowHeightProperty, window.innerHeight);
       }
     });
-
-    // register core elements that do not derive from Control
-    _registerCoreElements();
-
-    // load in control template resources for core controls
-    //defaultPresentationProvider.deserialize(Globals._controlTemplates);
-
-    // now register controls that may depend on control templates for visuals
-    _registerCoreControls();
-
-    initialized = true;
   }
 
   // TODO move this to BuckshotObject as instance method?
@@ -288,14 +301,9 @@ class Buckshot extends FrameworkObject {
   /// Gets the innerHeight of the window
   int get windowHeight() => (_ref != null) ? getValue(windowHeightProperty) : -1;
 
-  /// Sets the given view as the root visual element.
+  /// Sets the given [IView] as the root visual element.
   set rootView(IView view){
     _currentRootView = view;
-
-    //remove child nodes from the root dom element
-    _domRootElement.elements.clear();
-
-    _domRootElement.elements.add(domRoot._component);
 
     domRoot._isLoaded = true;
 
@@ -303,7 +311,7 @@ class Buckshot extends FrameworkObject {
 
   }
 
-  /// Gets the currently assigned view.
+  /// Gets the currently assigned [IView].
   IView get rootView() => _currentRootView;
 
 
