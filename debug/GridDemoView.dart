@@ -28,37 +28,51 @@ class GridDemoView implements IView
 '''
 <grid margin='10' 
 horizontalalignment='stretch' verticalalignment='stretch'>
-<resourcecollection>
-  <styletemplate key='_border'>
-    <setters>
-      <stylesetter property="borderColor" value="Black"></stylesetter>
-      <stylesetter property="borderThickness" value="1"></stylesetter>
-      <stylesetter property="verticalAlignment" value="stretch"></stylesetter>
-      <stylesetter property="horizontalAlignment" value="stretch"></stylesetter>
-      <stylesetter property="padding" value="5"></stylesetter>
-    </setters>
-  </styletemplate>
-  <styletemplate key='_text'>
-    <setters>
-      <stylesetter property="verticalAlignment" value="center"></stylesetter>
-      <stylesetter property="horizontalAlignment" value="center"></stylesetter>
-    </setters>
-  </styletemplate>
-</resourcecollection>
+
+  <resourcecollection>
+    <styletemplate key='_borderAuto'>
+      <setters>
+        <stylesetter property="borderColor" value="Black"></stylesetter>
+        <stylesetter property="borderThickness" value="1"></stylesetter>
+        <stylesetter property="horizontalAlignment" value="stretch"></stylesetter>
+        <stylesetter property="padding" value="5"></stylesetter>
+        <stylesetter property="height" value="250"></stylesetter>
+      </setters>
+    </styletemplate>
+    <styletemplate key='_border'>
+      <setters>
+        <stylesetter property="borderColor" value="Black"></stylesetter>
+        <stylesetter property="borderThickness" value="1"></stylesetter>
+        <stylesetter property="verticalAlignment" value="stretch"></stylesetter>
+        <stylesetter property="horizontalAlignment" value="stretch"></stylesetter>
+        <stylesetter property="padding" value="5"></stylesetter>
+      </setters>
+    </styletemplate>
+    <styletemplate key='_text'>
+      <setters>
+        <stylesetter property="verticalAlignment" value="center"></stylesetter>
+        <stylesetter property="horizontalAlignment" value="center"></stylesetter>
+      </setters>
+    </styletemplate>
+  </resourcecollection>
+
   <rowdefinitions>
     <rowdefinition height='50'></rowdefinition>
-    <rowdefinition height='*'></rowdefinition>
+    <rowdefinition height='auto'></rowdefinition>
     <rowdefinition height='*.5'></rowdefinition>
     <rowdefinition height='*'></rowdefinition>
   </rowdefinitions>
+
   <columndefinitions>
     <columndefinition width='*'></columndefinition>
     <columndefinition width='*.5'></columndefinition>
     <columndefinition width='*'></columndefinition>
   </columndefinitions>
+
   <textblock horizontalalignment='center' fontsize='36' fontfamily='Consolas'
   margin='5' grid.columnspan='3' text='{data title}'></textblock>
-  <border background='#333333' grid.row='1' style='{resource _border}'>
+
+  <border background='#333333' grid.row='1' style='{resource _borderAuto}'>
     <grid horizontalalignment='stretch' verticalalignment='stretch'>
       <rowdefinitions>
         <rowdefinition height='*'></rowdefinition>
@@ -99,10 +113,10 @@ horizontalalignment='stretch' verticalalignment='stretch'>
       </border>
     </grid>
   </border>
-  <border background='#555555' grid.row='1' grid.column='1' style='{resource _border}'>
+  <border background='#555555' grid.row='1' grid.column='1' style='{resource _borderAuto}'>
     <textblock text='1,0' style='{resource _text}'></textblock>
   </border>
-  <border background='#777777' grid.row='1' grid.column='2' style='{resource _border}'>
+  <border background='#777777' grid.row='1' grid.column='2' style='{resource _borderAuto}'>
     <grid horizontalalignment='stretch' verticalalignment='stretch'>
       <rowdefinitions>
         <rowdefinition height='*'></rowdefinition>

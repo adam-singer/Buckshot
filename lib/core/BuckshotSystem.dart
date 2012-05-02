@@ -36,7 +36,7 @@ Buckshot get buckshot() => new Buckshot._cached();
 class Buckshot extends FrameworkObject {
   static final String _defaultRootID = "#BuckshotHost";
   static final String _version = '0.41 Alpha';
-  IView _currentRootView;
+  IView _currentView;
   Element _domRootElement;
   StyleElement _buckshotCSS;
 
@@ -296,14 +296,17 @@ class Buckshot extends FrameworkObject {
   }
 
   /// Gets the innerWidth of the window
-  int get windowWidth() => (_ref != null) ? getValue(windowWidthProperty) : -1;
+  int get windowWidth() => getValue(windowWidthProperty);
 
   /// Gets the innerHeight of the window
-  int get windowHeight() => (_ref != null) ? getValue(windowHeightProperty) : -1;
+  int get windowHeight() => getValue(windowHeightProperty);
+
+  /// Gets the Buckshot version.
+  String get version() => getValue(versionProperty);
 
   /// Sets the given [IView] as the root visual element.
   set rootView(IView view){
-    _currentRootView = view;
+    _currentView = view;
 
     domRoot._isLoaded = true;
 
@@ -312,7 +315,7 @@ class Buckshot extends FrameworkObject {
   }
 
   /// Gets the currently assigned [IView].
-  IView get rootView() => _currentRootView;
+  IView get rootView() => _currentView;
 
 
   /// Wraps a FrameworkElement into an [IView] and sets it as the root view.
@@ -320,9 +323,10 @@ class Buckshot extends FrameworkObject {
     rootView = new IView(element);
   }
 
-  /// Changes the active context for the framework and returns the previous context.
+  /// Changes the active context for the framework and returns the
+  /// previous context.
   ///
-  /// Caution! Only use this if you know exactly what you are doing.
+  /// **Caution!** Only use this if you know exactly what you are doing.
   /// Switching context may have undesirable consequences.
   Buckshot switchContextTo(Buckshot context){
     var temp = Buckshot._ref;

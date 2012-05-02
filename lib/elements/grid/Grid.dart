@@ -83,12 +83,7 @@ _internalChildren = new List<_GridCell>()
   rowDefinitions.listChanged + (_,__) => _updateRowLayout(actualHeight);
 
   measurementChanged + (_, MeasurementChangedEventArgs args){
-    window.requestAnimationFrame((__){
-      updateLayout();
-//      _updateRowLayout(this.mostRecentMeasurement.bounding.height);
-//
-//      _updateColumnLayout(this.mostRecentMeasurement.bounding.width);
-    });
+    window.requestAnimationFrame((__) => updateLayout());
   };
 }
 
@@ -153,10 +148,11 @@ void _updateMeasurements(){
 
   this.updateMeasurement();
 
-  _internalChildren.forEach((child){
-    child.content.updateMeasurement();
-  });
-}
+  _internalChildren
+    .forEach((child){
+      child.content.updateMeasurement();
+    });
+  }
 
 // Updates the column layout of the Grid based on given [gridWidth]
 void _updateColumnLayout(num gridMeasurement){
@@ -170,7 +166,7 @@ void _updateColumnLayout(num gridMeasurement){
 
     _internalChildren.forEach((child){
       child.margin = new Thickness.specified(child.margin.top, 0, 0, 0);
-      child.content.width = gridWidth;
+      child.rawElement.style.width = '${gridWidth}px';
     });
 
     return;
@@ -198,11 +194,12 @@ void _updateColumnLayout(num gridMeasurement){
         _internalChildren
           .filter((child){
             //children that span outside the column are excluded
-            return Grid.getColumn(child.content) == columnDefinitions.indexOf(c, 0)
-                    && Grid.getColumnSpan(child.content) < 2;
+            return
+                Grid.getColumn(child.content) == columnDefinitions.indexOf(c, 0)
+                && Grid.getColumnSpan(child.content) < 2;
           })
           .forEach((_GridCell child){
-            num childWidth = child.content.mostRecentMeasurement.client.width;
+            num childWidth = child.content.mostRecentMeasurement.bounding.width;
             if (childWidth > widestAuto)
               widestAuto = childWidth;
           });
@@ -268,7 +265,7 @@ void _updateRowLayout(num gridHeight){
 
     _internalChildren.forEach((child){
       child.margin = new Thickness.specified(0, 0, 0, child.margin.left);
-      child.content.height = gridHeight;
+      child.rawElement.style.height = '${gridHeight}px';
     });
 
     return;

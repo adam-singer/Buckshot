@@ -601,14 +601,14 @@ For the next 2 columns, notice how the "*2" column is exactly twice as big as th
 
 The fourth column is pixel-type of 100, and remains fixed in place.
 -->
-<stackpanel margin="10">
+<stackpanel>
   <lineargradientbrush direction="vertical" key="gridbg" fallbackcolor="PowderBlue">
     <stops>
       <gradientstop color="White"></gradientstop>
       <gradientstop color="#335577"></gradientstop>
     </stops>
   </lineargradientbrush>
-  <grid width="400" height="400" background="{resource gridbg}">
+  <grid margin='10' width='400' height='400' background="{resource gridbg}">
     <columndefinitions>
       <columndefinition width="auto"></columndefinition>
       <columndefinition width="*1"></columndefinition>
@@ -637,7 +637,7 @@ The fourth column is pixel-type of 100, and remains fixed in place.
       <textblock>pixel 100</textblock>
     </border>
     
-    <border grid.row="2" borderthickness="1" bordercolor="Black" horizontalalignment="stretch" verticalAlignment="stretch">
+    <border grid.row="2" borderthickness="1" bordercolor="Black" verticalalignment='stretch'>
       <textblock>auto column</textblock>
     </border>
     <border grid.row="2" grid.column="1" borderthickness="1" bordercolor="Black" horizontalalignment="stretch" verticalAlignment="stretch">
