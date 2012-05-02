@@ -85,18 +85,48 @@ class _Dom {
     return sb.toString();
   }
 
-  static void setXPCSS(Element e, String declaration, String value){
+  static bool checkCSS3Support(Element e, String property, String value){
+
+    var result = getXPCSS(e, property);
+
+    if (result != null) return true;
+
+    setXPCSS(e, property, value);
+
+    result = getXPCSS(e, property);
+
+    if (result != null){
+      removeXPCSS(e, property);
+      return true;
+    }
+
+    return false;
+  }
+
+  static void removeXPCSS(Element e, String property){
+    for(final String p in prefixes){
+      var pre = '${p}${property}'; //assigning here because some bug won't let me pass it directly in .setProperty
+      e.style.removeProperty(pre);
+    }
+  }
+
+  static bool attemptSetXPCSS(Element e, String property, String value){
+    setXPCSS(e, property, value);
+    return getXPCSS(e, property) != null;
+  }
+
+  static void setXPCSS(Element e, String property, String value){
 
     prefixes.forEach((String p){
-     var pre = '${p}${declaration}'; //assigning here because some bug won't let me pass it directly in .setProperty
+     var pre = '${p}${property}'; //assigning here because some bug won't let me pass it directly in .setProperty
      e.style.setProperty(pre, value);
      });
   }
 
-  static String getXPCSS(Element e, String declaration){
+  static String getXPCSS(Element e, String property){
 
     for(final String p in prefixes){
-      var pre = '${p}${declaration}'; //assigning here because some bug won't let me pass it directly in .setProperty
+      var pre = '${p}${property}'; //assigning here because some bug won't let me pass it directly in .setProperty
       String result = e.style.getPropertyValue(pre);
 
       if (result != null) return result;

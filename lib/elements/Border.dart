@@ -180,7 +180,8 @@ class Border extends FrameworkElement implements IFrameworkContainer
     _Dom.makeFlexBox(this);
   }
 
-  /// Overridden [FrameworkObject] method is called when the framework requires elements to recalculate layout.
+  /// Overridden [FrameworkObject] method is called when the framework
+  /// requires elements to recalculate layout.
   void updateLayout(){
     if (content != null){
       if (content.horizontalAlignment != null){
@@ -189,23 +190,28 @@ class Border extends FrameworkElement implements IFrameworkContainer
           var rpad = padding.right;
           var rmarg = margin.right;
 
-          //-webkit-flex not working in Chromium v18
-          // working in Dartium v20
-          // TODO shim if not supported.
-          _Dom.setXPCSS(content.rawElement, 'flex', '1');
-         // _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
+          //TODO need better way to check CSS3 support than each time.
+          //(ala Modernizr)
+          if (!_Dom.attemptSetXPCSS(content.rawElement, 'flex', '1')){
+            //shim
+          }
         }else{
-          _Dom.setXPCSS(content.rawElement, 'flex', 'none');
+          if (!_Dom.attemptSetXPCSS(content.rawElement, 'flex', 'none')){
+            //shim
+            content.rawElement.style.width = 'auto';
+          }
           _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
         }
       }
 
       if (content.verticalAlignment != null){
-          _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
+        _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
+        if (content.verticalAlignment == VerticalAlignment.stretch
+            && _Dom.getXPCSS(this.rawElement, 'flex-align') == null){
+          //shim
+        }
       }
     }
-
-    super.updateLayout();
   }
 
   String get type() => "Border";

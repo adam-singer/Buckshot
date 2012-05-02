@@ -81,21 +81,27 @@ class _GridCell extends FrameworkObject
     if (content != null){
       if (content.horizontalAlignment != null){
         if (content.horizontalAlignment == HorizontalAlignment.stretch){
-          //TODO this ignores margin and padding.. not good
 
-          //-webkit-flex not working in Chromium v18
-          // working in Dartium v20
-          // TODO shim if not supported.
-          _Dom.setXPCSS(content.rawElement, 'flex', '1');
-         // _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
+          //TODO need better way to check CSS3 support than each time.
+          //(ala Modernizr)
+          if (!_Dom.attemptSetXPCSS(content.rawElement, 'flex', '1')){
+            //shim
+          }
         }else{
-          _Dom.setXPCSS(content.rawElement, 'flex', 'none');
+          if (!_Dom.attemptSetXPCSS(content.rawElement, 'flex', 'none')){
+            //shim
+          }
           _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
         }
       }
 
       if (content.verticalAlignment != null){
-          _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
+        _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
+
+        if (content.verticalAlignment == VerticalAlignment.stretch
+            && _Dom.getXPCSS(this.rawElement, 'flex-align') == null){
+          //shim
+        }
       }
     }
   }
