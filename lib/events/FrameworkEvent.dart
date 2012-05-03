@@ -21,11 +21,12 @@
 * in static checks.
 */
 interface FrameworkEvent<T extends EventArgs>  default _FrameworkEventImplementation<T extends EventArgs>{
-  Function _watchSubscriberCallback;
+  final Function _gotFirstSubscriberCallback;
+  final Function _lostLastSubscriberCallback;
 
   FrameworkEvent();
 
-  FrameworkEvent._watchFirstSubscriber(this._watchSubscriberCallback);
+  FrameworkEvent._watchFirstAndLast(this._gotFirstSubscriberCallback, this._lostLastSubscriberCallback);
 
   /**
   * Returns true if the FrameworkEvent has handlers registered. */
@@ -58,15 +59,20 @@ interface FrameworkEvent<T extends EventArgs>  default _FrameworkEventImplementa
 
 class _FrameworkEventImplementation<T extends EventArgs> extends BuckshotObject implements FrameworkEvent
 {
-  Function _watchSubscriberCallback;
-
+  Function _gotFirstSubscriberCallback;
+  Function _lostLastSubscriberCallback;
+  
   BuckshotObject makeMe() => null;
 
   final List<EventHandlerReference> _handlers;
 
-  _FrameworkEventImplementation() : _handlers = new List<EventHandlerReference>();
+  _FrameworkEventImplementation() 
+  : 
+    _handlers = new List<EventHandlerReference>(),
+    _gotFirstSubscriberCallback = null,
+    _lostLastSubscriberCallback = null;
 
-  _FrameworkEventImplementation._watchFirstSubscriber(this._watchSubscriberCallback)
+  _FrameworkEventImplementation._watchFirstAndLast(this._gotFirstSubscriberCallback, this._lostLastSubscriberCallback)
   :
     _handlers = new List<EventHandlerReference>();
 
@@ -77,8 +83,8 @@ class _FrameworkEventImplementation<T extends EventArgs> extends BuckshotObject 
     var hr = new EventHandlerReference(handler);
     _handlers.add(hr);
 
-    if (_watchSubscriberCallback != null && _handlers.length == 1){
-      _watchSubscriberCallback();
+    if (_gotFirstSubscriberCallback != null && _handlers.length == 1){
+      _gotFirstSubscriberCallback();
     }
 
     return hr;
@@ -89,8 +95,8 @@ class _FrameworkEventImplementation<T extends EventArgs> extends BuckshotObject 
     if (i < 0) return;
     _handlers.removeRange(i, 1);
 
-    if (_watchSubscriberCallback != null && _handlers.isEmpty()){
-      _watchSubscriberCallback();
+    if (_lostLastSubscriberCallback != null && _handlers.isEmpty()){
+      _lostLastSubscriberCallback();
     }
   }
 

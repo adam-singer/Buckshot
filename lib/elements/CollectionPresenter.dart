@@ -23,7 +23,7 @@
 * ## Lucaxml Usage Example:
 *
 *     <collectionpresenter datacontext="{data someCollection}">
-*         <!-- 
+*         <!--
 *              presentationpanel defaults to stackpanel
 *              so doesn't need to be declared unless you
 *              want to change or customize
@@ -31,8 +31,8 @@
 *         <presentationpanel>
 *             <stackpanel></stackpanel>
 *         </presentationpanel>
-*         <!-- 
-*             itemstemplate declares the output that will be 
+*         <!--
+*             itemstemplate declares the output that will be
 *             added to the presentationpanel for each iteration
 *             of the collection
 *         -->
@@ -42,41 +42,41 @@
 *     </collectionpresenter>
 *
 * ## Try It Yourself
-* Select the "Collections" example on the Buckshot Sandbox: [Try Buckshot](http://www.lucastudios.com/trybuckshot) 
+* Select the "Collections" example on the Buckshot Sandbox: [Try Buckshot](http://www.lucastudios.com/trybuckshot)
 */
 class CollectionPresenter extends FrameworkElement implements IFrameworkContainer
 {
   static final String _SBO = '__CollectionPresenterData__';
   var _eHandler;
-  
+
   /// Represents the [Panel] element which will contain the generated UI for
   /// each element of the collection.
   FrameworkProperty presentationPanelProperty;
-  
+
   /// Represents the UI that will display for each item in the collection.
   FrameworkProperty itemsTemplateProperty;
-  
+
   final FrameworkEvent<ItemCreatedEventArgs> itemCreated;
-  
+
   final IPresentationFormatProvider _pfp;
-  
+
   /// Overridden [LucaObject] method.
   FrameworkObject makeMe() => new CollectionPresenter();
-  
+
   CollectionPresenter()
-  : 
+  :
     _pfp = new BuckshotTemplateProvider(),
     itemCreated = new FrameworkEvent<ItemCreatedEventArgs>()
   {
     _Dom.appendBuckshotClass(_component, "collectionpresenter");
-    _initCollectionPresenterProperties();    
+    _initCollectionPresenterProperties();
   }
-  
+
   void _initCollectionPresenterProperties(){
     presentationPanelProperty = new FrameworkProperty(this, "presentationPanel", (Panel p){
       if (p.parent != null)
         throw const BuckshotException("Element is already child of another element.");
-      
+
       if (!_component.elements.isEmpty())
          _component.elements[0].remove();
 
@@ -85,26 +85,26 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       p.addToLayoutTree(this);
 
     }, new StackPanel());
-        
+
     itemsTemplateProperty = new FrameworkProperty(this, "itemsTemplate", (_){});
   }
-  
+
   /// Gets the [presentationPanelProperty] value.
   Panel get presentationPanel() => getValue(presentationPanelProperty);
   /// Sets the [presentationPanelProperty] value.
   set presentationPanel(Panel value) => setValue(presentationPanelProperty, value);
-  
+
   //IFrameworkContainer interface
   get content() => presentationPanel;
-  
+
   /// Gets the [itemsTemplateProperty] value.
   String get itemsTemplate() => getValue(itemsTemplateProperty);
   /// Sets the [itemsTemplateProperty] value.
   set itemsTemplate(String value) => setValue(itemsTemplateProperty, value);
-    
+
   void _updateCollection(){
     var dc = this.resolveDataContext();
-    
+
     if (dc == null && presentationPanel._isLoaded)
       {
         presentationPanel.children.clear();
@@ -112,21 +112,22 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       } else if (dc == null){
         return;
       }
-   
+
     var values = getValue(dc);
-    
+
     if (values is ObservableList && _eHandler == null){
       _eHandler = values.listChanged + (_, __) => _updateCollection();
     }
-    
+
     if (values is! Collection) throw const BuckshotException("Expected dataContext object to be of type Collection.");
-    
+
     presentationPanel._component.elements.clear();
-    
+
     if (itemsTemplate == null){
       //no template, then just call toString on the object.
       values.forEach((iterationObject){
-        var it = _pfp.deserialize('<textblock>${iterationObject}</textblock>');
+        var it = _pfp.deserialize('<textblock horizontalalignment="stretch">'
+          '${iterationObject}</textblock>');
         it._stateBag[_SBO] = iterationObject;
         itemCreated.invoke(this, new ItemCreatedEventArgs(it));
         presentationPanel.children.add(it);
@@ -142,21 +143,21 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       });
     }
   }
-  
+
   /// Overridden [FrameworkObject] method.
   void updateLayout(){ }
-  
+
   /// Overriden [FrameworkObject] method.
   void CreateElement(){
     _component = _Dom.createByTag("div");
   }
-  
+
   String get type() => "CollectionPresenter";
 }
 
 
 class ItemCreatedEventArgs extends EventArgs{
   final Dynamic itemCreated;
-  
+
   ItemCreatedEventArgs(this.itemCreated);
 }

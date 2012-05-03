@@ -87,9 +87,9 @@ class FrameworkElement extends FrameworkObject {
 
   //events
   /// Fires when the DOM gives the FrameworkElement focus.
-  final FrameworkEvent<EventArgs> gotFocus;
+  FrameworkEvent<EventArgs> gotFocus;
   /// Fires when the DOM removes focus from the FrameworkElement.
-  final FrameworkEvent<EventArgs> lostFocus;
+  FrameworkEvent<EventArgs> lostFocus;
   /// Fires when the mouse enters the boundary of the FrameworkElement.
   FrameworkEvent<EventArgs> mouseEnter;
   /// Fires when the mouse leaves the boundary of the FrameworkElement.
@@ -111,8 +111,6 @@ class FrameworkElement extends FrameworkObject {
 
   FrameworkElement() :
     _templateBindings = new HashMap<FrameworkProperty, String>(),
-    gotFocus = new FrameworkEvent<EventArgs>(),
-    lostFocus = new FrameworkEvent<EventArgs>(),
     _transitionProperties = new HashMap<String, String>()
   {
     _Dom.appendBuckshotClass(_component, "frameworkelement");
@@ -493,7 +491,7 @@ class FrameworkElement extends FrameworkObject {
   void _startWatchMeasurement(){
     _watchingMeasurement = true;
 
-    watchIt(int time){
+    watchIt(num time){
       if (!_watchingMeasurement) return;
 
       _component.rect.then((ElementRect m){
@@ -546,132 +544,163 @@ class FrameworkElement extends FrameworkObject {
     // only begins animation loop on first request of the event
     // to preserve resources when not in use.
     measurementChanged = new FrameworkEvent<MeasurementChangedEventArgs>
-    ._watchFirstSubscriber((){
-      if (!_watchingMeasurement){
-        _startWatchMeasurement();
-      }else{
-        _stopWatchMeasurement();
-      }
+    ._watchFirstAndLast(
+      () => _startWatchMeasurement(),
+      () =>  _stopWatchMeasurement()
+    );
 
-    });
+
+    void mouseUpHandler(e){
+      if (!mouseUp.hasHandlers) return;
+
+      e.stopPropagation();
+
+      var p = document.window.webkitConvertPointFromPageToNode(_component,
+        new Point(e.pageX, e.pageY));
+      mouseUp.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
+
+    }
 
     mouseUp = new FrameworkEvent<MouseEventArgs>
-    ._watchFirstSubscriber((){
-      _component.on.mouseUp.add((e){
-        if (!mouseUp.hasHandlers) return;
+    ._watchFirstAndLast(
+      () => _component.on.mouseUp.add(mouseUpHandler),
+      () => _component.on.mouseUp.remove(mouseUpHandler)
+    );
 
-        e.stopPropagation();
+    void mouseDownHandler(e){
+      _component.focus();
 
-        var p = document.window.webkitConvertPointFromPageToNode(_component,
-          new Point(e.pageX, e.pageY));
-        mouseUp.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
-      });
-    });
+      if (!mouseDown.hasHandlers) return;
+
+      e.stopPropagation();
+
+      var p = document.window.webkitConvertPointFromPageToNode(_component,
+        new Point(e.pageX, e.pageY));
+      mouseDown.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
+    }
 
     mouseDown = new FrameworkEvent<MouseEventArgs>
-    ._watchFirstSubscriber((){
-      _component.on.mouseDown.add((e){
-        if (!mouseDown.hasHandlers) return;
+    ._watchFirstAndLast(
+      () => _component.on.mouseDown.add(mouseDownHandler),
+      () => _component.on.mouseDown.remove(mouseDownHandler)
+    );
 
-        e.stopPropagation();
 
-        var p = document.window.webkitConvertPointFromPageToNode(_component,
-          new Point(e.pageX, e.pageY));
-        mouseDown.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
-      });
-    });
+    void mouseMoveHandler(e){
+      if (!mouseMove.hasHandlers) return;
+
+      e.stopPropagation();
+
+      var p = document.window.webkitConvertPointFromPageToNode(_component,
+        new Point(e.pageX, e.pageY));
+      mouseMove.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
+    }
 
     mouseMove = new FrameworkEvent<MouseEventArgs>
-    ._watchFirstSubscriber((){
-      _component.on.mouseMove.add((e) {
-        if (!mouseMove.hasHandlers) return;
+    ._watchFirstAndLast(
+      () => _component.on.mouseMove.add(mouseMoveHandler),
+      () => _component.on.mouseMove.remove(mouseMoveHandler)
+    );
 
-        e.stopPropagation();
+    void clickHandler(e){
+      _component.focus();
 
-        var p = document.window.webkitConvertPointFromPageToNode(_component,
-          new Point(e.pageX, e.pageY));
-        mouseMove.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
+      if (!click.hasHandlers) return;
 
-      });
-    });
+      e.stopPropagation();
+
+      var p = document.window.webkitConvertPointFromPageToNode(_component,
+        new Point(e.pageX, e.pageY));
+
+      click.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
+    }
 
     click = new FrameworkEvent<MouseEventArgs>
-    ._watchFirstSubscriber((){
-      _component.on.click.add((e) {
-        if (!click.hasHandlers) return;
+    ._watchFirstAndLast(
+      () => _component.on.click.add(clickHandler),
+      () => _component.on.click.remove(clickHandler)
+    );
 
-        e.stopPropagation();
 
-        var p = document.window.webkitConvertPointFromPageToNode(_component,
-          new Point(e.pageX, e.pageY));
-        click.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
-
-      });
-    });
-
-    _component.on.focus.add((e){
+    void gotFocusHandler(e){
       if (!gotFocus.hasHandlers) return;
 
       e.stopPropagation();
 
       gotFocus.invoke(this, new EventArgs());
+    }
 
-    });
+    gotFocus = new FrameworkEvent<EventArgs>
+    ._watchFirstAndLast(
+      () => _component.on.focus.add(gotFocusHandler),
+      () => _component.on.focus.remove(gotFocusHandler)
+    );
 
-    _component.on.blur.add((e){
+    void lostFocusHandler(e){
       if (!lostFocus.hasHandlers) return;
 
       e.stopPropagation();
 
       lostFocus.invoke(this, new EventArgs());
+    }
 
-    });
+    lostFocus = new FrameworkEvent<EventArgs>
+    ._watchFirstAndLast(
+      () => _component.on.blur.add(lostFocusHandler),
+      () => _component.on.blur.remove(lostFocusHandler)
+    );
 
     bool isMouseReallyOut = true;
 
-    mouseEnter = new FrameworkEvent<MouseEventArgs>
-    ._watchFirstSubscriber((){
-      _component.on.mouseOver.add((e){
-         if (!mouseEnter.hasHandlers) return;
+    void mouseEnterHandler(e){
+      if (!mouseEnter.hasHandlers) return;
 
-         e.stopPropagation();
+      e.stopPropagation();
 
-        if (isMouseReallyOut && mouseLeave.hasHandlers){
+     if (isMouseReallyOut && mouseLeave.hasHandlers){
+       isMouseReallyOut = false;
+       mouseEnter.invoke(this, new EventArgs());
+     }else if(!mouseLeave.hasHandlers){
+       //TODO add a temp handler for mouse out so the
+       //logic works correctly when only the mouseenter
+       //event is subscribed to (corner case).
+       mouseEnter.invoke(this, new EventArgs());
+     }
+    }
+
+    mouseEnter = new FrameworkEvent<EventArgs>
+    ._watchFirstAndLast(
+      () => _component.on.mouseOver.add(mouseEnterHandler),
+      () => _component.on.mouseOver.remove(mouseEnterHandler)
+    );
+
+    void mouseLeaveHandler(e){
+      if (!mouseLeave.hasHandlers) return;
+
+      e.stopPropagation();
+
+      _component.rect.then((ElementRect r){
+
+        var p = document.window.webkitConvertPointFromPageToNode(_component,
+          new Point(e.pageX, e.pageY));
+
+        if (p.x > -1 && p.y > -1 && p.x < r.bounding.width
+            && p.y < r.bounding.height){
           isMouseReallyOut = false;
-          mouseEnter.invoke(this, new EventArgs());
-        }else if(!mouseLeave.hasHandlers){
-          //TODO add a temp handler for mouse out so the
-          //logic works correctly when only the mouseenter
-          //event is subscribed to (corner case).
-          mouseEnter.invoke(this, new EventArgs());
+          return;
         }
 
-       });
-    });
-
-    mouseLeave = new FrameworkEvent<MouseEventArgs>
-    ._watchFirstSubscriber((){
-      _component.on.mouseOut.add((e){
-        if (!mouseLeave.hasHandlers) return;
-
-        e.stopPropagation();
-
-        _component.rect.then((ElementRect r){
-
-          var p = document.window.webkitConvertPointFromPageToNode(_component,
-            new Point(e.pageX, e.pageY));
-
-          if (p.x > -1 && p.y > -1 && p.x < r.bounding.width
-              && p.y < r.bounding.height){
-            isMouseReallyOut = false;
-            return;
-          }
-
-          isMouseReallyOut = true;
-          mouseLeave.invoke(this, new EventArgs());
-        });
+        isMouseReallyOut = true;
+        mouseLeave.invoke(this, new EventArgs());
       });
-    });
+    }
+
+
+    mouseLeave = new FrameworkEvent<EventArgs>
+    ._watchFirstAndLast(
+      () => _component.on.mouseOut.add(mouseLeaveHandler),
+      () => _component.on.mouseOut.remove(mouseLeaveHandler)
+    );
   }
 
 

@@ -23,6 +23,7 @@ class Cursors
   final String _str;
   static final Auto = const Cursors("auto");
   static final Crosshair = const Cursors("crosshair");
+  static final Arrow = const Cursors("default");
   static final Default = const Cursors("default");
   static final ResizeE = const Cursors("e-resize");
   static final Help = const Cursors("help");
@@ -38,24 +39,27 @@ class Cursors
   static final Text = const Cursors("text");
   static final Wait = const Cursors("wait");
   static final Inherit = const Cursors("inherit");
+
+  String toString() => _str;
 }
 
 /**
 * Converts a [String] value to [Cursors] enumerable.
 */
 class StringToCursorConverter implements IValueConverter {
-  
+
   const StringToCursorConverter();
-  
+
   Dynamic convert(Dynamic value, [Dynamic parameter]){
     if (!(value is String)) return value;
-    
+
     switch(value){
       case "Auto":
         return Cursors.Auto;
       case "Crosshair":
         return Cursors.Crosshair;
       case "Default":
+      case "Arrow":
         return Cursors.Default;
       case "ResizeE":
         return Cursors.ResizeE;
@@ -86,8 +90,8 @@ class StringToCursorConverter implements IValueConverter {
       case "Inherit":
         return Cursors.Inherit;
       default:
-        throw const BuckshotException("Cursor property value not recognized.");  
-      
+        throw const BuckshotException("Cursor property value not recognized.");
+
     }
   }
 }
