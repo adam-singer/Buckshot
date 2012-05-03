@@ -18,6 +18,8 @@
 //render only, not used for template layout
 class _GridCell extends FrameworkObject
 {
+  EventHandlerReference _ref;
+
   /// Represents the content inside the border.
   FrameworkProperty contentProperty;
   FrameworkProperty marginProperty;
@@ -86,10 +88,24 @@ class _GridCell extends FrameworkObject
           //(ala Modernizr)
           if (!_Dom.attemptSetXPCSS(content.rawElement, 'flex', '1')){
             //shim
+            if (_ref == null){
+              _ref = this.measurementChanged + (source, MeasurementChangedEventArgs args){
+                if (content is! Border){
+                  content.rawElement.style.width = '${args.newMeasurement.client.width - (content.margin.left + content.margin.right)}px';
+                }else{
+                  content.rawElement.style.width = '${args.newMeasurement.client.width - (content.dynamic.padding.left + content.dynamic.padding.right + content.margin.left + content.margin.right)}px';
+                }
+              };
+            }
           }
         }else{
           if (!_Dom.attemptSetXPCSS(content.rawElement, 'flex', 'none')){
             //shim
+            if (_ref != null){
+              this.measurementChanged - _ref;
+              _ref = null;
+              content.rawElement.style.width = 'auto';
+            }
           }
           _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
         }
@@ -97,11 +113,6 @@ class _GridCell extends FrameworkObject
 
       if (content.verticalAlignment != null){
         _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
-
-        if (content.verticalAlignment == VerticalAlignment.stretch
-            && _Dom.getXPCSS(this.rawElement, 'flex-align') == null){
-          //shim
-        }
       }
     }
   }

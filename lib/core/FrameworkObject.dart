@@ -19,6 +19,9 @@
 * Represents and element that can participate in the framework's
 * [Binding] and [FrameworkProperty] model. */
 class FrameworkObject extends BuckshotObject {
+  bool _watchingMeasurement = false;
+  int _animationFrameID;
+  ElementRect _previousMeasurement;
   Element _component;
   FrameworkObject _parent;
   bool _isLoaded = false;
@@ -35,6 +38,8 @@ class FrameworkObject extends BuckshotObject {
   final FrameworkEvent<EventArgs> loaded;
   /// Fires when the FrameworkElement is removed from the DOM.
   final FrameworkEvent<EventArgs> unloaded;
+  /// Fires when the measurement of the the FrameworkElement changes.
+  FrameworkEvent<MeasurementChangedEventArgs> measurementChanged;
 
   /**
   * Accesses the underlying raw HTML element.
@@ -87,6 +92,7 @@ class FrameworkObject extends BuckshotObject {
 
       _initFrameworkObjectProperties();
 
+      _initFrameworkObjectEvents();
     }
 
   void _initFrameworkObjectProperties(){
@@ -112,6 +118,68 @@ class FrameworkObject extends BuckshotObject {
       this,
       "dataContext",
       (value){});
+  }
+
+  void _startWatchMeasurement(){
+    _watchingMeasurement = true;
+
+    watchIt(num time){
+      if (!_watchingMeasurement) return;
+
+      _component.rect.then((ElementRect m){
+
+        mostRecentMeasurement = m;
+
+        if (_previousMeasurement == null){
+          measurementChanged.invoke(this,
+            new MeasurementChangedEventArgs(m, m));
+        }else{
+          if (_previousMeasurement.bounding.left != m.bounding.left
+              || _previousMeasurement.bounding.top != m.bounding.top
+              || _previousMeasurement.bounding.width != m.bounding.width
+              || _previousMeasurement.bounding.height != m.bounding.height
+              || _previousMeasurement.client.left != m.client.left
+              || _previousMeasurement.client.top != m.client.top
+              || _previousMeasurement.client.width != m.client.width
+              || _previousMeasurement.client.height != m.client.height
+              || _previousMeasurement.offset.left != m.offset.left
+              || _previousMeasurement.offset.top != m.offset.top
+              || _previousMeasurement.offset.width != m.offset.width
+              || _previousMeasurement.offset.height != m.offset.height
+              || _previousMeasurement.scroll.left != m.scroll.left
+              || _previousMeasurement.scroll.top != m.scroll.top
+              || _previousMeasurement.scroll.width != m.scroll.width
+              || _previousMeasurement.scroll.height != m.scroll.height
+              ){
+
+            measurementChanged.invoke(this,
+              new MeasurementChangedEventArgs(_previousMeasurement, m));
+          }
+        }
+        _previousMeasurement = m;
+        _animationFrameID = window.requestAnimationFrame(watchIt);
+      });
+    }
+
+    _animationFrameID = window.requestAnimationFrame(watchIt);
+
+  }
+
+  void _stopWatchMeasurement(){
+    if (_animationFrameID != null)
+      window.webkitCancelAnimationFrame(_animationFrameID);
+    _previousMeasurement = null;
+    _watchingMeasurement = false;
+  }
+
+  void _initFrameworkObjectEvents(){
+    // only begins animation loop on first request of the event
+    // to preserve resources when not in use.
+    measurementChanged = new FrameworkEvent<MeasurementChangedEventArgs>
+    ._watchFirstAndLast(
+      () => _startWatchMeasurement(),
+      () =>  _stopWatchMeasurement()
+    );
   }
 
   //TODO load/unload should be asynchronous?

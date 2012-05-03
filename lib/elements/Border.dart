@@ -200,9 +200,11 @@ class Border extends FrameworkElement implements IFrameworkContainer
             //shim
             if (_ref == null){
               _ref = this.measurementChanged + (source, MeasurementChangedEventArgs args){
-                content.rawElement.style.width =
-                    '${args.newMeasurement.bounding.width - (this.padding.left + this.padding.right + content.margin.left + content.margin.right)}px';
-                db('${content.rawElement.style.width}', content);
+                if (content is! Border){
+                  content.rawElement.style.width = '${args.newMeasurement.client.width - (content.margin.left + content.margin.right + this.padding.left + this.padding.right)}px';
+                }else{
+                  content.rawElement.style.width = '${args.newMeasurement.client.width - (content.dynamic.padding.left + content.dynamic.padding.right + content.margin.left + content.margin.right + this.padding.left + this.padding.right)}px';
+                }
               };
             }
           }

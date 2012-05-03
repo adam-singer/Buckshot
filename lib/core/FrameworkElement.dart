@@ -24,9 +24,6 @@
 class FrameworkElement extends FrameworkObject {
   FrameworkElement _containerParent;
   StyleTemplate _style;
-  bool _watchingMeasurement = false;
-  int _animationFrameID;
-  ElementRect _previousMeasurement;
 
   final HashMap<FrameworkProperty, String> _templateBindings;
 
@@ -102,8 +99,6 @@ class FrameworkElement extends FrameworkObject {
   FrameworkEvent<MouseEventArgs> mouseDown;
   /// Fires when the mouse button changes to an up position while over the FrameworkElement.
   FrameworkEvent<MouseEventArgs> mouseUp;
-  /// Fires when the measurement of the the FrameworkElement changes.
-  FrameworkEvent<MeasurementChangedEventArgs> measurementChanged;
 
   //TODO mouseWheel, onScroll;
 
@@ -526,67 +521,11 @@ class FrameworkElement extends FrameworkObject {
    return c.future;
   }
 
-  void _startWatchMeasurement(){
-    _watchingMeasurement = true;
 
-    watchIt(num time){
-      if (!_watchingMeasurement) return;
-
-      _component.rect.then((ElementRect m){
-
-        mostRecentMeasurement = m;
-
-        if (_previousMeasurement == null){
-          measurementChanged.invoke(this,
-            new MeasurementChangedEventArgs(m, m));
-        }else{
-          if (_previousMeasurement.bounding.left != m.bounding.left
-              || _previousMeasurement.bounding.top != m.bounding.top
-              || _previousMeasurement.bounding.width != m.bounding.width
-              || _previousMeasurement.bounding.height != m.bounding.height
-              || _previousMeasurement.client.left != m.client.left
-              || _previousMeasurement.client.top != m.client.top
-              || _previousMeasurement.client.width != m.client.width
-              || _previousMeasurement.client.height != m.client.height
-              || _previousMeasurement.offset.left != m.offset.left
-              || _previousMeasurement.offset.top != m.offset.top
-              || _previousMeasurement.offset.width != m.offset.width
-              || _previousMeasurement.offset.height != m.offset.height
-              || _previousMeasurement.scroll.left != m.scroll.left
-              || _previousMeasurement.scroll.top != m.scroll.top
-              || _previousMeasurement.scroll.width != m.scroll.width
-              || _previousMeasurement.scroll.height != m.scroll.height
-              ){
-
-            measurementChanged.invoke(this,
-              new MeasurementChangedEventArgs(_previousMeasurement, m));
-          }
-        }
-        _previousMeasurement = m;
-        _animationFrameID = window.requestAnimationFrame(watchIt);
-      });
-    }
-
-    _animationFrameID = window.requestAnimationFrame(watchIt);
-
-  }
-
-  void _stopWatchMeasurement(){
-    if (_animationFrameID != null)
-      window.webkitCancelAnimationFrame(_animationFrameID);
-    _previousMeasurement = null;
-    _watchingMeasurement = false;
-  }
 
   void _initFrameworkEvents(){
 
-    // only begins animation loop on first request of the event
-    // to preserve resources when not in use.
-    measurementChanged = new FrameworkEvent<MeasurementChangedEventArgs>
-    ._watchFirstAndLast(
-      () => _startWatchMeasurement(),
-      () =>  _stopWatchMeasurement()
-    );
+
 
 
     void mouseUpHandler(e){

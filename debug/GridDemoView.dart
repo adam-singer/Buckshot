@@ -57,8 +57,8 @@ horizontalalignment='stretch' verticalalignment='stretch'>
   </resourcecollection>
 
   <rowdefinitions>
-    <rowdefinition height='50'></rowdefinition>
     <rowdefinition height='auto'></rowdefinition>
+    <rowdefinition height='*'></rowdefinition>
     <rowdefinition height='*.5'></rowdefinition>
     <rowdefinition height='*'></rowdefinition>
   </rowdefinitions>
@@ -72,7 +72,7 @@ horizontalalignment='stretch' verticalalignment='stretch'>
   <textblock horizontalalignment='center' fontsize='36' fontfamily='Consolas'
   margin='5' grid.columnspan='3' text='{data title}'></textblock>
 
-  <border background='#333333' grid.row='1' style='{resource _borderAuto}'>
+  <border background='#333333' grid.row='1' style='{resource _border}'>
     <grid horizontalalignment='stretch' verticalalignment='stretch'>
       <rowdefinitions>
         <rowdefinition height='*'></rowdefinition>
@@ -113,10 +113,10 @@ horizontalalignment='stretch' verticalalignment='stretch'>
       </border>
     </grid>
   </border>
-  <border background='#555555' grid.row='1' grid.column='1' style='{resource _borderAuto}'>
+  <border background='#555555' grid.row='1' grid.column='1' style='{resource _border}'>
     <textblock text='1,0' style='{resource _text}'></textblock>
   </border>
-  <border background='#777777' grid.row='1' grid.column='2' style='{resource _borderAuto}'>
+  <border background='#777777' grid.row='1' grid.column='2' style='{resource _border}'>
     <grid horizontalalignment='stretch' verticalalignment='stretch'>
       <rowdefinitions>
         <rowdefinition height='*'></rowdefinition>
