@@ -52,24 +52,29 @@ class FrameworkObject extends BuckshotObject {
   ///     stateBag[CONTAINER_CONTEXT] = {propertyNameOfElementContainerContext};
   static final String CONTAINER_CONTEXT = "CONTAINER_CONTEXT";
 
-  //allows container elements to subscribe/unsubscribe to attached property changes of children
-  final FrameworkEvent<AttachedPropertyChangedEventArgs> attachedPropertyChanged;
+  //allows container elements to subscribe/unsubscribe to attached property
+  //changes of children.
+  final FrameworkEvent<AttachedPropertyChangedEventArgs>
+          attachedPropertyChanged;
 
-  /// Represents a name identifier for the element.  Assigning a name to an element
+  /// Represents a name identifier for the element.
+  /// Assigning a name to an element
   /// allows it to be found and bound to by other elements.
   FrameworkProperty nameProperty;
 
   /// Overridden [LucaObject] method.
   BuckshotObject makeMe() => new FrameworkObject();
 
-  /// Gets a boolean value indicating whether this element has a contain context set.
+  /// Gets a boolean value indicating whether this element
+  /// has a contain context set.
   bool get isContainer() => _stateBag.containsKey(CONTAINER_CONTEXT);
 
   FrameworkObject() :
     lateBindings = new HashMap<FrameworkProperty, BindingData>(),
     loaded = new FrameworkEvent<EventArgs>(),
     unloaded = new FrameworkEvent<EventArgs>(),
-    attachedPropertyChanged = new FrameworkEvent<AttachedPropertyChangedEventArgs>()
+    attachedPropertyChanged =
+    new FrameworkEvent<AttachedPropertyChangedEventArgs>()
     {
       applyVisualTemplate();
 
@@ -91,7 +96,9 @@ class FrameworkObject extends BuckshotObject {
       (String value){
 
         if (nameProperty.previousValue != null){
-          throw new BuckshotException('Attempted to assign name "${value}" to element that already has a name "${nameProperty.previousValue}" assigned.');
+          throw new BuckshotException('Attempted to assign name "${value}"'
+          ' to element that already has a name "${nameProperty.previousValue}"'
+          ' assigned.');
         }
 
         if (value != null){
@@ -137,7 +144,8 @@ class FrameworkObject extends BuckshotObject {
     if (this is! IFrameworkContainer) return;
 
     if (this.dynamic.content is List){
-      this.dynamic.content.forEach((FrameworkElement child) => child._onAddedToDOM());
+      this.dynamic.content.forEach((FrameworkElement child)
+        => child._onAddedToDOM());
     }else if (this.dynamic.content is FrameworkElement){
       this.dynamic.content._onAddedToDOM();
     }
@@ -163,21 +171,24 @@ class FrameworkObject extends BuckshotObject {
         new Binding(dc, p);
       }else{
         if (!(dc.value is BuckshotObject))
-          throw new BuckshotException("Datacontext binding attempted to resolve properties '${bd.dataContextPath}' on non-BuckshotObject type.");
+          throw new BuckshotException("Datacontext binding attempted to"
+            " resolve properties '${bd.dataContextPath}'"
+            " on non-BuckshotObject type.");
 
-        //TODO keep a reference to these so they can be removed if the datacontext changes
+        //TODO keep a reference to these so they can be removed if the
+        // datacontext changes
 
         if (bd.converter != null)
-          new Binding(dc.value.resolveProperty(bd.dataContextPath), p, bindingMode:bd.bindingMode, converter:bd.converter);
+          new Binding(dc.value.resolveProperty(bd.dataContextPath),
+            p, bindingMode:bd.bindingMode, converter:bd.converter);
         else
-          new Binding(dc.value.resolveProperty(bd.dataContextPath), p, bindingMode:bd.bindingMode);
+          new Binding(dc.value.resolveProperty(bd.dataContextPath),
+            p, bindingMode:bd.bindingMode);
       }
     });
   }
 
   void removeFromLayoutTree(){
-  //    throw new BuckshotException('Attempted to remove element that is not already loaded into the DOM.');
-
     this._component.remove();
 
     //db('Removed from Layout Tree', this);
@@ -201,7 +212,8 @@ class FrameworkObject extends BuckshotObject {
     if (this is! IFrameworkContainer) return;
 
     if (this.dynamic.content is List){
-      this.dynamic.content.forEach((FrameworkElement child) => child._onRemoveFromDOM());
+      this.dynamic.content.forEach((FrameworkElement child)
+        => child._onRemoveFromDOM());
     }else if (this.dynamic.content is FrameworkElement){
       this.dynamic.content._onRemoveFromDOM();
     }
@@ -262,9 +274,12 @@ class FrameworkObject extends BuckshotObject {
 
   /**
   * Sets the value of a given AttachedFrameworkProperty for a given Element. */
-  static void setAttachedValue(FrameworkElement element, AttachedFrameworkProperty property, Dynamic value)
+  static void setAttachedValue(FrameworkElement element,
+                               AttachedFrameworkProperty property,
+                               Dynamic value)
   {
-    HashMap<FrameworkElement, Dynamic> aDepInfo = buckshot._attachedProperties[property];
+    HashMap<FrameworkElement, Dynamic> aDepInfo =
+        buckshot._attachedProperties[property];
 
     //no need to invoke if nothing has changed
     if (aDepInfo[element] == value) return;
@@ -273,29 +288,35 @@ class FrameworkObject extends BuckshotObject {
     aDepInfo[element] = value;
 
     //invoke the event so that any subscribers will get the message
-    //subscribers will typically be parents interested to know if attached properties change on children
-    element.attachedPropertyChanged.invoke(element, new AttachedPropertyChangedEventArgs(element, property, value));
+    //subscribers will typically be parents interested to know if attached
+    // properties change on children
+    element.attachedPropertyChanged.invoke(element,
+      new AttachedPropertyChangedEventArgs(element, property, value));
 
-    property.propertyChanging.invoke(property, new PropertyChangingEventArgs(oldValue, value));
+    property.propertyChanging.invoke(property,
+      new PropertyChangingEventArgs(oldValue, value));
   }
 
   /**
   * Gets the value of a given AttachedFrameworkProperty for a given Element. */
-  static Dynamic getAttachedValue(FrameworkElement element, AttachedFrameworkProperty property){
+  static Dynamic getAttachedValue(FrameworkElement element,
+                                  AttachedFrameworkProperty property){
       if (property == null) return null;
 
-      HashMap<FrameworkElement, Dynamic> aDepInfo = buckshot._attachedProperties[property];
+      HashMap<FrameworkElement, Dynamic> aDepInfo =
+          buckshot._attachedProperties[property];
 
       return (aDepInfo.containsKey(element)) ? aDepInfo[element] : null;
   }
 
-  /// Called by the framework to allow an element to construct it's HTML representation
-  /// and assign to [component].
+  /// Called by the framework to allow an element to construct it's
+  /// HTML representation and assign to [component].
   void CreateElement(){
     _component = _Dom.createByTag('div');
   }
 
-  /// Called by the framework to request that an element update it's visual layout.
+  /// Called by the framework to request that an element update it's
+  /// visual layout.
   void updateLayout(){}
 
   String get type() => "FrameworkObject";

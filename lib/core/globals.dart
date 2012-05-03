@@ -47,12 +47,52 @@ Future _functionToFuture(Function f){
 }
 
 /**
- * Sets the value of a given [FrameworkProperty] to a given [value]. */
+ * Sets the value of a given [FrameworkProperty] to a given [v]. */
+Future setValueAsync(FrameworkProperty property, Dynamic value)
+{
+  Completer c = new Completer();
+
+   void doIt(){
+
+     if (property.stringToValueConverter != null && value is String){
+       value = property.stringToValueConverter.convert(value);
+     }
+
+
+     if (property.value == value) return;
+
+      property._previousValue = property.value;
+      property.value = value;
+
+      // 3 different activities take place when a FrameworkProperty value changes,
+      // in this order of precedence:
+      //    1) callback - lets the FrameworkProperty do any work it wants to do
+      //    2) bindings - fires any bindings associated with the FrameworkProperty
+      //    3) event - notifies any subscribers that the FrameworkProperty
+      //       value changed
+
+      // 1) callback
+      Function f = property.propertyChangedCallback;
+      f(value);
+
+      // 2) bindings
+      _BindingImplementation._executeBindingsFor(property);
+
+      // 3) event
+      if (property.propertyChanging.hasHandlers)
+        property.propertyChanging.invoke(property.sourceObject,
+          new PropertyChangingEventArgs(property.previousValue, value));
+
+      c.complete(null);
+   }
+
+   window.setTimeout(doIt, 0);
+
+   return c.future;
+}
+
 void setValue(FrameworkProperty property, Dynamic value)
 {
-    //if (Globals.addPropertyAttributes)
-           // Globals.satt(property);
-
    if (property.stringToValueConverter != null && value is String){
      value = property.stringToValueConverter.convert(value);
    }
@@ -67,7 +107,8 @@ void setValue(FrameworkProperty property, Dynamic value)
     // in this order of precedence:
     //    1) callback - lets the FrameworkProperty do any work it wants to do
     //    2) bindings - fires any bindings associated with the FrameworkProperty
-    //    3) event - notifies any subscribers that the FrameworkProperty value changed
+    //    3) event - notifies any subscribers that the FrameworkProperty
+    //       value changed
 
     // 1) callback
     Function f = property.propertyChangedCallback;
@@ -78,7 +119,9 @@ void setValue(FrameworkProperty property, Dynamic value)
 
     // 3) event
     if (property.propertyChanging.hasHandlers)
-      property.propertyChanging.invoke(property.sourceObject, new PropertyChangingEventArgs(property.previousValue, value));
+      property.propertyChanging.invoke(property.sourceObject,
+        new PropertyChangingEventArgs(property.previousValue, value));
+
 }
 
 /**

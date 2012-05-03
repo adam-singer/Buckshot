@@ -245,21 +245,20 @@ class FrameworkElement extends FrameworkObject {
     marginProperty = new FrameworkProperty(
       this,
       "margin",
-      (value){
+      (Thickness value){
         _component.style.margin = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px'; //, null);
-        //if (_useOffsetWidthAndHeight) _computeWHOffset();
-        //db("...margin - offsetX: ${whOffset.first}, offsetY ${whOffset.second}", this);
+        if (parent != null) parent.updateLayout();
       }, new Thickness(0), converter:const StringToThicknessConverter());
 
     actualWidthProperty = new FrameworkProperty(
       this,
       "actualWidth",
-      (num value){}, 0, converter:const StringToNumericConverter());
+      (num _){});
 
     actualHeightProperty = new FrameworkProperty(
       this,
       "actualHeight",
-      (num value){}, 0, converter:const StringToNumericConverter());
+      (num _){});
 
     widthProperty = new FrameworkProperty(
       this,
@@ -320,8 +319,9 @@ class FrameworkElement extends FrameworkObject {
       this,
       "horizontalAlignment",
       (HorizontalAlignment value){
-        if (parent != null)
-          parent.updateLayout();
+        updateMeasurementAsync.then((_){
+          if (parent != null) parent.updateLayout();
+        });
       },
       HorizontalAlignment.left, converter:const StringToHorizontalAlignmentConverter());
 
@@ -329,8 +329,10 @@ class FrameworkElement extends FrameworkObject {
       this,
       "verticalAlignment",
       (VerticalAlignment value){
-        if (parent != null)
-          parent.updateLayout();
+        updateMeasurementAsync.then((_){
+          if (parent != null) parent.updateLayout();
+
+        });
       },
       VerticalAlignment.top, converter:const StringToVerticalAlignmentConverter());
 
@@ -447,7 +449,13 @@ class FrameworkElement extends FrameworkObject {
   void calculateWidth(value){
     if (value == "auto"){
       _component.style.width = "auto"; //, null);
-      if (this is Panel || this is Border) updateLayout();
+      this.updateMeasurementAsync.then((_){
+        if (this is IFrameworkContainer){
+          updateLayout();
+        }else{
+          if (parent != null) parent.updateLayout();
+        }
+      });
       return;
     }
 
@@ -459,10 +467,15 @@ class FrameworkElement extends FrameworkObject {
       width = maxWidth;
     }
 
-//    var adjustedValue = value - (margin.left + margin.right);
     _component.style.width = '${value}px';
-//    setValue(actualWidthProperty, adjustedValue);
-    if (this is Panel || this is Border) updateLayout();
+
+    this.updateMeasurementAsync.then((_){
+      if (this is IFrameworkContainer){
+        updateLayout();
+      }else{
+        if (parent != null) parent.updateLayout();
+      }
+    });
 
   }
 
@@ -470,7 +483,13 @@ class FrameworkElement extends FrameworkObject {
   void calculateHeight(value){
     if (value == "auto"){
       _component.style.height = "auto";//, null);
-      if (this is Panel || this is Border) updateLayout();
+      this.updateMeasurementAsync.then((_){
+        if (this is IFrameworkContainer){
+          updateLayout();
+        }else{
+          if (parent != null) parent.updateLayout();
+        }
+      });
       return;
     }
 
@@ -482,10 +501,29 @@ class FrameworkElement extends FrameworkObject {
       height =  maxHeight;
     }
 
-//    var adjustedValue = value - (margin.top + margin.bottom);
    _component.style.height = '${value}px'; //, null);
-//    setValue(actualHeightProperty, adjustedValue);
-    if (this is Panel || this is Border) updateLayout();
+
+   this.updateMeasurementAsync.then((_){
+     if (this is IFrameworkContainer){
+       updateLayout();
+     }else{
+       if (parent != null) parent.updateLayout();
+     }
+   });
+
+  }
+
+  Future<ElementRect> get updateMeasurementAsync(){
+   Completer c = new Completer();
+
+   rawElement.rect.then((ElementRect r){
+    setValue(actualWidthProperty, r.bounding.width);
+    setValue(actualHeightProperty, r.bounding.height);
+    this.mostRecentMeasurement = r;
+    c.complete(r);
+   });
+
+   return c.future;
   }
 
   void _startWatchMeasurement(){
@@ -519,6 +557,7 @@ class FrameworkElement extends FrameworkObject {
               || _previousMeasurement.scroll.width != m.scroll.width
               || _previousMeasurement.scroll.height != m.scroll.height
               ){
+
             measurementChanged.invoke(this,
               new MeasurementChangedEventArgs(_previousMeasurement, m));
           }

@@ -7,15 +7,13 @@ class AlignmentPanelTestingView implements IView {
   :
     _rootElement = buckshot.defaultPresentationProvider.deserialize(view);
 
-
   FrameworkElement get rootVisual() => _rootElement;
-
 
   static final String view =
 '''
 <stackpanel>
 <border name='stretch_stretch' margin='1' width='300' height='300' background='Orange'>
-  <border background='Black' padding='10' horizontalalignment='stretch' verticalalignment='stretch'>
+  <border margin='10' padding='10' name='inside_stretch' background='Black' horizontalalignment='stretch' verticalalignment='stretch'>
     <textblock horizontalalignment='stretch' verticalalignment='center' foreground='White'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nunc nunc, lacinia sit amet ultricies non, bibendum quis eros. Integer hendrerit volutpat velit sit amet iaculis. Curabitur eu arcu velit, non blandit nulla. Nullam diam dui, molestie non ultricies a, tristique nec nunc. Nullam hendrerit fringilla nulla non porttitor. Cras orci sapien, porttitor placerat dapibus vitae, pharetra a lectus. Nulla tincidunt lacinia elit ac tempus. Sed sed sem justo,</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->

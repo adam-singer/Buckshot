@@ -20,6 +20,7 @@
 * A container element that holds a single child and provides visual border properties. */
 class Border extends FrameworkElement implements IFrameworkContainer
 {
+  EventHandlerReference _ref;
 
   /// Represents the [Color] of the border background.
   AnimatingFrameworkProperty backgroundProperty;
@@ -63,8 +64,8 @@ class Border extends FrameworkElement implements IFrameworkContainer
         if (contentProperty.previousValue != null){
           contentProperty.previousValue.removeFromLayoutTree();
         }
-        if (c != null)
-          c.addToLayoutTree(this);
+        if (c != null) c.addToLayoutTree(this);
+
       });
 
     backgroundProperty = new AnimatingFrameworkProperty(
@@ -85,6 +86,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
       "padding",
       (Thickness value){
         _component.style.padding = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
+        updateLayout();
       }, new Thickness(0), converter:const StringToThicknessConverter());
 
     cornerRadiusProperty = new AnimatingFrameworkProperty(
@@ -183,6 +185,8 @@ class Border extends FrameworkElement implements IFrameworkContainer
   /// Overridden [FrameworkObject] method is called when the framework
   /// requires elements to recalculate layout.
   void updateLayout(){
+    if (!_isLoaded) return;
+
     if (content != null){
       if (content.horizontalAlignment != null){
         if (content.horizontalAlignment == HorizontalAlignment.stretch){
@@ -194,11 +198,22 @@ class Border extends FrameworkElement implements IFrameworkContainer
           //(ala Modernizr)
           if (!_Dom.attemptSetXPCSS(content.rawElement, 'flex', '1')){
             //shim
+            if (_ref == null){
+              _ref = this.measurementChanged + (source, MeasurementChangedEventArgs args){
+                content.rawElement.style.width =
+                    '${args.newMeasurement.bounding.width - (this.padding.left + this.padding.right + content.margin.left + content.margin.right)}px';
+                db('${content.rawElement.style.width}', content);
+              };
+            }
           }
         }else{
           if (!_Dom.attemptSetXPCSS(content.rawElement, 'flex', 'none')){
             //shim
-            content.rawElement.style.width = 'auto';
+            if (_ref != null){
+              this.measurementChanged - _ref;
+              _ref = null;
+              content.rawElement.style.width = 'auto';
+            }
           }
           _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
         }
@@ -206,10 +221,6 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
       if (content.verticalAlignment != null){
         _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
-        if (content.verticalAlignment == VerticalAlignment.stretch
-            && _Dom.getXPCSS(this.rawElement, 'flex-align') == null){
-          //shim
-        }
       }
     }
   }
