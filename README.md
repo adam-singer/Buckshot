@@ -42,7 +42,7 @@ Buckshot is validated to work well on Chromium v20+ and Dartium v20+.
 * Server-side integration (Dart works on both client and server)
 * Free beer (no, but wouldn't it be nice?)
 
-## Dependencies (in the 'external' folder)
+## Dependencies (git submodules in the 'external' folder)
 * [Dart-XML](https://github.com/prujohn/dart-xml)
 
 ## License

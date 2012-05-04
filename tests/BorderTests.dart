@@ -33,9 +33,8 @@ class BorderTests extends TestGroupBase
     Expect.equals(tb, b.content, "first assignment of textblock");
     
     b.content = null;
-    Expect.equals(null, b.content, "assignment of null");
+    Expect.isNull(b.content);
     
-    //throws nullpointer exception...
     b.content = tb;
     Expect.equals(tb, b.content, "second assignment of textblock");
     

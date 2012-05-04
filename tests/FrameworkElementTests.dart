@@ -166,8 +166,8 @@ class FrameworkElementTests extends TestGroupBase
     //the underlying dependency property model for these properties
     Expect.equals('auto', fp.width, 'width default');
     Expect.equals('auto', fp.height, 'height default');
-    Expect.equals(0, fp.actualWidth, 'actual width default');
-    Expect.equals(0, fp.actualHeight, 'actual height default');
+    Expect.isNull(fp.actualWidth, 'actual width default');
+    Expect.isNull(fp.actualHeight, 'actual height default');
     Expect.isNull(fp.maxWidth, 'maxWidth default');
     Expect.isNull(fp.maxHeight, 'maxHeight default');
     Expect.isNull(fp.minWidth, 'minWidth default');
