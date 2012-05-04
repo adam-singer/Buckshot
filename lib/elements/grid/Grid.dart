@@ -155,10 +155,8 @@ void _updateMeasurements(){
   }
 
 // Updates the column layout of the Grid based on given [gridWidth]
-void _updateColumnLayout(num gridMeasurement){
+void _updateColumnLayout(num gridWidth){
   if (!_isLoaded) return;
-
-  num gridWidth = gridMeasurement;
 
   if (columnDefinitions.length == 0){
     //handle case where no columnDefinitions are set
@@ -167,6 +165,7 @@ void _updateColumnLayout(num gridMeasurement){
     _internalChildren.forEach((child){
       child.margin = new Thickness.specified(child.margin.top, 0, 0, 0);
       child.rawElement.style.width = '${gridWidth}px';
+    //  db('width: ${child.rawElement.style.width}', this);
     });
 
     return;
@@ -256,7 +255,6 @@ void _updateColumnLayout(num gridMeasurement){
 
 // Updates the row layout of the Grid based on the given [gridHeight]
 void _updateRowLayout(num gridHeight){
-
   if (!_isLoaded) return;
 
   if (rowDefinitions.length == 0){
@@ -266,6 +264,7 @@ void _updateRowLayout(num gridHeight){
     _internalChildren.forEach((child){
       child.margin = new Thickness.specified(0, 0, 0, child.margin.left);
       child.rawElement.style.height = '${gridHeight}px';
+     // db('height: ${child.rawElement.style.height}', this);
     });
 
     return;

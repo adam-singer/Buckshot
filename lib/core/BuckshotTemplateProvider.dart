@@ -51,7 +51,6 @@ class BuckshotTemplateProvider
 
           if (e.name.contains(".")){
             //attached property
-           print('attached: ${elementLowerTagName}, value: ${e.text.trim()}');
           Function setAttachedPropertyFunction =
               buckshot._objectRegistry[elementLowerTagName];
 

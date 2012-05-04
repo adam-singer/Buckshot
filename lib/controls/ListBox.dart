@@ -57,8 +57,6 @@ class ListBox extends Control implements IFrameworkContainer
 
     _initListBoxProperties();
 
-//    this._component.style.border = "solid black 1px";
-
     //applyVisualTemplate() is called before the constructor
     //so we expect template to be assigned
     if (template == null)
@@ -72,7 +70,6 @@ class ListBox extends Control implements IFrameworkContainer
 
     _presenter.itemCreated + _OnItemCreated;
 
-    // selectionChanged + (_, args) => print('Selected ${args.selectedItem} at index: $selectedIndex');
   }
 
 
@@ -80,7 +77,7 @@ class ListBox extends Control implements IFrameworkContainer
     return
     '''<controltemplate controlType="${this.templateName}">
           <template>
-            <border bordercolor="{template bordercolor}" 
+            <border bordercolor="{template borderColor}" 
                     borderthickness="{template borderThickness}" 
                     horizontalScrollEnabled="{template horizontalScrollEnabled}" 
                     verticalScrollEnabled="{template verticalScrollEnabled}"
@@ -167,8 +164,6 @@ class ListBox extends Control implements IFrameworkContainer
     }, new SolidColorBrush(new Color.predefined(Colors.Black)), converter:const StringToSolidColorBrushConverter());
 
     borderThicknessProperty = new FrameworkProperty(this, "borderThickness", (v){
-      if (_border == null) return;
-      _border.borderThickness = v;
     }, new Thickness(1), converter:const StringToThicknessConverter());
 
     selectedItemProperty = new FrameworkProperty(this, "selectedItem", (_){});

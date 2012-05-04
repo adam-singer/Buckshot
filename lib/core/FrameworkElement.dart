@@ -223,7 +223,6 @@ class FrameworkElement extends FrameworkObject {
         }else{
           //preserve in case some element is using "inline" or some other fancy display value
           _stateBag["display"] = _component.style.display;
-          db('$value');
           _component.style.visibility = '$value';
 
           _component.style.display = "none";

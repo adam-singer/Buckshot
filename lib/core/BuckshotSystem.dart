@@ -122,6 +122,7 @@ class Buckshot extends FrameworkObject {
     _initializeBuckshotProperties();
 
     //set the domRoot
+    print('clear! ${this.hashCode()}');
     _domRootElement.elements.clear();
     _domRootElement.elements.add(domRoot._component);
 
@@ -334,5 +335,9 @@ class Buckshot extends FrameworkObject {
     return temp;
   }
 
+  void dumpRegisteredObjects(){
+    this._objectRegistry.forEach((k, v) => print('${v is FrameworkElement ? v.type : "()"}'));
+  }
+  
   String get type() => "BuckshotSystem";
   }

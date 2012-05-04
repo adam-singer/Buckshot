@@ -25,6 +25,9 @@ class FrameworkObject extends BuckshotObject {
   Element _component;
   FrameworkObject _parent;
   bool _isLoaded = false;
+  
+  bool get isLoaded() => _isLoaded;
+  set isLoaded(bool v) => _isLoaded = v;
 
   /// Represents the data context assigned to the FrameworkElement.
   /// Declarative xml binding can be used to bind to data context.

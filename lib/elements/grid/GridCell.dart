@@ -23,7 +23,7 @@ class _GridCell extends FrameworkObject
   /// Represents the content inside the border.
   FrameworkProperty contentProperty;
   FrameworkProperty marginProperty;
-
+  
   _GridCell()
   {
     _Dom.appendBuckshotClass(_component, "GridCell");
@@ -42,8 +42,9 @@ class _GridCell extends FrameworkObject
         if (contentProperty.previousValue != null){
           contentProperty.previousValue.removeFromLayoutTree();
         }
-        if (c != null)
+        if (c != null){
           c.addToLayoutTree(this);
+        }
       });
 
     marginProperty = new FrameworkProperty(
