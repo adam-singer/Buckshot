@@ -20,6 +20,7 @@
 * A container element that holds a single child and provides visual border properties. */
 class Border extends FrameworkElement implements IFrameworkContainer
 {
+  String _BORDERWIDTHSHIM;
   EventHandlerReference _ref;
 
   /// Represents the [Color] of the border background.
@@ -48,6 +49,8 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
   Border()
   {
+    _BORDERWIDTHSHIM = '__border_width_shim_preserved_width__${hashCode()}';
+    
     _Dom.appendBuckshotClass(_component, "border");
 
     _initBorderProperties();
@@ -190,14 +193,10 @@ class Border extends FrameworkElement implements IFrameworkContainer
     if (content != null){
       if (content.horizontalAlignment != null){
         if (content.horizontalAlignment == HorizontalAlignment.stretch){
-          //TODO this ignores margin and padding.. not good
-          var rpad = padding.right;
-          var rmarg = margin.right;
 
-          //TODO need better way to check CSS3 support than each time.
-          //(ala Modernizr)
           if (!_Dom.attemptSetXPCSS(content.rawElement, 'flex', '1')){
             //shim
+            this._stateBag[_BORDERWIDTHSHIM] = content.rawElement.style.width;
             if (_ref == null){
               _ref = this.measurementChanged + (source, MeasurementChangedEventArgs args){
                 if (content is! Border){
@@ -214,7 +213,9 @@ class Border extends FrameworkElement implements IFrameworkContainer
             if (_ref != null){
               this.measurementChanged - _ref;
               _ref = null;
-              content.rawElement.style.width = 'auto';
+              if (this._stateBag.containsKey(_BORDERWIDTHSHIM)){
+                content.rawElement.style.width = this._stateBag[_BORDERWIDTHSHIM];
+              }
             }
           }
           _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
