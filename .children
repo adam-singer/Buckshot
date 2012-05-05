@@ -6,6 +6,8 @@ extensions/social/SocialPack.dart
 extensions/actions/SetPropertyAction.dart
 extensions/actions/AnimationAction.dart
 extensions/actions/ActionPack.dart
+extensions/ControlPack1/ModalDialog.dart
+extensions/ControlPack1/ControlPack1.dart
 extensions/media/MediaPack.dart
 extensions/media/YouTube.dart
 extensions/actions/TogglePropertyAction.dart

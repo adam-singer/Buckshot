@@ -86,7 +86,8 @@ class Buckshot extends FrameworkObject {
   factory Buckshot._cached()
   {
     if (_ref != null) return _ref;
-    return new Buckshot._init();
+    new Buckshot._init();
+    return _ref;
   }
 
   Buckshot._init([String rootID = Buckshot._defaultRootID])
@@ -336,7 +337,7 @@ class Buckshot extends FrameworkObject {
   }
 
   void dumpRegisteredObjects(){
-    this._objectRegistry.forEach((k, v) => print('${v is FrameworkElement ? v.type : "()"}'));
+    this._objectRegistry.forEach((k, v) => print('${v is FrameworkElement || v is FrameworkResource ? v.type : "()"}'));
   }
   
   String get type() => "BuckshotSystem";
