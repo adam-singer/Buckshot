@@ -18,10 +18,10 @@ class StackPanelDebug implements IView {
     <border margin='10' background='Blue' width='10' height='10'></border>
   </stackpanel>
 
-  <textblock horizontalalignment='center'>short</textblock>
-  <textblock horizontalalignment='right'>medium medium medium</textblock>
+  <textblock horizontalalignment='center'>center center</textblock>
+  <textblock horizontalalignment='right'>right right right</textblock>
   <textblock>long long long long long long long long</textblock>
-  <border horizontalalignment='center' borderthickness='5' bordercolor='Purple' width='300' height='300' background='Yellow' cornerradius='300'></border>
+  <border horizontalalignment='center' borderthickness='5' bordercolor='Purple' width='150' height='150' background='Yellow' cornerradius='150'></border>
 </stackpanel>
 ''';
 

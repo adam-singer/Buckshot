@@ -274,11 +274,11 @@ data source 'fruit' the entire demo required no Dart coding in order to work.
     -->
     <itemstemplate>
       <stackpanel orientation="horizontal">
-        <border width="150" style="{resource rows}">
-          <textblock foreground="Black" text="{data title}"></textblock>
+        <border verticalalignment='stretch' width="150" style="{resource rows}">
+          <textblock horizontalalignment='stretch' foreground="Black" text="{data title}"></textblock>
         </border>
-        <border width="150" style="{resource rows}">
-          <textblock foreground="Black" text="{data description}"></textblock>
+        <border verticalalignment='stretch' width="150" style="{resource rows}">
+          <textblock horizontalalignment='stretch' foreground="Black" text="{data description}"></textblock>
         </border>
         <border width="310" style="{resource rows}">
           <youtube margin="10" videoid="{data hash}" width="300" height="200"></youtube>

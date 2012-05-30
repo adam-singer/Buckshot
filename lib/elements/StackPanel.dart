@@ -32,9 +32,9 @@ class StackPanel extends Panel
       (Orientation value){
         _Dom.setFlexBoxOrientation(this, value);
         if (value == Orientation.vertical){
-          _Dom.setXPCSS(_component, 'flex-direction', 'column');
+          _component.style.flexFlow = 'column';
         }else{
-          _Dom.setXPCSS(_component, 'flex-direction', 'row');
+          _component.style.flexFlow = 'row';
         }
 
       },
@@ -64,7 +64,7 @@ class StackPanel extends Panel
   Orientation get orientation() => getValue(orientationProperty);
 
   void CreateElement(){
-    _component = _Dom.createByTag("div");
+    _component = _Dom.createByTag('div');
     _Dom.makeFlexBox(this);
     _component.style.flexFlow = 'column';
     _component.style.overflow = 'hidden';

@@ -123,7 +123,6 @@ class Buckshot extends FrameworkObject {
     _initializeBuckshotProperties();
 
     //set the domRoot
-    print('clear! ${this.hashCode()}');
     _domRootElement.elements.clear();
     _domRootElement.elements.add(domRoot._component);
 

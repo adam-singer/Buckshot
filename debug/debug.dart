@@ -25,42 +25,11 @@ class Debug {
 
     _vm.title = "Demo Title"; //view can bind to this property
 
-
-//    FrameworkObject o = p.deserialize('''
-//      <textblock>Hello World.</textblock>
-//      ''');
-
-//    String test =
-//'''
-//<stackpanel grid.column="2">
-//
-//  <textblock text="Before Border TextBlock"></textblock>
-//
-//  <border cursor="Crosshair" margin="10" width="300" height="300" background="Green" borderThickness="3" cornerradius="5" borderColor="Blue">
-//
-//    <textblock horizontalalignment="center" text="In-Border TextBlock" foreground="White" fontSize="20">
-//
-//      <!-- properties can be declared inside the element like so... -->
-//      <verticalAlignment>center</verticalAlignment>
-//    </textblock>
-//
-//  </border>
-//
-//  <textblock text="After Border TextBlock"></textblock>
-//
-//</stackpanel>
-//''';
-
-   // FrameworkObject o = buckshot.defaultPresentationProvider.deserialize(test);
-
-    //buckshot.renderRaw(o);
-
-
     //passing the view, which triggers rendering on the page.
     //buckshot.rootView = new MainUIView();
-    buckshot.rootView = new GridDemoView.with(_vm);
+    //buckshot.rootView = new GridDemoView.with(_vm);
     //buckshot.rootView = new BorderDemoView();
-    //buckshot.rootView = new StackPanelDebug();
+    buckshot.rootView = new StackPanelDebug();
     //buckshot.rootView = new AlignmentPanelTestingView();
   }
 }
