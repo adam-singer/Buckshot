@@ -1,7 +1,4 @@
 
-#library('extensions_controlpack1_modaldialog');
-#import('../../lib/Buckshot.dart');
-
 /**
 * A Buckshot control that displays a general purpose
 * modal dialog and returns results.
@@ -25,25 +22,23 @@ class ModalDialog extends Control
   
   final List<ModalDialogButtons> buttons;
   
-  static ModalDialog _ref;
-  
-  factory ModalDialog(){
-    if (_ref != null){
-      _ref._updateButtons([ModalDialogButtons.OK]);
-      setValue(_ref.titleProperty, '');
-      setValue(_ref.textProperty, '');
-    }else{
-      _ref = new ModalDialog._internal('', '', [ModalDialogButtons.OK]);
-    }
-    return _ref;
-  }
-  
-  ModalDialog._internal(String title, String text, this.buttons)
+  ModalDialog()
+  :
+    buttons = new List<ModalDialogButtons>()
   {
     _initModalDialogProperties();
     
-    setValue(titleProperty, title);
-    setValue(textProperty, text);
+//    setValue(titleProperty, title);
+//    setValue(textProperty, text);
+  }
+  
+  ModalDialog.with(String dialogTitle, String dialogMessage)
+  :
+    buttons = new List<ModalDialogButtons>()
+  {
+    _initModalDialogProperties();
+    title = dialogTitle;
+    text = dialogMessage;
   }
   
   void _updateButtons(List<ModalDialogButtons> list){
@@ -91,15 +86,12 @@ class ModalDialog extends Control
     return c.future;
   }
 
-
   String get text() => getValue(textProperty);
   set text(String v) => setValue(textProperty, v);
   
   String get title() => getValue(titleProperty);
   set title(String v) => setValue(titleProperty, v);
-  
-  
-  
+    
 /// Overridden [BuckshotObject] method.
   FrameworkObject makeMe() => new ModalDialog();
 

@@ -20,6 +20,7 @@
 #import('../../extensions/social/SocialPack.dart');
 #import('../../extensions/actions/ActionPack.dart');
 #import('dart:html');
+#source('../../extensions/ControlPack1/ModalDialog.dart');
 #source('Views.dart');
 #source('DemoViewModel.dart');
 #source('DemoModel.dart');
@@ -34,6 +35,7 @@ void main() {
   initializeSocialPackExtensions();
   initializeMediaPackExtensions();
   initializeActionPackExtensions();
+  buckshot.registerElement(new ModalDialog());
   
   // initialize the presentation provider.  this will eventually be done by the framework
   IPresentationFormatProvider p = buckshot.defaultPresentationProvider;
@@ -199,6 +201,11 @@ void main() {
     
   // render the main view
   buckshot.renderRaw(o);
+  
+  var x = new ModalDialog();
+  x.text = "Hello World this is a test";
+  x.title = 'Hello world, this is a title';
+  x.show();
 }
 
 
