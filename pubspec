@@ -1,0 +1,3 @@
+dependencies:
+  dart-xml:
+    git: git://github.com/prujohn/dart-xml.git
