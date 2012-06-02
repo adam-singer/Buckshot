@@ -146,19 +146,18 @@ class _Dom {
 
   /// For individual items within a flexbox.
   static void setHorizontalItemFlexAlignment(FrameworkElement element, HorizontalAlignment alignment){
-
     switch(alignment){
       case HorizontalAlignment.left:
-        setXPCSS(element.rawElement, 'flex-item-align', 'start');
+        setXPCSS(element.rawElement, 'align-self', 'start');
         break;
       case HorizontalAlignment.right:
-        setXPCSS(element.rawElement, 'flex-item-align', 'end');
+        setXPCSS(element.rawElement, 'align-self', 'end');
         break;
       case HorizontalAlignment.center:
-        setXPCSS(element.rawElement, 'flex-item-align', 'center');
+        setXPCSS(element.rawElement, 'align-self', 'center');
         break;
       case HorizontalAlignment.stretch:
-        setXPCSS(element.rawElement, 'flex-item-align', 'stretch');
+        setXPCSS(element.rawElement, 'align-self', 'stretch');
         break;
       }
 
@@ -169,16 +168,16 @@ class _Dom {
 
     switch(alignment){
       case VerticalAlignment.top:
-        setXPCSS(element.rawElement, 'flex-item-align', 'start');
+        setXPCSS(element.rawElement, 'align-self', 'start');
         break;
       case VerticalAlignment.bottom:
-        setXPCSS(element.rawElement, 'flex-item-align', 'end');
+        setXPCSS(element.rawElement, 'align-self', 'end');
         break;
       case VerticalAlignment.center:
-        setXPCSS(element.rawElement, 'flex-item-align', 'center');
+        setXPCSS(element.rawElement, 'align-self', 'center');
         break;
       case VerticalAlignment.stretch:
-        setXPCSS(element.rawElement, 'flex-item-align', 'stretch');
+        setXPCSS(element.rawElement, 'align-self', 'stretch');
         break;
       }
 

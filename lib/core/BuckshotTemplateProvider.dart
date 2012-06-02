@@ -44,7 +44,7 @@ class BuckshotTemplateProvider
         xmlElement.children.every((n) => n is! XmlText)){
       //process nodes
 
-      for(final e in xmlElement.children){
+      for(final e in xmlElement.children.dynamic){
         String elementLowerTagName = e.name.toLowerCase();
 
         if (buckshot._objectRegistry.containsKey(elementLowerTagName)){
