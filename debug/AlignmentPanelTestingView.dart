@@ -20,93 +20,93 @@ class AlignmentPanelTestingView implements IView {
 </border>
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='left' verticalalignment='stretch'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>HL-VS</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='center' verticalalignment='stretch'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>HC-VS</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='right' verticalalignment='stretch'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>HR-VS</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='stretch' verticalalignment='top'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>HS-VT</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='stretch' verticalalignment='center'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>HS-VC</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='stretch' verticalalignment='bottom'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>HS-VB</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='left' verticalalignment='top'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>LT</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='center' verticalalignment='top'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>CT</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='right' verticalalignment='top'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>RT</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='right' verticalalignment='center'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>RC</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='right' verticalalignment='bottom'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>RB</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='center' verticalalignment='bottom'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>CB</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='left' verticalalignment='bottom'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>LB</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='left' verticalalignment='center'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>LC</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>
 <border margin='1' width='300' height='300' background='Orange'>
   <border background='Black' horizontalalignment='center' verticalalignment='center'>
-    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>hi</textblock>
+    <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>CC</textblock>
   </border>
   <!--<textblock horizontalalignment='stretch' verticalalignment='bottom'>hello world</textblock>-->
 </border>

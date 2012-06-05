@@ -140,18 +140,20 @@ class _Dom {
   }
 
   static void setFlexBoxOrientation(FrameworkElement element, Orientation orientation){
-    element._component.style.boxOrient = (orientation == Orientation.horizontal) ? 'horizontal' : 'vertical';
+    setXPCSS(element.rawElement, 'flex-direction', (orientation == Orientation.horizontal) ? 'row' : 'column');
+//    
+//    element._component.style.boxOrient = (orientation == Orientation.horizontal) ? 'horizontal' : 'vertical';
 
   }
 
-  /// For individual items within a flexbox.
+  /// For individual items within a flexbox, but only in the cross-axis.
   static void setHorizontalItemFlexAlignment(FrameworkElement element, HorizontalAlignment alignment){
     switch(alignment){
       case HorizontalAlignment.left:
-        setXPCSS(element.rawElement, 'align-self', 'start');
+        setXPCSS(element.rawElement, 'align-self', 'flex-start');
         break;
       case HorizontalAlignment.right:
-        setXPCSS(element.rawElement, 'align-self', 'end');
+        setXPCSS(element.rawElement, 'align-self', 'flex-end');
         break;
       case HorizontalAlignment.center:
         setXPCSS(element.rawElement, 'align-self', 'center');
@@ -163,15 +165,15 @@ class _Dom {
 
   }
 
-  /// For individual items within a flexbox.
+  /// For individual items within a flexbox, but only in the cross-axis.
   static void setVerticalItemFlexAlignment(FrameworkElement element, VerticalAlignment alignment){
 
     switch(alignment){
       case VerticalAlignment.top:
-        setXPCSS(element.rawElement, 'align-self', 'start');
+        setXPCSS(element.rawElement, 'align-self', 'flex-start');
         break;
       case VerticalAlignment.bottom:
-        setXPCSS(element.rawElement, 'align-self', 'end');
+        setXPCSS(element.rawElement, 'align-self', 'flex-end');
         break;
       case VerticalAlignment.center:
         setXPCSS(element.rawElement, 'align-self', 'center');
@@ -186,34 +188,33 @@ class _Dom {
   static void setHorizontalFlexBoxAlignment(FrameworkObject element, HorizontalAlignment alignment){
     switch(alignment){
       case HorizontalAlignment.left:
-        //setXPCSS(element.rawElement, 'justify-content', 'flex-start');
-        element._component.style.flexPack = 'start';
+        setXPCSS(element.rawElement, 'justify-content', 'flex-start');
+        //element._component.style.flexPack = 'start';
         break;
       case HorizontalAlignment.right:
-        //setXPCSS(element.rawElement, 'justify-content', 'flex-end');
-        element._component.style.flexPack = 'end';
+        setXPCSS(element.rawElement, 'justify-content', 'flex-end');
+        //element._component.style.flexPack = 'end';
         break;
       case HorizontalAlignment.center:
-        //setXPCSS(element.rawElement, 'justify-content', 'center');
-        element._component.style.flexPack = 'center';
+        setXPCSS(element.rawElement, 'justify-content', 'center');
+        //element._component.style.flexPack = 'center';
         break;
       case HorizontalAlignment.stretch:
         //TODO start?
-        //setXPCSS(element.rawElement, 'justify-content', 'stretch');
-        element._component.style.flexPack = 'start';
+        setXPCSS(element.rawElement, 'justify-content', 'stretch');
+        //element._component.style.flexPack = 'start';
         break;
       }
   }
 
-  //cross axis
   static void setVerticalFlexBoxAlignment(FrameworkObject element, VerticalAlignment alignment){
     switch(alignment){
       case VerticalAlignment.top:
-        setXPCSS(element.rawElement, 'align-items', 'start');
+        setXPCSS(element.rawElement, 'align-items', 'flex-start');
         //element._component.style.flexAlign = 'start';
         break;
       case VerticalAlignment.bottom:
-        setXPCSS(element.rawElement, 'align-items', 'end');
+        setXPCSS(element.rawElement, 'align-items', 'flex-end');
         //element._component.style.flexAlign = 'end';
         break;
       case VerticalAlignment.center:

@@ -31,12 +31,6 @@ class StackPanel extends Panel
       "orientation",
       (Orientation value){
         _Dom.setFlexBoxOrientation(this, value);
-        if (value == Orientation.vertical){
-          _component.style.flexFlow = 'column';
-        }else{
-          _component.style.flexFlow = 'row';
-        }
-
       },
       Orientation.vertical, converter:new StringToOrientationConverter());
   }
@@ -66,21 +60,24 @@ class StackPanel extends Panel
   void CreateElement(){
     _component = _Dom.createByTag('div');
     _Dom.makeFlexBox(this);
-    _component.style.flexFlow = 'column';
+    //_component.style.flexFlow = 'column';
     _component.style.overflow = 'hidden';
   }
 
   void updateLayout(){
+    _Dom.setVerticalFlexBoxAlignment(this, VerticalAlignment.top);
+    _Dom.setHorizontalFlexBoxAlignment(this, HorizontalAlignment.left);
     if (orientation == Orientation.vertical){
       children.forEach((child){
+        _Dom.setXPCSS(child.rawElement, 'flex', 'none');
         _Dom.setHorizontalItemFlexAlignment(child, child.horizontalAlignment);
       });
     }else{
       children.forEach((child){
-        _Dom.setVerticalItemFlexAlignment(child, child.verticalAlignment);
+        _Dom.setXPCSS(child.rawElement, 'flex', 'none');
+        _Dom.setVerticalItemFlexAlignment(child, child.verticalAlignment);      
       });
     }
-
   }
 
   String get type() => "StackPanel";
