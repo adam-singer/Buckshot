@@ -34,7 +34,7 @@ class Control extends FrameworkElement
   Control()
 //  : _allTemplateBindings = new HashMap<FrameworkProperty, String>()
   {
-    _Dom.appendBuckshotClass(_component, "control");
+    Dom.appendBuckshotClass(_component, "control");
     _initControlProperties();
   }
 

@@ -30,7 +30,7 @@ class Button extends Control implements IFrameworkContainer
 
   Button()
   {
-    _Dom.appendBuckshotClass(_component, "button");
+    Dom.appendBuckshotClass(_component, "button");
 
     // Initialize FrameworkProperty declarations.
     contentProperty = new FrameworkProperty(

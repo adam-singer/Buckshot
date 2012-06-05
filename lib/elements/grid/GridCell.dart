@@ -26,7 +26,7 @@ class _GridCell extends FrameworkObject
   
   _GridCell()
   {
-    _Dom.appendBuckshotClass(_component, "GridCell");
+    Dom.appendBuckshotClass(_component, "GridCell");
 
     _initGridCellProperties();
 
@@ -76,7 +76,7 @@ class _GridCell extends FrameworkObject
     _component = new DivElement();
     _component.style.overflow = "hidden";
     _component.style.position = "absolute";
-    _Dom.makeFlexBox(this);
+    Dom.makeFlexBox(this);
   }
 
   /// Overridden [FrameworkObject] method is called when the framework requires elements to recalculate layout.
@@ -87,7 +87,7 @@ class _GridCell extends FrameworkObject
 
           //TODO need better way to check CSS3 support than each time.
           //(ala Modernizr)
-          if (!_Dom.attemptSetXPCSS(content.rawElement, 'flex', '1')){
+          if (!Dom.attemptSetXPCSS(content.rawElement, 'flex', '1')){
             //shim
             if (_ref == null){
               _ref = this.measurementChanged + (source, MeasurementChangedEventArgs args){
@@ -100,7 +100,7 @@ class _GridCell extends FrameworkObject
             }
           }
         }else{
-          if (!_Dom.attemptSetXPCSS(content.rawElement, 'flex', 'none')){
+          if (!Dom.attemptSetXPCSS(content.rawElement, 'flex', 'none')){
             //shim
             if (_ref != null){
               this.measurementChanged - _ref;
@@ -108,12 +108,12 @@ class _GridCell extends FrameworkObject
               content.rawElement.style.width = 'auto';
             }
           }
-          _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
+          Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
         }
       }
 
       if (content.verticalAlignment != null){
-        _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
+        Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
       }
     }
   }

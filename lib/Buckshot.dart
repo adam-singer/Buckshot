@@ -134,7 +134,7 @@
 #source('core/FrameworkElement.dart');
 #source('core/HashableObject.dart');
 #source('core/IValueConverter.dart');
-#source('core/DomHelpers.dart');
+#source('core/DOM.dart');
 #source('core/BuckshotObject.dart');
 #source('core/IPresentationFormatProvider.dart');
 #source('core/BuckshotTemplateProvider.dart');

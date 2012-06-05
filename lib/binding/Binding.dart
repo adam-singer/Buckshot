@@ -179,10 +179,10 @@ class _BindingImplementation extends BuckshotObject implements Binding
   {
     for (final binding in property.sourceObject._bindings){
 
-      setValue(binding._toProperty,
-        binding.converter.convert(getValue(binding._fromProperty)));
+      setValue(binding.dynamic._toProperty,
+        binding.dynamic.converter.convert(getValue(binding.dynamic._fromProperty)));
 
-      if (binding.bindingMode == BindingMode.OneTime)
+      if (binding.dynamic.bindingMode == BindingMode.OneTime)
         binding.unregister();
     }
   }

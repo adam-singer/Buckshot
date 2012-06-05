@@ -51,7 +51,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
   {
     _BORDERWIDTHSHIM = '__border_width_shim_preserved_width__${hashCode()}';
     
-    _Dom.appendBuckshotClass(_component, "border");
+    Dom.appendBuckshotClass(_component, "border");
 
     _initBorderProperties();
 
@@ -182,7 +182,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
   void CreateElement(){
     _component = new DivElement();
     _component.style.overflow = "hidden";
-    _Dom.makeFlexBox(this);
+    Dom.makeFlexBox(this);
   }
 
   /// Overridden [FrameworkObject] method is called when the framework
@@ -192,12 +192,12 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
     if (content == null) return;
     
-    _Dom.setXPCSS(content.rawElement, 'flex', 'none');
+    Dom.setXPCSS(content.rawElement, 'flex', 'none');
     
     if (content.horizontalAlignment != null){
 //      if (content.horizontalAlignment == HorizontalAlignment.stretch){
 //
-//        if (!_Dom.attemptSetXPCSS(content.rawElement, 'align-self', 'stretch')){
+//        if (!Dom.attemptSetXPCSS(content.rawElement, 'align-self', 'stretch')){
 //          //shim
 //          this._stateBag[_BORDERWIDTHSHIM] = content.rawElement.style.width;
 //          if (_ref == null){
@@ -211,7 +211,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
 //          }
 //        }
 //      }else{
-//        if (!_Dom.attemptSetXPCSS(content.rawElement, 'align-self', 'start')){
+//        if (!Dom.attemptSetXPCSS(content.rawElement, 'align-self', 'start')){
 //          //shim
 //          if (_ref != null){
 //            this.measurementChanged - _ref;
@@ -222,14 +222,14 @@ class Border extends FrameworkElement implements IFrameworkContainer
 //          }
 //        }
         if(content.horizontalAlignment == HorizontalAlignment.stretch){
-          _Dom.setXPCSS(content.rawElement, 'flex', 'auto');
+          Dom.setXPCSS(content.rawElement, 'flex', 'auto');
         }
-        _Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
+        Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
 //      }
     }
 
     if (content.verticalAlignment != null){
-      _Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
+      Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
     }
   }
 

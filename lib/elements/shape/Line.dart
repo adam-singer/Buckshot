@@ -21,7 +21,7 @@ class Line extends Shape
   BuckshotObject makeMe() => new Line();
   
   Line(){
-    _Dom.appendBuckshotClass(_component, "line");
+    Dom.appendBuckshotClass(_component, "line");
     _initLineProperties();
   }
   

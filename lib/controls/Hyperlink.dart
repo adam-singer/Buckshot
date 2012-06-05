@@ -40,7 +40,7 @@ class Hyperlink extends Control implements IFrameworkContainer
   
   Hyperlink()
   {
-    _Dom.appendBuckshotClass(_component, "hyperlink");
+    Dom.appendBuckshotClass(_component, "hyperlink");
 
     _initHyperlinkProperties();
     

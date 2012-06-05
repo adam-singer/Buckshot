@@ -34,7 +34,7 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
   Panel()
   : children = new ObservableList<FrameworkElement>()
   {
-    _Dom.appendBuckshotClass(_component, "panel");
+    Dom.appendBuckshotClass(_component, "panel");
 
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = children;
 

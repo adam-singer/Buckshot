@@ -21,7 +21,7 @@ class Rectangle extends Shape{
   BuckshotObject makeMe() => new Rectangle();
         
   Rectangle(){
-    _Dom.appendBuckshotClass(_component, "rectangle");
+    Dom.appendBuckshotClass(_component, "rectangle");
   }
   
   //override shape properties since we are just using a div here instead of SVG element

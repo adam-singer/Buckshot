@@ -18,6 +18,7 @@
 
 #library('extensions_social_plusone');
 #import('../../lib/Buckshot.dart');
+#import('dart:html');
 
 /**
 * Implements a Google+ +1 button element.
@@ -49,7 +50,7 @@ class PlusOne extends FrameworkElement
     EventHandlerReference ref;
 
     loaded + (_, __){
-      Dom.inject(_plusOneJS);
+      _inject(_plusOneJS);
       loaded - ref;
     };
   }
@@ -67,6 +68,19 @@ class PlusOne extends FrameworkElement
   
   PlusOneAnnotationTypes get annotation() => getValue(annotationProperty);
   PlusOneButtonSizes get size() => getValue(sizeProperty);
+  
+  /**
+  * Injects javascript into the DOM, and optionally removes it after the script has run. */
+  static void _inject(String javascript, [bool removeAfter = false]){
+    var s = Dom.createByTag("script");
+    s.attributes["type"] = "text/javascript";
+    s.text = javascript;
+
+    document.body.nodes.add(s);
+
+    if (removeAfter != null && removeAfter)
+      s.remove();
+  }
   
   
   void CreateElement(){

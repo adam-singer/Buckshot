@@ -31,7 +31,7 @@ class TextArea extends Control
   TextArea() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {
-    _Dom.appendBuckshotClass(_component, "textarea");
+    Dom.appendBuckshotClass(_component, "textarea");
     
     _initProperties();
 

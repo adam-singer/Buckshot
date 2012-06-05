@@ -26,7 +26,7 @@ class Ellipse extends Shape{
   FrameworkProperty _ryProperty;
   
   Ellipse(){
-    _Dom.appendBuckshotClass(_component, "ellipse");
+    Dom.appendBuckshotClass(_component, "ellipse");
     _initEllipseProperties();
   }
   

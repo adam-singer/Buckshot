@@ -21,7 +21,7 @@ class PolyLine extends Shape
   BuckshotObject makeMe() => new PolyLine();
   
   PolyLine(){
-    _Dom.appendBuckshotClass(_component, "polyline");
+    Dom.appendBuckshotClass(_component, "polyline");
     _initPolyLineProperties();
   }
   

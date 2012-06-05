@@ -67,14 +67,14 @@ class FrameworkAnimation
   
   /// Low-level function that clears a CSS3 transition property for a given [AnimatingFrameworkProperty].
   static void clearPropertyTransition(AnimatingFrameworkProperty property){
-    String transProp = _Dom.getXPCSS(property.sourceObject.dynamic._component, 'transition');
+    String transProp = Dom.getXPCSS(property.sourceObject.dynamic._component, 'transition');
         
     if (transProp == null || !transProp.contains(property.cssPropertyPeer)) return;
     
     List props = transProp != null ? transProp.split(',') : [];
     
     if (props.length == 1){
-      _Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', '');
+      Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', '');
       return;
     }
 
@@ -97,7 +97,7 @@ class FrameworkAnimation
 
     sb.add(props.last());
     
-    _Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', sb.toString());
+    Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', sb.toString());
   }
   
   /// Low-level function that sets a CSS3 transition property for a given [AnimatingFrameworkProperty].
@@ -105,17 +105,17 @@ class FrameworkAnimation
     
     String newProp = '${property.cssPropertyPeer} ${transition.durationInSeconds}s ${transition.timing} ${transition.delay}s';    
     
-    String transProp = _Dom.getXPCSS(property.sourceObject.dynamic._component, 'transition');
+    String transProp = Dom.getXPCSS(property.sourceObject.dynamic._component, 'transition');
     
     if (transProp == null){
       //create and return;
-      _Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', newProp);
+      Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', newProp);
       return;
     }
     
     if (transProp != null && !transProp.contains(property.cssPropertyPeer)){
       //append and return;
-      _Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', '${transProp}, $newProp');
+      Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', '${transProp}, $newProp');
       return;
     }
 
@@ -147,7 +147,7 @@ class FrameworkAnimation
 
     sb.add(props.last());
     
-    _Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', sb.toString());
+    Dom.setXPCSS(property.sourceObject.dynamic._component, 'transition', sb.toString());
   }
   
   BuckshotAnimation(){

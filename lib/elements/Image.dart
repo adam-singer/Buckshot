@@ -28,7 +28,7 @@ class Image extends FrameworkElement {
   FrameworkObject makeMe() => new Image();
   
   Image(){
-    _Dom.appendBuckshotClass(_component, "image");
+    Dom.appendBuckshotClass(_component, "image");
     _initializeImageProperties();
   }
   

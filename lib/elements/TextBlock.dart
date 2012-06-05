@@ -26,7 +26,7 @@ class TextBlock extends FrameworkElement
 
   TextBlock()
   {
-    _Dom.appendBuckshotClass(_component, "textblock");
+    Dom.appendBuckshotClass(_component, "textblock");
 
     _initTextBlockProperties();
 

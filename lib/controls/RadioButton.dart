@@ -26,7 +26,7 @@ class RadioButton extends Control
   RadioButton()
   : selectionChanged = new FrameworkEvent<EventArgs>()
   {
-    _Dom.appendBuckshotClass(_component, "radiobutton");
+    Dom.appendBuckshotClass(_component, "radiobutton");
     _initProperties();
     _initEvents();
   }    

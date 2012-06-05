@@ -32,7 +32,7 @@ class DropDownList extends Control
   :
     selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs<DropDownListItem>>()
   {
-      _Dom.appendBuckshotClass(_component, "dropdownlist");
+      Dom.appendBuckshotClass(_component, "dropdownlist");
     _initDropDownListProperties();
   }
   

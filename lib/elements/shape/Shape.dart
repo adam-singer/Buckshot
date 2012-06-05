@@ -29,7 +29,7 @@ class Shape extends FrameworkElement
   FrameworkProperty _shProperty;
   
   Shape(){
-    _Dom.appendBuckshotClass(_component, "shape");
+    Dom.appendBuckshotClass(_component, "shape");
     _initShapeProperties();
   }
   
