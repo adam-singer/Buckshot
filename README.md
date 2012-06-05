@@ -12,7 +12,7 @@ Project is currently in the **alpha** stage of development.  It will likely not 
 ## Bleeding Edge
 Buckshot uses the very latest in HTML5/CSS3 standards.  No shims are yet in place to compensate for older or non-compliant browsers.
 
-In particular, the layout model uses the latest draft of the [CSS3 flexbox](http://dev.w3.org/csswg/css3-flexbox/) spec, so it will currently only work with the latest build of Chrome or Dartium.
+In particular, the layout model uses the latest draft of the [CSS3 flexbox](http://dev.w3.org/csswg/css3-flexbox/) spec, so it will currently only work with the latest build of Chromium or Dartium.
 
 ## Getting Started
 * [API Reference](http://www.lucastudios.com/trybuckshot/docs/)
