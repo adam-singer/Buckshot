@@ -102,9 +102,9 @@ class Buckshot extends FrameworkObject {
     _ref = this;
     _initBuckshotSystem(rootID);
   }
-
+  
   void _initBuckshotSystem(String rootID)
-  {
+  {   
     _domRootElement = document.query(rootID);
 
     if (_domRootElement == null)
@@ -115,7 +115,11 @@ class Buckshot extends FrameworkObject {
       throw new BuckshotException("Root element for Buckshot"
         " must be a <div>. Element given was"
         " a <${_domRootElement.tagName.toLowerCase()}>");
-
+   
+    if (!browserOK){
+      print('Buckshot Warning: Browser may not be compatible with Buckshot framework.');
+    }
+    
     _initCSS();
 
     defaultPresentationProvider = new BuckshotTemplateProvider();
@@ -171,6 +175,24 @@ class Buckshot extends FrameworkObject {
     });
   }
 
+  
+  /** Returns true if the framework is known to be compatible with the browser type/version it is running in */
+  static bool get browserOK() {
+    final ua = window.navigator.userAgent;
+    
+    //Dartium should always work
+    if (ua.contains('(Dart)')) return true;
+    
+    //Chrome(ium) v21+
+    if (ua.contains('Chrome/')){
+      final i = ua.indexOf('Chrome/') + 7;
+      final v = Math.parseInt(ua.substring(i, i + 2));
+      if (v >= 21) return true;
+    }   
+    
+    return false;
+  }
+  
   // TODO move this to BuckshotObject as instance method?
 
   /// Performs a search of the element tree starting from the given
