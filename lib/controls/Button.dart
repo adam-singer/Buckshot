@@ -78,7 +78,7 @@ class Button extends Control implements IFrameworkContainer
   /// Overridden [FrameworkObject] method.
   void CreateElement()
   {
-    _component = _Dom.createByTag("button");
+    _component = new ButtonElement();
     _component.style.display = 'block';
   }
 

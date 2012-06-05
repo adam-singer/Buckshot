@@ -77,7 +77,7 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
 
   /// Overridden [FrameworkObject] method.
   void CreateElement(){
-    _component = _Dom.createByTag('div');
+    _component = new DivElement();
     _component.style.overflow = "hidden";
   }
 

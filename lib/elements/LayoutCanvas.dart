@@ -141,7 +141,7 @@ class LayoutCanvas extends Panel
 
   /// Overridden [FrameworkObject] method.
   void CreateElement(){
-    _component = _Dom.createByTag("div");
+    _component = new DivElement();
     _component.style.overflow = "hidden";
   }
 

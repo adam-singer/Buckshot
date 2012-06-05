@@ -683,7 +683,7 @@ class FrameworkElement extends FrameworkObject {
 
   /// Overridden [FrameworkObject] method.
   void CreateElement(){
-    _component = _Dom.createByTag("div");
+    _component = new DivElement();
   }
 
   /// Overridden [FrameworkObject] method.

@@ -73,7 +73,7 @@ class _GridCell extends FrameworkObject
 
   /// Overridden [FrameworkObject] method for generating the html representation of the border.
   void CreateElement(){
-    _component = _Dom.createByTag('div');
+    _component = new DivElement();
     _component.style.overflow = "hidden";
     _component.style.position = "absolute";
     _Dom.makeFlexBox(this);

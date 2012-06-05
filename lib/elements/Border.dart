@@ -180,7 +180,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
   /// Overridden [FrameworkObject] method for generating the html representation of the border.
   void CreateElement(){
-    _component = _Dom.createByTag('div');
+    _component = new DivElement();
     _component.style.overflow = "hidden";
     _Dom.makeFlexBox(this);
   }

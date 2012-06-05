@@ -149,7 +149,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
 
   /// Overriden [FrameworkObject] method.
   void CreateElement(){
-    _component = _Dom.createByTag("div");
+    _component = new DivElement();
   }
 
   String get type() => "CollectionPresenter";

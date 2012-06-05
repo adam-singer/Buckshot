@@ -55,7 +55,7 @@ class Image extends FrameworkElement {
   
   /// Overridden [FrameworkObject] method.
   void CreateElement(){
-    _component = _Dom.createByTag("img");
+    _component = new ImageElement();
   }
   
   String get type() => "Image";

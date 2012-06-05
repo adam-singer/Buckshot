@@ -72,7 +72,7 @@ class CheckBox extends Control
   
   
   void CreateElement(){
-    _component = _Dom.createByTag("input");
+    _component = new InputElement();
     _component.attributes["type"] = "checkbox";
   }
   

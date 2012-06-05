@@ -63,10 +63,7 @@ class _Dom {
     element.attributes["class"] = currentClasses != "" ? currentClasses + " " + classToAppend : classToAppend;
   }
 
-  static Element createByTag(String tagName){
-    return new Element.tag(tagName);
-  }
-
+  /** Converts and element into a flexbox container. */
   static void makeFlexBox(FrameworkObject element){
     prefixes.forEach((String p){
       var pre = '${p}box'; //assigning here because some bug won't let me pass it directly in .setProperty
@@ -79,6 +76,7 @@ class _Dom {
 
   }
 
+  /** Returns a string representing a cross-browser CSS property assignment. */
   static String generateXPCSS(String declaration, String value){
     StringBuffer sb = new StringBuffer();
 
@@ -89,6 +87,7 @@ class _Dom {
     return sb.toString();
   }
 
+  /** Returns true if the given property is supported. */
   static bool checkCSS3Support(Element e, String property, String value){
 
     var result = getXPCSS(e, property);
@@ -107,6 +106,7 @@ class _Dom {
     return false;
   }
 
+  /** Removes a given CSS property from an HTML element. Supports all common browser prefixes. */
   static void removeXPCSS(Element e, String property){
     for(final String p in prefixes){
       var pre = '${p}${property}'; //assigning here because some bug won't let me pass it directly in .setProperty
@@ -114,19 +114,21 @@ class _Dom {
     }
   }
 
+  /** Returns true if able to set a a given CSS value/property. Supports all common browser prefixes.  */
   static bool attemptSetXPCSS(Element e, String property, String value){
     setXPCSS(e, property, value);
     return getXPCSS(e, property) != null;
   }
 
+  /** Assigns a value to a property of an element that ensures cross-browser support. Supports all common browser prefixes.  */
   static void setXPCSS(Element e, String property, String value){
-
     prefixes.forEach((String p){
      var pre = '${p}${property}'; //assigning here because some bug won't let me pass it directly in .setProperty
      e.style.setProperty(pre, value, '1');
      });
   }
 
+  /** Gets a value from a given property.   Supports all common browser prefixes. */
   static String getXPCSS(Element e, String property){
 
     for(final String p in prefixes){
@@ -141,9 +143,6 @@ class _Dom {
 
   static void setFlexBoxOrientation(FrameworkElement element, Orientation orientation){
     setXPCSS(element.rawElement, 'flex-direction', (orientation == Orientation.horizontal) ? 'row' : 'column');
-//    
-//    element._component.style.boxOrient = (orientation == Orientation.horizontal) ? 'horizontal' : 'vertical';
-
   }
 
   /// For individual items within a flexbox, but only in the cross-axis.
@@ -162,7 +161,6 @@ class _Dom {
         setXPCSS(element.rawElement, 'align-self', 'stretch');
         break;
       }
-
   }
 
   /// For individual items within a flexbox, but only in the cross-axis.
@@ -182,7 +180,6 @@ class _Dom {
         setXPCSS(element.rawElement, 'align-self', 'stretch');
         break;
       }
-
   }
 
   static void setHorizontalFlexBoxAlignment(FrameworkObject element, HorizontalAlignment alignment){
@@ -227,5 +224,4 @@ class _Dom {
         break;
     }
   }
-
 }

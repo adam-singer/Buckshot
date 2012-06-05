@@ -79,7 +79,7 @@ class DropDownList extends Control
     
     if (itemsSource != null){
       itemsSource.forEach((i){
-        var option = _Dom.createByTag('option');
+        var option = new OptionElement();
         option.attributes['value'] = '$i';
         option.text = '$i';
         _component.elements.add(option);
@@ -87,7 +87,7 @@ class DropDownList extends Control
       
     }else{
       items.forEach((DropDownListItem i){
-        var option = _Dom.createByTag('option');
+        var option = new OptionElement();
         option.attributes['value'] = i.value;
         option.text = i.name;
         
@@ -107,7 +107,7 @@ class DropDownList extends Control
   
   /// Overridden [FrameworkObject] method for generating the html representation of the DDL.
   void CreateElement(){
-    _component = _Dom.createByTag('select');
+    _component = new Element.tag('select');
   }
     
   String get type() => "DropDownList";

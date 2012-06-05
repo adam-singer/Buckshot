@@ -72,7 +72,7 @@ class Slider extends Control
   set max(v) => setValue(maxProperty, v);
 
   void CreateElement(){
-    _component = _Dom.createByTag("input");
+    _component = new InputElement();
     _component.attributes["type"] = "range";
   }
 

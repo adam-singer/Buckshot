@@ -97,7 +97,7 @@ class TextArea extends Control
   
   
   void CreateElement(){
-    _component = _Dom.createByTag("textarea");
+    _component = new TextAreaElement();
   }
   
   String get type() => "TextArea";

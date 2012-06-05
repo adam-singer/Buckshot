@@ -59,7 +59,7 @@ class RawHtml extends FrameworkElement
   set htmlString(String value) => setValue(htmlStringProperty, value);
   
   void CreateElement(){
-    _component = _Dom.createByTag("div");
+    _component = new DivElement();
   }
   
   void updateLayout(){}

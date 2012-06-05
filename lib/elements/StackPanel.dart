@@ -58,7 +58,7 @@ class StackPanel extends Panel
   Orientation get orientation() => getValue(orientationProperty);
 
   void CreateElement(){
-    _component = _Dom.createByTag('div');
+    _component = new DivElement();
     _Dom.makeFlexBox(this);
     //_component.style.flexFlow = 'column';
     _component.style.overflow = 'hidden';
