@@ -195,37 +195,11 @@ class Border extends FrameworkElement implements IFrameworkContainer
     Dom.setXPCSS(content.rawElement, 'flex', 'none');
     
     if (content.horizontalAlignment != null){
-//      if (content.horizontalAlignment == HorizontalAlignment.stretch){
-//
-//        if (!Dom.attemptSetXPCSS(content.rawElement, 'align-self', 'stretch')){
-//          //shim
-//          this._stateBag[_BORDERWIDTHSHIM] = content.rawElement.style.width;
-//          if (_ref == null){
-//            _ref = this.measurementChanged + (source, MeasurementChangedEventArgs args){
-//              if (content is! Border){
-//                content.rawElement.style.width = '${args.newMeasurement.client.width - (content.margin.left + content.margin.right + this.padding.left + this.padding.right)}px';
-//              }else{
-//                content.rawElement.style.width = '${args.newMeasurement.client.width - (content.dynamic.padding.left + content.dynamic.padding.right + content.margin.left + content.margin.right + this.padding.left + this.padding.right)}px';
-//              }
-//            };
-//          }
-//        }
-//      }else{
-//        if (!Dom.attemptSetXPCSS(content.rawElement, 'align-self', 'start')){
-//          //shim
-//          if (_ref != null){
-//            this.measurementChanged - _ref;
-//            _ref = null;
-//            if (this._stateBag.containsKey(_BORDERWIDTHSHIM)){
-//              content.rawElement.style.width = this._stateBag[_BORDERWIDTHSHIM];
-//            }
-//          }
-//        }
         if(content.horizontalAlignment == HorizontalAlignment.stretch){
-          Dom.setXPCSS(content.rawElement, 'flex', 'auto');
+          Dom.setXPCSS(content.rawElement, 'flex', '1 1 auto');
         }
+        
         Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
-//      }
     }
 
     if (content.verticalAlignment != null){

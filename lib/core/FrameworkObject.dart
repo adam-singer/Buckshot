@@ -294,6 +294,8 @@ class FrameworkObject extends BuckshotObject {
   ElementRect mostRecentMeasurement;
 
   void updateMeasurement(){
+    if (!isLoaded) return;
+    
     _component
       .rect
       .then((ElementRect r) { mostRecentMeasurement = r;});

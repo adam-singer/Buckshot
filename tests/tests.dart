@@ -176,12 +176,12 @@
 #source('ResourceTests.dart');
 #source('VarResourceTests.dart');
 #source('FrameworkAnimationTests.dart');
+#source('LayoutTests.dart');
 
 void main() {
   final _tList = new List<TestGroupBase>();
 
   useHtmlEnhancedConfiguration();
-  //useHtmlConfiguration();
 
   group('Dart Bugs', (){
 
@@ -209,6 +209,10 @@ void main() {
 
   group('Initialization', (){
     test('Buckshot Initialized', () => Expect.isNotNull(buckshot.domRoot));
+  });
+  
+  group('Layout Tests', (){
+    layoutTests();
   });
 
   _tList.add(new FrameworkFundamentalsTests());

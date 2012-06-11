@@ -102,7 +102,7 @@ void main() {
     
   void handleSelection(_, SelectedItemChangedEventArgs<DropDownListItem> args){
 
-    switch(args.selectedItem.value){
+    switch(args.selectedItem.value.toString()){
       case "helloworld":
         tbUserInput.text = views.helloWorldView;
         borderContent.content = p.deserialize(views.helloWorldView);

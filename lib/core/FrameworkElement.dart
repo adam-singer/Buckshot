@@ -507,9 +507,10 @@ class FrameworkElement extends FrameworkObject {
 
   }
 
+  //TODO: throw exception (maybe) if element is not loaded in DOM
   Future<ElementRect> get updateMeasurementAsync(){
    Completer c = new Completer();
-
+   
    rawElement.rect.then((ElementRect r){
     setValue(actualWidthProperty, r.bounding.width);
     setValue(actualHeightProperty, r.bounding.height);
@@ -523,10 +524,6 @@ class FrameworkElement extends FrameworkObject {
 
 
   void _initFrameworkEvents(){
-
-
-
-
     void mouseUpHandler(e){
       if (!mouseUp.hasHandlers) return;
 
