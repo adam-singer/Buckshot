@@ -62,6 +62,4 @@ class ViewModel extends ViewModelBase
   Brush get statusColor() => getValue(statusColorProperty);
   set statusColor(Brush value) => setValue(statusColorProperty, value);
   
-  
-  
 }

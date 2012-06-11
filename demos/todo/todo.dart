@@ -4,19 +4,6 @@
 #source('ViewModel.dart');
 
 
-class todo {
-
-  todo() {
-  }
-
-  void run() {
-  
-    buckshot.rootView = new View();
-    
-  }
-
-}
-
 void main() {
-  new todo().run();
+  buckshot.rootView = new View();
 }

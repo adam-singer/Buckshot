@@ -340,12 +340,53 @@ class Buckshot extends FrameworkObject {
   /// Gets the currently assigned [IView].
   IView get rootView() => _currentView;
 
-
   /// Wraps a FrameworkElement into an [IView] and sets it as the root view.
   void renderRaw(FrameworkElement element){
     rootView = new IView(element);
   }
-
+  
+  /**
+  * # Usage #
+  *     //Retrieves the template from the current web page
+  *     //and returns a String containing the template 
+  *     //synchronously.
+  *     getTemplate('#templateID').then(...);
+  *
+  *     //Retrieves the template from the URI (same domain)
+  *     //and returns a String containing the template
+  *     //asynchronously in a Future<String>.
+  *     getTemplate('/relative/path/to/templateName.xml').then(...);
+  */
+  getTemplate(String from){   
+    if (from.startsWith('#')){
+      var result = document.query(from);
+      return result == null ? null : result.text;
+      
+    }else{
+      //TODO cache...
+      
+      var c = new Completer();
+      var r = new XMLHttpRequest();
+      r.on.readyStateChange.add((e){
+        if (r.readyState != 4){ 
+          c.complete(null);          
+        }else{
+          c.complete(r.responseText);
+        }
+      });
+      
+      try{              
+        r.open('GET', from, true);
+        r.setRequestHeader('Accept', 'text/xml');
+        r.send();
+      }catch(Exception e){
+        c.complete(null);
+      }
+      
+      return c.future;
+    }
+  }
+  
   /// Changes the active context for the framework and returns the
   /// previous context.
   ///
