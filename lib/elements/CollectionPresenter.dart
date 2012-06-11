@@ -20,7 +20,7 @@
 * CollectionPresents provides a way to declaratively display a list of arbitrary
 * data.
 *
-* ## Lucaxml Usage Example:
+* ## Buckshot Template Usage Example:
 *
 *     <collectionpresenter datacontext="{data someCollection}">
 *         <!--
@@ -119,7 +119,9 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       _eHandler = values.listChanged + (_, __) => _updateCollection();
     }
 
-    if (values is! Collection) throw const BuckshotException("Expected dataContext object to be of type Collection.");
+    if (values is! Collection) 
+      throw const BuckshotException("Expected dataContext object"
+        " to be of type Collection.");
 
     presentationPanel._component.elements.clear();
 

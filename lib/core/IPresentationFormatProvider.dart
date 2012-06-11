@@ -19,7 +19,7 @@
 * Interface contract for classes registering as presentation format providers. 
 *
 * ## See Also
-* * [LucaxmlPresentationProvider]
+* * [BuckshotTemplateProvider]
 */
 interface IPresentationFormatProvider extends Hashable{
 
@@ -29,9 +29,9 @@ interface IPresentationFormatProvider extends Hashable{
   String get fileExtension();
   
   /**
-  * Takes a string representation of elements in [fileData] and attempts to convert it to an object tree
+  * Takes a string representation of elements in [template] and attempts to convert it to an object tree
   * using parsing rules from the implementing class. */
-  FrameworkElement deserialize(String fileData);
+  FrameworkElement deserialize(String template);
   
   /**
   * Takes an object tree starting at [elementRoot] and attempts to convert it to a serialized string

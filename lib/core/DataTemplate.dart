@@ -20,8 +20,8 @@
 * at runtime.  This is useful for scenarios where you want to quickly work up
 * an object to contain some dynamic record of data.
 *
-* Once populated, DataTemplate can be used in data binding scenarios with
-* declarative Lucaxml files.
+* Once populated, DataTemplate can be used in data binding scenarios within
+* declarative Buckshot templates.
 *
 * ## See Also
 * * Select the "Collections" example on the Buckshot Online Sandbox: [Try Buckshot](http://www.lucastudios.com/trybuckshot)
