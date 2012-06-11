@@ -171,9 +171,9 @@ class BuckshotTemplateProvider
     IValueConverter vc = null;
 
     //TODO support converters...
-    List<String> params = stripped.split(',');
+    var params = stripped.split(',');
 
-    List<String> words = params[0].trim().split(' ');
+    var words = params[0].trim().split(' ');
 
     if (params.length > 1 && words[0] != "template"){
       params

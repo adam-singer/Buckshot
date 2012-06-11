@@ -11,7 +11,6 @@ extensions/media/YouTube.dart
 extensions/actions/TogglePropertyAction.dart
 extensions/media/Hulu.dart
 extensions/social/PlusOne.dart
-debug/debug.dart
 extensions/media/FunnyOrDie.dart
 util/test.dart
 extensions/media/Vimeo.dart
