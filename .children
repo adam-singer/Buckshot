@@ -2,6 +2,7 @@ lib/Buckshot.dart
 util/test.dart
 external/dartxml/Xml.dart
 demos/todo/todo.dart
+extensions/codemirror/CodeMirror.dart
 extensions/social/PlusOne.dart
 util/ControlGenerator.dart
 extensions/media/Hulu.dart
@@ -10,6 +11,7 @@ extensions/social/SocialPack.dart
 extensions/actions/ActionPack.dart
 extensions/media/FunnyOrDie.dart
 tests/tests.dart
+demos/editor/editor.dart
 extensions/actions/TogglePropertyAction.dart
 extensions/actions/AnimationAction.dart
 external/dartxml/tests/xmltests.dart
