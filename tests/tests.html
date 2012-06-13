@@ -7,6 +7,175 @@
   	<h1>Buckshot Unit Tests</h1>
 	<div id="status">Running...</div>
 	<div id="BuckshotHost"></div>
+	
+	<!-- Buckshot Templates -->
+	<script id='gridTest' type='text/xml'>
+		<border width='500' height='500' bordercolor='Black' borderthickness='1'>
+		  <grid horizontalalignment='stretch' verticalalignment='stretch'>
+		    <columndefinitions>
+		      <columndefinition width='auto'/>
+		      <columndefinition width='*1'/>
+		      <columndefinition width='*2'/>
+		      <columndefinition width='*.5'/>
+		      <columndefinition width='100'/>
+		    </columndefinitions>
+		    <rowdefinitions>
+		      <rowdefinition height='auto' />
+		      <rowdefinition height='*.5' />
+		      <rowdefinition height='150' />
+		      <rowdefinition height='*1' />
+		    </rowdefinitions>
+		    <rectangle grid.columnspan='5' verticalalignment='stretch' horizontalalignment='stretch' opacity='.1' fill='Gray'></rectangle>
+		    <rectangle grid.row='1' grid.columnspan='5' verticalalignment='stretch' horizontalalignment='stretch' opacity='.2' fill='Gray'></rectangle>
+		    <rectangle grid.row='2' grid.columnspan='5' verticalalignment='stretch' horizontalalignment='stretch' opacity='.3' fill='Gray'></rectangle>
+		    <rectangle grid.row='3' grid.columnspan='5' verticalalignment='stretch' horizontalalignment='stretch' opacity='.4' fill='Gray'></rectangle>
+		  
+		    <rectangle grid.rowspan='4' verticalalignment='stretch' horizontalalignment='stretch' opacity='.1' fill='Gray'></rectangle>
+		    <rectangle grid.column='1' grid.rowspan='4' verticalalignment='stretch' horizontalalignment='stretch' opacity='.2' fill='Gray'></rectangle>
+		    <rectangle grid.column='2' grid.rowspan='4' verticalalignment='stretch' horizontalalignment='stretch' opacity='.3' fill='Gray'></rectangle>
+		    <rectangle grid.column='3' grid.rowspan='4' verticalalignment='stretch' horizontalalignment='stretch' opacity='.4' fill='Gray'></rectangle>
+		    <rectangle grid.column='4' grid.rowspan='4' verticalalignment='stretch' horizontalalignment='stretch' opacity='.5' fill='Gray'></rectangle>
+		  
+		    <textblock verticalalignment='center' horizontalalignment='center' grid.columnspan='5' text='Grid Test' fontsize='25'/>
+		  
+		  <!-- circles -->
+		    <border width='40' height='40' background='Yellow' bordercolor='Blue' borderthickness='5' cornerradius='40' >
+		      <textblock horizontalalignment='center' verticalalignment='center' text='Hi' />
+		    </border>
+		    <border grid.column='4' horizontalalignment='right' width='40' height='40' background='Yellow' bordercolor='Blue' borderthickness='5' cornerradius='40' >
+		      <textblock horizontalalignment='center' verticalalignment='center' text='Hi' />
+		    </border>
+		    <border grid.column='4' grid.row='3' horizontalalignment='right' verticalalignment='bottom' width='40' height='40' background='Yellow' bordercolor='Blue' borderthickness='5' cornerradius='40' >
+		      <textblock horizontalalignment='center' verticalalignment='center' text='Hi' />
+		    </border>
+		    <border grid.row='3' width='40' height='40' verticalalignment='bottom' background='Yellow' bordercolor='Blue' borderthickness='5' cornerradius='40' >
+		      <textblock horizontalalignment='center' verticalalignment='center' text='Hi' />
+		    </border>
+		  
+		  <!-- spanning rectangle with overlapping aligned elements in the same space -->
+		    <rectangle grid.columnspan='3' grid.rowspan='2' grid.row='1' grid.column='1' fill='Green' horizontalalignment='stretch' verticalalignment='stretch'>
+		    </rectangle>
+		    <textblock grid.columnspan='3' grid.rowspan='2' grid.row='1' grid.column='1' horizontalalignment='left' verticalalignment='top' text='LT' />
+		    <textblock grid.columnspan='3' grid.rowspan='2' grid.row='1' grid.column='1' horizontalalignment='center' verticalalignment='top' text='CT' />
+		    <textblock grid.columnspan='3' grid.rowspan='2' grid.row='1' grid.column='1' horizontalalignment='right' verticalalignment='top' text='RT' />
+		    <textblock grid.columnspan='3' grid.rowspan='2' grid.row='1' grid.column='1' horizontalalignment='right' verticalalignment='center' text='RC' />
+		    <textblock grid.columnspan='3' grid.rowspan='2' grid.row='1' grid.column='1' horizontalalignment='right' verticalalignment='bottom' text='RB' />
+		    <textblock grid.columnspan='3' grid.rowspan='2' grid.row='1' grid.column='1' horizontalalignment='center' verticalalignment='bottom' text='CB' />
+		    <textblock grid.columnspan='3' grid.rowspan='2' grid.row='1' grid.column='1' horizontalalignment='left' verticalalignment='bottom' text='LB' />
+		    <textblock grid.columnspan='3' grid.rowspan='2' grid.row='1' grid.column='1' horizontalalignment='left' verticalalignment='center' text='LC' />
+		    <textblock grid.columnspan='3' grid.rowspan='2' grid.row='1' grid.column='1' horizontalalignment='center' verticalalignment='center' text='CC' />
+		  </grid>
+		</border>
+	</script>
+	
+	<script id='stackPanelTest' type='text/xml'>
+		<stackpanel name='rootPanel' background='Orange' margin='10'>
+		  <stackpanel name='chromePanel' orientation='horizontal' horizontalalignment='center' background='Yellow'>
+		    <border name='bBlack' margin='10' background='Black' width='10' height='10'></border>
+		    <border name='bRed' margin='10' background='Red' width='10' height='10'></border>
+		    <border name='bGreen' margin='10' background='Green' width='10' height='10'></border>
+		    <border name='bBlue' margin='10' background='Blue' width='10' height='10'></border>
+		  </stackpanel>
+		
+		  <textblock name='lblHCenter' horizontalalignment='center'>center center</textblock>
+		  <textblock name='lblRight' horizontalalignment='right'>right right right</textblock>
+		  <textblock name='lblLong'>long long long long long long long long</textblock>
+		  <border name='bCircle' horizontalalignment='center' borderthickness='5' bordercolor='Purple' width='150' height='150' background='Yellow' cornerradius='150'></border>
+		  <stackpanel name='spVerticalAlignment' height='300' horizontalalignment='stretch' background='Gray' orientation='horizontal'>
+		    <textblock name='lblTop' verticalalignment='top'>top top top</textblock>
+		    <textblock name='lblVCenter' verticalalignment='center'>center center center</textblock>
+		    <textblock name='lblBottom' verticalalignment='bottom'>bottom bottom bottom</textblock>
+		  </stackpanel>
+		</stackpanel>
+	</script>
+	
+	<script id='borderTest' type='text/xml'>
+		<stackpanel>
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bLorumIpsum' margin='10' padding='10' background='Black' horizontalalignment='stretch' verticalalignment='stretch'>
+		      <textblock name='lblLorumIpsum' horizontalalignment='stretch' verticalalignment='center' foreground='White'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nunc nunc, lacinia sit amet ultricies non, bibendum quis eros. Integer hendrerit volutpat velit sit amet iaculis. Curabitur eu arcu velit, non blandit nulla. Nullam diam dui, molestie non ultricies a, tristique nec nunc. Nullam hendrerit fringilla nulla non porttitor. Cras orci sapien, porttitor placerat dapibus vitae, pharetra a lectus. Nulla tincidunt lacinia elit ac tempus. Sed sed sem justo,</textblock>
+		    </border>
+		  </border>
+		
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bHL_VS' background='Black' horizontalalignment='left' verticalalignment='stretch'>
+		      <textblock name='lblHL_VS' horizontalalignment='center' verticalalignment='center' foreground='White'>HL-VS</textblock>
+		    </border>
+		  </border>
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bHC_VS' background='Black' horizontalalignment='center' verticalalignment='stretch'>
+		      <textblock name='lblHC_VS' horizontalalignment='center' verticalalignment='center' foreground='White'>HC-VS</textblock>
+		    </border>
+		  </border>
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bHR_VS' background='Black' horizontalalignment='right' verticalalignment='stretch'>
+		      <textblock name='lblHR_VS' horizontalalignment='center' verticalalignment='center' foreground='White'>HR-VS</textblock>
+		    </border>
+		  </border>
+		  
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bHS_VT' background='Black' horizontalalignment='stretch' verticalalignment='top'>
+		      <textblock name='lblHS_VT' horizontalalignment='center' verticalalignment='center' foreground='White'>HS-VT</textblock>
+		    </border>
+		  </border>
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bHS_VC' background='Black' horizontalalignment='stretch' verticalalignment='center'>
+		      <textblock name='lblHS_VC' horizontalalignment='center' verticalalignment='center' foreground='White'>HS-VC</textblock>
+		    </border>
+		  </border>
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bHS_VB' background='Black' horizontalalignment='stretch' verticalalignment='bottom'>
+		      <textblock name='lblHS_VB' horizontalalignment='center' verticalalignment='center' foreground='White'>HS-VB</textblock>
+		    </border>
+		  </border>
+		
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bLT' background='Black' horizontalalignment='left' verticalalignment='top'>
+		      <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>LT</textblock>
+		    </border>
+		  </border>
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bCT' background='Black' horizontalalignment='center' verticalalignment='top'>
+		      <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>CT</textblock>
+		    </border>
+		  </border>
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bRT' background='Black' horizontalalignment='right' verticalalignment='top'>
+		      <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>RT</textblock>
+		    </border>
+		  </border>
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bRC' background='Black' horizontalalignment='right' verticalalignment='center'>
+		      <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>RC</textblock>
+		    </border>
+		  </border>
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bRB' background='Black' horizontalalignment='right' verticalalignment='bottom'>
+		      <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>RB</textblock>
+		    </border>
+		  </border>
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bCB' background='Black' horizontalalignment='center' verticalalignment='bottom'>
+		      <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>CB</textblock>
+		    </border>
+		  </border>
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bLB' background='Black' horizontalalignment='left' verticalalignment='bottom'>
+		      <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>LB</textblock>
+		    </border>
+		  </border>
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bLC' background='Black' horizontalalignment='left' verticalalignment='center'>
+		      <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>LC</textblock>
+		    </border>
+		  </border>
+		  <border margin='1' width='300' height='300' background='Orange'>
+		    <border name='bCC' background='Black' horizontalalignment='center' verticalalignment='center'>
+		      <textblock horizontalalignment='center' verticalalignment='center' foreground='White'>CC</textblock>
+		    </border>
+		  </border>
+		</stackpanel>
+	</script>
     <script type="application/dart" src="tests.dart"></script>
     <script src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script>
   </body>

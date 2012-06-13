@@ -81,40 +81,20 @@ class _GridCell extends FrameworkObject
 
   /// Overridden [FrameworkObject] method is called when the framework requires elements to recalculate layout.
   void updateLayout(){
-    if (content != null){
-      if (content.horizontalAlignment != null){
-        if (content.horizontalAlignment == HorizontalAlignment.stretch){
-
-          //TODO need better way to check CSS3 support than each time.
-          //(ala Modernizr)
-          if (!Dom.attemptSetXPCSS(content.rawElement, 'flex', '1')){
-            //shim
-            if (_ref == null){
-              _ref = this.measurementChanged + (source, MeasurementChangedEventArgs args){
-                if (content is! Border){
-                  content.rawElement.style.width = '${args.newMeasurement.client.width - (content.margin.left + content.margin.right)}px';
-                }else{
-                  content.rawElement.style.width = '${args.newMeasurement.client.width - (content.dynamic.padding.left + content.dynamic.padding.right + content.margin.left + content.margin.right)}px';
-                }
-              };
-            }
-          }
-        }else{
-          if (!Dom.attemptSetXPCSS(content.rawElement, 'flex', 'none')){
-            //shim
-            if (_ref != null){
-              this.measurementChanged - _ref;
-              _ref = null;
-              content.rawElement.style.width = 'auto';
-            }
-          }
-          Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
+    if (content == null) return;
+    
+    Dom.setXPCSS(content.rawElement, 'flex', 'none');
+    
+    if (content.horizontalAlignment != null){
+        if(content.horizontalAlignment == HorizontalAlignment.stretch){
+          Dom.setXPCSS(content.rawElement, 'flex', '1 1 auto');
         }
-      }
+        
+        Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
+    }
 
-      if (content.verticalAlignment != null){
-        Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
-      }
+    if (content.verticalAlignment != null){
+      Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
     }
   }
 

@@ -346,6 +346,12 @@ class Buckshot extends FrameworkObject {
   }
   
   /**
+  * Takes a buckshot Template and attempts deserialize it into an object
+  * structure.
+  */
+  FrameworkElement deserialize(String buckshotTemplate) => defaultPresentationProvider.deserialize(buckshotTemplate);
+  
+  /**
   * # Usage #
   *     //Retrieves the template from the current web page
   *     //and returns a String containing the template 
@@ -356,6 +362,8 @@ class Buckshot extends FrameworkObject {
   *     //and returns a String containing the template
   *     //asynchronously in a Future<String>.
   *     getTemplate('/relative/path/to/templateName.xml').then(...);
+  *
+  * Use the [deserialize] method to convert a template into an object structure.
   */
   getTemplate(String from){   
     if (from.startsWith('#')){

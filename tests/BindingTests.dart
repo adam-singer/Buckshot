@@ -257,7 +257,7 @@ class BindingTests extends TestGroupBase
 
 
   void oneWayBinding(){
-    Binding b = new Binding(e1.a, e2.b, BindingMode.OneWay);
+    Binding b = new Binding(e1.dynamic.a, e2.dynamic.b, BindingMode.OneWay);
 
   }
 

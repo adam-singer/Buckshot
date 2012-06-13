@@ -16,6 +16,7 @@ class ViewModel extends ViewModelBase
     bad = new SolidColorBrush(new Color.predefined(Colors.Red)),
     good = new SolidColorBrush(new Color.predefined(Colors.Green))
   {
+    
     taskNameProperty = new FrameworkProperty(this, "taskName", (_){}, "");
     
     dueDateProperty = new FrameworkProperty(this, "dueDate", (_){}, "");
@@ -39,7 +40,6 @@ class ViewModel extends ViewModelBase
       //property names in the map.
       // This saves the task of having to create a dedicated class
       items.add(new DataTemplate.fromMap({"date" : dueDate, "task" : taskName}));
-           
       
       taskName = "";
       dueDate = "";

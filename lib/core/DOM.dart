@@ -26,14 +26,14 @@ class Dom {
   static void appendClass(Element element, String classToAppend){
     String currentClasses = element.attributes["class"];
     currentClasses = currentClasses == null || currentClasses == "null" ? "" : currentClasses;
-    element.attributes["class"] = currentClasses != "" ? currentClasses + " " + classToAppend : classToAppend;
+    element.attributes["class"] = currentClasses != "" ? '$currentClasses $classToAppend' : classToAppend;
   }
 
   /// Creates an [Element] from the given [String] html tag name.
   static Element createByTag(String tagName) => new Element.tag(tagName);
 
   static void appendBuckshotClass(Element element, String classToAppend) => 
-      Dom.appendClass(element, 'buckshot_' + classToAppend);
+      Dom.appendClass(element, 'buckshot_$classToAppend');
 
   /** Converts and element into a flexbox container. */
   static void makeFlexBox(FrameworkObject element){

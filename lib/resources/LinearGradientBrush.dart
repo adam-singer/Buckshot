@@ -75,17 +75,17 @@ class LinearGradientBrush extends Brush
     //set the fallback
     element.style.background = fallbackColor.toString();
     
-    String colorString = "";
+    final colorString = new StringBuffer();
     
     //create the string of stop colors
     stops.forEach((GradientStop stop){
-      colorString += stop.color.toString();
+      colorString.add(stop.color.toString());
 
       if (stop.percent != -1)
-        colorString += " ${stop.percent}%";
+        colorString.add(" ${stop.percent}%");
       
       if (stop != stops.last())
-        colorString += ", ";
+        colorString.add(", ");
     });
     
     //set the background for all browser types

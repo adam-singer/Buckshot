@@ -36,13 +36,10 @@ void main() {
   initializeMediaPackExtensions();
   initializeActionPackExtensions();
   buckshot.registerElement(new ModalDialog());
-  
-  // initialize the presentation provider.  this will eventually be done by the framework
-  IPresentationFormatProvider p = buckshot.defaultPresentationProvider;
-    
+      
   // create our main view and error view
-  FrameworkObject o = p.deserialize(document.query('#main').text);
-  FrameworkObject errorUI = p.deserialize(views.errorUI);
+  FrameworkObject o = buckshot.deserialize(document.query('#main').text);
+  FrameworkObject errorUI = buckshot.deserialize(views.errorUI);
   
   // get references to all the ui interactives that we need    
   TextBlock tbError = buckshot.namedElements["tbErrorMessage"];  
@@ -67,7 +64,7 @@ void main() {
   btnRefresh.click + (_, __){
     try{
       if (tbUserInput.text.trim() == "") return;
-      FrameworkObject userContent = p.deserialize(tbUserInput.text.trim());
+      FrameworkObject userContent = buckshot.deserialize(tbUserInput.text.trim());
       borderContent.content = userContent;
     }
     catch(AnimationException ae){
@@ -105,91 +102,91 @@ void main() {
     switch(args.selectedItem.value.toString()){
       case "helloworld":
         tbUserInput.text = views.helloWorldView;
-        borderContent.content = p.deserialize(views.helloWorldView);
+        borderContent.content = buckshot.deserialize(views.helloWorldView);
         break;
       case "stackpanel":
         tbUserInput.text = views.stackPanelView;
-        borderContent.content = p.deserialize(views.stackPanelView);
+        borderContent.content = buckshot.deserialize(views.stackPanelView);
         break;
       case "button":
         tbUserInput.text = views.buttonView;
-        borderContent.content = p.deserialize(views.buttonView);
+        borderContent.content = buckshot.deserialize(views.buttonView);
         break;
       case "grid":
         tbUserInput.text = views.gridView;
-        borderContent.content = p.deserialize(views.gridView);
+        borderContent.content = buckshot.deserialize(views.gridView);
         break;
       case "layoutcanvas":
         tbUserInput.text = views.layoutCanvasView;
-        borderContent.content = p.deserialize(views.layoutCanvasView);
+        borderContent.content = buckshot.deserialize(views.layoutCanvasView);
         break;
       case "slider":
         tbUserInput.text = views.sliderView;
-        borderContent.content = p.deserialize(views.sliderView);
+        borderContent.content = buckshot.deserialize(views.sliderView);
         break;
       case "thispage":
         tbUserInput.text = document.query('#main').text;
-        borderContent.content = p.deserialize(tbUserInput.text);
+        borderContent.content = buckshot.deserialize(tbUserInput.text);
         break;
       case "border":
         tbUserInput.text = views.borderView;
-        borderContent.content = p.deserialize(views.borderView);
+        borderContent.content = buckshot.deserialize(views.borderView);
         break;
       case "radiobuttons":
         tbUserInput.text = views.radioButtonView;
-        borderContent.content = p.deserialize(views.radioButtonView);
+        borderContent.content = buckshot.deserialize(views.radioButtonView);
         break;
       case "checkboxes":
         tbUserInput.text = views.checkBoxView;
-        borderContent.content = p.deserialize(views.checkBoxView);
+        borderContent.content = buckshot.deserialize(views.checkBoxView);
         break;
       case "hyperlink":
         tbUserInput.text = views.hyperlinkView;
-        borderContent.content = p.deserialize(views.hyperlinkView);
+        borderContent.content = buckshot.deserialize(views.hyperlinkView);
         break;
       case "image":
         tbUserInput.text = views.imageView;
-        borderContent.content = p.deserialize(views.imageView);
+        borderContent.content = buckshot.deserialize(views.imageView);
         break;
       case "resourcebinding":
         tbUserInput.text = views.resourcesView;
-        borderContent.content = p.deserialize(views.resourcesView);
+        borderContent.content = buckshot.deserialize(views.resourcesView);
         break;
       case "elementbinding":
         tbUserInput.text = views.interactiveView;
-        borderContent.content = p.deserialize(views.interactiveView);
+        borderContent.content = buckshot.deserialize(views.interactiveView);
         break;
       case "databinding":
         tbUserInput.text = views.dataBindingView;
-        borderContent.content = p.deserialize(views.dataBindingView);
+        borderContent.content = buckshot.deserialize(views.dataBindingView);
         break;
       case "collections":
         tbUserInput.text = views.collectionsView;
-        borderContent.content = p.deserialize(views.collectionsView);
+        borderContent.content = buckshot.deserialize(views.collectionsView);
         break;
       case "youtube":
         tbUserInput.text = views.youtubeView;
-        borderContent.content = p.deserialize(views.youtubeView);
+        borderContent.content = buckshot.deserialize(views.youtubeView);
         break;
       case "hulu":
         tbUserInput.text = views.huluView;
-        borderContent.content = p.deserialize(views.huluView);
+        borderContent.content = buckshot.deserialize(views.huluView);
         break;
       case "vimeo":
         tbUserInput.text = views.vimeoView;
-        borderContent.content = p.deserialize(views.vimeoView);
+        borderContent.content = buckshot.deserialize(views.vimeoView);
         break;
       case "funnyordie":
         tbUserInput.text = views.funnyOrDieView;
-        borderContent.content = p.deserialize(views.funnyOrDieView);
+        borderContent.content = buckshot.deserialize(views.funnyOrDieView);
         break;
       case "dropdownlist":
         tbUserInput.text = views.dropDownListView;
-        borderContent.content = p.deserialize(views.dropDownListView);
+        borderContent.content = buckshot.deserialize(views.dropDownListView);
         break;
       case "listbox":
         tbUserInput.text = views.listBoxView;
-        borderContent.content = p.deserialize(views.listBoxView);
+        borderContent.content = buckshot.deserialize(views.listBoxView);
         break;
     }  
   }

@@ -68,14 +68,14 @@ class BuckshotTemplateProviderTests extends TestGroupBase
 
     Expect.isTrue(result is StackPanel);
 
-    Expect.equals(3, result.children.length);
+    Expect.equals(3, result.dynamic.children.length);
 
-    Expect.isTrue(result.children[0] is TextBlock);
-    Expect.isTrue(result.children[1] is Border);
-    Expect.isTrue(result.children[2] is TextBlock);
+    Expect.isTrue(result.dynamic.children[0] is TextBlock);
+    Expect.isTrue(result.dynamic.children[1] is Border);
+    Expect.isTrue(result.dynamic.children[2] is TextBlock);
 
-    Expect.isTrue(result.children[1].content is TextBlock);
-    Expect.equals(VerticalAlignment.center, result.children[1].content.verticalAlignment);
+    Expect.isTrue(result.dynamic.children[1].content is TextBlock);
+    Expect.equals(VerticalAlignment.center, result.dynamic.children[1].content.verticalAlignment);
   }
 
   void attachedPropertyNodeAssignsCorrectly(){
@@ -89,7 +89,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
     String t = "<StackPanel><orientation>horizontal</orientation></StackPanel>";
 
     var result = p.deserialize(t);
-    Expect.equals(Orientation.horizontal, result.orientation);
+    Expect.equals(Orientation.horizontal, result.dynamic.orientation);
   }
 
 
@@ -149,15 +149,15 @@ class BuckshotTemplateProviderTests extends TestGroupBase
 
     var result = p.deserialize(t);
     Expect.isTrue(result is StackPanel);
-    Expect.equals(7, result.children.length);
+    Expect.equals(7, result.dynamic.children.length);
 
-    Expect.isTrue(result.children[0] is Grid, "Grid");
-    Expect.isTrue(result.children[1] is Border, "Border");
-    Expect.isTrue(result.children[2] is Button, "Button");
-    Expect.isTrue(result.children[3] is TextBlock, "TextBlock");
-    Expect.isTrue(result.children[4] is TextBox, "TextBox");
-    Expect.isTrue(result.children[5] is Slider, "Slider");
-    Expect.isTrue(result.children[6] is LayoutCanvas, "LayoutCanvas");
+    Expect.isTrue(result.dynamic.children[0] is Grid, "Grid");
+    Expect.isTrue(result.dynamic.children[1] is Border, "Border");
+    Expect.isTrue(result.dynamic.children[2] is Button, "Button");
+    Expect.isTrue(result.dynamic.children[3] is TextBlock, "TextBlock");
+    Expect.isTrue(result.dynamic.children[4] is TextBox, "TextBox");
+    Expect.isTrue(result.dynamic.children[5] is Slider, "Slider");
+    Expect.isTrue(result.dynamic.children[6] is LayoutCanvas, "LayoutCanvas");
   }
 
   void attachedProperties(){
@@ -185,7 +185,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
     String t = '<StackPanel orientation="horizontal" verticalAlignment="center"></StackPanel>';
     var result = p.deserialize(t);
 
-    Expect.equals(Orientation.horizontal, result.orientation);
+    Expect.equals(Orientation.horizontal, result.dynamic.orientation);
     Expect.equals(VerticalAlignment.center, result.verticalAlignment);
   }
 
@@ -194,7 +194,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
     String t = '<TextBlock text="$testString"></TextBlock>';
     var result = p.deserialize(t);
 
-    Expect.equals(testString, result.text);
+    Expect.equals(testString, result.dynamic.text);
   }
 
   void registryLookupNotFoundThrows(){

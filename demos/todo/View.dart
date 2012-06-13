@@ -5,7 +5,7 @@ class View implements IView
   View(){
     
     //parse view xml and create object reference
-    _rootVisual = buckshot.defaultPresentationProvider.deserialize(buckshot.getTemplate('#view'));
+    _rootVisual = buckshot.deserialize(buckshot.getTemplate('#view'));
     
     // bind the view model
     _rootVisual.dataContext = new ViewModel();
