@@ -18,8 +18,8 @@
 #import('dart:html');
 
 // point this to wherever your copy of the dart source code is
-#import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/unittest.dart');
-#import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/html_enhanced_config.dart');
+#import('/Users/adam/Documents/DartEditor/dart/dart-sdk/lib/unittest/unittest.dart');
+#import('/Users/adam/Documents/DartEditor/dart/dart-sdk/lib/unittest/html_enhanced_config.dart');
 
 #import('../external/dartxml/Xml.dart');
 
