@@ -14,10 +14,18 @@ Buckshot uses the very latest in HTML5/CSS3 standards.  No shims are yet in plac
 
 In particular, the layout model uses the latest draft of the [CSS3 flexbox](http://dev.w3.org/csswg/css3-flexbox/) spec, so it will currently only work with the latest build of Chromium or Dartium.
 
-## Getting Started
+## Getting Started ##
+
+### Reference Material ###
 * [API Reference](http://www.lucastudios.com/trybuckshot/docs/)
 * [Wiki Documentation](https://github.com/prujohn/Buckshot/wiki/_pages)
 * [Developers: How To Contribute](https://github.com/prujohn/Buckshot/wiki/How-To-Contribute)
+
+### Videos ###
+* [UI Templates](http://www.youtube.com/watch?v=LOacOkmd9FI)
+* [Extending Controls with Control Templates](http://www.youtube.com/watch?v=KRGvdID4rPE)
+* [Element-To-Element Binding](http://www.youtube.com/watch?v=WC25C5AHYAI)
+* [Working With Resources](http://www.youtube.com/watch?v=cFxf3OBIj8Q)
 
 ## Features
 * **XML Template Format** Similar to Xaml, but more simplified and flexible.

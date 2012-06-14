@@ -51,6 +51,8 @@ class ModalDialog extends Control
     bDialog = Buckshot.findByName('bDialog', template);
     bMask = Buckshot.findByName('bMask', template);
 
+    // Override the underlying DOM element on this canvas so that it
+    // is absolutely positioned int the window at 0,0
     cvRoot.rawElement.style.position = 'absolute';
     cvRoot.rawElement.style.top = '0px';
     cvRoot.rawElement.style.left = '0px';
