@@ -78,13 +78,6 @@ class Control extends FrameworkElement
 
     template.parent = this;
     _component = template._component;
-
-//    var ref;
-//    ref = this.loaded + (_, __){
-//
-//
-//      this.loaded - ref;
-//    };
   }
 
   onLoaded(){

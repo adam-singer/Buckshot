@@ -17,25 +17,27 @@
 
 #import('../../lib/Buckshot.dart');
 #import('../../extensions/media/MediaPack.dart');
-#import('../../extensions/social/SocialPack.dart');
 #import('../../extensions/actions/ActionPack.dart');
 #import('dart:html');
 #source('../../extensions/ControlPack1/ModalDialog.dart');
 #source('Views.dart');
 #source('DemoViewModel.dart');
 #source('DemoModel.dart');
+#source('../../extensions/social/PlusOne.dart');
 
 void main() { 
     
   Views views = new Views();
+    
+  buckshot.registerElement(new PlusOne());
+  buckshot.registerElement(new ModalDialog());
+  
   
   // Register extensions
   // These are exposed by the extension libraries.
   // You could also import individual extensions instead.
-  initializeSocialPackExtensions();
   initializeMediaPackExtensions();
   initializeActionPackExtensions();
-  buckshot.registerElement(new ModalDialog());
       
   // create our main view and error view
   FrameworkObject o = buckshot.deserialize(document.query('#main').text);
@@ -199,10 +201,10 @@ void main() {
   // render the main view
   buckshot.renderRaw(o);
   
-//  var x = new ModalDialog();
-//  x.text = "Hello World this is a test";
-//  x.title = 'Hello world, this is a title';
-//  x.show();
+  var x = new ModalDialog();
+  x.text = "Hello World this is a test";
+  x.title = 'Hello world, this is a title';
+  x.show();
 }
 
 

@@ -188,12 +188,12 @@ class FrameworkObject extends BuckshotObject {
   //TODO load/unload should be asynchronous?
   void addToLayoutTree(FrameworkObject parentElement){
 
-    parentElement._component.elements.add(_component);
+    parentElement.rawElement.elements.add(rawElement);
 
     parent = parentElement;
 
    // db('Added to Layout Tree', this);
-    if (!parentElement._isLoaded) return;
+    if (!parentElement.isLoaded) return;
 
     _onAddedToDOM();
   }

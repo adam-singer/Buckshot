@@ -16,16 +16,8 @@
 //   limitations under the License.
 
 
-#library('extensions_social_plusone');
-#import('../../lib/Buckshot.dart');
-#import('dart:html');
-
 /**
 * Implements a Google+ +1 button element.
-*
-* IMPORTANT!  This element currently does NOT work.  Conflict with Dart javascript code (I think)
-* See issue: https://code.google.com/p/dart/issues/detail?id=1042
-*
 */
 class PlusOne extends FrameworkElement
 {
