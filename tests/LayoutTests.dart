@@ -92,6 +92,9 @@ void layoutTests()
     );
   });
     
+  
+  // Take measurements of reference layout to make sure they match
+  // expected results.
   test('Grid Layout', (){
     buckshot.rootView = new GridDebug();
     
@@ -99,6 +102,7 @@ void layoutTests()
     
 //    pause();
   });
+  
   
   // Take measurements of reference layout to make sure they match
   // expected results.

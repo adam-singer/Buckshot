@@ -199,10 +199,10 @@ void main() {
   // render the main view
   buckshot.renderRaw(o);
   
-  var x = new ModalDialog();
-  x.text = "Hello World this is a test";
-  x.title = 'Hello world, this is a title';
-  x.show();
+//  var x = new ModalDialog();
+//  x.text = "Hello World this is a test";
+//  x.title = 'Hello world, this is a title';
+//  x.show();
 }
 
 

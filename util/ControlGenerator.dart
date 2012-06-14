@@ -160,7 +160,7 @@ ${className}()
     }else{
       s.add(
 '''
-  _view = buckshot.defaultPresentationProvider.deserialize(_viewTemplate);
+  _view = buckshot.deserialize(_viewTemplate);
 ''');
     }
 
@@ -359,7 +359,7 @@ class UserView implements IView
 
 UserView()
 :
-  _view = buckshot.defaultPresentationProvider.deserialize(_viewTemplate),
+  _view = buckshot.deserialize(_viewTemplate),
   tbUserInput = buckshot.namedElements["tbUserInput"],
   btnRefresh = buckshot.namedElements["btnRefresh"],
   ddlBinding = buckshot.namedElements["ddlBinding"],
