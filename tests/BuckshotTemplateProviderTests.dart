@@ -52,9 +52,9 @@ class BuckshotTemplateProviderTests extends TestGroupBase
         <!--comment in textblock -->  
         </textblock>
         <border width="300" height="300" background="Green">
-          <textblock horizontalalignment="center" text="In-Border TextBlock" foreground="White">
+          <textblock halign="center" text="In-Border TextBlock" foreground="White">
             <!-- properties can be declared inside the element like so... -->
-            <verticalAlignment>center</verticalAlignment>
+            <valign>center</valign>
             <!--comment in collection context -->
           </textblock>
         </border>
@@ -75,7 +75,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
     Expect.isTrue(result.dynamic.children[2] is TextBlock);
 
     Expect.isTrue(result.dynamic.children[1].content is TextBlock);
-    Expect.equals(VerticalAlignment.center, result.dynamic.children[1].content.verticalAlignment);
+    Expect.equals(VerticalAlignment.center, result.dynamic.children[1].content.vAlign);
   }
 
   void attachedPropertyNodeAssignsCorrectly(){
@@ -182,11 +182,11 @@ class BuckshotTemplateProviderTests extends TestGroupBase
   }
 
   void enumProperties(){
-    String t = '<StackPanel orientation="horizontal" verticalAlignment="center"></StackPanel>';
+    String t = '<StackPanel orientation="horizontal" valign="center"></StackPanel>';
     var result = p.deserialize(t);
 
     Expect.equals(Orientation.horizontal, result.dynamic.orientation);
-    Expect.equals(VerticalAlignment.center, result.verticalAlignment);
+    Expect.equals(VerticalAlignment.center, result.vAlign);
   }
 
   void simpleProperties(){

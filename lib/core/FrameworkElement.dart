@@ -50,9 +50,9 @@ class FrameworkElement extends FrameworkObject {
   /// Represents a general use [Object] property of the FrameworkElement.
   FrameworkProperty tagProperty;
   /// Represents the horizontal alignment of this FrameworkElement inside another element.
-  FrameworkProperty horizontalAlignmentProperty;
+  FrameworkProperty hAlignProperty;
   /// Represents the [VerticalAlignment] of this FrameworkElement inside another element.
-  FrameworkProperty verticalAlignmentProperty;
+  FrameworkProperty vAlignProperty;
   /// Represents the html z order of this FrameworkElement in relation to other elements.
   FrameworkProperty zOrderProperty;
   /// Represents the actual adjusted width of the FrameworkElement.
@@ -309,9 +309,9 @@ class FrameworkElement extends FrameworkObject {
       "tag",
       (value){});
 
-    horizontalAlignmentProperty = new FrameworkProperty(
+    hAlignProperty = new FrameworkProperty(
       this,
-      "horizontalAlignment",
+      "hAlign",
       (HorizontalAlignment value){
         updateMeasurementAsync.then((_){
           if (parent != null) parent.updateLayout();
@@ -319,9 +319,9 @@ class FrameworkElement extends FrameworkObject {
       },
       HorizontalAlignment.left, converter:const StringToHorizontalAlignmentConverter());
 
-    verticalAlignmentProperty = new FrameworkProperty(
+    vAlignProperty = new FrameworkProperty(
       this,
-      "verticalAlignment",
+      "vAlign",
       (VerticalAlignment value){
         updateMeasurementAsync.then((_){
           if (parent != null) parent.updateLayout();
@@ -430,14 +430,14 @@ class FrameworkElement extends FrameworkObject {
   Cursors get cursor() => getValue(cursorProperty);
 
   /// Sets the [verticalAlignmentProperty] value.
-  set verticalAlignment(VerticalAlignment value) => setValue(verticalAlignmentProperty, value);
+  set vAlign(VerticalAlignment value) => setValue(vAlignProperty, value);
   /// Gets the [verticalAlignmentProperty] value.
-  VerticalAlignment get verticalAlignment() => getValue(verticalAlignmentProperty);
+  VerticalAlignment get vAlign() => getValue(vAlignProperty);
 
   /// Sets the [horizontalAlignmentProperty] value.
-  set horizontalAlignment(HorizontalAlignment value) => setValue(horizontalAlignmentProperty, value);
+  set hAlign(HorizontalAlignment value) => setValue(hAlignProperty, value);
   /// Gets the [horizontalAlignmentProperty] value.
-  HorizontalAlignment get horizontalAlignment() => getValue(horizontalAlignmentProperty);
+  HorizontalAlignment get hAlign() => getValue(hAlignProperty);
 
   /// ** Internal Use Only **
   void calculateWidth(value){

@@ -70,12 +70,12 @@ class StackPanel extends Panel
     if (orientation == Orientation.vertical){
       children.forEach((child){
         Dom.setXPCSS(child.rawElement, 'flex', 'none');
-        Dom.setHorizontalItemFlexAlignment(child, child.horizontalAlignment);
+        Dom.setHorizontalItemFlexAlignment(child, child.hAlign);
       });
     }else{
       children.forEach((child){
         Dom.setXPCSS(child.rawElement, 'flex', 'none');
-        Dom.setVerticalItemFlexAlignment(child, child.verticalAlignment);      
+        Dom.setVerticalItemFlexAlignment(child, child.vAlign);      
       });
     }
   }

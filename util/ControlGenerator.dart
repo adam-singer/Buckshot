@@ -202,7 +202,7 @@ class UserView implements IView
   // Raw template representing the view.
   static final String _viewTemplate =
 '''
-<stackpanel orientation="horizontal" horizontalAlignment="center">
+<stackpanel orientation="horizontal" halign="center">
   <resourcecollection>
     <color key="buckshotBlue" value="#165284"></color>
 
@@ -244,7 +244,7 @@ class UserView implements IView
 
   <stackpanel width="{resource sidewidth}">
     <border width="{resource sidewidth}">
-    <image horizontalAlignment="center" width="193" height="135" alt="Buckshot Logo Candidate" 
+    <image halign="center" width="193" height="135" alt="Buckshot Logo Candidate" 
         sourceuri="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></image>
     </border>
     <border style="{resource sideboxdark}">
@@ -281,7 +281,7 @@ class UserView implements IView
 
   </stackpanel>
   <stackpanel margin="0,0,0,10" width="700">
-    <!-- border.horizontalAlignment="stretch" isn't working properly here (textblock wont center), so setting width explicitely instead -->
+    <!-- border.halign="stretch" isn't working properly here (textblock wont center), so setting width explicitely instead -->
     <textblock margin="0,10" fontsize="20" fontfamily="arial" text="Select a sample or design your own in the Input area below."></textblock>
     <stackpanel margin="0,0,10,0" orientation="horizontal">
       <textblock margin="0,10,0,0" text="Elements:" fontfamily="arial"></textblock>

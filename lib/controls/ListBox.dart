@@ -84,7 +84,7 @@ class ListBox extends Control implements IFrameworkContainer
                     name="__buckshot_listbox_border__"
                     cursor="Arrow">
                 <collectionPresenter name="__buckshot_listbox_presenter__" 
-                                      horizontalAlignment='stretch'>
+                                      halign='stretch'>
                 </collectionPresenter>
             </border>
           </template>

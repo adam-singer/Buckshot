@@ -128,7 +128,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
     if (itemsTemplate == null){
       //no template, then just call toString on the object.
       values.forEach((iterationObject){
-        var it = _pfp.deserialize('<textblock horizontalalignment="stretch">'
+        var it = _pfp.deserialize('<textblock halign="stretch">'
           '${iterationObject}</textblock>');
         it._stateBag[_SBO] = iterationObject;
         itemCreated.invoke(this, new ItemCreatedEventArgs(it));

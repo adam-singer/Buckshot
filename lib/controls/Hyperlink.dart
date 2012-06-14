@@ -149,7 +149,8 @@ class Hyperlink extends Control implements IFrameworkContainer
   /// Overridden [FrameworkObject] method.
   void CreateElement()
   {
-    _component = new LinkElement(); 
+    //TODO find correct constructor for 'a'.
+    _component = new Element.tag('a'); 
   }
   
   String get type() => "Hyperlink";

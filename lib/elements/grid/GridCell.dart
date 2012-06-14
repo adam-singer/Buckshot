@@ -85,16 +85,16 @@ class _GridCell extends FrameworkObject
     
     Dom.setXPCSS(content.rawElement, 'flex', 'none');
     
-    if (content.horizontalAlignment != null){
-        if(content.horizontalAlignment == HorizontalAlignment.stretch){
+    if (content.hAlign != null){
+        if(content.hAlign == HorizontalAlignment.stretch){
           Dom.setXPCSS(content.rawElement, 'flex', '1 1 auto');
         }
         
-        Dom.setHorizontalFlexBoxAlignment(this, content.horizontalAlignment);
+        Dom.setHorizontalFlexBoxAlignment(this, content.hAlign);
     }
 
-    if (content.verticalAlignment != null){
-      Dom.setVerticalFlexBoxAlignment(this, content.verticalAlignment);
+    if (content.vAlign != null){
+      Dom.setVerticalFlexBoxAlignment(this, content.vAlign);
     }
   }
 

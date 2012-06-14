@@ -179,8 +179,8 @@ class FrameworkElementTests extends TestGroupBase
     Expect.isNull(fp.tag, 'tag default');
     Expect.isNull(fp.dataContext, 'dataContext default');
     Expect.equals(fp.name, null, 'name default');
-    Expect.equals(fp.horizontalAlignment, HorizontalAlignment.left, 'horizontalAlignment default');
-    Expect.equals(fp.verticalAlignment, VerticalAlignment.top, 'verticalAlignment default');
+    Expect.equals(fp.hAlign, HorizontalAlignment.left, 'horizontalAlignment default');
+    Expect.equals(fp.vAlign, VerticalAlignment.top, 'verticalAlignment default');
 
     //make sure property get/set is working correctly
     //(the underlying dependency property system actually)
@@ -223,10 +223,10 @@ class FrameworkElementTests extends TestGroupBase
     fp.name = "control name";
     Expect.equals(fp.name, "control name", 'name assignment');
 
-    fp.horizontalAlignment = HorizontalAlignment.right;
-    Expect.equals(fp.horizontalAlignment, HorizontalAlignment.right, 'horizontalAlignment assignment');
+    fp.hAlign = HorizontalAlignment.right;
+    Expect.equals(fp.hAlign, HorizontalAlignment.right, 'horizontalAlignment assignment');
 
-    fp.verticalAlignment = VerticalAlignment.bottom;
-    Expect.equals(fp.verticalAlignment, VerticalAlignment.bottom, 'verticalAlignment assignment');
+    fp.vAlign = VerticalAlignment.bottom;
+    Expect.equals(fp.vAlign, VerticalAlignment.bottom, 'verticalAlignment assignment');
   }
 }

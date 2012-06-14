@@ -106,7 +106,7 @@ each list.
         <border style="{resource rows}"> 
           <stackpanel orientation="horizontal">
             <border width="64" height="64" margin="5,5">
-              <image horizontalalignment="center" verticalalignment="center" sourceuri="{data uri}"></image>
+              <image halign="center" valign="center" sourceuri="{data uri}"></image>
             </border>
             <stackpanel width="200">
               <textblock foreground="Black" fontfamily="arial" text="{data name}"></textblock>
@@ -135,7 +135,7 @@ each list.
         <border style="{resource rows}" width="150"> 
           <stackpanel>
             <border width="150" height="64">
-              <image horizontalalignment="center" verticalalignment="center" sourceuri="{data uri}"></image>
+              <image halign="center" valign="center" sourceuri="{data uri}"></image>
             </border>
             <textblock foreground="Black" fontfamily="arial" text="{data name}"></textblock>
             <textblock foreground="Black" fontsize="12" text="{data description}"></textblock>
@@ -274,11 +274,11 @@ data source 'fruit' the entire demo required no Dart coding in order to work.
     -->
     <itemstemplate>
       <stackpanel orientation="horizontal">
-        <border verticalalignment='stretch' width="150" style="{resource rows}">
-          <textblock horizontalalignment='stretch' foreground="Black" text="{data title}"></textblock>
+        <border valign='stretch' width="150" style="{resource rows}">
+          <textblock halign='stretch' foreground="Black" text="{data title}"></textblock>
         </border>
-        <border verticalalignment='stretch' width="150" style="{resource rows}">
-          <textblock horizontalalignment='stretch' foreground="Black" text="{data description}"></textblock>
+        <border valign='stretch' width="150" style="{resource rows}">
+          <textblock halign='stretch' foreground="Black" text="{data description}"></textblock>
         </border>
         <border width="310" style="{resource rows}">
           <youtube margin="10" videoid="{data hash}" width="300" height="200"></youtube>
@@ -428,8 +428,8 @@ declarative element-to-element binding.
    
     <border margin="5" width="400" height="400" borderthickness="1" bordercolor="Black">
       <!-- this border is bound to the controls via element binding -->
-      <border horizontalalignment="center" 
-              verticalalignment="center" 
+      <border halign="center" 
+              valign="center" 
               bordercolor="Black" 
               cornerradius="{element slCorner.value}" 
               width="{element slWidth.value}" 
@@ -535,7 +535,7 @@ property="{resource [nameOfResource]}"
     <!-- Here we define a style template for our textblocks -->
     <styletemplate key="textstyle">
       <setters>
-        <stylesetter property="horizontalAlignment" value="center"></stylesetter>
+        <stylesetter property="halign" value="center"></stylesetter>
         <stylesetter property="verticalAlignment" value="center"></stylesetter>
         <stylesetter property="fontSize" value="14"></stylesetter>
       </setters>
@@ -622,44 +622,44 @@ The fourth column is pixel-type of 100, and remains fixed in place.
       <rowdefinition height="*"></rowdefinition>
     </rowdefinitions>
   
-    <textblock text="Grid Demo" grid.columnspan="4" horizontalalignment="center"></textblock>
+    <textblock text="Grid Demo" grid.columnspan="4" halign="center"></textblock>
   
-    <border grid.row="1" borderthickness="1" bordercolor="Black" horizontalalignment="stretch" verticalAlignment="stretch">
+    <border grid.row="1" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
       <textblock>auto</textblock>
     </border>
-    <border grid.row="1" grid.column="1" borderthickness="1" bordercolor="Black" horizontalalignment="stretch" verticalAlignment="stretch">
+    <border grid.row="1" grid.column="1" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
       <textblock>*1</textblock>
     </border>
-    <border grid.row="1" grid.column="2" borderthickness="1" bordercolor="Black" horizontalalignment="stretch" verticalAlignment="stretch">
+    <border grid.row="1" grid.column="2" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
       <textblock>*2</textblock>
     </border>
-    <border grid.row="1" grid.column="3" borderthickness="1" bordercolor="Black" horizontalalignment="stretch" verticalAlignment="stretch">
+    <border grid.row="1" grid.column="3" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
       <textblock>pixel 100</textblock>
     </border>
     
-    <border grid.row="2" borderthickness="1" bordercolor="Black" verticalalignment='stretch'>
+    <border grid.row="2" borderthickness="1" bordercolor="Black" valign='stretch'>
       <textblock>auto column</textblock>
     </border>
-    <border grid.row="2" grid.column="1" borderthickness="1" bordercolor="Black" horizontalalignment="stretch" verticalAlignment="stretch">
+    <border grid.row="2" grid.column="1" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
       <textblock>*1</textblock>
     </border>
-    <border grid.row="2" grid.column="2" borderthickness="1" bordercolor="Black" horizontalalignment="stretch" verticalAlignment="stretch">
+    <border grid.row="2" grid.column="2" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
       <textblock>*2</textblock>
     </border>
-    <border grid.row="2" grid.column="3" borderthickness="1" bordercolor="Black" horizontalalignment="stretch" verticalAlignment="stretch">
+    <border grid.row="2" grid.column="3" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
       <textblock>pixel 100</textblock>
     </border>
     
-    <border grid.row="3" borderthickness="1" bordercolor="Black" horizontalalignment="stretch" verticalAlignment="stretch">
+    <border grid.row="3" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
       <textblock>auto</textblock>
     </border>
-    <border grid.row="3" grid.column="1" borderthickness="1" bordercolor="Black" horizontalalignment="stretch" verticalAlignment="stretch">
+    <border grid.row="3" grid.column="1" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
       <textblock>*1</textblock>
     </border>
-    <border grid.row="3" grid.column="2" borderthickness="1" bordercolor="Black" horizontalalignment="stretch" verticalAlignment="stretch">
+    <border grid.row="3" grid.column="2" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
       <textblock>*2</textblock>
     </border>
-    <border grid.row="3" grid.column="3" borderthickness="1" bordercolor="Black" horizontalalignment="stretch" verticalAlignment="stretch">
+    <border grid.row="3" grid.column="3" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
       <textblock>pixel 100</textblock>
     </border>
   
@@ -733,7 +733,7 @@ Hulu requires Flash and that only works on USA data networks.
   <hyperlink width="170" margin="10,0,0,0" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki/">
 
     <border width="150" height="150" background="Green">
-      <textblock foreground="White" horizontalalignment="center" verticalalignment="center">Content hyperlink</textblock>
+      <textblock foreground="White" halign="center" valign="center">Content hyperlink</textblock>
 
     </border>
 
@@ -836,7 +836,7 @@ Hulu requires Flash and that only works on USA data networks.
   <button margin="10,0,0,0">
 
     <border width="150" height="150" background="Green">
-      <textblock foreground="White" horizontalalignment="center" verticalalignment="center">button with content</textblock>
+      <textblock foreground="White" halign="center" valign="center">button with content</textblock>
 
     </border>
 
@@ -869,7 +869,7 @@ each slider's 'value' property to the corresponding textblock's
 -->
 
 <border borderthickness="2" bordercolor="Green" background="WhiteSmoke" cornerradius="9" padding="10" margin="10" width="300">
-   <StackPanel horizontalalignment="center" verticalalignment="center">
+   <StackPanel halign="center" valign="center">
       <TextBlock>Slide us. We dare you.</TextBlock>
 
       <stackpanel width="160" orientation="horizontal">
@@ -894,10 +894,10 @@ each slider's 'value' property to the corresponding textblock's
     borderView =
 '''
 <border borderthickness="2" bordercolor="Green" background="Yellow" cornerradius="9" padding="10" margin="10" width="400" height="400">
-  <border borderthickness="2" bordercolor="Green" background="Pink" cornerradius="9" padding="10" margin="10" horizontalAlignment="stretch" verticalalignment="stretch">
-    <border borderthickness="2" bordercolor="Green" background="Purple" cornerradius="9" padding="10" margin="10" horizontalAlignment="stretch" verticalalignment="stretch">
-      <border borderthickness="2" bordercolor="Green" background="Orange" cornerradius="9" padding="10" margin="10" horizontalAlignment="stretch" verticalalignment="stretch">
-         <TextBlock horizontalalignment="center" verticalalignment="center" text="Borders are cool."></TextBlock>
+  <border borderthickness="2" bordercolor="Green" background="Pink" cornerradius="9" padding="10" margin="10" halign="stretch" valign="stretch">
+    <border borderthickness="2" bordercolor="Green" background="Purple" cornerradius="9" padding="10" margin="10" halign="stretch" valign="stretch">
+      <border borderthickness="2" bordercolor="Green" background="Orange" cornerradius="9" padding="10" margin="10" halign="stretch" valign="stretch">
+         <TextBlock halign="center" valign="center" text="Borders are cool."></TextBlock>
       </border>
     </border>
   </border>

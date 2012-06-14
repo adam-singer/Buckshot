@@ -16,7 +16,7 @@
 This is the actual xml that is rendering the page.
 -->
 
-<stackpanel name='spRoot' orientation="horizontal" horizontalAlignment="center">
+<stackpanel name='spRoot' orientation="horizontal" halign="center">
   <resourcecollection>
     <color key="buckshotBlue" value="#165284"></color>
 
@@ -27,7 +27,7 @@ This is the actual xml that is rendering the page.
         <stylesetter property="margin" value="0,0,10,0"></stylesetter>
         <stylesetter property="padding" value="10"></stylesetter>
         <stylesetter property="background" value="{resource buckshotBlue}"></stylesetter>
-        <stylesetter property="horizontalAlignment" value="stretch"></stylesetter>
+        <stylesetter property="hAlign" value="stretch"></stylesetter>
       </setters>
     </styletemplate>
     
@@ -36,7 +36,7 @@ This is the actual xml that is rendering the page.
         <stylesetter property="margin" value="0,0,10,0"></stylesetter>
         <stylesetter property="padding" value="10"></stylesetter>
         <stylesetter property="background" value="SteelBlue"></stylesetter>
-        <stylesetter property="horizontalAlignment" value="stretch"></stylesetter>
+        <stylesetter property="hAlign" value="stretch"></stylesetter>
       </setters>
     </styletemplate>
     
@@ -44,7 +44,7 @@ This is the actual xml that is rendering the page.
       <setters>
         <stylesetter property="foreground" value="White"></stylesetter>
         <stylesetter property="fontSize" value="18"></stylesetter>
-        <stylesetter property="horizontalAlignment" value="stretch"></stylesetter>
+        <stylesetter property="hAlign" value="stretch"></stylesetter>
       </setters>
     </styletemplate>
     
@@ -66,7 +66,7 @@ This is the actual xml that is rendering the page.
   </resourcecollection>
 
   <stackpanel maxWidth='270'>
-  	<border horizontalAlignment="center">
+  	<border halign="center">
 	    <image  alt="Buckshot Logo Candidate" 
 	        sourceuri="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></image>
     </border>
@@ -81,7 +81,7 @@ This is the actual xml that is rendering the page.
       </stackpanel>
     </border>
     <border style="{resource sidebox}">
-      <stackpanel horizontalalignment='stretch'>
+      <stackpanel halign='stretch'>
         <textblock style="{resource sideboxtext}">
         Buckshot is a User Interface framework for the web written in Google Dart.  
         On this page you can explore how the framework's simple layout structure makes designing and working with web pages easy.
@@ -109,7 +109,7 @@ This is the actual xml that is rendering the page.
     <plusone annotation="inline"></plusone>
   </stackpanel>
   <stackpanel margin="0,0,0,10" width="700">
-    <!-- border.horizontalAlignment="stretch" isn't working properly here (textblock wont center), so setting width explicitely instead -->
+    <!-- border.halign="stretch" isn't working properly here (textblock wont center), so setting width explicitely instead -->
     <textblock margin="0,10" fontsize="20" fontfamily="arial" text="Select a sample or design your own in the Input area below."></textblock>
     <stackpanel style='{resource sample_row}'>
       <textblock margin="0,10,0,0" text="Elements:" fontfamily="arial"></textblock>

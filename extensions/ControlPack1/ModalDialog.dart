@@ -27,9 +27,6 @@ class ModalDialog extends Control
     buttons = new List<ModalDialogButtons>()
   {
     _initModalDialogProperties();
-    
-//    setValue(titleProperty, title);
-//    setValue(textProperty, text);
   }
   
   ModalDialog.with(String dialogTitle, String dialogMessage)
@@ -57,7 +54,10 @@ class ModalDialog extends Control
     cvRoot.rawElement.style.position = 'absolute';
     cvRoot.rawElement.style.top = '0px';
     cvRoot.rawElement.style.left = '0px';
-        
+    
+    
+    //TODO: this is just for testing, click events should hook 
+    //into the dialog buttons.
     bDialog.click + (_, __){
       b1.unregister();
       b2.unregister();
@@ -67,7 +67,6 @@ class ModalDialog extends Control
     };
   }
 
-  //future
   Future<ModalDialogButtons> show(){
     c = new Completer<ModalDialogButtons>();
     //inject into DOM
@@ -100,12 +99,12 @@ class ModalDialog extends Control
         '''
 <controltemplate controlType='${this.templateName}'>
   <grid name='cvRoot'>
-    <border horizontalAlignment='stretch' verticalalignment='stretch' name='bMask' background='Gray' opacity='0.5'></border>
-    <border horizontalAlignment='center' verticalalignment='center' padding='5' borderthickness='1' bordercolor='Black' name='bDialog' background='White'>
+    <border halign='stretch' valign='stretch' name='bMask' background='Gray' opacity='0.5'></border>
+    <border halign='center' valign='center' padding='5' borderthickness='1' bordercolor='Black' name='bDialog' background='White'>
       <stackpanel maxwidth='500'>
-        <textblock name='tbTitle' text='{template title}' horizontalalignment='center'></textblock>
+        <textblock name='tbTitle' text='{template title}' halign='center'></textblock>
         <textblock name='tbText' text='{template text}'></textblock>
-        <stackpanel horizontalalignment='center' orientation='horizontal'>
+        <stackpanel halign='center' orientation='horizontal'>
           <button name='btnModalDialogOK' content='OK'></button>
           <button name='btnModalDialogCancel' content='Cancel'></button>
           <button name='btnModalDialogYes' content='Yes'></button>
