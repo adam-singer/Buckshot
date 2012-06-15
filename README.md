@@ -16,16 +16,19 @@ In particular, the layout model uses the latest draft of the [CSS3 flexbox](http
 
 ## Getting Started ##
 
+### Videos ###
+* [Setting Up A Buckshot Project](http://www.youtube.com/watch?v=9YXeNalVeGA)
+* [Border](http://www.youtube.com/watch?v=PbgixkIIPWQ)
+* [StackPanel](http://www.youtube.com/watch?v=ykB_gjbnapg)
+* [Working With UI Templates](http://www.youtube.com/watch?v=LOacOkmd9FI)
+* [Extending Controls with Control Templates](http://www.youtube.com/watch?v=KRGvdID4rPE)
+* [Element-To-Element Binding](http://www.youtube.com/watch?v=WC25C5AHYAI)
+* [Working With Resources](http://www.youtube.com/watch?v=cFxf3OBIj8Q)
+
 ### Reference Material ###
 * [API Reference](http://www.lucastudios.com/trybuckshot/docs/)
 * [Wiki Documentation](https://github.com/prujohn/Buckshot/wiki/_pages)
 * [Developers: How To Contribute](https://github.com/prujohn/Buckshot/wiki/How-To-Contribute)
-
-### Videos ###
-* [UI Templates](http://www.youtube.com/watch?v=LOacOkmd9FI)
-* [Extending Controls with Control Templates](http://www.youtube.com/watch?v=KRGvdID4rPE)
-* [Element-To-Element Binding](http://www.youtube.com/watch?v=WC25C5AHYAI)
-* [Working With Resources](http://www.youtube.com/watch?v=cFxf3OBIj8Q)
 
 ## Features
 * **XML Template Format** Similar to Xaml, but more simplified and flexible.
