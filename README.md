@@ -6,10 +6,10 @@ Buckshot is a UI Framework for modern web applications. It is written in Google 
 
 If you've worked with .net WPF or Silverlight then this framework will feel very familiar to you.
 
-## Status: Alpha
+## Status: Alpha ##
 Project is currently in the **alpha** stage of development.  It will likely not move to beta or v1.0 until after Dart ships v1.0. This is to ensure that that library is working correctly with the Dart APIs, which are still in flux.
 
-## Bleeding Edge
+## Bleeding Edge ##
 Buckshot uses the very latest in HTML5/CSS3 standards.  No shims are yet in place to compensate for older or non-compliant browsers.
 
 In particular, the layout model uses the latest draft of the [CSS3 flexbox](http://dev.w3.org/csswg/css3-flexbox/) spec, so it will currently only work with the latest build of Chromium or Dartium.
@@ -26,33 +26,52 @@ In particular, the layout model uses the latest draft of the [CSS3 flexbox](http
 * [Element-To-Element Binding](http://www.youtube.com/watch?v=WC25C5AHYAI)
 * [Working With Resources](http://www.youtube.com/watch?v=cFxf3OBIj8Q)
 
+### Buckshot Online Sandbox ###
+[Online Interactive Buckshot](http://www.lucastudios.com/trybuckshot)
+
 ### Reference Material ###
 * [API Reference](http://www.lucastudios.com/trybuckshot/docs/)
 * [Wiki Documentation](https://github.com/prujohn/Buckshot/wiki/_pages)
 * [Developers: How To Contribute](https://github.com/prujohn/Buckshot/wiki/How-To-Contribute)
 
 ## Features
-* **XML Template Format** Similar to Xaml, but more simplified and flexible.
-* **XML Template Actions** Event-driven actions, like playing animations, changing properties, etc, in XML templates instead of code (you can also do it in code too, if desired)
-* **Lots of Controls.** Dozens of controls included with the core library, everything from primitive shapes to complex template-supporting controls, like ListBox.
-* **Animation** Declaratively set keyframe animations for your elements, and off you go (still new, has some limitations).
-* **Declarative Binding.** Buckshot supports 4 different types of binding from XML templates (or in code):  Resource binding, element-to-element binding, data binding, and template binding.
-* **Events model.** .net folks will find this model to be very familiar.  We use it to wrap DOM events and for other internal events, but you can use it in your own apps.
-* **Style Templates.**  Use a common style library among multiple elements.  Individual changes to style property values will automatically update any elements using that style.
-* **MVVM Support**
-* **Extensibility**  Everything in Buckshot is designed to be extensible, so you can create libraries of your own controls, resources, and more.
-* **And Much, Much More** [More Details Here] (https://github.com/prujohn/Buckshot/wiki/What-is-Buckshot%3F)
+<table>
+<tr>
+<td>Template-Driven</td>
+<td>Similar to Xaml, but more simplified and flexible.</td>
+</tr>
+<tr>
+<td>Actions</td>
+<td>Event-driven actions, like playing animations, changing properties, etc, in XML templates instead of code (you can also do it in code too, if desired)</td>
+</tr>
+<tr>
+<td>Controls</td>
+<td>Dozens of controls included with the core library, everything from primitive shapes to complex template-supporting controls, like ListBox</td>
+</tr>
+<tr>
+<td>Animation</td>
+<td>Declaratively set keyframe animations for your elements, and off you go (still new, has some limitations)</td>
+</tr>
+<tr>
+<td>Data Binding</td>
+<td>
+Buckshot supports 4 different types of binding from XML templates (or in code):  Resource binding, element-to-element binding, data binding, and template binding</td>
+</tr>
+<tr>
+<td>Events</td>
+<td>.net folks will find this model to be very familiar.  We use it to wrap DOM events and for other internal events, but you can use it in your own apps</td>
+</tr>
+<tr>
+<td>Style Templates</td>
+<td>Use a common style library among multiple elements.  Individual changes to style property values will automatically update any elements using that style</td>
+</tr>
+<tr>
+<td>Extensibility</td>
+<td>Everything in Buckshot is designed to be extensible, so you can create libraries of your own controls, resources, and more</td>
+</tr>
+</table>
 
-## Try The Buckshot Sandbox Online
-[Online Interactive Buckshot](http://www.lucastudios.com/trybuckshot)
-
-## Other Live Demos
-[Click here to view live versions of demos included in the project](http://www.lucastudios.com/demos/)
-
-## Future Stuff
-* More controls
-* Server-side integration (Dart works on both client and server)
-* Free beer (no, but wouldn't it be nice?)
+**And Much, Much More** [More Details Here] (https://github.com/prujohn/Buckshot/wiki/What-is-Buckshot%3F)
 
 ## Dependencies (git submodules in the 'external' folder)
 * [Dart-XML](https://github.com/prujohn/dart-xml)
@@ -69,6 +88,3 @@ Here on github or http://www.lucastudios.com/contact
 G+: https://plus.google.com/115427174005651655317/about
 
 Blog: http://phylotic.blogspot.com
-
----------------------------------------------
-	final Future<Internet> Dart;
