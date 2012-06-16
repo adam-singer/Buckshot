@@ -20,6 +20,7 @@ In particular, the layout model uses the latest draft of the [CSS3 flexbox](http
 * [Setting Up A Buckshot Project](http://www.youtube.com/watch?v=9YXeNalVeGA)
 * [Border](http://www.youtube.com/watch?v=PbgixkIIPWQ)
 * [StackPanel](http://www.youtube.com/watch?v=ykB_gjbnapg)
+* [Grid](http://www.youtube.com/watch?v=_EXuAew-J98)
 * [Working With UI Templates](http://www.youtube.com/watch?v=LOacOkmd9FI)
 * [Extending Controls with Control Templates](http://www.youtube.com/watch?v=KRGvdID4rPE)
 * [Element-To-Element Binding](http://www.youtube.com/watch?v=WC25C5AHYAI)
