@@ -99,6 +99,8 @@ class FrameworkElement extends FrameworkObject {
   FrameworkEvent<MouseEventArgs> mouseDown;
   /// Fires when the mouse button changes to an up position while over the FrameworkElement.
   FrameworkEvent<MouseEventArgs> mouseUp;
+//  FrameworkEvent<KeyEventArgs> keyUp;
+//  FrameworkEvent<KeyEventArgs> keyDown;
 
   //TODO mouseWheel, onScroll;
 
@@ -524,6 +526,32 @@ class FrameworkElement extends FrameworkObject {
 
 
   void _initFrameworkEvents(){
+//
+//    void keyHandler(e){
+//      if (!keyUp.hasHandlers) return;
+//      
+//      e.stopPropagation();
+//      
+//      var ev = new KeyEventArgs(e.keyCode, e.charCode);
+//      ev.altKey = e.altKey;
+//      ev.shiftKey = e.shiftKey;
+//      ev.ctrlKey = e.ctrlKey;
+//      
+//      keyUp.invoke(this, ev);
+//    }
+//    
+//    keyUp = new FrameworkEvent<EventArgs>
+//    ._watchFirstAndLast(
+//      () => rawElement.on.keyUp.add(keyHandler),
+//      () => rawElement.on.keyUp.add(keyHandler)
+//      );
+//    
+//    keyDown = new FrameworkEvent<EventArgs>
+//    ._watchFirstAndLast(
+//      () => rawElement.on.keyDown.add(keyHandler),
+//      () => rawElement.on.keyDown.add(keyHandler)
+//      );
+    
     void mouseUpHandler(e){
       if (!mouseUp.hasHandlers) return;
 
@@ -534,7 +562,7 @@ class FrameworkElement extends FrameworkObject {
       mouseUp.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
 
     }
-
+    
     mouseUp = new FrameworkEvent<MouseEventArgs>
     ._watchFirstAndLast(
       () => _component.on.mouseUp.add(mouseUpHandler),

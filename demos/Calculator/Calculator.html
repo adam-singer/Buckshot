@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Buckshot Calculator</title>
+  </head>
+  <body>
+  	<!-- Buckshot Rendering Placeholder -->
+	<div id='BuckshotHost'></div>
+		
+	<!-- 
+	Buckshot Templates 
+	-->
+	
+	<!--
+	This is the main template of the application and provides the layout
+	for all of the calculator components.
+	-->
+	<script id='main' type='text/xml'>
+		<border style='{resource calcStyle}'>
+			<grid width='{data width}' height='400'>
+				<rowdefinitions>
+					<rowdefinition height='50' />
+					<rowdefinition height='70' />
+					<rowdefinition height='*1' />
+				</rowdefinitions>
+				<border style='{resource calcHeader}'></border>
+				<border style='{resource borderSeperator}'></border>
+				<stackpanel orientation='horizontal' valign='center' margin='0,0,0,2'>
+	    			<image width='50' alt="Buckshot Logo" sourceuri="resources/buckshot_logo.png" />
+					<stackpanel>
+						<textblock style='{resource defaultText}' text='Buckshot' />
+						<textblock style='{resource defaultText}' text='Calculator' />
+					</stackpanel>
+				</stackpanel>
+				<stackpanel orientation='horizontal' valign='center' halign='right' margin='0,5,0,0'>
+					<textblock style='{resource defaultText}' text='Mode:' margin='0,0,0,5' />
+					<dropdownlist name='ddlMode'>
+						<items>
+							<dropdownlistitem name='Standard' value='Standard' />
+							<dropdownlistitem name='Extended' value='Extended' />
+						</items>
+					</dropdownlist>
+				</stackpanel>
+				<border grid.row='1' style='{resource borderOutput}'>
+					<!-- 
+					In the output grid, we are overlapping several elements,
+					while using alignment to make them appear in different
+					areas of the grid cell.
+					-->
+					<grid halign='stretch' valign='stretch'>
+						<textblock style='{resource textblockSubOutput}' valign='bottom' text='{data memoryMarker}' />
+						<textblock style='{resource textblockSubOutput}' text='{data subOutput}' />
+						<textblock style='{resource textblockOutput}' text='{data output}' />
+					</grid>
+				</border>
+				<border margin='5,5' halign='stretch' valign='stretch' grid.row='2' content='{data keypad}'></border>
+			</grid>
+		</border>
+	</script>
+	
+	
+	<!-- 
+	This template represents the default keypad layout of the calculator.
+	-->
+	<script id='keypad_default' type='text/xml'>
+		<grid name='gridStandard' halign='stretch' valign='stretch'>
+			<rowdefinitions>
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+			</rowdefinitions>
+			<columndefinitions>
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+			</columndefinitions>
+			<button style='{resource buttonDefaultStyle}' content='MC'></button>
+			<button grid.column='1' style='{resource buttonDefaultStyle}' content='MR'></button>
+			<button grid.column='2' style='{resource buttonDefaultStyle}' content='MS'></button>
+			<button grid.column='3' style='{resource buttonDefaultStyle}' content='M+'></button>
+			<button grid.column='4' style='{resource buttonDefaultStyle}' content='M-'></button>
+			
+			<button grid.row='1' style='{resource buttonDefaultStyle}' content='<--'></button>
+			<button grid.column='1' grid.row='1' style='{resource buttonDefaultStyle}' content='CE'></button>
+			<button grid.column='2' grid.row='1' style='{resource buttonDefaultStyle}' content='C'></button>
+			<button grid.column='3' grid.row='1' style='{resource buttonDefaultStyle}' content='+-'></button>
+			<button grid.column='4' grid.row='1' style='{resource buttonDefaultStyle}' content='SQRT'></button>
+			
+			<button grid.row='2' style='{resource buttonDefaultStyle}' content='7'></button>
+			<button grid.column='1' grid.row='2' style='{resource buttonDefaultStyle}' content='8'></button>
+			<button grid.column='2' grid.row='2' style='{resource buttonDefaultStyle}' content='9'></button>
+			<button grid.column='3' grid.row='2' style='{resource buttonDefaultStyle}' content='/'></button>
+			<button grid.column='4' grid.row='2' style='{resource buttonDefaultStyle}' content='%'></button>
+			
+			<button grid.row='3' style='{resource buttonDefaultStyle}' content='4'></button>
+			<button grid.column='1' grid.row='3' style='{resource buttonDefaultStyle}' content='5'></button>
+			<button grid.column='2' grid.row='3' style='{resource buttonDefaultStyle}' content='6'></button>
+			<button grid.column='3' grid.row='3' style='{resource buttonDefaultStyle}' content='*'></button>
+			<button grid.column='4' grid.row='3' style='{resource buttonDefaultStyle}' content='1/x'></button>
+			
+			<button grid.row='4' style='{resource buttonDefaultStyle}' content='1'></button>
+			<button grid.column='1' grid.row='4' style='{resource buttonDefaultStyle}' content='2'></button>
+			<button grid.column='2' grid.row='4' style='{resource buttonDefaultStyle}' content='3'></button>
+			<button grid.column='3' grid.row='4' style='{resource buttonDefaultStyle}' content='-'></button>
+			<button grid.column='4' grid.row='4' grid.rowspan='2' style='{resource buttonDefaultStyle}' content='='></button>
+			
+			<button grid.row='5' grid.columnspan='2' style='{resource buttonDefaultStyle}' content='0'></button>
+			<button grid.column='2' grid.row='5' style='{resource buttonDefaultStyle}' content='.'></button>
+			<button grid.column='3' grid.row='5' style='{resource buttonDefaultStyle}' content='+'></button>
+		</grid>
+	</script>
+	
+	<!-- 
+	This template represents the extended keypad layout of the calcualtor.
+	-->
+	<script id='keypad_extended' type='text/xml'>
+		<grid name='gridExtended' halign='stretch' valign='stretch'>
+			<rowdefinitions>
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+			</rowdefinitions>
+			<columndefinitions>
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+			</columndefinitions>
+			
+			<button grid.column='1' style='{resource buttonDefaultStyle}' content='MC'></button>
+			<button grid.column='2' style='{resource buttonDefaultStyle}' content='MR'></button>
+			<button grid.column='3' style='{resource buttonDefaultStyle}' content='MS'></button>
+			<button grid.column='4' style='{resource buttonDefaultStyle}' content='M+'></button>
+			<button grid.column='5' style='{resource buttonDefaultStyle}' content='M-'></button>
+			
+			<button grid.row='1' style='{resource buttonDefaultStyle}' content='sin'></button>
+			<button grid.column='1' grid.row='1' style='{resource buttonDefaultStyle}' content='<--'></button>
+			<button grid.column='2' grid.row='1' style='{resource buttonDefaultStyle}' content='CE'></button>
+			<button grid.column='3' grid.row='1' style='{resource buttonDefaultStyle}' content='C'></button>
+			<button grid.column='4' grid.row='1' style='{resource buttonDefaultStyle}' content='+-'></button>
+			<button grid.column='5' grid.row='1' style='{resource buttonDefaultStyle}' content='SQRT'></button>
+			
+			<button grid.row='2' style='{resource buttonDefaultStyle}' content='cos'></button>
+			<button grid.column='1' grid.row='2' style='{resource buttonDefaultStyle}' content='7'></button>
+			<button grid.column='2' grid.row='2' style='{resource buttonDefaultStyle}' content='8'></button>
+			<button grid.column='3' grid.row='2' style='{resource buttonDefaultStyle}' content='9'></button>
+			<button grid.column='4' grid.row='2' style='{resource buttonDefaultStyle}' content='/'></button>
+			<button grid.column='5' grid.row='2' style='{resource buttonDefaultStyle}' content='%'></button>
+			
+			<button grid.row='3' style='{resource buttonDefaultStyle}' content='x^2'></button>
+			<button grid.column='1' grid.row='3' style='{resource buttonDefaultStyle}' content='4'></button>
+			<button grid.column='2' grid.row='3' style='{resource buttonDefaultStyle}' content='5'></button>
+			<button grid.column='3' grid.row='3' style='{resource buttonDefaultStyle}' content='6'></button>
+			<button grid.column='4' grid.row='3' style='{resource buttonDefaultStyle}' content='*'></button>
+			<button grid.column='5' grid.row='3' style='{resource buttonDefaultStyle}' content='1/x'></button>
+			
+			<button grid.row='4' style='{resource buttonDefaultStyle}' content='x^3'></button>
+			<button grid.column='1' grid.row='4' style='{resource buttonDefaultStyle}' content='1'></button>
+			<button grid.column='2' grid.row='4' style='{resource buttonDefaultStyle}' content='2'></button>
+			<button grid.column='3' grid.row='4' style='{resource buttonDefaultStyle}' content='3'></button>
+			<button grid.column='4' grid.row='4' style='{resource buttonDefaultStyle}' content='-'></button>
+			<button grid.column='5' grid.row='4' grid.rowspan='2' style='{resource buttonDefaultStyle}' content='='></button>
+			
+			<button grid.row='5' style='{resource buttonDefaultStyle}' content='pi'></button>
+			<button grid.column='1' grid.row='5' grid.columnspan='2' style='{resource buttonDefaultStyle}' content='0'></button>
+			<button grid.column='3' grid.row='5' style='{resource buttonDefaultStyle}' content='.'></button>
+			<button grid.column='4' grid.row='5' style='{resource buttonDefaultStyle}' content='+'></button>
+		</grid>
+	</script>
+		
+		
+	<!-- 
+	This template holds global resources that elements in other templates 
+	can bind to.  
+	
+	It is important to load this template first, so that other templates 
+	that reference resources within it will find them.
+	-->
+	<script id='resources' type='text/xml'>
+		<resourcecollection>
+		
+		    <lineargradientbrush key="calcBackground" direction="vertical">
+		      <stops>
+		        <gradientstop color="#FEFEFF" />
+		      	<gradientstop color="#CECEFF" />  
+		      </stops>
+		    </lineargradientbrush>
+		    
+		    <lineargradientbrush key="outputBackground" direction="vertical">
+		      <stops>
+		      	<gradientstop color="#DFDFFF" />  
+		        <gradientstop color="#FEFEFF" />
+		      </stops>
+		    </lineargradientbrush>
+		    
+			<styletemplate key='defaultText'>
+				<setters>
+					<stylesetter property='fontFamily' value='Consolas' />
+					<stylesetter property='fontSize' value='16' />
+				</setters>
+			</styletemplate>
+							    
+			<styletemplate key='calcStyle'>
+				<setters>
+					<stylesetter property='background' value='{resource calcBackground}' />
+					<stylesetter property='borderThickness' value='1' />
+					<stylesetter property='cornerRadius' value='5' />
+					<stylesetter property='borderColor' value='Black' />
+				</setters>
+			</styletemplate>		    
+		    
+		    <styletemplate key='calcHeader'>
+		    	<setters>
+		    		<stylesetter property='background' value='{resource calcBackground}' />
+		    		<stylesetter property='cornerRadius' value='5' />
+					<stylesetter property='vAlign' value='stretch' />
+					<stylesetter property='hAlign' value='stretch' />	
+		    	</setters>
+		    </styletemplate>
+		    
+			<styletemplate key='borderSeperator'>
+				<setters>
+					<stylesetter property='borderThickness' value='1' />
+					<stylesetter property='vAlign' value='bottom' />
+					<stylesetter property='hAlign' value='stretch' />
+				</setters>
+			</styletemplate>
+
+			<styletemplate key='borderOutput'>
+				<setters>
+					<stylesetter property='background' value='{resource outputBackground}' />
+					<stylesetter property='height' value='50' />
+					<stylesetter property='hAlign' value='stretch' />
+					<stylesetter property='borderThickness' value='1' />
+					<stylesetter property='borderColor' value='#777777' />
+					<stylesetter property='cornerRadius' value='3' />
+					<stylesetter property='margin' value='5,10' />
+					<stylesetter property='padding' value='5,0' />
+				</setters>
+			</styletemplate>
+
+			<styletemplate key='textblockOutput'>
+				<setters>
+					<stylesetter property='fontSize' value='32' />
+					<stylesetter property='hAlign' value='right' />
+					<stylesetter property='vAlign' value='bottom' />
+					<stylesetter property='fontFamily' value='Consolas' />
+				</setters>
+			</styletemplate>
+			
+			<styletemplate key='textblockSubOutput'>
+				<setters>
+					<stylesetter property='fontSize' value='14' />
+					<stylesetter property='fontFamily' value='Consolas' />
+				</setters>
+			</styletemplate>
+			
+			<styletemplate key='buttonDefaultStyle'>
+				<setters>
+					<stylesetter property='vAlign' value='stretch' />
+					<stylesetter property='hAlign' value='stretch' />
+					<stylesetter property='margin' value='3' />
+				</setters>
+			</styletemplate>		
+		</resourcecollection>
+	</script>
+	
+			
+	<!-- Dart Script and Bootstrap -->
+    <script type="application/dart" src="Calculator.dart"></script>
+    <script src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script>
+  </body>
+</html>

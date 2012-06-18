@@ -1,6 +1,7 @@
 util/ControlGenerator.dart
 tests/tests.dart
 external/dartxml/Xml.dart
+demos/Calculator/Calculator.dart
 demos/tryit/Tryit.dart
 extensions/social/SocialPack.dart
 extensions/actions/SetPropertyAction.dart

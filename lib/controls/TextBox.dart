@@ -27,7 +27,7 @@ class TextBox extends Control
   TextBox() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {
-    Dom.appendBuckshotClass(_component, "textbox");
+    Dom.appendBuckshotClass(rawElement, "textbox");
 
     _initTextBoxProperties();
 
@@ -42,17 +42,17 @@ class TextBox extends Control
       this,
       "placeholder",
       (String value){
-        _component.attributes["placeholder"] = value;
+        rawElement.attributes["placeholder"] = value;
       });
 
 
     textProperty = new FrameworkProperty(this, "text", (String value){
-      _component.dynamic.value = value;
+      rawElement.dynamic.value = value;
     },"");
 
     inputTypeProperty = new FrameworkProperty(this, "inputType", (InputTypes value){
       if (InputTypes._isValidInputType(value)){
-        _component.attributes["type"] = value.toString();
+        rawElement.attributes["type"] = value.toString();
       }else{
         throw new BuckshotException("Invalid input '${value}' type passed to TextBox.inputType. Use InputTypes.{type} for safe assignment.");
       }
@@ -62,11 +62,11 @@ class TextBox extends Control
 
   void _initEvents(){
 
-    _component.on.keyUp.add((e){
-      if (text == _component.dynamic.value) return; //no change from previous keystroke
+    rawElement.on.keyUp.add((e){
+      if (text == rawElement.dynamic.value) return; //no change from previous keystroke
 
       String oldValue = text;
-      text = _component.dynamic.value;
+      text = rawElement.dynamic.value;
 
       if (!textChanged.hasHandlers) return;
       textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));
@@ -74,11 +74,11 @@ class TextBox extends Control
       if (e.cancelable) e.cancelBubble = true;
     });
 
-    _component.on.change.add((e){
-      if (text == _component.dynamic.value) return; //no change from previous keystroke
+    rawElement.on.change.add((e){
+      if (text == rawElement.dynamic.value) return; //no change from previous keystroke
 
       String oldValue = text;
-      text = _component.dynamic.value;
+      text = rawElement.dynamic.value;
 
       if (!textChanged.hasHandlers) return;
       textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));
@@ -100,8 +100,8 @@ class TextBox extends Control
 
 
   void CreateElement(){
-    _component = new InputElement();
-    _component.attributes["type"] = "text";
+    rawElement = new InputElement();
+    rawElement.attributes["type"] = "text";
   }
 
   String get type() => "TextBox";

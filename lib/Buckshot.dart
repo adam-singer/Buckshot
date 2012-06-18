@@ -49,6 +49,7 @@
 #source('events/RoutedEventArgs.dart');
 #source('events/SelectedItemChangedEventArgs.dart');
 #source('events/MeasurementChangedEventArgs.dart');
+#source('events/KeyEventArgs.dart');
 
 #source('primitives/Tuple.dart');
 #source('primitives/Thickness.dart');
