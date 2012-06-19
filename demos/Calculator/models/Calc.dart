@@ -148,12 +148,9 @@ class Calc implements ICalculator
   }
   
   bool _isNumber(String value){
-    try{
-      Math.parseDouble(value);
-      return true;
-    }catch(var anything){
-      return false;
-    }
+    final String test = '1234567890';
+    
+    return (test.contains(value));
   }
       
   void _updateOutput(){

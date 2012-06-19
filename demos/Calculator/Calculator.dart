@@ -16,6 +16,8 @@
 *
 * This demo only supports mouse input.
 *
+* Video Walkthrough: http://www.youtube.com/watch?v=lbUO0E3kgdk
+* 
 * ### Benefits of Buckshot and the MVVM Pattern ###
 * * A template & data focused application (minimal infrastructure noise).
 * * Clean separation of concerns between design and implementation.
