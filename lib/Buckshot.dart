@@ -27,7 +27,7 @@
 #library('Buckshot_Client');
 
 #import('dart:html');
-#import('../external/dartxml/Xml.dart');
+#import('../external/dartxml/lib/xml.dart');
 //#import('../../reactive/lib/reactive_lib.dart');
 
 

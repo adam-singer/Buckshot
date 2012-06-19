@@ -18,7 +18,7 @@
 #library('Buckshot Control Generator');
 
 #import('../lib/Buckshot.dart');
-#import('../external/dartxml/Xml.dart');
+#import('../external/dartxml/lib/xml.dart');
 #import('dart:html');
 
 /**

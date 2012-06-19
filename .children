@@ -1,12 +1,12 @@
 util/ControlGenerator.dart
 tests/tests.dart
-external/dartxml/Xml.dart
 demos/Calculator/Calculator.dart
 demos/tryit/Tryit.dart
 extensions/social/SocialPack.dart
 extensions/actions/SetPropertyAction.dart
 extensions/actions/AnimationAction.dart
 extensions/actions/ActionPack.dart
+external/dartxml/lib/xml.dart
 extensions/media/MediaPack.dart
 extensions/media/YouTube.dart
 extensions/actions/TogglePropertyAction.dart

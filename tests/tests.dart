@@ -21,7 +21,7 @@
 #import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/unittest.dart');
 #import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/html_enhanced_config.dart');
 
-#import('../external/dartxml/Xml.dart');
+#import('../external/dartxml/lib/xml.dart');
 
 #source('../lib/MVVM/ViewModelBase.dart');
 #source('../lib/MVVM/IView.dart');
