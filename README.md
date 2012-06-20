@@ -1,6 +1,6 @@
 ![Buckshot Logo](http://www.lucastudios.com/img/lucaui_logo_candidate2.png)
 
-### Buckshot [buhk-shot] *noun* A throw when darts land wildly all over the board. ###
+### Buckshot [buhk-shot] *noun* When darts land wildly all over the board. ###
 
 Buckshot is a UI Framework for modern web applications. It is written in Google Dart and attempts to model the best of .net WPF (Silverlight) and Adobe Flex, but without the need for a plug-in. Buckshot renders all output in HTML5/CSS3, and makes use of features available in today's modern web browsers.
 

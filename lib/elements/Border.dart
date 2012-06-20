@@ -20,9 +20,6 @@
 * A container element that holds a single child and provides visual border properties. */
 class Border extends FrameworkElement implements IFrameworkContainer
 {
-  String _BORDERWIDTHSHIM;
-  EventHandlerReference _ref;
-
   /// Represents the [Color] of the border background.
   AnimatingFrameworkProperty backgroundProperty;
 
@@ -49,8 +46,6 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
   Border()
   {
-    _BORDERWIDTHSHIM = '__border_width_shim_preserved_width__${hashCode()}';
-    
     Dom.appendBuckshotClass(_component, "border");
 
     _initBorderProperties();

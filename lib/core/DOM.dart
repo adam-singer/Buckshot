@@ -39,13 +39,12 @@ class Dom {
   static void makeFlexBox(FrameworkObject element){
     prefixes.forEach((String p){
       var pre = '${p}box'; //assigning here because some bug won't let me pass it directly in .setProperty
-      element._component.style.display = pre;
+      element.rawElement.style.display = pre;
       pre = '${p}flexbox';
-      element._component.style.display = pre;
+      element.rawElement.style.display = pre;
       pre = '${p}flex';
-      element._component.style.display = pre;
+      element.rawElement.style.display = pre;
     });
-
   }
 
   /** Returns a string representing a cross-browser CSS property assignment. */
