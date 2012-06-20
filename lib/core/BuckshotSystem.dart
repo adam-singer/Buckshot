@@ -36,6 +36,7 @@ Buckshot get buckshot() => new Buckshot._cached();
 class Buckshot extends FrameworkObject {
   static final String _defaultRootID = "#BuckshotHost";
   static final String _version = '0.41 Alpha';
+    
   IView _currentView;
   Element _domRootElement;
   StyleElement _buckshotCSS;
@@ -120,6 +121,8 @@ class Buckshot extends FrameworkObject {
       print('Buckshot Warning: Browser may not be compatible with Buckshot framework.');
     }
     
+    print(browser);
+      
     _initCSS();
 
     defaultPresentationProvider = new BuckshotTemplateProvider();
@@ -176,18 +179,17 @@ class Buckshot extends FrameworkObject {
   }
 
   
+  static Browser get browser() => new Browser();
+  
   /** Returns true if the framework is known to be compatible with the browser type/version it is running in */
   static bool get browserOK() {
-    final ua = window.navigator.userAgent;
+
+    if (browser.browser == Browser.DARTIUM) return true;
     
-    //Dartium should always work
-    if (ua.contains('(Dart)')) return true;
     
     //Chrome(ium) v21+
-    if (ua.contains('Chrome/')){
-      final i = ua.indexOf('Chrome/') + 7;
-      final v = Math.parseInt(ua.substring(i, i + 2));
-      if (v >= 21) return true;
+    if (browser.browser == Browser.CHROME){
+      if (browser.version >= 21) return true;
     }   
     
     return false;
@@ -412,3 +414,200 @@ class Buckshot extends FrameworkObject {
   
   String get type() => "BuckshotSystem";
   }
+
+
+/**
+* ## Parse the user agent and retrieves information about the browser. ##
+* This is a singleton class, so multiple "new Browser()" calls
+* will always return the same object.
+*
+* ## Will attempt to provide the following: ##
+* * Browser Type (Chrome, Firefox, ...)
+* * Platform (Mobile, Desktop, Tablet)
+* * Mobile Type (iPhone, Android, ...)
+* * Major Version
+*/
+class Browser
+{
+  //Browser Type
+  static final String DARTIUM = "Dartium";
+  static final String CHROME = "Chrome";
+  static final String FIREFOX = "Firefox";
+  static final String IE = "IE";
+  static final String OPERA = "Opera";
+  static final String ANDROID = "Android";
+  static final String SAFARI = "Safari";
+  static final String LYNX = "Lynx";
+  
+  //Platform Type
+  static final String MOBILE = "Mobile";
+  static final String DESKTOP = "Desktop";
+  static final String TABLET = "Tablet";
+  
+  
+  //Mobile Type
+  // ANDROID is used again for Android
+  static final String IPHONE = "iPhone";
+  static final String IPAD = "iPad";
+  static final String WINDOWSPHONE = "Windows Phone";
+    
+  static final String UNKNOWN = "Unknown"; 
+  
+  final ua;
+  
+  num version;
+  String browser;
+  String platform;
+  String mobileType;
+  
+  static Browser _ref;
+  
+  factory Browser(){
+    if (_ref != null) return _ref;
+    
+    _ref = new Browser._internal();
+    return _ref;
+  }
+  
+  Browser._internal()
+  :
+    ua = window.navigator.userAgent
+  {
+    browser = _setBrowserType();
+    platform = _setPlatform();
+    mobileType = _setMobileType();
+    version = _getVersion();
+  }
+  
+  num _getVersion(){
+    
+    num getMajor(String ver){
+      if (ver.contains('.')){
+        return Math.parseInt(ver.substring(0, ver.indexOf('.')));
+      }else{
+        return Math.parseInt(ver);
+      }
+    }
+    
+    switch(browser){
+      case DARTIUM:
+      case CHROME:
+        final s = ua.indexOf('Chrome/') + 7;
+        final e = ua.indexOf(' ', s);
+        return getMajor(ua.substring(s, e));
+      case ANDROID:
+        final s = ua.indexOf('Android ') + 8;
+        final e = ua.indexOf(' ', s);
+        return getMajor(ua.substring(s, e));
+      case FIREFOX:
+        final s = ua.indexOf('Firefox/') + 8;
+        final e = ua.indexOf(' ', s);
+        return getMajor(ua.substring(s, e));
+    }
+    
+    return 0;
+  }
+  
+  String _setMobileType(){
+    if (platform == UNKNOWN || platform == DESKTOP){
+      return UNKNOWN;
+    }
+    
+    switch(browser){
+      case CHROME:
+      case ANDROID:
+        return ANDROID;
+      case SAFARI:
+        if (ua.contains('iPhone') || ua.contains('iPod')){
+          return IPHONE;
+        }
+        
+        if (ua.contains('iPad')){
+          return IPAD;
+        }
+        
+        return UNKNOWN;
+      case IE:
+        //TODO: "Surface" tablet
+        return WINDOWSPHONE;
+      case OPERA:
+        if (ua.contains('Android')){
+          return ANDROID;
+        }
+        if (ua.contains('iPhone')){
+          return IPHONE;
+        }
+        if (ua.contains('iPad')){
+          return IPAD;
+        }
+        if (ua.contains('Windows Mobile')){
+          return WINDOWSPHONE;
+        }
+        
+        return DESKTOP;
+    }
+    
+    return UNKNOWN;
+  }
+  
+  String _setPlatform(){
+    if (browser == UNKNOWN) return UNKNOWN;
+    
+    switch(browser){
+      case DARTIUM:
+        return DESKTOP;
+      case ANDROID:
+        return MOBILE;
+      case CHROME:
+        if (ua.contains('<Android Version>')){
+          return (ua.contains('Mobile') ? MOBILE : TABLET);
+        }
+        return DESKTOP;
+      case SAFARI:
+        if (ua.contains('iPhone') || ua.contains('iPod')){
+          return MOBILE;
+        }
+        
+        if (ua.contains('iPad')){
+          return TABLET;
+        }
+        
+        return DESKTOP;
+      case IE:
+        if (ua.contains('Windows Phone')){
+          return MOBILE;
+        }
+        
+        //TODO: need UA for "Surface" tablet eventually
+        
+        return DESKTOP;
+      case OPERA:
+        if (ua.contains('Opera Tablet')){
+          return TABLET;
+        }
+        if (ua.contains('Mini') || ua.contains('Mobile')){
+          return MOBILE;
+        }
+        return DESKTOP;
+    }
+    
+    return UNKNOWN;
+  }
+  
+  String _setBrowserType(){
+    
+    //source: http://www.zytrax.com/tech/web/browser_ids.htm
+    if (ua.contains('(Dart)')) return DARTIUM;
+    if (ua.contains('Chrome/')) return CHROME;
+    if (ua.contains('Firefox/') || ua.contains('ThunderBrowse')) return FIREFOX;
+    if (ua.contains('MSIE')) return IE;
+    if (ua.contains('Opera')) return OPERA;
+    if (ua.contains('Android')) return ANDROID;
+    if (ua.contains('Safari')) return SAFARI;
+    if (ua.contains('Lynx')) return LYNX;
+
+    return UNKNOWN;
+  }
+  
+  String toString() => "Browser Info (Type: ${browser}, Version: ${version}, Platform: ${platform}, MobileType: ${mobileType})";
+}
