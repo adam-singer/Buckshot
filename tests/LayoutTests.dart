@@ -215,7 +215,7 @@ class BorderDebug implements IView {
 
   BorderDebug()
   :
-    _rootElement = buckshot.deserialize(buckshot.getTemplate('#borderTest'));
+    _rootElement = Template.deserialize(Template.getTemplate('#borderTest'));
 
   FrameworkElement get rootVisual() => _rootElement;
 }
@@ -227,7 +227,7 @@ class StackPanelDebug implements IView {
 
   StackPanelDebug()
   :
-    _rootElement = buckshot.deserialize(buckshot.getTemplate('#stackPanelTest'));
+    _rootElement = Template.deserialize(Template.getTemplate('#stackPanelTest'));
 
   FrameworkElement get rootVisual() => _rootElement;
 }
@@ -238,7 +238,7 @@ class GridDebug implements IView
 
   GridDebug()
   :
-    _rootElement = buckshot.deserialize(buckshot.getTemplate('#gridTest'));
+    _rootElement = Template.deserialize(Template.getTemplate('#gridTest'));
 
   FrameworkElement get rootVisual() => _rootElement;
 }

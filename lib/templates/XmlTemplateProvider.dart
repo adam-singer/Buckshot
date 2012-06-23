@@ -20,15 +20,17 @@
 /**
 * The default presentation format provider for buckshot.
 */
-class BuckshotTemplateProvider
+class XmlTemplateProvider
   extends HashableObject
   implements IPresentationFormatProvider {
 
   //TODO MIME as identifier type instead?
-  String get fileExtension() => "BuckXml";
+  String get fileExtension() => "xml";
 
+  bool isFormat(String template) => template.startsWith('<');  
+  
   FrameworkElement deserialize(String fileData) =>
-      _getNextElement(XML.parse(fileData, withQuirks:true));
+      _getNextElement(XML.parse(fileData));
 
 
   BuckshotObject _getNextElement(XmlElement xmlElement){
@@ -70,6 +72,7 @@ class BuckshotTemplateProvider
 
             if (childElement == null) continue; // is a resource
 
+            //CONTAINER_CONTEXT is a FrameworkProperty for single element, List for multiple
             if (cc is List){
               //list content
               cc.add(childElement);
@@ -342,5 +345,5 @@ class BuckshotTemplateProvider
     throw const NotImplementedException();
   }
 
-  String get type() => 'BuckshotTemplateProvider';
+  String get type() => 'XmlTemplateProvider';
 }

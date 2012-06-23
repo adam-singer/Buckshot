@@ -7,7 +7,7 @@ class Main implements IView
   
   Main()
   :
-    _rootVisual = buckshot.deserialize(buckshot.getTemplate('#main')),
+    _rootVisual = Template.deserialize(Template.getTemplate('#main')),
     ddlMode = buckshot.namedElements['ddlMode']
   {
     var vm = new ViewModel();

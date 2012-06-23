@@ -10,7 +10,7 @@ class ExtendedCalc implements IView {
   ExtendedCalc()
   :
     // Retrieve the template from the HTML page and deserialize it.
-    _rootVisual = buckshot.deserialize(buckshot.getTemplate('#keypad_extended'))
+    _rootVisual = Template.deserialize(Template.getTemplate('#keypad_extended'))
   {
     // When Dart has reflection, we won't need to hook these events manually.
     // we'll be able to do it via template.

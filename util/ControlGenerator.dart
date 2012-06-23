@@ -359,7 +359,7 @@ class UserView implements IView
 
 UserView()
 :
-  _view = buckshot.deserialize(_viewTemplate),
+  _view = Template.deserialize(_viewTemplate),
   tbUserInput = buckshot.namedElements["tbUserInput"],
   btnRefresh = buckshot.namedElements["btnRefresh"],
   ddlBinding = buckshot.namedElements["ddlBinding"],

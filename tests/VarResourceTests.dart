@@ -17,10 +17,7 @@
 
 class VarResourceTests extends TestGroupBase
 {
-  final IPresentationFormatProvider p;
-  
-  VarResourceTests() : p = new BuckshotTemplateProvider() {}
-  
+ 
   registerTests(){
     
     this.testGroupName = "VarResource Tests";
@@ -38,7 +35,7 @@ class VarResourceTests extends TestGroupBase
 </resourcecollection>
 ''';
     
-    p.deserialize(t);
+    Template.deserialize(t);
     
     var result = buckshot.retrieveResource("contenttest");
     
@@ -54,7 +51,7 @@ class VarResourceTests extends TestGroupBase
 <var key="urltest" value="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></var>
 </resourcecollection>
 ''';
-    p.deserialize(t);
+    Template.deserialize(t);
     
     Expect.equals("hello world!", buckshot.retrieveResource("test"));
     Expect.equals("#007777", buckshot.retrieveResource("colortest"));

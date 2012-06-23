@@ -47,9 +47,9 @@ class ModalDialog extends Control
     titleProperty = new FrameworkProperty(this, 'title', (_){}, 'undefined');
     textProperty = new FrameworkProperty(this, 'text', (_){}, 'undefined');
     
-    cvRoot = Buckshot.findByName('cvRoot', template);
-    bDialog = Buckshot.findByName('bDialog', template);
-    bMask = Buckshot.findByName('bMask', template);
+    cvRoot = Template.findByName('cvRoot', template);
+    bDialog = Template.findByName('bDialog', template);
+    bMask = Template.findByName('bMask', template);
 
     // Override the underlying DOM element on this canvas so that it
     // is absolutely positioned int the window at 0,0

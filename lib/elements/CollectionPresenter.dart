@@ -58,14 +58,11 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
 
   final FrameworkEvent<ItemCreatedEventArgs> itemCreated;
 
-  final IPresentationFormatProvider _pfp;
-
-  /// Overridden [LucaObject] method.
+  /// Overridden [BuckshotObject] method.
   FrameworkObject makeMe() => new CollectionPresenter();
 
   CollectionPresenter()
   :
-    _pfp = new BuckshotTemplateProvider(),
     itemCreated = new FrameworkEvent<ItemCreatedEventArgs>()
   {
     Dom.appendBuckshotClass(_component, "collectionpresenter");
@@ -128,7 +125,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
     if (itemsTemplate == null){
       //no template, then just call toString on the object.
       values.forEach((iterationObject){
-        var it = _pfp.deserialize('<textblock halign="stretch">'
+        var it = Template.deserialize('<textblock halign="stretch">'
           '${iterationObject}</textblock>');
         it._stateBag[_SBO] = iterationObject;
         itemCreated.invoke(this, new ItemCreatedEventArgs(it));
@@ -137,7 +134,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
     }else{
       //if template, then bind the object to the template datacontext
       values.forEach((iterationObject){
-        var it = _pfp.deserialize(itemsTemplate);
+        var it = Template.deserialize(itemsTemplate);
         it._stateBag[_SBO] = iterationObject;
         it.dataContext = iterationObject;
         itemCreated.invoke(this, new ItemCreatedEventArgs(it));

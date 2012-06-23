@@ -19,9 +19,12 @@
 * Interface contract for classes registering as presentation format providers. 
 *
 * ## See Also
-* * [BuckshotTemplateProvider]
+* * [XmlTemplateProvider]
+* * [JSONTemplateProvider]
+* * [YAMLTemplateProvider]
 */
-interface IPresentationFormatProvider extends Hashable{
+interface IPresentationFormatProvider extends Hashable
+{
 
   //TODO MIME as identifier type instead?
   /**
@@ -37,4 +40,9 @@ interface IPresentationFormatProvider extends Hashable{
   * Takes an object tree starting at [elementRoot] and attempts to convert it to a serialized string
   * in the format of the implementing class. */
   String serialize(FrameworkElement elementRoot);
+  
+  /**
+  * Returns true if the given template is detected to be of a compatible format.
+  */
+  bool isFormat(String template);
 }

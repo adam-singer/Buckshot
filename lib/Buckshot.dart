@@ -27,6 +27,7 @@
 #library('Buckshot_Client');
 
 #import('dart:html');
+#import('dart:json');
 #import('../external/dartxml/lib/xml.dart');
 //#import('../../reactive/lib/reactive_lib.dart');
 
@@ -128,6 +129,7 @@
 #source('resources/GradientStop.dart');
 
 #source('core/globals.dart');
+#source('core/Browser.dart');
 #source('core/BuckshotSystem.dart');
 #source('core/FrameworkObject.dart');
 #source('core/FrameworkProperty.dart');
@@ -137,8 +139,6 @@
 #source('core/IValueConverter.dart');
 #source('core/DOM.dart');
 #source('core/BuckshotObject.dart');
-#source('core/IPresentationFormatProvider.dart');
-#source('core/BuckshotTemplateProvider.dart');
 #source('core/FrameworkPropertyBase.dart');
 #source('core/AttachedFrameworkProperty.dart');
 #source('core/FrameworkPropertyResolutionException.dart');
@@ -157,3 +157,10 @@
 #source('elements/shape/Line.dart');
 #source('elements/shape/PolyLine.dart');
 #source('elements/shape/Polygon.dart');
+
+#source('templates/IPresentationFormatProvider.dart');
+#source('templates/XmlTemplateProvider.dart');
+#source('templates/JSONTemplateProvider.dart');
+#source('templates/YAMLTemplateProvider.dart');
+#source('templates/Template.dart');
+

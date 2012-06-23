@@ -16,10 +16,11 @@
 //   limitations under the License.
 
 #import('dart:html');
+#import('dart:json');
 
 // point this to wherever your copy of the dart source code is
 #import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/unittest.dart');
-#import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/html_enhanced_config.dart');
+#import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/html_config.dart');
 
 #import('../external/dartxml/lib/xml.dart');
 
@@ -128,13 +129,12 @@
 #source('../lib/core/IValueConverter.dart');
 #source('../lib/core/DOM.dart');
 #source('../lib/core/BuckshotObject.dart');
-#source('../lib/core/IPresentationFormatProvider.dart');
-#source('../lib/core/BuckshotTemplateProvider.dart');
 #source('../lib/core/FrameworkPropertyBase.dart');
 #source('../lib/core/AttachedFrameworkProperty.dart');
 #source('../lib/core/FrameworkPropertyResolutionException.dart');
 #source('../lib/core/DataTemplate.dart');
 #source('../lib/core/IFrameworkContainer.dart');
+#source('../lib/core/Browser.dart');
 
 #source('../lib/animation/FrameworkAnimation.dart');
 #source('../lib/animation/AnimationResource.dart');
@@ -148,6 +148,12 @@
 #source('../lib/elements/shape/Line.dart');
 #source('../lib/elements/shape/PolyLine.dart');
 #source('../lib/elements/shape/Polygon.dart');
+
+#source('../lib/templates/IPresentationFormatProvider.dart');
+#source('../lib/templates/XmlTemplateProvider.dart');
+#source('../lib/templates/JSONTemplateProvider.dart');
+#source('../lib/templates/YAMLTemplateProvider.dart');
+#source('../lib/templates/Template.dart');
 
 #source('InitializationTests.dart');
 #source('FrameworkFundamentalsTests.dart');
@@ -181,7 +187,7 @@
 void main() {
   final _tList = new List<TestGroupBase>();
 
-  useHtmlEnhancedConfiguration();
+  useHtmlConfiguration();
 
   group('Dart Bugs', (){
 

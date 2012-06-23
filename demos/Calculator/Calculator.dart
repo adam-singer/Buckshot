@@ -29,7 +29,7 @@ void main() {
   
   // Always load resources first.
   buckshot.rootView = 
-      new IView(buckshot.deserialize(buckshot.getTemplate('#resources')));
+      new IView(Template.deserialize(Template.getTemplate('#resources')));
     
   // Load the main view, to start the app.
   buckshot.rootView = new Main();

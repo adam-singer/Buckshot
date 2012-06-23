@@ -10,7 +10,7 @@ class StandardCalc implements IView
   StandardCalc()
   :
     // Retrieve the template from the HTML page and deserialize it.
-    _rootVisual = buckshot.deserialize(buckshot.getTemplate('#keypad_default'))
+    _rootVisual = Template.deserialize(Template.getTemplate('#keypad_default'))
   {
 
     // When Dart has reflection, we won't need to hook these events manually.

@@ -18,9 +18,6 @@
 
 class BuckshotTemplateProviderTests extends TestGroupBase
 {
-  final IPresentationFormatProvider p;
-
-  BuckshotTemplateProviderTests() : p = new BuckshotTemplateProvider() {}
 
   registerTests(){
     this.testGroupName = "Buckshot XML Tests";
@@ -64,7 +61,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
       <!--comment after xml -->
       ''';
 
-    var result = p.deserialize(t);
+    var result = Template.deserialize(t);
 
     Expect.isTrue(result is StackPanel);
 
@@ -81,14 +78,14 @@ class BuckshotTemplateProviderTests extends TestGroupBase
   void attachedPropertyNodeAssignsCorrectly(){
     String t = "<StackPanel><grid.column>2</grid.column></StackPanel>";
 
-    var result = p.deserialize(t);
+    var result = Template.deserialize(t);
     Expect.equals(2, Grid.getColumn(result));
   }
 
   void enumPropertyNodeAssignsCorrectly(){
     String t = "<StackPanel><orientation>horizontal</orientation></StackPanel>";
 
-    var result = p.deserialize(t);
+    var result = Template.deserialize(t);
     Expect.equals(Orientation.horizontal, result.dynamic.orientation);
   }
 
@@ -96,7 +93,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
   void simplePropertyNodeAssignsCorrectly(){
     String t = "<StackPanel><width>40</width></StackPanel>";
 
-    var result = p.deserialize(t);
+    var result = Template.deserialize(t);
     Expect.equals(40, result.width);
   }
 
@@ -104,7 +101,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
     String t = "<StackPanel>hello world</StackPanel>";
 
     Expect.throws(
-    ()=> p.deserialize(t),
+    ()=> Template.deserialize(t),
     (err) => (err is PresentationProviderException));
   }
 
@@ -113,7 +110,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
     String t = "<Slider>hello world</Slider>";
 
     Expect.throws(
-    ()=> p.deserialize(t),
+    ()=> Template.deserialize(t),
     (err) => (err is PresentationProviderException));
   }
 
@@ -121,7 +118,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
     String t = "<Slider><fooProperty>bar</fooProperty></Slider>";
 
     Expect.throws(
-    ()=> p.deserialize(t),
+    ()=> Template.deserialize(t),
     (err) => (err is FrameworkPropertyResolutionException));
   }
 
@@ -129,7 +126,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
     String t = "<Slider><TextBlock></TextBlock></Slider>";
 
     Expect.throws(
-    ()=> p.deserialize(t),
+    ()=> Template.deserialize(t),
     (err) => (err is PresentationProviderException)
     );
   }
@@ -147,7 +144,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
     </StackPanel>
     ''';
 
-    var result = p.deserialize(t);
+    var result = Template.deserialize(t);
     Expect.isTrue(result is StackPanel);
     Expect.equals(7, result.dynamic.children.length);
 
@@ -171,7 +168,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
     </StackPanel>
     ''';
 
-    var result = p.deserialize(t);
+    var result = Template.deserialize(t);
 
     Expect.equals(3, Grid.getColumn(result));
     Expect.equals(4, Grid.getRow(result));
@@ -183,7 +180,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
 
   void enumProperties(){
     String t = '<StackPanel orientation="horizontal" valign="center"></StackPanel>';
-    var result = p.deserialize(t);
+    var result = Template.deserialize(t);
 
     Expect.equals(Orientation.horizontal, result.dynamic.orientation);
     Expect.equals(VerticalAlignment.center, result.vAlign);
@@ -192,7 +189,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
   void simpleProperties(){
     String testString = "Hello World";
     String t = '<TextBlock text="$testString"></TextBlock>';
-    var result = p.deserialize(t);
+    var result = Template.deserialize(t);
 
     Expect.equals(testString, result.dynamic.text);
   }
@@ -202,7 +199,7 @@ class BuckshotTemplateProviderTests extends TestGroupBase
 
 
     Expect.throws(
-    ()=> p.deserialize(t),
+    ()=> Template.deserialize(t),
     (err)=> (err is PresentationProviderException)
     );
   }
