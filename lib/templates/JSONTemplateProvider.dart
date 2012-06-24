@@ -15,6 +15,10 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+
+/**
+* Provides serialization/deserialization for JSON format templates.
+*/
 class JSONTemplateProvider extends HashableObject
   implements IPresentationFormatProvider 
 {
@@ -57,7 +61,7 @@ class JSONTemplateProvider extends HashableObject
   }
   
   XmlElement _nextElement(List json){
-    XmlElement e = new XmlElement(json[0]);
+    final e = new XmlElement(json[0]);
     
     if(json.length == 1) return e; //no body
     
@@ -69,15 +73,11 @@ class JSONTemplateProvider extends HashableObject
       _err('Expected between 0 and 2 elements in ${e.name} body.');
     }
    
-    void processProperties(Map<String, String> properties){
-      properties.forEach((String property, String value){
-        e.attributes[property] = value;
-      });
-    }
-    
     for(final b in body){
       if (b is Map){
-        processProperties(b);
+        b.forEach((property, value){
+          e.attributes[property] = value;
+        });
       }else if (b is List){
         //iterate
         if (b.length % 2 != 0){
@@ -85,10 +85,7 @@ class JSONTemplateProvider extends HashableObject
         }
         
         for(int i = 0; i < b.length; i+=2){
-          final l = [];
-          l.add(b[i]);
-          l.add(b[i + 1]);
-          e.addChild(_nextElement(l));
+          e.addChild(_nextElement([b[i], b[i + 1]]));
         }
         
       }else{

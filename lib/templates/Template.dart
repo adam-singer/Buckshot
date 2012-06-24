@@ -17,7 +17,14 @@
 
 
 /**
-* Helper class for working with Buckshot templates
+* Helper class for working with Buckshot templates.
+*
+* The template system provides support for
+* 3 template formats:
+*
+* * XML
+* * JSON
+* * YAML (coming soon)
 */
 class Template {
   

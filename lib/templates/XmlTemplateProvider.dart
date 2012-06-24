@@ -18,7 +18,7 @@
 //TODO event handlers (waiting for reflection)
 
 /**
-* The default presentation format provider for buckshot.
+* Provides serialization/deserialization for XML format templates.
 */
 class XmlTemplateProvider
   extends HashableObject
