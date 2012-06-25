@@ -38,7 +38,7 @@ In particular, the layout model uses the latest draft of the [CSS3 flexbox](http
 <table>
 <tr>
 <td>Template-Driven</td>
-<td>Similar to Xaml, but more simplified and flexible.</td>
+<td>Similar to Xaml, but more simplified and flexible.  Supports XML, JSON, and YAML formats.</td>
 </tr>
 <tr>
 <td>Actions</td>

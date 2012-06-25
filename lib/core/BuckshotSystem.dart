@@ -194,8 +194,6 @@ class Buckshot extends FrameworkObject {
     
     return false;
   }
-  
-
 
   void _registerCoreElements(){
     //registering elements we need ahead of time (poor man's reflection...)
@@ -317,7 +315,6 @@ class Buckshot extends FrameworkObject {
   void renderRaw(FrameworkElement element){
     rootView = new IView(element);
   } 
-
   
   /// Changes the active context for the framework and returns the
   /// previous context.

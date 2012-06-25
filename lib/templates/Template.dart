@@ -17,14 +17,59 @@
 
 
 /**
-* Helper class for working with Buckshot templates.
+* ## Helper class for working with Buckshot templates. ##
 *
-* The template system provides support for
-* 3 template formats:
-*
+* ## Supported Formats ##
 * * XML
 * * JSON
 * * YAML (coming soon)
+* 
+* ## Usage ##
+* Both YAML and JSON templates require a certain heirachy in order to 
+* deserialize properly:
+*
+*     [element, 
+*       [{property1:value, property2:value}, 
+*       [childElement1, 
+*         [{property:value}],
+*        childElement2,
+*         [{property:value}]
+*       ]
+*     ]
+*
+* ### XML Example ###
+*     <border padding='5' background='Orange'>
+*        <stackpanel halign='center' valign='center'>
+*          <textblock text='hello' />
+*          <textblock text='world' />  
+*        </stackpanel>
+*     </border>
+*
+* ### JSON Example ###
+*     ["border",
+*        [{"background" : "Orange", "padding" : "10"},
+*          ["stackpanel", 
+*            [{"valign" : "center", "halign" : "center"},
+*              ["textblock",
+*                [{"text" : "hello"}]
+*              ,"textblock",
+*                [{"text" : "world"}]
+*              ]
+*            ]
+*          ]
+*        ]
+*      ]
+*
+* ### YAML Example ###
+*     - border
+*     - - {background: Orange, padding: 10}
+*       - - stackpanel
+*         - - {halign: center, valign: center}
+*           - - textblock
+*             - - text: hello
+*             - textblock
+*             - - text: world
+*
 */
 class Template {
   

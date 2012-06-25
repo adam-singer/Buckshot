@@ -13,10 +13,67 @@
 	-->
 	
 	<!--
-	This is the main template of the application and provides the layout
-	for all of the calculator components.
+	This is the main template (in YAML) of the application and provides 
+	the layout for all of the calculator components.
 	-->
-	<script id='main' type='text/xml'>
+	<script id='main' type='text/yaml'>
+- border
+- - style: '{resource calcStyle}'
+  - - grid
+    - - {width: '{data width}', height: 400}
+      - - rowdefinitions
+  # rowdefinitions doesn't have any properties, but child elements must still
+  # indent to the correct depth, as if the properties had been declared...
+        - - - rowdefinition
+            - - height: 50
+            - rowdefinition
+            - - height: 70
+            - rowdefinition
+            - - height: '*1'
+        - border
+        - - style: '{resource calcHeader}'
+        - border
+        - - style: '{resource borderSeperator}'
+        - stackpanel
+        - - {orientation: horizontal, valign: center, margin: '0,0,0,2'}
+          - - image
+            - - {width: 50, alt: 'Buckshot Logo', sourceuri: 'resources/buckshot_logo.png'}
+            - stackpanel
+            - - - textblock
+                - - {style: '{resource defaultText}', text: Buckshot}
+                - textblock
+                - - {style: '{resource defaultText}', text: Calculator}
+        - stackpanel
+        - - {orientation: horizontal, valign: center, halign: right, margin: '0,5,0,0'}
+          - - textblock
+            - - {style: '{resource defaultText}', text: 'Mode:', margin: '0,5,0,0'}
+            - dropdownlist
+            - - name: ddlMode
+              - - items
+                - - - dropdownlistitem
+                    - - {name: Standard, value: Standard}
+                    - dropdownlistitem
+                    - - {name: Extended, value: Extended}
+        - border
+        - - {grid.row: 1, style: '{resource borderOutput}'}
+          - - grid
+            - - {halign: stretch, valign: stretch}
+              - - textblock
+                - - {style: '{resource textblockSubOutput}', valign: bottom, text: '{data memoryMarker}'}
+                - textblock
+                - - {style: '{resource textblockSubOutput}', text: '{data subOutput}'}
+                - textblock
+                - - {style: '{resource textblockOutput}', text: '{data output}'}
+        - border
+        - - {margin: '5,5', halign: stretch, valign: stretch, grid.row: 2, content: '{data keypad}'}
+	</script>
+
+	<!-- 
+	This template is an xml duplicate of the YAML template above.  It isn't
+	use by the application, but is provided here for comparison
+	-->
+	
+	<script id='main2' type='text/xml'>
 		<border style='{resource calcStyle}'>
 			<grid width='{data width}' height='400'>
 				<rowdefinitions>
