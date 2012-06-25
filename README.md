@@ -18,13 +18,10 @@ In particular, the layout model uses the latest draft of the [CSS3 flexbox](http
 
 ### Videos ###
 * [Setting Up A Buckshot Project](http://www.youtube.com/watch?v=9YXeNalVeGA)
-* [Border](http://www.youtube.com/watch?v=PbgixkIIPWQ)
-* [StackPanel](http://www.youtube.com/watch?v=ykB_gjbnapg)
-* [Grid](http://www.youtube.com/watch?v=_EXuAew-J98)
 * [Working With UI Templates](http://www.youtube.com/watch?v=LOacOkmd9FI)
-* [Extending Controls with Control Templates](http://www.youtube.com/watch?v=KRGvdID4rPE)
-* [Element-To-Element Binding](http://www.youtube.com/watch?v=WC25C5AHYAI)
-* [Working With Resources](http://www.youtube.com/watch?v=cFxf3OBIj8Q)
+* [Template Formats](http://www.youtube.com/watch?v=z5kRiTy0obI)
+
+Many more videos at the [Buckshot playlist on YouTube](http://www.youtube.com/playlist?list=PLE04C8698A5FD2E9E&feature=view_all).
 
 ### Buckshot Online Sandbox ###
 [Online Interactive Buckshot](http://www.lucastudios.com/trybuckshot)
