@@ -1,11 +1,11 @@
-class View implements IView 
+class View implements BuckshotUI.IView 
 {
-  FrameworkElement _rootVisual;
+  BuckshotUI.FrameworkElement _rootVisual;
   
   View(){
     //parse view xml and create object reference
-    _rootVisual = buckshot.defaultPresentationProvider.deserialize(buckshot.getTemplate('#view'));
+    _rootVisual = BuckshotUI.buckshot.defaultPresentationProvider.deserialize(BuckshotUI.buckshot.getTemplate('#view'));
     
   }
-  FrameworkElement get rootVisual() => _rootVisual;
+  BuckshotUI.FrameworkElement get rootVisual() => _rootVisual;
 }

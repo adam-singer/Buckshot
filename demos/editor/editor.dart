@@ -1,9 +1,9 @@
-#import('../../lib/Buckshot.dart');
-#import('../../extensions/codemirror/CodeMirror.dart');
+#import('../../lib/Buckshot.dart', prefix:"BuckshotUI");
+#import('../../extensions/codemirror/CodeMirror.dart', prefix:"CodeMirror");
 #import('dart:html');
 #source('View.dart');
 
 void main() {
-  initializeCodeMirrorExtensions();
-  buckshot.rootView = new View();
+  CodeMirror.initializeCodeMirrorExtensions();
+  BuckshotUI.buckshot.rootView = new View();
 }

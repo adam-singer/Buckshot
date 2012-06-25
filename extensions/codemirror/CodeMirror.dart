@@ -1,12 +1,15 @@
 #library('Buckshot_Extensions_CodeMirror');
 #import('dart:html');
-#import('../../lib/Buckshot.dart');
+#import('../../lib/Buckshot.dart', prefix:"BuckshotUI");
+
+#source('StringStream.dart');
+#source('Line.dart'); 
 
 void initializeCodeMirrorExtensions(){
-  buckshot.registerElement(new CodeMirror());
+  BuckshotUI.buckshot.registerElement(new CodeMirror());
 }
-class CodeMirror  extends Control implements IFrameworkContainer {
-  FrameworkObject makeMe() => new CodeMirror();
+class CodeMirror  extends BuckshotUI.Control implements BuckshotUI.IFrameworkContainer {
+  BuckshotUI.FrameworkObject makeMe() => new CodeMirror();
   
   CodeMirror() {    
     String wrapperHTML = """<div>
@@ -40,7 +43,7 @@ class CodeMirror  extends Control implements IFrameworkContainer {
 </div>
 """;
     rawElement = new Element.html(wrapperHTML); 
-    Dom.appendClass(rawElement, "buckshot_codemirror");
+    BuckshotUI.Dom.appendClass(rawElement, "buckshot_codemirror");
   }
   
   get content() {

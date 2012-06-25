@@ -1,7 +1,9 @@
+extensions/codemirror/mode/diff/diff.dart
 lib/Buckshot.dart
 util/test.dart
 external/dartxml/Xml.dart
 demos/todo/todo.dart
+extensions/codemirror/tests/codemirror_tests.dart
 extensions/codemirror/CodeMirror.dart
 extensions/social/PlusOne.dart
 util/ControlGenerator.dart
