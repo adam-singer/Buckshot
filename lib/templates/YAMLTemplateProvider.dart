@@ -37,12 +37,61 @@ class YAMLTemplateProvider extends HashableObject
     //XmlTemplateProvider do the rest...
     
     final p = new XmlTemplateProvider();
-    
-    return p._getNextElement(_toXmlTree(template));
+    print('${_toYAMLTree(template)}');
+    return p._getNextElement(_toYAMLTree(template));
   }
   
-  XmlElement _toXmlTree(String template){
+  XmlElement _toYAMLTree(String template){    
+    var yaml = loadYaml(template);
   
+    assert(yaml is List);
+    
+    if (yaml.length > 2){
+      _err('Expected only 1 or 2 elements in json top level array.');
+    }
+    
+    if (yaml[0] is! String){
+      _err('Expected first element to be a String literal');
+    }
+    
+    return _nextElement(yaml);
+  }
+  
+  XmlElement _nextElement(List yaml){
+    final e = new XmlElement(yaml[0]);
+    
+    if(yaml.length == 1) return e; //no body
+    
+    final List body = yaml[1];
+    
+    assert(body is List);
+    
+    if (body.length > 2){
+      _err('Expected between 0 and 2 elements in ${e.name} body.');
+    }
+   
+    for(final b in body){
+      if (b is Map){
+        b.forEach((property, value){
+          e.attributes[property] = '$value';
+        });
+      }else if (b is List){
+        //iterate
+        if (b.length % 2 != 0){
+          _err('Expected even number of element/body pairs.');
+        }
+        
+        for(int i = 0; i < b.length; i+=2){
+          e.addChild(_nextElement([b[i], b[i + 1]]));
+        }
+        
+      }else{
+        _err('Type in element body is not recognized.  Should be Map or List.');
+      }
+    }
+    
+    
+    return e;
   }
   
   /**
@@ -59,5 +108,9 @@ class YAMLTemplateProvider extends HashableObject
   bool isFormat(String template) => 
       !template.startsWith('<') && !template.startsWith('[');
   
-  String get type() => 'JSONTemplateProvider';
+  String get type() => 'YAMLTemplateProvider';
+  
+  void _err(String str){
+    throw new PresentationProviderException('$str');
+  }
 }

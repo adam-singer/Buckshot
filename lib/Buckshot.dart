@@ -29,6 +29,7 @@
 #import('dart:html');
 #import('dart:json');
 #import('../external/dartxml/lib/xml.dart');
+#import('../external/yaml/yaml.dart');
 //#import('../../reactive/lib/reactive_lib.dart');
 
 

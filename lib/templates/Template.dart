@@ -110,6 +110,13 @@ class Template {
   /**
   * Takes a buckshot Template and attempts deserialize it into an object
   * structure.
+  *
+  * This method will attempt to auto-detect the template format and apply
+  * the appropriate implementation.  It currently supports:
+  *
+  * * XML
+  * * JSON
+  * * YAML
   */
   static FrameworkElement deserialize(String buckshotTemplate){
     final t = new Template();
