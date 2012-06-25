@@ -15,6 +15,10 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+
+/**
+* Provides serialization/deserialization for YAML format templates.
+*/
 class YAMLTemplateProvider extends HashableObject
   implements IPresentationFormatProvider 
 {
@@ -37,7 +41,7 @@ class YAMLTemplateProvider extends HashableObject
     //XmlTemplateProvider do the rest...
     
     final p = new XmlTemplateProvider();
-    print('${_toYAMLTree(template)}');
+
     return p._getNextElement(_toYAMLTree(template));
   }
   
