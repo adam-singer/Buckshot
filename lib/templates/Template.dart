@@ -168,8 +168,8 @@ class Template {
     final t = new Template();
     
     for(final p in t.providers){
-      if(p.isFormat(buckshotTemplate)){
-        return p.deserialize(buckshotTemplate);
+      if(p.isFormat(buckshotTemplate.trim())){
+        return p.deserialize(buckshotTemplate.trim());
       }
     }
   }
