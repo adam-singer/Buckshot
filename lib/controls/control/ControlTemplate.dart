@@ -19,7 +19,7 @@
 * A [FrameworkResource] which represents the initial visual representation of
 * a [Control].
 */
-class ControlTemplate extends FrameworkResource
+class ControlTemplate extends FrameworkResource implements IFrameworkContainer
 {
   FrameworkProperty controlTypeProperty;
   FrameworkProperty templateProperty;
@@ -34,6 +34,8 @@ class ControlTemplate extends FrameworkResource
     //this._stateBag[FrameworkResource.RESOURCE_PROPERTY] = templateProperty;
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = templateProperty;
   }
+  
+  get content() => getValue(templateProperty);
   
   void _initializeControlTemplateProperties(){
     controlTypeProperty = new FrameworkProperty(this, "controlType", (_){}, "");

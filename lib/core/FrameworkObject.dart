@@ -73,9 +73,9 @@ class FrameworkObject extends BuckshotObject {
   /// Overridden [LucaObject] method.
   BuckshotObject makeMe() => new FrameworkObject();
 
-  /// Gets a boolean value indicating whether this element
-  /// has a contain context set.
-  bool get isContainer() => _stateBag.containsKey(CONTAINER_CONTEXT);
+//  /// Gets a boolean value indicating whether this element
+//  /// has a contain context set.
+//  bool get isContainer() => _stateBag.containsKey(CONTAINER_CONTEXT);
 
   FrameworkObject() :
     lateBindings = new HashMap<FrameworkProperty, BindingData>(),
