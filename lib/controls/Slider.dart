@@ -15,13 +15,21 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+/*
+ * TODO:
+ * custome slider that works horizontal and vertical.
+ */
+
 /**
 * A slider control.
 * NOTE: This may not render on some browsers. */
 class Slider extends Control
 {
 
-  FrameworkProperty minProperty, maxProperty, stepProperty, valueProperty;
+  FrameworkProperty minProperty;
+  FrameworkProperty maxProperty;
+  FrameworkProperty stepProperty;
+  FrameworkProperty valueProperty;
 
   FrameworkObject makeMe() => new Slider();
 

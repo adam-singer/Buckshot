@@ -20,9 +20,7 @@
 /**
 * Provides serialization/deserialization for XML format templates.
 */
-class XmlTemplateProvider
-  extends HashableObject
-  implements IPresentationFormatProvider {
+class XmlTemplateProvider implements IPresentationFormatProvider {
 
   //TODO MIME as identifier type instead?
   String get fileExtension() => "xml";
@@ -344,6 +342,4 @@ class XmlTemplateProvider
   String serialize(FrameworkElement elementRoot){
     throw const NotImplementedException();
   }
-
-  String get type() => 'XmlTemplateProvider';
 }

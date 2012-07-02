@@ -35,10 +35,10 @@ class Globals
 Future _functionToFuture(Function f){
   Completer c = new Completer();
 
-  void doIt() => c.complete(f());
+  void doIt(foo) => c.complete(f());
 
   try{
-    window.setTimeout(doIt, 0);
+    window.requestAnimationFrame(doIt);
   }catch (Exception e){
     c.completeException(e);
   }
@@ -52,7 +52,7 @@ Future setValueAsync(FrameworkProperty property, Dynamic value)
 {
   Completer c = new Completer();
 
-   void doIt(){
+   void doIt(foo){
 
      if (property.stringToValueConverter != null && value is String){
        value = property.stringToValueConverter.convert(value);
@@ -86,7 +86,7 @@ Future setValueAsync(FrameworkProperty property, Dynamic value)
       c.complete(null);
    }
 
-   window.setTimeout(doIt, 0);
+   window.requestAnimationFrame(doIt);
 
    return c.future;
 }
@@ -128,27 +128,19 @@ void setValue(FrameworkProperty property, Dynamic value)
  * Gets the current value of a given [FrameworkProperty] object.
  * Returns null if the [propertyInfo] object does not exist or if the underlying
  * property is not found. */
-Dynamic getValue(FrameworkProperty propertyInfo)
-{
-  return (propertyInfo == null) ? null : propertyInfo.value;
-}
-
-
-/// Global flag for forking debug related code.
-bool DEBUG = true;
+Dynamic getValue(FrameworkProperty propertyInfo) =>
+    (propertyInfo == null) ? null : propertyInfo.value;
 
 
 /**
 * Executes a javascript alert "break point" with optional [breakInfo]. */
 br([breakInfo]){
-  if (!DEBUG) return;
   window.alert("Debug Break: ${breakInfo != null ? breakInfo.toString() : ''}");
 }
 
 /**
 * Prints output to the javascript console with optional FrameworkElement [element] info. */
 db(String message, [FrameworkObject element]){
-  if (!DEBUG) return;
   if (element == null){
     print(message);
     return;

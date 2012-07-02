@@ -23,8 +23,8 @@
 * Once populated, DataTemplate can be used in data binding scenarios within
 * declarative Buckshot templates.
 *
-* ## See Also
-* * Select the "Collections" example on the Buckshot Online Sandbox: [Try Buckshot](http://www.lucastudios.com/trybuckshot)
+* ## See Also ##
+* * Select the "Collections" example on the Online Sandbox: [Try Buckshot](http://www.lucastudios.com/trybuckshot)
 * * [Example view model that uses DataTemplate](https://github.com/prujohn/Buckshot/blob/master/demos/tryit/DemoViewModel.dart)
 */
 class DataTemplate extends BuckshotObject{

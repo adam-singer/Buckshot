@@ -104,7 +104,9 @@ class _FrameworkEventImplementation<T extends EventArgs> extends BuckshotObject 
 
   void operator -(EventHandlerReference handlerReference) => unregister(handlerReference);
 
-  void invoke(sender, T args) => _handlers.forEach((handlerReference) => handlerReference.handler(sender, args));
+  void invoke(sender, T args){
+    _handlers.forEach((handlerReference) => handlerReference.handler(sender, args));
+  }
 
   String get type() => "FrameworkEvent";
 }

@@ -157,8 +157,9 @@ class Template {
   * structure.
   *
   * This method will attempt to auto-detect the template format and apply
-  * the appropriate implementation.  It currently supports:
+  * the appropriate implementation.
   *
+  * ### Supported Formats ###
   * * XML
   * * JSON
   * * YAML
