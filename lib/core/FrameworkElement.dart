@@ -22,7 +22,6 @@
 * from this class.
 */
 class FrameworkElement extends FrameworkObject {
-  FrameworkElement _containerParent;
   StyleTemplate _style;
 
   final HashMap<FrameworkProperty, String> _templateBindings;

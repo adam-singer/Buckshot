@@ -43,7 +43,7 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
       "background",
       (Brush value){
         if (value == null){
-          _component.style.background = "None";
+          rawElement.style.background = "None";
           return;
         }
         value.renderBrush(_component);
@@ -77,8 +77,8 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
 
   /// Overridden [FrameworkObject] method.
   void CreateElement(){
-    _component = new DivElement();
-    _component.style.overflow = "hidden";
+    rawElement = new DivElement();
+    rawElement.style.overflow = "hidden";
   }
 
 }

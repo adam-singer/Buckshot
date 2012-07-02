@@ -41,15 +41,12 @@ class StackPanel extends Panel
     if (!args.oldItems.isEmpty()){
       args.oldItems.forEach((FrameworkElement element){
         element.removeFromLayoutTree();
-        element._containerParent = null;
       });
     }
 
     if (!args.newItems.isEmpty()){
       args.newItems.forEach((FrameworkElement element){
         element.addToLayoutTree(this);
-        element._containerParent = this;
-
       });
     }
   }
