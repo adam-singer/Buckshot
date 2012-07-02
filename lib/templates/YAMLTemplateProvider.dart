@@ -46,7 +46,7 @@ class YAMLTemplateProvider implements IPresentationFormatProvider
   
   XmlElement _toYAMLTree(String template){    
     var yaml = loadYaml(template);
-    print('$template');
+
     assert(yaml is List);
     
     if (yaml.length > 2){
