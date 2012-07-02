@@ -21,20 +21,14 @@
 * (in the MVVM context of a "view") 
 *
 */
-interface IView default _ViewFactory {
+class IView {
+  FrameworkElement _rootElement;
   
   /// Gets the visual root of the view.
-  FrameworkElement get rootVisual();
-  
-  /// Constructs a view from a given [FrameworkElement].
-  IView(FrameworkElement element);
-}
-
-class _ViewFactory implements IView{
-  final FrameworkElement _rootElement;
-  
-  _ViewFactory(this._rootElement);
-  
   FrameworkElement get rootVisual() => _rootElement;
   
+  /// Constructs a view from a given [FrameworkElement].
+  IView.from(FrameworkElement element){
+    _rootElement = element;
+  }
 }

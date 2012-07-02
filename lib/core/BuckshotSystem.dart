@@ -313,7 +313,7 @@ class Buckshot extends FrameworkObject {
 
   /// Wraps a FrameworkElement into an [IView] and sets it as the root view.
   void renderRaw(FrameworkElement element){
-    rootView = new IView(element);
+    rootView = new IView.from(element);
   } 
   
   /// Changes the active context for the framework and returns the

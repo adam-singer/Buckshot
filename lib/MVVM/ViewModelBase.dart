@@ -23,6 +23,6 @@
 class ViewModelBase extends FrameworkObject
 {
 
-  String get _type() => "ViewModelBase";
+  String get type() => "ViewModelBase";
   
 }
