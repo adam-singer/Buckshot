@@ -54,7 +54,7 @@ class StackPanel extends Panel
   set orientation(Orientation value) => setValue(orientationProperty, value);
   Orientation get orientation() => getValue(orientationProperty);
 
-  void CreateElement(){
+  void createElement(){
     _component = new DivElement();
     Dom.makeFlexBox(this);
     //_component.style.flexFlow = 'column';

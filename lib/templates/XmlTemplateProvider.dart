@@ -64,7 +64,7 @@ class XmlTemplateProvider implements IPresentationFormatProvider {
               throw const PresentationProviderException("Attempted to add"
                 " element to another element which is not a container.");
 
-            var cc = newElement._stateBag[FrameworkObject.CONTAINER_CONTEXT];
+            var cc = newElement.stateBag[FrameworkObject.CONTAINER_CONTEXT];
 
             FrameworkObject childElement = _getNextElement(e);
 

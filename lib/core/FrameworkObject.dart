@@ -86,7 +86,7 @@ class FrameworkObject extends BuckshotObject {
     {
       applyVisualTemplate();
 
-      if (_component == null) CreateElement();
+      if (_component == null) createElement();
 
       Dom.appendBuckshotClass(_component, 'frameworkobject');
 
@@ -214,10 +214,15 @@ class FrameworkObject extends BuckshotObject {
 
     if (this is! IFrameworkContainer) return;
 
-    if (this.dynamic.content is List){
-      this.dynamic.content.forEach((FrameworkElement child)
-        => child._onAddedToDOM());
-    }else if (this.dynamic.content is FrameworkElement){
+    if ((this as IFrameworkContainer).content is List){
+      (this as IFrameworkContainer)
+        .content
+        .forEach((FrameworkElement child)
+          { 
+            child.parent = this;
+            child._onAddedToDOM();
+          });
+    }else if ((this as IFrameworkContainer).content is FrameworkElement){
       this.dynamic.content._onAddedToDOM();
     }
   }
@@ -340,10 +345,10 @@ class FrameworkObject extends BuckshotObject {
     //the base method just calls CreateElement
     //sub-classes (like Control) will use this to apply
     //a visual template
-    CreateElement();
+    createElement();
   }
 
-  //TODO set/getAttachedValue belong somewhere else...
+  //createElementttachedValue belong somewhere else...
 
   /**
   * Sets the value of a given AttachedFrameworkProperty for a given Element. */
@@ -384,7 +389,7 @@ class FrameworkObject extends BuckshotObject {
 
   /// Called by the framework to allow an element to construct it's
   /// HTML representation and assign to [component].
-  void CreateElement(){
+  void createElement(){
     _component = new DivElement();
   }
 

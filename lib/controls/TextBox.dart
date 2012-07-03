@@ -99,7 +99,7 @@ class TextBox extends Control
   String get placeholder() => getValue(placeholderProperty);
 
 
-  void CreateElement(){
+  void createElement(){
     rawElement = new InputElement();
     rawElement.attributes["type"] = "text";
   }

@@ -106,7 +106,7 @@ class DropDownList extends Control
   BuckshotObject makeMe() => new DropDownList();
   
   /// Overridden [FrameworkObject] method for generating the html representation of the DDL.
-  void CreateElement(){
+  void createElement(){
     _component = new Element.tag('select');
   }
     

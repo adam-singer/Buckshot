@@ -96,7 +96,7 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
   set text(String value) => setValue(textProperty, value);
   String get text() => getValue(textProperty);
 
-  void CreateElement(){
+  void createElement(){
     _component = new ParagraphElement();
   }
 

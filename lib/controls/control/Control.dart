@@ -76,11 +76,12 @@ class Control extends FrameworkElement
 
     template = t.template;
 
+    rawElement = template.rawElement;
     template.parent = this;
-    _component = template._component;
   }
 
   onLoaded(){
+    db('$parent', this);
     //returning if we have already done this, or if no template was actually used for this control
     if (_templateBindingsApplied || !_templateApplied) return;
     _templateBindingsApplied = true;
@@ -97,6 +98,23 @@ class Control extends FrameworkElement
   }
 
   void _bindTemplateBindings(){
+    void _getAllTemplateBindings(HashMap<FrameworkProperty, String> list, FrameworkElement element){
+
+      element
+        ._templateBindings
+        .forEach((k, v){
+          list[k] = v;
+        });
+     
+      if (element is! IFrameworkContainer) return;
+
+      if (element.dynamic.content is List){
+        element.dynamic.content.forEach((FrameworkElement child) => _getAllTemplateBindings(list, child));
+      }else if (element.dynamic.content is FrameworkElement){
+        _getAllTemplateBindings(list, element.dynamic.content);
+      }
+    }
+    
     var tb = new HashMap<FrameworkProperty, String>();
 
     _getAllTemplateBindings(tb, template);
@@ -106,25 +124,9 @@ class Control extends FrameworkElement
       if (prop == null){
         throw const BuckshotException('Attempted binding to null property in Control.');
       }
+      
         new Binding(prop, k);
     });
-  }
-
-  void _getAllTemplateBindings(HashMap<FrameworkProperty, String> list, FrameworkElement element){
-
-    element
-      ._templateBindings
-      .forEach((k, v){
-        list[k] = v;
-      });
-
-    if (element is! IFrameworkContainer) return;
-
-    if (element.dynamic.content is List){
-      element.dynamic.content.forEach((FrameworkElement child) => _getAllTemplateBindings(list, child));
-    }else if (element.dynamic.content is FrameworkElement){
-      _getAllTemplateBindings(list, element.dynamic.content);
-    }
   }
 
   /// Gets a standardized name for assignment to the [ControlTemplate] 'controlType' property.

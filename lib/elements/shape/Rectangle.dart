@@ -61,7 +61,7 @@ class Rectangle extends Shape{
   
   String get type() => 'Rectangle';
   
-  void CreateElement(){
+  void createElement(){
     _component = Dom.createByTag('div');
   }
 }

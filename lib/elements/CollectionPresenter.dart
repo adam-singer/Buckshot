@@ -100,16 +100,16 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   set itemsTemplate(String value) => setValue(itemsTemplateProperty, value);
 
   void _updateCollection(){
-    var dc = this.resolveDataContext();
+    print('here');
+    var dc = resolveDataContext();
 
-    if (dc == null && presentationPanel._isLoaded)
-      {
+    if (dc == null && presentationPanel._isLoaded){
         presentationPanel.children.clear();
         return;
-      } else if (dc == null){
+    } else if (dc == null){
         return;
-      }
-
+    }
+    print('here');
     var values = getValue(dc);
 
     if (values is ObservableList && _eHandler == null){
@@ -147,7 +147,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   void updateLayout(){ }
 
   /// Overriden [FrameworkObject] method.
-  void CreateElement(){
+  void createElement(){
     _component = new DivElement();
   }
 

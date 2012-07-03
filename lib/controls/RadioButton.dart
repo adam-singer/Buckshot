@@ -59,7 +59,7 @@ class RadioButton extends Control
   set groupName(String v) => setValue(groupNameProperty, v);
   
   
-  void CreateElement(){
+  void createElement(){
     _component = new InputElement();
     _component.attributes["type"] = "radio";
   }

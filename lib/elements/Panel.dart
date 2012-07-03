@@ -77,7 +77,7 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
   String get type() => "Panel";
 
   /// Overridden [FrameworkObject] method.
-  void CreateElement(){
+  void createElement(){
     rawElement = new DivElement();
     rawElement.style.overflow = "hidden";
   }

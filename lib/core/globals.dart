@@ -131,7 +131,6 @@ void setValue(FrameworkProperty property, Dynamic value)
 Dynamic getValue(FrameworkProperty propertyInfo) =>
     (propertyInfo == null) ? null : propertyInfo.value;
 
-
 /**
 * Executes a javascript alert "break point" with optional [breakInfo]. */
 br([breakInfo]){

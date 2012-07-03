@@ -76,7 +76,7 @@ class Button extends Control implements IFrameworkContainer
   set content(Dynamic value) => setValue(contentProperty, value);
 
   /// Overridden [FrameworkObject] method.
-  void CreateElement()
+  void createElement()
   {
     _component = new ButtonElement();
     _component.style.display = 'block';

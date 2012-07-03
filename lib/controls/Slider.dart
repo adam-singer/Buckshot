@@ -79,7 +79,7 @@ class Slider extends Control
   num get max() => getValue(maxProperty);
   set max(v) => setValue(maxProperty, v);
 
-  void CreateElement(){
+  void createElement(){
     _component = new InputElement();
     _component.attributes["type"] = "range";
   }

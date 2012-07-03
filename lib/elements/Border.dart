@@ -1,7 +1,6 @@
-//   Copyright (c) 2012, John Evans & LUCA Studios LLC
+//   Copyright (c) 2012, John Evans
 //
-//   http://www.lucastudios.com/contact
-//   John: https://plus.google.com/u/0/115427174005651655317/about
+//   https://plus.google.com/u/0/115427174005651655317/about
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -173,7 +172,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
   set content(FrameworkElement value) => setValue(contentProperty, value);
 
   /// Overridden [FrameworkObject] method for generating the html representation of the border.
-  void CreateElement(){
+  void createElement(){
     _component = new DivElement();
     _component.style.overflow = "hidden";
     Dom.makeFlexBox(this);

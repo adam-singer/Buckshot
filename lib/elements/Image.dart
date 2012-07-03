@@ -54,7 +54,7 @@ class Image extends FrameworkElement {
   set alt(String value) => setValue(altProperty, value);
   
   /// Overridden [FrameworkObject] method.
-  void CreateElement(){
+  void createElement(){
     _component = new ImageElement();
   }
   

@@ -96,7 +96,7 @@ class TextArea extends Control
   String get placeholder() => getValue(placeholderProperty);
   
   
-  void CreateElement(){
+  void createElement(){
     _component = new TextAreaElement();
   }
   

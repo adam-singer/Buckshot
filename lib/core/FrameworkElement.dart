@@ -706,7 +706,7 @@ class FrameworkElement extends FrameworkObject {
 
 
   /// Overridden [FrameworkObject] method.
-  void CreateElement(){
+  void createElement(){
     _component = new DivElement();
   }
 

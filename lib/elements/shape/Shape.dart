@@ -79,7 +79,7 @@ class Shape extends FrameworkElement
   
   String get type() => 'Shape';
   
-  void CreateElement(){
+  void createElement(){
     _component = Dom.createByTag('div');
 //    
 //    _svgWrapper = new SVGSVGElement();
