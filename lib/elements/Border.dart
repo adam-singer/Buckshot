@@ -41,7 +41,6 @@ class Border extends FrameworkElement implements IFrameworkContainer
   AnimatingFrameworkProperty horizontalScrollEnabledProperty;
   AnimatingFrameworkProperty verticalScrollEnabledProperty;
 
-  /// Overridden [LucaObject] method for creating new borders.
   FrameworkObject makeMe() => new Border();
 
   Border()
@@ -50,7 +49,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
     _initBorderProperties();
 
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
 
   void _initBorderProperties(){
@@ -71,7 +70,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
       "background",
       (Brush value){
         if (value == null){
-          _component.style.background = "None";
+          rawElement.style.background = "None";
           return;
         }
         value.renderBrush(_component);

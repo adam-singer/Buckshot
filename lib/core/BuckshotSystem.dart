@@ -206,6 +206,7 @@ class Buckshot extends FrameworkObject {
     registerElement(new Polygon());
 
     //elements
+    registerElement(new ContentPresenter());
     registerElement(new StackPanel());
     registerElement(new Grid());
     registerElement(new Border());

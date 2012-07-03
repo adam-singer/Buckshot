@@ -24,7 +24,7 @@
 
 //TODO convert statebag properties to real properties
 
-#library('Buckshot_Client');
+#library('Buckshot');
 
 #import('dart:html');
 #import('dart:json');
@@ -83,6 +83,7 @@
 #source('elements/grid/GridLength.dart');
 #source('elements/CollectionPresenter.dart');
 #source('elements/actions/ActionBase.dart');
+#source('elements/ContentPresenter.dart');
 
 #source('controls/TextBox.dart');
 #source('controls/control/Control.dart');
