@@ -81,7 +81,7 @@ class _CssCompiler
         
         setValue(prop, s.value);
         
-        ao.standardPropertyCarryOver[prop.cssPropertyPeer] = Dom.getXPCSS(ao.concreteElement._component, prop.cssPropertyPeer);
+        ao.standardPropertyCarryOver[prop.cssPropertyPeer] = Dom.getXPCSS(ao.concreteElement.rawElement, prop.cssPropertyPeer);
 
         //BUG dartbug.com/2232
         //style.borderRadius is returning null instead of assigned value.

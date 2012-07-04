@@ -28,18 +28,18 @@ class Image extends FrameworkElement {
   FrameworkObject makeMe() => new Image();
   
   Image(){
-    Dom.appendBuckshotClass(_component, "image");
+    Dom.appendBuckshotClass(rawElement, "image");
     _initializeImageProperties();
   }
   
   
   void _initializeImageProperties(){
     sourceUriProperty = new FrameworkProperty(this, "sourceUri", (String value){
-      _component.attributes["src"] = value.toString();
+      rawElement.attributes["src"] = value.toString();
     });
     
     altProperty = new FrameworkProperty(this, "alt", (String value){
-      _component.attributes["alt"] = value.toString();
+      rawElement.attributes["alt"] = value.toString();
     }, "undefined");
   }
   
@@ -55,7 +55,7 @@ class Image extends FrameworkElement {
   
   /// Overridden [FrameworkObject] method.
   void createElement(){
-    _component = new ImageElement();
+    rawElement = new ImageElement();
   }
   
   String get type() => "Image";

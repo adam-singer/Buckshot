@@ -30,7 +30,7 @@ class Button extends Control implements IFrameworkContainer
 
   Button()
   {
-    Dom.appendBuckshotClass(_component, "button");
+    Dom.appendBuckshotClass(rawElement, "button");
 
     // Initialize FrameworkProperty declarations.
     contentProperty = new FrameworkProperty(
@@ -53,14 +53,14 @@ class Button extends Control implements IFrameworkContainer
         }
 
         if (_content != null){
-          _content._component.remove();
+          _content.rawElement.remove();
           _content.parent = null;
         }
 
         if (value != null){
           _content = value;
           _content.parent = this;
-          _component.nodes.add(_content._component);
+          rawElement.nodes.add(_content.rawElement);
         }else{
           _content = null;
         }
@@ -78,8 +78,8 @@ class Button extends Control implements IFrameworkContainer
   /// Overridden [FrameworkObject] method.
   void createElement()
   {
-    _component = new ButtonElement();
-    _component.style.display = 'block';
+    rawElement = new ButtonElement();
+    rawElement.style.display = 'block';
   }
 
   String get type() => "Button";

@@ -35,7 +35,7 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
   Panel()
   : children = new ObservableList<FrameworkElement>()
   {
-    Dom.appendBuckshotClass(_component, "panel");
+    Dom.appendBuckshotClass(rawElement, "panel");
 
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = children;
 
@@ -47,7 +47,7 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
           rawElement.style.background = "None";
           return;
         }
-        value.renderBrush(_component);
+        value.renderBrush(rawElement);
       }, converter:const StringToSolidColorBrushConverter());
 
     children.listChanged + (_, args) => onChildrenChanging(args);

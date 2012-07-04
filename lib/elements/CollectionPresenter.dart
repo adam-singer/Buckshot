@@ -65,7 +65,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   :
     itemCreated = new FrameworkEvent<ItemCreatedEventArgs>()
   {
-    Dom.appendBuckshotClass(_component, "collectionpresenter");
+    Dom.appendBuckshotClass(rawElement, "collectionpresenter");
     _initCollectionPresenterProperties();
   }
 
@@ -74,8 +74,8 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       if (p.parent != null)
         throw const BuckshotException("Element is already child of another element.");
 
-      if (!_component.elements.isEmpty())
-         _component.elements[0].remove();
+      if (!rawElement.elements.isEmpty())
+         rawElement.elements[0].remove();
 
       p.loaded + (_,__) => _updateCollection();
 
@@ -100,7 +100,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   set itemsTemplate(String value) => setValue(itemsTemplateProperty, value);
 
   void _updateCollection(){
-    print('here');
+
     var dc = resolveDataContext();
 
     if (dc == null && presentationPanel._isLoaded){
@@ -109,7 +109,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
     } else if (dc == null){
         return;
     }
-    print('here');
+
     var values = getValue(dc);
 
     if (values is ObservableList && _eHandler == null){
@@ -120,7 +120,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       throw const BuckshotException("Expected dataContext object"
         " to be of type Collection.");
 
-    presentationPanel._component.elements.clear();
+    presentationPanel.rawElement.elements.clear();
 
     if (itemsTemplate == null){
       //no template, then just call toString on the object.
@@ -148,7 +148,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
 
   /// Overriden [FrameworkObject] method.
   void createElement(){
-    _component = new DivElement();
+    rawElement = new DivElement();
   }
 
   String get type() => "CollectionPresenter";

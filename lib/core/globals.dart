@@ -27,7 +27,7 @@ class Globals
     if (property == null || !(property.sourceObject is FrameworkElement)) return;
 
     FrameworkElement fl = property.sourceObject;
-    fl._component.attributes["data-lucaui-${property.propertyName}"] = getValue(property);
+    fl.rawElement.attributes["data-lucaui-${property.propertyName}"] = getValue(property);
   }
 
 }
@@ -146,4 +146,32 @@ db(String message, [FrameworkObject element]){
   }
   print("[${element.type}(${element.name})] $message");
 }
+
+
+String space(int n){
+  var s = new StringBuffer();
+  for(int i = 0; i < n; i++){
+    s.add(' ');
+  }
+  return s.toString();
+}
+
+/**
+ * Debug function that pretty prints an element tree. */
+printTree(startWith, [int indent = 0]){  
+  if (startWith == null || startWith is! FrameworkElement) return;
+  
+  print('${space(indent)}${startWith}(Parent=${startWith.parent})');
+  
+  if (startWith is IFrameworkContainer){
+    if ((startWith as IFrameworkContainer).content is List){
+      (startWith as IFrameworkContainer)
+        .content
+        .forEach((e) => printTree(e, indent + 5));
+    }else{
+      printTree(startWith.content, indent + 5);
+    }
+  }
+}
+
 

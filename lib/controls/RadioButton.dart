@@ -26,7 +26,7 @@ class RadioButton extends Control
   RadioButton()
   : selectionChanged = new FrameworkEvent<EventArgs>()
   {
-    Dom.appendBuckshotClass(_component, "radiobutton");
+    Dom.appendBuckshotClass(rawElement, "radiobutton");
     _initProperties();
     _initEvents();
   }    
@@ -36,11 +36,11 @@ class RadioButton extends Control
   void _initProperties(){
     
     valueProperty = new FrameworkProperty(this, "value", (String v){
-      _component.attributes["value"] = v;
+      rawElement.attributes["value"] = v;
     });
     
     groupNameProperty = new FrameworkProperty(this, "groupName", (String v){
-      _component.attributes["name"] =  v;  
+      rawElement.attributes["name"] =  v;  
     }, "default");
     
   }
@@ -60,12 +60,12 @@ class RadioButton extends Control
   
   
   void createElement(){
-    _component = new InputElement();
-    _component.attributes["type"] = "radio";
+    rawElement = new InputElement();
+    rawElement.attributes["type"] = "radio";
   }
   
   void setAsSelected(){
-    _component.attributes["checked"] = "true";
+    rawElement.attributes["checked"] = "true";
     selectionChanged.invoke(this, new EventArgs());
   }
   

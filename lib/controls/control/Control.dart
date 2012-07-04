@@ -34,7 +34,7 @@ class Control extends FrameworkElement
   Control()
 //  : _allTemplateBindings = new HashMap<FrameworkProperty, String>()
   {
-    Dom.appendBuckshotClass(_component, "control");
+    Dom.appendBuckshotClass(rawElement, "control");
     _initControlProperties();
   }
 
@@ -42,10 +42,10 @@ class Control extends FrameworkElement
 
     isEnabledProperty = new FrameworkProperty(this, "isEnabled", (bool value){
       if (value){
-        if (_component.attributes.containsKey('disabled'))
-          _component.attributes.remove('disabled');
+        if (rawElement.attributes.containsKey('disabled'))
+          rawElement.attributes.remove('disabled');
       }else{
-        _component.attributes['disabled'] = 'disabled';
+        rawElement.attributes['disabled'] = 'disabled';
       }
     }, true, converter:const StringToBooleanConverter());
 
@@ -81,7 +81,6 @@ class Control extends FrameworkElement
   }
 
   onLoaded(){
-    db('$parent', this);
     //returning if we have already done this, or if no template was actually used for this control
     if (_templateBindingsApplied || !_templateApplied) return;
     _templateBindingsApplied = true;

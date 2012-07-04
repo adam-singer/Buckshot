@@ -29,7 +29,7 @@ class Shape extends FrameworkElement
   FrameworkProperty _shProperty;
   
   Shape(){
-    Dom.appendBuckshotClass(_component, "shape");
+    Dom.appendBuckshotClass(rawElement, "shape");
     _initShapeProperties();
   }
   
@@ -80,12 +80,12 @@ class Shape extends FrameworkElement
   String get type() => 'Shape';
   
   void createElement(){
-    _component = Dom.createByTag('div');
+    rawElement = Dom.createByTag('div');
 //    
 //    _svgWrapper = new SVGSVGElement();
 //    
 //    shapeElement = new SVGElement.tag(shapeTag);
 //    _svgWrapper.elements.add(shapeElement);
-//    _component.elements.add(_svgWrapper); 
+//    rawElement.elements.add(_svgWrapper); 
   }
 }

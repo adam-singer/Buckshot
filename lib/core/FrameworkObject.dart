@@ -22,7 +22,6 @@ class FrameworkObject extends BuckshotObject {
   bool _watchingMeasurement = false;
   int _animationFrameID;
   ElementRect _previousMeasurement;
-  Element _component;
   FrameworkObject _parent;
   bool _isLoaded = false;
   
@@ -50,8 +49,7 @@ class FrameworkObject extends BuckshotObject {
   * **CAUTION:** Advanced use only.  Changing element properties directly may
   * cause undesirable results in the Buckshot framework.
   */
-  Element get rawElement() => _component;
-  set rawElement(Element v) => _component = v;
+  Element rawElement;
 
   /// A meta-data tag that represents the container context of an element,
   /// if it has one.
@@ -86,12 +84,12 @@ class FrameworkObject extends BuckshotObject {
     {
       applyVisualTemplate();
 
-      if (_component == null) createElement();
+      if (rawElement == null) createElement();
 
-      Dom.appendBuckshotClass(_component, 'frameworkobject');
+      Dom.appendBuckshotClass(rawElement, 'frameworkobject');
 
       //grab the unwrapped version
-      //_rawElement = _unwrap(_component);
+      //_rawElement = _unwrap(rawElement);
 
       _initFrameworkObjectProperties();
 
@@ -112,7 +110,7 @@ class FrameworkObject extends BuckshotObject {
 
         if (value != null){
           buckshot.namedElements[value] = this;
-          if (_component != null) _component.attributes["ID"] = value;
+          if (rawElement != null) rawElement.attributes["ID"] = value;
         }
 
       });
@@ -129,7 +127,7 @@ class FrameworkObject extends BuckshotObject {
     watchIt(num time){
       if (!_watchingMeasurement) return;
 
-      _component.rect.then((ElementRect m){
+      rawElement.rect.then((ElementRect m){
 
         mostRecentMeasurement = m;
 
@@ -265,7 +263,7 @@ class FrameworkObject extends BuckshotObject {
   }
 
   void removeFromLayoutTree(){
-    this._component.remove();
+    this.rawElement.remove();
 
     //db('Removed from Layout Tree', this);
     var p = parent;
@@ -301,7 +299,7 @@ class FrameworkObject extends BuckshotObject {
   void updateMeasurement(){
     if (!isLoaded) return;
     
-    _component
+    rawElement
       .rect
       .then((ElementRect r) { mostRecentMeasurement = r;});
   }
@@ -390,7 +388,7 @@ class FrameworkObject extends BuckshotObject {
   /// Called by the framework to allow an element to construct it's
   /// HTML representation and assign to [component].
   void createElement(){
-    _component = new DivElement();
+    rawElement = new DivElement();
   }
 
   /// Called by the framework to request that an element update it's

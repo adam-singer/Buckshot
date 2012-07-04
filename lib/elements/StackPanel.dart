@@ -25,7 +25,7 @@ class StackPanel extends Panel
 
   StackPanel()
   {
-    Dom.appendBuckshotClass(_component, "stackpanel");
+    Dom.appendBuckshotClass(rawElement, "stackpanel");
     orientationProperty = new FrameworkProperty(
       this,
       "orientation",
@@ -55,10 +55,10 @@ class StackPanel extends Panel
   Orientation get orientation() => getValue(orientationProperty);
 
   void createElement(){
-    _component = new DivElement();
+    rawElement = new DivElement();
     Dom.makeFlexBox(this);
-    //_component.style.flexFlow = 'column';
-    _component.style.overflow = 'hidden';
+    //rawElement.style.flexFlow = 'column';
+    rawElement.style.overflow = 'hidden';
   }
 
   void updateLayout(){

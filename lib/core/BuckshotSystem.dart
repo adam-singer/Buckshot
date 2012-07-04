@@ -131,7 +131,7 @@ class Buckshot extends FrameworkObject {
 
     //set the domRoot
     _domRootElement.elements.clear();
-    _domRootElement.elements.add(domRoot._component);
+    _domRootElement.elements.add(domRoot.rawElement);
 
     // register core elements that do not derive from Control
     _registerCoreElements();
@@ -201,9 +201,9 @@ class Buckshot extends FrameworkObject {
     //shapes
     registerElement(new Ellipse());
     registerElement(new Rectangle());
-    registerElement(new Line());
-    registerElement(new PolyLine());
-    registerElement(new Polygon());
+//    registerElement(new Line());
+//    registerElement(new PolyLine());
+//    registerElement(new Polygon());
 
     //elements
     registerElement(new ContentPresenter());

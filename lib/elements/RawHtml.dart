@@ -40,7 +40,7 @@ class RawHtml extends FrameworkElement
   
   RawHtml()
   {
-    Dom.appendBuckshotClass(_component, "rawhtml");
+    Dom.appendBuckshotClass(rawElement, "rawhtml");
        
     _initRawHtmlProperties();
   }
@@ -51,7 +51,7 @@ class RawHtml extends FrameworkElement
       this,
       "htmlString",
       (String value){
-        _component.innerHTML = value.toString();
+        rawElement.innerHTML = value.toString();
       });
   }
     
@@ -59,7 +59,7 @@ class RawHtml extends FrameworkElement
   set htmlString(String value) => setValue(htmlStringProperty, value);
   
   void createElement(){
-    _component = new DivElement();
+    rawElement = new DivElement();
   }
   
   void updateLayout(){}
