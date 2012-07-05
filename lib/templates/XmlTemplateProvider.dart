@@ -34,10 +34,9 @@ class XmlTemplateProvider implements IPresentationFormatProvider {
    // parse incoming template
    // var test = XML.parse(fileData);
    // print('$test');
+    //return XML.parse(fileData);
     return _getNextElement(XML.parse(fileData));
   }
-
-
 
   _getNextElement(XmlElement xmlElement){
     String lowerTagName = xmlElement.name.toLowerCase();

@@ -81,12 +81,29 @@ class Template {
                  new JSONTemplateProvider(),
                  new YAMLTemplateProvider()];
 
-  /// Performs a search of the element tree starting from the given
-  /// [FrameworkElement] and returns the first named Element matching
-  /// the given name.
-  ///
-  /// ## Instead use:
-  ///     Buckshot.namedElements[elementName];
+  
+  /**
+   * Returns the first parent that matches the given [type].  Returns
+   * null if parent not found in visual tree.
+   */
+  static FrameworkElement findParentByType(FrameworkElement element, String type){
+    if (element.parent == null) return null;
+    
+    if (element.parent.type != type){
+      return findParentByType(element.parent, type);
+    }
+    
+    return element.parent;
+  }
+  
+  
+  /** Performs a search of the element tree starting from the given
+   * [FrameworkElement] and returns the first named Element matching
+   * the given name.
+   *
+   * ## Instead use:
+   *     Buckshot.namedElements[elementName];
+   */
   static FrameworkElement findByName(String name, FrameworkElement startingWith){
 
     if (startingWith.name != null && startingWith.name == name) return startingWith;

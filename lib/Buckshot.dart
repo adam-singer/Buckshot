@@ -28,6 +28,7 @@
 
 #import('dart:html');
 #import('dart:json');
+#import('dart:isolate');
 #import('../external/dartxml/lib/xml.dart');
 #import('../external/yaml/yaml.dart');
 //#import('../../reactive/lib/reactive_lib.dart');
@@ -84,6 +85,9 @@
 #source('elements/grid/GridLength.dart');
 #source('elements/CollectionPresenter.dart');
 #source('elements/actions/ActionBase.dart');
+#source('elements/actions/AnimationAction.dart');
+#source('elements/actions/SetPropertyAction.dart');
+#source('elements/actions/TogglePropertyAction.dart');
 #source('elements/ContentPresenter.dart');
 
 #source('controls/TextBox.dart');

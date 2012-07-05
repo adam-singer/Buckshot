@@ -82,6 +82,12 @@ class FrameworkEvent<T extends EventArgs> extends BuckshotObject
   void invoke(sender, T args){
     _handlers.forEach((handlerReference) => handlerReference.handler(sender, args));
   }
+  
+  void invokeAsync(sender, T args){    
+    new Timer(0, (_){
+      _handlers.forEach((handlerReference) => handlerReference.handler(sender, args));
+    });
+  }
 
   String get type() => "FrameworkEvent";
 }
