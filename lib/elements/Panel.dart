@@ -26,7 +26,8 @@
 class Panel extends FrameworkElement implements IFrameworkContainer {
   /// An observable list of the child elements associated with the panel.
   final ObservableList<FrameworkElement> children;
-  static final String childHasParentExceptionMessage = "Element is already child of another element.";
+  static final String childHasParentExceptionMessage 
+  = "Element is already child of another element.";
 
   /// Represents the background [Color] value of the panel.
   FrameworkProperty backgroundProperty;
@@ -34,7 +35,7 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
   Panel()
   : children = new ObservableList<FrameworkElement>()
   {
-    Dom.appendBuckshotClass(_component, "panel");
+    Dom.appendBuckshotClass(rawElement, "panel");
 
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = children;
 
@@ -43,10 +44,10 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
       "background",
       (Brush value){
         if (value == null){
-          _component.style.background = "None";
+          rawElement.style.background = "None";
           return;
         }
-        value.renderBrush(_component);
+        value.renderBrush(rawElement);
       }, converter:const StringToSolidColorBrushConverter());
 
     children.listChanged + (_, args) => onChildrenChanging(args);
@@ -76,9 +77,9 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
   String get type() => "Panel";
 
   /// Overridden [FrameworkObject] method.
-  void CreateElement(){
-    _component = new DivElement();
-    _component.style.overflow = "hidden";
+  void createElement(){
+    rawElement = new DivElement();
+    rawElement.style.overflow = "hidden";
   }
 
 }

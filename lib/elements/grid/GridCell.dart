@@ -26,7 +26,7 @@ class _GridCell extends FrameworkObject
   
   _GridCell()
   {
-    Dom.appendBuckshotClass(_component, "GridCell");
+    Dom.appendBuckshotClass(rawElement, "GridCell");
 
     _initGridCellProperties();
 
@@ -51,7 +51,7 @@ class _GridCell extends FrameworkObject
       this,
       "margin",
       (value){
-        _component.style.margin = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
+        rawElement.style.margin = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
       }, new Thickness(0), converter:const StringToThicknessConverter());
   }
 
@@ -65,17 +65,17 @@ class _GridCell extends FrameworkObject
   Thickness get margin() => getValue(marginProperty);
 
   void updateMeasurement(){
-    _component
+    rawElement
       .rect
       .then((ElementRect r) { mostRecentMeasurement = r;});
   }
 
 
   /// Overridden [FrameworkObject] method for generating the html representation of the border.
-  void CreateElement(){
-    _component = new DivElement();
-    _component.style.overflow = "hidden";
-    _component.style.position = "absolute";
+  void createElement(){
+    rawElement = new DivElement();
+    rawElement.style.overflow = "hidden";
+    rawElement.style.position = "absolute";
     Dom.makeFlexBox(this);
   }
 

@@ -20,20 +20,26 @@
 /**
 * Provides serialization/deserialization for XML format templates.
 */
-class XmlTemplateProvider
-  extends HashableObject
-  implements IPresentationFormatProvider {
+class XmlTemplateProvider implements IPresentationFormatProvider {
 
   //TODO MIME as identifier type instead?
   String get fileExtension() => "xml";
 
   bool isFormat(String template) => template.startsWith('<');  
   
-  FrameworkElement deserialize(String fileData) =>
-      _getNextElement(XML.parse(fileData));
+  FrameworkElement deserialize(String fileData){
+   //parse any temlate
+   //var test = XML.parse('<foo bar="moo"></foo>');
+    
+   // parse incoming template
+   // var test = XML.parse(fileData);
+   // print('$test');
+    return _getNextElement(XML.parse(fileData));
+  }
 
 
-  BuckshotObject _getNextElement(XmlElement xmlElement){
+
+  _getNextElement(XmlElement xmlElement){
     String lowerTagName = xmlElement.name.toLowerCase();
 
     if (!buckshot._objectRegistry.containsKey(lowerTagName))
@@ -66,7 +72,7 @@ class XmlTemplateProvider
               throw const PresentationProviderException("Attempted to add"
                 " element to another element which is not a container.");
 
-            var cc = newElement._stateBag[FrameworkObject.CONTAINER_CONTEXT];
+            var cc = newElement.stateBag[FrameworkObject.CONTAINER_CONTEXT];
 
             FrameworkObject childElement = _getNextElement(e);
 
@@ -344,6 +350,4 @@ class XmlTemplateProvider
   String serialize(FrameworkElement elementRoot){
     throw const NotImplementedException();
   }
-
-  String get type() => 'XmlTemplateProvider';
 }

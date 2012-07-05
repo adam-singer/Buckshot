@@ -32,7 +32,7 @@ class DropDownList extends Control
   :
     selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs<DropDownListItem>>()
   {
-      Dom.appendBuckshotClass(_component, "dropdownlist");
+      Dom.appendBuckshotClass(rawElement, "dropdownlist");
     _initDropDownListProperties();
   }
   
@@ -54,11 +54,11 @@ class DropDownList extends Control
       DropDownListItem selected;
       
       if (itemsSource != null && !itemsSource.isEmpty()) {
-        selectedItemProperty.value.name = itemsSource[_component.dynamic.selectedIndex];
-        selectedItemProperty.value.value = itemsSource[_component.dynamic.selectedIndex];
+        selectedItemProperty.value.name = itemsSource[rawElement.dynamic.selectedIndex];
+        selectedItemProperty.value.value = itemsSource[rawElement.dynamic.selectedIndex];
         selected = selectedItemProperty.value;
       }else if (!items.isEmpty()){
-        selected = items[_component.dynamic.selectedIndex];
+        selected = items[rawElement.dynamic.selectedIndex];
         selectedItemProperty.value.name = selected.name;
         selectedItemProperty.value.value = selected.value;
       }    
@@ -71,18 +71,18 @@ class DropDownList extends Control
       doNotify();
     };
     
-    _component.on.change.add((e) => doNotify());
+    rawElement.on.change.add((e) => doNotify());
   }
   
   void _updateDDL(){
-    _component.elements.clear();
+    rawElement.elements.clear();
     
     if (itemsSource != null){
       itemsSource.forEach((i){
         var option = new OptionElement();
         option.attributes['value'] = '$i';
         option.text = '$i';
-        _component.elements.add(option);
+        rawElement.elements.add(option);
       });
       
     }else{
@@ -91,7 +91,7 @@ class DropDownList extends Control
         option.attributes['value'] = i.value;
         option.text = i.name;
         
-        _component.elements.add(option);
+        rawElement.elements.add(option);
       }); 
     }
   }
@@ -106,8 +106,8 @@ class DropDownList extends Control
   BuckshotObject makeMe() => new DropDownList();
   
   /// Overridden [FrameworkObject] method for generating the html representation of the DDL.
-  void CreateElement(){
-    _component = new Element.tag('select');
+  void createElement(){
+    rawElement = new Element.tag('select');
   }
     
   String get type() => "DropDownList";

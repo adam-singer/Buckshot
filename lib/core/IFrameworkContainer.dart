@@ -1,4 +1,4 @@
-interface IFrameworkContainer{
+class IFrameworkContainer{
   
-  get content();
+  abstract get content();
 }

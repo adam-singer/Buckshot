@@ -1,7 +1,6 @@
-//   Copyright (c) 2012, John Evans & LUCA Studios LLC
+//   Copyright (c) 2012, John Evans
 //
-//   http://www.lucastudios.com/contact
-//   John: https://plus.google.com/u/0/115427174005651655317/about
+//   https://plus.google.com/u/0/115427174005651655317/about
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -41,16 +40,15 @@ class Border extends FrameworkElement implements IFrameworkContainer
   AnimatingFrameworkProperty horizontalScrollEnabledProperty;
   AnimatingFrameworkProperty verticalScrollEnabledProperty;
 
-  /// Overridden [LucaObject] method for creating new borders.
   FrameworkObject makeMe() => new Border();
 
   Border()
   {
-    Dom.appendBuckshotClass(_component, "border");
+    Dom.appendBuckshotClass(rawElement, "border");
 
     _initBorderProperties();
 
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
 
   void _initBorderProperties(){
@@ -71,10 +69,10 @@ class Border extends FrameworkElement implements IFrameworkContainer
       "background",
       (Brush value){
         if (value == null){
-          _component.style.background = "None";
+          rawElement.style.background = "None";
           return;
         }
-        value.renderBrush(_component);
+        value.renderBrush(rawElement);
       },
       'background',
       converter:const StringToSolidColorBrushConverter());
@@ -83,7 +81,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
       this,
       "padding",
       (Thickness value){
-        _component.style.padding = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
+        rawElement.style.padding = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
         updateLayout();
       }, new Thickness(0), converter:const StringToThicknessConverter());
 
@@ -92,14 +90,14 @@ class Border extends FrameworkElement implements IFrameworkContainer
       "cornerRadius",
       (value){
         if (value == null || value < 0) value = 0;
-        _component.style.borderRadius = '${value}px';
+        rawElement.style.borderRadius = '${value}px';
       }, 'border-radius', converter:const StringToNumericConverter());
 
     borderColorProperty = new AnimatingFrameworkProperty(
       this,
       "borderColor",
       (value){
-        _component.style.borderColor = value.color.toString();
+        rawElement.style.borderColor = value.color.toString();
       }, 'border', converter:const StringToSolidColorBrushConverter());
 
     borderThicknessProperty = new FrameworkProperty(
@@ -107,14 +105,14 @@ class Border extends FrameworkElement implements IFrameworkContainer
       "borderThickness",
       (value){
 
-        String color = borderColor != null ? _component.style.borderColor : Colors.White.toString();
+        String color = borderColor != null ? rawElement.style.borderColor : Colors.White.toString();
 
         //TODO support border hatch styles
 
-        _component.style.borderTop = 'solid ${value.top}px $color';
-        _component.style.borderRight = 'solid ${value.right}px $color';
-        _component.style.borderLeft = 'solid ${value.left}px $color';
-        _component.style.borderBottom = 'solid ${value.bottom}px $color';
+        rawElement.style.borderTop = 'solid ${value.top}px $color';
+        rawElement.style.borderRight = 'solid ${value.right}px $color';
+        rawElement.style.borderLeft = 'solid ${value.left}px $color';
+        rawElement.style.borderBottom = 'solid ${value.bottom}px $color';
 
       }, new Thickness(0), converter:const StringToThicknessConverter());
 
@@ -129,17 +127,17 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
   void _assignOverflowX(value){
     if (value == true){
-      _component.style.overflowX = "auto";
+      rawElement.style.overflowX = "auto";
     }else{
-      _component.style.overflowX = "hidden";
+      rawElement.style.overflowX = "hidden";
     }
   }
 
   void _assignOverflowY(value){
     if (value == true){
-      _component.style.overflowY = "auto";
+      rawElement.style.overflowY = "auto";
     }else{
-      _component.style.overflowY = "hidden";
+      rawElement.style.overflowY = "hidden";
     }
   }
 
@@ -174,9 +172,9 @@ class Border extends FrameworkElement implements IFrameworkContainer
   set content(FrameworkElement value) => setValue(contentProperty, value);
 
   /// Overridden [FrameworkObject] method for generating the html representation of the border.
-  void CreateElement(){
-    _component = new DivElement();
-    _component.style.overflow = "hidden";
+  void createElement(){
+    rawElement = new DivElement();
+    rawElement.style.overflow = "hidden";
     Dom.makeFlexBox(this);
   }
 

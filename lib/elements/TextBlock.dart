@@ -18,7 +18,7 @@
 /**
 * An element that renders some [text].
 */
-class TextBlock extends FrameworkElement
+class TextBlock extends FrameworkElement implements IFrameworkContainer
 {
   FrameworkProperty backgroundProperty, foregroundProperty, paddingProperty, textProperty, fontSizeProperty, fontFamilyProperty;
 
@@ -26,12 +26,14 @@ class TextBlock extends FrameworkElement
 
   TextBlock()
   {
-    Dom.appendBuckshotClass(_component, "textblock");
+    Dom.appendBuckshotClass(rawElement, "textblock");
 
     _initTextBlockProperties();
 
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
   }
+  
+  get content() => getValue(textProperty);
 
   void _initTextBlockProperties(){
 
@@ -40,38 +42,38 @@ class TextBlock extends FrameworkElement
       "background",
       (Brush value){
         if (value == null){
-          _component.style.background = "None";
+          rawElement.style.background = "None";
           return;
         }
-        value.renderBrush(_component);
+        value.renderBrush(rawElement);
       }, converter:const StringToSolidColorBrushConverter());
 
     foregroundProperty = new FrameworkProperty(
       this,
       "foreground",
       (value){
-        _component.style.color = value.color.toString();
+        rawElement.style.color = value.color.toString();
       }, new SolidColorBrush(new Color.predefined(Colors.Black)), converter:const StringToSolidColorBrushConverter());
 
     textProperty = new FrameworkProperty(
       this,
       "text",
       (value){
-        _component.text = "$value";
+        rawElement.text = "$value";
       });
 
     fontSizeProperty = new FrameworkProperty(
       this,
       "fontSize",
       (value){
-        _component.style.fontSize = '${value.toString()}px';
+        rawElement.style.fontSize = '${value.toString()}px';
       });
 
     fontFamilyProperty = new FrameworkProperty(
       this,
       "fontFamily",
       (value){
-        _component.style.fontFamily = value.toString();
+        rawElement.style.fontFamily = value.toString();
       });
   }
 
@@ -94,8 +96,8 @@ class TextBlock extends FrameworkElement
   set text(String value) => setValue(textProperty, value);
   String get text() => getValue(textProperty);
 
-  void CreateElement(){
-    _component = new ParagraphElement();
+  void createElement(){
+    rawElement = new ParagraphElement();
   }
 
   void updateLayout(){

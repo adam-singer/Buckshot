@@ -19,8 +19,7 @@
 /**
 * Provides serialization/deserialization for YAML format templates.
 */
-class YAMLTemplateProvider extends HashableObject
-  implements IPresentationFormatProvider 
+class YAMLTemplateProvider implements IPresentationFormatProvider 
 {
   //TODO MIME as identifier type instead?
   /**
@@ -47,7 +46,7 @@ class YAMLTemplateProvider extends HashableObject
   
   XmlElement _toYAMLTree(String template){    
     var yaml = loadYaml(template);
-  
+
     assert(yaml is List);
     
     if (yaml.length > 2){
@@ -111,8 +110,6 @@ class YAMLTemplateProvider extends HashableObject
   */
   bool isFormat(String template) => 
       !template.startsWith('<') && !template.startsWith('[');
-  
-  String get type() => 'YAMLTemplateProvider';
   
   void _err(String str){
     throw new PresentationProviderException('$str');

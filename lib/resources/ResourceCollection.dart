@@ -17,7 +17,7 @@
 
 /**
 * Contains a group of [FrameworkResource]s.  */
-class ResourceCollection extends FrameworkResource
+class ResourceCollection extends FrameworkResource implements IFrameworkContainer
 {
   final ObservableList<FrameworkResource> resources;
   
@@ -29,6 +29,8 @@ class ResourceCollection extends FrameworkResource
     
     resources.listChanged + _onListChanging;
   }
+  
+  get content() => resources;
   
   void _onListChanging(Object _, ListChangedEventArgs args){
     

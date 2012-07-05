@@ -16,14 +16,12 @@
 //   limitations under the License.
 
 #import('dart:html');
-#import('dart:json');
+#import('../external/dartxml/lib/xml.dart');
+#import('../lib/Buckshot.dart');
 
 // point this to wherever your copy of the dart source code is
 #import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/unittest.dart');
 #import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/html_config.dart');
-
-#import('../external/dartxml/lib/xml.dart');
-#import('../lib/Buckshot.dart');
 
 #source('InitializationTests.dart');
 #source('FrameworkFundamentalsTests.dart');

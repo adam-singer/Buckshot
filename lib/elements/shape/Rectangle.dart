@@ -21,7 +21,7 @@ class Rectangle extends Shape{
   BuckshotObject makeMe() => new Rectangle();
         
   Rectangle(){
-    Dom.appendBuckshotClass(_component, "rectangle");
+    Dom.appendBuckshotClass(rawElement, "rectangle");
   }
   
   //override shape properties since we are just using a div here instead of SVG element
@@ -32,10 +32,10 @@ class Rectangle extends Shape{
       
       //TODO support border hatch styles
       
-      _component.style.borderTop = 'solid ${value.top}px $color';
-      _component.style.borderRight = 'solid ${value.right}px $color';
-      _component.style.borderLeft = 'solid ${value.left}px $color';
-      _component.style.borderBottom = 'solid ${value.bottom}px $color';
+      rawElement.style.borderTop = 'solid ${value.top}px $color';
+      rawElement.style.borderRight = 'solid ${value.right}px $color';
+      rawElement.style.borderLeft = 'solid ${value.left}px $color';
+      rawElement.style.borderBottom = 'solid ${value.bottom}px $color';
       
     }, 'border-thickness', converter:const StringToNumericConverter());
     
@@ -51,7 +51,7 @@ class Rectangle extends Shape{
       //TODO Animation hooks won't work because shapeElement is not root
       //need to implement some sort of proxy element solution
       
-      value.renderBrush(_component);
+      value.renderBrush(rawElement);
 
     }, 'background', converter:const StringToSolidColorBrushConverter());
     
@@ -61,7 +61,7 @@ class Rectangle extends Shape{
   
   String get type() => 'Rectangle';
   
-  void CreateElement(){
-    _component = Dom.createByTag('div');
+  void createElement(){
+    rawElement = Dom.createByTag('div');
   }
 }

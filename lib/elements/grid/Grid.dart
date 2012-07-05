@@ -67,7 +67,7 @@ FrameworkObject makeMe() => new Grid();
 Grid() :
 _internalChildren = new List<_GridCell>()
 {
-  Dom.appendBuckshotClass(_component, "grid");
+  Dom.appendBuckshotClass(rawElement, "grid");
 
   columnDefinitionsProperty = new FrameworkProperty(this, "columnDefinitions", (ObservableList<ColumnDefinition> list){
     _updateColumnLayout(actualWidth);
@@ -104,7 +104,7 @@ void _onChildrenChanging(Object _, ListChangedEventArgs args){
 
     item.removeFromLayoutTree();
 
-    p._component.remove();
+    p.rawElement.remove();
   });
 
 
@@ -239,15 +239,15 @@ void _updateColumnLayout(num gridWidth){
 
       num childColumnSpan = Grid.getColumnSpan(child.content);
 
-      //child._component.style.left = '${columnDefinitions[colIndex]._adjustedOffset}px';
+      //child.rawElement.style.left = '${columnDefinitions[colIndex]._adjustedOffset}px';
       child.margin = new Thickness.specified(child.margin.top, 0, 0, columnDefinitions[colIndex]._adjustedOffset);
 
       if (childColumnSpan > 1){
         if (childColumnSpan > columnDefinitions.length - colIndex)
           childColumnSpan = columnDefinitions.length - colIndex;
-        child._component.style.width = '${_totalLengthOf(columnDefinitions.getRange(colIndex, childColumnSpan))}px';
+        child.rawElement.style.width = '${_totalLengthOf(columnDefinitions.getRange(colIndex, childColumnSpan))}px';
       }else{
-        child._component.style.width = '${columnDefinitions[colIndex]._adjustedLength}px';
+        child.rawElement.style.width = '${columnDefinitions[colIndex]._adjustedLength}px';
       }
       child.updateLayout();
     });
@@ -330,16 +330,16 @@ void _updateRowLayout(num gridHeight){
     num rowIndex = Grid.getRow(child.content);
     num childRowSpan = Grid.getRowSpan(child.content);
 
-    //child._component.style.top = '${rowDefinitions[rowIndex]._adjustedOffset}px';
+    //child.rawElement.style.top = '${rowDefinitions[rowIndex]._adjustedOffset}px';
     child.margin = new Thickness.specified(rowDefinitions[rowIndex]._adjustedOffset, 0, 0, child.margin.left);
 
     if (childRowSpan > 1){
       if (childRowSpan > rowDefinitions.length - rowIndex)
         childRowSpan = rowDefinitions.length - rowIndex;
 
-      child._component.style.height = '${_totalLengthOf(rowDefinitions.getRange(rowIndex, childRowSpan))}px';
+      child.rawElement.style.height = '${_totalLengthOf(rowDefinitions.getRange(rowIndex, childRowSpan))}px';
     }else{
-      child._component.style.height = '${rowDefinitions[rowIndex]._adjustedLength}px';
+      child.rawElement.style.height = '${rowDefinitions[rowIndex]._adjustedLength}px';
     }
 
     child.updateLayout();

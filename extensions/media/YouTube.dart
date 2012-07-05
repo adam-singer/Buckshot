@@ -42,7 +42,7 @@ class YouTube extends FrameworkElement
   set videoID(String value) => setValue(videoIDProperty, value);
   
   
-  void CreateElement(){
+  void createElement(){
     rawElement = Dom.createByTag("iframe");
     Dom.appendClass(rawElement, 'youtube-player');
     rawElement.attributes["type"] = "text/html";

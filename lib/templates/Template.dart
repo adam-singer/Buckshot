@@ -157,8 +157,9 @@ class Template {
   * structure.
   *
   * This method will attempt to auto-detect the template format and apply
-  * the appropriate implementation.  It currently supports:
+  * the appropriate implementation.
   *
+  * ### Supported Formats ###
   * * XML
   * * JSON
   * * YAML
@@ -167,8 +168,8 @@ class Template {
     final t = new Template();
     
     for(final p in t.providers){
-      if(p.isFormat(buckshotTemplate)){
-        return p.deserialize(buckshotTemplate);
+      if(p.isFormat(buckshotTemplate.trim())){
+        return p.deserialize(buckshotTemplate.trim());
       }
     }
   }

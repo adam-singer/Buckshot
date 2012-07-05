@@ -34,7 +34,7 @@ class Control extends FrameworkElement
   Control()
 //  : _allTemplateBindings = new HashMap<FrameworkProperty, String>()
   {
-    Dom.appendBuckshotClass(_component, "control");
+    Dom.appendBuckshotClass(rawElement, "control");
     _initControlProperties();
   }
 
@@ -42,10 +42,10 @@ class Control extends FrameworkElement
 
     isEnabledProperty = new FrameworkProperty(this, "isEnabled", (bool value){
       if (value){
-        if (_component.attributes.containsKey('disabled'))
-          _component.attributes.remove('disabled');
+        if (rawElement.attributes.containsKey('disabled'))
+          rawElement.attributes.remove('disabled');
       }else{
-        _component.attributes['disabled'] = 'disabled';
+        rawElement.attributes['disabled'] = 'disabled';
       }
     }, true, converter:const StringToBooleanConverter());
 
@@ -76,8 +76,8 @@ class Control extends FrameworkElement
 
     template = t.template;
 
+    rawElement = template.rawElement;
     template.parent = this;
-    _component = template._component;
   }
 
   onLoaded(){
@@ -97,6 +97,23 @@ class Control extends FrameworkElement
   }
 
   void _bindTemplateBindings(){
+    void _getAllTemplateBindings(HashMap<FrameworkProperty, String> list, FrameworkElement element){
+
+      element
+        ._templateBindings
+        .forEach((k, v){
+          list[k] = v;
+        });
+     
+      if (element is! IFrameworkContainer) return;
+
+      if (element.dynamic.content is List){
+        element.dynamic.content.forEach((FrameworkElement child) => _getAllTemplateBindings(list, child));
+      }else if (element.dynamic.content is FrameworkElement){
+        _getAllTemplateBindings(list, element.dynamic.content);
+      }
+    }
+    
     var tb = new HashMap<FrameworkProperty, String>();
 
     _getAllTemplateBindings(tb, template);
@@ -106,25 +123,9 @@ class Control extends FrameworkElement
       if (prop == null){
         throw const BuckshotException('Attempted binding to null property in Control.');
       }
+      
         new Binding(prop, k);
     });
-  }
-
-  void _getAllTemplateBindings(HashMap<FrameworkProperty, String> list, FrameworkElement element){
-
-    element
-      ._templateBindings
-      .forEach((k, v){
-        list[k] = v;
-      });
-
-    if (element is! IFrameworkContainer) return;
-
-    if (element.dynamic.content is List){
-      element.dynamic.content.forEach((FrameworkElement child) => _getAllTemplateBindings(list, child));
-    }else if (element.dynamic.content is FrameworkElement){
-      _getAllTemplateBindings(list, element.dynamic.content);
-    }
   }
 
   /// Gets a standardized name for assignment to the [ControlTemplate] 'controlType' property.

@@ -34,7 +34,7 @@ class CheckBox extends Control
   CheckBox()
   : selectionChanged = new FrameworkEvent<EventArgs>()
   {
-    Dom.appendBuckshotClass(_component, "checkbox");
+    Dom.appendBuckshotClass(rawElement, "checkbox");
     _initProperties();
     _initEvents();
   }    
@@ -45,11 +45,11 @@ class CheckBox extends Control
   void _initProperties(){
     
     valueProperty = new FrameworkProperty(this, "value", (String v){
-      _component.attributes["value"] = v;
+      rawElement.attributes["value"] = v;
     });
     
     groupNameProperty = new FrameworkProperty(this, "groupName", (String v){
-      _component.attributes["name"] = v;  
+      rawElement.attributes["name"] = v;  
     }, "default");
     
   }
@@ -71,14 +71,14 @@ class CheckBox extends Control
   set groupName(String v) => setValue(groupNameProperty, v);
   
   
-  void CreateElement(){
-    _component = new InputElement();
-    _component.attributes["type"] = "checkbox";
+  void createElement(){
+    rawElement = new InputElement();
+    rawElement.attributes["type"] = "checkbox";
   }
   
   /// Manually sets this checkbox as the selected one of a group.
   void setAsSelected(){
-    _component.attributes["checked"] = "true";
+    rawElement.attributes["checked"] = "true";
     selectionChanged.invoke(this, new EventArgs());
   }
   

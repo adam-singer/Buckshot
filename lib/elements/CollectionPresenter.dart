@@ -65,7 +65,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   :
     itemCreated = new FrameworkEvent<ItemCreatedEventArgs>()
   {
-    Dom.appendBuckshotClass(_component, "collectionpresenter");
+    Dom.appendBuckshotClass(rawElement, "collectionpresenter");
     _initCollectionPresenterProperties();
   }
 
@@ -74,8 +74,8 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       if (p.parent != null)
         throw const BuckshotException("Element is already child of another element.");
 
-      if (!_component.elements.isEmpty())
-         _component.elements[0].remove();
+      if (!rawElement.elements.isEmpty())
+         rawElement.elements[0].remove();
 
       p.loaded + (_,__) => _updateCollection();
 
@@ -100,15 +100,15 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   set itemsTemplate(String value) => setValue(itemsTemplateProperty, value);
 
   void _updateCollection(){
-    var dc = this.resolveDataContext();
 
-    if (dc == null && presentationPanel._isLoaded)
-      {
+    var dc = resolveDataContext();
+
+    if (dc == null && presentationPanel._isLoaded){
         presentationPanel.children.clear();
         return;
-      } else if (dc == null){
+    } else if (dc == null){
         return;
-      }
+    }
 
     var values = getValue(dc);
 
@@ -120,7 +120,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       throw const BuckshotException("Expected dataContext object"
         " to be of type Collection.");
 
-    presentationPanel._component.elements.clear();
+    presentationPanel.rawElement.elements.clear();
 
     if (itemsTemplate == null){
       //no template, then just call toString on the object.
@@ -147,8 +147,8 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   void updateLayout(){ }
 
   /// Overriden [FrameworkObject] method.
-  void CreateElement(){
-    _component = new DivElement();
+  void createElement(){
+    rawElement = new DivElement();
   }
 
   String get type() => "CollectionPresenter";

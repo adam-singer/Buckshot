@@ -20,7 +20,9 @@ class Polygon extends Shape
   BuckshotObject makeMe() => new Polygon();
   
   Polygon(){
-    Dom.appendBuckshotClass(_component, "polygon");
+    throw const NotImplementedException();
+    
+    Dom.appendBuckshotClass(rawElement, "polygon");
     _initPolygonProperties();
   }
   

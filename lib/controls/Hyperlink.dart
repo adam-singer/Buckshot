@@ -40,7 +40,7 @@ class Hyperlink extends Control implements IFrameworkContainer
   
   Hyperlink()
   {
-    Dom.appendBuckshotClass(_component, "hyperlink");
+    Dom.appendBuckshotClass(rawElement, "hyperlink");
 
     _initHyperlinkProperties();
     
@@ -91,25 +91,25 @@ class Hyperlink extends Control implements IFrameworkContainer
           return;
         }
 
-        _component.style.textDecoration = "none";
+        rawElement.style.textDecoration = "none";
         
         //accomodate strings by converting them silently to TextBlock
         if (value is String){
             var tempStr = value;
-            _component.style.textDecoration = "underline";
+            rawElement.style.textDecoration = "underline";
             value = new TextBlock();
             value.text = tempStr;
         }        
 
         if (_content != null){
-          _content._component.remove();
+          _content.rawElement.remove();
           _content.parent = null;
         }
         
         if (value != null){
           _content = value;
           _content.parent = this;
-          _component.nodes.add(_content._component);
+          rawElement.nodes.add(_content.rawElement);
         }else{
           _content = null;
         }
@@ -117,40 +117,40 @@ class Hyperlink extends Control implements IFrameworkContainer
       });
         
     targetNameProperty = new FrameworkProperty(this, "targetName", (String value){
-      _component.attributes["target"] = value.toString();
+      rawElement.attributes["target"] = value.toString();
     }, "_self");
     
     navigateToProperty = new FrameworkProperty(this, "navigateTo", (String value){
-      _component.attributes["href"] = value.toString();
+      rawElement.attributes["href"] = value.toString();
     });
     
     foregroundProperty = new FrameworkProperty(
       this,
       "foreground",
       (value){
-        _component.style.color = value.color.toString();
+        rawElement.style.color = value.color.toString();
       }, new SolidColorBrush(new Color.predefined(Colors.Black)), converter:const StringToSolidColorBrushConverter());
     
     fontSizeProperty = new FrameworkProperty(
       this,
       "fontSize",
       (value){
-        _component.style.fontSize = '${value.toString()}px';
+        rawElement.style.fontSize = '${value.toString()}px';
       });
     
     fontFamilyProperty = new FrameworkProperty(
       this,
       "fontFamily",
       (value){
-        _component.style.fontFamily = value.toString();
+        rawElement.style.fontFamily = value.toString();
       });
   }
   
   /// Overridden [FrameworkObject] method.
-  void CreateElement()
+  void createElement()
   {
     //TODO find correct constructor for 'a'.
-    _component = new Element.tag('a'); 
+    rawElement = new Element.tag('a'); 
   }
   
   String get type() => "Hyperlink";

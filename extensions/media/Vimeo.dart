@@ -42,7 +42,7 @@ class Vimeo extends FrameworkElement
   set videoID(String value) => setValue(videoIDProperty, value);
   
   
-  void CreateElement(){
+  void createElement(){
     rawElement = Dom.createByTag("iframe");
     rawElement.attributes["frameborder"] = "0";
   }

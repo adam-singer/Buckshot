@@ -22,7 +22,6 @@
 * from this class.
 */
 class FrameworkElement extends FrameworkObject {
-  FrameworkElement _containerParent;
   StyleTemplate _style;
 
   final HashMap<FrameworkProperty, String> _templateBindings;
@@ -129,14 +128,14 @@ class FrameworkElement extends FrameworkObject {
     _templateBindings = new HashMap<FrameworkProperty, String>(),
     _transitionProperties = new HashMap<String, String>()
   {
-    Dom.appendBuckshotClass(_component, "frameworkelement");
+    Dom.appendBuckshotClass(rawElement, "frameworkelement");
 
     _style = new StyleTemplate(); //give a blank style so merging works immediately
 
     _initFrameworkProperties();
 
-    _component.attributes["data-buckshot-element"] = this.type;
-    _component.attributes['data-buckshot-id'] = '${this.hashCode()}';
+    rawElement.attributes["data-buckshot-element"] = this.type;
+    rawElement.attributes['data-buckshot-id'] = '${this.hashCode()}';
 
     _initFrameworkEvents();
   }
@@ -145,7 +144,7 @@ class FrameworkElement extends FrameworkObject {
   void _initFrameworkProperties(){
 
     void doTransform(FrameworkElement e){
-      Dom.setXPCSS(e._component, 'transform',
+      Dom.setXPCSS(e.rawElement, 'transform',
         '''translateX(${getValue(translateXProperty)}px) translateY(${getValue(translateYProperty)}px) translateZ(${getValue(translateZProperty)}px)
            scaleX(${getValue(scaleXProperty)}) scaleY(${getValue(scaleYProperty)}) scaleZ(${getValue(scaleZProperty)}) 
            rotateX(${getValue(rotateXProperty)}deg) rotateY(${getValue(rotateYProperty)}deg) rotateZ(${getValue(rotateZProperty)}deg)
@@ -171,7 +170,7 @@ class FrameworkElement extends FrameworkObject {
     //TODO: propogate this property in elements that use virtual containers
 
     perspectiveProperty = new FrameworkProperty(this, "perspective", (num value){
-      Dom.setXPCSS(_component, 'perspective', '$value');
+      Dom.setXPCSS(rawElement, 'perspective', '$value');
     },converter:const StringToNumericConverter());
 
     translateXProperty = new AnimatingFrameworkProperty(this, "translateX", (num value){
@@ -211,15 +210,15 @@ class FrameworkElement extends FrameworkObject {
     }, 'transform', converter:const StringToNumericConverter());
 
     transformOriginXProperty = new FrameworkProperty(this, "transformOriginX", (num value){
-      Dom.setXPCSS(_component, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
+      Dom.setXPCSS(rawElement, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
     }, converter:const StringToNumericConverter());
 
     transformOriginYProperty = new FrameworkProperty(this, "transformOriginY", (num value){
-      Dom.setXPCSS(_component, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
+      Dom.setXPCSS(rawElement, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
     }, converter:const StringToNumericConverter());
 
     transformOriginZProperty = new FrameworkProperty(this, "transformOriginZ", (num value){
-      Dom.setXPCSS(_component, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
+      Dom.setXPCSS(rawElement, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
     }, converter:const StringToNumericConverter());
 
     opacityProperty = new AnimatingFrameworkProperty(
@@ -228,8 +227,8 @@ class FrameworkElement extends FrameworkObject {
       (value){
         if (value < 0.0) value = 0.0;
         if (value > 1.0) value = 1.0;
-        _component.style.opacity = value.toStringAsPrecision(2);
-        //_component.style.filter = "alpha(opacity=${value * 100})";
+        rawElement.style.opacity = value.toStringAsPrecision(2);
+        //rawElement.style.filter = "alpha(opacity=${value * 100})";
       }, 'opacity', converter:const StringToNumericConverter());
 
     visibilityProperty = new AnimatingFrameworkProperty(
@@ -237,16 +236,16 @@ class FrameworkElement extends FrameworkObject {
       "visibility",
       (Visibility value){
         if (value == Visibility.visible){
-          _component.style.visibility = '$value';
+          rawElement.style.visibility = '$value';
 
-          _component.style.display =  _stateBag["display"] == null ? "inherit" : _stateBag["display"];
+          rawElement.style.display =  _stateBag["display"] == null ? "inherit" : _stateBag["display"];
           _stateBag.remove("display");
         }else{
           //preserve in case some element is using "inline" or some other fancy display value
-          _stateBag["display"] = _component.style.display;
-          _component.style.visibility = '$value';
+          _stateBag["display"] = rawElement.style.display;
+          rawElement.style.visibility = '$value';
 
-          _component.style.display = "none";
+          rawElement.style.display = "none";
         }
       }, 'visibility', converter:const StringToVisibilityConverter());
 
@@ -254,14 +253,14 @@ class FrameworkElement extends FrameworkObject {
       this,
       "zOrder",
       (num value){
-        _component.style.zIndex = value.toInt().toString(); //, null);
+        rawElement.style.zIndex = value.toInt().toString(); //, null);
       }, converter:const StringToNumericConverter());
 
     marginProperty = new FrameworkProperty(
       this,
       "margin",
       (Thickness value){
-        _component.style.margin = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px'; //, null);
+        rawElement.style.margin = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px'; //, null);
         if (parent != null) parent.updateLayout();
       }, new Thickness(0), converter:const StringToThicknessConverter());
 
@@ -290,7 +289,7 @@ class FrameworkElement extends FrameworkObject {
       "minHeight",
       (value){
 
-        _component.style.minHeight = '${value}px';
+        rawElement.style.minHeight = '${value}px';
       }, converter:const StringToNumericConverter());
 
     maxHeightProperty = new FrameworkProperty(
@@ -298,7 +297,7 @@ class FrameworkElement extends FrameworkObject {
       "maxHeight",
       (value){
 
-        _component.style.maxHeight = '${value}px';
+        rawElement.style.maxHeight = '${value}px';
       }, converter:const StringToNumericConverter());
 
     minWidthProperty = new FrameworkProperty(
@@ -306,7 +305,7 @@ class FrameworkElement extends FrameworkObject {
       "minWidth",
       (value){
 
-        _component.style.minWidth = '${value}px';
+        rawElement.style.minWidth = '${value}px';
       }, converter:const StringToNumericConverter());
 
     maxWidthProperty = new FrameworkProperty(
@@ -314,7 +313,7 @@ class FrameworkElement extends FrameworkObject {
       "maxWidth",
       (value){
 
-        _component.style.maxWidth = '${value}px';
+        rawElement.style.maxWidth = '${value}px';
 
       }, converter:const StringToNumericConverter());
 
@@ -322,7 +321,7 @@ class FrameworkElement extends FrameworkObject {
       this,
       "cursor",
       (Cursors value){
-        _component.style.cursor = value._str;
+        rawElement.style.cursor = value._str;
       }, converter:const StringToCursorConverter());
 
     tagProperty = new FrameworkProperty(
@@ -477,7 +476,7 @@ class FrameworkElement extends FrameworkObject {
   /// ** Internal Use Only **
   void calculateWidth(value){
     if (value == "auto"){
-      _component.style.width = "auto"; //, null);
+      rawElement.style.width = "auto"; //, null);
       this.updateMeasurementAsync.then((_){
         if (this is IFrameworkContainer){
           updateLayout();
@@ -496,7 +495,7 @@ class FrameworkElement extends FrameworkObject {
       width = maxWidth;
     }
 
-    _component.style.width = '${value}px';
+    rawElement.style.width = '${value}px';
 
     this.updateMeasurementAsync.then((_){
       if (this is IFrameworkContainer){
@@ -511,7 +510,7 @@ class FrameworkElement extends FrameworkObject {
   /// ** Internal Use Only **
   void calculateHeight(value){
     if (value == "auto"){
-      _component.style.height = "auto";//, null);
+      rawElement.style.height = "auto";//, null);
       this.updateMeasurementAsync.then((_){
         if (this is IFrameworkContainer){
           updateLayout();
@@ -530,7 +529,7 @@ class FrameworkElement extends FrameworkObject {
       height =  maxHeight;
     }
 
-   _component.style.height = '${value}px'; //, null);
+   rawElement.style.height = '${value}px'; //, null);
 
    this.updateMeasurementAsync.then((_){
      if (this is IFrameworkContainer){
@@ -590,7 +589,7 @@ class FrameworkElement extends FrameworkObject {
 
       e.stopPropagation();
 
-      var p = document.window.webkitConvertPointFromPageToNode(_component,
+      var p = document.window.webkitConvertPointFromPageToNode(rawElement,
         new Point(e.pageX, e.pageY));
       mouseUp.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
 
@@ -598,26 +597,26 @@ class FrameworkElement extends FrameworkObject {
     
     mouseUp = new FrameworkEvent<MouseEventArgs>
     ._watchFirstAndLast(
-      () => _component.on.mouseUp.add(mouseUpHandler),
-      () => _component.on.mouseUp.remove(mouseUpHandler)
+      () => rawElement.on.mouseUp.add(mouseUpHandler),
+      () => rawElement.on.mouseUp.remove(mouseUpHandler)
     );
 
     void mouseDownHandler(e){
-      _component.focus();
+      rawElement.focus();
 
       if (!mouseDown.hasHandlers) return;
 
       e.stopPropagation();
 
-      var p = document.window.webkitConvertPointFromPageToNode(_component,
+      var p = document.window.webkitConvertPointFromPageToNode(rawElement,
         new Point(e.pageX, e.pageY));
       mouseDown.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
     }
 
     mouseDown = new FrameworkEvent<MouseEventArgs>
     ._watchFirstAndLast(
-      () => _component.on.mouseDown.add(mouseDownHandler),
-      () => _component.on.mouseDown.remove(mouseDownHandler)
+      () => rawElement.on.mouseDown.add(mouseDownHandler),
+      () => rawElement.on.mouseDown.remove(mouseDownHandler)
     );
 
 
@@ -626,25 +625,25 @@ class FrameworkElement extends FrameworkObject {
 
       e.stopPropagation();
 
-      var p = document.window.webkitConvertPointFromPageToNode(_component,
+      var p = document.window.webkitConvertPointFromPageToNode(rawElement,
         new Point(e.pageX, e.pageY));
       mouseMove.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
     }
 
     mouseMove = new FrameworkEvent<MouseEventArgs>
     ._watchFirstAndLast(
-      () => _component.on.mouseMove.add(mouseMoveHandler),
-      () => _component.on.mouseMove.remove(mouseMoveHandler)
+      () => rawElement.on.mouseMove.add(mouseMoveHandler),
+      () => rawElement.on.mouseMove.remove(mouseMoveHandler)
     );
 
     void clickHandler(e){
-      _component.focus();
+      rawElement.focus();
 
       if (!click.hasHandlers) return;
 
       e.stopPropagation();
 
-      var p = document.window.webkitConvertPointFromPageToNode(_component,
+      var p = document.window.webkitConvertPointFromPageToNode(rawElement,
         new Point(e.pageX, e.pageY));
 
       click.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
@@ -652,8 +651,8 @@ class FrameworkElement extends FrameworkObject {
 
     click = new FrameworkEvent<MouseEventArgs>
     ._watchFirstAndLast(
-      () => _component.on.click.add(clickHandler),
-      () => _component.on.click.remove(clickHandler)
+      () => rawElement.on.click.add(clickHandler),
+      () => rawElement.on.click.remove(clickHandler)
     );
 
 
@@ -667,8 +666,8 @@ class FrameworkElement extends FrameworkObject {
 
     gotFocus = new FrameworkEvent<EventArgs>
     ._watchFirstAndLast(
-      () => _component.on.focus.add(gotFocusHandler),
-      () => _component.on.focus.remove(gotFocusHandler)
+      () => rawElement.on.focus.add(gotFocusHandler),
+      () => rawElement.on.focus.remove(gotFocusHandler)
     );
 
     void lostFocusHandler(e){
@@ -681,8 +680,8 @@ class FrameworkElement extends FrameworkObject {
 
     lostFocus = new FrameworkEvent<EventArgs>
     ._watchFirstAndLast(
-      () => _component.on.blur.add(lostFocusHandler),
-      () => _component.on.blur.remove(lostFocusHandler)
+      () => rawElement.on.blur.add(lostFocusHandler),
+      () => rawElement.on.blur.remove(lostFocusHandler)
     );
 
     bool isMouseReallyOut = true;
@@ -705,8 +704,8 @@ class FrameworkElement extends FrameworkObject {
 
     mouseEnter = new FrameworkEvent<EventArgs>
     ._watchFirstAndLast(
-      () => _component.on.mouseOver.add(mouseEnterHandler),
-      () => _component.on.mouseOver.remove(mouseEnterHandler)
+      () => rawElement.on.mouseOver.add(mouseEnterHandler),
+      () => rawElement.on.mouseOver.remove(mouseEnterHandler)
     );
 
     void mouseLeaveHandler(e){
@@ -714,9 +713,9 @@ class FrameworkElement extends FrameworkObject {
 
       e.stopPropagation();
 
-      _component.rect.then((ElementRect r){
+      rawElement.rect.then((ElementRect r){
 
-        var p = document.window.webkitConvertPointFromPageToNode(_component,
+        var p = document.window.webkitConvertPointFromPageToNode(rawElement,
           new Point(e.pageX, e.pageY));
 
         if (p.x > -1 && p.y > -1 && p.x < r.bounding.width
@@ -733,8 +732,8 @@ class FrameworkElement extends FrameworkObject {
 
     mouseLeave = new FrameworkEvent<EventArgs>
     ._watchFirstAndLast(
-      () => _component.on.mouseOut.add(mouseLeaveHandler),
-      () => _component.on.mouseOut.remove(mouseLeaveHandler)
+      () => rawElement.on.mouseOut.add(mouseLeaveHandler),
+      () => rawElement.on.mouseOut.remove(mouseLeaveHandler)
     );
     
     _initFrameworkDragEvents();
@@ -829,8 +828,8 @@ class FrameworkElement extends FrameworkObject {
 
 
   /// Overridden [FrameworkObject] method.
-  void CreateElement(){
-    _component = new DivElement();
+  void createElement(){
+    rawElement = new DivElement();
   }
 
   /// Overridden [FrameworkObject] method.

@@ -41,10 +41,8 @@ Future<String> generateClassFromXmlTemplate(String buckshotXml){
 }
 
 String _generateTemplate(String xml){
-  Buckshot b = new Buckshot('#BuckshotHost');
-  var oldContext = buckshot.switchContextTo(b);
 
-  var result = b.defaultPresentationProvider.deserialize(xml);
+  var result = Template.deserialize(xml);
 
   StringBuffer s = new StringBuffer();
 
@@ -59,8 +57,6 @@ String _generateTemplate(String xml){
   _IView(s);
 
   _footer(s);
-
-  buckshot.switchContextTo(oldContext);
 
   UserView v = new UserView();
   buckshot.rootView = v;

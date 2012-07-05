@@ -65,7 +65,7 @@ class Hulu extends FrameworkElement
 //  <embed src="http://www.hulu.com/embed/QRNTv9APf02C6J_xFpY0Dg" type="application/x-shockwave-flash"  width="512" height="288" allowFullScreen="true"></embed>
 //  </object>
   
-  void CreateElement(){
+  void createElement(){
 
     rawElement = Dom.createByTag("object");
     param1 = Dom.createByTag("param");

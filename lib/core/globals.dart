@@ -27,7 +27,7 @@ class Globals
     if (property == null || !(property.sourceObject is FrameworkElement)) return;
 
     FrameworkElement fl = property.sourceObject;
-    fl._component.attributes["data-lucaui-${property.propertyName}"] = getValue(property);
+    fl.rawElement.attributes["data-lucaui-${property.propertyName}"] = getValue(property);
   }
 
 }
@@ -35,10 +35,10 @@ class Globals
 Future _functionToFuture(Function f){
   Completer c = new Completer();
 
-  void doIt() => c.complete(f());
+  void doIt(foo) => c.complete(f());
 
   try{
-    window.setTimeout(doIt, 0);
+    window.requestAnimationFrame(doIt);
   }catch (Exception e){
     c.completeException(e);
   }
@@ -52,7 +52,7 @@ Future setValueAsync(FrameworkProperty property, Dynamic value)
 {
   Completer c = new Completer();
 
-   void doIt(){
+   void doIt(foo){
 
      if (property.stringToValueConverter != null && value is String){
        value = property.stringToValueConverter.convert(value);
@@ -86,7 +86,7 @@ Future setValueAsync(FrameworkProperty property, Dynamic value)
       c.complete(null);
    }
 
-   window.setTimeout(doIt, 0);
+   window.requestAnimationFrame(doIt);
 
    return c.future;
 }
@@ -128,31 +128,50 @@ void setValue(FrameworkProperty property, Dynamic value)
  * Gets the current value of a given [FrameworkProperty] object.
  * Returns null if the [propertyInfo] object does not exist or if the underlying
  * property is not found. */
-Dynamic getValue(FrameworkProperty propertyInfo)
-{
-  return (propertyInfo == null) ? null : propertyInfo.value;
-}
-
-
-/// Global flag for forking debug related code.
-bool DEBUG = true;
-
+Dynamic getValue(FrameworkProperty propertyInfo) =>
+    (propertyInfo == null) ? null : propertyInfo.value;
 
 /**
 * Executes a javascript alert "break point" with optional [breakInfo]. */
 br([breakInfo]){
-  if (!DEBUG) return;
   window.alert("Debug Break: ${breakInfo != null ? breakInfo.toString() : ''}");
 }
 
 /**
 * Prints output to the javascript console with optional FrameworkElement [element] info. */
 db(String message, [FrameworkObject element]){
-  if (!DEBUG) return;
   if (element == null){
     print(message);
     return;
   }
   print("[${element.type}(${element.name})] $message");
 }
+
+
+String space(int n){
+  var s = new StringBuffer();
+  for(int i = 0; i < n; i++){
+    s.add(' ');
+  }
+  return s.toString();
+}
+
+/**
+ * Debug function that pretty prints an element tree. */
+printTree(startWith, [int indent = 0]){  
+  if (startWith == null || startWith is! FrameworkElement) return;
+  
+  print('${space(indent)}${startWith}(Parent=${startWith.parent})');
+  
+  if (startWith is IFrameworkContainer){
+    if ((startWith as IFrameworkContainer).content is List){
+      (startWith as IFrameworkContainer)
+        .content
+        .forEach((e) => printTree(e, indent + 5));
+    }else{
+      printTree(startWith.content, indent + 5);
+    }
+  }
+}
+
 

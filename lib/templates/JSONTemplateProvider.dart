@@ -19,8 +19,7 @@
 /**
 * Provides serialization/deserialization for JSON format templates.
 */
-class JSONTemplateProvider extends HashableObject
-  implements IPresentationFormatProvider 
+class JSONTemplateProvider implements IPresentationFormatProvider 
 {
   //TODO MIME as identifier type instead?
   /**
@@ -109,8 +108,6 @@ class JSONTemplateProvider extends HashableObject
   * Returns true if the given template is detected to be of a compatible format.
   */
   bool isFormat(String template) => template.startsWith('[');
-  
-  String get type() => 'JSONTemplateProvider';
   
   void _err(String str){
     throw new PresentationProviderException('$str');

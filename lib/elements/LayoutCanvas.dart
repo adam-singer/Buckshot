@@ -33,7 +33,7 @@ class LayoutCanvas extends Panel
   FrameworkObject makeMe() => new LayoutCanvas();
 
   LayoutCanvas(){
-    Dom.appendBuckshotClass(_component, "layoutcanvas");
+    Dom.appendBuckshotClass(rawElement, "layoutcanvas");
 
   }
 
@@ -46,14 +46,14 @@ class LayoutCanvas extends Panel
         element.margin = element._stateBag["margin"];
         element._stateBag.remove("margin");
 
-        //_component.removeChild(element._component);
-        element._component.style.position = "inherit";
+        //rawElement.removeChild(element.rawElement);
+        element.rawElement.style.position = "inherit";
 
         element.attachedPropertyChanged - _onAttachedPropertyChanging;
       });
 
       args.newItems.forEach((element){
-        element._component.style.position = "absolute";
+        element.rawElement.style.position = "absolute";
         var l = LayoutCanvas.getLeft(element);
 
         var t = LayoutCanvas.getTop(element);
@@ -65,7 +65,7 @@ class LayoutCanvas extends Panel
 
         element.margin = new Thickness.specified(t, 0, 0, l);
 
-        _component.nodes.add(element._component);
+        rawElement.nodes.add(element.rawElement);
 
         element.attachedPropertyChanged + _onAttachedPropertyChanging;
       });
@@ -140,9 +140,9 @@ class LayoutCanvas extends Panel
   }
 
   /// Overridden [FrameworkObject] method.
-  void CreateElement(){
-    _component = new DivElement();
-    _component.style.overflow = "hidden";
+  void createElement(){
+    rawElement = new DivElement();
+    rawElement.style.overflow = "hidden";
   }
 
   /// Overridden [FrameworkObject] method.

@@ -31,7 +31,7 @@ class TextArea extends Control
   TextArea() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {
-    Dom.appendBuckshotClass(_component, "textarea");
+    Dom.appendBuckshotClass(rawElement, "textarea");
     
     _initProperties();
 
@@ -46,27 +46,27 @@ class TextArea extends Control
       this,
       "placeholder",
       (String value){
-        _component.attributes["placeholder"] = value;
+        rawElement.attributes["placeholder"] = value;
       });
     
     
     textProperty = new FrameworkProperty(this, "text", (String value){
-      _component.dynamic.value = value;
+      rawElement.dynamic.value = value;
     },"");
     
     spellcheckProperty = new FrameworkProperty(this, "spellcheck", (bool value){
-      _component.attributes["spellcheck"] = value.toString();
+      rawElement.attributes["spellcheck"] = value.toString();
     }, converter:const StringToBooleanConverter());   
   }
   
   
   void _initEvents(){
     
-    _component.on.keyUp.add((e){
-      if (text == _component.dynamic.value) return; //no change from previous keystroke
+    rawElement.on.keyUp.add((e){
+      if (text == rawElement.dynamic.value) return; //no change from previous keystroke
       
       String oldValue = text;
-      text = _component.dynamic.value;
+      text = rawElement.dynamic.value;
 
       if (!textChanged.hasHandlers) return;
       textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));
@@ -74,11 +74,11 @@ class TextArea extends Control
       if (e.cancelable) e.cancelBubble = true;
     });
     
-    _component.on.change.add((e){
-      if (text == _component.dynamic.value) return; //no change from previous keystroke
+    rawElement.on.change.add((e){
+      if (text == rawElement.dynamic.value) return; //no change from previous keystroke
       
       String oldValue = text;
-      text = _component.dynamic.value;
+      text = rawElement.dynamic.value;
       
       if (!textChanged.hasHandlers) return;
       textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));
@@ -96,8 +96,8 @@ class TextArea extends Control
   String get placeholder() => getValue(placeholderProperty);
   
   
-  void CreateElement(){
-    _component = new TextAreaElement();
+  void createElement(){
+    rawElement = new TextAreaElement();
   }
   
   String get type() => "TextArea";

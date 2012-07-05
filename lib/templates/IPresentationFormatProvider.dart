@@ -23,7 +23,7 @@
 * * [JSONTemplateProvider]
 * * [YAMLTemplateProvider]
 */
-interface IPresentationFormatProvider extends Hashable
+interface IPresentationFormatProvider
 {
 
   //TODO MIME as identifier type instead?

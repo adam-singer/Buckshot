@@ -17,47 +17,8 @@
 
 /**
 * Represents an event within the framework.
-* The "extends" keyword in the generic T acts as a lightweight type constraint
-* in static checks.
 */
-interface FrameworkEvent<T extends EventArgs>  default _FrameworkEventImplementation<T extends EventArgs>{
-  final Function _gotFirstSubscriberCallback;
-  final Function _lostLastSubscriberCallback;
-
-  FrameworkEvent();
-
-  FrameworkEvent._watchFirstAndLast(this._gotFirstSubscriberCallback, this._lostLastSubscriberCallback);
-
-  /**
-  * Returns true if the FrameworkEvent has handlers registered. */
-  bool get hasHandlers();
-
-  /**
-  * Registers an EventHandler to the LucaEvent, and returns an
-  * EventHandlerReference, which can be used to unregister the
-  * handler at some later time. */
-  EventHandlerReference register(Function handler);
-
-  /**
-  * Unregisters an EventHandler (via it's EventHandlerReference from the LucaEvent */
-  void unregister(EventHandlerReference handlerReference);
-
-  /**
-  * This operator overload is syntactic sugar for the register() method. */
-  EventHandlerReference operator +(Function handler);
-
-  /**
-  * This operator overload is syntactic sugar for the unregister() method. */
-  void operator -(EventHandlerReference handlerReference);
-
-  /**
-  * Call each EventHandler function that is registered to the FrameworkEvent */
-  void invoke(sender, T args);
-
-  String get type();
-}
-
-class _FrameworkEventImplementation<T extends EventArgs> extends BuckshotObject implements FrameworkEvent
+class FrameworkEvent<T extends EventArgs> extends BuckshotObject
 {
   Function _gotFirstSubscriberCallback;
   Function _lostLastSubscriberCallback;
@@ -66,19 +27,24 @@ class _FrameworkEventImplementation<T extends EventArgs> extends BuckshotObject 
 
   final List<EventHandlerReference> _handlers;
 
-  _FrameworkEventImplementation() 
+  FrameworkEvent() 
   : 
     _handlers = new List<EventHandlerReference>(),
     _gotFirstSubscriberCallback = null,
     _lostLastSubscriberCallback = null;
 
-  _FrameworkEventImplementation._watchFirstAndLast(this._gotFirstSubscriberCallback, this._lostLastSubscriberCallback)
+  FrameworkEvent._watchFirstAndLast(this._gotFirstSubscriberCallback, this._lostLastSubscriberCallback)
   :
     _handlers = new List<EventHandlerReference>();
 
-
+  /**
+  * Returns true if the FrameworkEvent has handlers registered. */
   bool get hasHandlers() => !_handlers.isEmpty();
 
+  /**
+  * Registers an EventHandler to the FrameworkEvent, and returns an
+  * EventHandlerReference, which can be used to unregister the
+  * handler at some later time. */
   EventHandlerReference register(Function handler){
     var hr = new EventHandlerReference(handler);
     _handlers.add(hr);
@@ -90,6 +56,9 @@ class _FrameworkEventImplementation<T extends EventArgs> extends BuckshotObject 
     return hr;
   }
 
+  /**
+  * Unregisters an EventHandler (via it's EventHandlerReference from the
+  * FrameworkEvent. */
   void unregister(EventHandlerReference handlerReference){
     int i = _handlers.indexOf(handlerReference, 0);
     if (i < 0) return;
@@ -100,11 +69,19 @@ class _FrameworkEventImplementation<T extends EventArgs> extends BuckshotObject 
     }
   }
 
+  /**
+  * This operator overload is syntactic sugar for the register() method. */
   EventHandlerReference operator +(Function handler) => register(handler);
 
+  /**
+  * This operator overload is syntactic sugar for the unregister() method. */
   void operator -(EventHandlerReference handlerReference) => unregister(handlerReference);
 
-  void invoke(sender, T args) => _handlers.forEach((handlerReference) => handlerReference.handler(sender, args));
+  /**
+  * Call each EventHandler function that is registered to the FrameworkEvent */
+  void invoke(sender, T args){
+    _handlers.forEach((handlerReference) => handlerReference.handler(sender, args));
+  }
 
   String get type() => "FrameworkEvent";
 }

@@ -75,7 +75,7 @@ class PlusOne extends FrameworkElement
   }
   
   
-  void CreateElement(){
+  void createElement(){
     rawElement = Dom.createByTag("g:plusone");
     rawElement.attributes["annotation"] = "none";
     rawElement.attributes["size"] = "standard";

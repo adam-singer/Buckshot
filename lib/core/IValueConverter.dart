@@ -19,11 +19,11 @@
 * Represents a contract for an object that converts value to another value (and back).
 *
 * Bi-directional conversion not yet supported. */
-interface IValueConverter {
+class IValueConverter {
 
   /// Returns a converted value from a given [Dynamic] value and optional [Dynamic]
   /// parameter.
-  Dynamic convert(Dynamic value, [Dynamic parameter]);
+  abstract Dynamic convert(Dynamic value, [Dynamic parameter]);
   
   //TODO implement two-way conversion support
 }
