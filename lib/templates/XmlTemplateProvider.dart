@@ -27,11 +27,19 @@ class XmlTemplateProvider implements IPresentationFormatProvider {
 
   bool isFormat(String template) => template.startsWith('<');  
   
-  FrameworkElement deserialize(String fileData) =>
-      _getNextElement(XML.parse(fileData));
+  FrameworkElement deserialize(String fileData){
+   //parse any temlate
+   //var test = XML.parse('<foo bar="moo"></foo>');
+    
+   // parse incoming template
+   // var test = XML.parse(fileData);
+   // print('$test');
+    return _getNextElement(XML.parse(fileData));
+  }
 
 
-  BuckshotObject _getNextElement(XmlElement xmlElement){
+
+  _getNextElement(XmlElement xmlElement){
     String lowerTagName = xmlElement.name.toLowerCase();
 
     if (!buckshot._objectRegistry.containsKey(lowerTagName))

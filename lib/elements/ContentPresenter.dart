@@ -36,21 +36,23 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
 
+  FrameworkElement currentContent;
+  
   void _initContentPresenterProperties(){
     contentProperty = new FrameworkProperty(
       this,
       "content",
       (value){
-        if (contentProperty.previousValue != null){
-          contentProperty.previousValue.removeFromLayoutTree();
+        if (currentContent != null){
+          currentContent.removeFromLayoutTree();
         }
 
         //if the content is previously a textblock and the value is a String then just
         //replace the text property with the new string
-        if (content is TextBlock && value is String){
-          (content as TextBlock).text = value;
-          return;
-        }
+//        if (content is TextBlock && value is String){
+//          (content as TextBlock).text = value;
+//          return;
+//        }
 
         //accomodate strings by converting them silently to TextBlock
         if (value is String){
@@ -58,6 +60,8 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
             value = new TextBlock();
             value.text = tempStr;
         }
+        
+        currentContent = value;
 
         value.addToLayoutTree(this);        
       });
