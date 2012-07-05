@@ -30,7 +30,7 @@ class ActionBase extends BuckshotObject {
   FrameworkElement _target;
   
   FrameworkElement get source() => getValue(_sourceProperty);
-  FrameworkElement get target() => _target;
+  FrameworkElement get targetElement() => _target;
       
   String get targetName() => getValue(targetNameProperty);
   set targetName(String v) => setValue(targetNameProperty, v);

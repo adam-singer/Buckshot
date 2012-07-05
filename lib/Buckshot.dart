@@ -84,11 +84,12 @@
 #source('elements/grid/GridLayoutDefinition.dart');
 #source('elements/grid/GridLength.dart');
 #source('elements/CollectionPresenter.dart');
+#source('elements/ContentPresenter.dart');
+
 #source('elements/actions/ActionBase.dart');
 #source('elements/actions/AnimationAction.dart');
 #source('elements/actions/SetPropertyAction.dart');
 #source('elements/actions/TogglePropertyAction.dart');
-#source('elements/ContentPresenter.dart');
 
 #source('controls/TextBox.dart');
 #source('controls/control/Control.dart');

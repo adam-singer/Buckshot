@@ -243,6 +243,9 @@ class Buckshot extends FrameworkObject {
     registerElement(new AnimationResource());
     registerElement(new AnimationKeyFrame());
     registerElement(new AnimationState());
+    
+    //actions
+    registerElement(new SetPropertyAction());
 
     //attached properties
     _objectRegistry["grid.column"] = Grid.setColumn;

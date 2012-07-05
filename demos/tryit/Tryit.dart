@@ -17,7 +17,6 @@
 
 #import('../../lib/Buckshot.dart');
 #import('../../extensions/media/MediaPack.dart');
-#import('../../extensions/actions/ActionPack.dart');
 #import('dart:html');
 #source('../../extensions/ControlPack1/ModalDialog.dart');
 #source('Views.dart');
@@ -37,7 +36,6 @@ void main() {
   // These are exposed by the extension libraries.
   // You could also import individual extensions instead.
   initializeMediaPackExtensions();
-  initializeActionPackExtensions();
       
   // create our main view and error view
   FrameworkObject o = Template.deserialize(document.query('#main').text);

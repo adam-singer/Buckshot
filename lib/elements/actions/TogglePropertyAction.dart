@@ -57,7 +57,7 @@ class TogglePropertyAction extends ActionBase
     //TODO throw?
     if (target == null || property == null || firstValue == null || secondValue == null) return;
     
-    var el = Buckshot.namedElements[target];
+    var el = buckshot.namedElements[target];
 
     if (el == null) return; //TODO throw?
     
