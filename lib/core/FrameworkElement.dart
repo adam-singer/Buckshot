@@ -372,7 +372,7 @@ class FrameworkElement extends FrameworkObject {
       this,
       "draggable",
       (bool value) {
-        _component.draggable = value;
+        rawElement.draggable = value;
       }, 
       false,
       converter:const StringToBooleanConverter());    
@@ -751,8 +751,8 @@ class FrameworkElement extends FrameworkObject {
     
     dragEnter = new FrameworkEvent<DragEventArgs>
     ._watchFirstAndLast(
-      () => _component.on.dragEnter.add(dragEnterHandler),
-      () => _component.on.dragEnter.remove(dragEnterHandler)
+      () => rawElement.on.dragEnter.add(dragEnterHandler),
+      () => rawElement.on.dragEnter.remove(dragEnterHandler)
     );
 
     // Handle dragleave events
@@ -764,8 +764,8 @@ class FrameworkElement extends FrameworkObject {
     
     dragLeave = new FrameworkEvent<DragEventArgs>
     ._watchFirstAndLast(
-      () => _component.on.dragLeave.add(dragLeaveHandler),
-      () => _component.on.dragLeave.remove(dragLeaveHandler)
+      () => rawElement.on.dragLeave.add(dragLeaveHandler),
+      () => rawElement.on.dragLeave.remove(dragLeaveHandler)
     );
 
     // Handle dragover events
@@ -779,8 +779,8 @@ class FrameworkElement extends FrameworkObject {
     
     dragOver = new FrameworkEvent<DragEventArgs>
     ._watchFirstAndLast(
-      () => _component.on.dragOver.add(dragOverHandler),
-      () => _component.on.dragOver.remove(dragOverHandler)
+      () => rawElement.on.dragOver.add(dragOverHandler),
+      () => rawElement.on.dragOver.remove(dragOverHandler)
     );
     
     // Handle drop events
@@ -795,8 +795,8 @@ class FrameworkElement extends FrameworkObject {
     
     drop = new FrameworkEvent<DragEventArgs>
     ._watchFirstAndLast(
-      () => _component.on.drop.add(dropHandler),
-      () => _component.on.drop.remove(dropHandler)
+      () => rawElement.on.drop.add(dropHandler),
+      () => rawElement.on.drop.remove(dropHandler)
     );
     
     // Handle dragstart events
@@ -808,8 +808,8 @@ class FrameworkElement extends FrameworkObject {
     
     dragStart = new FrameworkEvent<DragEventArgs>
     ._watchFirstAndLast(
-      () => _component.on.dragStart.add(dragStartHandler),
-      () => _component.on.dragStart.remove(dragStartHandler)
+      () => rawElement.on.dragStart.add(dragStartHandler),
+      () => rawElement.on.dragStart.remove(dragStartHandler)
     );
     
     // Handle dragend events
@@ -821,8 +821,8 @@ class FrameworkElement extends FrameworkObject {
     
     dragEnd = new FrameworkEvent<DragEventArgs>
     ._watchFirstAndLast(
-      () => _component.on.dragEnd.add(dragEndHandler),
-      () => _component.on.dragEnd.remove(dragEndHandler)
+      () => rawElement.on.dragEnd.add(dragEndHandler),
+      () => rawElement.on.dragEnd.remove(dragEndHandler)
     );
   }
 
