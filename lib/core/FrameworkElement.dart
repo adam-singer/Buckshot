@@ -64,6 +64,8 @@ class FrameworkElement extends FrameworkObject {
   AnimatingFrameworkProperty visibilityProperty;
   /// Represents the [StyleTemplate] value that is currently applied to the FrameworkElement.
   FrameworkProperty styleProperty;
+  /// Represents whether an element is draggable
+  FrameworkProperty draggableProperty;
 
   AnimatingFrameworkProperty translateXProperty;
   AnimatingFrameworkProperty translateYProperty;
@@ -102,6 +104,23 @@ class FrameworkElement extends FrameworkObject {
 //  FrameworkEvent<KeyEventArgs> keyDown;
 
   //TODO mouseWheel, onScroll;
+  
+  //---------------------------------------------------------------------
+  // Drag events
+  //---------------------------------------------------------------------
+  
+  /// Fires when an object is dragged into the drop target's boundary
+  FrameworkEvent<DragEventArgs> dragEnter;
+  /// Fires when an object is dragged out of the drop target's boundary.
+  FrameworkEvent<DragEventArgs> dragLeave;
+  /// Fires repeatedly when an object is over a target's boundary.
+  FrameworkEvent<DragEventArgs> dragOver;
+  /// Fires when an object is dropped within a target's boundary.
+  FrameworkEvent<DragEventArgs> drop;
+  /// Fires when an object starts being dragged.
+  FrameworkEvent<DragEventArgs> dragStart;
+  /// Fires when an object stops being dragged.
+  FrameworkEvent<DragEventArgs> dragEnd;
 
   BuckshotObject makeMe() => new FrameworkElement();
 
@@ -348,6 +367,15 @@ class FrameworkElement extends FrameworkObject {
           _style = value;
         }
       }, new StyleTemplate());
+    
+    draggableProperty = new FrameworkProperty(
+      this,
+      "draggable",
+      (bool value) {
+        rawElement.draggable = value;
+      }, 
+      false,
+      converter:const StringToBooleanConverter());    
   }
 
   /**
@@ -439,6 +467,11 @@ class FrameworkElement extends FrameworkObject {
   set hAlign(HorizontalAlignment value) => setValue(hAlignProperty, value);
   /// Gets the [horizontalAlignmentProperty] value.
   HorizontalAlignment get hAlign() => getValue(hAlignProperty);
+  
+  /// Sets the [draggableProperty] value.
+  set draggable(bool value) => setValue(draggableProperty, value);
+  /// Gets the [draggableProperty] value.
+  bool get draggable() => getValue(draggableProperty);
 
   /// ** Internal Use Only **
   void calculateWidth(value){
@@ -701,6 +734,95 @@ class FrameworkElement extends FrameworkObject {
     ._watchFirstAndLast(
       () => rawElement.on.mouseOut.add(mouseLeaveHandler),
       () => rawElement.on.mouseOut.remove(mouseLeaveHandler)
+    );
+    
+    _initFrameworkDragEvents();
+  }
+  
+  void _initFrameworkDragEvents() {
+    
+    // Handle enter events where an element is entering
+    // another element's area
+    void dragEnterHandler(e) {
+      if (!dragEnter.hasHandlers) return;
+            
+      dragEnter.invoke(this, new DragEventArgs(e.dataTransfer));
+    }
+    
+    dragEnter = new FrameworkEvent<DragEventArgs>
+    ._watchFirstAndLast(
+      () => rawElement.on.dragEnter.add(dragEnterHandler),
+      () => rawElement.on.dragEnter.remove(dragEnterHandler)
+    );
+
+    // Handle dragleave events
+    void dragLeaveHandler(e) {
+      if (!dragLeave.hasHandlers) return;
+      
+      dragLeave.invoke(this, new DragEventArgs(e.dataTransfer));
+    }
+    
+    dragLeave = new FrameworkEvent<DragEventArgs>
+    ._watchFirstAndLast(
+      () => rawElement.on.dragLeave.add(dragLeaveHandler),
+      () => rawElement.on.dragLeave.remove(dragLeaveHandler)
+    );
+
+    // Handle dragover events
+    void dragOverHandler(e) {
+      if (!dragOver.hasHandlers) return;
+      
+      e.stopPropagation();
+      
+      dragOver.invoke(this, new DragEventArgs(e.dataTransfer));
+    }
+    
+    dragOver = new FrameworkEvent<DragEventArgs>
+    ._watchFirstAndLast(
+      () => rawElement.on.dragOver.add(dragOverHandler),
+      () => rawElement.on.dragOver.remove(dragOverHandler)
+    );
+    
+    // Handle drop events
+    void dropHandler(e) {
+      if (!drop.hasHandlers) return;
+      
+      e.preventDefault();
+      e.stopPropagation();
+      
+      drop.invoke(this, new DragEventArgs(e.dataTransfer));
+    }
+    
+    drop = new FrameworkEvent<DragEventArgs>
+    ._watchFirstAndLast(
+      () => rawElement.on.drop.add(dropHandler),
+      () => rawElement.on.drop.remove(dropHandler)
+    );
+    
+    // Handle dragstart events
+    void dragStartHandler(e) {
+      if (!dragStart.hasHandlers) return;
+      
+      dragStart.invoke(this, new DragEventArgs(e.dataTransfer));
+    }
+    
+    dragStart = new FrameworkEvent<DragEventArgs>
+    ._watchFirstAndLast(
+      () => rawElement.on.dragStart.add(dragStartHandler),
+      () => rawElement.on.dragStart.remove(dragStartHandler)
+    );
+    
+    // Handle dragend events
+    void dragEndHandler(e) {
+      if (!dragEnd.hasHandlers) return;
+      
+      dragEnd.invoke(this, new DragEventArgs(e.dataTransfer));
+    }
+    
+    dragEnd = new FrameworkEvent<DragEventArgs>
+    ._watchFirstAndLast(
+      () => rawElement.on.dragEnd.add(dragEndHandler),
+      () => rawElement.on.dragEnd.remove(dragEndHandler)
     );
   }
 
