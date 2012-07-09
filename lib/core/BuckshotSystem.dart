@@ -268,6 +268,8 @@ class Buckshot extends FrameworkObject {
     registerElement(new Button());
     registerElement(new DropDownList());
     registerElement(new ListBox());
+    registerElement(new TreeView());
+    registerElement(new TreeNode());
   }
 
   /// Returns a resource that is registered with the given [resourceKey].
