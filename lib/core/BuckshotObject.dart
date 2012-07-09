@@ -114,6 +114,8 @@ class BuckshotObject extends HashableObject{
     return _resolvePropertyInternal(prop.value, propertyChain.getRange(1, propertyChain.length - 1));
   }
 
+  String safeName(String name) => '${name}${hashCode()}';
+  
   String get type() => "BuckshotObject";
 
 }

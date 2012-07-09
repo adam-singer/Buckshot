@@ -103,6 +103,8 @@
 #source('controls/Hyperlink.dart');
 #source('controls/DropDownList.dart');
 #source('controls/ListBox.dart');
+#source('controls/TreeView/TreeView.dart');
+#source('controls/TreeView/TreeNode.dart');
 
 #source('exceptions/ExceptionBase.dart');
 #source('exceptions/AnimationException.dart');
