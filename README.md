@@ -43,7 +43,7 @@ Many more videos at the [Buckshot playlist on YouTube](http://www.youtube.com/pl
 </tr>
 <tr>
 <td>Controls</td>
-<td>Dozens of controls included with the core library, everything from primitive shapes to complex template-supporting controls, like ListBox</td>
+<td>Dozens of controls included with the core library, everything from primitive shapes to complex template-supporting controls, like ListBox and TreeView</td>
 </tr>
 <tr>
 <td>Animation</td>
