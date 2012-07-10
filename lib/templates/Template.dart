@@ -182,11 +182,12 @@ class Template {
   * * YAML
   */
   static FrameworkElement deserialize(String buckshotTemplate){
+    final tt = buckshotTemplate.trim();
     final t = new Template();
     
     for(final p in t.providers){
-      if(p.isFormat(buckshotTemplate.trim())){
-        return p.deserialize(buckshotTemplate.trim());
+      if(p.isFormat(tt)){
+        return p.deserialize(tt);
       }
     }
   }

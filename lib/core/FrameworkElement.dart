@@ -128,7 +128,7 @@ class FrameworkElement extends FrameworkObject {
     _templateBindings = new HashMap<FrameworkProperty, String>(),
     _transitionProperties = new HashMap<String, String>()
   {
-    Dom.appendBuckshotClass(rawElement, "frameworkelement");
+    Dom.appendBuckshotClass(rawElement, "FrameworkElement");
 
     _style = new StyleTemplate(); //give a blank style so merging works immediately
 

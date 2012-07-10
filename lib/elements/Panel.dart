@@ -22,6 +22,7 @@
 * * [Grid]
 * * [LayoutCanvas]
 * * [StackPanel]
+* * [TreeView]
 */
 class Panel extends FrameworkElement implements IFrameworkContainer {
   /// An observable list of the child elements associated with the panel.
@@ -35,7 +36,7 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
   Panel()
   : children = new ObservableList<FrameworkElement>()
   {
-    Dom.appendBuckshotClass(rawElement, "panel");
+    Dom.appendBuckshotClass(rawElement, "Panel");
 
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = children;
 

@@ -1,6 +1,5 @@
 /**
  * Represents a node in a [TreeView] structure.
- * 
  */
 class TreeNode extends Control implements IFrameworkContainer
 {    

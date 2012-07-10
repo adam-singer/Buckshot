@@ -86,8 +86,6 @@ class FrameworkObject extends BuckshotObject {
 
       if (rawElement == null) createElement();
 
-      Dom.appendBuckshotClass(rawElement, 'frameworkobject');
-
       //grab the unwrapped version
       //_rawElement = _unwrap(rawElement);
 
