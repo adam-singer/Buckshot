@@ -5,9 +5,7 @@ external/yaml/yaml.dart
 external/dartxml/lib/xml.dart
 extensions/media/MediaPack.dart
 external/yaml/deep_equals.dart
-util/test.dart
 lib/Buckshot.dart
-util/ControlGenerator.dart
 tests/tests.dart
 demos/Calculator/Calculator.dart
 extensions/media/YouTube.dart
