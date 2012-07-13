@@ -166,19 +166,20 @@ class DockPanel extends Panel
         }
       }
       
-      //stretch the last item to fill the remaining space
-      if (fillLast && children.last() == child){
-        //stretch the last item to fill the remaining space
-        final p = child.rawElement.parent;
-        
-        assert(p is Element);
-        
-        Dom.setXPCSS(child.rawElement, 'flex', '1 1 auto');
-        
-        Dom.setXPCSS(child.rawElement, 'align-self', 'stretch');
-      }
     });
-    
+
+    //stretch the last item to fill the remaining space
+    if (fillLast && !children.isEmpty()){
+      final child = children.last();
+      //stretch the last item to fill the remaining space
+      final p = child.rawElement.parent;
+      
+      assert(p is Element);
+      
+      Dom.setXPCSS(child.rawElement, 'flex', '1 1 auto');
+      
+      Dom.setXPCSS(child.rawElement, 'align-self', 'stretch');
+    }
   }
   
   /// Overridden [FrameworkObject] method.
