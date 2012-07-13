@@ -51,7 +51,7 @@ class PlusOne extends FrameworkElement
   /**
   * Injects javascript into the DOM, and optionally removes it after the script has run. */
   static void _inject(String javascript, [bool removeAfter = false]){
-    var s = Dom.createByTag("script");
+    var s = new Element.tag("script");
     s.attributes["type"] = "text/javascript";
     s.text = javascript;
 
@@ -63,7 +63,7 @@ class PlusOne extends FrameworkElement
   
   
   void createElement(){
-    rawElement = Dom.createByTag("g:plusone");
+    rawElement = new Element.tag("g:plusone");
     rawElement.attributes["annotation"] = "none";
     rawElement.attributes["size"] = "standard";
   }

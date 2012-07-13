@@ -3,6 +3,7 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 #library('extensions_media_funnyordie');
+#import('dart:html');
 #import('../../lib/Buckshot.dart');
 
 class FunnyOrDie extends FrameworkElement
@@ -30,7 +31,7 @@ class FunnyOrDie extends FrameworkElement
   
   
   void createElement(){
-    rawElement = Dom.createByTag("iframe");
+    rawElement = new Element.tag("iframe");
     rawElement.attributes["frameborder"] = "0";
   }
   

@@ -3,6 +3,7 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 #library('extensions_media_youtube');
+#import('dart:html');
 #import('../../lib/Buckshot.dart');
 
 class YouTube extends FrameworkElement
@@ -30,7 +31,7 @@ class YouTube extends FrameworkElement
   
   
   void createElement(){
-    rawElement = Dom.createByTag("iframe");
+    rawElement = new Element.tag("iframe");
     Dom.appendClass(rawElement, 'youtube-player');
     rawElement.attributes["type"] = "text/html";
     rawElement.attributes["frameborder"] = "0";

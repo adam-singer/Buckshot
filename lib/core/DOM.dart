@@ -16,9 +16,6 @@ class Dom {
     element.attributes["class"] = currentClasses != "" ? '$currentClasses $classToAppend' : classToAppend;
   }
 
-  /// Creates an [Element] from the given [String] html tag name.
-  static Element createByTag(String tagName) => new Element.tag(tagName);
-
   static void appendBuckshotClass(Element element, String classToAppend) => 
       Dom.appendClass(element, 'buckshot_$classToAppend');
 

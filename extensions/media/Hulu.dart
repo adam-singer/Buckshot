@@ -54,15 +54,15 @@ class Hulu extends FrameworkElement
   
   void createElement(){
 
-    rawElement = Dom.createByTag("object");
-    param1 = Dom.createByTag("param");
+    rawElement = new Element.tag("object");
+    param1 = new Element.tag("param");
     param1.attributes["name"] = "movie";
 
-    Element param2 = Dom.createByTag("param");
+    Element param2 = new Element.tag("param");
     param2.attributes["name"] = "allowFullScreen";
     param2.attributes["value"] = "true";
     
-    embed = Dom.createByTag("embed");
+    embed = new Element.tag("embed");
     embed.attributes["type"] = "application/x-shockwave-flash";
     embed.attributes["allowFullScreen"] = "true";
 

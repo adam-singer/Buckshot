@@ -14,6 +14,22 @@
 #import('../external/yaml/yaml.dart');
 //#import('../../reactive/lib/reactive_lib.dart');
 
+#source('core/globals.dart');
+#source('core/Browser.dart');
+#source('core/BuckshotSystem.dart');
+#source('core/FrameworkObject.dart');
+#source('core/FrameworkProperty.dart');
+#source('core/ObservableList.dart');
+#source('core/FrameworkElement.dart');
+#source('core/HashableObject.dart');
+#source('core/IValueConverter.dart');
+#source('core/Dom.dart');
+#source('core/BuckshotObject.dart');
+#source('core/FrameworkPropertyBase.dart');
+#source('core/AttachedFrameworkProperty.dart');
+#source('core/FrameworkPropertyResolutionException.dart');
+#source('core/DataTemplate.dart');
+#source('core/IFrameworkContainer.dart');
 
 #source('MVVM/ViewModelBase.dart');
 #source('MVVM/IView.dart');
@@ -50,6 +66,7 @@
 #source('enums/VerticalAlignment.dart');
 #source('enums/Transforms.dart');
 #source('enums/TransitionTiming.dart');
+#source('enums/DockLocation.dart');
 
 #source('elements/Panel.dart');
 #source('elements/StackPanel.dart');
@@ -106,6 +123,7 @@
 #source('converters/StringToFrameworkElementConverter.dart');
 #source('converters/StringToVisibilityConverter.dart');
 #source('converters/StringToInputTypesConverter.dart');
+#source('converters/StringToLocationConverter.dart');
 
 #source('resources/FrameworkResource.dart');
 #source('resources/ResourceCollection.dart');
@@ -118,23 +136,6 @@
 #source('resources/StyleSetter.dart');
 #source('resources/StyleTemplate.dart');
 #source('resources/GradientStop.dart');
-
-#source('core/globals.dart');
-#source('core/Browser.dart');
-#source('core/BuckshotSystem.dart');
-#source('core/FrameworkObject.dart');
-#source('core/FrameworkProperty.dart');
-#source('core/ObservableList.dart');
-#source('core/FrameworkElement.dart');
-#source('core/HashableObject.dart');
-#source('core/IValueConverter.dart');
-#source('core/DOM.dart');
-#source('core/BuckshotObject.dart');
-#source('core/FrameworkPropertyBase.dart');
-#source('core/AttachedFrameworkProperty.dart');
-#source('core/FrameworkPropertyResolutionException.dart');
-#source('core/DataTemplate.dart');
-#source('core/IFrameworkContainer.dart');
 
 #source('animation/FrameworkAnimation.dart');
 #source('animation/AnimationResource.dart');

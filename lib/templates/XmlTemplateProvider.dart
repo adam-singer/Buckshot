@@ -313,7 +313,7 @@ class XmlTemplateProvider implements IPresentationFormatProvider {
 
           Function setAttachedPropertyFunction = buckshot._objectRegistry[prop];
 
-          setAttachedPropertyFunction(element, Math.parseInt(v));
+          setAttachedPropertyFunction(element, v);
         }
       }else{
         //property

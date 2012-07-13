@@ -234,14 +234,13 @@ class Buckshot extends FrameworkObject {
     registerElement(new SetPropertyAction());
 
     //attached properties
-    _objectRegistry["grid.column"] = Grid.setColumn;
-    _objectRegistry["grid.row"] = Grid.setRow;
-    _objectRegistry["grid.columnspan"] = Grid.setColumnSpan;
-    _objectRegistry["grid.rowspan"] = Grid.setRowSpan;
-
-    _objectRegistry["layoutcanvas.top"] = LayoutCanvas.setTop;
-    _objectRegistry["layoutcanvas.left"] = LayoutCanvas.setLeft;
-
+    registerAttachedProperty('grid.column', Grid.setColumn);
+    registerAttachedProperty('grid.row', Grid.setRow);
+    registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
+    registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
+    
+    registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
+    registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
   }
 
   //NOTE: This accomodation is necessary until reflection is in place
@@ -267,15 +266,16 @@ class Buckshot extends FrameworkObject {
     var res = _resourceRegistry[lowered];
 
     if (res._stateBag.containsKey(FrameworkResource.RESOURCE_PROPERTY)){
-      print('retrieve resource ${this.hashCode()}');
-//      db('$lowered ${res._type} ${getValue(res._stateBag[FrameworkResource.RESOURCE_PROPERTY])}');
       // resource property defined so return it's value
       return getValue(res._stateBag[FrameworkResource.RESOURCE_PROPERTY]);
     }else{
       // no resource property defined so just return the resource
-      //print('retrieve resource ${this.hashCode()}');
       return res;
     }
+  }
+  
+  void registerAttachedProperty(String propertyName, Function setterFunc){
+    _objectRegistry[propertyName] = setterFunc;
   }
 
   /// Registers a resource to the framework.

@@ -69,9 +69,13 @@ class LayoutCanvas extends Panel
 
   /**
   * Sets the top value of the element relative to a parent LayoutCanvas container */
-  static void setTop(FrameworkElement element, int value){
+  static void setTop(FrameworkElement element, value){
     if (element == null) return;
+    
+    assert(value is String || value is num);
 
+    value = const StringToNumericConverter().convert(value);
+    
     if (value < 0) value = 0;
 
     if (LayoutCanvas.topProperty == null)
@@ -86,7 +90,7 @@ class LayoutCanvas extends Panel
 
   /**
   * Returns the value currently assigned to the LayoutCanvas.topProperty for the given element. */
-  static int getTop(FrameworkElement element){
+  static num getTop(FrameworkElement element){
     if (element == null) return 0;
 
     var value = FrameworkObject.getAttachedValue(element, topProperty);
@@ -99,9 +103,13 @@ class LayoutCanvas extends Panel
 
   /**
   * Sets the left value of the element relative to a parent LayoutCanvas container */
-  static void setLeft(FrameworkElement element, int value){
+  static void setLeft(FrameworkElement element, value){
     if (element == null) return;
 
+    assert(value is String || value is num);
+    
+    value = const StringToNumericConverter().convert(value);
+    
     if (value < 0) value = 0;
 
     if (LayoutCanvas.leftProperty == null)
@@ -115,7 +123,7 @@ class LayoutCanvas extends Panel
 
   /**
   * Returns the value currently assigned to the LayoutCanvas.leftProperty for the given element */
-  static int getLeft(FrameworkElement element){
+  static num getLeft(FrameworkElement element){
     if (element == null) return 0;
 
     var value = FrameworkObject.getAttachedValue(element, leftProperty);

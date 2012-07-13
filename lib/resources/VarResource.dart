@@ -32,9 +32,8 @@
 * * [SolidColorBrush]
 * * [LinearGradientBrush]
 * * [RadialGradientBrush]
-*
 */
-class VarResource extends FrameworkResource
+class VarResource extends FrameworkResource implements IFrameworkContainer
 {
   FrameworkProperty valueProperty;
   
@@ -47,6 +46,8 @@ class VarResource extends FrameworkResource
     this._stateBag[FrameworkResource.RESOURCE_PROPERTY] = valueProperty;
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = valueProperty;
   }
+  
+  get content() => value;
   
   void _initVarProperties(){
     valueProperty = new FrameworkProperty(this, "value", (Dynamic v){}, null);
