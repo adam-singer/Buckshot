@@ -83,6 +83,7 @@
 #source('elements/grid/GridLength.dart');
 #source('elements/CollectionPresenter.dart');
 #source('elements/ContentPresenter.dart');
+#source('elements/DockPanel.dart');
 
 #source('elements/actions/ActionBase.dart');
 #source('elements/actions/AnimationAction.dart');

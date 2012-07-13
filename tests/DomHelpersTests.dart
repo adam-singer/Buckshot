@@ -11,7 +11,7 @@ class DomHelpersTests extends TestGroupBase
   }
   
   void classAppendsToNullClassAttribute(){
-    Element el = Dom.createByTag("div");
+    Element el = new DivElement();
     
     Expect.isFalse(el.attributes.containsKey("class"));
     
@@ -21,7 +21,7 @@ class DomHelpersTests extends TestGroupBase
   }
   
   void classAppendsToExistingClassAttribute(){
-    Element el = Dom.createByTag("div");
+    Element el = new DivElement();
     
     Expect.isFalse(el.attributes.containsKey("class"));
     

@@ -198,12 +198,20 @@ class Buckshot extends FrameworkObject {
 //    registerElement(new Polygon());
 
     //elements
-    registerElement(new ContentPresenter());
     registerElement(new StackPanel());
-    registerElement(new Grid());
-    registerElement(new Border());
-    registerElement(new TextArea());
     registerElement(new LayoutCanvas());
+    registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
+    registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
+    registerElement(new Grid());
+    registerAttachedProperty('grid.column', Grid.setColumn);
+    registerAttachedProperty('grid.row', Grid.setRow);
+    registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
+    registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
+    registerElement(new DockPanel());
+    registerAttachedProperty('dockpanel.dock', DockPanel.setDock);
+    registerElement(new Border());
+    registerElement(new ContentPresenter());
+    registerElement(new TextArea());
     registerElement(new TextBlock());
     registerElement(new CheckBox());
     registerElement(new RadioButton());
@@ -232,15 +240,6 @@ class Buckshot extends FrameworkObject {
     
     //actions
     registerElement(new SetPropertyAction());
-
-    //attached properties
-    registerAttachedProperty('grid.column', Grid.setColumn);
-    registerAttachedProperty('grid.row', Grid.setRow);
-    registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
-    registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
-    
-    registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
-    registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
   }
 
   //NOTE: This accomodation is necessary until reflection is in place
