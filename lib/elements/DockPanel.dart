@@ -110,10 +110,6 @@ class DockPanel extends Panel
           Dom.setXPCSS(c, 'align-items', 'stretch');
           break;
       }
-      
-      //set the location/stretch of the child elements
-//      Dom.setXPCSS(c, 'justify-content', 'stretch');
-//      Dom.setXPCSS(c, 'align-items', 'stretch');
             
       return c;
     }
@@ -173,7 +169,6 @@ class DockPanel extends Panel
       //stretch the last item to fill the remaining space
       if (fillLast && children.last() == child){
         //stretch the last item to fill the remaining space
-        print('hi');
         final p = child.rawElement.parent;
         
         assert(p is Element);
