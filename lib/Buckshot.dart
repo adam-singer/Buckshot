@@ -157,3 +157,5 @@
 #source('templates/YAMLTemplateProvider.dart');
 #source('templates/Template.dart');
 
+//Use this to generate clean dart docs of just the buckshot library
+//main(){}

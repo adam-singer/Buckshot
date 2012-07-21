@@ -24,10 +24,10 @@ In particular, the layout model uses the latest draft of the [CSS3 flexbox](http
 **Many more videos at the [Buckshot playlist on YouTube](http://www.youtube.com/playlist?list=PLE04C8698A5FD2E9E&feature=view_all).**
 
 ### Buckshot Online Sandbox ###
-[Online Interactive Buckshot](http://www.lucastudios.com/trybuckshot)
+[Online Interactive Buckshot](http://66.240.183.37/sandbox/)
 
 ### Reference Material ###
-* [API Reference](http://www.lucastudios.com/trybuckshot/docs/)
+* [API Reference](http://66.240.183.37/docs/)
 * [Wiki Documentation](https://github.com/prujohn/Buckshot/wiki/_pages)
 * [Developers: How To Contribute](https://github.com/prujohn/Buckshot/wiki/How-To-Contribute)
 
