@@ -161,7 +161,7 @@ class FrameworkObject extends BuckshotObject {
   void _initFrameworkObjectEvents(){
     // only begins animation loop on first request of the event
     // to preserve resources when not in use.
-    measurementChanged = new FrameworkEvent<MeasurementChangedEventArgs>
+    measurementChanged = new BuckshotEvent<MeasurementChangedEventArgs>
     ._watchFirstAndLast(
       () => _startWatchMeasurement(),
       () =>  _stopWatchMeasurement()

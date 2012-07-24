@@ -12,6 +12,4 @@ class EventHandlerReference extends HashableObject
   final EventHandler handler;
   
   EventHandlerReference(EventHandler this.handler);
-  
-  String get type() => "EventHandlerReference";
 }

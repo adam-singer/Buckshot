@@ -5,7 +5,7 @@
 /// ## Try Buckshot Online ##
 /// <http://www.lucastudios.com/trybuckshot>
 
-#library('Buckshot');
+#library('core.buckshotui.org');
 
 #import('dart:html');
 #import('dart:json');
@@ -14,6 +14,9 @@
 #import('../external/yaml/yaml.dart');
 //#import('../../reactive/lib/reactive_lib.dart');
 
+#import('core/HashableObject.dart');
+#import('events/events.dart');
+
 #source('core/globals.dart');
 #source('core/Browser.dart');
 #source('core/BuckshotSystem.dart');
@@ -21,7 +24,6 @@
 #source('core/FrameworkProperty.dart');
 #source('core/ObservableList.dart');
 #source('core/FrameworkElement.dart');
-#source('core/HashableObject.dart');
 #source('core/IValueConverter.dart');
 #source('core/Dom.dart');
 #source('core/BuckshotObject.dart');
@@ -30,6 +32,7 @@
 #source('core/FrameworkPropertyResolutionException.dart');
 #source('core/DataTemplate.dart');
 #source('core/IFrameworkContainer.dart');
+#source('core/BuckshotEvent.dart');
 
 #source('MVVM/ViewModelBase.dart');
 #source('MVVM/IView.dart');
@@ -37,20 +40,6 @@
 #source('binding/Binding.dart');
 #source('binding/BindingMode.dart');
 #source('binding/BindingData.dart');
-
-#source('events/FrameworkEvent.dart');
-#source('events/EventHandler.dart');
-#source('events/EventHandlerReference.dart');
-#source('events/EventArgs.dart');
-#source('events/AttachedPropertyChangedEventArgs.dart');
-#source('events/MouseMoveEventArgs.dart');
-#source('events/PropertyChangingEventArgs.dart');
-#source('events/ListChangedEventArgs.dart');
-#source('events/RoutedEventArgs.dart');
-#source('events/SelectedItemChangedEventArgs.dart');
-#source('events/MeasurementChangedEventArgs.dart');
-#source('events/KeyEventArgs.dart');
-#source('events/DragEventArgs.dart');
 
 #source('primitives/Tuple.dart');
 #source('primitives/Thickness.dart');

@@ -77,4 +77,6 @@ class DataTemplate extends BuckshotObject{
     //defaultData != null && changedCallback != null
     _properties[propertyName] = new FrameworkProperty(this, propertyName, changedCallback, defaultData);
   }
+  
+  String get type() => 'DataTemplate';
 }

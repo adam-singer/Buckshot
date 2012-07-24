@@ -103,6 +103,7 @@ class BuckshotObject extends HashableObject{
 
   String safeName(String name) => '${name}${hashCode()}';
   
-  String get type() => "BuckshotObject";
-
+  abstract String get type();
+  
+  String toString() => type;
 }

@@ -7,10 +7,10 @@
 class AttachedPropertyChangedEventArgs extends EventArgs
 {
   /// Reference to the attached property source.
-  final AttachedFrameworkProperty property;
+  final property;
   
   /// Reference to the element that the property is attached to.
-  final FrameworkElement element;
+  final element;
   
   /// Holds the value assigned to the attached property.
   final Dynamic value;

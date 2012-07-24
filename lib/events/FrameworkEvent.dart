@@ -5,28 +5,17 @@
 /**
 * Represents an event within the framework.
 */
-class FrameworkEvent<T extends EventArgs> extends BuckshotObject
+class FrameworkEvent<T extends EventArgs>
 {
-  Function _gotFirstSubscriberCallback;
-  Function _lostLastSubscriberCallback;
-  
-  BuckshotObject makeMe() => null;
-
-  final List<EventHandlerReference> _handlers;
+  final List<EventHandlerReference> handlers;
 
   FrameworkEvent() 
   : 
-    _handlers = new List<EventHandlerReference>(),
-    _gotFirstSubscriberCallback = null,
-    _lostLastSubscriberCallback = null;
-
-  FrameworkEvent._watchFirstAndLast(this._gotFirstSubscriberCallback, this._lostLastSubscriberCallback)
-  :
-    _handlers = new List<EventHandlerReference>();
+    handlers = new List<EventHandlerReference>();
 
   /**
   * Returns true if the FrameworkEvent has handlers registered. */
-  bool get hasHandlers() => !_handlers.isEmpty();
+  bool get hasHandlers() => !handlers.isEmpty();
 
   /**
   * Registers an EventHandler to the FrameworkEvent, and returns an
@@ -34,11 +23,7 @@ class FrameworkEvent<T extends EventArgs> extends BuckshotObject
   * handler at some later time. */
   EventHandlerReference register(Function handler){
     var hr = new EventHandlerReference(handler);
-    _handlers.add(hr);
-
-    if (_gotFirstSubscriberCallback != null && _handlers.length == 1){
-      _gotFirstSubscriberCallback();
-    }
+    handlers.add(hr);
 
     return hr;
   }
@@ -47,13 +32,9 @@ class FrameworkEvent<T extends EventArgs> extends BuckshotObject
   * Unregisters an EventHandler (via it's EventHandlerReference from the
   * FrameworkEvent. */
   void unregister(EventHandlerReference handlerReference){
-    int i = _handlers.indexOf(handlerReference, 0);
+    int i = handlers.indexOf(handlerReference, 0);
     if (i < 0) return;
-    _handlers.removeRange(i, 1);
-
-    if (_lostLastSubscriberCallback != null && _handlers.isEmpty()){
-      _lostLastSubscriberCallback();
-    }
+    handlers.removeRange(i, 1);
   }
 
   /**
@@ -67,16 +48,14 @@ class FrameworkEvent<T extends EventArgs> extends BuckshotObject
   /**
   * Call each EventHandler function that is registered to the FrameworkEvent */
   void invoke(sender, T args){
-    _handlers.forEach((handlerReference) => handlerReference.handler(sender, args));
+    handlers.forEach((handlerReference) => handlerReference.handler(sender, args));
   }
   
   void invokeAsync(sender, T args){    
     new Timer(0, (_){
-      _handlers.forEach((handlerReference) => handlerReference.handler(sender, args));
+      handlers.forEach((handlerReference) => handlerReference.handler(sender, args));
     });
   }
-
-  String get type() => "FrameworkEvent";
 }
 
 

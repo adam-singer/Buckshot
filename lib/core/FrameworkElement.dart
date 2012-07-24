@@ -581,7 +581,7 @@ class FrameworkElement extends FrameworkObject {
 
     }
     
-    mouseUp = new FrameworkEvent<MouseEventArgs>
+    mouseUp = new BuckshotEvent<MouseEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.mouseUp.add(mouseUpHandler),
       () => rawElement.on.mouseUp.remove(mouseUpHandler)
@@ -599,7 +599,7 @@ class FrameworkElement extends FrameworkObject {
       mouseDown.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
     }
 
-    mouseDown = new FrameworkEvent<MouseEventArgs>
+    mouseDown = new BuckshotEvent<MouseEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.mouseDown.add(mouseDownHandler),
       () => rawElement.on.mouseDown.remove(mouseDownHandler)
@@ -616,7 +616,7 @@ class FrameworkElement extends FrameworkObject {
       mouseMove.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
     }
 
-    mouseMove = new FrameworkEvent<MouseEventArgs>
+    mouseMove = new BuckshotEvent<MouseEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.mouseMove.add(mouseMoveHandler),
       () => rawElement.on.mouseMove.remove(mouseMoveHandler)
@@ -635,7 +635,7 @@ class FrameworkElement extends FrameworkObject {
       click.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
     }
 
-    click = new FrameworkEvent<MouseEventArgs>
+    click = new BuckshotEvent<MouseEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.click.add(clickHandler),
       () => rawElement.on.click.remove(clickHandler)
@@ -650,7 +650,7 @@ class FrameworkElement extends FrameworkObject {
       gotFocus.invoke(this, new EventArgs());
     }
 
-    gotFocus = new FrameworkEvent<EventArgs>
+    gotFocus = new BuckshotEvent<EventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.focus.add(gotFocusHandler),
       () => rawElement.on.focus.remove(gotFocusHandler)
@@ -664,7 +664,7 @@ class FrameworkElement extends FrameworkObject {
       lostFocus.invoke(this, new EventArgs());
     }
 
-    lostFocus = new FrameworkEvent<EventArgs>
+    lostFocus = new BuckshotEvent<EventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.blur.add(lostFocusHandler),
       () => rawElement.on.blur.remove(lostFocusHandler)
@@ -688,7 +688,7 @@ class FrameworkElement extends FrameworkObject {
      }
     }
 
-    mouseEnter = new FrameworkEvent<EventArgs>
+    mouseEnter = new BuckshotEvent<EventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.mouseOver.add(mouseEnterHandler),
       () => rawElement.on.mouseOver.remove(mouseEnterHandler)
@@ -716,7 +716,7 @@ class FrameworkElement extends FrameworkObject {
     }
 
 
-    mouseLeave = new FrameworkEvent<EventArgs>
+    mouseLeave = new BuckshotEvent<EventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.mouseOut.add(mouseLeaveHandler),
       () => rawElement.on.mouseOut.remove(mouseLeaveHandler)
@@ -735,7 +735,7 @@ class FrameworkElement extends FrameworkObject {
       dragEnter.invoke(this, new DragEventArgs(e.dataTransfer));
     }
     
-    dragEnter = new FrameworkEvent<DragEventArgs>
+    dragEnter = new BuckshotEvent<DragEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.dragEnter.add(dragEnterHandler),
       () => rawElement.on.dragEnter.remove(dragEnterHandler)
@@ -748,7 +748,7 @@ class FrameworkElement extends FrameworkObject {
       dragLeave.invoke(this, new DragEventArgs(e.dataTransfer));
     }
     
-    dragLeave = new FrameworkEvent<DragEventArgs>
+    dragLeave = new BuckshotEvent<DragEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.dragLeave.add(dragLeaveHandler),
       () => rawElement.on.dragLeave.remove(dragLeaveHandler)
@@ -763,7 +763,7 @@ class FrameworkElement extends FrameworkObject {
       dragOver.invoke(this, new DragEventArgs(e.dataTransfer));
     }
     
-    dragOver = new FrameworkEvent<DragEventArgs>
+    dragOver = new BuckshotEvent<DragEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.dragOver.add(dragOverHandler),
       () => rawElement.on.dragOver.remove(dragOverHandler)
@@ -779,7 +779,7 @@ class FrameworkElement extends FrameworkObject {
       drop.invoke(this, new DragEventArgs(e.dataTransfer));
     }
     
-    drop = new FrameworkEvent<DragEventArgs>
+    drop = new BuckshotEvent<DragEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.drop.add(dropHandler),
       () => rawElement.on.drop.remove(dropHandler)
@@ -792,7 +792,7 @@ class FrameworkElement extends FrameworkObject {
       dragStart.invoke(this, new DragEventArgs(e.dataTransfer));
     }
     
-    dragStart = new FrameworkEvent<DragEventArgs>
+    dragStart = new BuckshotEvent<DragEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.dragStart.add(dragStartHandler),
       () => rawElement.on.dragStart.remove(dragStartHandler)
@@ -805,7 +805,7 @@ class FrameworkElement extends FrameworkObject {
       dragEnd.invoke(this, new DragEventArgs(e.dataTransfer));
     }
     
-    dragEnd = new FrameworkEvent<DragEventArgs>
+    dragEnd = new BuckshotEvent<DragEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.dragEnd.add(dragEndHandler),
       () => rawElement.on.dragEnd.remove(dragEndHandler)

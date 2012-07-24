@@ -3,11 +3,11 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 /**
-* Event arguements supporting routable events. */
+* Event arguements supporting routable events.
+* 
+* NOT YET IMPLEMENTED */
 class RoutedEventArgs extends EventArgs{
   bool cancelBubble = false;
-  
-  String get _type() => "RoutedEventArgs";
 }
 
 //TODO **************** Not yet implemented.

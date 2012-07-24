@@ -3,6 +3,8 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 
+#library('shared.buckshotui.org');
+
 /**
 * Base class for any type that needs to be [Hashable]. */
 class HashableObject implements Hashable
@@ -15,6 +17,4 @@ class HashableObject implements Hashable
   
   int hashCode() => _assignedHash;
   
-  abstract String get type();
-  String toString() => type;
 }

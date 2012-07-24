@@ -7,8 +7,6 @@ class MeasurementChangedEventArgs extends EventArgs {
   final ElementRect oldMeasurement;
   final ElementRect newMeasurement;
 
-  BuckshotObject makeMe() => null;
-
   MeasurementChangedEventArgs(this.oldMeasurement, this.newMeasurement);
 
   String get type() => "MeasurementChangedEventArgs";

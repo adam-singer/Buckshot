@@ -1,10 +1,13 @@
 demos/TreeView/TreeViewDemo.dart
+lib/core/HashableObject.dart
+lib/events/events.dart
 demos/tryit/Tryit.dart
 extensions/social/SocialPack.dart
 external/yaml/yaml.dart
 external/dartxml/lib/xml.dart
 extensions/media/MediaPack.dart
 external/yaml/deep_equals.dart
+lib/common/common.dart
 lib/Buckshot.dart
 tests/tests.dart
 demos/Calculator/Calculator.dart
