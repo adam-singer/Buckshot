@@ -15,7 +15,7 @@
 //#import('../../reactive/lib/reactive_lib.dart');
 
 #import('core/HashableObject.dart');
-#import('events/events.dart');
+#import('../external/events/events.dart');
 
 #source('core/globals.dart');
 #source('core/Browser.dart');

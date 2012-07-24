@@ -1,6 +1,5 @@
 demos/TreeView/TreeViewDemo.dart
 lib/core/HashableObject.dart
-lib/events/events.dart
 demos/tryit/Tryit.dart
 extensions/social/SocialPack.dart
 external/yaml/yaml.dart
@@ -10,6 +9,7 @@ external/yaml/deep_equals.dart
 lib/common/common.dart
 lib/Buckshot.dart
 tests/tests.dart
+external/events/events.dart
 demos/Calculator/Calculator.dart
 extensions/media/YouTube.dart
 extensions/media/Hulu.dart
