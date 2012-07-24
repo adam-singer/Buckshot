@@ -21,7 +21,7 @@ class Control extends FrameworkElement
   Control()
 //  : _allTemplateBindings = new HashMap<FrameworkProperty, String>()
   {
-    Dom.appendBuckshotClass(rawElement, "control");
+    Browser.appendClass(rawElement, "control");
     _initControlProperties();
   }
 

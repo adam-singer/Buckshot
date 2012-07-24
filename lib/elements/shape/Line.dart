@@ -10,7 +10,7 @@ class Line extends Shape
   Line(){
     throw const NotImplementedException();
     
-    Dom.appendBuckshotClass(rawElement, "line");
+    Browser.appendClass(rawElement, "line");
     _initLineProperties();
   }
   

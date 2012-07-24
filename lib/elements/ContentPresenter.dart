@@ -17,7 +17,7 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
   
   ContentPresenter()
   {
-    Dom.appendBuckshotClass(rawElement, "ContentPresenter");
+    Browser.appendClass(rawElement, "ContentPresenter");
 
     _initContentPresenterProperties();
 

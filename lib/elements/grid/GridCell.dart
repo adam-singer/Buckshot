@@ -13,7 +13,7 @@ class _GridCell extends FrameworkObject
   
   _GridCell()
   {
-    Dom.appendBuckshotClass(rawElement, "GridCell");
+    Browser.appendClass(rawElement, "GridCell");
 
     _initGridCellProperties();
 
@@ -63,25 +63,25 @@ class _GridCell extends FrameworkObject
     rawElement = new DivElement();
     rawElement.style.overflow = "hidden";
     rawElement.style.position = "absolute";
-    Dom.makeFlexBox(this);
+    Browser.makeFlexBox(rawElement);
   }
 
   /// Overridden [FrameworkObject] method is called when the framework requires elements to recalculate layout.
   void updateLayout(){
     if (content == null) return;
     
-    Dom.setXPCSS(content.rawElement, 'flex', 'none');
+    Browser.setXPCSS(content.rawElement, 'flex', 'none');
     
     if (content.hAlign != null){
         if(content.hAlign == HorizontalAlignment.stretch){
-          Dom.setXPCSS(content.rawElement, 'flex', '1 1 auto');
+          Browser.setXPCSS(content.rawElement, 'flex', '1 1 auto');
         }
         
-        Dom.setHorizontalFlexBoxAlignment(this, content.hAlign);
+        Browser.setHorizontalFlexBoxAlignment(rawElement, content.hAlign);
     }
 
     if (content.vAlign != null){
-      Dom.setVerticalFlexBoxAlignment(this, content.vAlign);
+      Browser.setVerticalFlexBoxAlignment(rawElement, content.vAlign);
     }
   }
 

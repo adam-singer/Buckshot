@@ -58,4 +58,6 @@ class SomeColors extends BuckshotObject{
     orangeProperty = new FrameworkProperty(this, "orange", (_){}, "Orange");
     blueProperty = new FrameworkProperty(this, "blue", (_){}, "Blue");
   }
+  
+  String get type() => 'SomeColors';
 }

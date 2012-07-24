@@ -54,7 +54,7 @@ FrameworkObject makeMe() => new Grid();
 Grid() :
 _internalChildren = new List<_GridCell>()
 {
-  Dom.appendBuckshotClass(rawElement, "grid");
+  Browser.appendClass(rawElement, "grid");
 
   columnDefinitionsProperty = new FrameworkProperty(this, "columnDefinitions", (ObservableList<ColumnDefinition> list){
     _updateColumnLayout(actualWidth);

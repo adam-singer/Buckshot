@@ -22,7 +22,7 @@ class PlusOne extends FrameworkElement
   FrameworkObject makeMe() => new PlusOne();
   
   PlusOne(){
-    Dom.appendClass(rawElement, "buckshot_plusone");
+    Browser.appendClass(rawElement, "buckshot_plusone");
     
     _initializePlusOneProperties();
     

@@ -161,19 +161,20 @@ class Buckshot extends FrameworkObject {
       }
     });
   }
-
   
-  static Browser get browser() => new Browser();
-  
-  /** Returns true if the framework is known to be compatible with the browser type/version it is running in */
+  /** 
+   * Returns true if the framework is known to be compatible with 
+   * the browser type/version it is running in.
+   */
   static bool get browserOK() {
 
-    if (browser.browser == Browser.DARTIUM) return true;
+    final BrowserInfo bi = Browser.getBrowserInfo();
     
-    
+    if (bi.browser == Browser.DARTIUM) return true;
+        
     //Chrome(ium) v21+
-    if (browser.browser == Browser.CHROME){
-      if (browser.version >= 21) return true;
+    if (bi.browser == Browser.CHROME){
+      if (bi.version >= 21) return true;
     }   
     
     return false;

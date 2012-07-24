@@ -50,7 +50,7 @@ class TreeView extends Panel
   :
     treeNodeSelected = new FrameworkEvent<TreeNodeSelectedEventArgs>()
   {
-    Dom.appendBuckshotClass(rawElement, "TreeView");
+    Browser.appendClass(rawElement, "TreeView");
     
     _initializeTreeViewProperties();
     

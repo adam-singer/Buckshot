@@ -45,19 +45,21 @@ class BuckshotObject extends HashableObject{
     return result.iterator().next();
   }
   
-  /// Returns a [FrameworkProperty] from a dot-notation [propertyNameChain].
-  ///
-  /// Throws a [FrameworkPropertyResolutionException] if any property cannot be resolved.
-  ///
-  /// Property name queries are case in-sensitive.
-  ///
-  /// Examples:
-  /// * "background" - returns the 'background' FrameworkProperty of the root [BuckshotObject].
-  /// * "content.background" - returns the 'background' FrameworkProperty of the [BuckshotObject] assigned
-  /// to the 'content' property.
-  ///
-  /// As long as a property in the dot chain is a [BuckshotObject] then resolve() will continue
-  /// along until the last dot property is resolved, and then return it.
+  /**
+   * Returns a [FrameworkProperty] from a dot-notation [propertyNameChain].
+   *
+   * Throws a [FrameworkPropertyResolutionException] if any property cannot be resolved.
+   *
+   * Property name queries are case in-sensitive.
+   *
+   * ## Examples ##
+   * * "background" - returns the 'background' FrameworkProperty of the root [BuckshotObject].
+   * * "content.background" - returns the 'background' FrameworkProperty of the [BuckshotObject] assigned
+   * to the 'content' property.
+   *
+   * As long as a property in the dot chain is a [BuckshotObject] then resolve() will continue
+   * along until the last dot property is resolved, and then return it.
+   */
   FrameworkProperty resolveProperty(String propertyNameChain){
     //TODO Make this a Future<FrameworkProperty> instead?
     return BuckshotObject._resolvePropertyInternal(this, propertyNameChain.trim().split('.'));
@@ -84,11 +86,11 @@ class BuckshotObject extends HashableObject{
     }
     
     // Mmore properties in the chain, but cannot resolve further.
-    // (NOTE) Template parser will handle this exception in certain cases.
+    // (NOTE!!!) Template parser will handle this exception in certain cases.
     // The Dart debugger currently stops on this exception even though it
     // is handled (reported).
     // TODO: Return null instead?
-    if (!(prop.value is BuckshotObject) && propertyChain.length > 1)
+    if (prop.value is! BuckshotObject && propertyChain.length > 1)
       throw const FrameworkPropertyResolutionException('Unable to resolve'
         ' further.  Remaining properties in the chain while current property'
         ' value is not a BuckshotObject');

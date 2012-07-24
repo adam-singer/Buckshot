@@ -1,4 +1,5 @@
 demos/TreeView/TreeViewDemo.dart
+external/web/web.dart
 demos/tryit/Tryit.dart
 extensions/social/SocialPack.dart
 external/yaml/yaml.dart

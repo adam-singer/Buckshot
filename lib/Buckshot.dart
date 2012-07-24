@@ -3,22 +3,21 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 /// ## Try Buckshot Online ##
-/// <http://www.lucastudios.com/trybuckshot>
+/// <http://www.buckshotui.org/sandbox>
 
 #library('core.buckshotui.org');
 
 #import('dart:html');
 #import('dart:json');
 #import('dart:isolate');
+
 #import('../external/dartxml/lib/xml.dart');
 #import('../external/yaml/yaml.dart');
-//#import('../../reactive/lib/reactive_lib.dart');
-
 #import('../external/shared/shared.dart');
 #import('../external/events/events.dart');
+#import('../external/web/web.dart');
 
 #source('core/globals.dart');
-#source('core/Browser.dart');
 #source('core/BuckshotSystem.dart');
 #source('core/FrameworkObject.dart');
 #source('core/FrameworkProperty.dart');
@@ -41,19 +40,6 @@
 #source('binding/Binding.dart');
 #source('binding/BindingMode.dart');
 #source('binding/BindingData.dart');
-
-#source('enums/Visibility.dart');
-#source('enums/Orientation.dart');
-#source('enums/Colors.dart');
-#source('enums/Cursors.dart');
-#source('enums/LinearGradientDirection.dart');
-#source('enums/RadialGradientDrawMode.dart');
-#source('enums/GridUnitType.dart');
-#source('enums/HorizontalAlignment.dart');
-#source('enums/VerticalAlignment.dart');
-#source('enums/Transforms.dart');
-#source('enums/TransitionTiming.dart');
-#source('enums/DockLocation.dart');
 
 #source('elements/Panel.dart');
 #source('elements/StackPanel.dart');
@@ -91,12 +77,6 @@
 #source('controls/ListBox.dart');
 #source('controls/TreeView/TreeView.dart');
 #source('controls/TreeView/TreeNode.dart');
-
-#source('exceptions/ExceptionBase.dart');
-#source('exceptions/AnimationException.dart');
-#source('exceptions/PresentationProviderException.dart');
-#source('exceptions/BuckshotException.dart');
-#source('exceptions/FrameworkPropertyResolutionException.dart');
 
 #source('converters/StringToNumericConverter.dart');
 #source('converters/StringToThicknessConverter.dart');

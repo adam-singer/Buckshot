@@ -9,7 +9,7 @@ class Polygon extends Shape
   Polygon(){
     throw const NotImplementedException();
     
-    Dom.appendBuckshotClass(rawElement, "polygon");
+    Browser.appendClass(rawElement, "polygon");
     _initPolygonProperties();
   }
   

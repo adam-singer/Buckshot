@@ -22,7 +22,7 @@ class TreeNode extends Control implements IFrameworkContainer
   
   TreeNode()
   {
-    Dom.appendBuckshotClass(rawElement, "TreeNode");
+    Browser.appendClass(rawElement, "TreeNode");
     
     _initializeTreeNodeProperties();
     

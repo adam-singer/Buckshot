@@ -20,7 +20,7 @@ class LayoutCanvas extends Panel
   FrameworkObject makeMe() => new LayoutCanvas();
 
   LayoutCanvas(){
-    Dom.appendBuckshotClass(rawElement, "layoutcanvas");
+    Browser.appendClass(rawElement, "layoutcanvas");
 
   }
 

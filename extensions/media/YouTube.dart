@@ -5,6 +5,7 @@
 #library('extensions_media_youtube');
 #import('dart:html');
 #import('../../lib/Buckshot.dart');
+#import('../../external/web/web.dart');
 
 class YouTube extends FrameworkElement
 {
@@ -13,7 +14,7 @@ class YouTube extends FrameworkElement
   FrameworkObject makeMe() => new YouTube();
   
   YouTube(){
-    Dom.appendClass(rawElement, "buckshot_youtube");
+    Browser.appendClass(rawElement, "youtube");
     
     _initializeYouTubeProperties();
     
@@ -32,7 +33,7 @@ class YouTube extends FrameworkElement
   
   void createElement(){
     rawElement = new Element.tag("iframe");
-    Dom.appendClass(rawElement, 'youtube-player');
+    Browser.appendClass(rawElement, 'youtube-player');
     rawElement.attributes["type"] = "text/html";
     rawElement.attributes["frameborder"] = "0";
   }

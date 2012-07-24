@@ -28,5 +28,5 @@ class GridLayoutDefinition extends BuckshotObject{
   num minLength = 0;
   
   BuckshotObject makeMe() => new GridLayoutDefinition();
-  String get _type() => "GridLayoutDefinition";
+  String get type() => "GridLayoutDefinition";
 }

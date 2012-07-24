@@ -14,7 +14,7 @@ class TextBox extends Control
   TextBox() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {
-    Dom.appendBuckshotClass(rawElement, "textbox");
+    Browser.appendClass(rawElement, "textbox");
 
     _initTextBoxProperties();
 

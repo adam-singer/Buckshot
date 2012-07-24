@@ -5,6 +5,7 @@
 #library('extensions_media_vimeo');
 #import('dart:html');
 #import('../../lib/Buckshot.dart');
+#import('../../external/web/web.dart');
 
 class Vimeo extends FrameworkElement
 {
@@ -13,7 +14,7 @@ class Vimeo extends FrameworkElement
   FrameworkObject makeMe() => new Vimeo();
   
   Vimeo(){
-    Dom.appendClass(rawElement, "buckshot_vimeo");
+    Browser.appendClass(rawElement, "vimeo");
     
     _initializeVimeoProperties();
     

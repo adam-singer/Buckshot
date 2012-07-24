@@ -535,8 +535,8 @@ property="{resource [nameOfResource]}"
     <!-- Here we define a style template for our textblocks -->
     <styletemplate key="textstyle">
       <setters>
-        <stylesetter property="halign" value="center"></stylesetter>
-        <stylesetter property="verticalAlignment" value="center"></stylesetter>
+        <stylesetter property="hAlign" value="center"></stylesetter>
+        <stylesetter property="vAlign" value="center"></stylesetter>
         <stylesetter property="fontSize" value="14"></stylesetter>
       </setters>
     </styletemplate>

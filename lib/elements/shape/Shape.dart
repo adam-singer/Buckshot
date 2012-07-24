@@ -16,7 +16,7 @@ class Shape extends FrameworkElement
   FrameworkProperty _shProperty;
   
   Shape(){
-    Dom.appendBuckshotClass(rawElement, "shape");
+    Browser.appendClass(rawElement, "shape");
     _initShapeProperties();
   }
   

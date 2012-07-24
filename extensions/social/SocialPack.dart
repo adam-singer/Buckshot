@@ -2,11 +2,12 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-#library('Buckshot_Extensions_Social');
+#library('social.extensions.buckshotui.org');
 
 #import('../../lib/Buckshot.dart');
 #import('../../external/events/events.dart');
 #import('../../external/shared/shared.dart');
+#import('../../external/web/web.dart');
 #import('dart:html');
 #source('PlusOne.dart');
 

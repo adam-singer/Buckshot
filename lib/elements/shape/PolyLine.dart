@@ -10,7 +10,7 @@ class PolyLine extends Shape
   PolyLine(){
     throw const NotImplementedException();
     
-    Dom.appendBuckshotClass(rawElement, "polyline");
+    Browser.appendClass(rawElement, "polyline");
     _initPolyLineProperties();
   }
   

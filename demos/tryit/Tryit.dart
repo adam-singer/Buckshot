@@ -16,13 +16,19 @@
 //   limitations under the License.
 
 #import('../../lib/Buckshot.dart');
+#import('../../external/events/events.dart');
 #import('../../extensions/media/MediaPack.dart');
 #import('dart:html');
+
+// these 2 imports are needed to support plusone...
+#import('../../external/shared/shared.dart');
+#import('../../external/web/web.dart');
+#source('../../extensions/social/PlusOne.dart');
+
 #source('../../extensions/ControlPack1/ModalDialog.dart');
 #source('Views.dart');
 #source('DemoViewModel.dart');
 #source('DemoModel.dart');
-#source('../../extensions/social/PlusOne.dart');
 
 void main() { 
   

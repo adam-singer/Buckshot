@@ -5,6 +5,7 @@
 #library('extensions_media_funnyordie');
 #import('dart:html');
 #import('../../lib/Buckshot.dart');
+#import('../../external/web/web.dart');
 
 class FunnyOrDie extends FrameworkElement
 {
@@ -13,7 +14,7 @@ class FunnyOrDie extends FrameworkElement
   FrameworkObject makeMe() => new FunnyOrDie();
   
   FunnyOrDie(){
-    Dom.appendClass(rawElement, "buckshot_funnyordie");
+    Browser.appendClass(rawElement, "funnyordie");
     
     _initializeFunnyOrDieProperties();
     

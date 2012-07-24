@@ -80,8 +80,6 @@ Apache 2.0. See license.txt for project licensing information.
 
 John
 
-Here on github or http://www.lucastudios.com/contact
-
 G+: https://plus.google.com/115427174005651655317/about
 
 Blog: http://phylotic.blogspot.com

@@ -8,7 +8,7 @@ class Rectangle extends Shape{
   BuckshotObject makeMe() => new Rectangle();
         
   Rectangle(){
-    Dom.appendBuckshotClass(rawElement, "rectangle");
+    Browser.appendClass(rawElement, "rectangle");
   }
   
   //override shape properties since we are just using a div here instead of SVG element

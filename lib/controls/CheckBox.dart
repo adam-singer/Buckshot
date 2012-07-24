@@ -21,7 +21,7 @@ class CheckBox extends Control
   CheckBox()
   : selectionChanged = new FrameworkEvent<EventArgs>()
   {
-    Dom.appendBuckshotClass(rawElement, "checkbox");
+    Browser.appendClass(rawElement, "checkbox");
     _initProperties();
     _initEvents();
   }    

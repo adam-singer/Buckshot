@@ -13,7 +13,7 @@ class DockPanel extends Panel
   
   DockPanel()
   {
-    Dom.appendBuckshotClass(rawElement, "DockPanel");
+    Browser.appendClass(rawElement, "DockPanel");
     
     _initDockPanelProperties();
   
@@ -80,7 +80,7 @@ class DockPanel extends Panel
       final c = new DivElement();
 
       // make a flexbox
-      Dom.prefixes.forEach((String p){
+      Browser.prefixes.forEach((String p){
         var pre = '${p}box';
         c.style.display = pre;
         pre = '${p}flexbox';
@@ -90,24 +90,24 @@ class DockPanel extends Panel
       });
             
       //set the orientation
-      Dom.setXPCSS(c, 'flex-direction', (loc == DockLocation.left 
+      Browser.setXPCSS(c, 'flex-direction', (loc == DockLocation.left 
           || loc == DockLocation.right) ? 'row' : 'column');
       
       //set the stretch
-      Dom.setXPCSS(c, 'flex', '1 1 auto');
+      Browser.setXPCSS(c, 'flex', '1 1 auto');
       
       //make container-level adjustments based on the dock location.
       switch(loc.toString()){
         case 'right':
-          Dom.setXPCSS(c, 'justify-content', 'flex-end');
+          Browser.setXPCSS(c, 'justify-content', 'flex-end');
           break;
         case 'top':
-          Dom.setXPCSS(c, 'justify-content', 'flex-start');
-          Dom.setXPCSS(c, 'align-items', 'stretch');
+          Browser.setXPCSS(c, 'justify-content', 'flex-start');
+          Browser.setXPCSS(c, 'align-items', 'stretch');
           break;
         case 'bottom':
-          Dom.setXPCSS(c, 'justify-content', 'flex-end');
-          Dom.setXPCSS(c, 'align-items', 'stretch');
+          Browser.setXPCSS(c, 'justify-content', 'flex-end');
+          Browser.setXPCSS(c, 'align-items', 'stretch');
           break;
       }
             
@@ -117,7 +117,7 @@ class DockPanel extends Panel
     // Adds child to container with correct alignment and ordering.
     void addChild(Element container, FrameworkElement child, DockLocation loc){
       if (loc == DockLocation.top || loc == DockLocation.bottom){
-       Dom.setXPCSS(child.rawElement, 'flex', 'none');
+       Browser.setXPCSS(child.rawElement, 'flex', 'none');
       }
 
       if ((loc == DockLocation.right || loc == DockLocation.bottom) 
@@ -176,9 +176,9 @@ class DockPanel extends Panel
       
       assert(p is Element);
       
-      Dom.setXPCSS(child.rawElement, 'flex', '1 1 auto');
+      Browser.setXPCSS(child.rawElement, 'flex', '1 1 auto');
       
-      Dom.setXPCSS(child.rawElement, 'align-self', 'stretch');
+      Browser.setXPCSS(child.rawElement, 'align-self', 'stretch');
     }
   }
   
@@ -186,9 +186,9 @@ class DockPanel extends Panel
   void createElement(){
     rawElement = new DivElement();
     rawElement.style.overflow = "hidden";
-    Dom.makeFlexBox(this);
-    Dom.setVerticalFlexBoxAlignment(this, VerticalAlignment.stretch);
-    Dom.setHorizontalFlexBoxAlignment(this, HorizontalAlignment.stretch);
+    Browser.makeFlexBox(rawElement);
+    Browser.setVerticalFlexBoxAlignment(rawElement, VerticalAlignment.stretch);
+    Browser.setHorizontalFlexBoxAlignment(rawElement, HorizontalAlignment.stretch);
   }
   
   FrameworkObject makeMe() => new DockPanel();

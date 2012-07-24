@@ -14,7 +14,7 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
 
   TextBlock()
   {
-    Dom.appendBuckshotClass(rawElement, "textblock");
+    Browser.appendClass(rawElement, "textblock");
 
     _initTextBlockProperties();
 

@@ -19,7 +19,7 @@ class DropDownList extends Control
   :
     selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs<DropDownListItem>>()
   {
-      Dom.appendBuckshotClass(rawElement, "dropdownlist");
+    Browser.appendClass(rawElement, "dropdownlist");
     _initDropDownListProperties();
   }
   

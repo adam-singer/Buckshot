@@ -51,7 +51,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   :
     itemCreated = new FrameworkEvent<ItemCreatedEventArgs>()
   {
-    Dom.appendBuckshotClass(rawElement, "collectionpresenter");
+    Browser.appendClass(rawElement, "collectionpresenter");
     _initCollectionPresenterProperties();
   }
 

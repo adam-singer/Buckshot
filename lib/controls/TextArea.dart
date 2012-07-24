@@ -18,7 +18,7 @@ class TextArea extends Control
   TextArea() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {
-    Dom.appendBuckshotClass(rawElement, "textarea");
+    Browser.appendClass(rawElement, "textarea");
     
     _initProperties();
 

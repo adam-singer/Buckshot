@@ -15,7 +15,7 @@ class Ellipse extends Shape{
   FrameworkProperty _ryProperty;
   
   Ellipse(){
-    Dom.appendBuckshotClass(rawElement, "ellipse");
+    Browser.appendClass(rawElement, "ellipse");
     _initEllipseProperties();
   }
   

@@ -27,7 +27,7 @@ class RawHtml extends FrameworkElement
   
   RawHtml()
   {
-    Dom.appendBuckshotClass(rawElement, "rawhtml");
+    Browser.appendClass(rawElement, "rawhtml");
        
     _initRawHtmlProperties();
   }

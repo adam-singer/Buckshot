@@ -5,6 +5,7 @@
 #library('extensions_media_hulu');
 #import('dart:html');
 #import('../../lib/Buckshot.dart');
+#import('../../external/web/web.dart');
 
 class Hulu extends FrameworkElement
 {
@@ -15,7 +16,7 @@ class Hulu extends FrameworkElement
   FrameworkObject makeMe() => new Hulu();
   
   Hulu(){
-    Dom.appendClass(rawElement, "buckshot_hulu");
+    Browser.appendClass(rawElement, "hulu");
     
     _initializeHuluProperties();
     

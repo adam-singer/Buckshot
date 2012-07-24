@@ -2,9 +2,10 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-#library('Buckshot_Extensions_Media');
+#library('media.extensions.buckshotui.org');
 
 #import('../../lib/Buckshot.dart');
+
 #import('YouTube.dart');
 #import('Hulu.dart');
 #import('Vimeo.dart');

@@ -21,7 +21,7 @@ class Slider extends Control
   FrameworkObject makeMe() => new Slider();
 
   Slider(){
-    Dom.appendBuckshotClass(rawElement, "slider");
+    Browser.appendClass(rawElement, "slider");
 
     _initSliderProperties();
 

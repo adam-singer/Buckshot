@@ -12,12 +12,12 @@ class StackPanel extends Panel
 
   StackPanel()
   {
-    Dom.appendBuckshotClass(rawElement, "stackpanel");
+    Browser.appendClass(rawElement, "stackpanel");
     orientationProperty = new FrameworkProperty(
       this,
       "orientation",
       (Orientation value){
-        Dom.setFlexBoxOrientation(this, value);
+        Browser.setFlexBoxOrientation(rawElement, value);
       },
       Orientation.vertical, converter:new StringToOrientationConverter());
   }
@@ -43,23 +43,23 @@ class StackPanel extends Panel
 
   void createElement(){
     rawElement = new DivElement();
-    Dom.makeFlexBox(this);
+    Browser.makeFlexBox(rawElement);
     //rawElement.style.flexFlow = 'column';
     rawElement.style.overflow = 'hidden';
   }
 
   void updateLayout(){
-    Dom.setVerticalFlexBoxAlignment(this, VerticalAlignment.top);
-    Dom.setHorizontalFlexBoxAlignment(this, HorizontalAlignment.left);
+    Browser.setVerticalFlexBoxAlignment(rawElement, VerticalAlignment.top);
+    Browser.setHorizontalFlexBoxAlignment(rawElement, HorizontalAlignment.left);
     if (orientation == Orientation.vertical){
       children.forEach((child){
-        Dom.setXPCSS(child.rawElement, 'flex', 'none');
-        Dom.setHorizontalItemFlexAlignment(child, child.hAlign);
+        Browser.setXPCSS(child.rawElement, 'flex', 'none');
+        Browser.setHorizontalItemFlexAlignment(child.rawElement, child.hAlign);
       });
     }else{
       children.forEach((child){
-        Dom.setXPCSS(child.rawElement, 'flex', 'none');
-        Dom.setVerticalItemFlexAlignment(child, child.vAlign);      
+        Browser.setXPCSS(child.rawElement, 'flex', 'none');
+        Browser.setVerticalItemFlexAlignment(child.rawElement, child.vAlign);      
       });
     }
   }

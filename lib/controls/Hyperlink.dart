@@ -27,7 +27,7 @@ class Hyperlink extends Control implements IFrameworkContainer
   
   Hyperlink()
   {
-    Dom.appendBuckshotClass(rawElement, "hyperlink");
+    Browser.appendClass(rawElement, "hyperlink");
 
     _initHyperlinkProperties();
     

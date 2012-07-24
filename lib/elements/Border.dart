@@ -31,7 +31,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
   Border()
   {
-    Dom.appendBuckshotClass(rawElement, "border");
+    Browser.appendClass(rawElement, "border");
 
     _initBorderProperties();
 
@@ -162,7 +162,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
   void createElement(){
     rawElement = new DivElement();
     rawElement.style.overflow = "hidden";
-    Dom.makeFlexBox(this);
+    Browser.makeFlexBox(rawElement);
   }
 
   /// Overridden [FrameworkObject] method is called when the framework
@@ -172,18 +172,18 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
     if (content == null) return;
     
-    Dom.setXPCSS(content.rawElement, 'flex', 'none');
+    Browser.setXPCSS(content.rawElement, 'flex', 'none');
     
     if (content.hAlign != null){
         if(content.hAlign == HorizontalAlignment.stretch){
-          Dom.setXPCSS(content.rawElement, 'flex', '1 1 auto');
+          Browser.setXPCSS(content.rawElement, 'flex', '1 1 auto');
         }
         
-        Dom.setHorizontalFlexBoxAlignment(this, content.hAlign);
+        Browser.setHorizontalFlexBoxAlignment(rawElement, content.hAlign);
     }
 
     if (content.vAlign != null){
-      Dom.setVerticalFlexBoxAlignment(this, content.vAlign);
+      Browser.setVerticalFlexBoxAlignment(rawElement, content.vAlign);
     }
   }
 

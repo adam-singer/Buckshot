@@ -114,7 +114,7 @@ class FrameworkElement extends FrameworkObject {
     _templateBindings = new HashMap<FrameworkProperty, String>(),
     _transitionProperties = new HashMap<String, String>()
   {
-    Dom.appendBuckshotClass(rawElement, "FrameworkElement");
+    Browser.appendClass(rawElement, "FrameworkElement");
 
     _style = new StyleTemplate(); //give a blank style so merging works immediately
 
@@ -130,7 +130,7 @@ class FrameworkElement extends FrameworkObject {
   void _initFrameworkProperties(){
 
     void doTransform(FrameworkElement e){
-      Dom.setXPCSS(e.rawElement, 'transform',
+      Browser.setXPCSS(e.rawElement, 'transform',
         '''translateX(${getValue(translateXProperty)}px) translateY(${getValue(translateYProperty)}px) translateZ(${getValue(translateZProperty)}px)
            scaleX(${getValue(scaleXProperty)}) scaleY(${getValue(scaleYProperty)}) scaleZ(${getValue(scaleZProperty)}) 
            rotateX(${getValue(rotateXProperty)}deg) rotateY(${getValue(rotateYProperty)}deg) rotateZ(${getValue(rotateZProperty)}deg)
@@ -156,7 +156,7 @@ class FrameworkElement extends FrameworkObject {
     //TODO: propogate this property in elements that use virtual containers
 
     perspectiveProperty = new FrameworkProperty(this, "perspective", (num value){
-      Dom.setXPCSS(rawElement, 'perspective', '$value');
+      Browser.setXPCSS(rawElement, 'perspective', '$value');
     },converter:const StringToNumericConverter());
 
     translateXProperty = new AnimatingFrameworkProperty(this, "translateX", (num value){
@@ -196,15 +196,15 @@ class FrameworkElement extends FrameworkObject {
     }, 'transform', converter:const StringToNumericConverter());
 
     transformOriginXProperty = new FrameworkProperty(this, "transformOriginX", (num value){
-      Dom.setXPCSS(rawElement, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
+      Browser.setXPCSS(rawElement, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
     }, converter:const StringToNumericConverter());
 
     transformOriginYProperty = new FrameworkProperty(this, "transformOriginY", (num value){
-      Dom.setXPCSS(rawElement, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
+      Browser.setXPCSS(rawElement, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
     }, converter:const StringToNumericConverter());
 
     transformOriginZProperty = new FrameworkProperty(this, "transformOriginZ", (num value){
-      Dom.setXPCSS(rawElement, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
+      Browser.setXPCSS(rawElement, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
     }, converter:const StringToNumericConverter());
 
     opacityProperty = new AnimatingFrameworkProperty(
@@ -307,7 +307,7 @@ class FrameworkElement extends FrameworkObject {
       this,
       "cursor",
       (Cursors value){
-        rawElement.style.cursor = value._str;
+        rawElement.style.cursor = '$value';
       }, converter:const StringToCursorConverter());
 
     tagProperty = new FrameworkProperty(
