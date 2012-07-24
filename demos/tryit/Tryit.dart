@@ -15,28 +15,28 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+#import('dart:html');
 #import('../../lib/Buckshot.dart');
+#import('../../external/shared/shared.dart');
 #import('../../external/events/events.dart');
 #import('../../extensions/media/MediaPack.dart');
-#import('dart:html');
+#import('../../extensions/controls/ListBox.dart');
+#import('../../extensions/controls/ModalDialog.dart');
+#import('../../extensions/social/PlusOne.dart');
 
 // these 2 imports are needed to support plusone...
-#import('../../external/shared/shared.dart');
-#import('../../external/web/web.dart');
-#source('../../extensions/social/PlusOne.dart');
 
-#source('../../extensions/ControlPack1/ModalDialog.dart');
 #source('Views.dart');
 #source('DemoViewModel.dart');
 #source('DemoModel.dart');
 
+
 void main() { 
-  
-  Views views = new Views();
-    
+  buckshot.registerElement(new ListBox());
   buckshot.registerElement(new PlusOne());
   buckshot.registerElement(new ModalDialog());
   
+  Views views = new Views();
   
   // Register extensions
   // These are exposed by the extension libraries.

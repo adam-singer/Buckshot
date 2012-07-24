@@ -2,6 +2,10 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
+#library('controls.buckshotui.org');
+
+#import('../../lib/Buckshot.dart');
+
 /**
 * A Buckshot control that displays a general purpose
 * modal dialog and returns results.

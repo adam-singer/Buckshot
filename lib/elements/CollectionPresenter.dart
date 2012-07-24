@@ -32,7 +32,7 @@
 */
 class CollectionPresenter extends FrameworkElement implements IFrameworkContainer
 {
-  static final String _SBO = '__CollectionPresenterData__';
+  static final String SBO = '__CollectionPresenterData__';
   var _eHandler;
 
   /// Represents the [Panel] element which will contain the generated UI for
@@ -113,7 +113,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       values.forEach((iterationObject){
         var it = Template.deserialize('<textblock halign="stretch">'
           '${iterationObject}</textblock>');
-        it._stateBag[_SBO] = iterationObject;
+        it._stateBag[SBO] = iterationObject;
         itemCreated.invoke(this, new ItemCreatedEventArgs(it));
         presentationPanel.children.add(it);
       });
@@ -121,7 +121,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       //if template, then bind the object to the template datacontext
       values.forEach((iterationObject){
         var it = Template.deserialize(itemsTemplate);
-        it._stateBag[_SBO] = iterationObject;
+        it._stateBag[SBO] = iterationObject;
         it.dataContext = iterationObject;
         itemCreated.invoke(this, new ItemCreatedEventArgs(it));
         presentationPanel.children.add(it);

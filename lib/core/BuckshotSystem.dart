@@ -208,8 +208,8 @@ class Buckshot extends FrameworkObject {
     registerAttachedProperty('grid.row', Grid.setRow);
     registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
     registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
-    registerElement(new DockPanel());
-    registerAttachedProperty('dockpanel.dock', DockPanel.setDock);
+//    registerElement(new DockPanel());
+//    registerAttachedProperty('dockpanel.dock', DockPanel.setDock);
     registerElement(new Border());
     registerElement(new ContentPresenter());
     registerElement(new TextArea());
@@ -252,9 +252,7 @@ class Buckshot extends FrameworkObject {
     registerElement(new Slider());
     registerElement(new Button());
     registerElement(new DropDownList());
-    registerElement(new ListBox());
-    registerElement(new TreeView());
-    registerElement(new TreeNode());
+//    registerElement(new ListBox());
   }
 
   /// Returns a resource that is registered with the given [resourceKey].

@@ -2,6 +2,16 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
+#library('controls.buckshotui.org');
+
+#import('dart:html');
+#import('../../../lib/Buckshot.dart');
+#import('../../../external/events/events.dart');
+#import('../../../external/web/web.dart');
+#import('../../../external/shared/shared.dart');
+
+#source('TreeNode.dart');
+
 /**
 * Displays a heirachical list of [TreeNode] elements.
 */

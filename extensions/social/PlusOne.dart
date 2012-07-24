@@ -2,6 +2,13 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
+#library('social.controls.buckshotui.org');
+
+#import('dart:html');
+#import('../../lib/Buckshot.dart');
+#import('../../external/shared/shared.dart');
+#import('../../external/web/web.dart');
+
 
 /**
 * Implements a Google+ +1 button element.

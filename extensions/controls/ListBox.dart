@@ -4,6 +4,14 @@
 
 //TODO add mouse state template properties
 
+#library('controls.buckshotui.org');
+
+#import('../../lib/Buckshot.dart');
+#import('../../external/events/events.dart');
+#import('../../external/shared/shared.dart');
+#import('../../external/web/web.dart');
+
+
 /**
 * A control that provides a scrollable list of selectable items.
 */
@@ -83,9 +91,9 @@ class ListBox extends Control implements IFrameworkContainer
 
       _selectedIndex = _presenter.presentationPanel.children.indexOf(item);
 
-      setValue(selectedItemProperty, item._stateBag[CollectionPresenter._SBO]);
+      setValue(selectedItemProperty, item.stateBag[CollectionPresenter.SBO]);
 
-      selectionChanged.invoke(this, new SelectedItemChangedEventArgs(item._stateBag[CollectionPresenter._SBO]));
+      selectionChanged.invoke(this, new SelectedItemChangedEventArgs(item.stateBag[CollectionPresenter.SBO]));
 
     };
 
@@ -120,7 +128,7 @@ class ListBox extends Control implements IFrameworkContainer
   /// the ListBox.
   void onItemMouseEnter(FrameworkElement item){
     if (item.hasProperty("background")){
-      item._stateBag["__lb_item_bg_brush__"] = item.dynamic.background;
+      item.stateBag["__lb_item_bg_brush__"] = item.dynamic.background;
       item.dynamic.background = getValue(highlightColorProperty);
     }
   }
@@ -128,8 +136,8 @@ class ListBox extends Control implements IFrameworkContainer
   /// Override this method to implement your own mouse out behavior for items in
   /// the ListBox.
   void onItemMouseLeave(FrameworkElement item){
-    if (item._stateBag.containsKey("__lb_item_bg_brush__")){
-      item.dynamic.background = item._stateBag["__lb_item_bg_brush__"];
+    if (item.stateBag.containsKey("__lb_item_bg_brush__")){
+      item.dynamic.background = item.stateBag["__lb_item_bg_brush__"];
     }
   }
 
