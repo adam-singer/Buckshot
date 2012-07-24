@@ -129,8 +129,9 @@ class Template {
   static getTemplate(String from){   
     if (from.startsWith('#')){
       var result = document.query(from);
-      return result == null ? null : result.text.trim();
-      
+      if (result == null)
+        throw new BuckshotException('Unabled to find template "${from}" in HTML file.');
+        return result.text.trim();
     }else{
       //TODO cache...
       

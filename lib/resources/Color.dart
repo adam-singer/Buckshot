@@ -5,7 +5,7 @@
 /**
 * Represents a color resource.
 *
-* ## Lucaxml Example Usage
+* ## Template Example Usage
 *     <color value='#33aa7c'></color>
 *     <color value='Orange'></color> <!-- color name is case sensitive -->
 */

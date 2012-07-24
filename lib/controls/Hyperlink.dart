@@ -123,7 +123,7 @@ class Hyperlink extends Control implements IFrameworkContainer
       "fontSize",
       (value){
         rawElement.style.fontSize = '${value.toString()}px';
-      });
+      }, converter:const StringToNumericConverter());
     
     fontFamilyProperty = new FrameworkProperty(
       this,
