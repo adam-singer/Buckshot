@@ -2,7 +2,8 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-#library('extensions_media_hulu');
+#library('media.controls.buckshotui.org');
+
 #import('dart:html');
 #import('../../lib/Buckshot.dart');
 #import('../../external/web/web.dart');
