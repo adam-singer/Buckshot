@@ -14,7 +14,7 @@
 #import('../external/yaml/yaml.dart');
 //#import('../../reactive/lib/reactive_lib.dart');
 
-#import('core/HashableObject.dart');
+#import('../external/shared/shared.dart');
 #import('../external/events/events.dart');
 
 #source('core/globals.dart');
@@ -24,15 +24,16 @@
 #source('core/FrameworkProperty.dart');
 #source('core/ObservableList.dart');
 #source('core/FrameworkElement.dart');
-#source('core/IValueConverter.dart');
 #source('core/Dom.dart');
 #source('core/BuckshotObject.dart');
 #source('core/FrameworkPropertyBase.dart');
 #source('core/AttachedFrameworkProperty.dart');
-#source('core/FrameworkPropertyResolutionException.dart');
 #source('core/DataTemplate.dart');
 #source('core/IFrameworkContainer.dart');
-#source('core/BuckshotEvent.dart');
+
+#source('events/BuckshotEvent.dart');
+#source('events/MeasurementChangedEventArgs.dart');
+#source('events/DragEventArgs.dart');
 
 #source('MVVM/ViewModelBase.dart');
 #source('MVVM/IView.dart');
@@ -40,9 +41,6 @@
 #source('binding/Binding.dart');
 #source('binding/BindingMode.dart');
 #source('binding/BindingData.dart');
-
-#source('primitives/Tuple.dart');
-#source('primitives/Thickness.dart');
 
 #source('enums/Visibility.dart');
 #source('enums/Orientation.dart');
@@ -98,6 +96,7 @@
 #source('exceptions/AnimationException.dart');
 #source('exceptions/PresentationProviderException.dart');
 #source('exceptions/BuckshotException.dart');
+#source('exceptions/FrameworkPropertyResolutionException.dart');
 
 #source('converters/StringToNumericConverter.dart');
 #source('converters/StringToThicknessConverter.dart');

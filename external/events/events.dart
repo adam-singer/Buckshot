@@ -1,12 +1,13 @@
 // Copyright (c) 2012, John Evans
-// https://github.com/prujohn/Buckshot
+// http://www.buckshotui.org
 // See LICENSE file for Apache 2.0 licensing information.
+
+// See README file for more information.
 
 #library('events.buckshotui.org');
 
-#import('dart:html');
 #import('dart:isolate');
-#import('../core/HashableObject.dart');
+#import('../shared/shared.dart');
 
 #source('FrameworkEvent.dart');
 #source('EventHandler.dart');
@@ -18,6 +19,4 @@
 #source('ListChangedEventArgs.dart');
 #source('RoutedEventArgs.dart');
 #source('SelectedItemChangedEventArgs.dart');
-#source('MeasurementChangedEventArgs.dart');
 #source('KeyEventArgs.dart');
-#source('DragEventArgs.dart');

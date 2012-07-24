@@ -63,7 +63,7 @@ Future setValueAsync(FrameworkProperty property, Dynamic value)
       f(value);
 
       // 2) bindings
-      _BindingImplementation._executeBindingsFor(property);
+      Binding._executeBindingsFor(property);
 
       // 3) event
       if (property.propertyChanging.hasHandlers)
@@ -102,7 +102,7 @@ void setValue(FrameworkProperty property, Dynamic value)
     f(value);
 
     // 2) bindings
-    _BindingImplementation._executeBindingsFor(property);
+    Binding._executeBindingsFor(property);
 
     // 3) event
     if (property.propertyChanging.hasHandlers)

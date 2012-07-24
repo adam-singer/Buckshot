@@ -3,6 +3,5 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 /** 
-* Type definition for EventHandler types.
-*/
+* Type definition for EventHandler types. */
 typedef void EventHandler<T extends EventArgs>(Object sender, T args);

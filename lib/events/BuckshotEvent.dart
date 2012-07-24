@@ -4,7 +4,9 @@
 
 
 /**
- * Adds extended functionality to [FrameworkEvent] needed by the Buckshot Library. */
+ * Extends the [FrameworkEvent] event model by adding first/last
+ * watcher functionality to the event lifecycle. 
+ */
 class BuckshotEvent<T extends EventArgs> extends FrameworkEvent
 {
   Function _gotFirstSubscriberCallback;

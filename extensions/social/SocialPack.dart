@@ -5,6 +5,8 @@
 #library('Buckshot_Extensions_Social');
 
 #import('../../lib/Buckshot.dart');
+#import('../../external/events/events.dart');
+#import('../../external/shared/shared.dart');
 #import('dart:html');
 #source('PlusOne.dart');
 

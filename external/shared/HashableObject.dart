@@ -2,9 +2,6 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-
-#library('shared.buckshotui.org');
-
 /**
 * Base class for any type that needs to be [Hashable]. */
 class HashableObject implements Hashable

@@ -12,53 +12,27 @@
 *
 * ### Unregistering a Binding
 * bindingReference.unregister();
-*
 */
-interface Binding default _BindingImplementation{
-
-  /**
-  * Instantiates a binding between [fromProperty] and [toProperty],
-  *  with an optional [bindingMode] and [converter].
-  */
-  Binding(FrameworkProperty fromProperty,
-    FrameworkProperty toProperty,
-    [BindingMode bindingMode, IValueConverter converter]);
-
-  /**
-  * Instantiates a binding between [fromProperty] and [toProperty],
-  * with an optional [bindingMode] and [converter].
-  *
-  * This constructor fails silently if the binding isn't established.
-  */
-  Binding.loose(FrameworkProperty fromProperty, FrameworkProperty toProperty,
-    [BindingMode bindingMode, IValueConverter converter]);
+class Binding extends BuckshotObject
+{
+  BindingMode bindingMode;
+  Binding _twoWayPartner;
+  final IValueConverter converter;
+  final FrameworkProperty _fromProperty, _toProperty;
 
   /**
   * Boolean value representing if the binding is set or not.
   *   **This value is set by the framework**.
   */
-  bool bindingSet;
-
-  /**
-  * Unregisters the binding between two [FrameworkProperty] properties.
-  */
-  void unregister();
-
-}
-
-
-class _BindingImplementation extends BuckshotObject implements Binding
-{
-  BindingMode bindingMode;
-  _BindingImplementation _twoWayPartner;
-  final IValueConverter converter;
-  final FrameworkProperty _fromProperty, _toProperty;
-
   bool bindingSet = false;
 
   BuckshotObject makeMe() => null;
 
-  _BindingImplementation(
+  /**
+  * Instantiates a binding between [fromProperty] and [toProperty],
+  *  with an optional [bindingMode] and [converter].
+  */
+  Binding(
     this._fromProperty,
     this._toProperty,
     [this.bindingMode = BindingMode.OneWay,
@@ -80,7 +54,14 @@ class _BindingImplementation extends BuckshotObject implements Binding
     _registerBinding();
   }
 
-  _BindingImplementation.loose(
+  
+  /**
+  * Instantiates a binding between [fromProperty] and [toProperty],
+  * with an optional [bindingMode] and [converter].
+  *
+  * This constructor fails silently if the binding isn't established.
+  */
+  Binding.loose(
     this._fromProperty,
     this._toProperty,
     [this.bindingMode = BindingMode.OneWay,
@@ -110,8 +91,8 @@ class _BindingImplementation extends BuckshotObject implements Binding
 
       //set the other binding, temporarily as a oneway
       //so that it doesn't feedback loop on this function
-      _BindingImplementation other =
-          new _BindingImplementation.loose(
+      Binding other =
+          new Binding.loose(
                   _toProperty,
                   _fromProperty,
                   BindingMode.OneWay);
@@ -130,10 +111,13 @@ class _BindingImplementation extends BuckshotObject implements Binding
       _fromProperty.sourceObject._bindings.add(this);
 
       //fire the new binding for one-way/one-time bindings?  make optional?
-      _BindingImplementation._executeBindingsFor(_fromProperty);
+      Binding._executeBindingsFor(_fromProperty);
     }
   }
 
+  /**
+  * Unregisters the binding between two [FrameworkProperty] properties.
+  */
   void unregister()
   {
     if (!bindingSet) return;
