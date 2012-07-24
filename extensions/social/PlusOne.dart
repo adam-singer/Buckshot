@@ -26,9 +26,9 @@ class PlusOne extends FrameworkElement
     
     _initializePlusOneProperties();
     
-    EventHandlerReference ref;
+    var ref;
 
-    loaded + (_, __){
+    ref = loaded + (_, __){
       _inject(_plusOneJS);
       loaded - ref;
     };
