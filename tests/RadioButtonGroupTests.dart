@@ -17,7 +17,7 @@ class RadioButtonGroupTests extends TestGroupBase
     
     rbg.addRadioButton(null);
     
-    Expect.isTrue(rbg._radioButtonList.isEmpty());
+    Expect.isTrue(rbg.radioButtonList.isEmpty());
   }
   
   void failIfRadioButtonExists(){
@@ -69,7 +69,7 @@ class RadioButtonGroupTests extends TestGroupBase
     
     rbg.addRadioButton(rb2);
     
-    Expect.equals(rbg._radioButtonList.length, 2);
+    Expect.equals(rbg.radioButtonList.length, 2);
     
   }
   

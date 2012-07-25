@@ -6,25 +6,25 @@
 * A helper class for managing a group of [RadioButton]s.  Does not itself provide any rendering
 * capability. */
 class RadioButtonGroup {
-  final Map<RadioButton, EventHandlerReference> _radioButtonList;
+  final Map<RadioButton, EventHandlerReference> radioButtonList;
   final FrameworkEvent<RadioButtonSelectionChangedEventArgs> selectionChanged;
   
   RadioButton currentSelectedButton;
   
-  RadioButtonGroup(): _radioButtonList = new Map<RadioButton, EventHandlerReference>(),
+  RadioButtonGroup(): radioButtonList = new Map<RadioButton, EventHandlerReference>(),
   selectionChanged = new FrameworkEvent<RadioButtonSelectionChangedEventArgs>();
   
   /** Add a RadioButton to the list.  Must be of same grouping as previously added buttons */
   void addRadioButton(RadioButton buttonToAdd){
     if (buttonToAdd == null) return;
     
-    if (_radioButtonList.containsKey(buttonToAdd)){
+    if (radioButtonList.containsKey(buttonToAdd)){
       throw const BuckshotException("RadioButton already exists in the RadioButtonGroup list.");
     }
     
-    if (!_radioButtonList.isEmpty()){
+    if (!radioButtonList.isEmpty()){
       //do a check to ensure groupName is the same
-      String name = _radioButtonList.getKeys().iterator().next().groupName;
+      String name = radioButtonList.getKeys().iterator().next().groupName;
       if (name != buttonToAdd.groupName)
         throw new BuckshotException("Attempted to add RadioButton with groupName='${buttonToAdd.groupName}' to RadioButtonGroup with groupName='$name'");
     }
@@ -36,7 +36,7 @@ class RadioButtonGroup {
     };
     
     //add the button to the list
-    _radioButtonList[buttonToAdd] = ref;
+    radioButtonList[buttonToAdd] = ref;
     
   }
   
@@ -44,12 +44,12 @@ class RadioButtonGroup {
   void removeRadioButton(RadioButton buttonToRemove){
     if (buttonToRemove == null) return;
     
-    if (_radioButtonList.containsKey(buttonToRemove)){
+    if (radioButtonList.containsKey(buttonToRemove)){
       //remove the event reference
-      buttonToRemove.selectionChanged - _radioButtonList[buttonToRemove];
+      buttonToRemove.selectionChanged - radioButtonList[buttonToRemove];
       
       //remove the button
-      _radioButtonList.remove(buttonToRemove);
+      radioButtonList.remove(buttonToRemove);
     }
   }
 }

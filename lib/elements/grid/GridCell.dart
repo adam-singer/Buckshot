@@ -13,8 +13,6 @@ class _GridCell extends FrameworkObject
   
   _GridCell()
   {
-    Browser.appendClass(rawElement, "GridCell");
-
     _initGridCellProperties();
 
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;

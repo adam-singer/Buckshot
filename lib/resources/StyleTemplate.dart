@@ -2,45 +2,18 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-/**
-* Defines a template that can be assigned to a [FrameworkElement]. */
-interface StyleTemplate default _StyleTemplateImplementation
-{
-  StyleTemplate();
-  
-  
-  BuckshotObject makeMe();
-  
-  /**
-  * Sets a style [property] with a given [value], which will apply to all current and future Elements using this StyleTemplate.
-  * Unknown properties are ignored. */
-  void setProperty(String property, Dynamic value);
-  
-  ObservableList<StyleSetter> get setters();
-  set setters(ObservableList<StyleSetter> value);
-  
-  /**
-  * Copies setters from one or more [templates] into the current StyleTemplate.
-  * Does not move associated elements or bindings, but the copied setters are
-  * applied to any elements using the current StyleTemplate. */
-  void mergeWith(List<StyleTemplate> templates);
-  
-  //these are needed internally, not for use outside the library...
-  void _registerElement(FrameworkElement element);
-  void _unregisterElement(FrameworkElement element);
-}
 
 // Default implementation for StyleTemplate interface.
-class _StyleTemplateImplementation extends FrameworkResource implements StyleTemplate
+class StyleTemplate extends FrameworkResource
 {
   final Set<FrameworkElement> _registeredElements;
   final HashMap<String, StyleSetter> _setters;
   final String stateBagPrefix = "__StyleBinding__";
   FrameworkProperty settersProperty;
   
-  BuckshotObject makeMe() => new _StyleTemplateImplementation();
+  BuckshotObject makeMe() => new StyleTemplate();
   
-  _StyleTemplateImplementation()
+  StyleTemplate()
   : _registeredElements = new HashSet<FrameworkElement>(),
     _setters = new HashMap<String, StyleSetter>()
     {
@@ -50,14 +23,22 @@ class _StyleTemplateImplementation extends FrameworkResource implements StyleTem
       
     }  
     
+  /** Gets the [StyleSetter] [ObservableList] from [settersProperty]. */
   ObservableList<StyleSetter> get setters() => getValue(settersProperty);
+  /** Setst he [StyleSetter] [ObsersableList] from [settersProperty]. */
   set setters(ObservableList<StyleSetter> value) => setValue(settersProperty, value);
     
-    
+  /** Returns a [Collection] of [FrameworkElement]'s registered to the StyleTemplate */
+  Collection<FrameworkElement> get registeredElements() => _registeredElements;
+  
+  /**
+  * Copies setters from one or more [templates] into the current StyleTemplate.
+  * Does not move associated elements or bindings, but the copied setters are
+  * applied to any elements using the current StyleTemplate. */
   void mergeWith(List<StyleTemplate> templates){
     if (templates == null || templates.isEmpty()) return;
     
-    for (final _StyleTemplateImplementation style in templates){
+    for (final StyleTemplate style in templates){
       if (style == null || style == this) continue; //ignore if null or same template
     
       //copy the style setters
@@ -67,11 +48,26 @@ class _StyleTemplateImplementation extends FrameworkResource implements StyleTem
     }
   }
     
+  
+  /**
+   * Returns a property value from a given [property] name. Null if property doesn't exist. */
+  getProperty(String property){
+    if (_setters.containsKey(property)){
+      return _setters[property].value;  
+    }else{
+      return null;
+    }
+  }
+  
+  /**
+  * Sets a style [property] with a given [value], which will apply to all current and future Elements using this StyleTemplate.
+  * Unknown properties are ignored. */
   void setProperty(String property, Dynamic newValue){
     if (_setters.containsKey(property)){
       _setters[property].value = newValue;  
     }else{
       _setters[property] = new StyleSetter.with(property, newValue);
+      setters.add(_setters[property]);
       _registerNewSetterBindings(_setters[property]);
     }
   }

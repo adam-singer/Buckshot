@@ -232,7 +232,7 @@ class Buckshot extends FrameworkObject {
     registerElement(new SolidColorBrush());
     registerElement(new RadialGradientBrush());
     registerElement(new StyleSetter());
-    registerElement(new _StyleTemplateImplementation());
+    registerElement(new StyleTemplate());
     registerElement(new VarResource());
     registerElement(new ControlTemplate());
     registerElement(new AnimationResource());
