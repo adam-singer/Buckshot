@@ -1,5 +1,5 @@
 
-class BuckshotTemplateProviderTests extends TestGroupBase
+class TemplateTests extends TestGroupBase
 {
 
   registerTests(){
