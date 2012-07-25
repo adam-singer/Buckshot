@@ -15,7 +15,7 @@ class DomHelpersTests extends TestGroupBase
     
     Expect.isFalse(el.attributes.containsKey("class"));
     
-    Dom.appendClass(el, "foo");
+    Browser.appendClass(el, "foo");
     
     Expect.equals("foo", el.attributes["class"], 'doesnt equal foo');
   }
@@ -25,11 +25,11 @@ class DomHelpersTests extends TestGroupBase
     
     Expect.isFalse(el.attributes.containsKey("class"));
     
-    Dom.appendClass(el, "foo");
+    Browser.appendClass(el, "foo");
     
     Expect.equals("foo", el.attributes["class"], "doesn't equal 'foo'");
     
-    Dom.appendClass(el, "bar");
+    Browser.appendClass(el, "bar");
     
     Expect.equals("foo bar", el.attributes["class"], 'doesnt equal foo bar');
   }

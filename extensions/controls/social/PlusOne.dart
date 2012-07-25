@@ -5,9 +5,9 @@
 #library('social.controls.buckshotui.org');
 
 #import('dart:html');
-#import('../../lib/Buckshot.dart');
-#import('../../external/shared/shared.dart');
-#import('../../external/web/web.dart');
+#import('../../../lib/Buckshot.dart');
+#import('../../../external/shared/shared.dart');
+#import('../../../external/web/web.dart');
 
 
 /**

@@ -1,11 +1,14 @@
 
 #import('dart:html');
-#import('../external/dartxml/lib/xml.dart');
 #import('../lib/Buckshot.dart');
+#import('../external/dartxml/lib/xml.dart');
+#import('../external/shared/shared.dart');
+#import('../external/web/web.dart');
+#import('../external/events/events.dart');
 
 // point this to wherever your copy of the dart source code is
 #import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/unittest.dart');
-#import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/html_config.dart');
+#import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/html_enhanced_config.dart');
 
 #source('InitializationTests.dart');
 #source('FrameworkFundamentalsTests.dart');
@@ -39,7 +42,7 @@
 void main() {
   final _tList = new List<TestGroupBase>();
 
-  useHtmlConfiguration();
+  useHtmlEnhancedConfiguration();
 
   group('Dart Bugs', (){
 

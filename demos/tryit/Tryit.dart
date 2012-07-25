@@ -19,10 +19,10 @@
 #import('../../lib/Buckshot.dart');
 #import('../../external/shared/shared.dart');
 #import('../../external/events/events.dart');
-#import('../../extensions/media/MediaPack.dart');
+#import('../../extensions/controls/media/MediaPack.dart');
 #import('../../extensions/controls/ListBox.dart');
 #import('../../extensions/controls/ModalDialog.dart');
-#import('../../extensions/social/PlusOne.dart');
+#import('../../extensions/controls/social/PlusOne.dart');
 
 // these 2 imports are needed to support plusone...
 
