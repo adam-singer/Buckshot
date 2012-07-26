@@ -195,8 +195,8 @@ class DockPanel extends Panel
     rawElement = new DivElement();
     rawElement.style.overflow = "hidden";
     Polly.makeFlexBox(this);
-    Polly.setVerticalFlexBoxAlignment(rawElement, VerticalAlignment.stretch);
-    Polly.setHorizontalFlexBoxAlignment(rawElement, HorizontalAlignment.stretch);
+    Polly.setVerticalFlexBoxAlignment(this, VerticalAlignment.stretch);
+    Polly.setHorizontalFlexBoxAlignment(this, HorizontalAlignment.stretch);
   }
   
   FrameworkObject makeMe() => new DockPanel();

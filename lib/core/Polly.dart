@@ -5,7 +5,7 @@
 /** 
  * Polly is the cross-browser & cross-platform rendering utility for Buckshot.
  * 
- * She's a harsh mistress, but aye, she be worth it.
+ * She be a harsh mistress, but aye, she be worth it on a cold winter's night.
  */
 class Polly {
   static final prefixes = const ['','-webkit-','-moz-','-o-','-ms-'];
@@ -102,78 +102,142 @@ class Polly {
     return null;
   }
 
-  static void setFlexBoxOrientation(Element element, Orientation orientation){
-    setXPCSS(element, 'flex-direction', (orientation == Orientation.horizontal) ? 'row' : 'column');
+  static void setFlexBoxOrientation(FrameworkElement element, Orientation orientation){
+//    final flexModel = FlexModel.getFlexModel(element);
+    element.rawElement.style.flexFlow = orientation == Orientation.vertical ? 'column' : 'row';
+    
+//    switch(flexModel){
+//      case FlexModel.Flex:
+//        setXPCSS(element.rawElement, 'flex-direction', (orientation == Orientation.horizontal) ? 'row' : 'column');
+//        break;
+//      case FlexModel.FlexBox:
+//        
+//        break;
+//      default:
+//        throw const NotImplementedException();
+//    }
+
   }
   
   
-  /// For individual items within a flexbox, but only in the cross-axis.
-  static void setHorizontalItemFlexAlignment(Element element, HorizontalAlignment alignment){
-    switch(alignment){
-      case HorizontalAlignment.left:
-        Polly.setXPCSS(element, 'align-self', 'flex-start');
+  /** For individual items within a flexbox, but only in the cross-axis. */
+  static void setHorizontalItemFlexAlignment(FrameworkElement element, HorizontalAlignment alignment, [FlexModel flexModel]){
+    if (flexModel == null){
+      flexModel = FlexModel.getFlexModel(element.parent);
+    }
+    
+    switch(flexModel){
+      case FlexModel.Flex:
+        Polly.setXPCSS(element.rawElement, 'flex', 'none');
+        switch(alignment){
+          case HorizontalAlignment.left:
+            setXPCSS(element.rawElement, 'align-self', 'flex-start');
+            break;
+          case HorizontalAlignment.right:
+            setXPCSS(element.rawElement, 'align-self', 'flex-end');
+            break;
+          case HorizontalAlignment.center:
+            setXPCSS(element.rawElement, 'align-self', 'center');
+            break;
+          case HorizontalAlignment.stretch:
+            setXPCSS(element.rawElement, 'align-self', 'stretch');
+            break;
+        }
         break;
-      case HorizontalAlignment.right:
-        Polly.setXPCSS(element, 'align-self', 'flex-end');
+      case FlexModel.FlexBox:
+        
         break;
-      case HorizontalAlignment.center:
-        Polly.setXPCSS(element, 'align-self', 'center');
-        break;
-      case HorizontalAlignment.stretch:
-        Polly.setXPCSS(element, 'align-self', 'stretch');
-        break;
-      }
+      default:
+        throw const NotImplementedException();
+    }
+    
+
   }
 
-  /// For individual items within a flexbox, but only in the cross-axis.
-  static void setVerticalItemFlexAlignment(Element element, VerticalAlignment alignment){
-    switch(alignment){
-      case VerticalAlignment.top:
-        Polly.setXPCSS(element, 'align-self', 'flex-start');
+  /** For individual items within a flexbox, but only in the cross-axis. */
+  static void setVerticalItemFlexAlignment(FrameworkElement element, VerticalAlignment alignment, [FlexModel flexModel]){
+    if (flexModel == null){
+      flexModel = FlexModel.getFlexModel(element.parent);
+    }
+    
+    switch(flexModel){
+      case FlexModel.Flex:
+        Polly.setXPCSS(element.rawElement, 'flex', 'none');
+        switch(alignment){
+          case VerticalAlignment.top:
+            setXPCSS(element.rawElement, 'align-self', 'flex-start');
+            break;
+          case VerticalAlignment.bottom:
+            setXPCSS(element.rawElement, 'align-self', 'flex-end');
+            break;
+          case VerticalAlignment.center:
+            setXPCSS(element.rawElement, 'align-self', 'center');
+            break;
+          case VerticalAlignment.stretch:
+            setXPCSS(element.rawElement, 'align-self', 'stretch');
+            break;
+          }
         break;
-      case VerticalAlignment.bottom:
-        Polly.setXPCSS(element, 'align-self', 'flex-end');
+      case FlexModel.FlexBox:
+        switch(alignment){
+          case VerticalAlignment.top:
+            setXPCSS(element.rawElement, 'flex-align', 'start');
+            break;
+          case VerticalAlignment.bottom:
+            setXPCSS(element.rawElement, 'flex-align', 'end');
+            break;
+          case VerticalAlignment.center:
+            setXPCSS(element.rawElement, 'flex-align', 'center');
+            break;
+          case VerticalAlignment.stretch:
+            setXPCSS(element.rawElement, 'flex-align', 'stretch');
+            break;
+          }
         break;
-      case VerticalAlignment.center:
-        Polly.setXPCSS(element, 'align-self', 'center');
-        break;
-      case VerticalAlignment.stretch:
-        Polly.setXPCSS(element, 'align-self', 'stretch');
-        break;
-      }
+      default:
+        throw const NotImplementedException();
+      
+    }
   }
 
-  static void setHorizontalFlexBoxAlignment(Element element, HorizontalAlignment alignment, [FlexModel flexModel = FlexModel.Flex]){
+  /** 
+   * Sets the horizontal alignment of children within 
+   * a given flex box container [element]. */
+  static void setHorizontalFlexBoxAlignment(FrameworkElement element, HorizontalAlignment alignment, [FlexModel flexModel]){
+    if (flexModel == null){
+      flexModel = FlexModel.getFlexModel(element);
+    }
+    
     switch(flexModel){
       case FlexModel.Flex:
         switch(alignment){
           case HorizontalAlignment.left:
-            setXPCSS(element, 'justify-content', 'flex-start');
+            setXPCSS(element.rawElement, 'justify-content', 'flex-start');
             break;
           case HorizontalAlignment.right:
-            setXPCSS(element, 'justify-content', 'flex-end');
+            setXPCSS(element.rawElement, 'justify-content', 'flex-end');
             break;
           case HorizontalAlignment.center:
-            setXPCSS(element, 'justify-content', 'center');
+            setXPCSS(element.rawElement, 'justify-content', 'center');
             break;
           case HorizontalAlignment.stretch:
-            setXPCSS(element, 'justify-content', 'stretch');
+            setXPCSS(element.rawElement, 'justify-content', 'stretch');
             break;
           }
         break;
       case FlexModel.FlexBox:
         switch(alignment){
           case HorizontalAlignment.left:
-            element.style.flexPack = 'start';
+            element.rawElement.style.flexPack = 'start';
             break;
           case HorizontalAlignment.right:
-            element.style.flexPack = 'end';
+            element.rawElement.style.flexPack = 'end';
             break;
           case HorizontalAlignment.center:
-            element.style.flexPack = 'center';
+            element.rawElement.style.flexPack = 'center';
             break;
           case HorizontalAlignment.stretch:
-            element.style.flexPack = 'start';
+            element.rawElement.style.flexPack = 'start';
             break;
         }
         break;
@@ -182,37 +246,45 @@ class Polly {
     }
   }
 
-  static void setVerticalFlexBoxAlignment(Element element, VerticalAlignment alignment, [FlexModel flexModel = FlexModel.Flex]){
+  
+  /** 
+   * Sets the vertical alignment of children within 
+   * a given flex box container [element]. */
+  static void setVerticalFlexBoxAlignment(FrameworkElement element, VerticalAlignment alignment, [FlexModel flexModel]){
+    if (flexModel == null){
+      flexModel = FlexModel.getFlexModel(element);
+    }
+    
     switch(flexModel){
       case FlexModel.Flex:
         switch(alignment){
           case VerticalAlignment.top:
-            setXPCSS(element, 'align-items', 'flex-start');
+            setXPCSS(element.rawElement, 'align-items', 'flex-start');
             break;
           case VerticalAlignment.bottom:
-            setXPCSS(element, 'align-items', 'flex-end');
+            setXPCSS(element.rawElement, 'align-items', 'flex-end');
             break;
           case VerticalAlignment.center:
-            setXPCSS(element, 'align-items', 'center');
+            setXPCSS(element.rawElement, 'align-items', 'center');
             break;
           case VerticalAlignment.stretch:
-            setXPCSS(element, 'align-items', 'stretch');
+            setXPCSS(element.rawElement, 'align-items', 'stretch');
             break;
         }
         break;
       case FlexModel.FlexBox:
           switch(alignment){
             case VerticalAlignment.top:
-              element.style.flexAlign = 'start';
+              element.rawElement.style.flexAlign = 'start';
               break;
             case VerticalAlignment.bottom:
-              element.style.flexAlign = 'end';
+              element.rawElement.style.flexAlign = 'end';
               break;
             case VerticalAlignment.center:
-              element.style.flexAlign = 'center';
+              element.rawElement.style.flexAlign = 'center';
               break;
             case VerticalAlignment.stretch:
-              element.style.flexAlign = 'stretch';
+              element.rawElement.style.flexAlign = 'stretch';
               break;
           }
         break;
@@ -242,11 +314,11 @@ class Polly {
           Polly.setXPCSS(element.rawElement, 'flex', '1 1 auto');
         }
         
-        setHorizontalFlexBoxAlignment(element.parent.rawElement, element.hAlign, FlexModel.Flex);
+        setHorizontalFlexBoxAlignment(element.parent, element.hAlign, FlexModel.Flex);
       }
 
       if (element.vAlign != null){
-        setVerticalFlexBoxAlignment(element.parent.rawElement, element.vAlign, FlexModel.Flex);
+        setVerticalFlexBoxAlignment(element.parent, element.vAlign, FlexModel.Flex);
       }
     }
     
@@ -256,14 +328,16 @@ class Polly {
         if (element.hAlign == HorizontalAlignment.stretch){
           element.stateBag['__WIDTH_SHIM__'] = element.rawElement.style.width;
           if (element.stateBag['__MEASUREMENT_CHANGED_EVENT_REF__'] == null){
-            element.stateBag['__MEASUREMENT_CHANGED_EVENT_REF__'] = element.parent.measurementChanged + (source, MeasurementChangedEventArgs args){
-              if (element is! Border){
+            element.stateBag['__MEASUREMENT_CHANGED_EVENT_REF__'] = 
+                element.parent.measurementChanged + (source, MeasurementChangedEventArgs args){
+              if (!element.hasProperty('padding')){
+//              if (element is! Border){
                 //TODO: query on the paddingProperty existence instead of checking the element type
                 element.rawElement.style.width = 
-                    '${args.newMeasurement.client.width - (element.margin.left + element.margin.right + ((element.parent is Border) ? element.parent.dynamic.padding.left + element.parent.dynamic.padding.right : 0))}px';
+                    '${args.newMeasurement.client.width - (element.margin.left + element.margin.right + ((element.parent.hasProperty('padding')) ? element.parent.dynamic.padding.left + element.parent.dynamic.padding.right : 0))}px';
               }else{
                 element.rawElement.style.width = 
-                    '${args.newMeasurement.client.width - (element.dynamic.padding.left + element.dynamic.padding.right + element.margin.left + element.margin.right + ((element.parent is Border) ? element.parent.dynamic.padding.left + element.parent.dynamic.padding.right : 0))}px';
+                    '${args.newMeasurement.client.width - (element.dynamic.padding.left + element.dynamic.padding.right + element.margin.left + element.margin.right + ((element.parent.hasProperty('padding')) ? element.parent.dynamic.padding.left + element.parent.dynamic.padding.right : 0))}px';
               }
             };
           }
@@ -279,14 +353,13 @@ class Polly {
             }
           }
           
-          setHorizontalFlexBoxAlignment(element.parent.rawElement, element.hAlign, FlexModel.FlexBox);
+          setHorizontalFlexBoxAlignment(element.parent, element.hAlign, FlexModel.FlexBox);
         }
       }
 
       if (element.vAlign != null){
-        setVerticalFlexBoxAlignment(element.parent.rawElement, element.vAlign, FlexModel.FlexBox);    
+        setVerticalFlexBoxAlignment(element.parent, element.vAlign, FlexModel.FlexBox);    
       }
-
     }
     
     switch(FlexModel.getFlexModel(element.parent)){
@@ -325,7 +398,8 @@ class FlexModel{
       _model = FlexModel.Flex;
     }else if (Polly.getXPCSS(element.rawElement, 'display').endsWith('flexbox')){
       _model = FlexModel.FlexBox;
-    }else if (Polly.getXPCSS(element.rawElement, 'display') == 'box' || Polly.getXPCSS(element.parent.rawElement, 'display').endsWith('-box')){
+    }else if (Polly.getXPCSS(element.rawElement, 'display') == 'box' 
+        || Polly.getXPCSS(element.parent.rawElement, 'display').endsWith('-box')){
       _model = FlexModel.Box;
     }else{
       _model = FlexModel.Unknown;

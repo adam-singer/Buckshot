@@ -17,7 +17,7 @@ class StackPanel extends Panel
       this,
       "orientation",
       (Orientation value){
-        Polly.setFlexBoxOrientation(rawElement, value);
+        Polly.setFlexBoxOrientation(this, value);
       },
       Orientation.vertical, converter:new StringToOrientationConverter());
   }
@@ -46,20 +46,20 @@ class StackPanel extends Panel
     Polly.makeFlexBox(this);
     //rawElement.style.flexFlow = 'column';
     rawElement.style.overflow = 'hidden';
+
+    Polly.setVerticalFlexBoxAlignment(this, VerticalAlignment.top);
+    Polly.setHorizontalFlexBoxAlignment(this, HorizontalAlignment.left);
   }
 
   void updateLayout(){
-    Polly.setVerticalFlexBoxAlignment(rawElement, VerticalAlignment.top);
-    Polly.setHorizontalFlexBoxAlignment(rawElement, HorizontalAlignment.left);
+    // set alignment of children along the cross access
     if (orientation == Orientation.vertical){
-      children.forEach((child){
-        Polly.setXPCSS(child.rawElement, 'flex', 'none');
-        Polly.setHorizontalItemFlexAlignment(child.rawElement, child.hAlign);
+      children.forEach((FrameworkElement child){
+        Polly.setHorizontalItemFlexAlignment(child, child.hAlign);
       });
     }else{
       children.forEach((child){
-        Polly.setXPCSS(child.rawElement, 'flex', 'none');
-        Polly.setVerticalItemFlexAlignment(child.rawElement, child.vAlign);      
+        Polly.setVerticalItemFlexAlignment(child, child.vAlign);      
       });
     }
   }
