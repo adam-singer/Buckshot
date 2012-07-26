@@ -30,7 +30,6 @@
 #source('core/AttachedFrameworkProperty.dart');
 #source('core/DataTemplate.dart');
 #source('core/IFrameworkContainer.dart');
-#source('core/Polly.dart');
 
 #source('events/BuckshotEvent.dart');
 #source('events/MeasurementChangedEventArgs.dart');

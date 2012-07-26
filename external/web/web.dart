@@ -9,3 +9,4 @@
 
 #source('Browser.dart');
 #source('BrowserInfo.dart');
+#source('Polly.dart');

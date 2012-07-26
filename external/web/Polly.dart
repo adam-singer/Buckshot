@@ -6,6 +6,17 @@
  * Polly is the cross-browser & cross-platform rendering utility for Buckshot.
  */
 class Polly {
+  
+  static BrowserInfo _browserInfo;
+  
+  static BrowserInfo get browserInfo() {
+    if (_browserInfo != null) return _browserInfo;
+    
+    _browserInfo = Browser.getBrowserInfo();
+    
+    return _browserInfo;
+  }
+  
   /** 
    * Converts the root DOM element of the given [element] 
    * into a Flexbox. */
