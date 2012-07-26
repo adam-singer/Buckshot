@@ -4,6 +4,8 @@
 
 /** 
  * Polly is the cross-browser & cross-platform rendering utility for Buckshot.
+ * 
+ * She's a harsh mistress, but aye, she be worth it.
  */
 class Polly {
   
@@ -38,11 +40,11 @@ class Polly {
       }
       
       Browser.setHorizontalFlexBoxAlignment(element.parent.rawElement, element.hAlign);
-  }
+    }
 
-  if (element.vAlign != null){
-    Browser.setVerticalFlexBoxAlignment(element.parent.rawElement, element.vAlign);
-  }
+    if (element.vAlign != null){
+      Browser.setVerticalFlexBoxAlignment(element.parent.rawElement, element.vAlign);
+    }
   }
 
 }
