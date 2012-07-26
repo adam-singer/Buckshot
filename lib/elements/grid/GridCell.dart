@@ -68,19 +68,10 @@ class _GridCell extends FrameworkObject
   void updateLayout(){
     if (content == null) return;
     
-    Polly.setXPCSS(content.rawElement, 'flex', 'none');
-    
-    if (content.hAlign != null){
-        if(content.hAlign == HorizontalAlignment.stretch){
-          Polly.setXPCSS(content.rawElement, 'flex', '1 1 auto');
-        }
-        
-        Polly.setHorizontalFlexBoxAlignment(rawElement, content.hAlign);
-    }
-
-    if (content.vAlign != null){
-      Polly.setVerticalFlexBoxAlignment(rawElement, content.vAlign);
-    }
+    //spoof the parent during the alignment pass
+    content.parent = this;
+    Polly.setFlexboxAlignment(content);
+    content.parent = parent;
   }
 
   String get type() => "_GridCell";
