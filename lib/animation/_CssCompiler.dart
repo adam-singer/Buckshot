@@ -68,7 +68,7 @@ class _CssCompiler
         
         setValue(prop, s.value);
         
-        ao.standardPropertyCarryOver[prop.cssPropertyPeer] = Browser.getXPCSS(ao.concreteElement.rawElement, prop.cssPropertyPeer);
+        ao.standardPropertyCarryOver[prop.cssPropertyPeer] = Polly.getXPCSS(ao.concreteElement.rawElement, prop.cssPropertyPeer);
 
         //BUG dartbug.com/2232
         //style.borderRadius is returning null instead of assigned value.
@@ -97,14 +97,14 @@ class _CssCompiler
       StringBuffer sb = new StringBuffer();
       
       //create x-browser version of each animation
-      Browser.prefixes.forEach((String p){
+      Polly.prefixes.forEach((String p){
         String temp = ah.css.toString();
         temp = temp.replaceAll('@keyframes', '@${p}keyframes');
         temp = temp.replaceAll('transform', '${p}transform');
         sb.add(temp);
       });       
 
-      sb.add('#${t} { ${Browser.generateXPCSS("animation", "${anim.key}${t} ${anim.keyFrames.last().time}s linear forwards")} }');
+      sb.add('#${t} { ${Polly.generateXPCSS("animation", "${anim.key}${t} ${anim.keyFrames.last().time}s linear forwards")} }');
       
       compiledCSS.add(sb.toString());
     });

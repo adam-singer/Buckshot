@@ -13,19 +13,19 @@ class FrameworkAnimationTests extends TestGroupBase {
     //create a transition entry
     FrameworkAnimation.setPropertyTransition(b.backgroundProperty, new PropertyTransition(1, TransitionTiming.linear));
 
-    Expect.equals('background 1s linear 0s', Browser.getXPCSS(b.rawElement, 'transition'));
+    Expect.equals('background 1s linear 0s', Polly.getXPCSS(b.rawElement, 'transition'));
 
 
     //add another one
     FrameworkAnimation.setPropertyTransition(b.borderColorProperty, new PropertyTransition(1, TransitionTiming.linear));
 
-    Expect.equals('background 1s linear 0s, border 1s linear 0s', Browser.getXPCSS(b.rawElement, 'transition'));
+    Expect.equals('background 1s linear 0s, border 1s linear 0s', Polly.getXPCSS(b.rawElement, 'transition'));
 
 
     //replace value
     FrameworkAnimation.setPropertyTransition(b.backgroundProperty, new PropertyTransition(3, TransitionTiming.easeIn));
 
-    Expect.equals('background 3s ease-in 0s, border 1s linear 0s', Browser.getXPCSS(b.rawElement, 'transition'));
+    Expect.equals('background 3s ease-in 0s, border 1s linear 0s', Polly.getXPCSS(b.rawElement, 'transition'));
   }
 
   void removePropertyTransition(){
@@ -40,11 +40,11 @@ class FrameworkAnimationTests extends TestGroupBase {
     //remove and test
     FrameworkAnimation.clearPropertyTransition(b.backgroundProperty);
 
-    Expect.equals('border 1s linear 0s', Browser.getXPCSS(b.rawElement, 'transition'));
+    Expect.equals('border 1s linear 0s', Polly.getXPCSS(b.rawElement, 'transition'));
 
     FrameworkAnimation.clearPropertyTransition(b.borderColorProperty);
 
-    Expect.isNull(Browser.getXPCSS(b.rawElement, 'transition'));
+    Expect.isNull(Polly.getXPCSS(b.rawElement, 'transition'));
 
   }
 }

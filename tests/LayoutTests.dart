@@ -37,7 +37,7 @@ void layoutTests()
     final bLC = buckshot.namedElements['bLC'];
     final bCC = buckshot.namedElements['bCC'];
     
-    //pause();
+    pause();
     
     window.requestLayoutFrame(expectAsync0((){
       

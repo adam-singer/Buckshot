@@ -369,7 +369,7 @@ class FrameworkObject extends BuckshotObject {
 
       return (aDepInfo.containsKey(element)) ? aDepInfo[element] : null;
   }
-
+  
   /// Called by the framework to allow an element to construct it's
   /// HTML representation and assign to [component].
   void createElement(){
