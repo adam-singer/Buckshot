@@ -169,11 +169,15 @@ class Polly {
 
     void flexBoxHandler(){
       //supporting the current flex box spec
-
+      element
+        ._manualAlignmentHandler
+        .enableManualHorizontalAlignment(alignment);
     }
 
     void noFlexHandler(){
-      throw const NotImplementedException('Flex box model not yet supported.');
+      element
+      ._manualAlignmentHandler
+      .enableManualHorizontalAlignment(alignment);
     }
 
     switch(flexModel){

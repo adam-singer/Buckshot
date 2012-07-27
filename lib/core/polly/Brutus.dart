@@ -13,7 +13,7 @@ class Brutus
   var _preservedWidth;
   var _preservedHeight;
   var _preservedLeftMargin;
-  var _prezervedRightMargin;
+  var _preservedTopMargin;
 
   final FrameworkElement element;
 
@@ -22,38 +22,48 @@ class Brutus
 
   Brutus.with(this.element);
 
+
+  /**
+   * Enables given manual vertical [alignment] of element within it's parent
+   * container.
+   */
+  void enableManualVerticalAlignment(VerticalAlignment alignment){
+
+  }
+
+  disableManualVerticalAlignment(){
+
+  }
+
+  /**
+   * Enables given manual horizontal [alignment] of element within it's parent
+   * container.
+   */
   void enableManualHorizontalAlignment(HorizontalAlignment alignment){
     if (manualHorizontalAlignment != null){
       disableManualHorizontalAlignment();
     }
+
+    if (alignment == HorizontalAlignment.left) return;
 
     manualHorizontalAlignment = alignment;
 
     void handleHorizontalStretch(){
       //save the width value for later restoral
       _preservedWidth = element.rawElement.style.width;
-
-      _subscribeMeasurementChanged();
     }
 
     void handleHorizontalCenter(){
-      throw const NotImplementedException();
+      _preservedLeftMargin = element.margin;
     }
 
     void handleHorizontalRight(){
-      throw const NotImplementedException();
-    }
-
-    void handleHorizontalLeft(){
-      throw const NotImplementedException();
+      _preservedLeftMargin = element.margin;
     }
 
     switch(alignment){
       case HorizontalAlignment.stretch:
         handleHorizontalStretch();
-        break;
-      case HorizontalAlignment.left:
-        handleHorizontalLeft();
         break;
       case HorizontalAlignment.center:
         handleHorizontalCenter();
@@ -62,6 +72,8 @@ class Brutus
         handleHorizontalRight();
         break;
     }
+
+    _subscribeMeasurementChanged();
   }
 
   void disableManualHorizontalAlignment(){
@@ -80,25 +92,23 @@ class Brutus
     }
 
     void handleHorizontalCenter(){
-      throw const NotImplementedException();
+      element.margin = _preservedLeftMargin;
+
+      _preservedLeftMargin = null;
     }
 
     void handleHorizontalRight(){
-      throw const NotImplementedException();
-    }
+      element.margin = _preservedLeftMargin;
 
-    void handleHorizontalLeft(){
-      throw const NotImplementedException();
+      _preservedLeftMargin = null;
     }
-
 
     switch(manualHorizontalAlignment){
       case HorizontalAlignment.stretch:
         handleHorizontalStretch();
         break;
       case HorizontalAlignment.left:
-        handleHorizontalLeft();
-        break;
+        return;
       case HorizontalAlignment.center:
         handleHorizontalCenter();
         break;
@@ -110,15 +120,7 @@ class Brutus
 
   void clearAllManualAlignments(){
     disableManualHorizontalAlignment();
-  }
-
-
-  void _clearManualHorizontalAlignment(){
-
-  }
-
-  void _clearManualVerticalAlignment(){
-
+    disableManualVerticalAlignment();
   }
 
   void _subscribeMeasurementChanged(){
@@ -163,24 +165,41 @@ class Brutus
     }
 
     void handleHorizontalCenter(){
-      throw const NotImplementedException();
+      element
+        .updateMeasurementAsync
+        .then((ElementRect r){
+          final position =
+              (args.newMeasurement.client.width / 2) - (r.bounding.width / 2);
+          element.rawElement.style.margin =
+              '${_preservedLeftMargin.top}px'
+              ' ${_preservedLeftMargin.right}px'
+              ' ${_preservedLeftMargin.bottom}px'
+              ' ${position + _preservedLeftMargin.left}px';
+      });
     }
 
     void handleHorizontalRight(){
-      throw const NotImplementedException();
+      element
+      .updateMeasurementAsync
+      .then((ElementRect r){
+        final position = args.newMeasurement.client.width - r.bounding.width;
+        element.rawElement.style.margin =
+            '${_preservedLeftMargin.top}px'
+            ' ${_preservedLeftMargin.right}px'
+            ' ${_preservedLeftMargin.bottom}px'
+            ' ${position + _preservedLeftMargin.left}px';
+    });
     }
 
     void handleHorizontalLeft(){
-      throw const NotImplementedException();
+      //throw const NotImplementedException();
     }
 
-    if (manualHorizontalAlignment != null){
+    if(manualHorizontalAlignment != null){
+
       switch(manualHorizontalAlignment){
         case HorizontalAlignment.stretch:
           handleHorizontalStretch();
-          break;
-        case HorizontalAlignment.left:
-          handleHorizontalLeft();
           break;
         case HorizontalAlignment.center:
           handleHorizontalCenter();
@@ -188,11 +207,14 @@ class Brutus
         case HorizontalAlignment.right:
           handleHorizontalRight();
           break;
+        default:
+          throw const BuckshotException('HorizontalAlignment.left'
+            ' invalid here.');
       }
     }
 
     if (manualVerticalAlignment != null){
-
+      throw const NotImplementedException();
     }
   }
 }
