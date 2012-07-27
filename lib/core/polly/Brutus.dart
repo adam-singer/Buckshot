@@ -28,11 +28,83 @@ class Brutus
    * container.
    */
   void enableManualVerticalAlignment(VerticalAlignment alignment){
+    if (manualVerticalAlignment != null){
+      disableManualVerticalAlignment();
+    }
 
+    if (alignment == VerticalAlignment.top) return;
+
+    manualVerticalAlignment = alignment;
+
+    void handleVerticalStretch(){
+      //save the width value for later restoral
+      _preservedHeight = element.rawElement.style.height;
+    }
+
+    void handleVerticalCenter(){
+      _preservedTopMargin = element.margin;
+    }
+
+    void handleVerticalBottom(){
+      _preservedTopMargin = element.margin;
+    }
+
+    switch(alignment){
+      case VerticalAlignment.stretch:
+        handleVerticalStretch();
+        break;
+      case VerticalAlignment.center:
+        handleVerticalCenter();
+        break;
+      case VerticalAlignment.bottom:
+        handleVerticalBottom();
+        break;
+    }
+
+    _subscribeMeasurementChanged();
   }
 
   disableManualVerticalAlignment(){
+    if (manualVerticalAlignment == null) return;
 
+    if (manualHorizontalAlignment == null){
+      _unsubscribeMeasurementChanged();
+    }
+
+    void handleVerticalStretch(){
+
+      element.rawElement.style.height = _preservedHeight;
+
+      _preservedHeight = null;
+    }
+
+    void handleVerticalCenter(){
+      element.margin = _preservedTopMargin;
+
+      _preservedTopMargin = null;
+    }
+
+    void handleVerticalBottom(){
+      element.margin = _preservedTopMargin;
+
+      _preservedTopMargin = null;
+    }
+
+    switch(manualVerticalAlignment){
+      case VerticalAlignment.stretch:
+        handleVerticalStretch();
+        break;
+      case VerticalAlignment.top:
+        return;
+      case VerticalAlignment.center:
+        handleVerticalCenter();
+        break;
+      case VerticalAlignment.bottom:
+        handleVerticalBottom();
+        break;
+    }
+
+    manualVerticalAlignment = null;
   }
 
   /**
@@ -80,9 +152,9 @@ class Brutus
 
     if (manualHorizontalAlignment == null) return;
 
-    _unsubscribeMeasurementChanged();
-
-    manualHorizontalAlignment = null;
+    if (manualVerticalAlignment == null){
+      _unsubscribeMeasurementChanged();
+    }
 
     void handleHorizontalStretch(){
 
@@ -116,6 +188,8 @@ class Brutus
         handleHorizontalRight();
         break;
     }
+
+    manualHorizontalAlignment = null;
   }
 
   void clearAllManualAlignments(){
@@ -188,15 +262,41 @@ class Brutus
             ' ${_preservedLeftMargin.right}px'
             ' ${_preservedLeftMargin.bottom}px'
             ' ${position + _preservedLeftMargin.left}px';
+      });
+    }
+
+    void handleVerticalStretch(){
+      db('v stretch', element);
+    }
+
+    void handleVerticalCenter(){
+      element
+      .updateMeasurementAsync
+      .then((ElementRect r){
+        final position =
+            (args.newMeasurement.client.height / 2) - (r.bounding.height / 2);
+        element.rawElement.style.margin =
+            '${position + _preservedTopMargin.top}px'
+            ' ${_preservedTopMargin.right}px'
+            ' ${_preservedTopMargin.bottom}px'
+            ' ${_preservedTopMargin.left}px';
     });
     }
 
-    void handleHorizontalLeft(){
-      //throw const NotImplementedException();
+    void handleVerticalBottom(){
+      element
+      .updateMeasurementAsync
+      .then((ElementRect r){
+        final position = args.newMeasurement.client.height - r.bounding.height;
+        element.rawElement.style.margin =
+            '${position + _preservedTopMargin.top}px'
+            ' ${_preservedTopMargin.right}px'
+            ' ${_preservedTopMargin.bottom}px'
+            ' ${_preservedTopMargin.left}px';
+      });
     }
 
     if(manualHorizontalAlignment != null){
-
       switch(manualHorizontalAlignment){
         case HorizontalAlignment.stretch:
           handleHorizontalStretch();
@@ -214,7 +314,20 @@ class Brutus
     }
 
     if (manualVerticalAlignment != null){
-      throw const NotImplementedException();
+      switch(manualVerticalAlignment){
+        case VerticalAlignment.stretch:
+          handleVerticalStretch();
+          break;
+        case VerticalAlignment.center:
+          handleVerticalCenter();
+          break;
+        case VerticalAlignment.bottom:
+          handleVerticalBottom();
+          break;
+        default:
+          throw const BuckshotException('VerticalAlignment.top'
+          ' invalid here.');
+      }
     }
   }
 }

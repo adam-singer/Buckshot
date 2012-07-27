@@ -221,24 +221,15 @@ class Polly {
     }
 
     void flexBoxHandler(){
-      switch(alignment){
-        case VerticalAlignment.top:
-          setXPCSS(element.rawElement, 'flex-align', 'start');
-          break;
-        case VerticalAlignment.bottom:
-          setXPCSS(element.rawElement, 'flex-align', 'end');
-          break;
-        case VerticalAlignment.center:
-          setXPCSS(element.rawElement, 'flex-align', 'center');
-          break;
-        case VerticalAlignment.stretch:
-          setXPCSS(element.rawElement, 'flex-align', 'stretch');
-          break;
-        }
+      element
+      ._manualAlignmentHandler
+      .enableManualVerticalAlignment(alignment);
     }
 
     void noFlexHandler(){
-      throw const NotImplementedException('Flex box model not yet supported.');
+      element
+      ._manualAlignmentHandler
+      .enableManualVerticalAlignment(alignment);
     }
 
     switch(flexModel){

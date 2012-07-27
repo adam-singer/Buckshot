@@ -5,10 +5,16 @@
 void layoutTests()
 {
 
+  // Milliseconds to wait for the layout to complete before performing
+  // tests.
+  final int layoutAllowance = 550;
+
   // Take measurements of reference layout to make sure they match
   // expected results.
   test('Border Layout', (){
     buckshot.rootView = new BorderDebug();
+
+    window.setTimeout(expectAsync0((){
 
     buckshot.namedElements.getValues().forEach((v)=> v.updateMeasurement());
 
@@ -37,7 +43,7 @@ void layoutTests()
     final bLC = buckshot.namedElements['bLC'];
     final bCC = buckshot.namedElements['bCC'];
 
-    pause();
+//    pause();
 
     window.requestLayoutFrame(expectAsync0((){
 
@@ -105,6 +111,9 @@ void layoutTests()
       measureElement(bCC, 4672.5, 141, 20, 17);
 
     }));
+
+    }), layoutAllowance);
+
   });
 
 
@@ -112,6 +121,8 @@ void layoutTests()
   // expected results.
   test('StackPanel Layout', (){
     buckshot.rootView = new StackPanelDebug();
+
+    window.setTimeout(expectAsync0((){
 
     buckshot.namedElements.getValues().forEach((v)=> v.updateMeasurement());
 
@@ -131,7 +142,7 @@ void layoutTests()
     final lblVCenter = buckshot.namedElements['lblVCenter'];
     final lblBottom = buckshot.namedElements['lblBottom'];
 
-    pause();
+//    pause();
     window.requestLayoutFrame(
       expectAsync0((){
         /* root stackpanel */
@@ -183,6 +194,9 @@ void layoutTests()
 
       })
     );
+
+    }), layoutAllowance);
+
   });
 
 
@@ -191,8 +205,8 @@ void layoutTests()
   test('Grid Layout', (){
     buckshot.rootView = new GridDebug();
 
-    // Adding a one second delay to let the grid layout complete
-    // otherwise some measurements will still be 0.
+    // Adding a delay to allow the layout to complete
+    // otherwise some measurements will still be 0. Especially in JS.
     window.setTimeout(expectAsync0((){
 
       buckshot.namedElements.getValues().forEach((v)=> v.updateMeasurement());
@@ -273,7 +287,7 @@ void layoutTests()
       );
 
 
-    }), 500);
+    }), layoutAllowance);
 
 
   });
@@ -317,10 +331,10 @@ class GridDebug implements IView
 void measureElement(FrameworkElement element, num top, num left, num width, num height){
 //  dumpMeasurements(element);
 //  Expect.approxEquals(top, element.mostRecentMeasurement.bounding.top, tolerance:1.5, reason:'${element.name} top');
-  Expect.equals(top, element.mostRecentMeasurement.bounding.top, '${element.name} top');
-  Expect.equals(left, element.mostRecentMeasurement.bounding.left, '${element.name} left');
-  Expect.equals(width, element.mostRecentMeasurement.bounding.width, '${element.name} Width');
-  Expect.equals(height, element.mostRecentMeasurement.bounding.height, '${element.name} Height');
+  Expect.approxEquals(top, element.mostRecentMeasurement.bounding.top, .5, '${element.name} top');
+  Expect.approxEquals(left, element.mostRecentMeasurement.bounding.left, .5, '${element.name} left');
+  Expect.approxEquals(width, element.mostRecentMeasurement.bounding.width, .5, '${element.name} Width');
+  Expect.approxEquals(height, element.mostRecentMeasurement.bounding.height, .5, '${element.name} Height');
 }
 
 /// Adds a manual pause that only proceeds after clicking the browser.
