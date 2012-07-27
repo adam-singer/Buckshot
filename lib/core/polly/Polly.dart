@@ -410,10 +410,12 @@ class Polly {
 
       if (element.hAlign != null){
         if (element.hAlign == HorizontalAlignment.stretch){
-          element._manualAlignmentHandler.enableHorizontalStretch();
+          element
+            ._manualAlignmentHandler
+            .enableManualHorizontalAlignment(HorizontalAlignment.stretch);
         }else{
           //something else besides stretch
-          element._manualAlignmentHandler.disableHorizontalStretch();
+          element._manualAlignmentHandler.disableManualHorizontalAlignment();
 
           setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
             FlexModel.FlexBox);

@@ -33,7 +33,7 @@
 
 #source('core/polly/Polly.dart');
 #source('core/polly/FlexModel.dart');
-#source('core/polly/ManualAlignmentHandler.dart');
+#source('core/polly/Brutus.dart');
 
 #source('events/BuckshotEvent.dart');
 #source('events/MeasurementChangedEventArgs.dart');
