@@ -31,24 +31,24 @@
 #source('DemoModel.dart');
 
 
-void main() { 
+void main() {
   buckshot.registerElement(new ListBox());
   buckshot.registerElement(new PlusOne());
   buckshot.registerElement(new ModalDialog());
-  
+
   Views views = new Views();
-  
+
   // Register extensions
   // These are exposed by the extension libraries.
   // You could also import individual extensions instead.
   initializeMediaPackExtensions();
-      
+
   // create our main view and error view
   FrameworkObject o = Template.deserialize(document.query('#main').text);
   FrameworkObject errorUI = Template.deserialize(views.errorUI);
-  
-  // get references to all the ui interactives that we need    
-  TextBlock tbError = buckshot.namedElements["tbErrorMessage"];  
+
+  // get references to all the ui interactives that we need
+  TextBlock tbError = buckshot.namedElements["tbErrorMessage"];
   Border borderContent = buckshot.namedElements["borderContent"];
   Button btnRefresh = buckshot.namedElements["btnRefresh"];
   Button btnClear = buckshot.namedElements["btnClear"];
@@ -56,15 +56,15 @@ void main() {
   DropDownList ddlElements = buckshot.namedElements["ddlElements"];
   DropDownList ddlControls = buckshot.namedElements["ddlControls"];
   DropDownList ddlBinding = buckshot.namedElements["ddlBinding"];
-  DropDownList ddlMediaExtensions = buckshot.namedElements["ddlMediaExtensions"];  
+  DropDownList ddlMediaExtensions = buckshot.namedElements["ddlMediaExtensions"];
   StackPanel spRoot = buckshot.namedElements['spRoot'];
-  
+
   // set buckshot to the root's datacontext
   spRoot.dataContext = buckshot;
-  
+
   // set a demo view model into the borderContent's datacontext
   borderContent.dataContext = new DemoViewModel();
-  
+
   // this event actually renders the chosen content, or provides and error
   // message if something went wrong
   btnRefresh.click + (_, __){
@@ -94,15 +94,15 @@ void main() {
       borderContent.content = errorUI;
     }
   };
-    
+
   btnClear.click + (_,__){
-    
+
     tbUserInput.text = "";
-    
+
     //TODO this should support '= null' but does not
     borderContent.content = new TextBlock();
   };
-    
+
   void handleSelection(_, SelectedItemChangedEventArgs<DropDownListItem> args){
 
     switch(args.selectedItem.value.toString()){
@@ -194,21 +194,21 @@ void main() {
         tbUserInput.text = views.listBoxView;
         borderContent.content = Template.deserialize(views.listBoxView);
         break;
-    }  
+    }
   }
-  
+
   ddlElements.selectionChanged + handleSelection;
   ddlBinding.selectionChanged + handleSelection;
   ddlMediaExtensions.selectionChanged + handleSelection;
   ddlControls.selectionChanged + handleSelection;
-    
+
   // render the main view
   buckshot.renderRaw(o);
-  
-  var x = new ModalDialog();
-  x.text = "Hello World this is a test";
-  x.title = 'Hello world, this is a title';
-  x.show();
+
+//  var x = new ModalDialog();
+//  x.text = "Hello World this is a test";
+//  x.title = 'Hello world, this is a title';
+//  x.show();
 }
 
 

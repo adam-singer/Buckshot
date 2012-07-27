@@ -21,8 +21,8 @@ Buckshot get buckshot() => new Buckshot._cached();
 */
 class Buckshot extends FrameworkObject {
   static final String _defaultRootID = "#BuckshotHost";
-  static final String _version = '0.42 Alpha';
-    
+  static final String _version = '0.50 Alpha';
+
   IView _currentView;
   Element _domRootElement;
   StyleElement _buckshotCSS;
@@ -52,7 +52,7 @@ class Buckshot extends FrameworkObject {
   FrameworkProperty versionProperty;
 
   static Buckshot _ref;
-  
+
   /// Pass the ID of the element in the DOM where buckshot will render content.
   Buckshot(String buckshotRootID)
   :
@@ -62,7 +62,7 @@ class Buckshot extends FrameworkObject {
     _attachedProperties = new HashMap<AttachedFrameworkProperty,
             HashMap<FrameworkObject, Dynamic>>(),
     domRoot = new Border()
-  {    
+  {
     _initBuckshotSystem(buckshotRootID);
   }
 
@@ -88,10 +88,10 @@ class Buckshot extends FrameworkObject {
     _ref = this;
     _initBuckshotSystem(rootID);
   }
-  
+
   void _initBuckshotSystem(String rootID)
-  {     
-    
+  {
+
     _domRootElement = document.query(rootID);
 
     if (_domRootElement == null)
@@ -102,13 +102,13 @@ class Buckshot extends FrameworkObject {
       throw new BuckshotException("Root element for Buckshot"
         " must be a <div>. Element given was"
         " a <${_domRootElement.tagName.toLowerCase()}>");
-   
+
     if (!browserOK){
       print('Buckshot Warning: Browser may not be compatible with Buckshot framework.');
     }
-    
+
     //print(browser);
-      
+
     _initCSS();
 
     _initializeBuckshotProperties();
@@ -116,7 +116,7 @@ class Buckshot extends FrameworkObject {
     //set the domRoot
     _domRootElement.elements.clear();
     _domRootElement.elements.add(domRoot.rawElement);
-    
+
     // register core elements that do not derive from Control
     _registerCoreElements();
 
@@ -161,22 +161,22 @@ class Buckshot extends FrameworkObject {
       }
     });
   }
-  
-  /** 
-   * Returns true if the framework is known to be compatible with 
+
+  /**
+   * Returns true if the framework is known to be compatible with
    * the browser type/version it is running in.
    */
   static bool get browserOK() {
 
     final BrowserInfo bi = Browser.getBrowserInfo();
-    
+
     if (bi.browser == Browser.DARTIUM) return true;
-        
+
     //Chrome(ium) v21+
     if (bi.browser == Browser.CHROME){
       if (bi.version >= 21) return true;
-    }   
-    
+    }
+
     return false;
   }
 
@@ -187,7 +187,7 @@ class Buckshot extends FrameworkObject {
     // now register controls that may depend on control templates for visuals
     _registerCoreControls();
   }
-  
+
   void _registerCoreElements(){
     //registering elements we need ahead of time (poor man's reflection...)
 
@@ -238,7 +238,7 @@ class Buckshot extends FrameworkObject {
     registerElement(new AnimationResource());
     registerElement(new AnimationKeyFrame());
     registerElement(new AnimationState());
-    
+
     //actions
     registerElement(new SetPropertyAction());
   }
@@ -247,7 +247,7 @@ class Buckshot extends FrameworkObject {
   //doing this makes the framework more brittle because controls that
   //use control template may try to implement a control that isn't yet
   //registered here...
-  void _registerCoreControls(){    
+  void _registerCoreControls(){
     registerElement(new TextBox());
     registerElement(new Slider());
     registerElement(new Button());
@@ -271,7 +271,7 @@ class Buckshot extends FrameworkObject {
       return res;
     }
   }
-  
+
   void registerAttachedProperty(String propertyName, Function setterFunc){
     _objectRegistry[propertyName] = setterFunc;
   }
@@ -312,8 +312,8 @@ class Buckshot extends FrameworkObject {
   /// Wraps a FrameworkElement into an [IView] and sets it as the root view.
   void renderRaw(FrameworkElement element){
     rootView = new IView.from(element);
-  } 
-  
+  }
+
   /// Changes the active context for the framework and returns the
   /// previous context.
   ///
@@ -328,7 +328,7 @@ class Buckshot extends FrameworkObject {
   void dumpRegisteredObjects(){
     this._objectRegistry.forEach((k, v) => print('${v is FrameworkElement || v is FrameworkResource ? v.type : "()"}'));
   }
-  
+
   String get type() => "BuckshotSystem";
   }
 
@@ -354,7 +354,7 @@ class Buckshot extends FrameworkObject {
 //class buckshot extends FrameworkObject {
 //  static final String _defaultRootID = "#BuckshotHost";
 //  static final String _version = '0.42 Alpha';
-//    
+//
 //  static IView _currentView;
 //  static Element _domRootElement;
 //  static StyleElement _buckshotCSS;
@@ -382,7 +382,7 @@ class Buckshot extends FrameworkObject {
 //
 //  /// Bindable property representing the current version of Buckshot
 //  static FrameworkProperty versionProperty;
-//  
+//
 //  static buckshot init(){
 //    namedElements = new HashMap<String, FrameworkObject>();
 //    _resourceRegistry = new HashMap<String, FrameworkResource>();
@@ -390,15 +390,15 @@ class Buckshot extends FrameworkObject {
 //    _attachedProperties = new HashMap<AttachedFrameworkProperty,
 //            HashMap<FrameworkObject, Dynamic>>();
 //    domRoot = new Border();
-//    
+//
 //    _initBuckshotSystem(Buckshot._defaultRootID);
-//    
+//
 //    return new buckshot();
 //  }
-//  
+//
 //  static void _initBuckshotSystem(String rootID)
-//  {     
-//    
+//  {
+//
 //    _domRootElement = document.query(rootID);
 //
 //    if (_domRootElement == null)
@@ -409,13 +409,13 @@ class Buckshot extends FrameworkObject {
 //      throw new BuckshotException("Root element for Buckshot"
 //        " must be a <div>. Element given was"
 //        " a <${_domRootElement.tagName.toLowerCase()}>");
-//   
+//
 //    if (!browserOK){
 //      print('Buckshot Warning: Browser may not be compatible with Buckshot framework.');
 //    }
-//    
+//
 //    //print(browser);
-//      
+//
 //    _initCSS();
 //
 //    _initializeBuckshotProperties();
@@ -423,7 +423,7 @@ class Buckshot extends FrameworkObject {
 //    //set the domRoot
 //    _domRootElement.elements.clear();
 //    _domRootElement.elements.add(domRoot.rawElement);
-//    
+//
 //    // register core elements that do not derive from Control
 //    _registerCoreElements();
 //
@@ -467,23 +467,23 @@ class Buckshot extends FrameworkObject {
 //    });
 //  }
 //
-//  
+//
 //  static Browser get browser() => new Browser();
-//  
+//
 //  /** Returns true if the framework is known to be compatible with the browser type/version it is running in */
 //  static bool get browserOK() {
 //
 //    if (browser.browser == Browser.DARTIUM) return true;
-//    
-//    
+//
+//
 //    //Chrome(ium) v21+
 //    if (browser.browser == Browser.CHROME){
 //      if (browser.version >= 21) return true;
-//    }   
-//    
+//    }
+//
 //    return false;
 //  }
-//  
+//
 //  static void _registerCoreElements(){
 //    //registering elements we need ahead of time (poor man's reflection...)
 //
@@ -542,7 +542,7 @@ class Buckshot extends FrameworkObject {
 //  //doing this makes the framework more brittle because controls that
 //  //use control template may try to implement a control that isn't yet
 //  //registered here...
-//  static void _registerCoreControls(){    
+//  static void _registerCoreControls(){
 //    registerElement(new TextBox());
 //    registerElement(new Slider());
 //    registerElement(new Button());
@@ -604,8 +604,8 @@ class Buckshot extends FrameworkObject {
 //  /// Wraps a FrameworkElement into an [IView] and sets it as the root view.
 //  static void renderRaw(FrameworkElement element){
 //    rootView = new IView.from(element);
-//  } 
-//  
+//  }
+//
 //  /// Changes the active context for the framework and returns the
 //  /// previous context.
 //  ///
@@ -620,6 +620,6 @@ class Buckshot extends FrameworkObject {
 //  static void dumpRegisteredObjects(){
 //    _objectRegistry.forEach((k, v) => print('${v is FrameworkElement || v is FrameworkResource ? v.type : "()"}'));
 //  }
-//  
+//
 //  String get type() => "BuckshotSystem";
 //  }
