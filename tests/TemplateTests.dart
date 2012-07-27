@@ -2,8 +2,10 @@
 class TemplateTests extends TestGroupBase
 {
 
+  //TODO: JSON & YAML template tests
+
   registerTests(){
-    this.testGroupName = "Buckshot XML Tests";
+    this.testGroupName = "Template Tests";
 
     testList["registry lookup not found throws"] = registryLookupNotFoundThrows;
     testList["core elements"] = coreElements;
@@ -17,45 +19,8 @@ class TemplateTests extends TestGroupBase
     testList["simple property node assigns correctly"] = simplePropertyNodeAssignsCorrectly;
     testList["enum property node assigns correctly"] = enumPropertyNodeAssignsCorrectly;
     testList["attached property node assigns correctly"] = attachedPropertyNodeAssignsCorrectly;
-    testList["comments ignored everywhere"] = commentsIgnored;
     //TODO bindings
     //TODO complex properties (collections)
-  }
-
-  void commentsIgnored(){
-    String t =
-      '''
-      <!--comment before xml-->
-      <stackpanel>
-        <!--comment in collection context -->
-        <textblock text="Before Border TextBlock">
-        <!--comment in textblock -->  
-        </textblock>
-        <border width="300" height="300" background="Green">
-          <textblock halign="center" text="In-Border TextBlock" foreground="White">
-            <!-- properties can be declared inside the element like so... -->
-            <valign>center</valign>
-            <!--comment in collection context -->
-          </textblock>
-        </border>
-        <!--comment in collection context -->
-        <textblock text="After Border TextBlock"></textblock>
-      </stackpanel>
-      <!--comment after xml -->
-      ''';
-
-    var result = Template.deserialize(t);
-
-    Expect.isTrue(result is StackPanel);
-
-    Expect.equals(3, result.dynamic.children.length);
-
-    Expect.isTrue(result.dynamic.children[0] is TextBlock);
-    Expect.isTrue(result.dynamic.children[1] is Border);
-    Expect.isTrue(result.dynamic.children[2] is TextBlock);
-
-    Expect.isTrue(result.dynamic.children[1].content is TextBlock);
-    Expect.equals(VerticalAlignment.center, result.dynamic.children[1].content.vAlign);
   }
 
   void attachedPropertyNodeAssignsCorrectly(){

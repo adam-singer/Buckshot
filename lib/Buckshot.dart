@@ -30,7 +30,11 @@
 #source('core/AttachedFrameworkProperty.dart');
 #source('core/DataTemplate.dart');
 #source('core/IFrameworkContainer.dart');
-#source('core/Polly.dart');
+
+#source('core/polly/Polly.dart');
+#source('core/polly/FlexModel.dart');
+#source('core/polly/ManualAlignmentHandler.dart');
+
 #source('events/BuckshotEvent.dart');
 #source('events/MeasurementChangedEventArgs.dart');
 #source('events/DragEventArgs.dart');

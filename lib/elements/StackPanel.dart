@@ -55,11 +55,11 @@ class StackPanel extends Panel
     // set alignment of children along the cross access
     if (orientation == Orientation.vertical){
       children.forEach((FrameworkElement child){
-        Polly.setHorizontalItemFlexAlignment(child, child.hAlign);
+        Polly.setItemHorizontalCrossAxisAlignment(child, child.hAlign);
       });
     }else{
       children.forEach((child){
-        Polly.setVerticalItemFlexAlignment(child, child.vAlign);      
+        Polly.setItemVerticalCrossAxisAlignment(child, child.vAlign);      
       });
     }
   }

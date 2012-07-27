@@ -14,6 +14,8 @@ class FrameworkElement extends FrameworkObject {
 
   final HashMap<String, String> _transitionProperties;
 
+  ManualAlignmentHandler _manualAlignmentHandler;
+
   /// Represents the margin [Thickness] area outside the FrameworkElement boundary.
   FrameworkProperty marginProperty;
   /// Represents the width of the FrameworkElement.
@@ -90,11 +92,11 @@ class FrameworkElement extends FrameworkObject {
 //  FrameworkEvent<KeyEventArgs> keyDown;
 
   //TODO mouseWheel, onScroll;
-  
+
   //---------------------------------------------------------------------
   // Drag events
   //---------------------------------------------------------------------
-  
+
   /// Fires when an object is dragged into the drop target's boundary
   FrameworkEvent<DragEventArgs> dragEnter;
   /// Fires when an object is dragged out of the drop target's boundary.
@@ -115,6 +117,8 @@ class FrameworkElement extends FrameworkObject {
     _transitionProperties = new HashMap<String, String>()
   {
     Browser.appendClass(rawElement, "FrameworkElement");
+
+    _manualAlignmentHandler = new ManualAlignmentHandler.with(this);
 
     _style = new StyleTemplate(); //give a blank style so merging works immediately
 
@@ -353,15 +357,15 @@ class FrameworkElement extends FrameworkObject {
           _style = value;
         }
       }, new StyleTemplate());
-    
+
     draggableProperty = new FrameworkProperty(
       this,
       "draggable",
       (bool value) {
         rawElement.draggable = value;
-      }, 
+      },
       false,
-      converter:const StringToBooleanConverter());    
+      converter:const StringToBooleanConverter());
   }
 
   /**
@@ -453,7 +457,7 @@ class FrameworkElement extends FrameworkObject {
   set hAlign(HorizontalAlignment value) => setValue(hAlignProperty, value);
   /// Gets the [horizontalAlignmentProperty] value.
   HorizontalAlignment get hAlign() => getValue(hAlignProperty);
-  
+
   /// Sets the [draggableProperty] value.
   set draggable(bool value) => setValue(draggableProperty, value);
   /// Gets the [draggableProperty] value.
@@ -530,7 +534,7 @@ class FrameworkElement extends FrameworkObject {
   //TODO: throw exception (maybe) if element is not loaded in DOM
   Future<ElementRect> get updateMeasurementAsync(){
    Completer c = new Completer();
-   
+
    rawElement.rect.then((ElementRect r){
     setValue(actualWidthProperty, r.bounding.width);
     setValue(actualHeightProperty, r.bounding.height);
@@ -547,29 +551,29 @@ class FrameworkElement extends FrameworkObject {
 //
 //    void keyHandler(e){
 //      if (!keyUp.hasHandlers) return;
-//      
+//
 //      e.stopPropagation();
-//      
+//
 //      var ev = new KeyEventArgs(e.keyCode, e.charCode);
 //      ev.altKey = e.altKey;
 //      ev.shiftKey = e.shiftKey;
 //      ev.ctrlKey = e.ctrlKey;
-//      
+//
 //      keyUp.invoke(this, ev);
 //    }
-//    
+//
 //    keyUp = new FrameworkEvent<EventArgs>
 //    ._watchFirstAndLast(
 //      () => rawElement.on.keyUp.add(keyHandler),
 //      () => rawElement.on.keyUp.add(keyHandler)
 //      );
-//    
+//
 //    keyDown = new FrameworkEvent<EventArgs>
 //    ._watchFirstAndLast(
 //      () => rawElement.on.keyDown.add(keyHandler),
 //      () => rawElement.on.keyDown.add(keyHandler)
 //      );
-    
+
     void mouseUpHandler(e){
       if (!mouseUp.hasHandlers) return;
 
@@ -580,7 +584,7 @@ class FrameworkElement extends FrameworkObject {
       mouseUp.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
 
     }
-    
+
     mouseUp = new BuckshotEvent<MouseEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.mouseUp.add(mouseUpHandler),
@@ -721,20 +725,20 @@ class FrameworkElement extends FrameworkObject {
       () => rawElement.on.mouseOut.add(mouseLeaveHandler),
       () => rawElement.on.mouseOut.remove(mouseLeaveHandler)
     );
-    
+
     _initFrameworkDragEvents();
   }
-  
+
   void _initFrameworkDragEvents() {
-    
+
     // Handle enter events where an element is entering
     // another element's area
     void dragEnterHandler(e) {
       if (!dragEnter.hasHandlers) return;
-            
+
       dragEnter.invoke(this, new DragEventArgs(e.dataTransfer));
     }
-    
+
     dragEnter = new BuckshotEvent<DragEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.dragEnter.add(dragEnterHandler),
@@ -744,10 +748,10 @@ class FrameworkElement extends FrameworkObject {
     // Handle dragleave events
     void dragLeaveHandler(e) {
       if (!dragLeave.hasHandlers) return;
-      
+
       dragLeave.invoke(this, new DragEventArgs(e.dataTransfer));
     }
-    
+
     dragLeave = new BuckshotEvent<DragEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.dragLeave.add(dragLeaveHandler),
@@ -757,54 +761,54 @@ class FrameworkElement extends FrameworkObject {
     // Handle dragover events
     void dragOverHandler(e) {
       if (!dragOver.hasHandlers) return;
-      
+
       e.stopPropagation();
-      
+
       dragOver.invoke(this, new DragEventArgs(e.dataTransfer));
     }
-    
+
     dragOver = new BuckshotEvent<DragEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.dragOver.add(dragOverHandler),
       () => rawElement.on.dragOver.remove(dragOverHandler)
     );
-    
+
     // Handle drop events
     void dropHandler(e) {
       if (!drop.hasHandlers) return;
-      
+
       e.preventDefault();
       e.stopPropagation();
-      
+
       drop.invoke(this, new DragEventArgs(e.dataTransfer));
     }
-    
+
     drop = new BuckshotEvent<DragEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.drop.add(dropHandler),
       () => rawElement.on.drop.remove(dropHandler)
     );
-    
+
     // Handle dragstart events
     void dragStartHandler(e) {
       if (!dragStart.hasHandlers) return;
-      
+
       dragStart.invoke(this, new DragEventArgs(e.dataTransfer));
     }
-    
+
     dragStart = new BuckshotEvent<DragEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.dragStart.add(dragStartHandler),
       () => rawElement.on.dragStart.remove(dragStartHandler)
     );
-    
+
     // Handle dragend events
     void dragEndHandler(e) {
       if (!dragEnd.hasHandlers) return;
-      
+
       dragEnd.invoke(this, new DragEventArgs(e.dataTransfer));
     }
-    
+
     dragEnd = new BuckshotEvent<DragEventArgs>
     ._watchFirstAndLast(
       () => rawElement.on.dragEnd.add(dragEndHandler),
