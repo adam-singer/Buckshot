@@ -28,6 +28,11 @@ class Brutus
    * container.
    */
   void enableManualVerticalAlignment(VerticalAlignment alignment){
+
+    if (manualVerticalAlignment != null && manualVerticalAlignment == alignment){
+      return;
+    }
+
     if (manualVerticalAlignment != null){
       disableManualVerticalAlignment();
     }
@@ -112,11 +117,19 @@ class Brutus
    * container.
    */
   void enableManualHorizontalAlignment(HorizontalAlignment alignment){
+
+    if (manualHorizontalAlignment != null &&
+        manualHorizontalAlignment == alignment){
+      return;
+    }
+
     if (manualHorizontalAlignment != null){
       disableManualHorizontalAlignment();
     }
 
     if (alignment == HorizontalAlignment.left) return;
+
+//    db('enable manual horizontal alignment', element);
 
     manualHorizontalAlignment = alignment;
 
@@ -216,7 +229,7 @@ class Brutus
   void _sizeChangedEventHandler(_, MeasurementChangedEventArgs args){
 
     void handleHorizontalStretch(){
-      if (element.hasProperty('padding')){
+      if (element.hasProperty('padding') && Polly.browserInfo.browser != Browser.FIREFOX){
         final calcWidth = args.newMeasurement.client.width -
             (element.dynamic.padding.left +
              element.dynamic.padding.right +

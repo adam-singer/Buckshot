@@ -9,6 +9,11 @@ void layoutTests()
   // tests.
   final int layoutAllowance = 550;
 
+  // Setting to true will cause the unit test run to pause after each layout
+  // is drawn to allow for visual inspection.  Clicking in the browser window
+  // will cause the test to proceed.
+  final bool usePause = true;
+
   // Take measurements of reference layout to make sure they match
   // expected results.
   test('Border Layout', (){
@@ -43,7 +48,7 @@ void layoutTests()
     final bLC = buckshot.namedElements['bLC'];
     final bCC = buckshot.namedElements['bCC'];
 
-    pause();
+    if (usePause) pause();
 
     window.requestLayoutFrame(expectAsync0((){
 
@@ -142,7 +147,8 @@ void layoutTests()
     final lblVCenter = buckshot.namedElements['lblVCenter'];
     final lblBottom = buckshot.namedElements['lblBottom'];
 
-    pause();
+    if (usePause) pause();
+
     window.requestLayoutFrame(
       expectAsync0((){
         /* root stackpanel */
@@ -238,7 +244,7 @@ void layoutTests()
       final lblLC = buckshot.namedElements['lblLC'];
       final lblCC = buckshot.namedElements['lblCC'];
 
-      pause();
+      if (usePause) pause();
 
       window.requestLayoutFrame(
 

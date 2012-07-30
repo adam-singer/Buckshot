@@ -87,18 +87,15 @@ class DockPanel extends Panel
     createContainer(DockLocation loc){
       final c = new DivElement();
 
-      // make a flexbox
-      c.style.display = 'box';
-      c.style.display = 'flexbox';
-      c.style.display = 'flex';
+      Polly.makeFlexBox(c);
 
-      c.style.display = '${Polly.browserInfo.vendorPrefix}box';
-      c.style.display = '${Polly.browserInfo.vendorPrefix}flexbox';
-      c.style.display = '${Polly.browserInfo.vendorPrefix}flex';
+
+      Polly.setFlexBoxOrientation(c, (loc == DockLocation.left
+          || loc == DockLocation.right) ? Orientation.horizontal : Orientation.vertical);
 
       //set the orientation
-      Polly.setCSS(c, 'flex-direction', (loc == DockLocation.left
-          || loc == DockLocation.right) ? 'row' : 'column');
+//      Polly.setCSS(c, 'flex-direction', (loc == DockLocation.left
+//          || loc == DockLocation.right) ? 'row' : 'column');
 
       //set the stretch
       Polly.setCSS(c, 'flex', '1 1 auto');
@@ -193,7 +190,7 @@ class DockPanel extends Panel
   void createElement(){
     rawElement = new DivElement();
     rawElement.style.overflow = "hidden";
-    Polly.makeFlexBox(this);
+    Polly.makeFlexBox(rawElement);
     Polly.setVerticalFlexBoxAlignment(this, VerticalAlignment.stretch);
     Polly.setHorizontalFlexBoxAlignment(this, HorizontalAlignment.stretch);
   }

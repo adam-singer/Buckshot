@@ -17,7 +17,7 @@ class StackPanel extends Panel
       this,
       "orientation",
       (Orientation value){
-        Polly.setFlexBoxOrientation(this, value);
+        Polly.setFlexBoxOrientation(rawElement, value);
       },
       Orientation.vertical, converter:new StringToOrientationConverter());
   }
@@ -43,7 +43,7 @@ class StackPanel extends Panel
 
   void createElement(){
     rawElement = new DivElement();
-    Polly.makeFlexBox(this);
+    Polly.makeFlexBox(rawElement);
     //rawElement.style.flexFlow = 'column';
     rawElement.style.overflow = 'hidden';
 
@@ -59,7 +59,7 @@ class StackPanel extends Panel
       });
     }else{
       children.forEach((child){
-        Polly.setItemVerticalCrossAxisAlignment(child, child.vAlign);      
+        Polly.setItemVerticalCrossAxisAlignment(child, child.vAlign);
       });
     }
   }

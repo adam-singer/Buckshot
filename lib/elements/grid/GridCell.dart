@@ -10,7 +10,7 @@ class _GridCell extends FrameworkObject
   /// Represents the content inside the border.
   FrameworkProperty contentProperty;
   FrameworkProperty marginProperty;
-  
+
   _GridCell()
   {
     _initGridCellProperties();
@@ -61,13 +61,13 @@ class _GridCell extends FrameworkObject
     rawElement = new DivElement();
     rawElement.style.overflow = "hidden";
     rawElement.style.position = "absolute";
-    Polly.makeFlexBox(this);
+    Polly.makeFlexBox(rawElement);
   }
 
   /// Overridden [FrameworkObject] method is called when the framework requires elements to recalculate layout.
   void updateLayout(){
     if (content == null) return;
-    
+
     //spoof the parent during the alignment pass
     content.parent = this;
     Polly.setFlexboxAlignment(content);

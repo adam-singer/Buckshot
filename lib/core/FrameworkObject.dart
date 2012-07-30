@@ -11,7 +11,7 @@ class FrameworkObject extends BuckshotObject {
   ElementRect _previousMeasurement;
   FrameworkObject _parent;
   bool _isLoaded = false;
-  
+
   bool get isLoaded() => _isLoaded;
   set isLoaded(bool v) => _isLoaded = v;
 
@@ -153,7 +153,7 @@ class FrameworkObject extends BuckshotObject {
 
   void _stopWatchMeasurement(){
     if (_animationFrameID != null)
-      window.webkitCancelAnimationFrame(_animationFrameID);
+      window.cancelAnimationFrame(_animationFrameID);
     _previousMeasurement = null;
     _watchingMeasurement = false;
   }
@@ -201,7 +201,7 @@ class FrameworkObject extends BuckshotObject {
       (this as IFrameworkContainer)
         .content
         .forEach((FrameworkElement child)
-          { 
+          {
             child.parent = this;
             child._onAddedToDOM();
           });
@@ -283,7 +283,7 @@ class FrameworkObject extends BuckshotObject {
 
   void updateMeasurement(){
     if (!isLoaded) return;
-    
+
     rawElement
       .rect
       .then((ElementRect r) { mostRecentMeasurement = r;});
@@ -369,7 +369,7 @@ class FrameworkObject extends BuckshotObject {
 
       return (aDepInfo.containsKey(element)) ? aDepInfo[element] : null;
   }
-  
+
   /// Called by the framework to allow an element to construct it's
   /// HTML representation and assign to [component].
   void createElement(){

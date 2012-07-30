@@ -162,7 +162,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
   void createElement(){
     rawElement = new DivElement();
     rawElement.style.overflow = "hidden";
-    Polly.makeFlexBox(this);
+    Polly.makeFlexBox(rawElement);
   }
 
   /// Overridden [FrameworkObject] method is called when the framework
@@ -171,7 +171,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
     if (!_isLoaded) return;
 
     if (content == null) return;
-    
+
     Polly.setFlexboxAlignment(content);
   }
 

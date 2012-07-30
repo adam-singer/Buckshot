@@ -69,9 +69,10 @@ void main() {
   });
 
   group('Initialization', (){
+    tearDown(() =>   Polly.dump());
     test('Buckshot Initialized', () => Expect.isNotNull(buckshot.domRoot));
   });
-  
+
   group('Layout Tests', (){
     layoutTests();
   });
