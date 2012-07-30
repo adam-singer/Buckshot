@@ -16,41 +16,41 @@
 class DockPanel extends Panel
 {
   static AttachedFrameworkProperty dockProperty;
-  
-  FrameworkProperty fillLastProperty; 
-  
+
+  FrameworkProperty fillLastProperty;
+
   DockPanel()
   {
     Browser.appendClass(rawElement, "DockPanel");
-    
+
     _initDockPanelProperties();
-  
+
     loaded + (_, __) => _redraw();
   }
-  
+
   void _initDockPanelProperties(){
-    
+
     fillLastProperty = new FrameworkProperty(this, 'fillLast', (_){}, true,
       converter:const StringToBooleanConverter());
   }
-  
-  void onChildrenChanging(ListChangedEventArgs args){    
+
+  void onChildrenChanging(ListChangedEventArgs args){
     if (isLoaded){
       _redraw();
     }
   }
-  
+
   bool get fillLast() => getValue(fillLastProperty);
   set fillLast(bool value) => setValue(fillLastProperty, value);
-  
+
   /**
   * Sets given [DockLocation] value to the Dockpanel.dockProperty
   * for the given [element]. */
   static void setDock(FrameworkElement element, value){
     assert(value is String || value is DockLocation);
-    
+
     if (element == null) return;
-    
+
     value = const StringToLocationConverter().convert(value);
 
     if (DockPanel.dockProperty == null)
@@ -74,106 +74,105 @@ class DockPanel extends Panel
 
     return FrameworkObject.getAttachedValue(element, dockProperty);
   }
-  
-  
+
+
   void _redraw(){
-    //TODO .removeLast() instead? 
+    //TODO .removeLast() instead?
     rawElement.elements.clear();
-    
+
     var currentContainer = rawElement;
     var lastLocation = DockLocation.left;
-    
+
     //makes a flexbox container
     createContainer(DockLocation loc){
       final c = new DivElement();
 
       // make a flexbox
-      Polly.prefixes.forEach((String p){
-        var pre = '${p}box';
-        c.style.display = pre;
-        pre = '${p}flexbox';
-        c.style.display = pre;
-        pre = '${p}flex';
-        c.style.display = pre;
-      });
-            
+      c.style.display = 'box';
+      c.style.display = 'flexbox';
+      c.style.display = 'flex';
+
+      c.style.display = '${Polly.browserInfo.vendorPrefix}box';
+      c.style.display = '${Polly.browserInfo.vendorPrefix}flexbox';
+      c.style.display = '${Polly.browserInfo.vendorPrefix}flex';
+
       //set the orientation
-      Polly.setXPCSS(c, 'flex-direction', (loc == DockLocation.left 
+      Polly.setCSS(c, 'flex-direction', (loc == DockLocation.left
           || loc == DockLocation.right) ? 'row' : 'column');
-      
+
       //set the stretch
-      Polly.setXPCSS(c, 'flex', '1 1 auto');
-      
+      Polly.setCSS(c, 'flex', '1 1 auto');
+
       //make container-level adjustments based on the dock location.
       switch(loc.toString()){
         case 'right':
-          Polly.setXPCSS(c, 'justify-content', 'flex-end');
+          Polly.setCSS(c, 'justify-content', 'flex-end');
           break;
         case 'top':
-          Polly.setXPCSS(c, 'justify-content', 'flex-start');
-          Polly.setXPCSS(c, 'align-items', 'stretch');
+          Polly.setCSS(c, 'justify-content', 'flex-start');
+          Polly.setCSS(c, 'align-items', 'stretch');
           break;
         case 'bottom':
-          Polly.setXPCSS(c, 'justify-content', 'flex-end');
-          Polly.setXPCSS(c, 'align-items', 'stretch');
+          Polly.setCSS(c, 'justify-content', 'flex-end');
+          Polly.setCSS(c, 'align-items', 'stretch');
           break;
       }
-            
+
       return c;
     }
-    
+
     // Adds child to container with correct alignment and ordering.
     void addChild(Element container, FrameworkElement child, DockLocation loc){
       if (loc == DockLocation.top || loc == DockLocation.bottom){
-        Polly.setXPCSS(child.rawElement, 'flex', 'none');
+        Polly.setCSS(child.rawElement, 'flex', 'none');
       }
 
-      if ((loc == DockLocation.right || loc == DockLocation.bottom) 
+      if ((loc == DockLocation.right || loc == DockLocation.bottom)
           && (container.elements.length > 0)){
         container.insertBefore(child.rawElement, container.elements[0]);
       }else{
         container.elements.add(child.rawElement);
       }
     }
-    
+
     children.forEach((child){
       child.parent = this;
-      
+
       if (currentContainer == rawElement){
         lastLocation = DockPanel.getDock(child);
 
         final newContainer = createContainer(lastLocation);
-        
+
         addChild(newContainer, child, lastLocation);
-                
+
         currentContainer.elements.add(newContainer);
-        
+
         currentContainer = newContainer;
       }else{
         final loc = DockPanel.getDock(child);
-        
+
         if (loc == lastLocation){
           addChild(currentContainer, child, lastLocation);
         }else{
-          
+
           final newContainer = createContainer(loc);
-          
+
           addChild(newContainer, child, loc);
-          
-          if ((lastLocation == DockLocation.right || 
-              lastLocation == DockLocation.bottom) 
+
+          if ((lastLocation == DockLocation.right ||
+              lastLocation == DockLocation.bottom)
               && (currentContainer.elements.length > 0)){
-            currentContainer.insertBefore(newContainer, 
+            currentContainer.insertBefore(newContainer,
               currentContainer.elements[0]);
           }else{
             currentContainer.elements.add(newContainer);
           }
-          
+
           currentContainer = newContainer;
           lastLocation = loc;
         }
       }
-      
+
     });
 
     //stretch the last item to fill the remaining space
@@ -181,15 +180,15 @@ class DockPanel extends Panel
       final child = children.last();
       //stretch the last item to fill the remaining space
       final p = child.rawElement.parent;
-      
+
       assert(p is Element);
-      
-      Polly.setXPCSS(child.rawElement, 'flex', '1 1 auto');
-      
-      Polly.setXPCSS(child.rawElement, 'align-self', 'stretch');
+
+      Polly.setCSS(child.rawElement, 'flex', '1 1 auto');
+
+      Polly.setCSS(child.rawElement, 'align-self', 'stretch');
     }
   }
-  
+
   /// Overridden [FrameworkObject] method.
   void createElement(){
     rawElement = new DivElement();
@@ -198,8 +197,8 @@ class DockPanel extends Panel
     Polly.setVerticalFlexBoxAlignment(this, VerticalAlignment.stretch);
     Polly.setHorizontalFlexBoxAlignment(this, HorizontalAlignment.stretch);
   }
-  
+
   FrameworkObject makeMe() => new DockPanel();
-  
+
   String get type() => 'DockPanel';
 }

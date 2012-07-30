@@ -43,7 +43,7 @@ void layoutTests()
     final bLC = buckshot.namedElements['bLC'];
     final bCC = buckshot.namedElements['bCC'];
 
-//    pause();
+    pause();
 
     window.requestLayoutFrame(expectAsync0((){
 
@@ -142,7 +142,7 @@ void layoutTests()
     final lblVCenter = buckshot.namedElements['lblVCenter'];
     final lblBottom = buckshot.namedElements['lblBottom'];
 
-//    pause();
+    pause();
     window.requestLayoutFrame(
       expectAsync0((){
         /* root stackpanel */
@@ -238,7 +238,7 @@ void layoutTests()
       final lblLC = buckshot.namedElements['lblLC'];
       final lblCC = buckshot.namedElements['lblCC'];
 
-//      pause();
+      pause();
 
       window.requestLayoutFrame(
 

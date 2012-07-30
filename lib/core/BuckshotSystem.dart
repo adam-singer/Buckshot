@@ -26,6 +26,7 @@ class Buckshot extends FrameworkObject {
   IView _currentView;
   Element _domRootElement;
   StyleElement _buckshotCSS;
+  BrowserInfo _browserInfo;
 
   final HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject,
   Dynamic>> _attachedProperties;
@@ -52,6 +53,10 @@ class Buckshot extends FrameworkObject {
   FrameworkProperty versionProperty;
 
   static Buckshot _ref;
+  
+  
+  BrowserInfo get browserInfo() => _browserInfo;
+  
 
   /// Pass the ID of the element in the DOM where buckshot will render content.
   Buckshot(String buckshotRootID)
@@ -72,6 +77,10 @@ class Buckshot extends FrameworkObject {
 //      print('first time in Buckshot ctor');
 //    }
     if (_ref != null) return _ref;
+    
+    //initialize Polly's statics
+    Polly.init();
+    
     new Buckshot._init();
     return _ref;
   }
@@ -102,12 +111,10 @@ class Buckshot extends FrameworkObject {
       throw new BuckshotException("Root element for Buckshot"
         " must be a <div>. Element given was"
         " a <${_domRootElement.tagName.toLowerCase()}>");
-
-    if (!browserOK){
+    
+    if (!Polly.browserOK){
       print('Buckshot Warning: Browser may not be compatible with Buckshot framework.');
     }
-
-    //print(browser);
 
     _initCSS();
 
@@ -161,24 +168,10 @@ class Buckshot extends FrameworkObject {
       }
     });
   }
+  
+  //TODO: move to polly
 
-  /**
-   * Returns true if the framework is known to be compatible with
-   * the browser type/version it is running in.
-   */
-  static bool get browserOK() {
 
-    final BrowserInfo bi = Browser.getBrowserInfo();
-
-    if (bi.browser == Browser.DARTIUM) return true;
-
-    //Chrome(ium) v21+
-    if (bi.browser == Browser.CHROME){
-      if (bi.version >= 21) return true;
-    }
-
-    return false;
-  }
 
   void initialize(){
     // register core elements that do not derive from Control

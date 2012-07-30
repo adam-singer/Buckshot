@@ -16,20 +16,21 @@ class FlexModel
    * Static method that returns the correct FlexModel enum of
    * the given [element].
    */
-  static FlexModel getFlexModel(FrameworkElement element){
+  static FlexModel getFlexModel(FrameworkObject element){
 
     //since the model is the same for all elements cache it.
     if (_model != null) return _model;
 
-    if (Polly.getXPCSS(element.rawElement, 'display') == null){
+    if (Polly.getCSS(element.rawElement, 'display') == null){
       _model = FlexModel.Unknown;
-    }else if (Polly.getXPCSS(element.rawElement, 'display').endsWith('flex')){
+    }else if (Polly.getCSS(element.rawElement, 'display').endsWith('flex')){
       _model = FlexModel.Flex;
     }else if
-    (Polly.getXPCSS(element.rawElement, 'display').endsWith('flexbox')){
+    (Polly.getCSS(element.rawElement, 'display').endsWith('flexbox')){
       _model = FlexModel.FlexBox;
-    }else if (Polly.getXPCSS(element.rawElement, 'display') == 'box'
-      || Polly.getXPCSS(element.parent.rawElement, 'display').endsWith('-box')){
+    }
+    else if (Polly.getCSS(element.rawElement, 'display') == 'box'
+      || Polly.getCSS(element.rawElement, 'display').endsWith('-box')){
       _model = FlexModel.Box;
     }else{
       _model = FlexModel.Unknown;

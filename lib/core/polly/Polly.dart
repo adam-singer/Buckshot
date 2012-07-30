@@ -18,25 +18,41 @@ class Polly {
    * Gets a [BrowserInfo] object representing various data
    * about the current browser context.
    */
-  static BrowserInfo get browserInfo() {
-    if (_browserInfo != null) return _browserInfo;
+  static BrowserInfo get browserInfo() => _browserInfo;
 
+  static void init(){
     _browserInfo = Browser.getBrowserInfo();
-
-    return _browserInfo;
   }
 
+
+  /**
+   * Returns true if the framework is known to be compatible with
+   * the browser type/version it is running in.
+   */
+  static bool get browserOK() {
+
+    if (browserInfo.browser == Browser.DARTIUM) return true;
+
+    //Chrome(ium) v20+
+    if (browserInfo.browser == Browser.CHROME){
+      if (browserInfo.version >= 20) return true;
+    }
+
+    return false;
+  }
 
   /**
    * Converts and element into a flexbox container.
    * Returns true if flexbox was created; false otherwise. */
   static bool makeFlexBox(FrameworkObject element){
 
-    prefixes.forEach((String p){
-      element.rawElement.style.display = '${p}box';
-      element.rawElement.style.display = '${p}flexbox';
-      element.rawElement.style.display = '${p}flex';
-    });
+    element.rawElement.style.display = 'box';
+    element.rawElement.style.display = 'flexbox';
+    element.rawElement.style.display = 'flex';
+
+    element.rawElement.style.display = '${Polly.browserInfo.vendorPrefix}box';
+    element.rawElement.style.display = '${Polly.browserInfo.vendorPrefix}flexbox';
+    element.rawElement.style.display = '${Polly.browserInfo.vendorPrefix}flex';
 
     if (element.rawElement.style.display == null
         || !element.rawElement.style.display.endsWith('x')){
@@ -51,9 +67,8 @@ class Polly {
   static String generateXPCSS(String declaration, String value){
     StringBuffer sb = new StringBuffer();
 
-    prefixes.forEach((String p){
-      sb.add('${p}${declaration}: ${value};');
-    });
+    sb.add('${declaration}: ${value};');
+    sb.add('${Polly.browserInfo.vendorPrefix}${declaration}: ${value};');
 
     return sb.toString();
   }
@@ -62,16 +77,16 @@ class Polly {
   /** Returns true if the given property is supported. */
   static bool checkCSS3Support(Element e, String property, String value){
 
-    var result = getXPCSS(e, property);
+    var result = getCSS(e, property);
 
     if (result != null) return true;
 
-    setXPCSS(e, property, value);
+    setCSS(e, property, value);
 
-    result = getXPCSS(e, property);
+    result = getCSS(e, property);
 
     if (result != null){
-      removeXPCSS(e, property);
+      removeCSS(e, property);
       return true;
     }
 
@@ -83,10 +98,11 @@ class Polly {
    * Removes a given CSS property from an HTML element.
    *
    * Supports all common browser prefixes. */
-  static void removeXPCSS(Element e, String property){
-    for(final String p in prefixes){
-      e.style.removeProperty('${p}${property}');
-    }
+  static void removeCSS(Element e, String property){
+
+    e.style.removeProperty('${property}');
+    e.style.removeProperty('${Polly.browserInfo.vendorPrefix}${property}');
+
   }
 
 
@@ -97,27 +113,27 @@ class Polly {
    * Supports all common browser prefixes.
    *
    * Returns true if property was successfully applied. */
-  static bool setXPCSS(Element e, String property, String value){
-    prefixes.forEach((String p){
-     e.style.setProperty('${p}${property}', value, '1');
-     });
+  static bool setCSS(Element e, String property, String value){
 
-    return getXPCSS(e, property) != null;
+    e.style.setProperty('${property}', value);
+    e.style.setProperty('${Polly.browserInfo.vendorPrefix}${property}', value);
+
+    return getCSS(e, property) != null;
   }
 
 
   /**
    * Gets a value from a given property.
    * Supports all common browser prefixes. */
-  static String getXPCSS(Element e, String property){
+  static String getCSS(Element e, String property){
 
-    for(final String p in prefixes){
-      String result = e.style.getPropertyValue('${p}${property}');
+    var result = e.style.getPropertyValue('${property}');
 
-      if (result != null) return result;
-    }
+    if (result != null) return result;
 
-    return null;
+    result = e.style.getPropertyValue('${Polly.browserInfo.vendorPrefix}${property}');
+
+    return (result != null) ? result : null;
   }
 
 
@@ -125,8 +141,17 @@ class Polly {
    * Sets the flex [Orientation] of a flex box. */
   static void setFlexBoxOrientation(FrameworkElement element,
                                     Orientation orientation){
-    element.rawElement.style.flexFlow =
-    orientation == Orientation.vertical ? 'column' : 'row';
+
+    final flexModel = FlexModel.getFlexModel(element.parent);
+
+    if (flexModel == FlexModel.Box){
+      setCSS(element.rawElement, 'box-orient',
+        orientation == Orientation.vertical ? 'vertical' : 'horizontal');
+    }else{
+      element.rawElement.style.flexFlow =
+      orientation == Orientation.vertical ? 'column' : 'row';
+    }
+
   }
 
 
@@ -149,20 +174,20 @@ class Polly {
     void flexHandler(){
       //supporting the latest draft flex box spec
 
-      Polly.setXPCSS(element.rawElement, 'flex', 'none');
+      Polly.setCSS(element.rawElement, 'flex', 'none');
 
       switch(alignment){
         case HorizontalAlignment.left:
-          setXPCSS(element.rawElement, 'align-self', 'flex-start');
+          setCSS(element.rawElement, 'align-self', 'flex-start');
           break;
         case HorizontalAlignment.right:
-          setXPCSS(element.rawElement, 'align-self', 'flex-end');
+          setCSS(element.rawElement, 'align-self', 'flex-end');
           break;
         case HorizontalAlignment.center:
-          setXPCSS(element.rawElement, 'align-self', 'center');
+          setCSS(element.rawElement, 'align-self', 'center');
           break;
         case HorizontalAlignment.stretch:
-          setXPCSS(element.rawElement, 'align-self', 'stretch');
+          setCSS(element.rawElement, 'align-self', 'stretch');
           break;
       }
     }
@@ -173,6 +198,11 @@ class Polly {
         ._manualAlignmentHandler
         .enableManualHorizontalAlignment(alignment);
     }
+
+    void boxHandler(){
+      print('cross axis horizontal box handler');
+    }
+
 
     void noFlexHandler(){
       element
@@ -186,6 +216,9 @@ class Polly {
         break;
       case FlexModel.FlexBox:
         flexBoxHandler();
+        break;
+      case FlexModel.Box:
+        boxHandler();
         break;
       default:
         noFlexHandler();
@@ -203,19 +236,19 @@ class Polly {
     }
 
     void flexHandler(){
-      Polly.setXPCSS(element.rawElement, 'flex', 'none');
+      Polly.setCSS(element.rawElement, 'flex', 'none');
       switch(alignment){
         case VerticalAlignment.top:
-          setXPCSS(element.rawElement, 'align-self', 'flex-start');
+          setCSS(element.rawElement, 'align-self', 'flex-start');
           break;
         case VerticalAlignment.bottom:
-          setXPCSS(element.rawElement, 'align-self', 'flex-end');
+          setCSS(element.rawElement, 'align-self', 'flex-end');
           break;
         case VerticalAlignment.center:
-          setXPCSS(element.rawElement, 'align-self', 'center');
+          setCSS(element.rawElement, 'align-self', 'center');
           break;
         case VerticalAlignment.stretch:
-          setXPCSS(element.rawElement, 'align-self', 'stretch');
+          setCSS(element.rawElement, 'align-self', 'stretch');
           break;
         }
     }
@@ -224,6 +257,11 @@ class Polly {
       element
       ._manualAlignmentHandler
       .enableManualVerticalAlignment(alignment);
+    }
+
+
+    void boxHandler(){
+      print('cross axis vertical box handler');
     }
 
     void noFlexHandler(){
@@ -238,6 +276,9 @@ class Polly {
         break;
       case FlexModel.FlexBox:
         flexBoxHandler();
+        break;
+      case FlexModel.Box:
+        boxHandler();
         break;
       default:
         noFlexHandler();
@@ -259,16 +300,16 @@ class Polly {
     void flexHandler(){
       switch(alignment){
         case HorizontalAlignment.left:
-          setXPCSS(element.rawElement, 'justify-content', 'flex-start');
+          setCSS(element.rawElement, 'justify-content', 'flex-start');
           break;
         case HorizontalAlignment.right:
-          setXPCSS(element.rawElement, 'justify-content', 'flex-end');
+          setCSS(element.rawElement, 'justify-content', 'flex-end');
           break;
         case HorizontalAlignment.center:
-          setXPCSS(element.rawElement, 'justify-content', 'center');
+          setCSS(element.rawElement, 'justify-content', 'center');
           break;
         case HorizontalAlignment.stretch:
-          setXPCSS(element.rawElement, 'justify-content', 'stretch');
+          setCSS(element.rawElement, 'justify-content', 'stretch');
           break;
       }
     }
@@ -290,8 +331,26 @@ class Polly {
       }
     }
 
+    void boxHandler(){
+      switch(alignment){
+        case HorizontalAlignment.left:
+          setCSS(element.rawElement, 'box-align', 'start');
+          break;
+        case HorizontalAlignment.right:
+          setCSS(element.rawElement, 'box-align', 'end');
+          break;
+        case HorizontalAlignment.center:
+          setCSS(element.rawElement, 'box-align', 'center');
+          break;
+        case HorizontalAlignment.stretch:
+          setCSS(element.rawElement, 'box-align', 'stretch');
+          break;
+      }
+    }
+
     void noFlexHandler(){
-      throw const NotImplementedException('Flex box model not yet supported.');
+      print('called noFlexHandler()');
+     // throw const NotImplementedException('Flex box model not yet supported.');
     }
 
     switch(flexModel){
@@ -300,6 +359,9 @@ class Polly {
         break;
       case FlexModel.FlexBox:
         flexBoxHandler();
+        break;
+      case FlexModel.Box:
+        boxHandler();
         break;
       default:
         noFlexHandler();
@@ -321,16 +383,16 @@ class Polly {
     void flexHandler(){
       switch(alignment){
         case VerticalAlignment.top:
-          setXPCSS(element.rawElement, 'align-items', 'flex-start');
+          setCSS(element.rawElement, 'align-items', 'flex-start');
           break;
         case VerticalAlignment.bottom:
-          setXPCSS(element.rawElement, 'align-items', 'flex-end');
+          setCSS(element.rawElement, 'align-items', 'flex-end');
           break;
         case VerticalAlignment.center:
-          setXPCSS(element.rawElement, 'align-items', 'center');
+          setCSS(element.rawElement, 'align-items', 'center');
           break;
         case VerticalAlignment.stretch:
-          setXPCSS(element.rawElement, 'align-items', 'stretch');
+          setCSS(element.rawElement, 'align-items', 'stretch');
           break;
       }
     }
@@ -352,8 +414,26 @@ class Polly {
       }
     }
 
+    void boxHandler(){
+      switch(alignment){
+        case VerticalAlignment.top:
+          setCSS(element.rawElement, 'box-align', 'start');
+          break;
+        case VerticalAlignment.bottom:
+          setCSS(element.rawElement, 'box-align', 'end');
+          break;
+        case VerticalAlignment.center:
+          setCSS(element.rawElement, 'box-align', 'center');
+          break;
+        case VerticalAlignment.stretch:
+          setCSS(element.rawElement, 'box-align', 'stretch');
+          break;
+      }
+    }
+
     void noFlexHandler(){
-      throw const NotImplementedException('Flex box model not yet supported.');
+      print('horizontal called noFlexHandler()');
+     // throw const NotImplementedException('Flex box model not yet supported.');
     }
 
     switch(flexModel){
@@ -362,6 +442,9 @@ class Polly {
         break;
       case FlexModel.FlexBox:
         flexBoxHandler();
+        break;
+      case FlexModel.Box:
+        boxHandler();
         break;
       default:
         noFlexHandler();
@@ -384,10 +467,10 @@ class Polly {
       // browser supports the latest draft flexbox spec
 
       if (element.hAlign != null){
-        Polly.setXPCSS(element.rawElement, 'flex', 'none');
+        Polly.setCSS(element.rawElement, 'flex', 'none');
 
         if(element.hAlign == HorizontalAlignment.stretch){
-          Polly.setXPCSS(element.rawElement, 'flex', '1 1 auto');
+          Polly.setCSS(element.rawElement, 'flex', '1 1 auto');
         }
 
         setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
@@ -423,9 +506,22 @@ class Polly {
       }
     }
 
+    void boxHandler(){
+      if (element.hAlign != null){
+        setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
+          FlexModel.Box);
+      }
+
+      if (element.vAlign != null){
+        setVerticalFlexBoxAlignment(element.parent, element.vAlign,
+          FlexModel.Box);
+      }
+    }
+
     void noFlexHandler(){
       // TODO: handle all flex layouts manually...
-      throw const NotImplementedException('Flex box model not yet supported.');
+      print('called noFlexHandler()');
+   //   throw const NotImplementedException('Flex box model not yet supported.');
     }
 
     switch(FlexModel.getFlexModel(element.parent)){
@@ -434,6 +530,9 @@ class Polly {
         break;
       case FlexModel.FlexBox:
         flexBoxHandler();
+        break;
+      case FlexModel.Box:
+        boxHandler();
         break;
       default:
         noFlexHandler();

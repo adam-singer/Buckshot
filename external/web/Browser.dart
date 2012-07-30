@@ -17,20 +17,21 @@
  */
 class Browser
 {
+    
   //Browser Type
-  static final String DARTIUM = "Dartium";
-  static final String CHROME = "Chrome";
-  static final String FIREFOX = "Firefox";
-  static final String IE = "IE";
-  static final String OPERA = "Opera";
-  static final String ANDROID = "Android";
-  static final String SAFARI = "Safari";
-  static final String LYNX = "Lynx";
+  static const String DARTIUM = "Dartium";
+  static const String CHROME = "Chrome";
+  static const String FIREFOX = "Firefox";
+  static const String IE = "IE";
+  static const String OPERA = "Opera";
+  static const String ANDROID = "Android";
+  static const String SAFARI = "Safari";
+  static const String LYNX = "Lynx";
   
   //Platform Type
-  static final String MOBILE = "Mobile";
-  static final String DESKTOP = "Desktop";
-  static final String TABLET = "Tablet";
+  static const String MOBILE = "Mobile";
+  static const String DESKTOP = "Desktop";
+  static const String TABLET = "Tablet";
   
   
   //Mobile Type
@@ -40,6 +41,18 @@ class Browser
   static final String WINDOWSPHONE = "Windows Phone";
     
   static final String UNKNOWN = "Unknown"; 
+  
+  static final Map<String, String> vendorPrefixMap = const 
+    {
+     'Chrome' : '-webkit-',
+     'Dartium' : '-webkit-',
+     'Safari' : '-webkit-',
+     'Android' : '-webkit-',
+     'IE' : '-ms-',
+     'Opera' : '-o-',
+     'Firefox' : '-moz-',
+     'Unknown' : ''
+    };
   
   static String ua;
   
@@ -73,15 +86,29 @@ class Browser
       case DARTIUM:
       case CHROME:
         final s = ua.indexOf('Chrome/') + 7;
-        final e = ua.indexOf(' ', s);
+        var e = ua.indexOf(' ', s);
+        
+        if (e == -1){
+          e = ua.length - 1;
+        }
+        
         return getMajor(ua.substring(s, e));
       case ANDROID:
         final s = ua.indexOf('Android ') + 8;
-        final e = ua.indexOf(' ', s);
+        var e = ua.indexOf(' ', s);
+        
+        if (e == -1){
+          e = ua.length - 1;
+        }
+        
         return getMajor(ua.substring(s, e));
       case FIREFOX:
         final s = ua.indexOf('Firefox/') + 8;
-        final e = ua.indexOf(' ', s);
+        var e = ua.indexOf(' ', s);
+        if (e == -1){
+          e = ua.length - 1;
+        }
+        
         return getMajor(ua.substring(s, e));
     }
     

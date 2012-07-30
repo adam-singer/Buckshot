@@ -6,9 +6,15 @@ class BrowserInfo {
   final num version;
   final String browser;
   final String platform;
-  final String mobileType;
+  final String mobileType;  
+  String _vendorPrefix;
   
-  BrowserInfo(this.browser, this.version, this.platform, this.mobileType);
+  BrowserInfo(this.browser, this.version, this.platform, this.mobileType){
+    print('$browser');
+    _vendorPrefix = Browser.vendorPrefixMap[browser];
+  }
+  
+  String get vendorPrefix() => _vendorPrefix;
   
   bool get isMobile() => mobileType != Browser.UNKNOWN;
   
