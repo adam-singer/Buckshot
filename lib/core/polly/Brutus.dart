@@ -227,9 +227,9 @@ class Brutus
     _eventReference = null;
   }
   void _sizeChangedEventHandler(_, MeasurementChangedEventArgs args){
-
+    
     void handleHorizontalStretch(){
-      if (element.hasProperty('padding') && Polly.browserInfo.browser != Browser.FIREFOX){
+      if (element.hasProperty('padding')){
         final calcWidth = args.newMeasurement.client.width -
             (element.dynamic.padding.left +
              element.dynamic.padding.right +
@@ -269,7 +269,8 @@ class Brutus
       element
       .updateMeasurementAsync
       .then((ElementRect r){
-        final position = args.newMeasurement.client.width - r.bounding.width;
+        final position = args.newMeasurement.client.width - r.client.width;
+//        db('parent width:${args.newMeasurement.client.width}, element width: ${r.client.width}, $position', element);
         element.rawElement.style.margin =
             '${_preservedLeftMargin.top}px'
             ' ${_preservedLeftMargin.right}px'
@@ -279,7 +280,26 @@ class Brutus
     }
 
     void handleVerticalStretch(){
-      db('v stretch', element);
+      if (element.hasProperty('padding')){
+        final calcHeight = args.newMeasurement.client.height -
+            (element.dynamic.padding.top +
+             element.dynamic.padding.bottom +
+             element.margin.top +
+             element.margin.bottom +
+             ((element.parent.hasProperty('padding'))
+              ? element.parent.dynamic.padding.top +
+                  element.parent.dynamic.padding.bottom
+              : 0));
+        element.rawElement.style.height = '${calcHeight}px';
+      }else{
+        final calcHeight = args.newMeasurement.client.height -
+            (element.margin.top + element.margin.bottom +
+             ((element.parent.hasProperty('padding'))
+              ? element.parent.dynamic.padding.top +
+                  element.parent.dynamic.padding.bottom
+              : 0));
+        element.rawElement.style.height = '${calcHeight}px';
+      }
     }
 
     void handleVerticalCenter(){
@@ -287,7 +307,9 @@ class Brutus
       .updateMeasurementAsync
       .then((ElementRect r){
         final position =
-            (args.newMeasurement.client.height / 2) - (r.bounding.height / 2);
+            (args.newMeasurement.client.height / 2) - (r.client.height / 2);
+
+       // db('*** vertical center parent height:${args.newMeasurement.client.height}, element height: ${r.client.height}, $position', element);
         element.rawElement.style.margin =
             '${position + _preservedTopMargin.top}px'
             ' ${_preservedTopMargin.right}px'
@@ -300,7 +322,7 @@ class Brutus
       element
       .updateMeasurementAsync
       .then((ElementRect r){
-        final position = args.newMeasurement.client.height - r.bounding.height;
+        final position = args.newMeasurement.client.height - r.client.height;
         element.rawElement.style.margin =
             '${position + _preservedTopMargin.top}px'
             ' ${_preservedTopMargin.right}px'

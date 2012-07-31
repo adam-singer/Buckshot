@@ -31,10 +31,10 @@ class FrameworkObject extends BuckshotObject {
   FrameworkEvent<MeasurementChangedEventArgs> measurementChanged;
 
   /**
-  * Accesses the underlying raw HTML element.
+  * Accesses the underlying raw HTML root element.
   *
   * **CAUTION:** Advanced use only.  Changing element properties directly may
-  * cause undesirable results in the Buckshot framework.
+  * cause undesirable results in the framework.
   */
   Element rawElement;
 
@@ -106,6 +106,8 @@ class FrameworkObject extends BuckshotObject {
       (value){});
   }
 
+  
+  
   void _startWatchMeasurement(){
     _watchingMeasurement = true;
 
@@ -120,20 +122,23 @@ class FrameworkObject extends BuckshotObject {
           measurementChanged.invoke(this,
             new MeasurementChangedEventArgs(m, m));
         }else{
-          if (_previousMeasurement.bounding.left != m.bounding.left
-              || _previousMeasurement.bounding.top != m.bounding.top
-              || _previousMeasurement.bounding.width != m.bounding.width
+          //TODO: (John) make a positionChanged event and a sizeChanged event
+          // in addition to this measurementChanged event.
+          if (
+//              _previousMeasurement.bounding.left != m.bounding.left
+//              || _previousMeasurement.bounding.top != m.bounding.top
+              _previousMeasurement.bounding.width != m.bounding.width
               || _previousMeasurement.bounding.height != m.bounding.height
-              || _previousMeasurement.client.left != m.client.left
-              || _previousMeasurement.client.top != m.client.top
+//              || _previousMeasurement.client.left != m.client.left
+//              || _previousMeasurement.client.top != m.client.top
               || _previousMeasurement.client.width != m.client.width
               || _previousMeasurement.client.height != m.client.height
-              || _previousMeasurement.offset.left != m.offset.left
-              || _previousMeasurement.offset.top != m.offset.top
+//              || _previousMeasurement.offset.left != m.offset.left
+//              || _previousMeasurement.offset.top != m.offset.top
               || _previousMeasurement.offset.width != m.offset.width
               || _previousMeasurement.offset.height != m.offset.height
-              || _previousMeasurement.scroll.left != m.scroll.left
-              || _previousMeasurement.scroll.top != m.scroll.top
+//              || _previousMeasurement.scroll.left != m.scroll.left
+//              || _previousMeasurement.scroll.top != m.scroll.top
               || _previousMeasurement.scroll.width != m.scroll.width
               || _previousMeasurement.scroll.height != m.scroll.height
               ){

@@ -104,7 +104,7 @@ class _CssCompiler
         sb.add(temp);
       });       
 
-      sb.add('#${t} { ${Polly.generateXPCSS("animation", "${anim.key}${t} ${anim.keyFrames.last().time}s linear forwards")} }');
+      sb.add('#${t} { ${Polly.generateCSS("animation", "${anim.key}${t} ${anim.keyFrames.last().time}s linear forwards")} }');
       
       compiledCSS.add(sb.toString());
     });

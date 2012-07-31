@@ -10,7 +10,6 @@ class BrowserInfo {
   String _vendorPrefix;
   
   BrowserInfo(this.browser, this.version, this.platform, this.mobileType){
-    print('$browser');
     _vendorPrefix = Browser.vendorPrefixMap[browser];
   }
   

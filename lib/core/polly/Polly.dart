@@ -6,6 +6,19 @@
  * Polly is the cross-browser & cross-platform rendering facility for Buckshot.
  *
  * She be a harsh mistress, but aye, she be worth it on a cold winter's night.
+ * 
+ * ## Stable Browsers ##
+ * * Chromium
+ * * Dartium
+ * * Chrome v20+
+ * 
+ * ## Limited Support ##
+ * * Chrome for Android
+ * 
+ * ## Unstable ##
+ * * Firefox 14/15
+ * * Safari
+ * * IE 9
  */
 class Polly {
 
@@ -37,15 +50,14 @@ class Polly {
     makeFlexBox(e);
 
     _flexModel = FlexModel.getFlexModel(e);
-
+    print('flex model ${_flexModel}');
     e.remove();
   }
 
   static void _setFirefox(){
-    print('setting firefox specific');
-    document.body.style.lineHeight = '125%';
+    //yay firefox and it's weird line spacing...
+    document.body.style.lineHeight = '122%';
   }
-
 
   /**
    * Returns true if the framework is known to be compatible with
@@ -63,32 +75,25 @@ class Polly {
     return false;
   }
 
-  static Element _unwrap(FrameworkObject element) => element.rawElement;
-
   /**
-   * Converts and element into a flexbox container.
-   * Returns true if flexbox was created; false otherwise. */
-  static bool makeFlexBox(Element element){
+   * Converts and element into a flexbox container. */
+  static void makeFlexBox(Element element, [String singleOrMulti = 'single']){
 
-    element.style.display = 'box';
     element.style.display = 'flexbox';
     element.style.display = 'flex';
-
-    element.style.display = '${Polly.browserInfo.vendorPrefix}box';
+    
     element.style.display = '${Polly.browserInfo.vendorPrefix}flexbox';
     element.style.display = '${Polly.browserInfo.vendorPrefix}flex';
 
     if (element.style.display == null
         || !element.style.display.endsWith('x')){
-      return false;
+      element.attributes['data-buckshot-flexbox'] = singleOrMulti;
     }
-
-    return true;
   }
 
 
   /** Returns a string representing a cross-browser CSS property assignment. */
-  static String generateXPCSS(String declaration, String value){
+  static String generateCSS(String declaration, String value){
     StringBuffer sb = new StringBuffer();
 
     sb.add('${declaration}: ${value};');
@@ -165,9 +170,9 @@ class Polly {
    * Sets the flex [Orientation] of a flex box. */
   static void setFlexBoxOrientation(Element element, Orientation orientation){
 
-    if (_flexModel == FlexModel.Box){
-      setCSS(element, 'box-orient',
-        orientation == Orientation.vertical ? 'vertical' : 'horizontal');
+    if (_flexModel == FlexModel.Manual){
+      element.attributes['data-buckshot-flexbox-orientation'] = 
+        orientation == Orientation.vertical ? 'vertical' : 'horizontal';
     }else{
       element.style.flexFlow =
       orientation == Orientation.vertical ? 'column' : 'row';
@@ -216,15 +221,8 @@ class Polly {
         .enableManualHorizontalAlignment(alignment);
     }
 
-    void boxHandler(){
-//      element
-//      ._manualAlignmentHandler
-//      .enableManualHorizontalAlignment(alignment);
-    }
-
-
     void noFlexHandler(){
-      throw const NotImplementedException();
+//      throw const NotImplementedException();
     }
 
     switch(_flexModel){
@@ -233,9 +231,6 @@ class Polly {
         break;
       case FlexModel.FlexBox:
         flexBoxHandler();
-        break;
-      case FlexModel.Box:
-        boxHandler();
         break;
       default:
         noFlexHandler();
@@ -272,15 +267,8 @@ class Polly {
       .enableManualVerticalAlignment(alignment);
     }
 
-
-    void boxHandler(){
-//      element
-//      ._manualAlignmentHandler
-//      .enableManualVerticalAlignment(alignment);
-    }
-
     void noFlexHandler(){
-      throw const NotImplementedException();
+//      throw const NotImplementedException();
     }
 
     switch(_flexModel){
@@ -289,9 +277,6 @@ class Polly {
         break;
       case FlexModel.FlexBox:
         flexBoxHandler();
-        break;
-      case FlexModel.Box:
-        boxHandler();
         break;
       default:
         noFlexHandler();
@@ -341,27 +326,6 @@ class Polly {
       }
     }
 
-    void boxHandler(){
-      switch(alignment){
-        case HorizontalAlignment.left:
-          element.rawElement.style.boxAlign = 'start';
-          //setCSS(element.rawElement, 'box-align', 'start');
-          break;
-        case HorizontalAlignment.right:
-          element.rawElement.style.boxAlign = 'end';
-          //setCSS(element.rawElement, 'box-align', 'end');
-          break;
-        case HorizontalAlignment.center:
-          element.rawElement.style.boxAlign = 'center';
-          //setCSS(element.rawElement, 'box-align', 'center');
-          break;
-        case HorizontalAlignment.stretch:
-          element.rawElement.style.boxAlign = 'stretch';
-          //setCSS(element.rawElement, 'box-align', 'stretch');
-          break;
-      }
-    }
-
     void noFlexHandler(){
       print('called noFlexHandler()');
      // throw const NotImplementedException('Flex box model not yet supported.');
@@ -373,9 +337,6 @@ class Polly {
         break;
       case FlexModel.FlexBox:
         flexBoxHandler();
-        break;
-      case FlexModel.Box:
-        boxHandler();
         break;
       default:
         noFlexHandler();
@@ -425,27 +386,6 @@ class Polly {
       }
     }
 
-    void boxHandler(){
-      switch(alignment){
-        case VerticalAlignment.top:
-          element.rawElement.style.boxAlign = 'start';
-//          setCSS(element.rawElement, 'box-pack', 'start');
-          break;
-        case VerticalAlignment.bottom:
-          element.rawElement.style.boxAlign = 'end';
-//          setCSS(element.rawElement, 'box-pack', 'end');
-          break;
-        case VerticalAlignment.center:
-          element.rawElement.style.boxAlign = 'center';
-//          setCSS(element.rawElement, 'box-pack', 'center');
-          break;
-        case VerticalAlignment.stretch:
-          element.rawElement.style.boxAlign = 'stretch';
-//          setCSS(element.rawElement, 'box-pack', 'stretch');
-          break;
-      }
-    }
-
     void noFlexHandler(){
       print('horizontal called noFlexHandler()');
      // throw const NotImplementedException('Flex box model not yet supported.');
@@ -457,9 +397,6 @@ class Polly {
         break;
       case FlexModel.FlexBox:
         flexBoxHandler();
-        break;
-      case FlexModel.Box:
-        boxHandler();
         break;
       default:
         noFlexHandler();
@@ -521,7 +458,7 @@ class Polly {
       }
     }
 
-    void boxHandler(){
+    void manualFlexHandler(){
       if (element.hAlign != null){
         if (element.hAlign == HorizontalAlignment.stretch){
           element
@@ -529,23 +466,26 @@ class Polly {
             .enableManualHorizontalAlignment(HorizontalAlignment.stretch);
         }else{
           //something else besides stretch
-          element._manualAlignmentHandler.disableManualHorizontalAlignment();
-
-          setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
-            FlexModel.Box);
+//          element._manualAlignmentHandler.disableManualHorizontalAlignment();
+//
+//          setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
+//            FlexModel.Manual);
         }
       }
 
       if (element.vAlign != null){
-        setVerticalFlexBoxAlignment(element.parent, element.vAlign,
-          FlexModel.Box);
+        if (element.vAlign == VerticalAlignment.stretch){
+          element
+            ._manualAlignmentHandler
+            .enableManualVerticalAlignment(VerticalAlignment.stretch);
+        }else{
+          //something else besides stretch
+//          element._manualAlignmentHandler.disableManualHorizontalAlignment();
+//
+//          setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
+//            FlexModel.Manual);
+        }
       }
-    }
-
-    void noFlexHandler(){
-      // TODO: handle all flex layouts manually...
-      print('called noFlexHandler()');
-   //   throw const NotImplementedException('Flex box model not yet supported.');
     }
 
     switch(_flexModel){
@@ -555,11 +495,9 @@ class Polly {
       case FlexModel.FlexBox:
         flexBoxHandler();
         break;
-      case FlexModel.Box:
-        boxHandler();
+      case FlexModel.Manual:
+        manualFlexHandler();
         break;
-      default:
-        noFlexHandler();
     }
   }
 
