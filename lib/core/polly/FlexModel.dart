@@ -4,6 +4,44 @@
 
 
 /**
+ * Enumerates the manual flex type of a given element and provides utility
+ * functions. */
+class ManualFlexType
+{
+  final String _str;
+
+  const ManualFlexType(this._str);
+
+  static final Single = const ManualFlexType('Single');
+  static final Multi = const ManualFlexType('Multi');
+  static final None = const ManualFlexType('None');
+
+
+  static ManualFlexType getManualFlexType(Element element){
+    if (!element.attributes.containsKey('data-buckshot-flexbox')){
+      return ManualFlexType.None;
+    }
+
+    switch(element.attributes['data-buckshot-flexbox']){
+      case 'Multi':
+        return ManualFlexType.Multi;
+      case 'Single':
+        return ManualFlexType.Single;
+    }
+
+    return ManualFlexType.None;
+  }
+
+  static void setManualFlexType(Element element, ManualFlexType type){
+    if (type == ManualFlexType.None) return;
+
+    element.attributes['data-buckshot-flexbox'] = type.toString();
+  }
+
+  String toString() => _str;
+}
+
+/**
  * Enumerates flexbox model variations and provides detection utility. */
 class FlexModel
 {
@@ -20,8 +58,8 @@ class FlexModel
 
     //since the model is the same for all elements cache it.
     if (_model != null) return _model;
-    
-    if (element.style.display == null && 
+
+    if (element.style.display == null &&
         element.attributes.containsKey('data-buckshot-flexbox')){
       _model = FlexModel.Manual;
     }else if (Polly.getCSS(element, 'display').endsWith('flex')){
@@ -32,6 +70,7 @@ class FlexModel
     }else if (element.attributes.containsKey('data-buckshot-flexbox')){
       _model = FlexModel.Manual;
     }else{
+      print('throwing in getFlexModel()');
       throw new BuckshotException('Unable to determine flex box model.');
     }
 

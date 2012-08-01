@@ -7,7 +7,7 @@ void layoutTests()
 
   // Milliseconds to wait for the layout to complete before performing
   // tests.
-  final int layoutAllowance = 550;
+  final int layoutAllowance = 600;
 
   // Setting to true will cause the unit test run to pause after each layout
   // is drawn to allow for visual inspection.  Clicking in the browser window
@@ -57,7 +57,7 @@ void layoutTests()
       measureElement(bLorumIpsum, 11, 11, 280, 280);
 
       //TextBlock
-      measureElement(lblLorumIpsum, 32, 21, 260, 238);
+      measureElement(lblLorumIpsum, 100, 21, 260, 102);
 
       /* Vertical Stretch, Horizontal Alignment */
       //HL_VS (Horizontal Left, Vertical Stretch)

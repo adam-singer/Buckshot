@@ -40,6 +40,10 @@
 #source('LayoutTests.dart');
 
 void main() {
+
+  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#borderTest')));
+  return;
+  
   final _tList = new List<TestGroupBase>();
 
   useHtmlEnhancedConfiguration();

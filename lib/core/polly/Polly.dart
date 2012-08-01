@@ -6,15 +6,15 @@
  * Polly is the cross-browser & cross-platform rendering facility for Buckshot.
  *
  * She be a harsh mistress, but aye, she be worth it on a cold winter's night.
- * 
+ *
  * ## Stable Browsers ##
  * * Chromium
  * * Dartium
  * * Chrome v20+
- * 
+ *
  * ## Limited Support ##
  * * Chrome for Android
- * 
+ *
  * ## Unstable ##
  * * Firefox 14/15
  * * Safari
@@ -77,17 +77,17 @@ class Polly {
 
   /**
    * Converts and element into a flexbox container. */
-  static void makeFlexBox(Element element, [String singleOrMulti = 'single']){
+  static void makeFlexBox(Element element,
+                        [ManualFlexType singleOrMulti = ManualFlexType.Single]){
 
     element.style.display = 'flexbox';
     element.style.display = 'flex';
-    
+
     element.style.display = '${Polly.browserInfo.vendorPrefix}flexbox';
     element.style.display = '${Polly.browserInfo.vendorPrefix}flex';
 
-    if (element.style.display == null
-        || !element.style.display.endsWith('x')){
-      element.attributes['data-buckshot-flexbox'] = singleOrMulti;
+    if (element.style.display == null || !element.style.display.endsWith('x')){
+      ManualFlexType.setManualFlexType(element, singleOrMulti);
     }
   }
 
@@ -171,7 +171,7 @@ class Polly {
   static void setFlexBoxOrientation(Element element, Orientation orientation){
 
     if (_flexModel == FlexModel.Manual){
-      element.attributes['data-buckshot-flexbox-orientation'] = 
+      element.attributes['data-buckshot-flexbox-orientation'] =
         orientation == Orientation.vertical ? 'vertical' : 'horizontal';
     }else{
       element.style.flexFlow =
@@ -387,7 +387,7 @@ class Polly {
     }
 
     void noFlexHandler(){
-      print('horizontal called noFlexHandler()');
+      db('horizontal called noFlexHandler()', element);
      // throw const NotImplementedException('Flex box model not yet supported.');
     }
 
@@ -459,32 +459,34 @@ class Polly {
     }
 
     void manualFlexHandler(){
+      element.rawElement.style.display = 'inline-block';
+
       if (element.hAlign != null){
-        if (element.hAlign == HorizontalAlignment.stretch){
+//        if (element.hAlign == HorizontalAlignment.stretch){
           element
             ._manualAlignmentHandler
-            .enableManualHorizontalAlignment(HorizontalAlignment.stretch);
-        }else{
+            .enableManualHorizontalAlignment(element.hAlign);
+//        }else{
           //something else besides stretch
 //          element._manualAlignmentHandler.disableManualHorizontalAlignment();
 //
 //          setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
 //            FlexModel.Manual);
-        }
+//        }
       }
 
       if (element.vAlign != null){
-        if (element.vAlign == VerticalAlignment.stretch){
+//        if (element.vAlign == VerticalAlignment.stretch){
           element
             ._manualAlignmentHandler
-            .enableManualVerticalAlignment(VerticalAlignment.stretch);
-        }else{
+            .enableManualVerticalAlignment(element.vAlign);
+//        }else{
           //something else besides stretch
 //          element._manualAlignmentHandler.disableManualHorizontalAlignment();
 //
 //          setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
 //            FlexModel.Manual);
-        }
+//        }
       }
     }
 
