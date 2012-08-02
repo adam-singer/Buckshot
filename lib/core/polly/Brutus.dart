@@ -2,6 +2,8 @@
 // http://www.buckshotui.org
 // See LICENSE file for Apache 2.0 licensing information.
 
+//TODO: Handle updates when margin/padding on watched elements is changed.
+//TODO: Explore more passive update triggers than measurementChanged event
 
 /**
  * Support class for [Polly] that tracks an manages manual alignments for a
@@ -169,6 +171,7 @@ class Brutus
       _unsubscribeMeasurementChanged();
     }
 
+    
     void handleHorizontalStretch(){
 
       element.rawElement.style.width = _preservedWidth;
@@ -176,12 +179,14 @@ class Brutus
       _preservedWidth = null;
     }
 
+    
     void handleHorizontalCenter(){
       element.margin = _preservedLeftMargin;
 
       _preservedLeftMargin = null;
     }
 
+    
     void handleHorizontalRight(){
       element.margin = _preservedLeftMargin;
 
@@ -205,10 +210,12 @@ class Brutus
     manualHorizontalAlignment = null;
   }
 
+  
   void clearAllManualAlignments(){
     disableManualHorizontalAlignment();
     disableManualVerticalAlignment();
   }
+  
 
   void _subscribeMeasurementChanged(){
     if (_eventReference != null) return;
@@ -219,6 +226,7 @@ class Brutus
 
   }
 
+  
   void _unsubscribeMeasurementChanged(){
     if (_eventReference == null) return;
 
@@ -226,75 +234,103 @@ class Brutus
 
     _eventReference = null;
   }
+  
+  
   void _sizeChangedEventHandler(_, MeasurementChangedEventArgs args){
     var newTop = 0;
     var newLeft = 0;
 
     void handleHorizontalStretch(){
+      final paddingOffset = element.parent.hasProperty('padding')
+                  ? element.parent.dynamic.padding.left +
+                      element.parent.dynamic.padding.right
+                  : 0;
+      
       if (element.hasProperty('padding')){
         final calcWidth = args.newMeasurement.client.width -
             (element.dynamic.padding.left +
              element.dynamic.padding.right +
              element.margin.left +
              element.margin.right +
-             ((element.parent.hasProperty('padding'))
-              ? element.parent.dynamic.padding.left +
-                  element.parent.dynamic.padding.right
-              : 0));
+             paddingOffset);
+        
         element.rawElement.style.width = '${calcWidth}px';
       }else{
         final calcWidth = args.newMeasurement.client.width -
-            (element.margin.left + element.margin.right +
-             ((element.parent.hasProperty('padding'))
-              ? element.parent.dynamic.padding.left +
-                  element.parent.dynamic.padding.right
-              : 0));
+            (element.margin.left + 
+             element.margin.right +
+             paddingOffset);
+        
         element.rawElement.style.width = '${calcWidth}px';
       }
     }
 
     void handleHorizontalCenter(ElementRect r){
-      newLeft =
-          (args.newMeasurement.client.width / 2) - (r.bounding.width / 2);
+      final paddingOffset = element.parent.hasProperty('padding')
+          ? element.parent.dynamic.padding.left +
+              element.parent.dynamic.padding.right
+          : 0;
+      
+      newLeft = (args.newMeasurement.client.width / 2) - 
+          ((r.bounding.width + paddingOffset) / 2);
     }
 
     void handleHorizontalRight(ElementRect r){
-      newLeft = args.newMeasurement.client.width - r.client.width;
-//        db('parent width:${args.newMeasurement.client.width}, element width: ${r.client.width}, $position', element);
-
+      final paddingOffset = element.parent.hasProperty('padding')
+          ? element.parent.dynamic.padding.left +
+              element.parent.dynamic.padding.right
+          : 0;
+      
+      newLeft = args.newMeasurement.client.width - 
+          (r.client.width + paddingOffset);
     }
 
     void handleVerticalStretch(){
+      final paddingOffset = (element.parent.hasProperty('padding'))
+          ? element.parent.dynamic.padding.top +
+              element.parent.dynamic.padding.bottom
+          : 0;
+      
       if (element.hasProperty('padding')){
         final calcHeight = args.newMeasurement.client.height -
             (element.dynamic.padding.top +
              element.dynamic.padding.bottom +
              element.margin.top +
              element.margin.bottom +
-             ((element.parent.hasProperty('padding'))
-              ? element.parent.dynamic.padding.top +
-                  element.parent.dynamic.padding.bottom
-              : 0));
+             paddingOffset);
+        
         element.rawElement.style.height = '${calcHeight}px';
       }else{
         final calcHeight = args.newMeasurement.client.height -
-            (element.margin.top + element.margin.bottom +
-             ((element.parent.hasProperty('padding'))
-              ? element.parent.dynamic.padding.top +
-                  element.parent.dynamic.padding.bottom
-              : 0));
+            (element.margin.top + 
+             element.margin.bottom +
+             paddingOffset);
+        
         element.rawElement.style.height = '${calcHeight}px';
       }
     }
 
     void handleVerticalCenter(ElementRect r){
-      newTop = (args.newMeasurement.client.height / 2) - (r.client.height / 2);
+      
+      final paddingOffset = (element.parent.hasProperty('padding'))
+                ? element.parent.dynamic.padding.top +
+                    element.parent.dynamic.padding.bottom
+                : 0;
+      
+      newTop = (args.newMeasurement.client.height / 2) - 
+          ((r.client.height + paddingOffset) / 2);
 
      // db('*** vertical center parent height:${args.newMeasurement.client.height}, element height: ${r.client.height}, $position', element);
     }
 
     void handleVerticalBottom(ElementRect r){
-      newTop = args.newMeasurement.client.height - r.client.height;
+      final paddingOffset = (element.parent.hasProperty('padding'))
+          ? element.parent.dynamic.padding.top +
+              element.parent.dynamic.padding.bottom
+          : 0;
+      
+      newTop = args.newMeasurement.client.height - 
+          (r.client.height + paddingOffset);
     }
 
     element
@@ -336,22 +372,12 @@ class Brutus
       }
 
      if (_preservedLeftMargin != null){
-//       db('${newTop + _preservedLeftMargin.top}px'
-//          ' ${_preservedLeftMargin.right}px'
-//          ' ${_preservedLeftMargin.bottom}px'
-//          ' ${newLeft + _preservedLeftMargin.left}px',element);
-
-          element.rawElement.style.margin =
-              '${newTop + _preservedLeftMargin.top}px'
-              ' ${_preservedLeftMargin.right}px'
-              ' ${_preservedLeftMargin.bottom}px'
-              ' ${newLeft + _preservedLeftMargin.left}px';
+        element.rawElement.style.margin =
+            '${newTop + _preservedLeftMargin.top}px'
+            ' ${_preservedLeftMargin.right}px'
+            ' ${_preservedLeftMargin.bottom}px'
+            ' ${newLeft + _preservedLeftMargin.left}px';
       }else if (_preservedTopMargin != null){
-//        db('${newTop + _preservedTopMargin.top}px'
-//        ' ${_preservedTopMargin.right}px'
-//        ' ${_preservedTopMargin.bottom}px'
-//        ' ${newLeft + _preservedTopMargin.left}px',element);
-
         element.rawElement.style.margin =
             '${newTop + _preservedTopMargin.top}px'
             ' ${_preservedTopMargin.right}px'

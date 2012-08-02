@@ -90,7 +90,17 @@
 	
 	<script id='borderTest' type='text/xml'>
 		<stackpanel>
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <resourcecollection>
+		  	<styletemplate key='backgroundBorder'>
+		  		<setters>
+		  			<stylesetter property='margin' value='1' />
+		  			<stylesetter property='width' value='300' />
+		  			<stylesetter property='height' value='300' />
+		  			<stylesetter property='background' value='Orange' />
+		  		</setters>
+		  	</styletemplate>
+		  </resourcecollection>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bLorumIpsum' margin='10' padding='10' background='Black' halign='stretch' valign='stretch'>
 		      <textblock name='lblLorumIpsum' halign='stretch' valign='center' foreground='White'>
               This box should be stretched horizontally and 
@@ -99,79 +109,79 @@
 		    </border>
 		  </border>
 		
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}' >
 		    <border name='bHL_VS' background='Black' halign='left' valign='stretch'>
 		      <textblock name='lblHL_VS' halign='center' valign='center' foreground='White'>HL-VS</textblock>
 		    </border>
 		  </border>
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bHC_VS' background='Black' halign='center' valign='stretch'>
 		      <textblock name='lblHC_VS' halign='center' valign='center' foreground='White'>HC-VS</textblock>
 		    </border>
 		  </border>
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bHR_VS' background='Black' halign='right' valign='stretch'>
 		      <textblock name='lblHR_VS' halign='center' valign='center' foreground='White'>HR-VS</textblock>
 		    </border>
 		  </border>
 		  
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bHS_VT' background='Black' halign='stretch' valign='top'>
 		      <textblock name='lblHS_VT' halign='center' valign='center' foreground='White'>HS-VT</textblock>
 		    </border>
 		  </border>
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bHS_VC' background='Black' halign='stretch' valign='center'>
 		      <textblock name='lblHS_VC' halign='center' valign='center' foreground='White'>HS-VC</textblock>
 		    </border>
 		  </border>
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bHS_VB' background='Black' halign='stretch' valign='bottom'>
 		      <textblock name='lblHS_VB' halign='center' valign='center' foreground='White'>HS-VB</textblock>
 		    </border>
 		  </border>
 		
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bLT' background='Black' halign='left' valign='top'>
 		      <textblock halign='center' valign='center' foreground='White'>LT</textblock>
 		    </border>
 		  </border>
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bCT' background='Black' halign='center' valign='top'>
 		      <textblock halign='center' valign='center' foreground='White'>CT</textblock>
 		    </border>
 		  </border>
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bRT' background='Black' halign='right' valign='top'>
 		      <textblock halign='center' valign='center' foreground='White'>RT</textblock>
 		    </border>
 		  </border>
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bRC' background='Black' halign='right' valign='center'>
 		      <textblock halign='center' valign='center' foreground='White'>RC</textblock>
 		    </border>
 		  </border>
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bRB' background='Black' halign='right' valign='bottom'>
 		      <textblock halign='center' valign='center' foreground='White'>RB</textblock>
 		    </border>
 		  </border>
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bCB' background='Black' halign='center' valign='bottom'>
 		      <textblock halign='center' valign='center' foreground='White'>CB</textblock>
 		    </border>
 		  </border>
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bLB' background='Black' halign='left' valign='bottom'>
 		      <textblock halign='center' valign='center' foreground='White'>LB</textblock>
 		    </border>
 		  </border>
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bLC' background='Black' halign='left' valign='center'>
 		      <textblock halign='center' valign='center' foreground='White'>LC</textblock>
 		    </border>
 		  </border>
-		  <border margin='1' width='300' height='300' background='Orange'>
+		  <border style='{resource backgroundBorder}'>
 		    <border name='bCC' background='Black' halign='center' valign='center'>
 		      <textblock halign='center' valign='center' foreground='White'>CC</textblock>
 		    </border>

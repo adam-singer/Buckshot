@@ -43,7 +43,7 @@ class StackPanel extends Panel
 
   void createElement(){
     rawElement = new DivElement();
-    Polly.makeFlexBox(rawElement, 'multi');
+    Polly.makeFlexBox(rawElement, ManualFlexType.Multi);
     //rawElement.style.flexFlow = 'column';
     rawElement.style.overflow = 'hidden';
 

@@ -462,31 +462,15 @@ class Polly {
       element.rawElement.style.display = 'inline-block';
 
       if (element.hAlign != null){
-//        if (element.hAlign == HorizontalAlignment.stretch){
           element
             ._manualAlignmentHandler
             .enableManualHorizontalAlignment(element.hAlign);
-//        }else{
-          //something else besides stretch
-//          element._manualAlignmentHandler.disableManualHorizontalAlignment();
-//
-//          setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
-//            FlexModel.Manual);
-//        }
       }
 
       if (element.vAlign != null){
-//        if (element.vAlign == VerticalAlignment.stretch){
           element
             ._manualAlignmentHandler
             .enableManualVerticalAlignment(element.vAlign);
-//        }else{
-          //something else besides stretch
-//          element._manualAlignmentHandler.disableManualHorizontalAlignment();
-//
-//          setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
-//            FlexModel.Manual);
-//        }
       }
     }
 
