@@ -17,9 +17,9 @@ class StackPanel extends Panel
       this,
       "orientation",
       (Orientation value){
-        Polly.setFlexBoxOrientation(rawElement, value);
+        Polly.setFlexBoxOrientation(this, value);
       },
-      Orientation.vertical, converter:new StringToOrientationConverter());
+      Orientation.vertical, converter:const StringToOrientationConverter());
   }
 
   void onChildrenChanging(ListChangedEventArgs args){
@@ -34,6 +34,9 @@ class StackPanel extends Panel
     if (!args.newItems.isEmpty()){
       args.newItems.forEach((FrameworkElement element){
         element.addToLayoutTree(this);
+        if (Polly._flexModel == FlexModel.Manual){
+          Polly.setManualStackOrientation(element, orientation);
+        }
       });
     }
   }

@@ -6,6 +6,9 @@
 * Converts a [String] to an [Orientation] enumerator.
 */
 class StringToOrientationConverter implements IValueConverter{
+  
+  const StringToOrientationConverter();
+  
   Dynamic convert(Dynamic value, [Dynamic parameter]){
     if (!(value is String)) return value;
     switch(value){

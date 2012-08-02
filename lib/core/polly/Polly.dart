@@ -50,13 +50,13 @@ class Polly {
     makeFlexBox(e);
 
     _flexModel = FlexModel.getFlexModel(e);
-    print('flex model ${_flexModel}');
+
     e.remove();
   }
 
   static void _setFirefox(){
     //yay firefox and it's weird line spacing...
-    document.body.style.lineHeight = '122%';
+    //document.body.style.lineHeight = '100%';
   }
 
   /**
@@ -165,16 +165,38 @@ class Polly {
     return (result != null) ? result : null;
   }
 
+  /**
+   * Updates an element to the correct manual orientation. */
+  static void setManualStackOrientation(
+                                     FrameworkElement element,
+                                     Orientation orientation)
+  {
+    if (orientation == Orientation.vertical){
+      element.rawElement.style.display = 'table';
+    }else{
+      element.rawElement.style.display = 'inline-table';
+    }
+  }
+
 
   /**
-   * Sets the flex [Orientation] of a flex box. */
-  static void setFlexBoxOrientation(Element element, Orientation orientation){
+   * Sets the flex [Orientation] of a flex box container. */
+  static void setFlexBoxOrientation(FrameworkElement element,
+                                    Orientation orientation){
 
     if (_flexModel == FlexModel.Manual){
-      element.attributes['data-buckshot-flexbox-orientation'] =
+      element.rawElement.attributes['data-buckshot-flexbox-orientation'] =
         orientation == Orientation.vertical ? 'vertical' : 'horizontal';
+
+      //TODO: clear any previous manual tracks in Brutus...
+      if ((element as IFrameworkContainer).content is Collection){
+        element
+          .dynamic
+          .content
+          .forEach((e) => setManualStackOrientation(e, orientation));
+      }
     }else{
-      element.style.flexFlow =
+      element.rawElement.style.flexFlow =
       orientation == Orientation.vertical ? 'column' : 'row';
     }
   }
@@ -191,7 +213,7 @@ class Polly {
 
   /** For individual items within a flexbox, but only in the cross-axis. */
   static void setItemHorizontalCrossAxisAlignment(FrameworkElement element,
-                        HorizontalAlignment alignment, [FlexModel flexModel]){
+                        HorizontalAlignment alignment){
 
     void flexHandler(){
       //supporting the latest draft flex box spec
@@ -222,7 +244,9 @@ class Polly {
     }
 
     void noFlexHandler(){
-//      throw const NotImplementedException();
+      element
+      ._manualAlignmentHandler
+      .enableManualHorizontalAlignment(alignment);
     }
 
     switch(_flexModel){
