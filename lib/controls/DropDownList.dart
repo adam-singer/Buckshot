@@ -13,24 +13,24 @@ class DropDownList extends Control
   FrameworkProperty selectedItemProperty;
   FrameworkProperty selectedIndexProperty; //TODO implement this property
   
-  FrameworkEvent<SelectedItemChangedEventArgs<DropDownListItem>> selectionChanged;
+  FrameworkEvent<SelectedItemChangedEventArgs<DropDownItem>> selectionChanged;
     
   DropDownList()
   :
-    selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs<DropDownListItem>>()
+    selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs<DropDownItem>>()
   {
     Browser.appendClass(rawElement, "dropdownlist");
     _initDropDownListProperties();
   }
   
   void _initDropDownListProperties(){
-    itemsProperty = new FrameworkProperty(this, "items", (ObservableList<DropDownListItem> v){}, new ObservableList<DropDownListItem>());
+    itemsProperty = new FrameworkProperty(this, "items", (ObservableList<DropDownItem> v){}, new ObservableList<DropDownItem>());
     
     itemsSourceProperty = new FrameworkProperty(this, "itemsSource", (List<String> v){
       _updateDDL();
     });   
     
-    selectedItemProperty = new FrameworkProperty(this, "selectedItem", (DropDownListItem v){}, new DropDownListItem());
+    selectedItemProperty = new FrameworkProperty(this, "selectedItem", (DropDownItem v){}, new DropDownItem());
     
     items.listChanged + (_, __) {
       if (!_isLoaded) return;
@@ -38,7 +38,7 @@ class DropDownList extends Control
     };
         
     void doNotify(){
-      DropDownListItem selected;
+      DropDownItem selected;
       
       if (itemsSource != null && !itemsSource.isEmpty()) {
         selectedItemProperty.value.name = itemsSource[rawElement.dynamic.selectedIndex];
@@ -50,7 +50,7 @@ class DropDownList extends Control
         selectedItemProperty.value.value = selected.value;
       }    
       
-      if (selected != null) selectionChanged.invoke(this, new SelectedItemChangedEventArgs<DropDownListItem>(selected));
+      if (selected != null) selectionChanged.invoke(this, new SelectedItemChangedEventArgs<DropDownItem>(selected));
     }
     
     this.loaded + (_, __){
@@ -73,7 +73,7 @@ class DropDownList extends Control
       });
       
     }else{
-      items.forEach((DropDownListItem i){
+      items.forEach((DropDownItem i){
         var option = new OptionElement();
         option.attributes['value'] = i.value;
         option.text = i.name;
@@ -83,11 +83,11 @@ class DropDownList extends Control
     }
   }
   
-  DropDownListItem get selectedItem() => getValue(selectedItemProperty);
+  DropDownItem get selectedItem() => getValue(selectedItemProperty);
   
   List<String> get itemsSource() => getValue(itemsSourceProperty);
   
-  ObservableList<DropDownListItem> get items() => getValue(itemsProperty);
+  ObservableList<DropDownItem> get items() => getValue(itemsProperty);
   
   /// Overridden [BuckshotObject] method.
   BuckshotObject makeMe() => new DropDownList();
@@ -101,17 +101,17 @@ class DropDownList extends Control
 }
 
 
-class DropDownListItem extends BuckshotObject
+class DropDownItem extends BuckshotObject
 {
   FrameworkProperty nameProperty;
   FrameworkProperty valueProperty;
   
-  DropDownListItem(){
+  DropDownItem(){
     _initDropDownListItemProperties();
   }
   
   /// Overridden [BuckshotObject] method.
-  BuckshotObject makeMe() => new DropDownListItem();
+  BuckshotObject makeMe() => new DropDownItem();
   
   void _initDropDownListItemProperties(){
     nameProperty = new FrameworkProperty(this, "name", (String v){}, '');
@@ -126,5 +126,5 @@ class DropDownListItem extends BuckshotObject
   set value(Dynamic v) => setValue(valueProperty, v);
   
   
-  String get type() => "DropDownListItem";
+  String get type() => "DropDownItem";
 }
