@@ -181,11 +181,16 @@ class Polly {
 
   /**
    * Sets the flex [Orientation] of a flex box container. */
-  static void setFlexBoxOrientation(FrameworkElement element,
+  static void setFlexBoxOrientation(element,
                                     Orientation orientation){
 
+    //TODO: bad bad bad
+    final rawElement = (element is FrameworkElement)
+        ? element.rawElement
+        : element;
+    
     if (_flexModel == FlexModel.Manual){
-      element.rawElement.attributes['data-buckshot-flexbox-orientation'] =
+      rawElement.attributes['data-buckshot-flexbox-orientation'] =
         orientation == Orientation.vertical ? 'vertical' : 'horizontal';
 
       //TODO: clear any previous manual tracks in Brutus...
@@ -196,7 +201,7 @@ class Polly {
           .forEach((e) => setManualStackOrientation(e, orientation));
       }
     }else{
-      element.rawElement.style.flexFlow =
+      rawElement.style.flexFlow =
       orientation == Orientation.vertical ? 'column' : 'row';
     }
   }
@@ -312,7 +317,7 @@ class Polly {
   /**
    * Sets the horizontal alignment of children within
    * a given flex box container [element]. */
-  static void setHorizontalFlexBoxAlignment(FrameworkElement element,
+  static void setHorizontalFlexBoxAlignment(FrameworkObject element,
                                             HorizontalAlignment alignment,
                                             [FlexModel flexModel]){
 
@@ -372,7 +377,7 @@ class Polly {
   /**
    * Sets the vertical alignment of children within
    * a given flex box container [element]. */
-  static void setVerticalFlexBoxAlignment(FrameworkElement element,
+  static void setVerticalFlexBoxAlignment(FrameworkObject element,
                                           VerticalAlignment alignment,
                                           [FlexModel flexModel]){
 

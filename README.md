@@ -9,11 +9,6 @@ If you've worked with .net WPF or Silverlight then this framework will feel very
 ## Status: Alpha ##
 Project is currently in the **alpha** stage of development.  It will likely not move to beta or v1.0 until after Dart ships v1.0. This is to ensure that that library is working correctly with the Dart APIs, which are still in flux.
 
-## Bleeding Edge ##
-Buckshot uses the very latest in HTML5/CSS3 standards.  No shims are yet in place to compensate for older or non-compliant browsers.
-
-In particular, the layout model uses the latest draft of the [CSS3 flexbox](http://dev.w3.org/csswg/css3-flexbox/) spec, so it will currently only work with the latest build of Chromium or Dartium.
-
 ## Getting Started ##
 
 ### Videos ###

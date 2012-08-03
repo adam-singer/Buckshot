@@ -214,7 +214,7 @@ class Buckshot extends FrameworkObject {
     registerElement(new RawHtml());
     registerElement(new ColumnDefinition());
     registerElement(new RowDefinition());
-    registerElement(new DropDownListItem());
+    registerElement(new DropDownItem());
     registerElement(new CollectionPresenter());
 
     //resources

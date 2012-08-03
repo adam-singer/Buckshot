@@ -103,7 +103,7 @@ void main() {
     borderContent.content = new TextBlock();
   };
 
-  void handleSelection(_, SelectedItemChangedEventArgs<DropDownListItem> args){
+  void handleSelection(_, SelectedItemChangedEventArgs<DropDownItem> args){
 
     switch(args.selectedItem.value.toString()){
       case "helloworld":

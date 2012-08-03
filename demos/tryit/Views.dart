@@ -192,11 +192,11 @@ data source 'fruit' the entire demo required no Dart coding in order to work.
   <!-- This DropDownList is created statically. -->
   <dropdownlist name="ddlColors">
     <items>
-      <dropdownlistitem name="Red" value="Red"></dropdownlistitem>
-      <dropdownlistitem name="Blue" value="Blue"></dropdownlistitem>
-      <dropdownlistitem name="Green" value="Green"></dropdownlistitem>
-      <dropdownlistitem name="Orange" value="Orange"></dropdownlistitem>
-      <dropdownlistitem name="Tan" value="Tan"></dropdownlistitem>
+      <DropDownItem name="Red" value="Red" />
+      <DropDownItem name="Blue" value="Blue" />
+      <DropDownItem name="Green" value="Green" />
+      <DropDownItem name="Orange" value="Orange" />
+      <DropDownItem name="Tan" value="Tan" />
     </items>
   </dropdownlist>
   
@@ -394,16 +394,16 @@ declarative element-to-element binding.
 
       <dropdownlist name="ddlColors" width="100" grid.column="1">
         <items>
-          <dropdownlistitem name="Red"></dropdownlistitem>
-          <dropdownlistitem name="Green"></dropdownlistitem>
-          <dropdownlistitem name="Blue"></dropdownlistitem>
-          <dropdownlistitem name="LightBlue"></dropdownlistitem>
-          <dropdownlistitem name="Tan"></dropdownlistitem>
-          <dropdownlistitem name="Orange"></dropdownlistitem>
-          <dropdownlistitem name="Purple"></dropdownlistitem>
-          <dropdownlistitem name="Lime"></dropdownlistitem>
-          <dropdownlistitem name="DarkGreen"></dropdownlistitem>
-          <dropdownlistitem name="Yellow"></dropdownlistitem>
+          <DropDownItem name="Red" />
+          <DropDownItem name="Green" />
+          <DropDownItem name="Blue" />
+          <DropDownItem name="LightBlue" />
+          <DropDownItem name="Tan" />
+          <DropDownItem name="Orange" />
+          <DropDownItem name="Purple" />
+          <DropDownItem name="Lime" />
+          <DropDownItem name="DarkGreen" />
+          <DropDownItem name="Yellow" />
         </items>
       </dropdownlist>
       <slider name="slWidth" grid.row="1" grid.column="1" min="20" max="300" value="150" width="100"></slider>
