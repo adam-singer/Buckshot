@@ -167,30 +167,37 @@ class Polly {
 
   /**
    * Updates an element to the correct manual orientation. */
-  static void setManualStackOrientation(
+  static void setManualMultiStackOrientation(
                                      FrameworkElement element,
                                      Orientation orientation)
   {
     if (orientation == Orientation.vertical){
+      //remove wrappers if present
       element.rawElement.style.display = 'table';
     }else{
+      //add wrappers if not already present
       element.rawElement.style.display = 'inline-table';
+      
+//      if(!element.rawElement.parent.attributes.containsKey('data-buckshot-horizontal-cross-alignment-wrapper')){
+//        final wrapper = new Element.html('<div style="display:inline-table;height:300px" data-buckshot-horizontal-cross-alignment-wrapper></div>');
+//        element.parent.rawElement.insertBefore(wrapper, element.rawElement);
+//        element.rawElement.remove();
+//        wrapper.elements.add(element.rawElement);
+//        element.rawElement.style.display = 'inline-table';
+//        element.rawElement.style.verticalAlign = 'middle';
+//      }else{
+//        //element.rawElement.style.display = 'inline-table';
+//      }
     }
   }
-
-
+  
   /**
    * Sets the flex [Orientation] of a flex box container. */
-  static void setFlexBoxOrientation(element,
+  static void setFlexBoxOrientation(FrameworkObject element,
                                     Orientation orientation){
-
-    //TODO: bad bad bad
-    final rawElement = (element is FrameworkElement)
-        ? element.rawElement
-        : element;
-    
+   
     if (_flexModel == FlexModel.Manual){
-      rawElement.attributes['data-buckshot-flexbox-orientation'] =
+      element.rawElement.attributes['data-buckshot-flexbox-orientation'] =
         orientation == Orientation.vertical ? 'vertical' : 'horizontal';
 
       //TODO: clear any previous manual tracks in Brutus...
@@ -198,10 +205,10 @@ class Polly {
         element
           .dynamic
           .content
-          .forEach((e) => setManualStackOrientation(e, orientation));
+          .forEach((e) => setManualMultiStackOrientation(e, orientation));
       }
     }else{
-      rawElement.style.flexFlow =
+      element.rawElement.style.flexFlow =
       orientation == Orientation.vertical ? 'column' : 'row';
     }
   }
@@ -297,7 +304,9 @@ class Polly {
     }
 
     void noFlexHandler(){
-//      throw const NotImplementedException();
+//      element
+//      ._manualAlignmentHandler
+//      .enableManualVerticalAlignment(alignment);
     }
 
     switch(_flexModel){

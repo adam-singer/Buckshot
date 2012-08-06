@@ -14,7 +14,7 @@ class FrameworkElement extends FrameworkObject {
 
   final HashMap<String, String> _transitionProperties;
 
-  Brutus _manualAlignmentHandler;
+  _Brutus _manualAlignmentHandler;
 
   /// Represents the margin [Thickness] area outside the FrameworkElement boundary.
   FrameworkProperty marginProperty;
@@ -118,7 +118,7 @@ class FrameworkElement extends FrameworkObject {
   {
     Browser.appendClass(rawElement, "FrameworkElement");
 
-    _manualAlignmentHandler = new Brutus.with(this);
+    _manualAlignmentHandler = new _Brutus.with(this);
 
     _style = new StyleTemplate(); //give a blank style so merging works immediately
 

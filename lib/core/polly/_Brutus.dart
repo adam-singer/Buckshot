@@ -8,8 +8,9 @@
 /**
  * Support class for [Polly] that tracks an manages manual alignments for a
  * [FrameworkElement] within a parent container.
+ * 
  */
-class Brutus
+class _Brutus
 {
   EventHandlerReference _eventReference;
   var _preservedWidth;
@@ -22,7 +23,7 @@ class Brutus
   HorizontalAlignment manualHorizontalAlignment;
   VerticalAlignment manualVerticalAlignment;
 
-  Brutus.with(this.element);
+  _Brutus.with(this.element);
 
 
   /**

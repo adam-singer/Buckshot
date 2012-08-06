@@ -35,7 +35,7 @@ class StackPanel extends Panel
       args.newItems.forEach((FrameworkElement element){
         element.addToLayoutTree(this);
         if (Polly._flexModel == FlexModel.Manual){
-          Polly.setManualStackOrientation(element, orientation);
+          Polly.setManualMultiStackOrientation(element, orientation);
         }
       });
     }
