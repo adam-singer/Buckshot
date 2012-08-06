@@ -30,7 +30,8 @@
 * * [GridUnitType]
 * * [GridLength]
 */
-class Grid extends Panel{
+class Grid extends Panel
+{
 static final String noDirectGridCellExceptionMessage = "GridCell cannot be added directly to Grid.";
 final List<_GridCell> _internalChildren;
 

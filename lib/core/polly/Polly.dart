@@ -201,7 +201,7 @@ class Polly {
         orientation == Orientation.vertical ? 'vertical' : 'horizontal';
 
       //TODO: clear any previous manual tracks in Brutus...
-      if ((element as IFrameworkContainer).content is Collection){
+      if (element is IFrameworkContainer && (element as IFrameworkContainer).content is Collection){
         element
           .dynamic
           .content

@@ -84,11 +84,10 @@ class DockPanel extends Panel
     var lastLocation = DockLocation.left;
 
     //makes a flexbox container
-    createContainer(DockLocation loc){
-      final c = new DivElement();
+    Element createContainer(DockLocation loc){
+      final c = new RawHtml();
 
-      Polly.makeFlexBox(c);
-
+      Polly.makeFlexBox(c.rawElement);
 
       Polly.setFlexBoxOrientation(c, (loc == DockLocation.left
           || loc == DockLocation.right) ? Orientation.horizontal : Orientation.vertical);
@@ -98,24 +97,24 @@ class DockPanel extends Panel
 //          || loc == DockLocation.right) ? 'row' : 'column');
 
       //set the stretch
-      Polly.setCSS(c, 'flex', '1 1 auto');
+      Polly.setCSS(c.rawElement, 'flex', '1 1 auto');
 
       //make container-level adjustments based on the dock location.
       switch(loc.toString()){
         case 'right':
-          Polly.setCSS(c, 'justify-content', 'flex-end');
+          Polly.setCSS(c.rawElement, 'justify-content', 'flex-end');
           break;
         case 'top':
-          Polly.setCSS(c, 'justify-content', 'flex-start');
-          Polly.setCSS(c, 'align-items', 'stretch');
+          Polly.setCSS(c.rawElement, 'justify-content', 'flex-start');
+          Polly.setCSS(c.rawElement, 'align-items', 'stretch');
           break;
         case 'bottom':
-          Polly.setCSS(c, 'justify-content', 'flex-end');
-          Polly.setCSS(c, 'align-items', 'stretch');
+          Polly.setCSS(c.rawElement, 'justify-content', 'flex-end');
+          Polly.setCSS(c.rawElement, 'align-items', 'stretch');
           break;
       }
 
-      return c;
+      return c.rawElement;
     }
 
     // Adds child to container with correct alignment and ordering.

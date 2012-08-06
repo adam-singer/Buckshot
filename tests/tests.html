@@ -5,11 +5,36 @@
     <title>Buckshot Tests</title>
   </head>
   <body style='margin:0px;padding:0px'>
-	<div id="BuckshotHost"></div>
-	
+	<div id="BuckshotHost"></div>	
+		
 	<!-- Buckshot Templates -->
+	<script id='horizontalTest' type='text/xml'>
+		<grid height='500' background='Orange'>
+			<columndefinitions>
+				<columndefinition width='auto' />
+				<columndefinition width='auto' />
+				<columndefinition width='auto' />
+			</columndefinitions>
+		    <textblock name='lblTop' valign='top' text='top top top' />
+		    <textblock grid.column='1' name='lblVCenter' valign='center' text='center center center' />
+		    <textblock grid.column='2' name='lblBottom' valign='bottom' text='bottom bottom bottom' />
+		</grid>
+	</script>
+	
 	<script id='gridTest' type='text/xml'>
 		<border name='borderContainer' width='500' height='500' bordercolor='Black' borderthickness='1'>
+	      <resourcecollection>
+	        <styletemplate key='borderCircle'>
+	           <setters>
+	              <stylesetter property='width' value='40' />
+	              <stylesetter property='height' value='40' />
+	              <stylesetter property='background' value='Yellow' />
+	              <stylesetter property='borderColor' value='Blue' />
+	              <stylesetter property='borderThickness' value='5' />
+	              <stylesetter property='cornerRadius' value='40' />
+	           </setters>
+	        </styletemplate>
+	      </resourcecollection>
 		  <grid name='gridTest' halign='stretch' valign='stretch'>
 		    <columndefinitions>
 		      <columndefinition width='auto'/>
@@ -38,17 +63,17 @@
 		    <textblock name='lblTitle' valign='center' halign='center' grid.columnspan='5' text='Grid Test' fontsize='25'/>
 		  
 		  <!-- circles -->
-		    <border name='borderCircle1' width='40' height='40' background='Yellow' bordercolor='Blue' borderthickness='5' cornerradius='40' >
-		      <textblock halign='center' valign='center' text='Hi' />
+		    <border name='borderCircle1' style='{resource borderCircle}' >
+		      <textblock halign='center' valign='center' text='CC' />
 		    </border>
-		    <border name='borderCircle2' grid.column='4' halign='right' width='40' height='40' background='Yellow' bordercolor='Blue' borderthickness='5' cornerradius='40' >
-		      <textblock halign='center' valign='center' text='Hi' />
+		    <border name='borderCircle2' grid.column='4' halign='right' style='{resource borderCircle}'>
+		      <textblock halign='center' valign='center' text='CC' />
 		    </border>
-		    <border name='borderCircle3' grid.column='4' grid.row='3' halign='right' valign='bottom' width='40' height='40' background='Yellow' bordercolor='Blue' borderthickness='5' cornerradius='40' >
-		      <textblock halign='center' valign='center' text='Hi' />
+		    <border name='borderCircle3' grid.column='4' grid.row='3' halign='right' valign='bottom' style='{resource borderCircle}' >
+		      <textblock halign='center' valign='center' text='CC' />
 		    </border>
-		    <border name='borderCircle4' grid.row='3' width='40' height='40' valign='bottom' background='Yellow' bordercolor='Blue' borderthickness='5' cornerradius='40' >
-		      <textblock halign='center' valign='center' text='Hi' />
+		    <border name='borderCircle4' grid.row='3' valign='bottom' style='{resource borderCircle}' >
+		      <textblock halign='center' valign='center' text='CC' />
 		    </border>
 		  
 		  <!-- spanning rectangle with overlapping aligned elements in the same space -->

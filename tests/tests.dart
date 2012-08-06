@@ -42,8 +42,9 @@
 void main() {
 
 //  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#borderTest')));
-  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#stackPanelTest')));
-//  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#borderTest')));
+//  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#stackPanelTest')));
+  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#gridTest')));
+//  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#horizontalTest')));
   Polly.dump();
   return;
 
