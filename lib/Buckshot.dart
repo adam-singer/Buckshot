@@ -11,7 +11,8 @@
 #import('dart:json');
 #import('dart:isolate');
 
-#import('../external/dartxml/lib/xml.dart');
+//#import('../external/dartxml/lib/xml.dart');
+#import('package:dart-xml/lib/xml.dart');
 #import('../external/yaml/yaml.dart');
 #import('../external/shared/shared.dart');
 #import('../external/events/events.dart');

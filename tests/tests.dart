@@ -8,8 +8,8 @@
 #import('../extensions/controls/DockPanel.dart');
 
 // point this to wherever your copy of the dart source code is
-#import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/unittest.dart');
-#import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/html_enhanced_config.dart');
+#import('package:unittest/unittest.dart');
+#import('package:unittest/html_enhanced_config.dart');
 
 #source('InitializationTests.dart');
 #source('FrameworkFundamentalsTests.dart');
