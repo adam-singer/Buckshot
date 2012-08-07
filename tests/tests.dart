@@ -5,6 +5,7 @@
 #import('../external/shared/shared.dart');
 #import('../external/web/web.dart');
 #import('../external/events/events.dart');
+#import('../extensions/controls/DockPanel.dart');
 
 // point this to wherever your copy of the dart source code is
 #import('/d:/development/dart/editor_latest/dart/dart-sdk/lib/unittest/unittest.dart');
@@ -43,8 +44,13 @@ void main() {
 
 //  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#borderTest')));
 //  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#stackPanelTest')));
-  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#gridTest')));
+//  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#gridTest')));
 //  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#horizontalTest')));
+
+  buckshot.registerElement(new DockPanel());
+  buckshot.registerAttachedProperty('dockpanel.dock', DockPanel.setDock);
+  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#dockPanelTest')));
+  
   Polly.dump();
   return;
 

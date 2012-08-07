@@ -56,7 +56,7 @@
 #source('elements/grid/Grid.dart');
 #source('elements/grid/RowDefinition.dart');
 #source('elements/grid/ColumnDefinition.dart');
-#source('elements/grid/GridCell.dart');
+#source('elements/grid/_GridCell.dart');
 #source('elements/grid/GridLayoutDefinition.dart');
 #source('elements/grid/GridLength.dart');
 #source('elements/CollectionPresenter.dart');

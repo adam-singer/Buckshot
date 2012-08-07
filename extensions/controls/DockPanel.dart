@@ -198,3 +198,81 @@ class DockPanel extends Panel
 
   String get type() => 'DockPanel';
 }
+
+
+
+/*
+ * Internal container element for DockPanel cells.
+ */
+class _DockPanelCell extends FrameworkElement
+{
+  /// Represents the content inside the border.
+  FrameworkProperty contentProperty;
+  final DockLocation location;
+  
+  _DockPanelCell.withLocation(DockLocation this.location){
+    _initDockPanelCellProperties();
+
+    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+  }
+
+  void _initDockPanelCellProperties(){
+    //register the dependency properties
+    contentProperty = new FrameworkProperty(
+      this,
+      "content", (FrameworkElement c)
+      {
+        if (contentProperty.previousValue != null){
+          contentProperty.previousValue.removeFromLayoutTree();
+        }
+        
+        if (c != null){
+          setContentDockLocation();
+          c.addToLayoutTree(this);
+        }
+      });
+  }
+
+  void setContentDockLocation(){
+    switch(location){
+      case DockLocation.left:
+        content.hAlign = HorizontalAlignment.left;
+        content.vAlign = VerticalAlignment.stretch;
+        break;
+      case DockLocation.top:
+        content.hAlign = HorizontalAlignment.stretch;
+        content.vAlign = VerticalAlignment.top;
+        break;
+      case DockLocation.right:
+        content.hAlign = HorizontalAlignment.right;
+        content.vAlign = VerticalAlignment.stretch;
+        break;
+      case DockLocation.bottom:
+        content.hAlign = HorizontalAlignment.stretch;
+        content.vAlign = VerticalAlignment.bottom;
+        break;
+    }
+  }
+  
+  FrameworkElement get content() => getValue(contentProperty);
+  set content(FrameworkElement value) => setValue(contentProperty, value);
+
+  /// Overridden [FrameworkObject] method for generating the html representation of the border.
+  void createElement(){
+    rawElement = new DivElement();
+    rawElement.style.overflow = "hidden";
+    Polly.makeFlexBox(rawElement);
+  }
+
+  /// Overridden [FrameworkObject] method is called when the framework requires elements to recalculate layout.
+  void updateLayout(){
+    if (content == null) return;
+
+    //spoof the parent during the alignment pass
+    content.parent = this;
+    Polly.setFlexboxAlignment(content);
+    content.parent = parent;
+  }
+
+  String get type() => "_DockPanelCell";
+}

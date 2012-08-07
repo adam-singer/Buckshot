@@ -1,3 +1,8 @@
+name: buckshot
+description: Template driven UI framework.
+version: 0.0.1
 dependencies:
+  unittest:
+    sdk: unittest
   dart-xml:
     git: git://github.com/prujohn/dart-xml.git

@@ -13,15 +13,20 @@ class StackPanel extends Panel
   StackPanel()
   {
     Browser.appendClass(rawElement, "stackpanel");
+    
+    initStackPanelProperties();
+  }
+
+  void initStackPanelProperties(){
     orientationProperty = new FrameworkProperty(
       this,
       "orientation",
       (Orientation value){
         Polly.setFlexBoxOrientation(this, value);
       },
-      Orientation.vertical, converter:const StringToOrientationConverter());
+      Orientation.vertical, converter:const StringToOrientationConverter());  
   }
-
+  
   void onChildrenChanging(ListChangedEventArgs args){
     super.onChildrenChanging(args);
 

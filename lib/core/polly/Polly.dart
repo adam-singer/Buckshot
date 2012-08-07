@@ -178,16 +178,10 @@ class Polly {
       //add wrappers if not already present
       element.rawElement.style.display = 'inline-table';
       
-//      if(!element.rawElement.parent.attributes.containsKey('data-buckshot-horizontal-cross-alignment-wrapper')){
-//        final wrapper = new Element.html('<div style="display:inline-table;height:300px" data-buckshot-horizontal-cross-alignment-wrapper></div>');
-//        element.parent.rawElement.insertBefore(wrapper, element.rawElement);
-//        element.rawElement.remove();
-//        wrapper.elements.add(element.rawElement);
-//        element.rawElement.style.display = 'inline-table';
-//        element.rawElement.style.verticalAlign = 'middle';
-//      }else{
-//        //element.rawElement.style.display = 'inline-table';
-//      }
+      //TODO: 
+      // Replace underlying UI with a Grid element with all child measurements set
+      // to 'auto'.  This will effect a horizontal stackpanel, with the ability
+      // to support cross-axis alignments.
     }
   }
   
@@ -304,9 +298,9 @@ class Polly {
     }
 
     void noFlexHandler(){
-//      element
-//      ._manualAlignmentHandler
-//      .enableManualVerticalAlignment(alignment);
+      element
+      ._manualAlignmentHandler
+      .enableManualVerticalAlignment(alignment);
     }
 
     switch(_flexModel){
