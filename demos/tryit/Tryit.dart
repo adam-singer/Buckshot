@@ -18,7 +18,7 @@
 #import('dart:html');
 #import('../../lib/Buckshot.dart');
 #import('../../external/shared/shared.dart');
-#import('../../external/events/events.dart');
+#import('package:DartNet-Event-Model/events.dart');
 #import('../../extensions/controls/media/MediaPack.dart');
 #import('../../extensions/controls/ListBox.dart');
 #import('../../extensions/controls/ModalDialog.dart');

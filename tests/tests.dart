@@ -1,10 +1,10 @@
 
 #import('dart:html');
 #import('../lib/Buckshot.dart');
-#import('../external/dartxml/lib/xml.dart');
+#import('package:dart-xml/lib/xml.dart');
 #import('../external/shared/shared.dart');
 #import('../external/web/web.dart');
-#import('../external/events/events.dart');
+#import('package:DartNet-Event-Model/events.dart');
 #import('../extensions/controls/DockPanel.dart');
 
 // point this to wherever your copy of the dart source code is

@@ -15,7 +15,7 @@
 #import('package:dart-xml/lib/xml.dart');
 #import('../external/yaml/yaml.dart');
 #import('../external/shared/shared.dart');
-#import('../external/events/events.dart');
+#import('package:DartNet-Event-Model/events.dart');
 #import('../external/web/web.dart');
 //#import('controls/ListBox.dart');
 

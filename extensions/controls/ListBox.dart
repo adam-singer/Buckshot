@@ -7,7 +7,7 @@
 #library('controls.buckshotui.org');
 
 #import('../../lib/Buckshot.dart');
-#import('../../external/events/events.dart');
+#import('package:DartNet-Event-Model/events.dart');
 #import('../../external/shared/shared.dart');
 #import('../../external/web/web.dart');
 

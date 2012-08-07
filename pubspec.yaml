@@ -6,3 +6,5 @@ dependencies:
     sdk: unittest
   dartxml:
     git: git://github.com/prujohn/dart-xml.git
+  events:
+    git: git://github.com/prujohn/DartNet-Event-Model.git
