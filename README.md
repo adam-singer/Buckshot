@@ -10,6 +10,27 @@ If you've worked with .net WPF or Silverlight then this framework will feel very
 Project is currently in the **alpha** stage of development.  It will likely not move to beta or v1.0 until after Dart ships v1.0. This is to ensure that that library is working correctly with the Dart APIs, which are still in flux.
 
 ## Getting Started ##
+### Installation using the pub package manager ###
+
+In your Dart application, make a **pubspec.yaml** file and add this line to it:
+
+    dependencies:
+      buckshot:
+        git: git://github.com/prujohn/Buckshot.git
+        
+From the command line, change directory to the root of your Dart project, then run pub install
+
+    pub install
+    
+pub will go out and retrieve buckshot for you, including any of it's dependencies, then placing it in a **packages** directory in your project.
+
+Next you'll need to point the Dart editor to your package directory.  You can set this in the Dart Editor's preferences dialog (Tools -> Preferences).
+
+Now you can reference buckshot in your application like so:
+
+    #import('package:buckshot/lib/Buckshot.dart');
+    
+This process should get easier over time as the pub utility matures.
 
 ### Videos ###
 * [Setting Up A Buckshot Project](http://www.youtube.com/watch?v=9YXeNalVeGA)
