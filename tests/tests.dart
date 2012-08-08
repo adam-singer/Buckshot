@@ -50,7 +50,7 @@ void main() {
   buckshot.registerElement(new DockPanel());
   buckshot.registerAttachedProperty('dockpanel.dock', DockPanel.setDock);
   buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#dockPanelTest')));
-  
+    
   Polly.dump();
   return;
 

@@ -8,3 +8,5 @@ dependencies:
     git: git://github.com/prujohn/dart-xml.git
   events:
     git: git://github.com/prujohn/DartNet-Event-Model.git
+  darternizr:
+    git: git://github.com/prujohn/Darternizr.git

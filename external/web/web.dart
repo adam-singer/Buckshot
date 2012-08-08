@@ -5,7 +5,6 @@
 #library('web.buckshotui.org');
 
 #import('dart:html');
-#import('../shared/shared.dart');
 
 #source('Browser.dart');
 #source('BrowserInfo.dart');
