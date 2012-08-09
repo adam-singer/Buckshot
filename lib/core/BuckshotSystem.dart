@@ -184,57 +184,17 @@ class Buckshot extends FrameworkObject {
     }
     
     void registerSync(){
-//      registerElement(new Ellipse());
-//      registerElement(new Rectangle());
 
-      //elements
-      // registerElement(new StackPanel());
-//      registerElement(new LayoutCanvas());
       registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
       registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
-//      registerElement(new Grid());
+
       registerAttachedProperty('grid.column', Grid.setColumn);
       registerAttachedProperty('grid.row', Grid.setRow);
       registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
       registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
 
-//      registerElement(new Border());
-//      registerElement(new ContentPresenter());
-//      registerElement(new TextArea());
-//      registerElement(new TextBlock());
-//      registerElement(new CheckBox());
-//      registerElement(new RadioButton());
-//      registerElement(new Hyperlink());
-//      registerElement(new Image());
-//      registerElement(new RawHtml());
-//      registerElement(new ColumnDefinition());
-//      registerElement(new RowDefinition());
-//      registerElement(new DropDownItem());
-//      registerElement(new CollectionPresenter());
-//
-//      //resources
-//      registerElement(new ResourceCollection());
-//      registerElement(new Color());
-//      registerElement(new LinearGradientBrush());
-//      registerElement(new GradientStop());
-//      registerElement(new SolidColorBrush());
-//      registerElement(new RadialGradientBrush());
-//      registerElement(new StyleSetter());
-//      registerElement(new StyleTemplate());
-//      registerElement(new VarResource());
-//      registerElement(new ControlTemplate());
-//      registerElement(new AnimationResource());
-//      registerElement(new AnimationKeyFrame());
-//      registerElement(new AnimationState());
-
       //actions
       registerElement(new SetPropertyAction());
-
-      
-//      registerElement(new TextBox());
-//      registerElement(new Slider());
-//      registerElement(new Button());
-//      registerElement(new DropDownList());
     }
     
     bool derivesFrom(InterfaceMirror im, List<String> classNames){
@@ -251,11 +211,6 @@ class Buckshot extends FrameworkObject {
         if(derivesFrom(classMirror, ['Control', 'FrameworkElement', 'FrameworkResource', 'TemplateObject'])){
           flist.add(classMirror.newInstance('',[]));  
         }
-        
-//        if (cName == 'StackPanel'){
-//          flist.add(classMirror.newInstance('',[]));
-//          print('${classMirror.superclass().simpleName}');
-//        }
       });
     });
     
@@ -265,7 +220,7 @@ class Buckshot extends FrameworkObject {
       results.forEach((o){
         if (o.hasReflectee){
           registerElement(o.reflectee);
-          print('registered!');
+          print('registered ${o.reflectee.type}!');
         }
       });
       
