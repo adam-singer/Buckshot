@@ -5,7 +5,7 @@
 /**
 * Represents a setter/value pair for a [FrameworkProperty].
 */
-class StyleSetter extends BuckshotObject
+class StyleSetter extends TemplateObject
 {
   FrameworkProperty valueProperty, propertyProperty;
   

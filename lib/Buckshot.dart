@@ -11,6 +11,7 @@
 #import('dart:json');
 #import('dart:isolate');
 #import('dart:math');
+#import('dart:mirrors');
 
 #import('package:dart-xml/lib/xml.dart');
 #import('package:DartNet-Event-Model/events.dart');
@@ -120,15 +121,16 @@
 #source('elements/shape/Shape.dart');
 #source('elements/shape/Ellipse.dart');
 #source('elements/shape/Rectangle.dart');
-#source('elements/shape/Line.dart');
-#source('elements/shape/PolyLine.dart');
-#source('elements/shape/Polygon.dart');
+//#source('elements/shape/Line.dart');
+//#source('elements/shape/PolyLine.dart');
+//#source('elements/shape/Polygon.dart');
 
 #source('templates/IPresentationFormatProvider.dart');
 #source('templates/XmlTemplateProvider.dart');
 #source('templates/JSONTemplateProvider.dart');
 #source('templates/YAMLTemplateProvider.dart');
 #source('templates/Template.dart');
+#source('templates/TemplateObject.dart');
 
 //Use this to generate clean dart docs of just the buckshot library
 //main(){}

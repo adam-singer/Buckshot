@@ -8,6 +8,7 @@ demos/tryit/Tryit.dart
 packages/Darternizr/lib/checkers/FlexboxChecker.dart
 packages/unittest/vm_config.dart
 packages/Darternizr/lib/checkers/BoxChecker.dart
+lib/elements/shape/Polygon.dart
 extensions/controls/media/FunnyOrDie.dart
 packages/unittest/dom_config.dart
 external/yaml/yaml.dart
@@ -35,4 +36,6 @@ external/shared/shared.dart
 packages/Darternizr/lib/Browser.dart
 packages/unittest/html_config.dart
 extensions/controls/DockPanel.dart
+lib/elements/shape/PolyLine.dart
+lib/elements/shape/Line.dart
 demos/todo/todo.dart

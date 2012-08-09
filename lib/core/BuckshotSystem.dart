@@ -28,6 +28,8 @@ class Buckshot extends FrameworkObject {
   StyleElement _buckshotCSS;
   BrowserInfo _browserInfo;
 
+  final MirrorSystem _mirror;
+  
   final HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject,
   Dynamic>> _attachedProperties;
 
@@ -92,7 +94,8 @@ class Buckshot extends FrameworkObject {
     _objectRegistry = new HashMap<String, Dynamic>(),
     _attachedProperties = new HashMap<AttachedFrameworkProperty,
             HashMap<FrameworkObject, Dynamic>>(),
-    domRoot = new Border()
+    domRoot = new Border(),
+    _mirror = currentMirrorSystem()
   {
     _ref = this;
     _initBuckshotSystem(rootID);
@@ -125,10 +128,10 @@ class Buckshot extends FrameworkObject {
     _domRootElement.elements.add(domRoot.rawElement);
 
     // register core elements that do not derive from Control
-    _registerCoreElements();
+    //_registerCoreElements();
 
     // now register controls that may depend on control templates for visuals
-    _registerCoreControls();
+    //_registerCoreControls();
   }
 
   void _initCSS(){
@@ -171,80 +174,115 @@ class Buckshot extends FrameworkObject {
   
   //TODO: move to polly
 
+  bool _coreElementsRegistered = false;
+  
+  Future registerCoreElements(){
+    final c = new Completer();
+    if (_coreElementsRegistered){
+      c.complete(true);
+      return c.future;
+    }
+    
+    void registerSync(){
+//      registerElement(new Ellipse());
+//      registerElement(new Rectangle());
 
+      //elements
+      // registerElement(new StackPanel());
+//      registerElement(new LayoutCanvas());
+      registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
+      registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
+//      registerElement(new Grid());
+      registerAttachedProperty('grid.column', Grid.setColumn);
+      registerAttachedProperty('grid.row', Grid.setRow);
+      registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
+      registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
 
-  void initialize(){
-    // register core elements that do not derive from Control
-    _registerCoreElements();
+//      registerElement(new Border());
+//      registerElement(new ContentPresenter());
+//      registerElement(new TextArea());
+//      registerElement(new TextBlock());
+//      registerElement(new CheckBox());
+//      registerElement(new RadioButton());
+//      registerElement(new Hyperlink());
+//      registerElement(new Image());
+//      registerElement(new RawHtml());
+//      registerElement(new ColumnDefinition());
+//      registerElement(new RowDefinition());
+//      registerElement(new DropDownItem());
+//      registerElement(new CollectionPresenter());
+//
+//      //resources
+//      registerElement(new ResourceCollection());
+//      registerElement(new Color());
+//      registerElement(new LinearGradientBrush());
+//      registerElement(new GradientStop());
+//      registerElement(new SolidColorBrush());
+//      registerElement(new RadialGradientBrush());
+//      registerElement(new StyleSetter());
+//      registerElement(new StyleTemplate());
+//      registerElement(new VarResource());
+//      registerElement(new ControlTemplate());
+//      registerElement(new AnimationResource());
+//      registerElement(new AnimationKeyFrame());
+//      registerElement(new AnimationState());
 
-    // now register controls that may depend on control templates for visuals
-    _registerCoreControls();
+      //actions
+      registerElement(new SetPropertyAction());
+
+      
+//      registerElement(new TextBox());
+//      registerElement(new Slider());
+//      registerElement(new Button());
+//      registerElement(new DropDownList());
+    }
+    
+    bool derivesFrom(InterfaceMirror im, List<String> classNames){
+      if (classNames.indexOf(im.simpleName) > -1) return true;
+      if (im.superclass().simpleName == 'Object') return false;
+      return derivesFrom(im.superclass(), classNames);
+    }
+
+    var flist = [];
+    
+    _mirror.libraries().forEach((String lName, LibraryMirror libMirror){
+      libMirror.classes().forEach((String cName, InterfaceMirror classMirror){
+        
+        if(derivesFrom(classMirror, ['Control', 'FrameworkElement', 'FrameworkResource', 'TemplateObject'])){
+          flist.add(classMirror.newInstance('',[]));  
+        }
+        
+//        if (cName == 'StackPanel'){
+//          flist.add(classMirror.newInstance('',[]));
+//          print('${classMirror.superclass().simpleName}');
+//        }
+      });
+    });
+    
+    Futures
+    .wait(flist)
+    .then((results){
+      results.forEach((o){
+        if (o.hasReflectee){
+          registerElement(o.reflectee);
+          print('registered!');
+        }
+      });
+      
+      registerSync();
+      _coreElementsRegistered = true;
+      c.complete(true);
+    });
+    
+    return c.future;
   }
-
-  void _registerCoreElements(){
-    //registering elements we need ahead of time (poor man's reflection...)
-
-    //shapes
-    registerElement(new Ellipse());
-    registerElement(new Rectangle());
-//    registerElement(new Line());
-//    registerElement(new PolyLine());
-//    registerElement(new Polygon());
-
-    //elements
-    registerElement(new StackPanel());
-    registerElement(new LayoutCanvas());
-    registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
-    registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
-    registerElement(new Grid());
-    registerAttachedProperty('grid.column', Grid.setColumn);
-    registerAttachedProperty('grid.row', Grid.setRow);
-    registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
-    registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
-//    registerElement(new DockPanel());
-//    registerAttachedProperty('dockpanel.dock', DockPanel.setDock);
-    registerElement(new Border());
-    registerElement(new ContentPresenter());
-    registerElement(new TextArea());
-    registerElement(new TextBlock());
-    registerElement(new CheckBox());
-    registerElement(new RadioButton());
-    registerElement(new Hyperlink());
-    registerElement(new Image());
-    registerElement(new RawHtml());
-    registerElement(new ColumnDefinition());
-    registerElement(new RowDefinition());
-    registerElement(new DropDownItem());
-    registerElement(new CollectionPresenter());
-
-    //resources
-    registerElement(new ResourceCollection());
-    registerElement(new Color());
-    registerElement(new LinearGradientBrush());
-    registerElement(new GradientStop());
-    registerElement(new SolidColorBrush());
-    registerElement(new RadialGradientBrush());
-    registerElement(new StyleSetter());
-    registerElement(new StyleTemplate());
-    registerElement(new VarResource());
-    registerElement(new ControlTemplate());
-    registerElement(new AnimationResource());
-    registerElement(new AnimationKeyFrame());
-    registerElement(new AnimationState());
-
-    //actions
-    registerElement(new SetPropertyAction());
-  }
-
+  
   //NOTE: This accomodation is necessary until reflection is in place
   //doing this makes the framework more brittle because controls that
   //use control template may try to implement a control that isn't yet
   //registered here...
   void _registerCoreControls(){
-    registerElement(new TextBox());
-    registerElement(new Slider());
-    registerElement(new Button());
-    registerElement(new DropDownList());
+
 //    registerElement(new ListBox());
   }
 

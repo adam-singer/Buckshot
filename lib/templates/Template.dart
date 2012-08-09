@@ -169,14 +169,28 @@ class Template {
   * * JSON
   * * YAML
   */
-  static FrameworkElement deserialize(String buckshotTemplate){
-    final tt = buckshotTemplate.trim();
-    final t = new Template();
+  static Future<FrameworkElement> deserialize(String buckshotTemplate){
+    final c = new Completer();
     
-    for(final p in t.providers){
-      if(p.isFormat(tt)){
-        return p.deserialize(tt);
+    FrameworkElement doIt(){
+      final tt = buckshotTemplate.trim();
+      final t = new Template();
+      
+      for(final p in t.providers){
+        if(p.isFormat(tt)){
+          return p.deserialize(tt);
+        }
       }
     }
+    
+    final rf = buckshot.registerCoreElements();
+    
+    if (rf.isComplete){
+      c.complete(doIt());
+    }else{
+      rf.then((_) => c.complete(doIt()));
+    }
+    
+    return c.future;
   }
 }

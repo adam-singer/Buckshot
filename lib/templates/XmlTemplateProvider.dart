@@ -8,13 +8,14 @@
 * Provides serialization/deserialization for XML format templates.
 */
 class XmlTemplateProvider implements IPresentationFormatProvider {
-
+  
   //TODO MIME as identifier type instead?
   String get fileExtension() => "xml";
 
   bool isFormat(String template) => template.startsWith('<');  
   
   FrameworkElement deserialize(String fileData){
+    
    //parse any temlate
    //var test = XML.parse('<foo bar="moo"></foo>');
     
@@ -25,7 +26,8 @@ class XmlTemplateProvider implements IPresentationFormatProvider {
     return _getNextElement(XML.parse(fileData));
   }
 
-  _getNextElement(XmlElement xmlElement){
+  _getNextElement(XmlElement xmlElement){   
+    
     String lowerTagName = xmlElement.name.toLowerCase();
 
     if (!buckshot._objectRegistry.containsKey(lowerTagName))

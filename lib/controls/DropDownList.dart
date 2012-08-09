@@ -101,7 +101,7 @@ class DropDownList extends Control
 }
 
 
-class DropDownItem extends BuckshotObject
+class DropDownItem extends TemplateObject
 {
   FrameworkProperty nameProperty;
   FrameworkProperty valueProperty;
