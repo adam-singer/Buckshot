@@ -28,8 +28,6 @@ class Buckshot extends FrameworkObject {
   StyleElement _buckshotCSS;
   BrowserInfo _browserInfo;
 
-  final MirrorSystem _mirror;
-  
   final HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject,
   Dynamic>> _attachedProperties;
 
@@ -55,10 +53,10 @@ class Buckshot extends FrameworkObject {
   FrameworkProperty versionProperty;
 
   static Buckshot _ref;
-  
-  
+
+
   BrowserInfo get browserInfo() => _browserInfo;
-  
+
 
   /// Pass the ID of the element in the DOM where buckshot will render content.
   Buckshot(String buckshotRootID)
@@ -79,10 +77,10 @@ class Buckshot extends FrameworkObject {
 //      print('first time in Buckshot ctor');
 //    }
     if (_ref != null) return _ref;
-    
+
     //initialize Polly's statics
     Polly.init();
-    
+
     new Buckshot._init();
     return _ref;
   }
@@ -94,8 +92,7 @@ class Buckshot extends FrameworkObject {
     _objectRegistry = new HashMap<String, Dynamic>(),
     _attachedProperties = new HashMap<AttachedFrameworkProperty,
             HashMap<FrameworkObject, Dynamic>>(),
-    domRoot = new Border(),
-    _mirror = currentMirrorSystem()
+    domRoot = new Border()
   {
     _ref = this;
     _initBuckshotSystem(rootID);
@@ -114,7 +111,7 @@ class Buckshot extends FrameworkObject {
       throw new BuckshotException("Root element for Buckshot"
         " must be a <div>. Element given was"
         " a <${_domRootElement.tagName.toLowerCase()}>");
-    
+
     if (!Polly.browserOK){
       print('Buckshot Warning: Browser may not be compatible with Buckshot framework.');
     }
@@ -171,20 +168,20 @@ class Buckshot extends FrameworkObject {
       }
     });
   }
-  
+
   //TODO: move to polly
 
   bool _coreElementsRegistered = false;
-  
+
   Future registerCoreElements(){
     final c = new Completer();
     if (_coreElementsRegistered){
       c.complete(true);
       return c.future;
     }
-    
-    void registerSync(){
 
+    // registers stuff not yet handled by the reflection queries
+    void registerSync(){
       registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
       registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
 
@@ -192,53 +189,35 @@ class Buckshot extends FrameworkObject {
       registerAttachedProperty('grid.row', Grid.setRow);
       registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
       registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
-
-      //actions
-      registerElement(new SetPropertyAction());
-    }
-    
-    bool derivesFrom(InterfaceMirror im, List<String> classNames){
-      if (classNames.indexOf(im.simpleName) > -1) return true;
-      if (im.superclass().simpleName == 'Object') return false;
-      return derivesFrom(im.superclass(), classNames);
     }
 
-    var flist = [];
-    
-    _mirror.libraries().forEach((String lName, LibraryMirror libMirror){
-      libMirror.classes().forEach((String cName, InterfaceMirror classMirror){
-        
-        if(derivesFrom(classMirror, ['Control', 'FrameworkElement', 'FrameworkResource', 'TemplateObject'])){
-          flist.add(classMirror.newInstance('',[]));  
-        }
-      });
-    });
-    
+    final miriam = new Miriam();
+
+    final flist = [];
+
+    //add the resources first
+    flist.addAll(miriam.getInstancesOf(['TemplateObject', 'FrameworkResource']));
+    flist.addAll(miriam.getInstancesOf(['FrameworkElement']));
+
     Futures
-    .wait(flist)
-    .then((results){
-      results.forEach((o){
-        if (o.hasReflectee){
-          registerElement(o.reflectee);
-          print('registered ${o.reflectee.type}!');
-        }
-      });
-      
-      registerSync();
-      _coreElementsRegistered = true;
-      c.complete(true);
-    });
-    
-    return c.future;
-  }
-  
-  //NOTE: This accomodation is necessary until reflection is in place
-  //doing this makes the framework more brittle because controls that
-  //use control template may try to implement a control that isn't yet
-  //registered here...
-  void _registerCoreControls(){
+      .wait(flist)
+      .then((results){
+        results.forEach((o){
+          if (o.hasReflectee){
+            registerElement(o.reflectee);
 
-//    registerElement(new ListBox());
+            //TODO: find and register attached properties
+            print('registered ${o.reflectee.type}!');
+          }
+        });
+
+        registerSync();
+        _coreElementsRegistered = true;
+        c.complete(true);
+      });
+
+    return c.future;
+
   }
 
   /// Returns a resource that is registered with the given [resourceKey].

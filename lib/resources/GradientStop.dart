@@ -9,7 +9,7 @@
 * * [LinearGradientBrush]
 * * [RadialGradientBrush]
 */
-class GradientStop extends BuckshotObject
+class GradientStop extends TemplateObject
 {
   /// Represents the [Color] value of the GradientStop.
   FrameworkProperty colorProperty;
@@ -18,33 +18,33 @@ class GradientStop extends BuckshotObject
 
   /// Overridden [BuckshotObject] method.
   BuckshotObject makeMe() => new GradientStop();
-  
+
   GradientStop(){
     _initGradientStopProperties();
   }
-  
+
   /// Constructs a GradientStop with a given [Color] and optional offset %.
   GradientStop.with(Color stopColor, [int stopPercent = -1]){
     _initGradientStopProperties();
     color = stopColor;
     percent = stopPercent;
   }
-  
+
   /// Sets the [colorProperty] value.
   set color(Color value) => setValue(colorProperty, value);
   /// Gets the [colorProperty] value.
   Color get color() => getValue(colorProperty);
-  
+
   /// Sets the [percentProperty] value.
   set percent(int value) => setValue(percentProperty, value);
   /// Gets the [percentProperty] value.
   int get percent() => getValue(percentProperty);
-    
+
   void _initGradientStopProperties(){
     colorProperty = new FrameworkProperty(this, "color", (v){}, converter:const StringToColorConverter());
-    
+
     percentProperty = new FrameworkProperty(this, "percent", (v){}, -1, converter:const StringToNumericConverter());
   }
-  
+
   String get type() => "GradientStop";
 }
