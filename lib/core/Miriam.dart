@@ -20,6 +20,13 @@ class Miriam
       : _mirror = currentMirrorSystem();
 
   /**
+   * Returns a new instance of a given object using it's default constructor
+   */
+  newInstanceOf(Object object){
+    throw const NotImplementedException();
+  }
+
+  /**
    * Returns true if a given [InterfaceMirror] derives from any
    * of the given [classNames].  This function will walk up the
    * inheritance tree until it either finds a match or reaches

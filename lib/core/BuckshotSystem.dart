@@ -197,6 +197,9 @@ class Buckshot extends FrameworkObject {
 
     //add the resources first
     flist.addAll(miriam.getInstancesOf(['TemplateObject', 'FrameworkResource']));
+
+    // now add all the base FrameworkElements
+    // TODO: need a way to bring in the Control's afterward.
     flist.addAll(miriam.getInstancesOf(['FrameworkElement']));
 
     Futures
