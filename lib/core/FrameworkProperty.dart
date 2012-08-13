@@ -29,7 +29,7 @@
 class FrameworkProperty extends FrameworkPropertyBase
 {
   Dynamic _value;
-  
+
   /// Represents the stored value of the FrameworkProperty.
   ///
   /// Generally, this should not be access directly, but through:
@@ -41,13 +41,12 @@ class FrameworkProperty extends FrameworkPropertyBase
     }
     _value = v;
   }
- 
-  
+
   /// Gets the previous value assigned to the FrameworkProperty.
   Dynamic get previousValue() => _previousValue;
   Dynamic _previousValue;
   bool readOnly = false;
-    
+
   /// Constructs a FrameworkProperty and initializes it to the framework.
   ///
   /// ### Parameters
@@ -55,36 +54,43 @@ class FrameworkProperty extends FrameworkPropertyBase
   /// * [String] propertyName - the friendly public name for the property.
   /// * [Function] propertyChangedCallback - called by the framework when the property value changes.
   /// * [Dynamic] value - optional default value assigned to the property at initialization.
-  FrameworkProperty(BuckshotObject sourceObject, String propertyName, Function propertyChangedCallback, [defaultValue = null, converter = null])
-  : super(sourceObject, propertyName, propertyChangedCallback, stringToValueConverter:converter)
+  FrameworkProperty(
+      BuckshotObject sourceObject,
+      String propertyName,
+      [Function propertyChangedCallback,
+      defaultValue = null,
+      converter = null])
+  : super(
+      sourceObject,
+      propertyName,
+      propertyChangedCallback,
+      stringToValueConverter:converter)
   {
 
     if (this.sourceObject != null)
       this.sourceObject._frameworkProperties.add(this);
-    
-    if (propertyChangedCallback == null) propertyChangedCallback = (v) {};
-    
+
     // If the value is provided, then call it's propertyChanged function to set the value on the property.
     if (defaultValue !== null){
       value = defaultValue;
-      propertyChangedCallback(value);
+      if (propertyChangedCallback != null) propertyChangedCallback(value);
       propertyChanging.invoke(this, new PropertyChangingEventArgs(null, value));
     }
   }
-   
+
   String get type() => "FrameworkProperty";
 }
 
 /// A [FrameworkProperty] that supports participation in transition/animation features.
 class AnimatingFrameworkProperty extends FrameworkProperty{
   final String cssPropertyPeer;
-  
+
   AnimatingFrameworkProperty(FrameworkElement sourceObject, String propertyName, Function propertyChangedCallback, String this.cssPropertyPeer, [value = null, converter = null])
   : super(sourceObject, propertyName, propertyChangedCallback, defaultValue:value, converter:converter)
   {
     if (sourceObject is! FrameworkElement) throw const BuckshotException('AnimatingFrameworkProperty can only be used with elements that derive from FrameworkElement.');
   }
-  
-  
+
+
   String get type() => "AnimatingFrameworkProperty";
 }

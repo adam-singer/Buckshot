@@ -8,7 +8,7 @@
 *
 * ## See Also
 * * [FrameworkProperty]
-* * [AttachedFrameworkProperty] 
+* * [AttachedFrameworkProperty]
 */
 class FrameworkPropertyBase extends HashableObject{
   /// Holds a reference to the object that the property belongs to.
@@ -23,17 +23,18 @@ class FrameworkPropertyBase extends HashableObject{
   /// Holds a converter that is used to convert strings into the type
   /// Required by the property.
   final IValueConverter stringToValueConverter;
-  
+
   /// Constructs a FrameworkPropertyBase and initializes it to the framework.
   ///
   /// ### Parameters
   /// * [LucaObject] sourceObject - the object the property belongs to.
   /// * [String] propertyName - the friendly public name for the property.
   /// * [Function] propertyChangedCallback - called by the framework when the property value changes.
-  FrameworkPropertyBase(this.sourceObject, this.propertyName, this.propertyChangedCallback, [this.stringToValueConverter = null]) :
-   propertyChanging = new FrameworkEvent<PropertyChangingEventArgs>(){}
+  FrameworkPropertyBase(this.sourceObject, this.propertyName, callback, [this.stringToValueConverter = null]) :
+   propertyChanging = new FrameworkEvent<PropertyChangingEventArgs>(),
+   propertyChangedCallback = (callback == null ? (_){} : callback);
 
    String get type() => "FrameworkPropertyBase";
-   
+
    String toString() => '(${sourceObject.type}) $propertyName';
 }

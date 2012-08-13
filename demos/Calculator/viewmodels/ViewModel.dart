@@ -60,17 +60,19 @@ class ViewModel extends ViewModelBase
 
     // Initialize the framework properties with default values.
 
-    keypadProperty = new FrameworkProperty(this, 'keypad', (_){},
-      standardCalc.rootVisual);
+    keypadProperty = new FrameworkProperty(this, 'keypad',
+        defaultValue:standardCalc.rootVisual);
 
-    outputProperty = new FrameworkProperty(this, 'output', (_){}, '0');
+    outputProperty = new FrameworkProperty(this, 'output', defaultValue:'0');
 
-    subOutputProperty = new FrameworkProperty(this, 'subOutput', (_){}, '');
+    subOutputProperty = new FrameworkProperty(this, 'subOutput',
+        defaultValue:'');
 
-    memoryMarkerProperty = new FrameworkProperty(this, 'memoryMarker', (_){},
-      '');
+    memoryMarkerProperty = new FrameworkProperty(this, 'memoryMarker',
+        defaultValue:'');
 
-    widthProperty = new FrameworkProperty(this, 'width', (_){}, 300);
+    widthProperty = new FrameworkProperty(this, 'width',
+        defaultValue:300);
   }
 
   /**

@@ -47,32 +47,30 @@ class Control extends FrameworkElement
 
     _visualTemplateApplied = true;
 
-    void finishApply(){
-      var t = buckshot.retrieveResource(this.templateName);
-
-      if (t == null){
-        template = this;
-        super.applyVisualTemplate();
-        return;
-      }
-
-      _templateApplied = true;
-
-      template = t.template;
-
-      rawElement = template.rawElement;
-      template.parent = this;
-    }
-
     if (!defaultControlTemplate.isEmpty()){
       Template
       .deserialize(defaultControlTemplate)
-      .then((_) => finishApply());
+      .then((_) => _finishApplyVisualTemplate());
     }else{
-      finishApply();
+      _finishApplyVisualTemplate();
+    }
+  }
+
+  void _finishApplyVisualTemplate(){
+    var t = buckshot.retrieveResource(this.templateName);
+
+    if (t == null){
+      template = this;
+      super.applyVisualTemplate();
+      return;
     }
 
+    _templateApplied = true;
 
+    template = t.template;
+
+    rawElement = template.rawElement;
+    template.parent = this;
   }
 
   onLoaded(){
