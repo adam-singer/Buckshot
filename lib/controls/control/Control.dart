@@ -125,4 +125,6 @@ class Control extends FrameworkElement
   String get templateName() => 'template_${type}';
 
   String get type() => "Control";
+
+  int _templatePriority() => 100;
 }

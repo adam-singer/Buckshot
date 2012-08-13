@@ -72,4 +72,6 @@ class Slider extends Control
   }
 
   String get type() => "Slider";
+
+  int _templatePriority() => 20;
 }

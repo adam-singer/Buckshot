@@ -826,4 +826,6 @@ class FrameworkElement extends FrameworkObject {
   updateLayout(){}
 
   String get type() => "FrameworkElement";
+
+  int _templatePriority() => 15;
 }

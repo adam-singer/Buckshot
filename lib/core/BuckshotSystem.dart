@@ -197,28 +197,36 @@ class Buckshot extends FrameworkObject {
     final flist = [];
 
     //add the resources first
-    flist.addAll(miriam.getInstancesOf(['TemplateObject', 'FrameworkResource']));
+    flist.addAll(miriam.getInstancesOf(['TemplateObject', 'FrameworkResource', 'FrameworkElement']));
 
-    // now add all the base FrameworkElements
-    // TODO: need a way to bring in the Control's afterward.
-    flist.addAll(miriam.getInstancesOf(['FrameworkElement']));
+
 
     Futures
       .wait(flist)
-      .then((results){
+      .then((List results){
+
+        results
+          .sort((a, b){
+            return a._templatePriority() - b._templatePriority();
+          });
+
+        print('${results}');
+
         results.forEach((o){
           if (o.hasReflectee){
+            print('....registering ${o.reflectee.type}');
             registerElement(o.reflectee);
-
             //TODO: find and register attached properties
-            print('registered ${o.reflectee.type}!');
           }
         });
 
-        registerSync();
-        _coreElementsRegistered = true;
-        c.complete(true);
+          registerSync();
+          _coreElementsRegistered = true;
+          c.complete(true);
       });
+
+
+
 
     return c.future;
 

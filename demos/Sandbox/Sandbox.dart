@@ -20,7 +20,7 @@
 #import('../../external/shared/shared.dart');
 #import('package:DartNet-Event-Model/events.dart');
 #import('../../extensions/controls/media/MediaPack.dart');
-//#import('../../extensions/controls/ListBox.dart');
+#import('../../extensions/controls/ListBox.dart');
 //#import('../../extensions/controls/ModalDialog.dart');
 #import('../../extensions/controls/social/PlusOne.dart');
 
@@ -44,16 +44,16 @@ void main() {
   //initializeMediaPackExtensions();
 
   // create our main view and error view
-  
+
   Futures
     .wait([
            Template.deserialize(Template.getTemplate('#main')),
            Template.deserialize(views.errorUI)
            ])
-    .then((l){     
+    .then((l){
       final o = l[0];
       final errorUI = l[1];
-      
+
       // get references to all the ui interactives that we need
       TextBlock tbError = buckshot.namedElements["tbErrorMessage"];
       Border borderContent = buckshot.namedElements["borderContent"];
@@ -113,7 +113,7 @@ void main() {
         tbUserInput.text = view;
         Template.deserialize(view).then((c) => borderContent.content = c);
       }
-      
+
       void handleSelection(_, SelectedItemChangedEventArgs<DropDownItem> args){
 
         switch(args.selectedItem.value.toString()){

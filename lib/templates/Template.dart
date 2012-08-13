@@ -10,14 +10,14 @@
 * * XML
 * * JSON
 * * YAML (coming soon)
-* 
+*
 * ## Usage ##
-* Both YAML and JSON templates require a certain heirachy in order to 
+* Both YAML and JSON templates require a certain heirachy in order to
 * deserialize properly:
 *
-*     [element, 
-*       [{property1:value, property2:value}, 
-*       [childElement1, 
+*     [element,
+*       [{property1:value, property2:value},
+*       [childElement1,
 *         [{property:value}],
 *        childElement2,
 *         [{property:value}]
@@ -28,14 +28,14 @@
 *     <border padding='5' background='Orange'>
 *        <stackpanel halign='center' valign='center'>
 *          <textblock text='hello' />
-*          <textblock text='world' />  
+*          <textblock text='world' />
 *        </stackpanel>
 *     </border>
 *
 * ### JSON Example ###
 *     ["border",
 *        [{"background" : "Orange", "padding" : "10"},
-*          ["stackpanel", 
+*          ["stackpanel",
 *            [{"valign" : "center", "halign" : "center"},
 *              ["textblock",
 *                [{"text" : "hello"}]
@@ -59,31 +59,31 @@
 *
 */
 class Template {
-  
+
   final List<IPresentationFormatProvider> providers;
-  
+
   Template()
   :
     providers = [new XmlTemplateProvider(),
                  new JSONTemplateProvider(),
                  new YAMLTemplateProvider()];
 
-  
+
   /**
    * Returns the first parent that matches the given [type].  Returns
    * null if parent not found in visual tree.
    */
   static FrameworkElement findParentByType(FrameworkElement element, String type){
     if (element.parent == null) return null;
-    
+
     if (element.parent.type != type){
       return findParentByType(element.parent, type);
     }
-    
+
     return element.parent;
   }
-  
-  
+
+
   /** Performs a search of the element tree starting from the given
    * [FrameworkElement] and returns the first named Element matching
    * the given name.
@@ -111,11 +111,11 @@ class Template {
       return null;
     }
   }
-  
+
   /**
   * # Usage #
   *     //Retrieves the template from the current web page
-  *     //and returns a String containing the template 
+  *     //and returns a String containing the template
   *     //synchronously.
   *     getTemplate('#templateID').then(...);
   *
@@ -126,7 +126,7 @@ class Template {
   *
   * Use the [deserialize] method to convert a template into an object structure.
   */
-  static getTemplate(String from){   
+  static getTemplate(String from){
     if (from.startsWith('#')){
       var result = document.query(from);
       if (result == null)
@@ -134,29 +134,29 @@ class Template {
         return result.text.trim();
     }else{
       //TODO cache...
-      
+
       var c = new Completer();
       var r = new XMLHttpRequest();
       r.on.readyStateChange.add((e){
-        if (r.readyState != 4){ 
-          c.complete(null);          
+        if (r.readyState != 4){
+          c.complete(null);
         }else{
           c.complete(r.responseText.trim());
         }
       });
-      
-      try{              
+
+      try{
         r.open('GET', from, true);
         r.setRequestHeader('Accept', 'text/xml');
         r.send();
       }catch(Exception e){
         c.complete(null);
       }
-      
+
       return c.future;
     }
   }
-  
+
   /**
   * Takes a buckshot Template and attempts deserialize it into an object
   * structure.
@@ -171,26 +171,35 @@ class Template {
   */
   static Future<FrameworkElement> deserialize(String buckshotTemplate){
     final c = new Completer();
-    
+
     FrameworkElement doIt(){
       final tt = buckshotTemplate.trim();
       final t = new Template();
-      
+
       for(final p in t.providers){
         if(p.isFormat(tt)){
           return p.deserialize(tt);
         }
       }
     }
-    
-    final rf = buckshot.registerCoreElements();
-    
-    if (rf.isComplete){
-      c.complete(doIt());
+
+    if (_registeringCore == false){
+      _registeringCore = true;
+      final rf = buckshot.registerCoreElements();
+
+      if (rf.isComplete){
+        c.complete(doIt());
+      }else{
+        rf.then((_) => c.complete(doIt()));
+      }
     }else{
-      rf.then((_) => c.complete(doIt()));
+      doIt();
     }
-    
+
+
+
     return c.future;
   }
+
+  static bool _registeringCore = false;
 }

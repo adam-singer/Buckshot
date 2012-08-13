@@ -38,6 +38,7 @@ class Miriam
     return derivesFrom(im.superclass(), classNames);
   }
 
+
   /**
   * Returns a list of Futures for any Types where the type subclasses from
   * the given list [subclassingFrom].  Optionally, may further restrict the
@@ -51,7 +52,8 @@ class Miriam
 
         if(derivesFrom(classMirror, subclassingFrom))
         {
-          flist.add(classMirror.newInstance('',[]));
+          print('registering ${classMirror}!');
+          flist.add(classMirror.newInstance('', []));
         }
       });
     });

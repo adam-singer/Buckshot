@@ -70,4 +70,6 @@ class Button extends Control implements IFrameworkContainer
   }
 
   String get type() => "Button";
+
+  int _templatePriority() => 20;
 }

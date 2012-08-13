@@ -32,28 +32,30 @@ class FrameworkResource extends FrameworkObject
   /// An application-wide unique identifier for the resource.
   /// Required.
   FrameworkProperty keyProperty;
-  
+
   /// A meta-data tag that is used to identify the default resource
   /// property of a FrameworkResource.
   ///
   /// ### To set the resource property of an element:
   ///     stateBag[RESOURCE_PROPERTY] = {propertyNameOfElementResourceProperty};
   static final String RESOURCE_PROPERTY = "RESOURCE_PROPERTY";
-  
+
   FrameworkResource(){
     _initFrameworkResourceProperties();
   }
-  
+
   void _initFrameworkResourceProperties(){
     keyProperty = new FrameworkProperty(this, "key", (_){}, "");
   }
-  
+
   String rawData;
-  
+
   /// Sets the [keyProperty] value.
   set key(String v) => setValue(keyProperty, v);
   /// Gets the [keyProperty] value.
   String get key() => getValue(keyProperty);
-  
+
   String get type() => "FrameworkResource";
+
+  int _templatePriority() => 5;
 }

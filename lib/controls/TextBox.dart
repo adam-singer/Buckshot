@@ -92,6 +92,8 @@ class TextBox extends Control
   }
 
   String get type() => "TextBox";
+
+  int _templatePriority() => 20;
 }
 
 class InputTypes{
@@ -169,6 +171,8 @@ class Validation{
 
     return FrameworkObject.getAttachedValue(element, validationProperty);
   }
+
+
 
 
 }

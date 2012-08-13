@@ -103,7 +103,18 @@ class BuckshotObject extends HashableObject{
     return _resolvePropertyInternal(prop.value, propertyChain.getRange(1, propertyChain.length - 1));
   }
 
+  //TODO: still need?
   String safeName(String name) => '${name}${hashCode()}';
+
+  /*
+   * Lowers = higher priority
+   * Resources = 5
+   * TemplateObject = 10
+   * Core FrameworkElements = 15
+   * Core Controls = 20
+   * External Controls = 100
+   */
+  int _templatePriority() => 100;
 
   abstract String get type();
 
