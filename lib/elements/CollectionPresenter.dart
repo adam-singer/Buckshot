@@ -102,7 +102,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       _eHandler = values.listChanged + (_, __) => _updateCollection();
     }
 
-    if (values is! Collection) 
+    if (values is! Collection)
       throw const BuckshotException("Expected dataContext object"
         " to be of type Collection.");
 
@@ -120,11 +120,14 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
     }else{
       //if template, then bind the object to the template datacontext
       values.forEach((iterationObject){
-        var it = Template.deserialize(itemsTemplate);
-        it._stateBag[SBO] = iterationObject;
-        it.dataContext = iterationObject;
-        itemCreated.invoke(this, new ItemCreatedEventArgs(it));
-        presentationPanel.children.add(it);
+        Template
+        .deserialize(itemsTemplate)
+        .then((it){
+          it._stateBag[SBO] = iterationObject;
+          it.dataContext = iterationObject;
+          itemCreated.invoke(this, new ItemCreatedEventArgs(it));
+          presentationPanel.children.add(it);
+        });
       });
     }
   }

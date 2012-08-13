@@ -6,5 +6,5 @@
 
 
 void main() {
-  buckshot.rootView = new View();
+  new View().setAsRootView();
 }

@@ -47,24 +47,32 @@ class Control extends FrameworkElement
 
     _visualTemplateApplied = true;
 
+    void finishApply(){
+      var t = buckshot.retrieveResource(this.templateName);
+
+      if (t == null){
+        template = this;
+        super.applyVisualTemplate();
+        return;
+      }
+
+      _templateApplied = true;
+
+      template = t.template;
+
+      rawElement = template.rawElement;
+      template.parent = this;
+    }
+
     if (!defaultControlTemplate.isEmpty()){
-      Template.deserialize(defaultControlTemplate);
+      Template
+      .deserialize(defaultControlTemplate)
+      .then((_) => finishApply());
+    }else{
+      finishApply();
     }
 
-    var t = buckshot.retrieveResource(this.templateName);
 
-    if (t == null){
-      template = this;
-      super.applyVisualTemplate();
-      return;
-    }
-
-    _templateApplied = true;
-
-    template = t.template;
-
-    rawElement = template.rawElement;
-    template.parent = this;
   }
 
   onLoaded(){
@@ -75,11 +83,11 @@ class Control extends FrameworkElement
     _bindTemplateBindings();
     template._isLoaded = true;
   }
-  
+
   onUnLoaded(){
     //returning if we have already done this, or if no template was actually used for this control
     if (!_templateApplied) return;
-    
+
     template._isLoaded = false;
   }
 
@@ -91,7 +99,7 @@ class Control extends FrameworkElement
         .forEach((k, v){
           list[k] = v;
         });
-     
+
       if (element is! IFrameworkContainer) return;
 
       if (element.dynamic.content is List){
@@ -100,7 +108,7 @@ class Control extends FrameworkElement
         _getAllTemplateBindings(list, element.dynamic.content);
       }
     }
-    
+
     var tb = new HashMap<FrameworkProperty, String>();
 
     _getAllTemplateBindings(tb, template);
@@ -110,7 +118,7 @@ class Control extends FrameworkElement
       if (prop == null){
         throw const BuckshotException('Attempted binding to null property in Control.');
       }
-      
+
         new Binding(prop, k);
     });
   }
