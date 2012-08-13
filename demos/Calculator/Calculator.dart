@@ -18,7 +18,7 @@
 * This demo only supports mouse input.
 *
 * Video Walkthrough: http://www.youtube.com/watch?v=lbUO0E3kgdk
-* 
+*
 * ### Benefits of Buckshot and the MVVM Pattern ###
 * * A template & data focused application (minimal infrastructure noise).
 * * Clean separation of concerns between design and implementation.
@@ -27,12 +27,17 @@
 * * Extensible by implementing [ICalculator].
 */
 void main() {
-  
+
   // Always load resources first.
-  buckshot.rootView = 
-      new IView.from(Template.deserialize(Template.getTemplate('#resources')));
-    
-  // Load the main view, to start the app.
-  buckshot.rootView = new Main();
+
+  Template
+    .deserialize(Template.getTemplate('#resources'))
+    .then((t){
+      buckshot.rootView = new IView.from(t);
+
+      // Load the main view, to start the app.
+      new Main().setAsRootView();
+    });
+
 }
 

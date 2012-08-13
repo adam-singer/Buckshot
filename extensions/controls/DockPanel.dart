@@ -209,11 +209,19 @@ class _DockPanelCell extends FrameworkElement
   /// Represents the content inside the border.
   FrameworkProperty contentProperty;
   final DockLocation location;
-  
+
+  _DockPanelCell()
+      : location = DockLocation.left
+  {
+    _initDockPanelCellProperties();
+
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+  }
+
   _DockPanelCell.withLocation(DockLocation this.location){
     _initDockPanelCellProperties();
 
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
 
   void _initDockPanelCellProperties(){
@@ -225,7 +233,7 @@ class _DockPanelCell extends FrameworkElement
         if (contentProperty.previousValue != null){
           contentProperty.previousValue.removeFromLayoutTree();
         }
-        
+
         if (c != null){
           setContentDockLocation();
           c.addToLayoutTree(this);
@@ -253,7 +261,7 @@ class _DockPanelCell extends FrameworkElement
         break;
     }
   }
-  
+
   FrameworkElement get content() => getValue(contentProperty);
   set content(FrameworkElement value) => setValue(contentProperty, value);
 

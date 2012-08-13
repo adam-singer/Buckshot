@@ -1,24 +1,28 @@
-class Main implements IView
+class Main extends IView
 {
-  final FrameworkElement _rootVisual;
-  final DropDownList ddlMode;
-  
-  FrameworkElement get rootVisual() => _rootVisual;
-  
+  DropDownList ddlMode;
+
   Main()
-  :
-    _rootVisual = Template.deserialize(Template.getTemplate('#main')),
-    ddlMode = buckshot.namedElements['ddlMode']
   {
-    var vm = new ViewModel();
-    
-    // Assign the view model to the datacontext so that template
-    // bindings will hook up.
-    _rootVisual.dataContext = vm;  
-    
-    // Call the view model setMode() method whenever the drop down list
-    // value changes.
-    ddlMode.selectionChanged + (_, SelectedItemChangedEventArgs args) => 
-        vm.setMode(args.selectedItem.value);  
+
+    Template
+      .deserialize(Template.getTemplate('#main'))
+      .then((t){
+        rootVisual = t;
+        ddlMode = buckshot.namedElements['ddlMode'];
+
+        final vm = new ViewModel();
+
+        // Assign the view model to the datacontext so that template
+        // bindings will hook up.
+        rootVisual.dataContext = vm;
+
+        // Call the view model setMode() method whenever the drop down list
+        // value changes.
+        ddlMode.selectionChanged + (_, SelectedItemChangedEventArgs args) =>
+            vm.setMode(args.selectedItem.value);
+
+      });
+
   }
 }

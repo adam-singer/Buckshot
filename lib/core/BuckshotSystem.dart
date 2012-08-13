@@ -175,6 +175,7 @@ class Buckshot extends FrameworkObject {
 
   Future registerCoreElements(){
     final c = new Completer();
+
     if (_coreElementsRegistered){
       c.complete(true);
       return c.future;

@@ -42,16 +42,20 @@
 
 void main() {
 
-//  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#borderTest')));
-//  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#stackPanelTest')));
-//  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#gridTest')));
-//  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#horizontalTest')));
-
-  buckshot.registerElement(new DockPanel());
   buckshot.registerAttachedProperty('dockpanel.dock', DockPanel.setDock);
-  buckshot.rootView = new IView.from(Template.deserialize(Template.getTemplate('#dockPanelTest')));
-    
-  Polly.dump();
+
+  Template
+    .deserialize(Template.getTemplate('#dockPanelTest'))
+//    .deserialize(Template.getTemplate('#borderTest'))
+//    .deserialize(Template.getTemplate('#stackPanelTest'))
+//    .deserialize(Template.getTemplate('#gridTest'))
+//    .deserialize(Template.getTemplate('#horizontalTest'))
+    .then((e){
+      buckshot.rootView = new IView.from(e);
+      Polly.dump();
+    });
+
+
   return;
 
   final _tList = new List<TestGroupBase>();
