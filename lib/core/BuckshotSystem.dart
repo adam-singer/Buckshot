@@ -113,7 +113,8 @@ class Buckshot extends FrameworkObject {
         " a <${_domRootElement.tagName.toLowerCase()}>");
 
     if (!Polly.browserOK){
-      print('Buckshot Warning: Browser may not be compatible with Buckshot framework.');
+      print('Buckshot Warning: Browser may not be compatible with Buckshot'
+          ' framework.');
     }
 
     _initCSS();

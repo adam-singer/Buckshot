@@ -104,7 +104,7 @@
 
 #source('resources/FrameworkResource.dart');
 #source('resources/ResourceCollection.dart');
-#source('resources/VarResource.dart');
+#source('resources/Var.dart');
 #source('resources/Color.dart');
 #source('resources/Brush.dart');
 #source('resources/SolidColorBrush.dart');

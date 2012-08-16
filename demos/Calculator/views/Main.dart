@@ -6,7 +6,7 @@ class Main extends View
   {
 
     Template
-      .deserialize(Template.getTemplate('#main'))
+      .deserialize(Template.getTemplate('#main2'))
       .then((t){
         rootVisual = t;
         ddlMode = buckshot.namedElements['ddlMode'];

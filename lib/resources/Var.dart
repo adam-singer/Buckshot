@@ -33,13 +33,13 @@
 * * [LinearGradientBrush]
 * * [RadialGradientBrush]
 */
-class VarResource extends FrameworkResource implements IFrameworkContainer
+class Var extends FrameworkResource implements IFrameworkContainer
 {
   FrameworkProperty valueProperty;
   
-  BuckshotObject makeMe() => new VarResource();
+  BuckshotObject makeMe() => new Var();
   
-  VarResource(){
+  Var(){
     _initVarProperties();
     
     //meta data for binding system

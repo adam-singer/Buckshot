@@ -75,7 +75,10 @@ class XmlTemplateProvider implements IPresentationFormatProvider {
         if (testValue != null && testValue is List){
           //complex property (list)
           for (final se in ofXMLNode.children){
-            testValue.add(_getNextElement(se));
+            _getNextElement(se).then((nv){
+              testValue.add(nv);
+            });
+
           }
         }else if (ofXMLNode.text.trim().startsWith("{")){
 
@@ -95,7 +98,10 @@ class XmlTemplateProvider implements IPresentationFormatProvider {
                 ofXMLNode.children[0] is! XmlText){
 
               // node assignment to property
-              setValue(p, _getNextElement(ofXMLNode.children[0]));
+
+              _getNextElement(ofXMLNode.children[0]).then((ne){
+                setValue(p, ne);
+              });
             }
           }
         }
@@ -122,20 +128,21 @@ class XmlTemplateProvider implements IPresentationFormatProvider {
 
         var cc = ofElement.stateBag[FrameworkObject.CONTAINER_CONTEXT];
 
-        FrameworkObject childElement = _getNextElement(ofXMLNode);
+       _getNextElement(ofXMLNode).then((childElement){
 
-        if (childElement == null) return; // is a resource
+         if (childElement == null) return; // is a resource
 
-        //CONTAINER_CONTEXT is a FrameworkProperty for single element, List for multiple
-        if (cc is List){
-          //list content
-          cc.add(childElement);
-        }else{
-          // single child (previous child will be overwritten
-          // if multiple are provided)
-          //TODO throw on multiple child element nodes
-          setValue(cc, childElement);
-        }
+         //CONTAINER_CONTEXT is a FrameworkProperty for single element, List for multiple
+         if (cc is List){
+           //list content
+           cc.add(childElement);
+         }else{
+           // single child (previous child will be overwritten
+           // if multiple are provided)
+           //TODO throw on multiple child element nodes
+           setValue(cc, childElement);
+         }
+       });
       }
     }
 
@@ -157,37 +164,35 @@ class XmlTemplateProvider implements IPresentationFormatProvider {
     buckshot
       .createByName(lowerTagName)
       .then((newElement){
+
          if (newElement == null){
-           c.completeException(
-               new PresentationProviderException('Element "${xmlElement.name}"'
-           ' not found.'));
-           return;
+          throw new PresentationProviderException('Element "${xmlElement.name}"'
+           ' not found.');
          }
 
-     if (xmlElement.children.length > 0 &&
-         xmlElement.children.every((n) => n is! XmlText)){
-       //process nodes
+         if (xmlElement.children.length > 0 &&
+             xmlElement.children.every((n) => n is! XmlText)){
+           //process nodes
 
-       for(final e in xmlElement.children.dynamic){
-         String elementLowerTagName = e.name.toLowerCase();
+           for(final e in xmlElement.children.dynamic){
+             String elementLowerTagName = e.name.toLowerCase();
 
-         if (miriam.getObjectByName(elementLowerTagName) != null){
-//         if (buckshot._objectRegistry.containsKey(elementLowerTagName)){
-            processTag(newElement, e);
+             if (miriam.getObjectByName(elementLowerTagName) != null){
+    //         if (buckshot._objectRegistry.containsKey(elementLowerTagName)){
+                processTag(newElement, e);
+             }else{
+                processProperty(newElement, e);
+             }
+           }
          }else{
-            processProperty(newElement, e);
+           //no nodes, check for text element
+           processTextNode(newElement, xmlElement);
          }
-       }
-     }else{
-       //no nodes, check for text element
-       processTextNode(newElement, xmlElement);
-     }
 
-     _assignAttributeProperties(newElement, xmlElement);
+         _assignAttributeProperties(newElement, xmlElement);
 
-     completeElementParse(newElement);
-
-   });
+         completeElementParse(newElement);
+       });
 
 
     return c.future;

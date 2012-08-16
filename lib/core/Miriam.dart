@@ -34,7 +34,8 @@ class Miriam
    */
   bool derivesFrom(InterfaceMirror im, List<String> classNames){
     if (classNames.indexOf(im.simpleName) > -1) return true;
-    if (im.superclass() == null || im.superclass().simpleName == 'Object') return false;
+    if (im.superclass() == null ||
+        im.superclass().simpleName == 'Object') return false;
 
     return derivesFrom(im.superclass(), classNames);
   }
