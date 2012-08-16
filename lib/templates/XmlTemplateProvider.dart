@@ -8,151 +8,194 @@
 * Provides serialization/deserialization for XML format templates.
 */
 class XmlTemplateProvider implements IPresentationFormatProvider {
-  
+
+  final Miriam miriam;
+
+  XmlTemplateProvider()
+      :
+        miriam = new Miriam();
+
   //TODO MIME as identifier type instead?
   String get fileExtension() => "xml";
 
-  bool isFormat(String template) => template.startsWith('<');  
-  
-  FrameworkElement deserialize(String fileData){
-    
-   //parse any temlate
-   //var test = XML.parse('<foo bar="moo"></foo>');
-    
-   // parse incoming template
-   // var test = XML.parse(fileData);
-   // print('$test');
-    //return XML.parse(fileData);
-    return _getNextElement(XML.parse(fileData));
+  bool isFormat(String template) => template.startsWith('<');
+
+  Future<FrameworkElement> deserialize(String templateXML){
+    final c = new Completer();
+
+    _getNextElement(XML.parse(templateXML)).then((e) => c.complete(e));
+
+    return c.future;
   }
 
-  _getNextElement(XmlElement xmlElement){   
-    
+  Future<FrameworkObject> _getNextElement(XmlElement xmlElement){
+
+    final c = new Completer();
+
     String lowerTagName = xmlElement.name.toLowerCase();
 
-    if (!buckshot._objectRegistry.containsKey(lowerTagName))
-      throw new PresentationProviderException('Element "${lowerTagName}"'
-      ' not found in object registry.');
+//    if (!buckshot._objectRegistry.containsKey(lowerTagName))
+//      throw new PresentationProviderException('Element "${lowerTagName}"'
+//      ' not found in object registry.');
 
-    var newElement = buckshot._objectRegistry[lowerTagName].makeMe();
+    void completeElementParse(element){
+      if (element is FrameworkResource){
+        element.rawData = xmlElement.toString();
+        _processResource(element);
+        // complete nodes as null; they aren't added to the DOM
+        c.complete(null);
+      }else{
+        c.complete(element);
+      }
+    }
 
-    if (xmlElement.children.length > 0 &&
-        xmlElement.children.every((n) => n is! XmlText)){
-      //process nodes
+    void processProperty(ofElement, ofXMLNode){
+      final String elementLowerTagName = ofXMLNode.name.toLowerCase();
 
-      for(final e in xmlElement.children.dynamic){
-        String elementLowerTagName = e.name.toLowerCase();
+      //property node
 
-        if (buckshot._objectRegistry.containsKey(elementLowerTagName)){
+      FrameworkProperty p = ofElement.resolveProperty(elementLowerTagName);
+      if (p == null) throw new PresentationProviderException("Property node"
+          " name '${elementLowerTagName}' is not a valid"
+          " property of '${lowerTagName}'.");
 
-          if (e.name.contains(".")){
-            //attached property
-          Function setAttachedPropertyFunction =
-              buckshot._objectRegistry[elementLowerTagName];
+      if (elementLowerTagName == "itemstemplate"){
+        //accomodation for controls that use itemstemplates...
+        if (ofXMLNode.children.length != 1){
+          throw const PresentationProviderException('ItemsTemplate'
+          ' can only have a single child.');
+        }
+        // defer parsing of the template xml, the template
+        // iterator should handle later.
+        setValue(p, ofXMLNode.children[0].toString());
+      }else{
 
-          //no data binding for attached properties
-          setAttachedPropertyFunction(newElement,
-            Math.parseInt(e.text.trim()));
-          }else{
-            //element or resource
+        var testValue = getValue(p);
 
-            if (!newElement.isContainer)
-              throw const PresentationProviderException("Attempted to add"
-                " element to another element which is not a container.");
-
-            var cc = newElement.stateBag[FrameworkObject.CONTAINER_CONTEXT];
-
-            FrameworkObject childElement = _getNextElement(e);
-
-            if (childElement == null) continue; // is a resource
-
-            //CONTAINER_CONTEXT is a FrameworkProperty for single element, List for multiple
-            if (cc is List){
-              //list content
-              cc.add(childElement);
-            }else{
-              // single child (previous child will be overwritten
-              // if multiple are provided)
-              //TODO throw on multiple child element nodes
-              setValue(cc, childElement);
-            }
+        if (testValue != null && testValue is List){
+          //complex property (list)
+          for (final se in ofXMLNode.children){
+            testValue.add(_getNextElement(se));
           }
+        }else if (ofXMLNode.text.trim().startsWith("{")){
+
+          //binding or resource
+          _resolveBinding(p, ofXMLNode.text.trim());
         }else{
           //property node
 
-          FrameworkProperty p = newElement.resolveProperty(elementLowerTagName);
-          if (p == null) throw new PresentationProviderException("Property node"
-            " name '${elementLowerTagName}' is not a valid"
-            " property of '${lowerTagName}'.");
-
-          if (elementLowerTagName == "itemstemplate"){
-            //accomodation for controls that use itemstemplates...
-            if (e.children.length != 1){
-              throw const PresentationProviderException('ItemsTemplate'
-                ' can only have a single child.');
-            }
-            // defer parsing of the template xml, the template
-            // iterator should handle later.
-            setValue(p, e.children[0].toString());
+          if (ofXMLNode.children.isEmpty()){
+            //assume text assignment
+            setValue(p, ofXMLNode.text.trim());
           }else{
+            if (ofXMLNode.children.every((n) => n is XmlText)){
+              // text assignment to property
+              setValue(p, ofXMLNode.text.trim());
+            }else if (ofXMLNode.children.length == 1 &&
+                ofXMLNode.children[0] is! XmlText){
 
-            var testValue = getValue(p);
-
-            if (testValue != null && testValue is List){
-             //complex property (list)
-              for (final se in e.children){
-                testValue.add(_getNextElement(se));
-              }
-            }else if (e.text.trim().startsWith("{")){
-
-              //binding or resource
-              _resolveBinding(p, e.text.trim());
-            }else{
-              //property node
-
-              if (e.children.isEmpty()){
-                //assume text assignment
-                setValue(p, e.text.trim());
-              }else{
-                if (e.children.every((n) => n is XmlText)){
-                  // text assignment to property
-                  setValue(p, e.text.trim());
-                }else if (e.children.length == 1 && e.children[0] is! XmlText){
-                  // node assignment to property
-                  setValue(p, _getNextElement(e.children[0]));
-                }
-              }
+              // node assignment to property
+              setValue(p, _getNextElement(ofXMLNode.children[0]));
             }
           }
         }
       }
-    }else{
-      //no nodes, check for text element
-      if (xmlElement.text.trim() != ""){
-        if (!newElement.isContainer)
-          throw const PresentationProviderException("Text node found in element"
-            " which does not have a container context defined.");
+    }
 
-        var cc = newElement._stateBag[FrameworkObject.CONTAINER_CONTEXT];
+    void processTag(ofElement, ofXMLNode){
+      final String elementLowerTagName = ofXMLNode.name.toLowerCase();
 
-        if (cc is List) throw const PresentationProviderException("Expected"
-          " container context to be property.  Found list.");
+      if (ofXMLNode.name.contains(".")){
+        //attached property
+        Function setAttachedPropertyFunction =
+            buckshot._objectRegistry[elementLowerTagName];
 
-        setValue(cc, xmlElement.text.trim());
+        //no data binding for attached properties
+        setAttachedPropertyFunction(ofElement,
+            Math.parseInt(ofXMLNode.text.trim()));
+      }else{
+        //element or resource
+
+        if (!ofElement.isContainer)
+          throw const PresentationProviderException("Attempted to add"
+          " element to another element which is not a container.");
+
+        var cc = ofElement.stateBag[FrameworkObject.CONTAINER_CONTEXT];
+
+        FrameworkObject childElement = _getNextElement(ofXMLNode);
+
+        if (childElement == null) return; // is a resource
+
+        //CONTAINER_CONTEXT is a FrameworkProperty for single element, List for multiple
+        if (cc is List){
+          //list content
+          cc.add(childElement);
+        }else{
+          // single child (previous child will be overwritten
+          // if multiple are provided)
+          //TODO throw on multiple child element nodes
+          setValue(cc, childElement);
+        }
       }
     }
 
-    _assignAttributeProperties(newElement, xmlElement);
+    void processTextNode(ofElement, ofXMLNode){
+      if (ofXMLNode.text.trim() != ""){
+        if (!ofElement.isContainer)
+          throw const PresentationProviderException("Text node found in element"
+          " which does not have a container context defined.");
 
-    if (newElement is FrameworkResource){
-      newElement.rawData = xmlElement.toString();
-      _processResource(newElement);
-      // don't return resource nodes; they aren't added to the DOM
-      return null;
-    }else{
-      return newElement;
+        var cc = ofElement.stateBag[FrameworkObject.CONTAINER_CONTEXT];
+
+        if (cc is List) throw const PresentationProviderException("Expected"
+        " container context to be property.  Found list.");
+
+        setValue(cc, ofXMLNode.text.trim());
+      }
     }
+
+    buckshot
+      .createByName(lowerTagName)
+      .then((newElement){
+         if (newElement == null){
+           c.completeException(
+               new PresentationProviderException('Element "${xmlElement.name}"'
+           ' not found.'));
+           return;
+         }
+
+     if (xmlElement.children.length > 0 &&
+         xmlElement.children.every((n) => n is! XmlText)){
+       //process nodes
+
+       for(final e in xmlElement.children.dynamic){
+         String elementLowerTagName = e.name.toLowerCase();
+
+         if (miriam.getObjectByName(elementLowerTagName) != null){
+//         if (buckshot._objectRegistry.containsKey(elementLowerTagName)){
+            processTag(newElement, e);
+         }else{
+            processProperty(newElement, e);
+         }
+       }
+     }else{
+       //no nodes, check for text element
+       processTextNode(newElement, xmlElement);
+     }
+
+     _assignAttributeProperties(newElement, xmlElement);
+
+     completeElementParse(newElement);
+
+   });
+
+
+    return c.future;
   }
+
+
+
+
 
   void _resolveBinding(FrameworkProperty p, String binding){
     if (!binding.startsWith("{") || !binding.endsWith("}"))

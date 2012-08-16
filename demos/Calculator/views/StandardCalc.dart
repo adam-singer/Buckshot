@@ -1,7 +1,7 @@
 /**
 * Represents the view of an standard calculator keypad layout.
 */
-class StandardCalc extends IView
+class StandardCalc extends View
 {
 
   StandardCalc()

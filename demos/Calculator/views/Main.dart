@@ -1,4 +1,4 @@
-class Main extends IView
+class Main extends View
 {
   DropDownList ddlMode;
 

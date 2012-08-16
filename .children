@@ -1,16 +1,13 @@
 packages/Darternizr/Darternizr.dart
 demos/TreeView/TreeViewDemo.dart
-packages/unittest/html_enhanced_config.dart
 external/web/web.dart
 packages/Darternizr/lib/checkers/FlexChecker.dart
 extensions/controls/media/MediaPack.dart
 packages/Darternizr/lib/checkers/FlexboxChecker.dart
-packages/unittest/vm_config.dart
 packages/Darternizr/lib/checkers/BoxChecker.dart
 lib/elements/shape/Polygon.dart
 extensions/controls/media/FunnyOrDie.dart
 lib/core/Miriam.dart
-packages/unittest/dom_config.dart
 external/yaml/yaml.dart
 extensions/controls/media/Vimeo.dart
 packages/dart-xml/tests/xmltests.dart
@@ -23,9 +20,7 @@ tests/tests.dart
 extensions/controls/ListBox.dart
 packages/Darternizr/lib/Checker.dart
 extensions/controls/social/PlusOne.dart
-packages/unittest/interactive_html_config.dart
 demos/Calculator/Calculator.dart
-packages/unittest/unittest.dart
 packages/dart-xml/lib/xml.dart
 extensions/controls/ModalDialog.dart
 packages/Darternizr/lib/checkers/DivChecker.dart
@@ -35,7 +30,6 @@ packages/Darternizr/tests/testapp/testapp.dart
 extensions/controls/media/Hulu.dart
 external/shared/shared.dart
 packages/Darternizr/lib/Browser.dart
-packages/unittest/html_config.dart
 extensions/controls/DockPanel.dart
 lib/elements/shape/PolyLine.dart
 lib/elements/shape/Line.dart

@@ -33,7 +33,7 @@ void main() {
   Template
     .deserialize(Template.getTemplate('#resources'))
     .then((t){
-      buckshot.rootView = new IView.from(t);
+      buckshot.rootView = new View.from(t);
 
       // Load the main view, to start the app.
       new Main().setAsRootView();

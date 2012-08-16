@@ -172,34 +172,15 @@ class Template {
   static Future<FrameworkElement> deserialize(String buckshotTemplate){
     final c = new Completer();
 
-    FrameworkElement doIt(){
-      final tt = buckshotTemplate.trim();
-      final t = new Template();
+    final tt = buckshotTemplate.trim();
+    final t = new Template();
 
-      for(final p in t.providers){
-        if(p.isFormat(tt)){
-          return p.deserialize(tt);
-        }
+    for(final p in t.providers){
+      if(p.isFormat(tt)){
+        p.deserialize(tt).then((e) => c.complete(e));
       }
     }
-
-    if (_registeringCore == false){
-      _registeringCore = true;
-      final rf = buckshot.registerCoreElements();
-
-      if (rf.isComplete){
-        c.complete(doIt());
-      }else{
-        rf.then((_) => c.complete(doIt()));
-      }
-    }else{
-      doIt();
-    }
-
-
 
     return c.future;
   }
-
-  static bool _registeringCore = false;
 }

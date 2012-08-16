@@ -43,7 +43,7 @@
 #source('events/DragEventArgs.dart');
 
 #source('MVVM/ViewModelBase.dart');
-#source('MVVM/IView.dart');
+#source('MVVM/View.dart');
 
 #source('binding/Binding.dart');
 #source('binding/BindingMode.dart');

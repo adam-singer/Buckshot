@@ -1,7 +1,7 @@
-class View extends IView
+class Main extends View
 {
 
-  View(){
+  Main(){
 
     Template
       .deserialize(Template.getTemplate('#view'))

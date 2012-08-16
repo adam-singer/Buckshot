@@ -6,5 +6,6 @@
 
 
 void main() {
-  new View().setAsRootView();
+  final view = new Main();
+  view.ready.then((_) => view.setAsRootView());
 }

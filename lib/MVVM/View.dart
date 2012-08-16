@@ -8,7 +8,7 @@
 * (in the MVVM context of a "view")
 *
 */
-class IView {
+class View {
   FrameworkElement _rootElement;
   final Completer _c;
 
@@ -35,7 +35,7 @@ class IView {
     _c.complete(true);
   }
 
-  IView()
+  View()
       :
         _c = new Completer()
   {
@@ -47,7 +47,7 @@ class IView {
    * what is provided in the string (Uri, or DOM id ['#something']), the
    * constructor will retrieve the resource and deserialize it.
    */
-  IView.fromTemplate(String resourceName)
+  View.fromTemplate(String resourceName)
         :
         _c = new Completer()
   {
@@ -59,7 +59,7 @@ class IView {
   }
 
   /** Constructs a view from a given [element]. */
-  IView.from(FrameworkElement element)
+  View.from(FrameworkElement element)
       :
         _c = new Completer()
   {
@@ -68,10 +68,6 @@ class IView {
   }
 
   /** Sets this [IView] as the rootView of the Buckshot application. */
-  void setAsRootView(){
-    ready.then((_){
-      print('+++hi!');
-      buckshot.rootView = this;
-    });
-  }
+  void setAsRootView() => ready.then((_) => buckshot.rootView = this);
+
 }

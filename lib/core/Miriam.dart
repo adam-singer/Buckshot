@@ -8,7 +8,7 @@
 
 
 /**
- * Reflection and Mirror Utilities.
+ * Reflection and Mirror Utilities for Buckshot.
  */
 class Miriam
 {
@@ -35,7 +35,36 @@ class Miriam
   bool derivesFrom(InterfaceMirror im, List<String> classNames){
     if (classNames.indexOf(im.simpleName) > -1) return true;
     if (im.superclass() == null || im.superclass().simpleName == 'Object') return false;
+
     return derivesFrom(im.superclass(), classNames);
+  }
+
+  /**
+   * Returns the InterfaceMirror of a given [name] by searching through all
+   * available in-scope libraries.
+   *
+   * Case insensitive.
+   *
+   * Returns null if not found.
+   */
+  InterfaceMirror getObjectByName(String name){
+
+    final lowerName = name.toLowerCase();
+    var result;
+
+    _mirror
+      .libraries()
+      .forEach((String lName, LibraryMirror libMirror){
+        libMirror
+          .classes()
+          .forEach((String cName, InterfaceMirror classMirror){
+            if (classMirror.simpleName.toLowerCase() == lowerName){
+              result = classMirror;
+            }
+          });
+      });
+
+    return result;
   }
 
 
