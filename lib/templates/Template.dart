@@ -177,7 +177,9 @@ class Template {
 
     for(final p in t.providers){
       if(p.isFormat(tt)){
-        p.deserialize(tt).then((e) => c.complete(e));
+        p.deserialize(tt).then((e){
+          c.complete(e);
+        });
       }
     }
 

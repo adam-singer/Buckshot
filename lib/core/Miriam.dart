@@ -13,11 +13,17 @@
 class Miriam
 {
   final MirrorSystem _mirror;
+  static Map<String, InterfaceMirror> _mirrorCache;
 
   MirrorSystem get mirror() => _mirror;
 
   Miriam()
-      : _mirror = currentMirrorSystem();
+      :
+        _mirror = currentMirrorSystem(){
+        if (_mirrorCache == null){
+          _mirrorCache = {};
+        }
+      }
 
   /**
    * Returns a new instance of a given object using it's default constructor
@@ -51,6 +57,12 @@ class Miriam
   InterfaceMirror getObjectByName(String name){
 
     final lowerName = name.toLowerCase();
+
+    if (_mirrorCache.containsKey(lowerName)){
+      //print('[Miriam] Returning cached mirror of "$lowerName"');
+      return _mirrorCache[lowerName];
+    }
+
     var result;
 
     _mirror
@@ -64,6 +76,12 @@ class Miriam
             }
           });
       });
+
+    if (result != null){
+      //cache result;
+      //print('[Miriam] caching mirror "$lowerName"');
+      _mirrorCache[lowerName] = result;
+    }
 
     return result;
   }

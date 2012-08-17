@@ -105,7 +105,7 @@ class TreeView extends Panel
       <stylesetter property="borderColor" value="#ccccdd" />
     </setters>
   </styletemplate>
-</resourecollection>
+</resourcecollection>
   ''')
       .then((_){
         mouseEnterBorderStyle = buckshot.retrieveResource('__TreeView_mouse_enter_style_template__');

@@ -12,6 +12,37 @@ Buckshot get buckshot() => new Buckshot._cached();
 
 
 /**
+ * Returns a concrete object from a given [elementName] (case in-sensitive).
+ * Returns null if the [elementName] cannot be found in any
+ * in-scope libraries.
+*
+ * Optional [fromLibrary] will constrain to the search to a specific library.
+*
+ */
+Future<FrameworkObject> createByName(String elementName, [String fromLibrary]){
+  final c = new Completer();
+  print('called on $elementName');
+
+  final im = new Miriam().getObjectByName(elementName);
+
+  if (im == null){
+    c.complete(null);
+    print('...complete null');
+  }else{
+    print('...getting new instance of $im');
+    im
+    .newInstance('',[])
+    .then((o){
+      print('...complete $o');
+      c.complete(o.reflectee);
+    });
+  }
+
+  print('returning future on $elementName');
+  return c.future;
+}
+
+/**
 * Buckshot provides a central initialization and registration facility
 * for the framework.
 *
@@ -170,28 +201,7 @@ class Buckshot extends FrameworkObject {
     });
   }
 
-  /**
-   * Returns a concrete object from a given [elementName] (case in-sensitive).
-   * Returns null if the [elementName] cannot be found in any
-   * in-scope libraries.
-   *
-   * Optional [fromLibrary] will constrain to the search to a specific library.
-   *
-   */
-  Future<FrameworkObject> createByName(String elementName, [String fromLibrary]){
-    final c = new Completer();
 
-    final miriam = new Miriam();
-    final object = miriam.getObjectByName(elementName);
-
-    if (object == null){
-      c.complete(null);
-    }else{
-      object.newInstance('',[]).then((o) => c.complete(o.reflectee));
-    }
-
-    return c.future;
-  }
 
   void _registerCoreElements(){
     // registers stuff not yet handled by the reflection queries

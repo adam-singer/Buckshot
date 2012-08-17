@@ -10,6 +10,9 @@ class Control extends FrameworkElement
 
   FrameworkElement template;
 
+  Future templateApplied;
+  final Completer _c;
+
   String get defaultControlTemplate() => '';
 
   bool _visualTemplateApplied = false;    // flags if visual template applied
@@ -19,8 +22,11 @@ class Control extends FrameworkElement
 //  final HashMap<FrameworkProperty, String> _allTemplateBindings;
 
   Control()
+      :
+        _c = new Completer()
 //  : _allTemplateBindings = new HashMap<FrameworkProperty, String>()
   {
+    templateApplied = _c.future;
     Browser.appendClass(rawElement, "control");
     _initControlProperties();
   }
@@ -44,6 +50,12 @@ class Control extends FrameworkElement
   void applyVisualTemplate(){
     if (_visualTemplateApplied)
       throw const BuckshotException('Attempted to apply visual template more than once.');
+
+    if (templateApplied == null){
+      templateApplied = _c.future;
+    }
+
+    assert(templateApplied != null);
 
     _visualTemplateApplied = true;
 
@@ -71,6 +83,7 @@ class Control extends FrameworkElement
 
     rawElement = template.rawElement;
     template.parent = this;
+    _c.complete(true);
   }
 
   onLoaded(){
