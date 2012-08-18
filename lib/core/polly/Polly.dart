@@ -80,6 +80,11 @@ class Polly {
   static void makeFlexBox(Element element,
                         [ManualFlexType singleOrMulti = ManualFlexType.Single]){
 
+    //TODO: handle this initialization better
+    if (browserInfo == null){
+      Polly.init();
+    }
+
     element.style.display = 'flexbox';
     element.style.display = 'flex';
 
@@ -177,19 +182,19 @@ class Polly {
     }else{
       //add wrappers if not already present
       element.rawElement.style.display = 'inline-table';
-      
-      //TODO: 
+
+      //TODO:
       // Replace underlying UI with a Grid element with all child measurements set
       // to 'auto'.  This will effect a horizontal stackpanel, with the ability
       // to support cross-axis alignments.
     }
   }
-  
+
   /**
    * Sets the flex [Orientation] of a flex box container. */
   static void setFlexBoxOrientation(FrameworkObject element,
                                     Orientation orientation){
-   
+
     if (_flexModel == FlexModel.Manual){
       element.rawElement.attributes['data-buckshot-flexbox-orientation'] =
         orientation == Orientation.vertical ? 'vertical' : 'horizontal';

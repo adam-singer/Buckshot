@@ -111,11 +111,13 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
     if (itemsTemplate == null){
       //no template, then just call toString on the object.
       values.forEach((iterationObject){
-        var it = Template.deserialize('<textblock halign="stretch">'
-          '${iterationObject}</textblock>');
-        it._stateBag[SBO] = iterationObject;
-        itemCreated.invoke(this, new ItemCreatedEventArgs(it));
-        presentationPanel.children.add(it);
+        Template.deserialize('<textblock halign="stretch">'
+          '${iterationObject}</textblock>')
+          .then((it){
+            it.stateBag[SBO] = iterationObject;
+            itemCreated.invoke(this, new ItemCreatedEventArgs(it));
+            presentationPanel.children.add(it);
+          });
       });
     }else{
       //if template, then bind the object to the template datacontext

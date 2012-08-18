@@ -45,7 +45,6 @@ class XmlTemplateProvider implements IPresentationFormatProvider {
       }
     }
 
-
     final interfaceMirrorOf = new Miriam().getObjectByName(lowerTagName);
 
     if (interfaceMirrorOf == null){
@@ -66,12 +65,19 @@ class XmlTemplateProvider implements IPresentationFormatProvider {
         for(final e in xmlElement.children.dynamic){
           String elementLowerTagName = e.name.toLowerCase();
 
-          if (miriam.getObjectByName(elementLowerTagName) != null){
-            //         if (buckshot._objectRegistry.containsKey(elementLowerTagName)){
-            fList.add(processTag(newElement, e));
-          }else{
+          if(newElement.hasProperty(elementLowerTagName)){
             fList.add(processProperty(newElement, e));
+          }else {
+            fList.add(processTag(newElement, e));
           }
+
+          //we exclude template here because shares the same name as the 'Template'
+          //class, but we want to process it as a property.
+//          if (elementLowerTagName != 'template' && miriam.getObjectByName(elementLowerTagName) != null){
+//            fList.add(processTag(newElement, e));
+//          }else{
+//            fList.add(processProperty(newElement, e));
+//          }
         }
       }else{
         //no nodes, check for text element

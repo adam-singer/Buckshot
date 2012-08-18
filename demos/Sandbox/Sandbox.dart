@@ -19,7 +19,10 @@
 #import('../../lib/Buckshot.dart');
 #import('../../external/shared/shared.dart');
 #import('package:DartNet-Event-Model/events.dart');
-#import('../../extensions/controls/media/MediaPack.dart');
+#import('../../extensions/controls/media/YouTube.dart');
+#import('../../extensions/controls/media/Hulu.dart');
+#import('../../extensions/controls/media/Vimeo.dart');
+#import('../../extensions/controls/media/FunnyOrDie.dart');
 #import('../../extensions/controls/ListBox.dart');
 //#import('../../extensions/controls/ModalDialog.dart');
 #import('../../extensions/controls/social/PlusOne.dart');
@@ -45,13 +48,14 @@ void main() {
 
   // create our main view and error view
 
+  var dummy = buckshot.isContainer;
+
   Futures
     .wait([
            Template.deserialize(Template.getTemplate('#main')),
            Template.deserialize(views.errorUI)
            ])
     .then((l){
-      return;
       final o = l[0];
       final errorUI = l[1];
 
