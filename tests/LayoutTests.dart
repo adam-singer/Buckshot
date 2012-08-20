@@ -300,37 +300,24 @@ void layoutTests()
 }
 
 
-class BorderDebug implements View {
-  final FrameworkElement _rootElement;
+class BorderDebug extends View {
 
-  BorderDebug()
-  :
-    _rootElement = Template.deserialize(Template.getTemplate('#borderTest'));
+  BorderDebug() : super.fromTemplate('#borderTest');
 
-  FrameworkElement get rootVisual() => _rootElement;
 }
 
 
-class StackPanelDebug implements View {
+class StackPanelDebug extends View {
 
-  final FrameworkElement _rootElement;
+  StackPanelDebug() : super.fromTemplate('#stackPanelTest');
 
-  StackPanelDebug()
-  :
-    _rootElement = Template.deserialize(Template.getTemplate('#stackPanelTest'));
-
-  FrameworkElement get rootVisual() => _rootElement;
 }
 
-class GridDebug implements View
+class GridDebug extends View
 {
-  final FrameworkElement _rootElement;
 
-  GridDebug()
-  :
-    _rootElement = Template.deserialize(Template.getTemplate('#gridTest'));
+  GridDebug() : super.fromTemplate('#gridTest');
 
-  FrameworkElement get rootVisual() => _rootElement;
 }
 
 /// Tests the given measurements against the bounding measurements of a given element.

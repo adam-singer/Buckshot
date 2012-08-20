@@ -8,7 +8,7 @@
 /**
  * Support class for [Polly] that tracks an manages manual alignments for a
  * [FrameworkElement] within a parent container.
- * 
+ *
  */
 class _Brutus
 {
@@ -172,7 +172,7 @@ class _Brutus
       _unsubscribeMeasurementChanged();
     }
 
-    
+
     void handleHorizontalStretch(){
 
       element.rawElement.style.width = _preservedWidth;
@@ -180,14 +180,14 @@ class _Brutus
       _preservedWidth = null;
     }
 
-    
+
     void handleHorizontalCenter(){
       element.margin = _preservedLeftMargin;
 
       _preservedLeftMargin = null;
     }
 
-    
+
     void handleHorizontalRight(){
       element.margin = _preservedLeftMargin;
 
@@ -211,12 +211,12 @@ class _Brutus
     manualHorizontalAlignment = null;
   }
 
-  
+
   void clearAllManualAlignments(){
     disableManualHorizontalAlignment();
     disableManualVerticalAlignment();
   }
-  
+
 
   void _subscribeMeasurementChanged(){
     if (_eventReference != null) return;
@@ -227,7 +227,7 @@ class _Brutus
 
   }
 
-  
+
   void _unsubscribeMeasurementChanged(){
     if (_eventReference == null) return;
 
@@ -235,8 +235,8 @@ class _Brutus
 
     _eventReference = null;
   }
-  
-  
+
+
   void _sizeChangedEventHandler(_, MeasurementChangedEventArgs args){
     var newTop = 0;
     var newLeft = 0;
@@ -246,14 +246,14 @@ class _Brutus
                   ? element.parent.dynamic.padding.left +
                       element.parent.dynamic.padding.right
                   : 0;
-      
+
       final borderRadiusOffset = element.hasProperty('borderThickness')
               ? element.dynamic.borderThickness.left +
                   element.dynamic.borderThickness.right
               : 0;
-     
+
       final measurementOffset = parentPaddingOffset + borderRadiusOffset;
-      
+
       if (element.hasProperty('padding')){
         final calcWidth = args.newMeasurement.client.width -
             (element.dynamic.padding.left +
@@ -261,14 +261,14 @@ class _Brutus
              element.margin.left +
              element.margin.right +
              measurementOffset);
-        
+
         element.rawElement.style.width = '${calcWidth}px';
       }else{
         final calcWidth = args.newMeasurement.client.width -
-            (element.margin.left + 
+            (element.margin.left +
              element.margin.right +
              measurementOffset);
-        
+
         element.rawElement.style.width = '${calcWidth}px';
       }
     }
@@ -278,17 +278,17 @@ class _Brutus
           ? element.parent.dynamic.padding.left +
               element.parent.dynamic.padding.right
           : 0;
-      
+
       final borderRadiusOffset = element.hasProperty('borderThickness')
               ? element.dynamic.borderThickness.left +
                   element.dynamic.borderThickness.right
               : 0;
-     
+
       final measurementOffset = parentPaddingOffset + borderRadiusOffset;
-      
-      
-      newLeft = (args.newMeasurement.client.width / 2) - 
-          ((r.bounding.width + measurementOffset) / 2);
+
+
+      newLeft = ((args.newMeasurement.client.width / 2) -
+          ((r.bounding.width + measurementOffset) / 2)).toInt();
     }
 
     void handleHorizontalRight(ElementRect r){
@@ -296,15 +296,15 @@ class _Brutus
           ? element.parent.dynamic.padding.left +
               element.parent.dynamic.padding.right
           : 0;
-      
+
       final borderRadiusOffset = element.hasProperty('borderThickness')
               ? element.dynamic.borderThickness.left +
                   element.dynamic.borderThickness.right
               : 0;
-     
+
       final measurementOffset = parentPaddingOffset + borderRadiusOffset;
-      
-      newLeft = args.newMeasurement.client.width - 
+
+      newLeft = args.newMeasurement.client.width -
           (r.client.width + measurementOffset);
     }
 
@@ -313,14 +313,14 @@ class _Brutus
           ? element.parent.dynamic.padding.top +
               element.parent.dynamic.padding.bottom
           : 0;
-      
+
       final borderRadiusOffset = element.hasProperty('borderThickness')
               ? element.dynamic.borderThickness.top +
                   element.dynamic.borderThickness.bottom
               : 0;
-     
+
       final measurementOffset = parentPaddingOffset + borderRadiusOffset;
-      
+
       if (element.hasProperty('padding')){
         final calcHeight = args.newMeasurement.client.height -
             (element.dynamic.padding.top +
@@ -328,34 +328,34 @@ class _Brutus
              element.margin.top +
              element.margin.bottom +
              measurementOffset);
-        
+
         element.rawElement.style.height = '${calcHeight}px';
       }else{
         final calcHeight = args.newMeasurement.client.height -
-            (element.margin.top + 
+            (element.margin.top +
              element.margin.bottom +
              measurementOffset);
-        
+
         element.rawElement.style.height = '${calcHeight}px';
       }
     }
 
     void handleVerticalCenter(ElementRect r){
-      
+
       final parentPaddingOffset = (element.parent.hasProperty('padding'))
                 ? element.parent.dynamic.padding.top +
                     element.parent.dynamic.padding.bottom
                 : 0;
-      
+
       final borderRadiusOffset = element.hasProperty('borderThickness')
               ? element.dynamic.borderThickness.top +
                   element.dynamic.borderThickness.bottom
               : 0;
-     
+
       final measurementOffset = parentPaddingOffset + borderRadiusOffset;
-      
-      newTop = (args.newMeasurement.client.height / 2) - 
-          ((r.client.height + measurementOffset) / 2);
+
+      newTop = ((args.newMeasurement.client.height / 2) -
+          ((r.client.height + measurementOffset) / 2)).toInt();
 
      // db('*** vertical center parent height:${args.newMeasurement.client.height}, element height: ${r.client.height}, $position', element);
     }
@@ -365,15 +365,15 @@ class _Brutus
           ? element.parent.dynamic.padding.top +
               element.parent.dynamic.padding.bottom
           : 0;
-      
+
       final borderRadiusOffset = element.hasProperty('borderThickness')
               ? element.dynamic.borderThickness.top +
                   element.dynamic.borderThickness.bottom
               : 0;
-     
+
       final measurementOffset = parentPaddingOffset + borderRadiusOffset;
-      
-      newTop = args.newMeasurement.client.height - 
+
+      newTop = args.newMeasurement.client.height -
           (r.client.height + measurementOffset);
     }
 

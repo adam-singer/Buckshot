@@ -51,7 +51,7 @@ void main() {
 //    .deserialize(Template.getTemplate('#gridTest'))
 //    .deserialize(Template.getTemplate('#horizontalTest'))
     .then((e){
-      buckshot.rootView = new IView.from(e);
+      buckshot.rootView = new View.from(e);
       Polly.dump();
     });
 
