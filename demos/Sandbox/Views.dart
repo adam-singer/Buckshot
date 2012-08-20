@@ -367,7 +367,7 @@ declarative element-to-element binding.
 -->
 
 <stackpanel margin="5">
-  <textblock fontsize="24" text='This demo is written entirely with Buckshot XML - no code.'></textblock>
+  <textblock fontsize="24" text='This demo is written entirely with templates - no code.'></textblock>
   <stackpanel width="650" orientation="horizontal">
   
     <grid margin="5" width="210">
@@ -418,9 +418,9 @@ declarative element-to-element binding.
       <!-- using declarative actions, we reset the values of the controls when the user clicks the button -->
       <button grid.row="4" content='Reset'>
         <actions>
-          <setpropertyaction event="click" targetName="slWidth" property="value" value="150"></setpropertyaction>
-          <setpropertyaction event="click" targetName="slHeight" property="value" value="150"></setpropertyaction>
-          <setpropertyaction event="click" targetName="slCorner" property="value" value="1"></setpropertyaction>
+          <setproperty event="click" targetName="slWidth" property="value" value="150"></setproperty>
+          <setproperty event="click" targetName="slHeight" property="value" value="150"></setproperty>
+          <setproperty event="click" targetName="slCorner" property="value" value="1"></setproperty>
         </actions>
       </button>
 
