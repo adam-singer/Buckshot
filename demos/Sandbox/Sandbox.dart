@@ -29,22 +29,11 @@
 
 // these 2 imports are needed to support plusone...
 
-#source('Views.dart');
 #source('DemoViewModel.dart');
 #source('DemoModel.dart');
 
 
 void main() {
-//  buckshot.registerElement(new ListBox());
-//  buckshot.registerElement(new PlusOne());
-//  buckshot.registerElement(new ModalDialog());
-
-  Views views = new Views();
-
-  // Register extensions
-  // These are exposed by the extension libraries.
-  // You could also import individual extensions instead.
-  //initializeMediaPackExtensions();
 
   // create our main view and error view
 
@@ -53,7 +42,7 @@ void main() {
   Futures
     .wait([
            Template.deserialize(Template.getTemplate('#main')),
-           Template.deserialize(views.errorUI)
+           Template.deserialize(Template.getTemplate('#error'))
            ])
     .then((l){
       final o = l[0];
@@ -82,26 +71,34 @@ void main() {
       btnRefresh.click + (_, __){
         try{
           if (tbUserInput.text.trim() == "") return;
-          Template.deserialize(tbUserInput.text.trim()).then((t) => borderContent.content = t);
+          Template
+            .deserialize(tbUserInput.text.trim())
+            .then((t) => borderContent.content = t);
         }
         catch(AnimationException ae){
-          tbError.text = "An error occurred while attempting to process an animation resource: ${ae}";
+          tbError.text = "An error occurred while attempting to process an"
+              " animation resource: ${ae}";
           borderContent.content = errorUI;
         }
         catch(PresentationProviderException pe){
-          tbError.text = "We were unable to parse your input into content for display: ${pe}";
+          tbError.text = "We were unable to parse your input into content for"
+              " display: ${pe}";
           borderContent.content = errorUI;
         }
         catch(FrameworkPropertyResolutionException pre){
-          tbError.text = "A framework error occured while attempting to resolve a property binding: ${pre}";
+          tbError.text = "A framework error occured while attempting to resolve"
+              " a property binding: ${pre}";
           borderContent.content = errorUI;
         }
         catch(BuckshotException fe){
-          tbError.text = "A framework error occured while attempting to render the content: ${fe}";
+          tbError.text = "A framework error occured while attempting to render"
+              " the content: ${fe}";
           borderContent.content = errorUI;
         }
         catch(Exception e){
-          tbError.text = "A general exception occured while attempting to render the content.  Please bear with us as we (and Dart) are still in the early stages of development.  Thanks! ${e}";
+          tbError.text = "A general exception occured while attempting to"
+              " render the content.  Please bear with us as we (and Dart) are"
+              " still in the early stages of development.  Thanks! ${e}";
           borderContent.content = errorUI;
         }
       };
@@ -114,81 +111,23 @@ void main() {
         borderContent.content = new TextBlock();
       };
 
-      void setView(view){
-        tbUserInput.text = view;
-        Template.deserialize(view).then((c) => borderContent.content = c);
-      }
-
       void handleSelection(_, SelectedItemChangedEventArgs<DropDownItem> args){
 
-        switch(args.selectedItem.value.toString()){
-          case "helloworld":
-            setView(views.helloWorldView);
-            break;
-          case "stackpanel":
-            setView(views.stackPanelView);
-            break;
-          case "button":
-            setView(views.buttonView);
-            break;
-          case "grid":
-            setView(views.gridView);
-            break;
-          case "layoutcanvas":
-            setView(views.layoutCanvasView);
-            break;
-          case "slider":
-            setView(views.sliderView);
-            break;
-          case "thispage":
-            setView(document.query('#main').text);
-            break;
-          case "border":
-            setView(views.borderView);
-            break;
-          case "radiobuttons":
-            setView(views.radioButtonView);
-            break;
-          case "checkboxes":
-            setView(views.checkBoxView);
-            break;
-          case "hyperlink":
-            setView(views.hyperlinkView);
-            break;
-          case "image":
-            setView(views.imageView);
-            break;
-          case "resourcebinding":
-            setView(views.resourcesView);
-            break;
-          case "elementbinding":
-            setView(views.interactiveView);
-            break;
-          case "databinding":
-            setView(views.dataBindingView);
-            break;
-          case "collections":
-            setView(views.collectionsView);
-            break;
-          case "youtube":
-            setView(views.youtubeView);
-            break;
-          case "hulu":
-            setView(views.huluView);
-            break;
-          case "vimeo":
-            setView(views.vimeoView);
-            break;
-          case "funnyordie":
-            setView(views.funnyOrDieView);
-            break;
-          case "dropdownlist":
-            setView(views.dropDownListView);
-            break;
-          case "listbox":
-            setView(views.listBoxView);
-            break;
+        final value = args.selectedItem.value.toString();
+
+        if (value == ''){
+          tbUserInput.text = '';
+          borderContent.content = null;
+        }else{
+          final view =
+              Template.getTemplate('#${value}');
+
+          tbUserInput.text = view;
+
+          Template.deserialize(view).then((c) => borderContent.content = c);
         }
+
+
       }
 
       ddlElements.selectionChanged + handleSelection;
@@ -198,11 +137,6 @@ void main() {
 
       // render the main view
       buckshot.renderRaw(o);
-
-//  var x = new ModalDialog();
-//  x.text = "Hello World this is a test";
-//  x.title = 'Hello world, this is a title';
-//  x.show();
     });
 }
 
