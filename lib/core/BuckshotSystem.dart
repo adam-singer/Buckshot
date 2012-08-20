@@ -10,41 +10,8 @@
 */
 Buckshot get buckshot() => new Buckshot._cached();
 
-
 /**
- * Returns a concrete object from a given [elementName] (case in-sensitive).
- * Returns null if the [elementName] cannot be found in any
- * in-scope libraries.
-*
- * Optional [fromLibrary] will constrain to the search to a specific library.
-*
- */
-Future<FrameworkObject> createByName(String elementName, [String fromLibrary]){
-  final c = new Completer();
-  print('called on $elementName');
-
-  final im = new Miriam().getObjectByName(elementName);
-
-  if (im == null){
-    c.complete(null);
-    print('...complete null');
-  }else{
-    print('...getting new instance of $im');
-    im
-    .newInstance('',[])
-    .then((o){
-      print('...complete $o');
-      c.complete(o.reflectee);
-    });
-  }
-
-  print('returning future on $elementName');
-  return c.future;
-}
-
-/**
-* Buckshot provides a central initialization and registration facility
-* for the framework.
+* A general utility service for the Buckshot framework.
 *
 * Use the globally available 'buckshot' object to access the
 * framework system.  It is normally not necessary to create your own instance
@@ -52,12 +19,11 @@ Future<FrameworkObject> createByName(String elementName, [String fromLibrary]){
 */
 class Buckshot extends FrameworkObject {
   static final String _defaultRootID = "#BuckshotHost";
-  static final String _version = '0.50 Alpha';
+  static final String _version = '0.55 Alpha';
 
   View _currentView;
   Element _domRootElement;
   StyleElement _buckshotCSS;
-  BrowserInfo _browserInfo;
 
   final HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject,
   Dynamic>> _attachedProperties;
@@ -85,10 +51,6 @@ class Buckshot extends FrameworkObject {
 
   static Buckshot _ref;
 
-
-  BrowserInfo get browserInfo() => _browserInfo;
-
-
   /// Pass the ID of the element in the DOM where buckshot will render content.
   Buckshot(String buckshotRootID)
   :
@@ -104,9 +66,6 @@ class Buckshot extends FrameworkObject {
 
   factory Buckshot._cached()
   {
-//    if (_ref == null){
-//      print('first time in Buckshot ctor');
-//    }
     if (_ref != null) return _ref;
 
     //initialize Polly's statics
@@ -201,10 +160,10 @@ class Buckshot extends FrameworkObject {
     });
   }
 
-
-
   void _registerCoreElements(){
     // registers stuff not yet handled by the reflection queries
+    //TODO: move to mirror-based discovery
+
     registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
     registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
 
@@ -212,51 +171,11 @@ class Buckshot extends FrameworkObject {
     registerAttachedProperty('grid.row', Grid.setRow);
     registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
     registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
-
-    return;
-
-
-//    final miriam = new Miriam();
-//
-//    final flist = [];
-//
-//    //add the resources first
-//    flist.addAll(miriam.getInstancesOf(['TemplateObject', 'FrameworkResource', 'FrameworkElement']));
-//
-//
-//
-//    Futures
-//      .wait(flist)
-//      .then((List results){
-//
-//        results
-//          .sort((a, b){
-//            return a._templatePriority() - b._templatePriority();
-//          });
-//
-//        print('${results}');
-//
-//        results.forEach((o){
-//          if (o.hasReflectee){
-//            print('....registering ${o.reflectee.type}');
-//            registerElement(o.reflectee);
-//            //TODO: find and register attached properties
-//          }
-//        });
-//
-//          registerSync();
-//          _coreElementsRegistered = true;
-//          c.complete(true);
-//      });
-//
-//
-//
-//
-//    return c.future;
-
   }
 
-  /// Returns a resource that is registered with the given [resourceKey].
+  /**
+   *  Returns a resource that is registered with the given [resourceKey].
+   */
   retrieveResource(String resourceKey){
     String lowered = resourceKey.trim().toLowerCase();
 
@@ -273,19 +192,21 @@ class Buckshot extends FrameworkObject {
     }
   }
 
+  /**
+   * Registers an attached property to the framework.  Will be replace with
+   * mirror-based reflection.
+   */
   void registerAttachedProperty(String propertyName, Function setterFunc){
     _objectRegistry[propertyName] = setterFunc;
   }
 
-  /// Registers a resource to the framework.
+
+  /**
+   * Registers a resource to the framework.  Will be replaced with mirror-
+   * based reflection.
+   */
   void registerResource(FrameworkResource resource){
     _resourceRegistry[resource.key.trim().toLowerCase()] = resource;
-  }
-
-  /// Registers a BuckshotObject to the framework.  Useful for registering
-  /// extension elements.
-  void registerElement(BuckshotObject o){
-    _objectRegistry[o.type.trim().toLowerCase()] = o;
   }
 
   /// Gets the innerWidth of the window
@@ -313,21 +234,6 @@ class Buckshot extends FrameworkObject {
   /// Wraps a FrameworkElement into an [IView] and sets it as the root view.
   void renderRaw(FrameworkElement element){
     rootView = new View.from(element);
-  }
-
-  /// Changes the active context for the framework and returns the
-  /// previous context.
-  ///
-  /// **Caution!** Only use this if you know exactly what you are doing.
-  /// Switching context may have undesirable consequences.
-  Buckshot switchContextTo(Buckshot context){
-    var temp = Buckshot._ref;
-    Buckshot._ref = context;
-    return temp;
-  }
-
-  void dumpRegisteredObjects(){
-    this._objectRegistry.forEach((k, v) => print('${v is FrameworkElement || v is FrameworkResource ? v.type : "()"}'));
   }
 
   String get type() => "BuckshotSystem";

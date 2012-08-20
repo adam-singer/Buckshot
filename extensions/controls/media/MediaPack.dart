@@ -11,11 +11,4 @@
 #import('Vimeo.dart');
 #import('FunnyOrDie.dart');
 
-/* Video and Audio Extensions for Buckshot Framework */ 
-
-void initializeMediaPackExtensions(){
-  buckshot.registerElement(new YouTube());
-  buckshot.registerElement(new Hulu());
-  buckshot.registerElement(new Vimeo());
-  buckshot.registerElement(new FunnyOrDie());
-}
+/* Video and Audio Extensions for Buckshot Framework */

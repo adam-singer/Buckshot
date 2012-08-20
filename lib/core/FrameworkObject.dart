@@ -106,8 +106,8 @@ class FrameworkObject extends BuckshotObject {
       (value){});
   }
 
-  
-  
+
+
   void _startWatchMeasurement(){
     _watchingMeasurement = true;
 
@@ -304,16 +304,6 @@ class FrameworkObject extends BuckshotObject {
     return parent.resolveDataContext();
   }
 
-
-  bool isChildOf(FrameworkElement candidate){
-    if (parent != null && parent == candidate)
-      return true;
-
-    if (parent == null) return false;
-
-    return parent.isChildOf(candidate);
-  }
-
   /// Sets the [nameProperty] value.
   set name(String value) => setValue(nameProperty, value);
   /// Gets the [nameProperty] value.
@@ -344,8 +334,7 @@ class FrameworkObject extends BuckshotObject {
                                AttachedFrameworkProperty property,
                                Dynamic value)
   {
-    HashMap<FrameworkElement, Dynamic> aDepInfo =
-        buckshot._attachedProperties[property];
+    final aDepInfo = buckshot._attachedProperties[property];
 
     //no need to invoke if nothing has changed
     if (aDepInfo[element] == value) return;
@@ -369,8 +358,7 @@ class FrameworkObject extends BuckshotObject {
                                   AttachedFrameworkProperty property){
       if (property == null) return null;
 
-      HashMap<FrameworkElement, Dynamic> aDepInfo =
-          buckshot._attachedProperties[property];
+      final aDepInfo = buckshot._attachedProperties[property];
 
       return (aDepInfo.containsKey(element)) ? aDepInfo[element] : null;
   }

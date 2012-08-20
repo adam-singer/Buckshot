@@ -23,6 +23,7 @@ class TemplateTests extends TestGroupBase
     //TODO complex properties (collections)
   }
 
+  //TODO convert to async
   void attachedPropertyNodeAssignsCorrectly(){
     String t = "<StackPanel><grid.column>2</grid.column></StackPanel>";
 

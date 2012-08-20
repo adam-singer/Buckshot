@@ -300,7 +300,7 @@ void layoutTests()
 }
 
 
-class BorderDebug implements IView {
+class BorderDebug implements View {
   final FrameworkElement _rootElement;
 
   BorderDebug()
@@ -311,7 +311,7 @@ class BorderDebug implements IView {
 }
 
 
-class StackPanelDebug implements IView {
+class StackPanelDebug implements View {
 
   final FrameworkElement _rootElement;
 
@@ -322,7 +322,7 @@ class StackPanelDebug implements IView {
   FrameworkElement get rootVisual() => _rootElement;
 }
 
-class GridDebug implements IView
+class GridDebug implements View
 {
   final FrameworkElement _rootElement;
 

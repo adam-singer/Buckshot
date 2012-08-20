@@ -2,7 +2,7 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-#library('controls.buckshotui.org');
+#library('dockpanel.controls.buckshotui.org');
 
 #import('dart:html');
 #import('../../lib/Buckshot.dart');

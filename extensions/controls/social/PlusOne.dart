@@ -2,7 +2,7 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-#library('social.controls.buckshotui.org');
+#library('plusone.social.controls.buckshotui.org');
 
 #import('dart:html');
 #import('../../../lib/Buckshot.dart');
@@ -15,7 +15,7 @@
 */
 class PlusOne extends FrameworkElement
 {
-  final String _plusOneJS = 
+  final String _plusOneJS =
 '''
 (function() {
   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
@@ -23,16 +23,16 @@ class PlusOne extends FrameworkElement
   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 })();
 ''';
-  
+
   FrameworkProperty annotationProperty, sizeProperty;
-  
+
   FrameworkObject makeMe() => new PlusOne();
-  
+
   PlusOne(){
     Browser.appendClass(rawElement, "buckshot_plusone");
-    
+
     _initializePlusOneProperties();
-    
+
     var ref;
 
     ref = loaded + (_, __){
@@ -40,21 +40,21 @@ class PlusOne extends FrameworkElement
       loaded - ref;
     };
   }
-  
-  
+
+
   void _initializePlusOneProperties(){
     annotationProperty = new FrameworkProperty(this, "annotation", (PlusOneAnnotationTypes value){
       rawElement.attributes["annotation"] = value.toString();
     }, PlusOneAnnotationTypes.none, converter:const StringToPlusOneAnnotationTypeConverter());
-    
+
     sizeProperty = new FrameworkProperty(this, "size", (PlusOneButtonSizes value){
       rawElement.attributes["size"] = value.toString();
     }, PlusOneButtonSizes.standard, converter:const StringToPlusOneButtonSizeConverter());
   }
-  
+
   PlusOneAnnotationTypes get annotation() => getValue(annotationProperty);
   PlusOneButtonSizes get size() => getValue(sizeProperty);
-  
+
   /**
   * Injects javascript into the DOM, and optionally removes it after the script has run. */
   static void _inject(String javascript, [bool removeAfter = false]){
@@ -67,47 +67,47 @@ class PlusOne extends FrameworkElement
     if (removeAfter != null && removeAfter)
       s.remove();
   }
-  
-  
+
+
   void createElement(){
     rawElement = new Element.tag("g:plusone");
     rawElement.attributes["annotation"] = "none";
     rawElement.attributes["size"] = "standard";
   }
-  
+
   String get type() => "PlusOne";
 }
 
 class PlusOneButtonSizes{
   final String _str;
   const PlusOneButtonSizes(this._str);
-  
+
   static final small = const PlusOneButtonSizes("small");
   static final medium = const PlusOneButtonSizes("medium");
   static final large = const PlusOneButtonSizes("large");
   static final standard = const PlusOneButtonSizes("standard");
-  
+
   String toString() => _str;
 }
 
 class PlusOneAnnotationTypes{
   final String _str;
   const PlusOneAnnotationTypes(this._str);
-  
+
   static final inline = const PlusOneAnnotationTypes("inline");
   static final bubble = const PlusOneAnnotationTypes("bubble");
   static final none = const PlusOneAnnotationTypes("none");
-  
+
   String toString() => _str;
 }
 
 
 class StringToPlusOneButtonSizeConverter implements IValueConverter{
   const StringToPlusOneButtonSizeConverter();
-  
+
   Dynamic convert(Dynamic value, [Dynamic parameter]){
       if (!(value is String)) return value;
-      
+
       switch(value){
         case "small":
           return PlusOneButtonSizes.small;
@@ -120,16 +120,16 @@ class StringToPlusOneButtonSizeConverter implements IValueConverter{
         default:
           return PlusOneButtonSizes.standard;
       }
-      
+
   }
 }
 
 class StringToPlusOneAnnotationTypeConverter implements IValueConverter{
   const StringToPlusOneAnnotationTypeConverter();
-  
+
   Dynamic convert(Dynamic value, [Dynamic parameter]){
       if (!(value is String)) return value;
-      
+
       switch(value){
         case "inline":
           return PlusOneAnnotationTypes.inline;
@@ -140,6 +140,6 @@ class StringToPlusOneAnnotationTypeConverter implements IValueConverter{
         default:
           return PlusOneAnnotationTypes.none;
       }
-      
+
   }
 }

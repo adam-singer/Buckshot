@@ -13,7 +13,7 @@
 class Miriam
 {
   final MirrorSystem _mirror;
-  static Map<String, InterfaceMirror> _mirrorCache;
+  static Map<String, ClassMirror> _mirrorCache;
 
   MirrorSystem get mirror() => _mirror;
 
@@ -33,12 +33,12 @@ class Miriam
   }
 
   /**
-   * Returns true if a given [InterfaceMirror] derives from any
+   * Returns true if a given [ClassMirror] derives from any
    * of the given [classNames].  This function will walk up the
    * inheritance tree until it either finds a match or reaches
    * [Object]
    */
-  bool derivesFrom(InterfaceMirror im, List<String> classNames){
+  bool derivesFrom(ClassMirror im, List<String> classNames){
     if (classNames.indexOf(im.simpleName) > -1) return true;
     if (im.superclass() == null ||
         im.superclass().simpleName == 'Object') return false;
@@ -54,7 +54,7 @@ class Miriam
    *
    * Returns null if not found.
    */
-  InterfaceMirror getObjectByName(String name){
+  ClassMirror getObjectByName(String name){
 
     final lowerName = name.toLowerCase();
 
@@ -66,11 +66,11 @@ class Miriam
     var result;
 
     _mirror
-      .libraries()
+      .libraries
       .forEach((String lName, LibraryMirror libMirror){
         libMirror
-          .classes()
-          .forEach((String cName, InterfaceMirror classMirror){
+          .classes
+          .forEach((String cName, ClassMirror classMirror){
             if (classMirror.simpleName.toLowerCase() == lowerName){
               result = classMirror;
             }
