@@ -36,7 +36,7 @@ class Button extends Control implements IFrameworkContainer
         if (value is String){
             var tempStr = value;
             value = new TextBlock();
-            value.text = tempStr;
+            (value as TextBlock).text = tempStr;
         }
 
         if (_content != null){

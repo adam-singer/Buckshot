@@ -6,50 +6,50 @@
  *  A primitive [Shape] representing an ellipse.
  */
 class Ellipse extends Shape{
-  
+
   BuckshotObject makeMe() => new Ellipse();
-      
+
   FrameworkProperty _cxProperty;
   FrameworkProperty _cyProperty;
   FrameworkProperty _rxProperty;
   FrameworkProperty _ryProperty;
-  
+
   Ellipse(){
     Browser.appendClass(rawElement, "ellipse");
     _initEllipseProperties();
   }
-  
-  void _initEllipseProperties(){    
+
+  void _initEllipseProperties(){
     _cxProperty = new FrameworkProperty(this, '_cx', (v){
       if (v is! num) return;
-      
+
       var result = v / 2;
-      shapeElement.attributes['cx'] = result;
+      shapeElement.attributes['cx'] = '$result';
       setValue(_rxProperty, result);
-      
+
     });
-    
+
     _cyProperty = new FrameworkProperty(this, '_cy', (v){
       if (v is! num) return;
-      
+
       var result = v / 2;
-      shapeElement.attributes['cy'] = result;
+      shapeElement.attributes['cy'] = '$result';
       setValue(_ryProperty, result);
 
     });
-    
+
     _rxProperty = new FrameworkProperty(this, '_rx', (v){
       shapeElement.attributes['rx'] = '${v - getValue(strokeWidthProperty) / 2}';
     });
     _ryProperty = new FrameworkProperty(this, '_ry', (v){
       shapeElement.attributes['ry'] = '${v - getValue(strokeWidthProperty) / 2}';
     });
-    
+
     new Binding(widthProperty, _cxProperty);
     new Binding(heightProperty, _cyProperty);
   }
-  
+
   String get shapeTag() => 'ellipse';
-  
+
   String get type() => 'Ellipse';
 }

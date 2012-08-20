@@ -85,7 +85,7 @@ class Hyperlink extends Control implements IFrameworkContainer
             var tempStr = value;
             rawElement.style.textDecoration = "underline";
             value = new TextBlock();
-            value.text = tempStr;
+            (value as TextBlock).text = tempStr;
         }
 
         if (_content != null){

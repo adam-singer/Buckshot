@@ -4,17 +4,17 @@
 
 /**
  * A general purpose container for displaying another Buckshot element.
- * ContentPresenter is typically used as a placeholder element within a 
+ * ContentPresenter is typically used as a placeholder element within a
  * template, where actual content may vary.
  */
 class ContentPresenter extends FrameworkElement implements IFrameworkContainer
 {
   /// Represents the content inside the border.
   FrameworkProperty contentProperty;
-  
+
 /// Overridden [BuckshotObject] method for creating new borders.
   FrameworkObject makeMe() => new ContentPresenter();
-  
+
   ContentPresenter()
   {
     Browser.appendClass(rawElement, "ContentPresenter");
@@ -25,7 +25,7 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
   }
 
   FrameworkElement currentContent;
-  
+
   void _initContentPresenterProperties(){
     contentProperty = new FrameworkProperty(
       this,
@@ -46,19 +46,19 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
         if (value is String){
             var tempStr = value;
             value = new TextBlock();
-            value.text = tempStr;
+            (value as TextBlock).text = tempStr;
         }
-        
+
         currentContent = value;
 
-        value.addToLayoutTree(this);        
+        value.addToLayoutTree(this);
       });
   }
-  
+
   /// Gets the [contentProperty] value.
   get content() => getValue(contentProperty);
   /// Sets the [contentProperty] value.
   set content(value) => setValue(contentProperty, value);
-  
+
   String get type() => "ContentPresenter";
 }

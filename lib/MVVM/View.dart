@@ -64,10 +64,10 @@ class View {
         _c = new Completer()
   {
         ready = _c.future;
-        _rootElement = element;
+        rootVisual = element;
   }
 
   /** Sets this [IView] as the rootView of the Buckshot application. */
-  void setAsRootView() => ready.then((_) => buckshot.rootView = this);
+  void setAsRootView() { buckshot.rootView = this; }
 
 }

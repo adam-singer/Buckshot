@@ -27,8 +27,6 @@
 //#import('../../extensions/controls/ModalDialog.dart');
 #import('../../extensions/controls/social/PlusOne.dart');
 
-// these 2 imports are needed to support plusone...
-
 #source('DemoViewModel.dart');
 #source('DemoModel.dart');
 
@@ -57,7 +55,8 @@ void main() {
       DropDownList ddlElements = buckshot.namedElements["ddlElements"];
       DropDownList ddlControls = buckshot.namedElements["ddlControls"];
       DropDownList ddlBinding = buckshot.namedElements["ddlBinding"];
-      DropDownList ddlMediaExtensions = buckshot.namedElements["ddlMediaExtensions"];
+      DropDownList ddlMediaExtensions =
+          buckshot.namedElements["ddlMediaExtensions"];
       StackPanel spRoot = buckshot.namedElements['spRoot'];
 
       // set buckshot to the root's datacontext
@@ -119,15 +118,10 @@ void main() {
           tbUserInput.text = '';
           borderContent.content = null;
         }else{
-          final view =
-              Template.getTemplate('#${value}');
-
+          final view = Template.getTemplate('#${value}');
           tbUserInput.text = view;
-
           Template.deserialize(view).then((c) => borderContent.content = c);
         }
-
-
       }
 
       ddlElements.selectionChanged + handleSelection;
