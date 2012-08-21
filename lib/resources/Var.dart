@@ -41,8 +41,8 @@ class Var extends FrameworkResource implements IFrameworkContainer
     _initVarProperties();
 
     //meta data for binding system
-    this._stateBag[FrameworkResource.RESOURCE_PROPERTY] = valueProperty;
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = valueProperty;
+    stateBag[FrameworkResource.RESOURCE_PROPERTY] = valueProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = valueProperty;
   }
 
   get content() => value;

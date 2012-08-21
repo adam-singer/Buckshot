@@ -39,7 +39,7 @@ Future setValueAsync(FrameworkProperty property, Dynamic value)
 {
   Completer c = new Completer();
 
-   void doIt(foo){
+   doIt(foo){
 
      if (property.stringToValueConverter != null && value is String){
        value = property.stringToValueConverter.convert(value);
@@ -115,7 +115,7 @@ void setValue(FrameworkProperty property, Dynamic value)
  * Gets the current value of a given [FrameworkProperty] object.
  * Returns null if the [propertyInfo] object does not exist or if the underlying
  * property is not found. */
-Dynamic getValue(FrameworkProperty propertyInfo) =>
+getValue(FrameworkProperty propertyInfo) =>
     (propertyInfo == null) ? null : propertyInfo.value;
 
 /**
@@ -145,11 +145,11 @@ String space(int n){
 
 /**
  * Debug function that pretty prints an element tree. */
-printTree(startWith, [int indent = 0]){  
+printTree(startWith, [int indent = 0]){
   if (startWith == null || startWith is! FrameworkElement) return;
-  
+
   print('${space(indent)}${startWith}(Parent=${startWith.parent})');
-  
+
   if (startWith is IFrameworkContainer){
     if ((startWith as IFrameworkContainer).content is List){
       (startWith as IFrameworkContainer)

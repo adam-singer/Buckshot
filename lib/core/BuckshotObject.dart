@@ -6,17 +6,14 @@
 * Base class for all objects participating in the framework.
 */
 class BuckshotObject extends HashableObject{
-  final HashMap<String, Dynamic> _stateBag;
+  final HashMap<String, Dynamic> stateBag;
   final List<Binding> _bindings;
   final Set<FrameworkProperty> _frameworkProperties;
 
   BuckshotObject():
-    _stateBag = new HashMap<String, Dynamic>(),
+    stateBag = new HashMap<String, Dynamic>(),
     _bindings = new List<Binding>(),
     _frameworkProperties = new Set<FrameworkProperty>();
-
-  /// Gets the stateBag [HashMap<String, Dynamic>] for the object.
-  HashMap<String, Dynamic> get stateBag() => _stateBag;
 
   /// Gets a boolean value indicating whether the given object
   /// is a container or not.
@@ -94,7 +91,7 @@ class BuckshotObject extends HashableObject{
 
     // return the property if there are no further names to resolve or the property
     // is not a BuckshotObject
-    if (!(prop.value is BuckshotObject) || propertyChain.length == 1) return prop;
+    if (prop.value is! BuckshotObject || propertyChain.length == 1) return prop;
 
     // recurse down to the next BuckshotObject and property name
     return _resolvePropertyInternal(prop.value, propertyChain.getRange(1, propertyChain.length - 1));

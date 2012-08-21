@@ -13,7 +13,7 @@ class AnimationResource extends FrameworkResource
   AnimationResource(){
     _initAnimationResourceProperties();
 
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = keyFramesProperty;
+    this.stateBag[FrameworkObject.CONTAINER_CONTEXT] = keyFramesProperty;
   }
 
   _initAnimationResourceProperties(){

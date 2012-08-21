@@ -10,7 +10,7 @@ class ResourceCollection extends FrameworkResource implements IFrameworkContaine
 
   ResourceCollection(): resources = new ObservableList<FrameworkResource>()
   {
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = resources;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = resources;
 
     resources.listChanged + _onListChanging;
   }

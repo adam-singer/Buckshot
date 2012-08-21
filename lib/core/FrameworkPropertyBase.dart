@@ -37,4 +37,8 @@ class FrameworkPropertyBase extends HashableObject{
    String get type() => "FrameworkPropertyBase";
 
    String toString() => '(${sourceObject.type}) $propertyName';
+
+   static parentClass(){
+
+   }
 }

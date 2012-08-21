@@ -20,7 +20,7 @@ class TextArea extends Control
 
     _initProperties();
 
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
 
     _initEvents();
   }

@@ -28,7 +28,7 @@ class Hyperlink extends Control implements IFrameworkContainer
 
     _initHyperlinkProperties();
 
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
 
   /// Gets the [navigateToProperty] value.

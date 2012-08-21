@@ -183,9 +183,9 @@ class Buckshot extends FrameworkObject {
 
     var res = _resourceRegistry[lowered];
 
-    if (res._stateBag.containsKey(FrameworkResource.RESOURCE_PROPERTY)){
+    if (res.stateBag.containsKey(FrameworkResource.RESOURCE_PROPERTY)){
       // resource property defined so return it's value
-      return getValue(res._stateBag[FrameworkResource.RESOURCE_PROPERTY]);
+      return getValue(res.stateBag[FrameworkResource.RESOURCE_PROPERTY]);
     }else{
       // no resource property defined so just return the resource
       return res;

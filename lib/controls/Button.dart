@@ -51,7 +51,7 @@ class Button extends Control implements IFrameworkContainer
 
       });
 
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
 
   /// Gets the [contentProperty] value.

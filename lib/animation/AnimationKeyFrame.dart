@@ -14,7 +14,7 @@ class AnimationKeyFrame extends TemplateObject
   AnimationKeyFrame(){
     _initAnimationKeyFrameProperties();
 
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = statesProperty;
+    this.stateBag[FrameworkObject.CONTAINER_CONTEXT] = statesProperty;
   }
 
   _initAnimationKeyFrameProperties(){

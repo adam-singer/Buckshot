@@ -25,7 +25,7 @@ class LinearGradientBrush extends Brush
     if (dir != null) direction = dir;//LinearGradientDirection.horizontal;
     if (fallback != null) fallbackColor = fallback;// = new Color.predefined(Colors.White);
 
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = stopsProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = stopsProperty;
   }
 
   /// Sets the [stopsProperty] value.

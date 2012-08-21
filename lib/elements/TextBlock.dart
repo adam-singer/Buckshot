@@ -22,7 +22,7 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
 
     _initTextBlockProperties();
 
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
   }
 
   get content() => getValue(textProperty);

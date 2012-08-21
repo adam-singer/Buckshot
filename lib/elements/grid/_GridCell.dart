@@ -15,7 +15,7 @@ class _GridCell extends FrameworkObject
   {
     _initGridCellProperties();
 
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
 
   void _initGridCellProperties(){

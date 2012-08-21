@@ -226,11 +226,11 @@ class FrameworkElement extends FrameworkObject {
         if (value == Visibility.visible){
           rawElement.style.visibility = '$value';
 
-          rawElement.style.display =  _stateBag["display"] == null ? "inherit" : _stateBag["display"];
-          _stateBag.remove("display");
+          rawElement.style.display =  stateBag["display"] == null ? "inherit" : stateBag["display"];
+          stateBag.remove("display");
         }else{
           //preserve in case some element is using "inline" or some other fancy display value
-          _stateBag["display"] = rawElement.style.display;
+          stateBag["display"] = rawElement.style.display;
           rawElement.style.visibility = '$value';
 
           rawElement.style.display = "none";

@@ -146,14 +146,16 @@ class Binding extends BuckshotObject
 
   static void _executeBindingsFor(FrameworkProperty property)
   {
-    for (final binding in property.sourceObject._bindings){
+    property
+      .sourceObject
+      ._bindings
+      .forEach((binding){
+        setValue(binding.dynamic._toProperty,
+          binding.dynamic.converter.convert(getValue(binding.dynamic._fromProperty)));
 
-      setValue(binding.dynamic._toProperty,
-        binding.dynamic.converter.convert(getValue(binding.dynamic._fromProperty)));
-
-      if (binding.dynamic.bindingMode == BindingMode.OneTime)
-        binding.unregister();
-    }
+        if (binding.dynamic.bindingMode == BindingMode.OneTime)
+          binding.unregister();
+    });
   }
 
   String get type() => "Binding";

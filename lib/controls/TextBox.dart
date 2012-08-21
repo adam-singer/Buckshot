@@ -16,7 +16,7 @@ class TextBox extends Control
 
     _initTextBoxProperties();
 
-    this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
 
     _initEvents();
   }

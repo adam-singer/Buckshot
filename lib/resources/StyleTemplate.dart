@@ -113,10 +113,10 @@ class StyleTemplate extends FrameworkResource
   }
 
   void _unsetStyleBindings(FrameworkElement element){
-    element._stateBag.forEach((String k, Dynamic v){
+    element.stateBag.forEach((String k, Dynamic v){
       if (k.startsWith(stateBagPrefix)){
         v.unregister();
-        element._stateBag.remove(k);
+        element.stateBag.remove(k);
       }
     });
   }
@@ -126,7 +126,7 @@ class StyleTemplate extends FrameworkResource
     .filter((FrameworkProperty p) => p.propertyName == setter.property)
     .forEach((FrameworkProperty p) {
       Binding b = new Binding(setter.valueProperty, p);
-      p.sourceObject._stateBag["$stateBagPrefix${setter.property}__"] = b;
+      p.sourceObject.stateBag["$stateBagPrefix${setter.property}__"] = b;
     });
   }
 

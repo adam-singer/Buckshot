@@ -97,7 +97,7 @@ class Template {
 
     if (!startingWith.isContainer) return null;
 
-    var cc = startingWith._stateBag[FrameworkObject.CONTAINER_CONTEXT];
+    var cc = startingWith.stateBag[FrameworkObject.CONTAINER_CONTEXT];
     if (cc is List){
       for (final el in cc){
         var result = findByName(name, el);

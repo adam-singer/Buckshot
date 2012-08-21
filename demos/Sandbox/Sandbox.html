@@ -14,9 +14,171 @@
 
 <!--
 
-Buckshot Templates
+Begin Buckshot Templates
 
 -->
+
+<script id='main' type='text/xml'>
+<stack name='spRoot' orientation="horizontal" halign="center">
+  <resourcecollection>
+    <color key="buckshotBlue" value="#165284"></color>
+
+    <styletemplate key="sideboxdark">
+      <setters>
+        <stylesetter property="margin" value="0,0,10,0"></stylesetter>
+        <stylesetter property="padding" value="10"></stylesetter>
+        <stylesetter property="background" value="{resource buckshotBlue}"></stylesetter>
+        <stylesetter property="hAlign" value="stretch"></stylesetter>
+      </setters>
+    </styletemplate>
+    
+    <styletemplate key="sidebox">
+      <setters>
+        <stylesetter property="margin" value="0,0,10,0"></stylesetter>
+        <stylesetter property="padding" value="10"></stylesetter>
+        <stylesetter property="background" value="SteelBlue"></stylesetter>
+        <stylesetter property="hAlign" value="stretch"></stylesetter>
+      </setters>
+    </styletemplate>
+    
+    <styletemplate key="sideboxtext">
+      <setters>
+        <stylesetter property="foreground" value="White"></stylesetter>
+        <stylesetter property="fontSize" value="18"></stylesetter>
+        <stylesetter property="hAlign" value="stretch"></stylesetter>
+      </setters>
+    </styletemplate>
+    
+    <styletemplate key="iotext">
+      <setters>
+        <stylesetter property="margin" value="15,0,0,0"></stylesetter>
+        <stylesetter property="fontFamily" value="courier"></stylesetter>
+        <stylesetter property="fontSize" value="20"></stylesetter>
+      </setters>
+    </styletemplate>
+    
+    <styletemplate key="sample_row">
+      <setters>
+        <stylesetter property="margin" value="0,0,10,0"></stylesetter>
+        <stylesetter property="orientation" value="horizontal"></stylesetter>
+        <stylesetter property="width" value="600"></stylesetter>
+      </setters>
+    </styletemplate>
+  </resourcecollection>
+
+  <stack maxWidth='270'>
+  	<border halign="center">
+	    <image  alt="Buckshot Logo Candidate" 
+	        sourceuri="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></image>
+    </border>
+    <border style="{resource sideboxdark}">
+      <stack>
+          <textblock foreground="White" fontSize="48" text="Buckshot"/>
+          <textblock fontfamily="arial" foreground="White" text="A Better Way To Web"/>
+          <stack orientation="horizontal" margin="5,0,0,0">
+          		<textblock fontSize='10' fontfamily="arial" foreground="White" text="Version:"/>
+  	            <textblock margin='0,0,0,5' fontSize='10' fontfamily="arial" foreground="White" text="{data version}"/>
+          </stack>
+      </stack>
+    </border>
+    <border style="{resource sidebox}">
+      <stack halign='stretch'>
+        <textblock style="{resource sideboxtext}">
+        Buckshot is a User Interface framework for the web written in Google Dart.  
+        On this page you can explore how the framework's simple layout structure makes designing and working with web pages easy.
+        </textblock>
+        <textblock foreground="White" margin="10,0,0,0" fontSize="14">
+        (this page is 100% generated with Buckshot)
+        </textblock>
+      </stack>
+    </border>
+    <border style="{resource sidebox}">
+      <textblock style="{resource sideboxtext}">
+      Buckshot is currently in the ALPHA stage of development. That means you may find some things that don't work as expected.
+      </textblock>
+    </border>
+    <border style="{resource sidebox}">
+       <hyperlink targetName="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki">
+          <textblock style="{resource sideboxtext}">Buckshot Project Site</textblock>
+       </hyperlink>
+    </border>
+    <border style="{resource sidebox}">
+       <hyperlink targetName="_blank" navigateto="http://www.lucastudios.com/trybuckshot/docs/">
+          <textblock style="{resource sideboxtext}">Library Documentation</textblock>
+       </hyperlink>
+    </border>
+    <plusone annotation="inline"></plusone>
+  </stack>
+  <stack margin="0,0,0,10" width="700">
+    <!-- border.halign="stretch" isn't working properly here (textblock wont center), so setting width explicitely instead -->
+    <textblock margin="0,10" fontsize="20" fontfamily="arial" text="Select a sample or design your own in the Input area below."/>
+    <stack style='{resource sample_row}'>
+      <textblock margin="0,10,0,0" text="Elements:" fontfamily="arial"/>
+      <dropdownlist name="ddlElements">
+        <items>
+          <dropdownitem name='' value='' />
+          <dropdownitem name='Hello World' value='textblock' />
+          <dropdownitem name='Stack' value='stack' />
+          <dropdownitem name='Border' value='border' />
+          <dropdownitem name='Grid' value='grid' />
+          <dropdownitem name='Layout Canvas' value='layoutcanvas' />
+          <dropdownitem name='This Page!' value='main' />
+        </items>
+      </dropdownlist>
+    </stack>
+    <stack style='{resource sample_row}'>
+      <textblock margin="0,10,0,0" text="Controls:" fontfamily="arial"/>
+      <dropdownlist name="ddlControls">
+        <items>
+          <dropdownitem name='' value='' />
+          <dropdownitem name='ListBox' value='listbox' />
+          <dropdownitem name='DropDownList' value='dropdownlist' />
+          <dropdownitem name='Slider' value='slider' />
+          <dropdownitem name='Button' value='button' />
+          <dropdownitem name='Radio Buttons' value='radiobutton' />
+          <dropdownitem name='Checkboxes' value='checkbox' />
+          <dropdownitem name='Hyperlink' value='hyperlink' />
+          <dropdownitem name='Image' value='image' />
+        </items>
+      </dropdownlist>
+    </stack>
+    <stack style='{resource sample_row}'>
+      <textblock text="Binding Demos:" margin="0,5,0,0" fontfamily="arial"/>
+      <dropdownlist name="ddlBinding">
+        <items>
+          <dropdownitem name='' value='' />
+          <dropdownitem name='Resource Binding' value='resources' />
+          <dropdownitem name='Element Binding' value='elementbinding' />
+          <dropdownitem name='Data Binding' value='databinding' />
+          <dropdownitem name='Collections Demo' value='collections' />
+        </items>
+      </dropdownlist>
+    </stack>
+    <stack style='{resource sample_row}'>
+      <textblock text="Media Extensions:" margin="0,5,0,0" fontfamily="arial"/>
+      <dropdownlist name="ddlMediaExtensions">
+        <items>
+          <dropdownitem name='' value='' />
+          <dropdownitem name='YouTube' value='youtube' />
+          <dropdownitem name='Hulu' value='hulu' />
+          <dropdownitem name='Vimeo' value='vimeo' />
+          <dropdownitem name='FunnyOrDie' value='funnyordie' />
+        </items>
+      </dropdownlist>
+    </stack>
+    <textblock style="{resource iotext}" text="Input (you can edit this or create your own):"/>
+    <textarea placeholder="Type something here or select one of the samples from above." spellcheck="false" 
+      name="tbUserInput" minwidth='690' maxwidth='690' minheight="300"></textarea>
+    <stack orientation="horizontal">
+       <button name="btnRefresh" content="Refresh Output"></button>
+       <button name="btnClear" margin="0,0,0,5" content="Clear All"></button>
+    </stack>
+    <textblock style="{resource iotext}" text="Output:"/>
+    <border name="borderContent" margin="0,0,10,0" width="690" borderThickness="3" borderColor="{resource buckshotBlue}">
+    </border>
+  </stack>
+</stack>
+</script>
 
 <script id='image' type='text/xml'>
 <stack orientation='horizontal' margin="10">
@@ -868,172 +1030,15 @@ each list.
 </stack>
 </script>
 
-<script id='main' type='text/xml'>
-<stack name='spRoot' orientation="horizontal" halign="center">
-  <resourcecollection>
-    <color key="buckshotBlue" value="#165284"></color>
 
-    <styletemplate key="sideboxdark">
-      <setters>
-        <stylesetter property="margin" value="0,0,10,0"></stylesetter>
-        <stylesetter property="padding" value="10"></stylesetter>
-        <stylesetter property="background" value="{resource buckshotBlue}"></stylesetter>
-        <stylesetter property="hAlign" value="stretch"></stylesetter>
-      </setters>
-    </styletemplate>
-    
-    <styletemplate key="sidebox">
-      <setters>
-        <stylesetter property="margin" value="0,0,10,0"></stylesetter>
-        <stylesetter property="padding" value="10"></stylesetter>
-        <stylesetter property="background" value="SteelBlue"></stylesetter>
-        <stylesetter property="hAlign" value="stretch"></stylesetter>
-      </setters>
-    </styletemplate>
-    
-    <styletemplate key="sideboxtext">
-      <setters>
-        <stylesetter property="foreground" value="White"></stylesetter>
-        <stylesetter property="fontSize" value="18"></stylesetter>
-        <stylesetter property="hAlign" value="stretch"></stylesetter>
-      </setters>
-    </styletemplate>
-    
-    <styletemplate key="iotext">
-      <setters>
-        <stylesetter property="margin" value="15,0,0,0"></stylesetter>
-        <stylesetter property="fontFamily" value="courier"></stylesetter>
-        <stylesetter property="fontSize" value="20"></stylesetter>
-      </setters>
-    </styletemplate>
-    
-    <styletemplate key="sample_row">
-      <setters>
-        <stylesetter property="margin" value="0,0,10,0"></stylesetter>
-        <stylesetter property="orientation" value="horizontal"></stylesetter>
-        <stylesetter property="width" value="600"></stylesetter>
-      </setters>
-    </styletemplate>
-  </resourcecollection>
+<!--
 
-  <stack maxWidth='270'>
-  	<border halign="center">
-	    <image  alt="Buckshot Logo Candidate" 
-	        sourceuri="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></image>
-    </border>
-    <border style="{resource sideboxdark}">
-      <stack>
-          <textblock foreground="White" fontSize="48" text="Buckshot"/>
-          <textblock fontfamily="arial" foreground="White" text="A Better Way To Web"/>
-          <stack orientation="horizontal" margin="5,0,0,0">
-          		<textblock fontSize='10' fontfamily="arial" foreground="White" text="Version:"/>
-  	            <textblock margin='0,0,0,5' fontSize='10' fontfamily="arial" foreground="White" text="{data version}"/>
-          </stack>
-      </stack>
-    </border>
-    <border style="{resource sidebox}">
-      <stack halign='stretch'>
-        <textblock style="{resource sideboxtext}">
-        Buckshot is a User Interface framework for the web written in Google Dart.  
-        On this page you can explore how the framework's simple layout structure makes designing and working with web pages easy.
-        </textblock>
-        <textblock foreground="White" margin="10,0,0,0" fontSize="14">
-        (this page is 100% generated with Buckshot)
-        </textblock>
-      </stack>
-    </border>
-    <border style="{resource sidebox}">
-      <textblock style="{resource sideboxtext}">
-      Buckshot is currently in the ALPHA stage of development. That means you may find some things that don't work as expected.
-      </textblock>
-    </border>
-    <border style="{resource sidebox}">
-       <hyperlink targetName="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki">
-          <textblock style="{resource sideboxtext}">Buckshot Project Site</textblock>
-       </hyperlink>
-    </border>
-    <border style="{resource sidebox}">
-       <hyperlink targetName="_blank" navigateto="http://www.lucastudios.com/trybuckshot/docs/">
-          <textblock style="{resource sideboxtext}">Library Documentation</textblock>
-       </hyperlink>
-    </border>
-    <plusone annotation="inline"></plusone>
-  </stack>
-  <stack margin="0,0,0,10" width="700">
-    <!-- border.halign="stretch" isn't working properly here (textblock wont center), so setting width explicitely instead -->
-    <textblock margin="0,10" fontsize="20" fontfamily="arial" text="Select a sample or design your own in the Input area below."/>
-    <stack style='{resource sample_row}'>
-      <textblock margin="0,10,0,0" text="Elements:" fontfamily="arial"/>
-      <dropdownlist name="ddlElements">
-        <items>
-          <dropdownitem name='' value='' />
-          <dropdownitem name='Hello World' value='textblock' />
-          <dropdownitem name='Stack' value='stack' />
-          <dropdownitem name='Border' value='border' />
-          <dropdownitem name='Grid' value='grid' />
-          <dropdownitem name='Layout Canvas' value='layoutcanvas' />
-          <dropdownitem name='This Page!' value='main' />
-        </items>
-      </dropdownlist>
-    </stack>
-    <stack style='{resource sample_row}'>
-      <textblock margin="0,10,0,0" text="Controls:" fontfamily="arial"/>
-      <dropdownlist name="ddlControls">
-        <items>
-          <dropdownitem name='' value='' />
-          <dropdownitem name='ListBox' value='listbox' />
-          <dropdownitem name='DropDownList' value='dropdownlist' />
-          <dropdownitem name='Slider' value='slider' />
-          <dropdownitem name='Button' value='button' />
-          <dropdownitem name='Radio Buttons' value='radiobutton' />
-          <dropdownitem name='Checkboxes' value='checkbox' />
-          <dropdownitem name='Hyperlink' value='hyperlink' />
-          <dropdownitem name='Image' value='image' />
-        </items>
-      </dropdownlist>
-    </stack>
-    <stack style='{resource sample_row}'>
-      <textblock text="Binding Demos:" margin="0,5,0,0" fontfamily="arial"/>
-      <dropdownlist name="ddlBinding">
-        <items>
-          <dropdownitem name='' value='' />
-          <dropdownitem name='Resource Binding' value='resources' />
-          <dropdownitem name='Element Binding' value='elementbinding' />
-          <dropdownitem name='Data Binding' value='databinding' />
-          <dropdownitem name='Collections Demo' value='collections' />
-        </items>
-      </dropdownlist>
-    </stack>
-    <stack style='{resource sample_row}'>
-      <textblock text="Media Extensions:" margin="0,5,0,0" fontfamily="arial"/>
-      <dropdownlist name="ddlMediaExtensions">
-        <items>
-          <dropdownitem name='' value='' />
-          <dropdownitem name='YouTube' value='youtube' />
-          <dropdownitem name='Hulu' value='hulu' />
-          <dropdownitem name='Vimeo' value='vimeo' />
-          <dropdownitem name='FunnyOrDie' value='funnyordie' />
-        </items>
-      </dropdownlist>
-    </stack>
-    <textblock style="{resource iotext}" text="Input (you can edit this or create your own):"/>
-    <textarea placeholder="Type something here or select one of the samples from above." spellcheck="false" 
-      name="tbUserInput" minwidth='690' maxwidth='690' minheight="300"></textarea>
-    <stack orientation="horizontal">
-       <button name="btnRefresh" content="Refresh Output"></button>
-       <button name="btnClear" margin="0,0,0,5" content="Clear All"></button>
-    </stack>
-    <textblock style="{resource iotext}" text="Output:"/>
-    <border name="borderContent" margin="0,0,10,0" width="690" borderThickness="3" borderColor="{resource buckshotBlue}">
-    </border>
-  </stack>
-</stack>
-</script>
+End Buckshot Templates
 
+-->
 
     <script type="application/dart" src="Sandbox.dart"></script>
-    
-    
+        
     <script src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script>
 <script type="text/javascript">
 var _gaq = _gaq || [];

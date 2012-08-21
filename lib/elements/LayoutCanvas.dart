@@ -27,8 +27,8 @@ class LayoutCanvas extends Panel
       args.oldItems.forEach((element){
 
         //restore the element's previous 'margin' state
-        element.margin = element._stateBag["margin"];
-        element._stateBag.remove("margin");
+        element.margin = element.stateBag["margin"];
+        element.stateBag.remove("margin");
 
         //rawElement.removeChild(element.rawElement);
         element.rawElement.style.position = "inherit";
@@ -45,7 +45,7 @@ class LayoutCanvas extends Panel
         //Since we are borrowing 'margin' to effect the canvas layout
         //preserve the element's original margin state.
         // (we can borrow margin because it has no place in a canvas layout anyway)
-        element._stateBag["margin"] = element.margin;
+        element.stateBag["margin"] = element.margin;
 
         element.margin = new Thickness.specified(t, 0, 0, l);
 

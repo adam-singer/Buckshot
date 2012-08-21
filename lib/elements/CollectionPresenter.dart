@@ -122,7 +122,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
         Template
         .deserialize(itemsTemplate)
         .then((it){
-          it._stateBag[SBO] = iterationObject;
+          it.stateBag[SBO] = iterationObject;
           it.dataContext = iterationObject;
           itemCreated.invoke(this, new ItemCreatedEventArgs(it));
           presentationPanel.children.add(it);

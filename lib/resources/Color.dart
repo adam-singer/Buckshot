@@ -18,7 +18,7 @@ class Color extends FrameworkResource
     _initColorProperties();
 
     //meta data for binding system
-    this._stateBag[FrameworkResource.RESOURCE_PROPERTY] = valueProperty;
+    this.stateBag[FrameworkResource.RESOURCE_PROPERTY] = valueProperty;
   }
 
   /// Allows construction of the color from 3 numeric values representing the R,G,B
