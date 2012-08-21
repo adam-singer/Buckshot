@@ -3,6 +3,15 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 /**
+ * Alias element for [StackPanel].  Provides a shortened name in templates.
+ */
+class Stack extends StackPanel
+{
+  FrameworkObject makeMe() => new Stack();
+  String get type() => "Stack";
+}
+
+/**
 * Provides a container that stacks child elements vertically or horizontally. */
 class StackPanel extends Panel
 {
@@ -13,7 +22,7 @@ class StackPanel extends Panel
   StackPanel()
   {
     Browser.appendClass(rawElement, "stackpanel");
-    
+
     initStackPanelProperties();
   }
 
@@ -24,9 +33,9 @@ class StackPanel extends Panel
       (Orientation value){
         Polly.setFlexBoxOrientation(this, value);
       },
-      Orientation.vertical, converter:const StringToOrientationConverter());  
+      Orientation.vertical, converter:const StringToOrientationConverter());
   }
-  
+
   void onChildrenChanging(ListChangedEventArgs args){
     super.onChildrenChanging(args);
 
