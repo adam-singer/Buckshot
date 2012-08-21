@@ -32,6 +32,8 @@ class Miriam
     throw const NotImplementedException();
   }
 
+  mirrorOf(object) => reflect(object);
+
   /**
    * Returns true if a given [ClassMirror] derives from any
    * of the given [classNames].  This function will walk up the

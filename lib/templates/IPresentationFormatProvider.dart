@@ -13,11 +13,6 @@
 interface IPresentationFormatProvider
 {
 
-  //TODO MIME as identifier type instead?
-  /**
-  * Returns the file extension supported by the implementing class. */
-  String get fileExtension();
-
   /**
   * Takes a string representation of elements in [template] and attempts to convert it to an object tree
   * using parsing rules from the implementing class. */

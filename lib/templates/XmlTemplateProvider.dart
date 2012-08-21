@@ -7,16 +7,14 @@
 /**
 * Provides serialization/deserialization for XML format templates.
 */
-class XmlTemplateProvider implements IPresentationFormatProvider {
+class XmlTemplateProvider implements IPresentationFormatProvider
+{
 
   final Miriam miriam;
 
   XmlTemplateProvider()
       :
         miriam = new Miriam();
-
-  //TODO MIME as identifier type instead?
-  String get fileExtension() => "xml";
 
   bool isFormat(String template) => template.startsWith('<');
 
@@ -104,7 +102,7 @@ class XmlTemplateProvider implements IPresentationFormatProvider {
 
     //property node
 
-    final p = ofElement.resolveProperty(elementLowerTagName);
+    final p = ofElement._getPropertyByName(elementLowerTagName);
 
     if (p == null) throw new PresentationProviderException("Property node"
         " name '${elementLowerTagName}' is not a valid"

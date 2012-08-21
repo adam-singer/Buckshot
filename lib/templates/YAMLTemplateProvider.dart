@@ -7,10 +7,6 @@
 */
 class YAMLTemplateProvider implements IPresentationFormatProvider
 {
-  //TODO MIME as identifier type instead?
-  /**
-  * Returns the file extension supported by the implementing class. */
-  String get fileExtension() => 'json';
 
   /**
   * Takes a string representation of elements in [template] and

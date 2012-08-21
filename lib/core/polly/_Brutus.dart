@@ -25,7 +25,6 @@ class _Brutus
 
   _Brutus.with(this.element);
 
-
   /**
    * Enables given manual vertical [alignment] of element within it's parent
    * container.

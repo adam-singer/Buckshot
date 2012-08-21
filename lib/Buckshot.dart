@@ -27,7 +27,6 @@
 #source('core/FrameworkProperty.dart');
 #source('core/ObservableList.dart');
 #source('core/FrameworkElement.dart');
-#source('core/Dom.dart');
 #source('core/BuckshotObject.dart');
 #source('core/FrameworkPropertyBase.dart');
 #source('core/AttachedFrameworkProperty.dart');
