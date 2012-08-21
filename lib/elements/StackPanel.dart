@@ -7,7 +7,6 @@
  */
 class Stack extends StackPanel
 {
-  FrameworkObject makeMe() => new Stack();
   String get type() => "Stack";
 }
 

@@ -21,13 +21,13 @@
 
 <script id='youtube' type='text/xml'>
 <!-- YouTube element is part of the media extension library for Buckshot. -->
-<stackpanel margin="10">
+<stack margin="10">
 
     <textblock fontfamily="arial">About Buckshot Templates</textblock>
 
     <youtube margin="10" videoid="LOacOkmd9FI" width="400" height="300"></youtube>
 
-</stackpanel> 
+</stack> 
 </script>
 
 <script id='hulu' type='text/xml'>
@@ -42,87 +42,87 @@ Hulu requires Flash and that only works on USA data networks.
 
 <script id='vimeo' type='text/xml'>
 <!-- Vimeo element is part of the media extension library for Buckshot. -->
-<stackpanel margin="10">
+<stack margin="10">
 
     <textblock fontfamily="arial">Seth Ladd's 'Intro To Box2D'</textblock>
     
     <vimeo videoid="32214850" margin="10" width="400" height="300"></vimeo>
 
-</stackpanel>
+</stack>
 </script>
 
 <script id='funnyordie' type='text/xml'>
 <!-- FunnyOrDie element is part of the media extension library for Buckshot. -->
-<stackpanel margin="10">
+<stack margin="10">
 
     <textblock fontfamily="arial">Darth Vader Sells Out</textblock>
     
     <funnyordie videoid="1cf04006d2" margin="10" width="400" height="300"></funnyordie>
 
-</stackpanel>
+</stack>
 </script>
 
 
 <script id='error' type='text/xml'>
-<Border borderColor="Red" borderThickness="3" padding="5" background="Yellow">
-  <TextBlock name="tbErrorMessage" foreground="Red" text="" />
-</Border>
+<border borderColor="Red" borderThickness="3" padding="5" background="Yellow">
+  <textblock name="tbErrorMessage" foreground="Red" text="" />
+</border>
 </script>
 
 <script id='textblock' type='text/xml'>
-<TextBlock text="Hello World!" />
+<textblock text="Hello World!" />
 
 <!-- 
 This one is about as simple as it gets.
 
-Alternative forms can also be used to set the 'text' property of the TextBlock:
+Alternative forms can also be used to set the 'text' property of the textblock:
 
-<TextBlock>Hello World!</TextBlock>  //Assigns 'Hello World!' to the TextBlock default content property 'text'.
+<textblock>Hello World!</textblock>  //Assigns 'Hello World!' to the textblock default content property 'text'.
 
 or an even more verbose form if you like:
 
-<TextBlock>
+<textblock>
     <text>Hello World!</text>
-</TextBlock>
+</textblock>
 -->
 </script>
 
-<script id='stackpanel' type='text/xml'>
-<StackPanel margin="10">
-  <TextBlock text="Vertical StackPanel" ></TextBlock>
-  <StackPanel>
-     <Border background="Red" padding="5">
-        <TextBlock text="Item 1" />
-     </Border>
-     <Border background="Green" padding="5">
-        <TextBlock text="Item 2" />
-     </Border>
-     <Border background="Blue" padding="5">
-        <TextBlock text="Item 3" />
-     </Border>
-  </StackPanel>
-  <TextBlock margin="10,0,0,0" text="Horizontal StackPanel" ></TextBlock>
-  <StackPanel orientation="horizontal">
-     <Border background="Red" padding="5">
-        <TextBlock text="Item 1" />
-     </Border>
-     <Border background="Green" padding="5">
-        <TextBlock text="Item 2" />
-     </Border>
-     <Border background="Blue" padding="5">
-        <TextBlock text="Item 3" />
-     </Border>
-  </StackPanel>
-</StackPanel>
+<script id='stack' type='text/xml'>
+<stack margin="10">
+  <textblock text="Vertical stack" />
+  <stack>
+     <border background="Red" padding="5">
+        <textblock text="Item 1" />
+     </border>
+     <border background="Green" padding="5">
+        <textblock text="Item 2" />
+     </border>
+     <border background="Blue" padding="5">
+        <textblock text="Item 3" />
+     </border>
+  </stack>
+  <textblock margin="10,0,0,0" text="Horizontal stack" />
+  <stack orientation="horizontal">
+     <border background="Red" padding="5">
+        <textblock text="Item 1" />
+     </border>
+     <border background="Green" padding="5">
+        <textblock text="Item 2" />
+     </border>
+     <border background="Blue" padding="5">
+        <textblock text="Item 3" />
+     </border>
+  </stack>
+</stack>
 </script>
 
 <script id='border' type='text/xml'>
-<!-- Borders can contain a single content element and are useful in many scenarios -->
+<!-- borders can contain a single content element and are useful in many scenarios -->
 <border borderthickness="2" bordercolor="Green" background="Yellow" cornerradius="9" padding="10" margin="10" width="400" height="400">
   <border borderthickness="2" bordercolor="Green" background="Pink" cornerradius="9" padding="10" margin="10" halign="stretch" valign="stretch">
     <border borderthickness="2" bordercolor="Green" background="Purple" cornerradius="9" padding="10" margin="10" halign="stretch" valign="stretch">
       <border borderthickness="2" bordercolor="Green" background="Orange" cornerradius="9" padding="10" margin="10" halign="stretch" valign="stretch">
-         <TextBlock halign="center" valign="center" text="Borders are cool."></TextBlock>
+         <textblock halign="center" valign="center" text="borders are cool."/>
       </border>
     </border>
   </border>
@@ -137,24 +137,24 @@ each slider's 'value' property to the corresponding textblock's
 -->
 
 <border borderthickness="2" bordercolor="Green" background="WhiteSmoke" cornerradius="9" padding="10" margin="10" width="300">
-   <StackPanel halign="center" valign="center">
-      <TextBlock>Slide us. We dare you.</TextBlock>
+   <stack halign="center" valign="center">
+      <textblock>Slide us. We dare you.</textblock>
 
-      <stackpanel width="160" orientation="horizontal">
+      <stack width="160" orientation="horizontal">
         <Slider name="myslider" value="50"></Slider>      
-        <textblock margin="0,0,0,5" text="{element myslider.value}"></textblock>
-      </stackpanel>
+        <textblock margin="0,0,0,5" text="{element myslider.value}"/>
+      </stack>
 
-      <stackpanel width="160" orientation="horizontal">      
+      <stack width="160" orientation="horizontal">      
         <Slider name="s2" min="1" max="500" value="250"></Slider>
-        <textblock margin="0,0,0,5" text="{element s2.value}"></textblock>
-      </stackpanel>
+        <textblock margin="0,0,0,5" text="{element s2.value}"/>
+      </stack>
 
-      <stackpanel width="160" orientation="horizontal">
+      <stack width="160" orientation="horizontal">
         <Slider name="s3" min="0" max="200" step="10" value="100"></Slider>
-        <textblock margin="0,0,0,5" text="{element s3.value}"></textblock>
-      </stackpanel>
-   </StackPanel>
+        <textblock margin="0,0,0,5" text="{element s3.value}"/>
+      </stack>
+   </stack>
 </border>
 </script>
 
@@ -168,18 +168,18 @@ elements are set using attached properties (LayoutCanvas.left &
 LayoutCanvas.top)
 -->
 <LayoutCanvas width="400" height="400" background="WhiteSmoke">
-  <Border layoutcanvas.top="40" layoutcanvas.left="40" width="80" height="80" background="Red">
-  </Border>
+  <border layoutcanvas.top="40" layoutcanvas.left="40" width="80" height="80" background="Red">
+  </border>
   <!-- set zorder of next border above the others -->
-  <Border layoutcanvas.top="60" layoutcanvas.left="60" width="80" height="80" background="Green" zorder="4">
-  </Border>
-  <Border layoutcanvas.top="80" layoutcanvas.left="80" width="80" height="80" background="Blue">
-  </Border>
+  <border layoutcanvas.top="60" layoutcanvas.left="60" width="80" height="80" background="Green" zorder="4">
+  </border>
+  <border layoutcanvas.top="80" layoutcanvas.left="80" width="80" height="80" background="Blue">
+  </border>
 </LayoutCanvas>	
 </script>
 
 <script id='button' type='text/xml'>
-<stackpanel margin="10">
+<stack margin="10">
 
   <textblock margin="0,10">Buttons can contain text or other elements.</textblock>
 
@@ -194,91 +194,91 @@ LayoutCanvas.top)
 
   </button>
 
-</stackpanel>
+</stack>
 </script>
 
 <script id='radiobutton' type='text/xml'>
-<stackpanel margin="10">
+<stack margin="10">
 
   <textblock margin="0,10">Radio Buttons</textblock>
 
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
 
     <radiobutton groupname="1"></radiobutton>
 
     <textblock margin="0,0,0,5">Option 1</textblock>
 
-  </stackpanel>
+  </stack>
 
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
 
     <radiobutton groupname="1"></radiobutton>
   
     <textblock margin="0,0,0,5">Option 2</textblock>
 
-  </stackpanel>
+  </stack>
 
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
 
     <radiobutton groupname="1"></radiobutton>
   
     <textblock margin="0,0,0,5">Option 3</textblock>
 
-  </stackpanel>
+  </stack>
 
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
 
     <radiobutton groupname="1"></radiobutton>
   
     <textblock margin="0,0,0,5">Option 4</textblock>
 
-  </stackpanel>
+  </stack>
 
-</stackpanel>
+</stack>
 </script>
 
 <script id='checkbox' type='text/xml'>
-<stackpanel margin="10">
+<stack margin="10">
 
   <textblock margin="0,10">Checkboxes</textblock>
 
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
 
     <checkbox groupname="1"></checkbox>
 
     <textblock margin="0,0,0,5">Option 1</textblock>
 
-  </stackpanel>
+  </stack>
 
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
 
     <checkbox groupname="1"></checkbox>
   
     <textblock margin="0,0,0,5">Option 2</textblock>
 
-  </stackpanel>
+  </stack>
 
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
 
     <checkbox groupname="1"></checkbox>
   
     <textblock margin="0,0,0,5">Option 3</textblock>
 
-  </stackpanel>
+  </stack>
 
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
 
     <checkbox groupname="1"></checkbox>
   
     <textblock margin="0,0,0,5">Option 4</textblock>
 
-  </stackpanel>
+  </stack>
 
-</stackpanel>
+</stack>
 </script>
 
 <script id='hyperlink' type='text/xml'>
-<stackpanel margin="10">
+<stack margin="10">
 
   <textblock margin="0,10">Hyperlinks can contain text or other elements.</textblock>
 
@@ -293,14 +293,14 @@ LayoutCanvas.top)
 
   </hyperlink>
 
-</stackpanel>
+</stack>
 </script>
 
 <script id='grid' type='text/xml'>
 <!--
-Grid Demo
+grid Demo
 
-Grid is a very dynamic layout container.  It supports 3 different column/row
+grid is a very dynamic layout container.  It supports 3 different column/row
 measurement types:
    - Pixel. Row or column is a fixed value in pixels.
    - Star. Takes up a weighted size of available space relative to other
@@ -319,7 +319,7 @@ For the next 2 columns, notice how the "*2" column is exactly twice as big as th
 
 The fourth column is pixel-type of 100, and remains fixed in place.
 -->
-<stackpanel>
+<stack>
   <lineargradientbrush direction="vertical" key="gridbg" fallbackcolor="PowderBlue">
     <stops>
       <gradientstop color="White"></gradientstop>
@@ -340,7 +340,7 @@ The fourth column is pixel-type of 100, and remains fixed in place.
       <rowdefinition height="*"></rowdefinition>
     </rowdefinitions>
   
-    <textblock text="Grid Demo" grid.columnspan="4" halign="center"></textblock>
+    <textblock text="grid Demo" grid.columnspan="4" halign="center"/>
   
     <border grid.row="1" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
       <textblock>auto</textblock>
@@ -382,7 +382,7 @@ The fourth column is pixel-type of 100, and remains fixed in place.
     </border>
   
   </grid>
-</stackpanel>
+</stack>
 </script>
 
 <script id='resources' type='text/xml'>
@@ -402,7 +402,7 @@ property="{resource [nameOfResource]}"
 
 -->
 
-<StackPanel margin="10">
+<stack margin="10">
   
   <!-- 
   <resourcecollection> is used to declare a group of resources.
@@ -482,38 +482,38 @@ property="{resource [nameOfResource]}"
     </styletemplate>
   
   </resourcecollection>
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
 
      <!-- 
       notice the binding syntax which tells the framework to look for the
-      resource with the key 'firstBorder' and apply it to the 'style' property.
+      resource with the key 'firstborder' and apply it to the 'style' property.
        -->
-     <Border style="{resource firstborder}">
-        <TextBlock style="{resource textstyle}" text="First Border Style" />
-     </Border>
-     <Border style="{resource secondborder}">
-        <TextBlock style="{resource textstyle}" text="Second Border Style" />
-     </Border>
-     <Border style="{resource thirdborder}">
-        <TextBlock style="{resource textstyle}" foreground="White" text="Third Border Style" />
-     </Border>
-  </stackpanel>
+     <border style="{resource firstborder}">
+        <textblock style="{resource textstyle}" text="First border Style" />
+     </border>
+     <border style="{resource secondborder}">
+        <textblock style="{resource textstyle}" text="Second border Style" />
+     </border>
+     <border style="{resource thirdborder}">
+        <textblock style="{resource textstyle}" foreground="White" text="Third border Style" />
+     </border>
+  </stack>
 
   <!-- We can apply the same resources to the elements in this grouping -->
-  <stackpanel orientation="horizontal">
-     <Border style="{resource firstborder}">
-        <TextBlock style="{resource textstyle}" text="First Border Style" />
-     </Border>
-     <Border style="{resource secondborder}">
-        <TextBlock style="{resource textstyle}" text="Second Border Style" />
-     </Border>
-     <Border style="{resource thirdborder}">
-        <TextBlock style="{resource textstyle}" foreground="White" text="Third Border Style" />
-     </Border>
-  </stackpanel>
-  <textblock text="Short Video On How Resources Work:"></textblock>
+  <stack orientation="horizontal">
+     <border style="{resource firstborder}">
+        <textblock style="{resource textstyle}" text="First border Style" />
+     </border>
+     <border style="{resource secondborder}">
+        <textblock style="{resource textstyle}" text="Second border Style" />
+     </border>
+     <border style="{resource thirdborder}">
+        <textblock style="{resource textstyle}" foreground="White" text="Third border Style" />
+     </border>
+  </stack>
+  <textblock text="Short Video On How Resources Work:"/>
   <youtube width="300" height="250" videoid="cFxf3OBIj8Q"></youtube>
-</StackPanel>
+</stack>
 </script>
 
 <script id='elementbinding' type='text/xml'>
@@ -526,9 +526,9 @@ boarder in the display area.  This is accomplished through
 declarative element-to-element binding.
 -->
 
-<stackpanel margin="5">
-  <textblock fontsize="24" text='This demo is written entirely with templates - no code.'></textblock>
-  <stackpanel width="650" orientation="horizontal">
+<stack margin="5">
+  <textblock fontsize="24" text='This demo is written entirely with templates - no code.'/>
+  <stack width="650" orientation="horizontal">
   
     <grid margin="5" width="210">
       <columndefinitions>
@@ -545,10 +545,10 @@ declarative element-to-element binding.
       </rowdefinitions>
     
       <!-- labels -->
-      <textblock text="Color:"></textblock>
-      <textblock grid.row="1" text="Width:"></textblock>
-      <textblock grid.row="2" text="Height:"></textblock>
-      <textblock grid.row="3" text="Corner:"></textblock>
+      <textblock text="Color:"/>
+      <textblock grid.row="1" text="Width:"/>
+      <textblock grid.row="2" text="Height:"/>
+      <textblock grid.row="3" text="Corner:"/>
     
       <!-- controls -->
 
@@ -571,9 +571,9 @@ declarative element-to-element binding.
       <slider name="slCorner" grid.row="3" grid.column="1" min="1" max="20" value="1" width="100"></slider>
     
       <!-- value labels, bound to controls via element binding -->
-      <textblock grid.column="2" grid.row="1" text="{element slWidth.value}"></textblock>
-      <textblock grid.column="2" grid.row="2" text="{element slHeight.value}"></textblock>
-      <textblock grid.column="2" grid.row="3" text="{element slCorner.value}"></textblock>
+      <textblock grid.column="2" grid.row="1" text="{element slWidth.value}"/>
+      <textblock grid.column="2" grid.row="2" text="{element slHeight.value}"/>
+      <textblock grid.column="2" grid.row="3" text="{element slCorner.value}"/>
 
       <!-- using declarative actions, we reset the values of the controls when the user clicks the button -->
       <button grid.row="4" content='Reset'>
@@ -597,10 +597,10 @@ declarative element-to-element binding.
               background="{element ddlColors.selectedItem.name}">
       </border>
     </border>
-  </stackpanel>
-  <textblock margin="10,0,0,0" text="Video On How Element Binding Works:"></textblock>
+  </stack>
+  <textblock margin="10,0,0,0" text="Video On How Element Binding Works:"/>
   <youtube width="300" height="250" videoid="WC25C5AHYAI"></youtube>
-</stackpanel>
+</stack>
 </script>
 
 <script id='databinding' type='text/xml'>
@@ -629,7 +629,7 @@ soon as they are declared.
 -->
 
 
-<stackpanel>
+<stack>
   <resourcecollection>
     <!-- 
     Define a resource template for our borders since they share 
@@ -644,15 +644,15 @@ soon as they are declared.
     </styletemplate>
   </resourcecollection>
 
-  <stackpanel margin="5" orientation="horizontal">
-    <textblock text="Timestamp:"></textblock>
+  <stack margin="5" orientation="horizontal">
+    <textblock text="Timestamp:"/>
 
     <!-- binding to the 'timeStamp' property of the dataContext object -->
-    <textblock text="{data timeStamp}" margin="0,0,0,5"></textblock>
+    <textblock text="{data timeStamp}" margin="0,0,0,5"/>
 
-  </stackpanel>
+  </stack>
 
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
 
     <!-- these borders are binding to a sub-property of a property, using 
      Buckshot's dot notation resolver -->
@@ -660,15 +660,15 @@ soon as they are declared.
     <border style="{resource borderstyle}" background="{data color.orange}"></border>
     <border style="{resource borderstyle}" background="{data color.blue}"></border>
 
-  </stackpanel>
+  </stack>
 
   <textblock>To see the view model that this demo is binding to:</textblock>
   <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
-</stackpanel>
+</stack>
 </script>
 
 <script id='collections' type='text/xml'>
-<stackpanel margin="10">
+<stack margin="10">
   <!-- declare resources for common settings -->
   <resourcecollection>
     <lineargradientbrush key="rowbg" direction="vertical" fallbackcolor="Orange">
@@ -699,17 +699,17 @@ soon as they are declared.
   Display a title for each column of data.
   (note the resource binding for border styles)
   -->
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
     <border width="150" style="{resource header}">
-      <textblock foreground="White" text="Title"></textblock>
+      <textblock foreground="White" text="Title"/>
     </border>
     <border width="150" style="{resource header}">
-      <textblock foreground="White" text="Description"></textblock>
+      <textblock foreground="White" text="Description"/>
     </border>
     <border width="310" style="{resource header}">
-      <textblock foreground="White" text="Video"></textblock>
+      <textblock foreground="White" text="Video"/>
     </border>
-  </stackpanel>
+  </stack>
 
   <!--
   CollectionsPresenter is a general-purpose control for rendering
@@ -722,7 +722,7 @@ soon as they are declared.
     the container that the list will render inside of.
     -->
     <presentationpanel>
-      <stackpanel></stackpanel>
+      <stack></stack>
     </presentationpanel>
 
     <!--
@@ -732,22 +732,22 @@ soon as they are declared.
     list.
     -->
     <itemstemplate>
-      <stackpanel orientation="horizontal">
+      <stack orientation="horizontal">
         <border valign='stretch' width="150" style="{resource rows}">
-          <textblock halign='stretch' foreground="Black" text="{data title}"></textblock>
+          <textblock halign='stretch' foreground="Black" text="{data title}"/>
         </border>
         <border valign='stretch' width="150" style="{resource rows}">
-          <textblock halign='stretch' foreground="Black" text="{data description}"></textblock>
+          <textblock halign='stretch' foreground="Black" text="{data description}"/>
         </border>
         <border width="310" style="{resource rows}">
           <youtube margin="10" videoid="{data hash}" width="300" height="200"></youtube>
         </border>
-      </stackpanel>
+      </stack>
     </itemstemplate>
   </collectionpresenter>
   <textblock margin="10,0,0,0">To see the view model that this demo is binding to:</textblock>
   <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
-</stackpanel>
+</stack>
 </script>
 
 <script id='dropdownlist' type='text/xml'>
@@ -760,21 +760,21 @@ used to provide a little interactivity in the demo.  Aside from the
 data source 'fruit' the entire demo required no Dart coding in order to work.
 -->
 
-<stackpanel margin='5'>
+<stack margin='5'>
 
-  <textblock text="DropDownList From Data Source:"></textblock>
+  <textblock text="DropDownList From Data Source:"/>
   
   <!-- This DropDownList is binding to a list of Strings a view model -->
   <dropdownlist name="ddlFruit" itemssource="{data fruit}"></dropdownlist>
 
-  <stackpanel orientation="horizontal">
-    <textblock text="Current Choice:" margin="0,5,0,0"></textblock>
+  <stack orientation="horizontal">
+    <textblock text="Current Choice:" margin="0,5,0,0"/>
 
     <!-- Element binding is used here to set the text property. -->
-    <textblock text="{element ddlFruit.selectedItem.name}"></textblock>
-  </stackpanel>
+    <textblock text="{element ddlFruit.selectedItem.name}"/>
+  </stack>
   
-  <textblock margin="20,0,0,0" text="Static DropDownList (Select A Color):"></textblock>
+  <textblock margin="20,0,0,0" text="Static DropDownList (Select A Color):"/>
   
   <!-- This DropDownList is created statically. -->
   <dropdownlist name="ddlColors">
@@ -790,7 +790,7 @@ data source 'fruit' the entire demo required no Dart coding in order to work.
   <!-- Element binding is used here to set the border's background color -->
   <border margin="5,0,0,0" width="75" height="75" background="{element ddlColors.selectedItem.name}"></border>
 
-</stackpanel>
+</stack>
 </script>
 
 <script id='listbox' type='text/xml'>
@@ -805,7 +805,7 @@ All of the ListBoxes are binding to collections in a view model, and then
 using client-side element binding to display the selected item from
 each list. 
  --> 
-<stackpanel margin="10">
+<stack margin="10">
 
   <!-- declare resources for common settings -->
   <resourcecollection>
@@ -833,83 +833,83 @@ each list.
 
   <textblock style="{resource title}">Basic ListBox</textblock>
 
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
     <listbox name="lbBasic" width="100" datacontext="{data fruit}">
       <presentationpanel>
-        <stackpanel width="100"></stackpanel>
+        <stack width="100"></stack>
       </presentationpanel>
     </listbox>
-    <stackpanel margin="0,0,0,20">
-      <textblock text="Your Selection:"></textblock>
-      <textblock fontsize="18" foreground="Green" text="{element lbBasic.selectedItem}"></textblock>
-    </stackpanel>
-  </stackpanel>
+    <stack margin="0,0,0,20">
+      <textblock text="Your Selection:"/>
+      <textblock fontsize="18" foreground="Green" text="{element lbBasic.selectedItem}"/>
+    </stack>
+  </stack>
   
   <textblock style="{resource title}">Vertical ListBox (Custom Template)</textblock>
   
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
     <listbox name="lbVertical" datacontext="{data icons}" height="150" width="300">
       <itemstemplate>
         <border style="{resource rows}"> 
-          <stackpanel orientation="horizontal">
+          <stack orientation="horizontal">
             <border width="64" height="64" margin="5,5">
               <image halign="center" valign="center" sourceuri="{data uri}"></image>
             </border>
-            <stackpanel width="200">
-              <textblock foreground="Black" fontfamily="arial" text="{data name}"></textblock>
-              <textblock foreground="Black" fontsize="12" text="{data description}"></textblock>
-            </stackpanel>      
-          </stackpanel>
+            <stack width="200">
+              <textblock foreground="Black" fontfamily="arial" text="{data name}"/>
+              <textblock foreground="Black" fontsize="12" text="{data description}"/>
+            </stack>      
+          </stack>
         </border>
       </itemstemplate>
     </listbox>
   
-      <stackpanel margin="0,0,0,20">
-        <textblock text="Your Selection:"></textblock>
+      <stack margin="0,0,0,20">
+        <textblock text="Your Selection:"/>
         <border width="64" height="64">
           <image sourceuri="{element lbVertical.selectedItem.Uri}"></image>
         </border>
-      </stackpanel>
-  </stackpanel>
+      </stack>
+  </stack>
   <textblock style="{resource title}">Horizontal ListBox</textblock>
   
-  <stackpanel orientation="horizontal">
+  <stack orientation="horizontal">
     <listbox name="lbHorizontal" datacontext="{data icons}" width="300" verticalScrollEnabled="false" horizontalScrollEnabled="true">
       <presentationpanel>
-        <stackpanel orientation="horizontal"></stackpanel>
+        <stack orientation="horizontal"></stack>
       </presentationpanel>
       <itemstemplate>
         <border style="{resource rows}" width="150"> 
-          <stackpanel>
+          <stack>
             <border width="150" height="64">
               <image halign="center" valign="center" sourceuri="{data uri}"></image>
             </border>
-            <textblock foreground="Black" fontfamily="arial" text="{data name}"></textblock>
-            <textblock foreground="Black" fontsize="12" text="{data description}"></textblock>
-          </stackpanel>
+            <textblock foreground="Black" fontfamily="arial" text="{data name}"/>
+            <textblock foreground="Black" fontsize="12" text="{data description}"/>
+          </stack>
         </border>
       </itemstemplate>
     </listbox>
   
-    <stackpanel margin="0,0,0,20">
-      <textblock text="Your Selection:"></textblock>
+    <stack margin="0,0,0,20">
+      <textblock text="Your Selection:"/>
       <border width="64" height="64">
         <image sourceuri="{element lbHorizontal.selectedItem.Uri}"></image>
       </border>
-    </stackpanel>
+    </stack>
   
-  </stackpanel>
+  </stack>
 
   <textblock margin="20,0,0,0">To see the view model that this demo is binding to:</textblock>
 
   <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
   
   <textblock margin="20,0,0,0" fontsize="12">Icons used in this demo are licensed to LUCA Studios LLC and may not be redistributed.</textblock>
-</stackpanel>
+</stack>
 </script>
 
 <script id='main' type='text/xml'>
-<stackpanel name='spRoot' orientation="horizontal" halign="center">
+<stack name='spRoot' orientation="horizontal" halign="center">
   <resourcecollection>
     <color key="buckshotBlue" value="#165284"></color>
 
@@ -956,23 +956,23 @@ each list.
     </styletemplate>
   </resourcecollection>
 
-  <stackpanel maxWidth='270'>
+  <stack maxWidth='270'>
   	<border halign="center">
 	    <image  alt="Buckshot Logo Candidate" 
 	        sourceuri="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></image>
     </border>
     <border style="{resource sideboxdark}">
-      <stackpanel>
-          <textblock foreground="White" fontSize="48" text="Buckshot"></textblock>
-          <textblock fontfamily="arial" foreground="White" text="A Better Way To Web"></textblock>
-          <stackpanel orientation="horizontal" margin="5,0,0,0">
-          		<textblock fontSize='10' fontfamily="arial" foreground="White" text="Version:"></textblock>
-  	            <textblock margin='0,0,0,5' fontSize='10' fontfamily="arial" foreground="White" text="{data version}"></textblock>
-          </stackpanel>
-      </stackpanel>
+      <stack>
+          <textblock foreground="White" fontSize="48" text="Buckshot"/>
+          <textblock fontfamily="arial" foreground="White" text="A Better Way To Web"/>
+          <stack orientation="horizontal" margin="5,0,0,0">
+          		<textblock fontSize='10' fontfamily="arial" foreground="White" text="Version:"/>
+  	            <textblock margin='0,0,0,5' fontSize='10' fontfamily="arial" foreground="White" text="{data version}"/>
+          </stack>
+      </stack>
     </border>
     <border style="{resource sidebox}">
-      <stackpanel halign='stretch'>
+      <stack halign='stretch'>
         <textblock style="{resource sideboxtext}">
         Buckshot is a User Interface framework for the web written in Google Dart.  
         On this page you can explore how the framework's simple layout structure makes designing and working with web pages easy.
@@ -980,7 +980,7 @@ each list.
         <textblock foreground="White" margin="10,0,0,0" fontSize="14">
         (this page is 100% generated with Buckshot)
         </textblock>
-      </stackpanel>
+      </stack>
     </border>
     <border style="{resource sidebox}">
       <textblock style="{resource sideboxtext}">
@@ -998,26 +998,26 @@ each list.
        </hyperlink>
     </border>
     <plusone annotation="inline"></plusone>
-  </stackpanel>
-  <stackpanel margin="0,0,0,10" width="700">
+  </stack>
+  <stack margin="0,0,0,10" width="700">
     <!-- border.halign="stretch" isn't working properly here (textblock wont center), so setting width explicitely instead -->
-    <textblock margin="0,10" fontsize="20" fontfamily="arial" text="Select a sample or design your own in the Input area below."></textblock>
-    <stackpanel style='{resource sample_row}'>
-      <textblock margin="0,10,0,0" text="Elements:" fontfamily="arial"></textblock>
+    <textblock margin="0,10" fontsize="20" fontfamily="arial" text="Select a sample or design your own in the Input area below."/>
+    <stack style='{resource sample_row}'>
+      <textblock margin="0,10,0,0" text="Elements:" fontfamily="arial"/>
       <dropdownlist name="ddlElements">
         <items>
           <dropdownitem name='' value='' />
           <dropdownitem name='Hello World' value='textblock' />
-          <dropdownitem name='StackPanel' value='stackpanel' />
+          <dropdownitem name='Stack' value='stack' />
           <dropdownitem name='Border' value='border' />
           <dropdownitem name='Grid' value='grid' />
           <dropdownitem name='Layout Canvas' value='layoutcanvas' />
           <dropdownitem name='This Page!' value='main' />
         </items>
       </dropdownlist>
-    </stackpanel>
-    <stackpanel style='{resource sample_row}'>
-      <textblock margin="0,10,0,0" text="Controls:" fontfamily="arial"></textblock>
+    </stack>
+    <stack style='{resource sample_row}'>
+      <textblock margin="0,10,0,0" text="Controls:" fontfamily="arial"/>
       <dropdownlist name="ddlControls">
         <items>
           <dropdownitem name='' value='' />
@@ -1031,9 +1031,9 @@ each list.
           <dropdownitem name='Image' value='image' />
         </items>
       </dropdownlist>
-    </stackpanel>
-    <stackpanel style='{resource sample_row}'>
-      <TextBlock text="Binding Demos:" margin="0,5,0,0" fontfamily="arial"></TextBlock>
+    </stack>
+    <stack style='{resource sample_row}'>
+      <textblock text="Binding Demos:" margin="0,5,0,0" fontfamily="arial"/>
       <dropdownlist name="ddlBinding">
         <items>
           <dropdownitem name='' value='' />
@@ -1043,9 +1043,9 @@ each list.
           <dropdownitem name='Collections Demo' value='collections' />
         </items>
       </dropdownlist>
-    </stackpanel>
-    <stackpanel style='{resource sample_row}'>
-      <TextBlock text="Media Extensions:" margin="0,5,0,0" fontfamily="arial"></TextBlock>
+    </stack>
+    <stack style='{resource sample_row}'>
+      <textblock text="Media Extensions:" margin="0,5,0,0" fontfamily="arial"/>
       <dropdownlist name="ddlMediaExtensions">
         <items>
           <dropdownitem name='' value='' />
@@ -1055,19 +1055,19 @@ each list.
           <dropdownitem name='FunnyOrDie' value='funnyordie' />
         </items>
       </dropdownlist>
-    </stackpanel>
-    <TextBlock style="{resource iotext}" text="Input (you can edit this or create your own):"></TextBlock>
+    </stack>
+    <textblock style="{resource iotext}" text="Input (you can edit this or create your own):"/>
     <textarea placeholder="Type something here or select one of the samples from above." spellcheck="false" 
       name="tbUserInput" minwidth='690' maxwidth='690' minheight="300"></textarea>
-    <StackPanel orientation="horizontal">
+    <stack orientation="horizontal">
        <button name="btnRefresh" content="Refresh Output"></button>
        <button name="btnClear" margin="0,0,0,5" content="Clear All"></button>
-    </StackPanel>
-    <TextBlock style="{resource iotext}" text="Output:"></TextBlock>
+    </stack>
+    <textblock style="{resource iotext}" text="Output:"/>
     <border name="borderContent" margin="0,0,10,0" width="690" borderThickness="3" borderColor="{resource buckshotBlue}">
     </border>
-  </stackpanel>
-</stackpanel>
+  </stack>
+</stack>
 </script>
 
 
