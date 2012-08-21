@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Buckshot UI Sandbox</title>
+    <title>Buckshot UI - Sandbox</title>
   </head>
   <body>
 	<div id="BuckshotHost">
@@ -12,6 +12,12 @@
 		</div>
 	</div>
 
+<!--
+
+Buckshot Templates
+
+-->
+
 <script id='image' type='text/xml'>
 <stack orientation='horizontal' margin="10">
   <textblock valign='center' text='Like this logo for Buckshot?' />
@@ -20,45 +26,28 @@
 </script>
 
 <script id='youtube' type='text/xml'>
-<!-- YouTube element is part of the media extension library for Buckshot. -->
 <stack margin="10">
-
-    <textblock fontfamily="arial">About Buckshot Templates</textblock>
-
-    <youtube margin="10" videoid="LOacOkmd9FI" width="400" height="300"></youtube>
-
+    <textblock fontfamily="arial" text="About Buckshot Templates" />
+    <youtube margin="10" videoid="LOacOkmd9FI" width="400" height="300" />
 </stack> 
 </script>
 
 <script id='hulu' type='text/xml'>
-<!-- 
-Hulu element is part of the media extension library for Buckshot.
-
-Hulu requires Flash and that only works on USA data networks. 
--->
-
-<hulu margin="10" width="400" height="300" videoID="QRNTv9APf02C6J_xFpY0Dg"></hulu>
+<hulu margin="10" width="400" height="300" videoID="QRNTv9APf02C6J_xFpY0Dg" />
 </script>
 
 <script id='vimeo' type='text/xml'>
-<!-- Vimeo element is part of the media extension library for Buckshot. -->
 <stack margin="10">
-
-    <textblock fontfamily="arial">Seth Ladd's 'Intro To Box2D'</textblock>
-    
-    <vimeo videoid="32214850" margin="10" width="400" height="300"></vimeo>
-
+    <textblock fontfamily="arial" text="Seth Ladd's 'Intro To Box2D'" />>  
+    <vimeo videoid="32214850" margin="10" width="400" height="300" />
 </stack>
 </script>
 
 <script id='funnyordie' type='text/xml'>
 <!-- FunnyOrDie element is part of the media extension library for Buckshot. -->
 <stack margin="10">
-
-    <textblock fontfamily="arial">Darth Vader Sells Out</textblock>
-    
-    <funnyordie videoid="1cf04006d2" margin="10" width="400" height="300"></funnyordie>
-
+    <textblock fontfamily="arial" text='Darth Vader Sells Out' />
+    <funnyordie videoid="1cf04006d2" margin="10" width="400" height="300" />
 </stack>
 </script>
 
@@ -71,25 +60,12 @@ Hulu requires Flash and that only works on USA data networks.
 
 <script id='textblock' type='text/xml'>
 <textblock text="Hello World!" />
-
-<!-- 
-This one is about as simple as it gets.
-
-Alternative forms can also be used to set the 'text' property of the textblock:
-
-<textblock>Hello World!</textblock>  //Assigns 'Hello World!' to the textblock default content property 'text'.
-
-or an even more verbose form if you like:
-
-<textblock>
-    <text>Hello World!</text>
-</textblock>
--->
 </script>
 
 <script id='stack' type='text/xml'>
+<!-- demonstrating vertical and horizontal stacks -->
 <stack margin="10">
-  <textblock text="Vertical stack" />
+  <textblock text="Vertical Stack" />
   <stack>
      <border background="Red" padding="5">
         <textblock text="Item 1" />
@@ -118,15 +94,28 @@ or an even more verbose form if you like:
 
 <script id='border' type='text/xml'>
 <!-- borders can contain a single content element and are useful in many scenarios -->
-<border borderthickness="2" bordercolor="Green" background="Yellow" cornerradius="9" padding="10" margin="10" width="400" height="400">
-  <border borderthickness="2" bordercolor="Green" background="Pink" cornerradius="9" padding="10" margin="10" halign="stretch" valign="stretch">
-    <border borderthickness="2" bordercolor="Green" background="Purple" cornerradius="9" padding="10" margin="10" halign="stretch" valign="stretch">
-      <border borderthickness="2" bordercolor="Green" background="Orange" cornerradius="9" padding="10" margin="10" halign="stretch" valign="stretch">
-         <textblock halign="center" valign="center" text="borders are cool."/>
+<stack>
+  <resourcecollection>
+    <styletemplate key='bStyle'>
+      <setters>
+        <stylesetter property='borderThickness' value='2'/>
+        <stylesetter property='borderColor' value='Green'/>
+        <stylesetter property='cornerRadius' value='9'/>
+        <stylesetter property='padding' value='10'/>
+        <stylesetter property='margin' value='10'/>
+      </setters>
+    </styletemplate>
+  </resourcecollection>
+  <border style='{resource bStyle}' background="Yellow" width="400" height="400">
+    <border style='{resource bStyle}' background="Pink" halign="stretch" valign="stretch">
+      <border style='{resource bStyle}' background="Purple" halign="stretch" valign="stretch">
+        <border style='{resource bStyle}' background="Orange" halign="stretch" valign="stretch">
+           <textblock halign="center" valign="center" text="borders are cool."/>
+        </border>
       </border>
     </border>
   </border>
-</border>		
+</stack>		
 </script>
 
 <script id='slider' type='text/xml'>
@@ -136,23 +125,24 @@ each slider's 'value' property to the corresponding textblock's
 'text' property.  No coding is necessary to achieve this.
 -->
 
-<border borderthickness="2" bordercolor="Green" background="WhiteSmoke" cornerradius="9" padding="10" margin="10" width="300">
-   <stack halign="center" valign="center">
+<border borderthickness="2" bordercolor="Green" background="WhiteSmoke" 
+cornerradius="9" margin="10">
+   <stack margin='10'>
       <textblock>Slide us. We dare you.</textblock>
 
-      <stack width="160" orientation="horizontal">
-        <Slider name="myslider" value="50"></Slider>      
-        <textblock margin="0,0,0,5" text="{element myslider.value}"/>
+      <stack width="170" orientation="horizontal">
+        <slider name="myslider" value="50" />      
+        <textblock margin="0,0,0,5" text="{element myslider.value}" />
       </stack>
 
-      <stack width="160" orientation="horizontal">      
-        <Slider name="s2" min="1" max="500" value="250"></Slider>
-        <textblock margin="0,0,0,5" text="{element s2.value}"/>
+      <stack width="170" orientation="horizontal">      
+        <slider name="s2" min="1" max="500" value="250" />
+        <textblock margin="0,0,0,5" text="{element s2.value}" />
       </stack>
 
-      <stack width="160" orientation="horizontal">
-        <Slider name="s3" min="0" max="200" step="10" value="100"></Slider>
-        <textblock margin="0,0,0,5" text="{element s3.value}"/>
+      <stack width="170" orientation="horizontal">
+        <slider name="s3" min="0" max="200" step="10" value="100" />
+        <textblock margin="0,0,0,5" text="{element s3.value}" />
       </stack>
    </stack>
 </border>
@@ -167,7 +157,7 @@ with overlap and z-ordering supported.  Notice how the positions of the
 elements are set using attached properties (LayoutCanvas.left & 
 LayoutCanvas.top)
 -->
-<LayoutCanvas width="400" height="400" background="WhiteSmoke">
+<layoutcanvas width="400" height="400" background="WhiteSmoke">
   <border layoutcanvas.top="40" layoutcanvas.left="40" width="80" height="80" background="Red">
   </border>
   <!-- set zorder of next border above the others -->
@@ -175,124 +165,82 @@ LayoutCanvas.top)
   </border>
   <border layoutcanvas.top="80" layoutcanvas.left="80" width="80" height="80" background="Blue">
   </border>
-</LayoutCanvas>	
+</layoutcanvas>	
 </script>
 
 <script id='button' type='text/xml'>
 <stack margin="10">
-
-  <textblock margin="0,10">Buttons can contain text or other elements.</textblock>
-
+  <textblock margin="0,10" text='Buttons can contain text or other elements.' />
   <button width="80">text button</button>
-
   <button margin="10,0,0,0">
-
     <border width="150" height="150" background="Green">
-      <textblock foreground="White" halign="center" valign="center">button with content</textblock>
-
+      <textblock foreground="White" halign="center" valign="center" text='button with content' />
     </border>
-
   </button>
-
 </stack>
 </script>
 
 <script id='radiobutton' type='text/xml'>
 <stack margin="10">
-
-  <textblock margin="0,10">Radio Buttons</textblock>
+  <textblock margin="0,10" text='Radio Buttons' />
 
   <stack orientation="horizontal">
-
     <radiobutton groupname="1"></radiobutton>
-
-    <textblock margin="0,0,0,5">Option 1</textblock>
-
+    <textblock margin="0,0,0,5" text='Option 1' />
   </stack>
 
   <stack orientation="horizontal">
-
     <radiobutton groupname="1"></radiobutton>
-  
-    <textblock margin="0,0,0,5">Option 2</textblock>
-
+    <textblock margin="0,0,0,5" text='Option 2' />
   </stack>
 
   <stack orientation="horizontal">
-
     <radiobutton groupname="1"></radiobutton>
-  
-    <textblock margin="0,0,0,5">Option 3</textblock>
-
+    <textblock margin="0,0,0,5" text='Option 3' />
   </stack>
 
   <stack orientation="horizontal">
-
     <radiobutton groupname="1"></radiobutton>
-  
-    <textblock margin="0,0,0,5">Option 4</textblock>
-
+    <textblock margin="0,0,0,5" text='Option 4' />
   </stack>
-
 </stack>
 </script>
 
 <script id='checkbox' type='text/xml'>
 <stack margin="10">
-
-  <textblock margin="0,10">Checkboxes</textblock>
+  <textblock margin="0,10" text='Checkboxes' />
 
   <stack orientation="horizontal">
-
     <checkbox groupname="1"></checkbox>
-
-    <textblock margin="0,0,0,5">Option 1</textblock>
-
+    <textblock margin="0,0,0,5" text='Option 1' />
   </stack>
 
   <stack orientation="horizontal">
-
     <checkbox groupname="1"></checkbox>
-  
-    <textblock margin="0,0,0,5">Option 2</textblock>
-
+    <textblock margin="0,0,0,5" text='Option 2' />
   </stack>
 
   <stack orientation="horizontal">
-
     <checkbox groupname="1"></checkbox>
-  
-    <textblock margin="0,0,0,5">Option 3</textblock>
-
+    <textblock margin="0,0,0,5" text='Option 3' />
   </stack>
 
   <stack orientation="horizontal">
-
     <checkbox groupname="1"></checkbox>
-  
-    <textblock margin="0,0,0,5">Option 4</textblock>
-
+    <textblock margin="0,0,0,5" text='Option 4' />
   </stack>
-
 </stack>
 </script>
 
 <script id='hyperlink' type='text/xml'>
 <stack margin="10">
-
-  <textblock margin="0,10">Hyperlinks can contain text or other elements.</textblock>
-
+  <textblock margin="0,10" text='Hyperlinks can contain text or other elements.' />
   <hyperlink targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki/">Text Hyperlink</hyperlink>
-
   <hyperlink width="170" margin="10,0,0,0" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki/">
-
     <border width="150" height="150" background="Green">
-      <textblock foreground="White" halign="center" valign="center">Content hyperlink</textblock>
-
+      <textblock foreground="White" halign="center" valign="center" text='Content hyperlink' />
     </border>
-
   </hyperlink>
-
 </stack>
 </script>
 
@@ -307,7 +255,8 @@ measurement types:
      star-type peers.
    - Auto. Attempts to size to the largest element in the row or column
 
-In this demo, the first row is and "auto" type, and the textblock is using a grid.columnspan attached property to span across all 4 columns.
+In this demo, the first row is and "auto" type, and the textblock is using a 
+grid.columnspan attached property to span across all 4 columns.
 
 The remaining rows are laid out equally spaced with "*" (star-type). 
 
@@ -320,12 +269,23 @@ For the next 2 columns, notice how the "*2" column is exactly twice as big as th
 The fourth column is pixel-type of 100, and remains fixed in place.
 -->
 <stack>
-  <lineargradientbrush direction="vertical" key="gridbg" fallbackcolor="PowderBlue">
-    <stops>
-      <gradientstop color="White"></gradientstop>
-      <gradientstop color="#335577"></gradientstop>
-    </stops>
-  </lineargradientbrush>
+  <resourcecollection>
+     <lineargradientbrush direction="vertical" key="gridbg" fallbackcolor="PowderBlue">
+       <stops>
+         <gradientstop color="White"></gradientstop>
+         <gradientstop color="#335577"></gradientstop>
+       </stops>
+     </lineargradientbrush>
+     
+     <styletemplate key='borderCell'>
+        <setters>
+           <stylesetter property='borderColor' value='Black' />
+           <stylesetter property='borderThickness' value='1' />
+           <stylesetter property='hAlign' value='stretch' />
+           <stylesetter property='vAlign' value='stretch' />
+        </setters>
+     </styletemplate>
+  </resourcecollection>
   <grid margin='10' width='400' height='400' background="{resource gridbg}">
     <columndefinitions>
       <columndefinition width="auto"></columndefinition>
@@ -340,44 +300,44 @@ The fourth column is pixel-type of 100, and remains fixed in place.
       <rowdefinition height="*"></rowdefinition>
     </rowdefinitions>
   
-    <textblock text="grid Demo" grid.columnspan="4" halign="center"/>
+    <textblock text="Grid Demo" grid.columnspan="4" halign="center"/>
   
-    <border grid.row="1" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
+    <border grid.row="1" style='{resource borderCell}'>
       <textblock>auto</textblock>
     </border>
-    <border grid.row="1" grid.column="1" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
+    <border grid.row="1" grid.column="1" style='{resource borderCell}'>
       <textblock>*1</textblock>
     </border>
-    <border grid.row="1" grid.column="2" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
+    <border grid.row="1" grid.column="2" style='{resource borderCell}'>
       <textblock>*2</textblock>
     </border>
-    <border grid.row="1" grid.column="3" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
+    <border grid.row="1" grid.column="3" style='{resource borderCell}'>
       <textblock>pixel 100</textblock>
     </border>
     
     <border grid.row="2" borderthickness="1" bordercolor="Black" valign='stretch'>
       <textblock>auto column</textblock>
     </border>
-    <border grid.row="2" grid.column="1" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
+    <border grid.row="2" grid.column="1" style='{resource borderCell}'>
       <textblock>*1</textblock>
     </border>
-    <border grid.row="2" grid.column="2" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
+    <border grid.row="2" grid.column="2" style='{resource borderCell}'>
       <textblock>*2</textblock>
     </border>
-    <border grid.row="2" grid.column="3" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
+    <border grid.row="2" grid.column="3" style='{resource borderCell}'>
       <textblock>pixel 100</textblock>
     </border>
     
-    <border grid.row="3" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
+    <border grid.row="3" style='{resource borderCell}'>
       <textblock>auto</textblock>
     </border>
-    <border grid.row="3" grid.column="1" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
+    <border grid.row="3" grid.column="1" style='{resource borderCell}'>
       <textblock>*1</textblock>
     </border>
-    <border grid.row="3" grid.column="2" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
+    <border grid.row="3" grid.column="2" style='{resource borderCell}'>
       <textblock>*2</textblock>
     </border>
-    <border grid.row="3" grid.column="3" borderthickness="1" bordercolor="Black" halign="stretch" valign="stretch">
+    <border grid.row="3" grid.column="3" style='{resource borderCell}'>
       <textblock>pixel 100</textblock>
     </border>
   
@@ -1023,7 +983,7 @@ each list.
           <dropdownitem name='' value='' />
           <dropdownitem name='ListBox' value='listbox' />
           <dropdownitem name='DropDownList' value='dropdownlist' />
-          <dropdownitem name='Slider' value='slider' />
+          <dropdownitem name='slider' value='slider' />
           <dropdownitem name='Button' value='button' />
           <dropdownitem name='Radio Buttons' value='radiobutton' />
           <dropdownitem name='Checkboxes' value='checkbox' />
