@@ -22,7 +22,7 @@ class DemoModel {
   List iconList;
   final List fruitList = const ["apple","pear","grape","orange","tomato"];
   final SomeColors colorClass;
-  
+
   DemoModel()
   :
     colorClass = new SomeColors()
@@ -36,7 +36,7 @@ class DemoModel {
                 new DataTemplate.fromMap({'Name':'Telephone',   'Description':'Image of an old school telephone.',        'Uri':'http://www.lucastudios.com/Content/images/Telephone64.png'}),
                 new DataTemplate.fromMap({'Name':'Windows',     'Description':'Represents windows in a user interface.',  'Uri':'http://www.lucastudios.com/Content/images/WindowTriPaneSearch64.png'})
                 ];
-              
+
     videoList = [
                  new DataTemplate.fromMap({"Title":"Buckshot Resources",          "Description":"An overview of Buckshot Resource Binding.",   "Hash":"cFxf3OBIj8Q"}),
                  new DataTemplate.fromMap({"Title":"Buckshot Element Binding",    "Description":"An overview of Buckshot Element Binding.",    "Hash":"WC25C5AHYAI"}),
@@ -50,14 +50,12 @@ class DemoModel {
 // a demo Buckshot object to demonstrate the dot notation resolver for properties
 class SomeColors extends BuckshotObject{
   FrameworkProperty redProperty, orangeProperty, blueProperty;
-  
-  BuckshotObject makeMe() => new SomeColors();
-  
+
   SomeColors(){
     redProperty = new FrameworkProperty(this, "red", (_){}, "Red");
     orangeProperty = new FrameworkProperty(this, "orange", (_){}, "Orange");
     blueProperty = new FrameworkProperty(this, "blue", (_){}, "Blue");
   }
-  
+
   String get type() => 'SomeColors';
 }

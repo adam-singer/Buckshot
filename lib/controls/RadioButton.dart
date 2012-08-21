@@ -18,8 +18,6 @@ class RadioButton extends Control
     _initEvents();
   }
 
-  FrameworkObject makeMe() => new RadioButton();
-
   void _initProperties(){
 
     valueProperty = new FrameworkProperty(this, "value", (String v){

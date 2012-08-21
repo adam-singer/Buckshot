@@ -37,8 +37,6 @@ class ToggleProperty extends ActionBase
   Dynamic get secondValue() => getValue(secondValueProperty);
   set secondValue(Dynamic v) => setValue(secondValueProperty, v);
 
-  BuckshotObject makeMe() => new ToggleProperty();
-
   void onEventTrigger(){
 
     //TODO throw?

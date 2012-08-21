@@ -44,9 +44,6 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
 
   final FrameworkEvent<ItemCreatedEventArgs> itemCreated;
 
-  /// Overridden [BuckshotObject] method.
-  FrameworkObject makeMe() => new CollectionPresenter();
-
   CollectionPresenter()
   :
     itemCreated = new FrameworkEvent<ItemCreatedEventArgs>()

@@ -30,7 +30,5 @@ class AnimationState extends TemplateObject
   Dynamic get value() => getValue(valueProperty);
   set value(Dynamic v) => setValue(valueProperty, v);
 
-  BuckshotObject makeMe() => new AnimationState();
-
   String get type() => 'AnimationState';
 }

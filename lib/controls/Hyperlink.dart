@@ -22,9 +22,6 @@ class Hyperlink extends Control implements IFrameworkContainer
   /// Represents the font family value of a textual hyperlink.
   FrameworkProperty fontFamilyProperty;
 
-  /// Overridden [LucaObject] method.
-  FrameworkObject makeMe() => new Hyperlink();
-
   Hyperlink()
   {
     Browser.appendClass(rawElement, "hyperlink");

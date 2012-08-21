@@ -16,8 +16,6 @@ class StackPanel extends Panel
 {
   FrameworkProperty orientationProperty;
 
-  FrameworkObject makeMe() => new StackPanel();
-
   StackPanel()
   {
     Browser.appendClass(rawElement, "stackpanel");

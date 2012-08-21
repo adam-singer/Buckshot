@@ -7,8 +7,6 @@ class PlayAnimation extends ActionBase {
   FrameworkProperty animationProperty;
   FrameworkProperty actionProperty;
 
-  BuckshotObject makeMe() => new PlayAnimation();
-
   PlayAnimation(){
     _initAnimationActionProperties();
   }

@@ -194,8 +194,6 @@ class DockPanel extends Panel
     Polly.setHorizontalFlexBoxAlignment(this, HorizontalAlignment.stretch);
   }
 
-  FrameworkObject makeMe() => new DockPanel();
-
   String get type() => 'DockPanel';
 }
 

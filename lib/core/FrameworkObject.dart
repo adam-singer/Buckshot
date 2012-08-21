@@ -55,9 +55,6 @@ class FrameworkObject extends BuckshotObject {
   /// allows it to be found and bound to by other elements.
   FrameworkProperty nameProperty;
 
-  /// Overridden [LucaObject] method.
-  BuckshotObject makeMe() => new FrameworkObject();
-
 //  /// Gets a boolean value indicating whether this element
 //  /// has a contain context set.
 //  bool get isContainer() => _stateBag.containsKey(CONTAINER_CONTEXT);

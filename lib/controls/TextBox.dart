@@ -9,8 +9,6 @@ class TextBox extends Control
   FrameworkProperty textProperty, inputTypeProperty, placeholderProperty;
   final FrameworkEvent<TextChangedEventArgs> textChanged;
 
-  FrameworkObject makeMe() => new TextBox();
-
   TextBox() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {
@@ -129,8 +127,6 @@ class TextChangedEventArgs extends EventArgs {
   TextChangedEventArgs(){}
 
   TextChangedEventArgs.with(this.oldText, this.newText);
-
-  BuckshotObject makeMe() => null;
 }
 
 interface IValidatable

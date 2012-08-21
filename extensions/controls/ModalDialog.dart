@@ -102,9 +102,6 @@ class ModalDialog extends Control
   String get title() => getValue(titleProperty);
   set title(String v) => setValue(titleProperty, v);
 
-/// Overridden [BuckshotObject] method.
-  FrameworkObject makeMe() => new ModalDialog();
-
   String get defaultControlTemplate() {
     return
         '''

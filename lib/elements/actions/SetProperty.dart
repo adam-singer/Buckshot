@@ -31,8 +31,6 @@ class SetProperty extends ActionBase
   Dynamic get value() => getValue(valueProperty);
   set value(Dynamic v) => setValue(valueProperty, v);
 
-  BuckshotObject makeMe() => new SetProperty();
-
   void onEventTrigger(){
 
     //TODO throw?

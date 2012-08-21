@@ -49,9 +49,6 @@ static AttachedFrameworkProperty columnSpanProperty;
 /// Represents the row span of an element within the grid.
 static AttachedFrameworkProperty rowSpanProperty;
 
-/// Overidden [BuckshotObject] method.
-FrameworkObject makeMe() => new Grid();
-
 Grid() :
 _internalChildren = new List<_GridCell>()
 {
@@ -347,9 +344,9 @@ static void setColumn(FrameworkElement element, column){
   if (element == null) return;
 
   assert(column is String || column is num);
-  
+
   column = const StringToNumericConverter().convert(column);
-  
+
   if (column < 0) column = 0;
 
   if (Grid.columnProperty == null){
@@ -363,7 +360,7 @@ static void setColumn(FrameworkElement element, column){
 
 static num getColumn(FrameworkElement element){
   if (element == null) return 0;
-  
+
   var value = FrameworkObject.getAttachedValue(element, Grid.columnProperty);
 
   if (Grid.columnProperty == null || value == null)
@@ -376,9 +373,9 @@ static void setRow(FrameworkElement element, row){
   if (element == null) return;
 
   assert(row is String || row is num);
-  
+
   row = const StringToNumericConverter().convert(row);
-    
+
   if (row < 0) row = 0;
 
   if (Grid.rowProperty == null){
@@ -405,9 +402,9 @@ static void setColumnSpan(FrameworkElement element, columnSpan){
   if (element == null) return;
 
   assert(columnSpan is String || columnSpan is num);
-  
+
   columnSpan = const StringToNumericConverter().convert(columnSpan);
-  
+
   if (columnSpan < 0) columnSpan = 0;
 
   if (Grid.columnSpanProperty == null){
@@ -434,9 +431,9 @@ static void setRowSpan(FrameworkElement element, rowSpan){
   if (element == null) return;
 
   assert(rowSpan is String || rowSpan is num);
-  
+
   rowSpan = const StringToNumericConverter().convert(rowSpan);
-  
+
   if (rowSpan < 0) rowSpan = 0;
 
   if (Grid.rowSpanProperty == null){

@@ -16,9 +16,6 @@ class GradientStop extends TemplateObject
   /// Represents the offset percentage of the GradientStop.
   FrameworkProperty percentProperty;
 
-  /// Overridden [BuckshotObject] method.
-  BuckshotObject makeMe() => new GradientStop();
-
   GradientStop(){
     _initGradientStopProperties();
   }

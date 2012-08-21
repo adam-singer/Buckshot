@@ -166,9 +166,6 @@ class TreeNode extends Control implements IFrameworkContainer
 
   ObservableList<TreeNode> get childNodes() => getValue(childNodesProperty);
 
-  /// Overridden [BuckshotObject] method.
-  FrameworkObject makeMe() => new TreeNode();
-
   String get defaultControlTemplate() {
     return
     '''<controltemplate controlType="${this.templateName}">

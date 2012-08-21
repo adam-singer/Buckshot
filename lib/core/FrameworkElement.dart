@@ -110,8 +110,6 @@ class FrameworkElement extends FrameworkObject {
   /// Fires when an object stops being dragged.
   FrameworkEvent<DragEventArgs> dragEnd;
 
-  BuckshotObject makeMe() => new FrameworkElement();
-
   FrameworkElement() :
     _templateBindings = new HashMap<FrameworkProperty, String>(),
     _transitionProperties = new HashMap<String, String>()

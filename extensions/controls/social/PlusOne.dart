@@ -26,8 +26,6 @@ class PlusOne extends FrameworkElement
 
   FrameworkProperty annotationProperty, sizeProperty;
 
-  FrameworkObject makeMe() => new PlusOne();
-
   PlusOne(){
     Browser.appendClass(rawElement, "buckshot_plusone");
 

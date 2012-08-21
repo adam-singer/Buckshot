@@ -122,9 +122,6 @@ class TreeView extends Panel
     treeNodeSelected.invoke(this, new TreeNodeSelectedEventArgs(node));
   }
 
-  /// Overridden [BuckshotObject] method.
-  FrameworkObject makeMe() => new TreeView();
-
   void _initializeTreeViewProperties(){
     indentProperty = new FrameworkProperty(this, 'indent'
       , (_) => updateLayout(), 10, converter:const StringToNumericConverter());

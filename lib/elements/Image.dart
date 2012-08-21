@@ -9,40 +9,37 @@ class Image extends FrameworkElement {
   FrameworkProperty sourceUriProperty;
   /// Represents the html alternate text for the image.
   FrameworkProperty altProperty;
-  
-  /// Overridden [LucaObject] method.
-  FrameworkObject makeMe() => new Image();
-  
+
   Image(){
     Browser.appendClass(rawElement, "image");
     _initializeImageProperties();
   }
-  
-  
+
+
   void _initializeImageProperties(){
     sourceUriProperty = new FrameworkProperty(this, "sourceUri", (String value){
       rawElement.attributes["src"] = value.toString();
     });
-    
+
     altProperty = new FrameworkProperty(this, "alt", (String value){
       rawElement.attributes["alt"] = value.toString();
     }, "undefined");
   }
-  
+
   /// Gets the [sourceUriProperty] value.
   String get sourceUri() => getValue(sourceUriProperty);
   /// Sets the [sourceUriProperty] value.
   set sourceUri(String value) => setValue(sourceUriProperty, value);
-  
+
   /// Gets the [altProperty] value.
   String get alt() => getValue(altProperty);
   /// Sets the [altProperty] value.
   set alt(String value) => setValue(altProperty, value);
-  
+
   /// Overridden [FrameworkObject] method.
   void createElement(){
     rawElement = new ImageElement();
   }
-  
+
   String get type() => "Image";
 }

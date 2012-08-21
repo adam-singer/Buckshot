@@ -7,8 +7,6 @@
  */
 class Ellipse extends Shape{
 
-  BuckshotObject makeMe() => new Ellipse();
-
   FrameworkProperty _cxProperty;
   FrameworkProperty _cyProperty;
   FrameworkProperty _rxProperty;

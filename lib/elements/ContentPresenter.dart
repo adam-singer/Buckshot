@@ -12,9 +12,6 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
   /// Represents the content inside the border.
   FrameworkProperty contentProperty;
 
-/// Overridden [BuckshotObject] method for creating new borders.
-  FrameworkObject makeMe() => new ContentPresenter();
-
   ContentPresenter()
   {
     Browser.appendClass(rawElement, "ContentPresenter");

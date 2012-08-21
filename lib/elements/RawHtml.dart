@@ -6,8 +6,8 @@
 * Renders raw html to the browser.
 *
 * In xml, the [htmlString] property must be assigned to directly, not in node form:
-* 
-* ### Good: 
+*
+* ### Good:
 *     <rawhtml htmlstring='<div style="width:100px"></div>'></rawhtml>
 *
 * ### Bad:
@@ -22,18 +22,16 @@ class RawHtml extends FrameworkElement
 {
   /// A framework property representing the raw html string.
   FrameworkProperty htmlStringProperty;
- 
-  FrameworkObject makeMe() => new RawHtml();
-  
+
   RawHtml()
   {
     Browser.appendClass(rawElement, "rawhtml");
-       
+
     _initRawHtmlProperties();
   }
-  
+
   void _initRawHtmlProperties(){
-    
+
     htmlStringProperty = new FrameworkProperty(
       this,
       "htmlString",
@@ -41,14 +39,14 @@ class RawHtml extends FrameworkElement
         rawElement.innerHTML = value.toString();
       });
   }
-    
+
   String get htmlString() => getValue(htmlStringProperty);
   set htmlString(String value) => setValue(htmlStringProperty, value);
-  
+
   void createElement(){
     rawElement = new DivElement();
   }
-  
+
   void updateLayout(){}
 
   String get type() => "RawHtml";

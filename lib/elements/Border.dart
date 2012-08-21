@@ -27,8 +27,6 @@ class Border extends FrameworkElement implements IFrameworkContainer
   AnimatingFrameworkProperty horizontalScrollEnabledProperty;
   AnimatingFrameworkProperty verticalScrollEnabledProperty;
 
-  FrameworkObject makeMe() => new Border();
-
   Border()
   {
     Browser.appendClass(rawElement, "border");

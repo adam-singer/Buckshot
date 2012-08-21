@@ -11,8 +11,6 @@ class YouTube extends FrameworkElement
 {
   FrameworkProperty videoIDProperty;
 
-  FrameworkObject makeMe() => new YouTube();
-
   YouTube(){
     Browser.appendClass(rawElement, "youtube");
 

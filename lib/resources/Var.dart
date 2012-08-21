@@ -36,25 +36,23 @@
 class Var extends FrameworkResource implements IFrameworkContainer
 {
   FrameworkProperty valueProperty;
-  
-  BuckshotObject makeMe() => new Var();
-  
+
   Var(){
     _initVarProperties();
-    
+
     //meta data for binding system
     this._stateBag[FrameworkResource.RESOURCE_PROPERTY] = valueProperty;
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = valueProperty;
   }
-  
+
   get content() => value;
-  
+
   void _initVarProperties(){
     valueProperty = new FrameworkProperty(this, "value", (Dynamic v){}, null);
   }
-  
+
   Dynamic get value() => getValue(valueProperty);
   set value(Dynamic c) => setValue(valueProperty, c);
-  
+
   String get type() => "Var";
 }

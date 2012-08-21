@@ -41,9 +41,6 @@ class ListBox extends Control implements IFrameworkContainer
 
   int get selectedIndex() => _selectedIndex;
 
-  /// Overridden [BuckshotObject] method.
-  FrameworkObject makeMe() => new ListBox();
-
   ListBox()
   :
     selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs>()

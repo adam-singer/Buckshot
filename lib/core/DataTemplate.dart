@@ -16,14 +16,12 @@
 */
 class DataTemplate extends BuckshotObject{
   final HashMap<String, FrameworkProperty> _properties;
-  
-  BuckshotObject makeMe() => new DataTemplate();
-  
+
   /// Constructs a DataTemplate with no properties.
-  DataTemplate() 
+  DataTemplate()
   : _properties = new HashMap<String, FrameworkProperty>()
   {}
-  
+
   /// Constructs a DataTemplate with property names from a given [List]. Values are left uninitialized.
   /// ### Example
   ///     new DataTemplate.fromList(["name","address","phone","age","sex"]);
@@ -33,9 +31,9 @@ class DataTemplate extends BuckshotObject{
     propertyNames.forEach((String p){
       if (!(p is String)) throw const BuckshotException("Expect String property name in DataTemplate.fromList constructor list.");
       addProperty(p);
-    });  
+    });
   }
-  
+
   /// Constructs a DataTemplate with property/value pairs from a given [Map].
   /// ### Example
   ///     new DataTemplate.fromMap({"name":"John","address":"123 Main St","phone":"555-555-5555","age":"27","sex":"M"});
@@ -50,33 +48,33 @@ class DataTemplate extends BuckshotObject{
 
   /// Sets a property's value in the DataTemplate.
   void setV(String propertyName, Dynamic value) => setValue(_properties[propertyName], value);
-  
+
   /// Gets a property's value from the DataTemplate.
-  Dynamic getV(String propertyName) => getValue(_properties[propertyName]); 
+  Dynamic getV(String propertyName) => getValue(_properties[propertyName]);
 
   /// Adds a new [FrameworkProperty] to the DataTemplate with optional default data and callback.
   void addProperty(String propertyName, [Dynamic defaultData = null, Function changedCallback = null]){
     if (_properties.containsKey(propertyName))
       throw new BuckshotException("Property name '${propertyName}' already exists in DataTemplate properties.");
-    
+
     if (defaultData == null && changedCallback == null){
       _properties[propertyName] = new FrameworkProperty(this, propertyName, (_){});
       return;
     }
-    
+
     if (defaultData != null && changedCallback == null){
       _properties[propertyName] = new FrameworkProperty(this, propertyName, (_){}, defaultData);
       return;
     }
-    
+
     if (defaultData == null && changedCallback != null){
       _properties[propertyName] = new FrameworkProperty(this, propertyName, changedCallback);
       return;
     }
-    
+
     //defaultData != null && changedCallback != null
     _properties[propertyName] = new FrameworkProperty(this, propertyName, changedCallback, defaultData);
   }
-  
+
   String get type() => 'DataTemplate';
 }

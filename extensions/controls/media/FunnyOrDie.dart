@@ -11,8 +11,6 @@ class FunnyOrDie extends FrameworkElement
 {
   FrameworkProperty videoIDProperty;
 
-  FrameworkObject makeMe() => new FunnyOrDie();
-
   FunnyOrDie(){
     Browser.appendClass(rawElement, "funnyordie");
 

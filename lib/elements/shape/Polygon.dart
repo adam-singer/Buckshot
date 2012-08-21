@@ -4,19 +4,18 @@
 
 //class Polygon extends Shape
 //{
-//  BuckshotObject makeMe() => new Polygon();
-//  
+//
 //  Polygon(){
 //    throw const NotImplementedException();
-//    
+//
 //    Browser.appendClass(rawElement, "polygon");
 //    _initPolygonProperties();
 //  }
-//  
+//
 //  void _initPolygonProperties(){
-//    
+//
 //  }
-//  
-//  
+//
+//
 //  String get shapeTag() => 'polygon';
 //}

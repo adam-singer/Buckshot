@@ -14,8 +14,6 @@ class Hulu extends FrameworkElement
   Element param1;
   FrameworkProperty videoIDProperty;
 
-  FrameworkObject makeMe() => new Hulu();
-
   Hulu(){
     Browser.appendClass(rawElement, "hulu");
 

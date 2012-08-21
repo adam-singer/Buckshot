@@ -4,20 +4,19 @@
 
 //class PolyLine extends Shape
 //{
-//  
-//  BuckshotObject makeMe() => new PolyLine();
-//  
+//
+//
 //  PolyLine(){
 //    throw const NotImplementedException();
-//    
+//
 //    Browser.appendClass(rawElement, "polyline");
 //    _initPolyLineProperties();
 //  }
-//  
+//
 //  void _initPolyLineProperties(){
-//    
+//
 //  }
-//  
-//  
+//
+//
 //  String get shapeTag() => 'polyline';
 //}

@@ -29,9 +29,5 @@ class AnimationKeyFrame extends TemplateObject
   List<AnimationState> get states() => getValue(statesProperty);
   set states(List<AnimationState> v) => setValue(statesProperty, v);
 
-
-  /// Overridden [BuckshotObject] method.
-  BuckshotObject makeMe() => new AnimationKeyFrame();
-
   String get type() => 'AnimationKeyFrame';
 }

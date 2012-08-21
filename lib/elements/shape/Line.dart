@@ -5,18 +5,17 @@
 //class Line extends Shape
 //{
 //
-//  BuckshotObject makeMe() => new Line();
-//  
+//
 //  Line(){
 //    throw const NotImplementedException();
-//    
+//
 //    Browser.appendClass(rawElement, "line");
 //    _initLineProperties();
 //  }
-//  
+//
 //  void _initLineProperties(){
-//    
+//
 //  }
-//  
+//
 //  String get shapeTag() => 'line';
 //}

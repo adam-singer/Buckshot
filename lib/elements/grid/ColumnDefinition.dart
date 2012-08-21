@@ -13,7 +13,7 @@
 *             <columndefinition width="*1"></columndefinition> <!-- A weighted portion of available space -->
 *             <columndefinition width="*2"></columndefinition> <!-- A weighted portion of available space -->
 *         </columndefinitions>
-*     </grid> 
+*     </grid>
 *
 * ## See Also:
 * * [RowDefinition]
@@ -23,39 +23,36 @@
 */
 class ColumnDefinition extends GridLayoutDefinition{
   final FrameworkEvent _columnDefinitionChanged;
-  
+
   /// Represents the [GridLength] width of the column.
   FrameworkProperty widthProperty;
-  
+
   ColumnDefinition() : _columnDefinitionChanged = new FrameworkEvent()
   {
     _initColumnDefinitionProperties();
   }
-  
+
   /// Constructs a column definition with a given [GridLength] value.
   ColumnDefinition.with(GridLength value) : _columnDefinitionChanged = new FrameworkEvent()
   {
     _initColumnDefinitionProperties();
     width = value;
   }
-  
-  /// Overridden [BuckshotObject] method.
-  BuckshotObject makeMe() => new ColumnDefinition();
-  
+
   void _initColumnDefinitionProperties(){
     widthProperty = new FrameworkProperty(this, "width", (GridLength v){
       if (v.value < minLength) v.value = minLength;
       if (v.value  > maxLength) v.value = maxLength;
-      
+
       _value = v;
       _columnDefinitionChanged.invoke(this, new EventArgs());
     }, new GridLength(), converter:const StringToGridLengthConverter());
   }
-  
+
   /// Sets the [widthProperty] value.
   set width(GridLength v) => setValue(widthProperty, v);
   /// Gets the [widthProperty] value.
   GridLength get width() => getValue(widthProperty);
-  
+
   String get type() => "ColumnDefinition";
 }

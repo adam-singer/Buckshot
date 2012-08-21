@@ -26,8 +26,6 @@ class Binding extends BuckshotObject
   */
   bool bindingSet = false;
 
-  BuckshotObject makeMe() => null;
-
   /**
   * Instantiates a binding between [fromProperty] and [toProperty],
   *  with an optional [bindingMode] and [converter].
@@ -54,7 +52,7 @@ class Binding extends BuckshotObject
     _registerBinding();
   }
 
-  
+
   /**
   * Instantiates a binding between [fromProperty] and [toProperty],
   * with an optional [bindingMode] and [converter].

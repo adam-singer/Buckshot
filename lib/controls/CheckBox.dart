@@ -26,9 +26,6 @@ class CheckBox extends Control
     _initEvents();
   }
 
-  /// Overloaded [BuckshotObject] method for creating new checkboxes.
-  FrameworkObject makeMe() => new CheckBox();
-
   void _initProperties(){
 
     valueProperty = new FrameworkProperty(this, "value", (String v){

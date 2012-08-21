@@ -16,9 +16,6 @@ class LayoutCanvas extends Panel
   /// from the left of the LayoutCanvas container boundary.
   static AttachedFrameworkProperty leftProperty;
 
-  /// Overridden [LucaObject] method.
-  FrameworkObject makeMe() => new LayoutCanvas();
-
   LayoutCanvas(){
     Browser.appendClass(rawElement, "layoutcanvas");
 
@@ -71,11 +68,11 @@ class LayoutCanvas extends Panel
   * Sets the top value of the element relative to a parent LayoutCanvas container */
   static void setTop(FrameworkElement element, value){
     if (element == null) return;
-    
+
     assert(value is String || value is num);
 
     value = const StringToNumericConverter().convert(value);
-    
+
     if (value < 0) value = 0;
 
     if (LayoutCanvas.topProperty == null)
@@ -107,9 +104,9 @@ class LayoutCanvas extends Panel
     if (element == null) return;
 
     assert(value is String || value is num);
-    
+
     value = const StringToNumericConverter().convert(value);
-    
+
     if (value < 0) value = 0;
 
     if (LayoutCanvas.leftProperty == null)

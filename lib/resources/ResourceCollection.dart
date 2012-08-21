@@ -7,20 +7,18 @@
 class ResourceCollection extends FrameworkResource implements IFrameworkContainer
 {
   final ObservableList<FrameworkResource> resources;
-  
-  BuckshotObject makeMe() => new ResourceCollection();
-  
+
   ResourceCollection(): resources = new ObservableList<FrameworkResource>()
   {
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = resources;
-    
+
     resources.listChanged + _onListChanging;
   }
-  
+
   get content() => resources;
-  
+
   void _onListChanging(Object _, ListChangedEventArgs args){
-    
+
     if (!args.newItems.isEmpty()){
       args.newItems.forEach((FrameworkResource r){
 
@@ -30,6 +28,6 @@ class ResourceCollection extends FrameworkResource implements IFrameworkContaine
       });
     }
   }
-  
+
   String get type() => "ResourceCollection";
 }

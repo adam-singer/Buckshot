@@ -89,9 +89,6 @@ class DropDownList extends Control
 
   ObservableList<DropDownItem> get items() => getValue(itemsProperty);
 
-  /// Overridden [BuckshotObject] method.
-  BuckshotObject makeMe() => new DropDownList();
-
   /// Overridden [FrameworkObject] method for generating the html representation of the DDL.
   void createElement(){
     rawElement = new Element.tag('select');
@@ -109,9 +106,6 @@ class DropDownItem extends TemplateObject
   DropDownItem(){
     _initDropDownListItemProperties();
   }
-
-  /// Overridden [BuckshotObject] method.
-  BuckshotObject makeMe() => new DropDownItem();
 
   void _initDropDownListItemProperties(){
     nameProperty = new FrameworkProperty(this, "name", (String v){}, '');

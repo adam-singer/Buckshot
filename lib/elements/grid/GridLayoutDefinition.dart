@@ -27,6 +27,5 @@ class GridLayoutDefinition extends TemplateObject{
   num maxLength = 32767; //why not? ;)
   num minLength = 0;
 
-  BuckshotObject makeMe() => new GridLayoutDefinition();
   String get type() => "GridLayoutDefinition";
 }

@@ -8,13 +8,11 @@
 class StyleSetter extends TemplateObject
 {
   FrameworkProperty valueProperty, propertyProperty;
-  
-  BuckshotObject makeMe() => new StyleSetter();
-  
+
   StyleSetter(){
     _initStyleSetterProperties();
   }
-  
+
   StyleSetter.with(String propertyName, Dynamic propertyValue)
   {
     _initStyleSetterProperties();
@@ -24,15 +22,15 @@ class StyleSetter extends TemplateObject
 
   Dynamic get value() => getValue(valueProperty);
   set value(Dynamic newValue) => setValue(valueProperty, newValue);
-  
+
   String get property() => getValue(propertyProperty);
   set property(String v) => setValue(propertyProperty, v);
-  
+
   void _initStyleSetterProperties(){
     valueProperty = new FrameworkProperty(this, "value", (v){});
-    
+
     propertyProperty = new FrameworkProperty(this, "property", (String v){});
   }
-  
+
   String get type() => "StyleSetter";
 }

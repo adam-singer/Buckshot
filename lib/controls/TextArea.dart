@@ -13,8 +13,6 @@ class TextArea extends Control
   FrameworkProperty textProperty, placeholderProperty, spellcheckProperty;
   final FrameworkEvent<TextChangedEventArgs> textChanged;
 
-  FrameworkObject makeMe() => new TextArea();
-
   TextArea() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {

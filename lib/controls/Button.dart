@@ -12,9 +12,6 @@ class Button extends Control implements IFrameworkContainer
   /// Represents the content inside the button.
   FrameworkProperty contentProperty;
 
-  /// Overridden [LucaObject] method for creating new buttons.
-  FrameworkObject makeMe() => new Button();
-
   Button()
   {
     Browser.appendClass(rawElement, "button");

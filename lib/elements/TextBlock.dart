@@ -8,9 +8,13 @@
 */
 class TextBlock extends FrameworkElement implements IFrameworkContainer
 {
-  FrameworkProperty backgroundProperty, foregroundProperty, paddingProperty, textProperty, fontSizeProperty, fontFamilyProperty;
-
-  FrameworkObject makeMe() => new TextBlock();
+  FrameworkProperty
+    backgroundProperty,
+    foregroundProperty,
+    paddingProperty,
+    textProperty,
+    fontSizeProperty,
+    fontFamilyProperty;
 
   TextBlock()
   {
@@ -20,7 +24,7 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
 
     this._stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
   }
-  
+
   get content() => getValue(textProperty);
 
   void _initTextBlockProperties(){

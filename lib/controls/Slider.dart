@@ -18,8 +18,6 @@ class Slider extends Control
   FrameworkProperty stepProperty;
   FrameworkProperty valueProperty;
 
-  FrameworkObject makeMe() => new Slider();
-
   Slider(){
     Browser.appendClass(rawElement, "slider");
 
