@@ -235,12 +235,19 @@ class FrameworkObject extends BuckshotObject {
         //TODO keep a reference to these so they can be removed if the
         // datacontext changes
 
-        if (bd.converter != null)
-          new Binding(dc.value.resolveProperty(bd.dataContextPath),
-            p, bindingMode:bd.bindingMode, converter:bd.converter);
-        else
-          new Binding(dc.value.resolveProperty(bd.dataContextPath),
-            p, bindingMode:bd.bindingMode);
+        if (bd.converter != null){
+          dc.value.resolveProperty(bd.dataContextPath)
+          .then((prop){
+            new Binding(prop,
+                p, bindingMode:bd.bindingMode, converter:bd.converter);
+          });
+        }else{
+          dc.value.resolveProperty(bd.dataContextPath)
+          .then((prop){
+            new Binding(prop,
+                p, bindingMode:bd.bindingMode);
+          });
+        }
       }
     });
   }

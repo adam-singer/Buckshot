@@ -35,12 +35,18 @@ class BuckshotObject extends HashableObject{
   Future<FrameworkProperty> getPropertyByName(String propertyName){
     final c = new Completer();
 
-    final m = buckshot.miriam.mirrorOf(this);
+    _getPropertyNameInternal(propertyName.toLowerCase(), buckshot.miriam.mirrorOf(this).type)
+    .then((result) => c.complete(result));
+
+    return c.future;
+  }
+
+  Future<FrameworkProperty> _getPropertyNameInternal(String propertyName, classMirror){
+    final c = new Completer();
 
     var name = '';
 
-    final found = m
-                   .type
+    final found = classMirror
                    .variables
                    .getKeys()
                    .some((k){
@@ -52,19 +58,27 @@ class BuckshotObject extends HashableObject{
                        }
                        name = k;
                        return true;
-                     }else{
-                       return false;
                      }
-                     return str == propertyName;
+                     return false;
                    });
 
 
     if (!found){
-      c.complete(null);
+      if (classMirror.superclass.simpleName != 'BuckshotObject'
+          && classMirror.superclass.simpleName != 'Object'){
+        _getPropertyNameInternal(propertyName, classMirror.superclass)
+          .then((result) => c.complete(result));
+      }else{
+        c.complete(null);
+      }
+
     }else{
-      m.getField(name).then((im){
-        c.complete(im.reflectee);
-      });
+      buckshot.miriam.mirrorOf(this)
+        .getField(name)
+        .then((im){
+//          print('>>> $this $im $name');
+          c.complete(im.reflectee);
+        });
     }
 
     return c.future;
@@ -77,6 +91,55 @@ class BuckshotObject extends HashableObject{
 
     if (result.length == 0) return null;
     return result.iterator().next();
+  }
+
+
+  Future<FrameworkProperty> resolveProperty(String propertyNameChain){
+    return BuckshotObject._resolvePropertyInternal(this, propertyNameChain.trim().split('.'));
+  }
+
+  Future<FrameworkProperty> resolveFirstProperty(String propertyNameChain){
+    //TODO Make this a Future<FrameworkProperty> instead?
+    return BuckshotObject._resolvePropertyInternal(
+      this,
+      [propertyNameChain.trim().split('.')[0]]
+      );
+  }
+
+  static Future<FrameworkProperty> _resolvePropertyInternal(
+                                    BuckshotObject currentObject,
+                                    List<String> propertyChain){
+    final c = new Completer();
+
+    currentObject.getPropertyByName(propertyChain[0]).then((prop){
+      // couldn't resolve current property name to a property
+      if (prop == null){
+        print('not found in object ${currentObject} (property null) ${propertyChain[0]}');
+        c.complete(null);
+      }else{
+        // Mmore properties in the chain, but cannot resolve further.
+        // (NOTE!!!) Template parser will handle this exception in certain cases.
+        // The Dart debugger currently stops on this exception even though it
+        // is handled (reported).
+        // TODO: Return null instead?
+        if (prop.value is! BuckshotObject && propertyChain.length > 1){
+          print('not found (cannot resolve further) ${propertyChain[0]}');
+          c.complete(null);
+        }else{
+          // return the property if there are no further names to resolve or the property
+          // is not a BuckshotObject
+          if (prop.value is! BuckshotObject || propertyChain.length == 1){
+            c.complete(prop);
+          }else{
+            // recurse down to the next BuckshotObject and property name
+            _resolvePropertyInternal(prop.value, propertyChain.getRange(1, propertyChain.length - 1))
+            .then((result) => c.complete(result));
+          }
+        }
+      }
+    });
+
+    return c.future;
   }
 
   /**
@@ -94,48 +157,48 @@ class BuckshotObject extends HashableObject{
    * As long as a property in the dot chain is a [BuckshotObject] then resolve() will continue
    * along until the last dot property is resolved, and then return it.
    */
-  FrameworkProperty resolveProperty(String propertyNameChain){
-    return BuckshotObject._resolvePropertyInternal(this, propertyNameChain.trim().split('.'));
-  }
-
-  FrameworkProperty resolveFirstProperty(String propertyNameChain){
-    //TODO Make this a Future<FrameworkProperty> instead?
-    return BuckshotObject._resolvePropertyInternal(
-      this,
-      [propertyNameChain.trim().split('.')[0]]
-      );
-  }
-
-  static FrameworkProperty _resolvePropertyInternal(
-                                    BuckshotObject currentObject,
-                                    List<String> propertyChain){
-    final prop = currentObject._getPropertyByName(propertyChain[0]);
-
-    // couldn't resolve current property name to a property
-    if (prop == null){
-      db('property resolution err: ${propertyChain[0]}');
-      throw new FrameworkPropertyResolutionException('Unable to resolve'
-          ' FrameworkProperty: "${propertyChain[0]}".');
-    }
-
-    // Mmore properties in the chain, but cannot resolve further.
-    // (NOTE!!!) Template parser will handle this exception in certain cases.
-    // The Dart debugger currently stops on this exception even though it
-    // is handled (reported).
-    // TODO: Return null instead?
-    if (prop.value is! BuckshotObject && propertyChain.length > 1)
-      throw const FrameworkPropertyResolutionException('Unable to resolve'
-          ' further.  Remaining properties in the chain while current property'
-      ' value is not a BuckshotObject');
-
-    // return the property if there are no further names to resolve or the property
-    // is not a BuckshotObject
-    if (prop.value is! BuckshotObject || propertyChain.length == 1) return prop;
-
-    // recurse down to the next BuckshotObject and property name
-    return _resolvePropertyInternal(prop.value, propertyChain.getRange(1, propertyChain.length - 1));
-
-  }
+//  FrameworkProperty resolveProperty(String propertyNameChain){
+//    return BuckshotObject._resolvePropertyInternal(this, propertyNameChain.trim().split('.'));
+//  }
+//
+//  FrameworkProperty resolveFirstProperty(String propertyNameChain){
+//    //TODO Make this a Future<FrameworkProperty> instead?
+//    return BuckshotObject._resolvePropertyInternal(
+//      this,
+//      [propertyNameChain.trim().split('.')[0]]
+//      );
+//  }
+//
+//  static FrameworkProperty _resolvePropertyInternal(
+//                                    BuckshotObject currentObject,
+//                                    List<String> propertyChain){
+//    final prop = currentObject._getPropertyByName(propertyChain[0]);
+//
+//    // couldn't resolve current property name to a property
+//    if (prop == null){
+//      db('property resolution err: ${propertyChain[0]}');
+//      throw new FrameworkPropertyResolutionException('Unable to resolve'
+//          ' FrameworkProperty: "${propertyChain[0]}".');
+//    }
+//
+//    // Mmore properties in the chain, but cannot resolve further.
+//    // (NOTE!!!) Template parser will handle this exception in certain cases.
+//    // The Dart debugger currently stops on this exception even though it
+//    // is handled (reported).
+//    // TODO: Return null instead?
+//    if (prop.value is! BuckshotObject && propertyChain.length > 1)
+//      throw const FrameworkPropertyResolutionException('Unable to resolve'
+//          ' further.  Remaining properties in the chain while current property'
+//      ' value is not a BuckshotObject');
+//
+//    // return the property if there are no further names to resolve or the property
+//    // is not a BuckshotObject
+//    if (prop.value is! BuckshotObject || propertyChain.length == 1) return prop;
+//
+//    // recurse down to the next BuckshotObject and property name
+//    return _resolvePropertyInternal(prop.value, propertyChain.getRange(1, propertyChain.length - 1));
+//
+//  }
 
 
   /*

@@ -82,12 +82,13 @@ class XmlTemplateProvider implements IPresentationFormatProvider
         processTextNode(newElement, xmlElement);
       }
 
+      //add the assign attributes future to the list.
+      fList.add(_assignAttributeProperties(newElement, xmlElement));
+
       // Wait for all the futures to complete before finishing
       Futures
       .wait(fList)
       .then((_){
-        _assignAttributeProperties(newElement, xmlElement);
-
         completeElementParse(newElement);
       });
     });
@@ -342,24 +343,33 @@ class XmlTemplateProvider implements IPresentationFormatProvider
             " not found.");
 
           Binding b;
-          try{
-            new Binding(buckshot.namedElements[ne].resolveProperty(prop),
-              p, bindingMode:mode);
-          }catch (Exception err){
-            //try to bind late...
-            FrameworkProperty theProperty =
-                buckshot.namedElements[ne].resolveFirstProperty(prop);
-            theProperty.propertyChanging + (_, __) {
 
-              //unregister previous binding if one already exists.
-              if (b != null) b.unregister();
+          buckshot
+            .namedElements[ne]
+            .resolveProperty(prop)
+            .then((property){
+              if (property != null){
+                new Binding(property, p, bindingMode:mode);
+              }else{
+                buckshot
+                .namedElements[ne]
+                .resolveFirstProperty(prop)
+                .then((firstProperty){
+                  firstProperty.propertyChanging + (_, __) {
 
-              b = new Binding(buckshot.namedElements[ne].resolveProperty(prop),
-                p, bindingMode:mode);
-            };
-          }
+                    //unregister previous binding if one already exists.
+                    if (b != null) b.unregister();
 
-
+                    buckshot
+                    .namedElements[ne]
+                    .resolveProperty(prop)
+                    .then((lateProperty){
+                      b = new Binding(lateProperty, p, bindingMode:mode);
+                    });
+                  };
+                });
+              }
+            });
         }else{
           throw const PresentationProviderException("Element binding requires"
             " a minimum named element/property"
@@ -384,38 +394,54 @@ class XmlTemplateProvider implements IPresentationFormatProvider
     buckshot.registerResource(resource);
   }
 
-  void _assignAttributeProperties(BuckshotObject element,
+  Future _assignAttributeProperties(BuckshotObject element,
                                   XmlElement xmlElement){
+    final c = new Completer();
 
-    if (xmlElement.attributes.length == 0) return;
+    if (xmlElement.attributes.length == 0){
+      c.complete(false);
+      return c.future;
+    }
 
-    xmlElement.attributes.forEach((String k, String v){
+    final fList = [];
 
-      if (k.contains(".")){
-        var prop = k.toLowerCase();
-        //attached property
-        if (buckshot._objectRegistry.containsKey(prop)){
+    xmlElement
+      .attributes
+      .forEach((String k, String v){
+        if (k.contains(".")){
+          var prop = k.toLowerCase();
+          //attached property
+          if (buckshot._objectRegistry.containsKey(prop)){
 
-          Function setAttachedPropertyFunction = buckshot._objectRegistry[prop];
+            Function setAttachedPropertyFunction = buckshot._objectRegistry[prop];
 
-          setAttachedPropertyFunction(element, v);
-        }
-      }else{
-        //property
-        FrameworkProperty p = element.resolveProperty(k);
-
-        if (p == null) return; //TODO throw?
-
-        if (v.trim().startsWith("{")){
-          //binding or resource
-          _resolveBinding(p, v.trim());
+            setAttachedPropertyFunction(element, v);
+          }
         }else{
-          //value or enum (enums converted at property level
-          //via FrameworkProperty.stringToValueConverter [if assigned])
-            setValue(p, v);
+          //property
+          final f = element.resolveProperty(k);
+          fList.add(f);
+          f.then((p){
+              if (p == null) return; //TODO throw?
+
+              if (v.trim().startsWith("{")){
+                //binding or resource
+                _resolveBinding(p, v.trim());
+              }else{
+                //value or enum (enums converted at property level
+                //via FrameworkProperty.stringToValueConverter [if assigned])
+                setValue(p, v);
+            }
+          });
         }
-      }
     });
+
+    //make sure all the values are set before completing the future.
+    Futures
+    .wait(fList)
+    .then((_) => c.complete(true));
+
+    return c.future;
   }
 
   String serialize(FrameworkElement elementRoot){

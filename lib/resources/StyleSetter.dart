@@ -7,7 +7,8 @@
 */
 class StyleSetter extends TemplateObject
 {
-  FrameworkProperty valueProperty, propertyProperty;
+  FrameworkProperty valueProperty;
+  FrameworkProperty propertyProperty;
 
   StyleSetter(){
     _initStyleSetterProperties();
@@ -20,8 +21,8 @@ class StyleSetter extends TemplateObject
     value = propertyValue;
   }
 
-  Dynamic get value() => getValue(valueProperty);
-  set value(Dynamic newValue) => setValue(valueProperty, newValue);
+  get value() => getValue(valueProperty);
+  set value(newValue) => setValue(valueProperty, newValue);
 
   String get property() => getValue(propertyProperty);
   set property(String v) => setValue(propertyProperty, v);
