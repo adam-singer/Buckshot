@@ -14,11 +14,11 @@ class AnimationState extends TemplateObject
 
   _initAnimationStateProperties(){
 
-    targetProperty = new FrameworkProperty(this, 'target', (_){});
+    targetProperty = new FrameworkProperty(this, 'target');
 
-    propertyProperty = new FrameworkProperty(this, 'property', (_){});
+    propertyProperty = new FrameworkProperty(this, 'property');
 
-    valueProperty = new FrameworkProperty(this, 'value', (_){});
+    valueProperty = new FrameworkProperty(this, 'value');
   }
 
   String get target() => getValue(targetProperty);

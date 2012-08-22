@@ -43,11 +43,16 @@ class PlusOne extends FrameworkElement
   void _initializePlusOneProperties(){
     annotationProperty = new FrameworkProperty(this, "annotation", (PlusOneAnnotationTypes value){
       rawElement.attributes["annotation"] = value.toString();
-    }, PlusOneAnnotationTypes.none, converter:const StringToPlusOneAnnotationTypeConverter());
+    },
+    defaultValue:PlusOneAnnotationTypes.none,
+    converter:const StringToPlusOneAnnotationTypeConverter());
 
-    sizeProperty = new FrameworkProperty(this, "size", (PlusOneButtonSizes value){
+    sizeProperty = new FrameworkProperty(this, "size",
+    (PlusOneButtonSizes value){
       rawElement.attributes["size"] = value.toString();
-    }, PlusOneButtonSizes.standard, converter:const StringToPlusOneButtonSizeConverter());
+    },
+    defaultValue:PlusOneButtonSizes.standard,
+    converter:const StringToPlusOneButtonSizeConverter());
   }
 
   PlusOneAnnotationTypes get annotation() => getValue(annotationProperty);

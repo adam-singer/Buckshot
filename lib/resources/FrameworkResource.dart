@@ -45,7 +45,7 @@ class FrameworkResource extends FrameworkObject
   }
 
   void _initFrameworkResourceProperties(){
-    keyProperty = new FrameworkProperty(this, "key", (_){}, "");
+    keyProperty = new FrameworkProperty(this, "key", defaultValue:"");
   }
 
   String rawData;

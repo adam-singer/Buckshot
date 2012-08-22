@@ -101,13 +101,23 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
       }, new Thickness(0), converter:const StringToThicknessConverter());
 
-    horizontalScrollEnabledProperty = new AnimatingFrameworkProperty(this, "horizontalScrollEnabled", (bool value){
-      _assignOverflowX(value);
-    }, 'overflow', false, converter:const StringToBooleanConverter());
+    horizontalScrollEnabledProperty = new AnimatingFrameworkProperty(this,
+        "horizontalScrollEnabled",
+        (bool value){
+          _assignOverflowX(value);
+        },
+        'overflow',
+        false,
+        converter:const StringToBooleanConverter());
 
-    verticalScrollEnabledProperty = new AnimatingFrameworkProperty(this, "verticalScrollEnabled", (bool value){
-      _assignOverflowY(value);
-    }, 'overflow', false, converter:const StringToBooleanConverter());
+    verticalScrollEnabledProperty = new AnimatingFrameworkProperty(this,
+        "verticalScrollEnabled",
+        (bool value){
+          _assignOverflowY(value);
+        },
+        'overflow',
+        false,
+        converter:const StringToBooleanConverter());
   }
 
   void _assignOverflowX(value){

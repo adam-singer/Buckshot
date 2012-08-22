@@ -32,9 +32,9 @@ class ActionBase extends TemplateObject {
 
   void _initActionBaseProperties(){
 
-    targetNameProperty = new FrameworkProperty(this, 'targetName', (_){});
+    targetNameProperty = new FrameworkProperty(this, 'targetName');
 
-    _sourceProperty = new FrameworkProperty(this, '_source', (_){});
+    _sourceProperty = new FrameworkProperty(this, '_source');
 
     eventProperty = new FrameworkProperty(this, 'event', (String e){
 

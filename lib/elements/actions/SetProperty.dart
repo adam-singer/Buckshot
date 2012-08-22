@@ -17,9 +17,9 @@ class SetProperty extends ActionBase
   }
 
   void _initSetPropertyActionProperties(){
-    targetProperty = new FrameworkProperty(this, 'target', (_){});
-    propertyProperty = new FrameworkProperty(this, 'property', (_){});
-    valueProperty = new FrameworkProperty(this, 'value', (_){});
+    targetProperty = new FrameworkProperty(this, 'target');
+    propertyProperty = new FrameworkProperty(this, 'property');
+    valueProperty = new FrameworkProperty(this, 'value');
   }
 
   String get target() => getValue(targetProperty);

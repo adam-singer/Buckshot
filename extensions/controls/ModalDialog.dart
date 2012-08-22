@@ -51,8 +51,8 @@ class ModalDialog extends Control
   }
 
   void _initModalDialogProperties(){
-    titleProperty = new FrameworkProperty(this, 'title', (_){}, 'undefined');
-    textProperty = new FrameworkProperty(this, 'text', (_){}, 'undefined');
+    titleProperty = new FrameworkProperty(this, 'title', defaultValue:'undefined');
+    textProperty = new FrameworkProperty(this, 'text', defaultValue:'undefined');
 
     cvRoot = Template.findByName('cvRoot', template);
     bDialog = Template.findByName('bDialog', template);

@@ -30,7 +30,7 @@ class DockPanel extends Panel
 
   void _initDockPanelProperties(){
 
-    fillLastProperty = new FrameworkProperty(this, 'fillLast', (_){}, true,
+    fillLastProperty = new FrameworkProperty(this, 'fillLast', defaultValue:true,
       converter:const StringToBooleanConverter());
   }
 

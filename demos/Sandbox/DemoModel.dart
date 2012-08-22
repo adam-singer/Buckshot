@@ -53,8 +53,8 @@ class SomeColors extends BuckshotObject
   FrameworkProperty redProperty, orangeProperty, blueProperty;
 
   SomeColors(){
-    redProperty = new FrameworkProperty(this, "red", (_){}, "Red");
-    orangeProperty = new FrameworkProperty(this, "orange", (_){}, "Orange");
-    blueProperty = new FrameworkProperty(this, "blue", (_){}, "Blue");
+    redProperty = new FrameworkProperty(this, "red", defaultValue:"Red");
+    orangeProperty = new FrameworkProperty(this, "orange", defaultValue:"Orange");
+    blueProperty = new FrameworkProperty(this, "blue", defaultValue:"Blue");
   }
 }

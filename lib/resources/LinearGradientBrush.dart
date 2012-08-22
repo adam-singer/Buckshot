@@ -44,14 +44,16 @@ class LinearGradientBrush extends Brush
   Color get fallbackColor() => getValue(fallbackColorProperty);
 
   void _initLinearGradientBrushProperties(){
-    stopsProperty = new FrameworkProperty(this, "stops", (v){
-    }, new List<GradientStop>());
+    stopsProperty = new FrameworkProperty(this, "stops",
+        defaultValue:new List<GradientStop>());
 
-    directionProperty = new FrameworkProperty(this, "direction", (v){
-    }, LinearGradientDirection.horizontal, converter:const StringToLinearGradientDirectionConverter());
+    directionProperty = new FrameworkProperty(this, "direction",
+        defaultValue:LinearGradientDirection.horizontal,
+        converter:const StringToLinearGradientDirectionConverter());
 
-    fallbackColorProperty = new FrameworkProperty(this, "fallbackColor", (v){},
-      new Color.predefined(Colors.White), converter:const StringToColorConverter());
+    fallbackColorProperty = new FrameworkProperty(this, "fallbackColor",
+        defaultValue:new Color.predefined(Colors.White),
+        converter:const StringToColorConverter());
   }
 
   /// Overridden [Brush] method.

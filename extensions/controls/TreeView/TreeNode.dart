@@ -108,15 +108,15 @@ class TreeNode extends Control implements IFrameworkContainer
 
   void _initializeTreeNodeProperties(){
 
-    childNodesProperty = new FrameworkProperty(this, 'childNodes', (_){},
-      new ObservableList<TreeNode>());
+    childNodesProperty = new FrameworkProperty(this, 'childNodes',
+        defaultValue:new ObservableList<TreeNode>());
 
-    iconProperty = new FrameworkProperty(this, 'icon', (_){});
+    iconProperty = new FrameworkProperty(this, 'icon');
 
-    folderIconProperty = new FrameworkProperty(this, 'folderIcon', (_){});
+    folderIconProperty = new FrameworkProperty(this, 'folderIcon');
 
-    fileIconProperty = new FrameworkProperty(this, 'fileIcon', (_){},
-      Template.deserialize(TreeView.FILE_DEFAULT_TEMPLATE));
+    fileIconProperty = new FrameworkProperty(this, 'fileIcon',
+        defaultValue:Template.deserialize(TreeView.FILE_DEFAULT_TEMPLATE));
 
 
     Futures
@@ -130,10 +130,10 @@ class TreeNode extends Control implements IFrameworkContainer
         setValue(fileIconProperty, results[1]);
       });
 
-    indicatorProperty = new FrameworkProperty(this, 'indicator', (_){},
-      TreeView.INDICATOR_COLLAPSED);
+    indicatorProperty = new FrameworkProperty(this, 'indicator',
+        defaultValue:TreeView.INDICATOR_COLLAPSED);
 
-    headerProperty = new FrameworkProperty(this, 'header', (_){}, '');
+    headerProperty = new FrameworkProperty(this, 'header', defaultValue:'');
 
     childVisibilityProperty = new FrameworkProperty(
       this,
@@ -142,7 +142,7 @@ class TreeNode extends Control implements IFrameworkContainer
       Visibility.collapsed,
       converter:const StringToVisibilityConverter());
 
-    _mouseEventStylesProperty = new FrameworkProperty(this, '_mouseEventStyles', (_){});
+    _mouseEventStylesProperty = new FrameworkProperty(this, '_mouseEventStyles');
   }
 
 

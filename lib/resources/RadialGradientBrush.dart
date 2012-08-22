@@ -42,14 +42,15 @@ class RadialGradientBrush extends Brush {
 
 
   void _initRadialGradientProperties(){
-    stopsProperty = new FrameworkProperty(this, "stops", (v){
-    }, new List<GradientStop>());
+    stopsProperty = new FrameworkProperty(this, "stops",
+        defaultValue:new List<GradientStop>());
 
-    drawModeProperty = new FrameworkProperty(this, "drawMode", (v){
-    }, RadialGradientDrawMode.contain, converter:const StringToRadialGradientDrawModeConverter());
+    drawModeProperty = new FrameworkProperty(this, "drawMode",
+        defaultValue:RadialGradientDrawMode.contain,
+        converter:const StringToRadialGradientDrawModeConverter());
 
-    fallbackColorProperty = new FrameworkProperty(this, "fallbackColor", (v){},
-      new Color.predefined(Colors.White));
+    fallbackColorProperty = new FrameworkProperty(this, "fallbackColor",
+        defaultValue:new Color.predefined(Colors.White));
   }
 
   /// Overridden [Brush] method.

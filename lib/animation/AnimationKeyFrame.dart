@@ -18,9 +18,11 @@ class AnimationKeyFrame extends TemplateObject
   }
 
   _initAnimationKeyFrameProperties(){
-    timeProperty = new FrameworkProperty(this, 'time', (_){}, converter:const StringToNumericConverter());
+    timeProperty = new FrameworkProperty(this, 'time',
+        converter:const StringToNumericConverter());
 
-    statesProperty = new FrameworkProperty(this, 'states', (_){}, new List<AnimationState>());
+    statesProperty = new FrameworkProperty(this, 'states',
+        defaultValue:new List<AnimationState>());
   }
 
   num get time() => getValue(timeProperty);

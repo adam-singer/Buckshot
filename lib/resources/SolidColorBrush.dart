@@ -20,7 +20,7 @@ class SolidColorBrush extends Brush
   }
 
   void _initSolidColorBrushProperties(){
-    colorProperty = new FrameworkProperty(this, "color", (c){});
+    colorProperty = new FrameworkProperty(this, "color");
   }
 
   set color(Color c) => setValue(colorProperty, c);

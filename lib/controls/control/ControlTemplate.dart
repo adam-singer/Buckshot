@@ -23,9 +23,10 @@ class ControlTemplate extends FrameworkResource implements IFrameworkContainer
   get content() => getValue(templateProperty);
 
   void _initializeControlTemplateProperties(){
-    controlTypeProperty = new FrameworkProperty(this, "controlType", (_){}, "");
+    controlTypeProperty = new FrameworkProperty(this, "controlType",
+        defaultValue:"");
 
-    templateProperty = new FrameworkProperty(this, "template", (_){});
+    templateProperty = new FrameworkProperty(this, "template");
 
     //key is not needed, so just shadow copy whatever the controlType is.
     new Binding(this.controlTypeProperty, this.keyProperty);

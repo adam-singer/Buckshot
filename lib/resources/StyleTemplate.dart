@@ -91,7 +91,8 @@ class StyleTemplate extends FrameworkResource
   }
 
   void _initStyleTemplateProperties(){
-    settersProperty = new FrameworkProperty(this, "setters", (v){}, new ObservableList<StyleSetter>());
+    settersProperty = new FrameworkProperty(this, "setters",
+        defaultValue:new ObservableList<StyleSetter>());
   }
 
   void _registerElement(FrameworkElement element){

@@ -12,8 +12,8 @@ class PlayAnimation extends ActionBase {
   }
 
   void _initAnimationActionProperties(){
-    animationProperty = new FrameworkProperty(this, 'animation', (_){});
-    actionProperty = new FrameworkProperty(this, 'action', (_){});
+    animationProperty = new FrameworkProperty(this, 'animation');
+    actionProperty = new FrameworkProperty(this, 'action');
   }
 
   String get animation() => getValue(animationProperty);

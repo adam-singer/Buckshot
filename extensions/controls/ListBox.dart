@@ -142,22 +142,26 @@ class ListBox extends Control implements IFrameworkContainer
   void _initListBoxProperties(){
 
     highlightColorProperty = new FrameworkProperty(this, "highlightColor", (_){
-    }, new SolidColorBrush(new Color.predefined(Colors.PowderBlue)), converter:const StringToSolidColorBrushConverter());
+    }, new SolidColorBrush(new Color.predefined(Colors.PowderBlue)),
+    converter:const StringToSolidColorBrushConverter());
 
     selectColorProperty = new FrameworkProperty(this, "selectColor", (_){
-    }, new SolidColorBrush(new Color.predefined(Colors.SkyBlue)), converter:const StringToSolidColorBrushConverter());
+    }, new SolidColorBrush(new Color.predefined(Colors.SkyBlue)),
+    converter:const StringToSolidColorBrushConverter());
 
     borderColorProperty = new FrameworkProperty(this, "borderColor", (v){
       if (_border == null) return;
       _border.borderColor = v;
-    }, new SolidColorBrush(new Color.predefined(Colors.Black)), converter:const StringToSolidColorBrushConverter());
+    }, new SolidColorBrush(new Color.predefined(Colors.Black)),
+    converter:const StringToSolidColorBrushConverter());
 
     borderThicknessProperty = new FrameworkProperty(this, "borderThickness", (v){
     }, new Thickness(1), converter:const StringToThicknessConverter());
 
     selectedItemProperty = new FrameworkProperty(this, "selectedItem", (_){});
 
-    presentationPanelProperty = new FrameworkProperty(this, "presentationPanel", (Panel p){
+    presentationPanelProperty = new FrameworkProperty(this, "presentationPanel",
+    (Panel p){
       if (_presenter == null) return;
       _presenter.presentationPanel = p;
     });
@@ -167,10 +171,14 @@ class ListBox extends Control implements IFrameworkContainer
       _presenter.itemsTemplate = value;
     });
 
-    horizontalScrollEnabledProperty = new FrameworkProperty(this, "horizontalScrollEnabled", (bool value){
-    }, false, converter:const StringToBooleanConverter());
+    horizontalScrollEnabledProperty = new FrameworkProperty(this,
+        "horizontalScrollEnabled",
+        defaultValue:false,
+        converter:const StringToBooleanConverter());
 
-    verticalScrollEnabledProperty = new FrameworkProperty(this, "verticalScrollEnabled", (bool value){
-    }, true, converter:const StringToBooleanConverter());
+    verticalScrollEnabledProperty = new FrameworkProperty(this,
+        "verticalScrollEnabled",
+        defaultValue:true,
+        converter:const StringToBooleanConverter());
   }
 }

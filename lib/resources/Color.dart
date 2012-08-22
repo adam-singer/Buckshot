@@ -57,7 +57,6 @@ class Color extends FrameworkResource
   void _initColorProperties(){
     valueProperty = new FrameworkProperty(this, "value", (String c){
       if (!c.startsWith("#") || c.length != 7){
-        db(c);
         throw const BuckshotException("Invalid color format.  Use '#rrggbb'");
       }
     }, Colors.White.toString());

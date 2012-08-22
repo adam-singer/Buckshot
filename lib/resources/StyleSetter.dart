@@ -27,8 +27,8 @@ class StyleSetter extends TemplateObject
   set property(String v) => setValue(propertyProperty, v);
 
   void _initStyleSetterProperties(){
-    valueProperty = new FrameworkProperty(this, "value", (v){});
+    valueProperty = new FrameworkProperty(this, "value");
 
-    propertyProperty = new FrameworkProperty(this, "property", (String v){});
+    propertyProperty = new FrameworkProperty(this, "property");
   }
 }

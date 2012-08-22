@@ -26,41 +26,41 @@
 class DemoViewModel extends ViewModelBase
 {
   final DemoModel model;
-  
+
   //declare our framework properties
-  FrameworkProperty timeStampProperty, 
-                    videosProperty, 
+  FrameworkProperty timeStampProperty,
+                    videosProperty,
                     colorProperty,
                     fruitProperty,
                     iconsProperty;
-  
+
   DemoViewModel()
   :
     model = new DemoModel()
   {
     _initDemoViewModelProperties();
-    
+
     // Update the timeStampProperty every second with a new timestamp.
     // Anything binding to this will get updated.
     window.setInterval(() => setValue(timeStampProperty, new Date.now().toString()), 1000);
   }
-  
+
   // Initialize the properties that we want to allow binding to.
   void _initDemoViewModelProperties(){
-            
+
     // initialize the framework properties
-    
-    timeStampProperty = new FrameworkProperty(this, "timeStamp", (v){}, new Date.now().toString());
-    
-    iconsProperty = new FrameworkProperty(this, "icons", (_){}, model.iconList);
-    
-    videosProperty = new FrameworkProperty(this, "videos", (_){}, model.videoList);
-       
-    fruitProperty = new FrameworkProperty(this, "fruit", (_){}, model.fruitList);
-    
+
+    timeStampProperty = new FrameworkProperty(this, "timeStamp", defaultValue:new Date.now().toString());
+
+    iconsProperty = new FrameworkProperty(this, "icons", defaultValue:model.iconList);
+
+    videosProperty = new FrameworkProperty(this, "videos", defaultValue:model.videoList);
+
+    fruitProperty = new FrameworkProperty(this, "fruit", defaultValue:model.fruitList);
+
     // Since colorProperty is itself a LucaObject, the framework will allow dot-notation
-    // resolution to any properties within that object as well. 
+    // resolution to any properties within that object as well.
     // ex. "color.red" or "color.orange"
-    colorProperty = new FrameworkProperty(this, "color", (_){}, model.colorClass);
+    colorProperty = new FrameworkProperty(this, "color", defaultValue:model.colorClass);
   }
 }

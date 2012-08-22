@@ -38,8 +38,8 @@ class GradientStop extends TemplateObject
   int get percent() => getValue(percentProperty);
 
   void _initGradientStopProperties(){
-    colorProperty = new FrameworkProperty(this, "color", (v){}, converter:const StringToColorConverter());
+    colorProperty = new FrameworkProperty(this, "color", converter:const StringToColorConverter());
 
-    percentProperty = new FrameworkProperty(this, "percent", (v){}, -1, converter:const StringToNumericConverter());
+    percentProperty = new FrameworkProperty(this, "percent", defaultValue:-1, converter:const StringToNumericConverter());
   }
 }

@@ -54,13 +54,19 @@ _internalChildren = new List<_GridCell>()
 {
   Browser.appendClass(rawElement, "grid");
 
-  columnDefinitionsProperty = new FrameworkProperty(this, "columnDefinitions", (ObservableList<ColumnDefinition> list){
-    _updateColumnLayout(actualWidth);
-  }, new ObservableList<ColumnDefinition>());
+  columnDefinitionsProperty = new FrameworkProperty(this,
+      "columnDefinitions",
+      (ObservableList<ColumnDefinition> list){
+        _updateColumnLayout(actualWidth);
+      },
+      new ObservableList<ColumnDefinition>());
 
-  rowDefinitionsProperty = new FrameworkProperty(this, "rowDefinitions", (ObservableList<RowDefinition> list){
-    _updateRowLayout(actualHeight);
-  }, new ObservableList<RowDefinition>());
+  rowDefinitionsProperty = new FrameworkProperty(this,
+      "rowDefinitions",
+      (ObservableList<RowDefinition> list){
+        _updateRowLayout(actualHeight);
+      },
+      new ObservableList<RowDefinition>());
 
   children.listChanged + _onChildrenChanging;
 

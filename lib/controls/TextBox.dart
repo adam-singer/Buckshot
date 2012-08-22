@@ -39,7 +39,8 @@ class TextBox extends Control
       if (InputTypes._isValidInputType(value)){
         rawElement.attributes["type"] = value.toString();
       }else{
-        throw new BuckshotException("Invalid input '${value}' type passed to TextBox.inputType. Use InputTypes.{type} for safe assignment.");
+        throw new BuckshotException("Invalid input '${value}' type passed to"
+        " TextBox.inputType. Use InputTypes.{type} for safe assignment.");
       }
     }, InputTypes.text, converter:const StringToInputTypesConverter());
   }

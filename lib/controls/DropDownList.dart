@@ -24,13 +24,16 @@ class DropDownList extends Control
   }
 
   void _initDropDownListProperties(){
-    itemsProperty = new FrameworkProperty(this, "items", (ObservableList<DropDownItem> v){}, new ObservableList<DropDownItem>());
+    itemsProperty = new FrameworkProperty(this, "items",
+        defaultValue:new ObservableList<DropDownItem>());
 
-    itemsSourceProperty = new FrameworkProperty(this, "itemsSource", (List<String> v){
-      _updateDDL();
-    });
+    itemsSourceProperty = new FrameworkProperty(this, "itemsSource",
+        (List<String> v){
+          _updateDDL();
+        });
 
-    selectedItemProperty = new FrameworkProperty(this, "selectedItem", (DropDownItem v){}, new DropDownItem());
+    selectedItemProperty = new FrameworkProperty(this, "selectedItem",
+        defaultValue:new DropDownItem());
 
     items.listChanged + (_, __) {
       if (!_isLoaded) return;

@@ -6,25 +6,25 @@
 * Provides a dynamic resource for statically binding virtually anything to a [FrameworkProperty].
 *
 * ## Template Example Usage
-*    <resourcecollection>
-*        <!-- simple values -->
-*        <var key="stringresource" value="hello world!"></var>
-*        <var key="numericresource" value="150"></var>
-*        <var key="urlresource" value="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></var>
+*     <resourcecollection>
+*         <!-- simple values -->
+*         <var key="stringresource" value="hello world!"></var>
+*         <var key="numericresource" value="150"></var>
+*         <var key="urlresource" value="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></var>
 *
-*        <!-- objects (templates, if you will) -->
-*        <var key="contentresource">
-*            <stackpanel>
-*               <textblock text="line 1"></textblock>
-*               <textblock text="line 2"></textblock>
-*            </stackpanel>
-*        </var>
-*    </resourcecollection>
+*         <!-- objects (templates, if you will) -->
+*         <var key="contentresource">
+*             <stackpanel>
+*                <textblock text="line 1"></textblock>
+*                <textblock text="line 2"></textblock>
+*             </stackpanel>
+*         </var>
+*     </resourcecollection>
 *
-*    <!-- Now we can bind to the resources in various ways... -->
-*    <textblock text="{resource stringresource}"></textblock>
-*    <image alt="image test" sourceuri="{resource urlresource}"></image>
-*    <border background="Orange" width="{resource numericresource}" content="{resource contentresource}"></border>
+*     <!-- Now we can bind to the resources in various ways... -->
+*     <textblock text="{resource stringresource}"></textblock>
+*     <image alt="image test" sourceuri="{resource urlresource}"></image>
+*     <border background="Orange" width="{resource numericresource}" content="{resource contentresource}"></border>
 *
 * ## See Also
 * * [StyleTemplate]
@@ -48,7 +48,7 @@ class Var extends FrameworkResource implements IFrameworkContainer
   get content() => value;
 
   void _initVarProperties(){
-    valueProperty = new FrameworkProperty(this, "value", (Dynamic v){}, null);
+    valueProperty = new FrameworkProperty(this, "value", defaultValue:null);
   }
 
   Dynamic get value() => getValue(valueProperty);

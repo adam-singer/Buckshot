@@ -66,7 +66,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
 
     }, new StackPanel());
 
-    itemsTemplateProperty = new FrameworkProperty(this, "itemsTemplate", (_){});
+    itemsTemplateProperty = new FrameworkProperty(this, "itemsTemplate");
   }
 
   /// Gets the [presentationPanelProperty] value.

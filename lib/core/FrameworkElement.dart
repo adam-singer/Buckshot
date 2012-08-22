@@ -139,19 +139,23 @@ class FrameworkElement extends FrameworkObject {
         ''');
     }
 
-    actionsProperty = new FrameworkProperty(this, 'actions', (ObservableList<ActionBase> aList){
-      if (actionsProperty != null){
-        throw const BuckshotException('FrameworkElement.actionsProperty collection can only be assigned once.');
-      }
+    actionsProperty = new FrameworkProperty(this, 'actions',
+        (ObservableList<ActionBase> aList){
+          if (actionsProperty != null){
+            throw const BuckshotException('FrameworkElement.actionsProperty'
+                ' collection can only be assigned once.');
+          }
 
-      aList.listChanged + (_, ListChangedEventArgs args){
-        if (args.oldItems.length > 0) throw const BuckshotException('Actions cannot be removed once added to the collection.');
+          aList.listChanged + (_, ListChangedEventArgs args){
+            if (args.oldItems.length > 0)
+              throw const BuckshotException('Actions cannot be removed once'
+                  ' added to the collection.');
 
-        //assign this element as the source to any new actions
-        args.newItems.forEach((ActionBase action){
-          setValue(action._sourceProperty, this);
-        });
-      };
+            //assign this element as the source to any new actions
+            args.newItems.forEach((ActionBase action){
+              setValue(action._sourceProperty, this);
+            });
+        };
     }, new ObservableList<ActionBase>());
 
 
@@ -226,7 +230,8 @@ class FrameworkElement extends FrameworkObject {
         if (value == Visibility.visible){
           rawElement.style.visibility = '$value';
 
-          rawElement.style.display =  stateBag["display"] == null ? "inherit" : stateBag["display"];
+          rawElement.style.display =
+              stateBag["display"] == null ? "inherit" : stateBag["display"];
           stateBag.remove("display");
         }else{
           //preserve in case some element is using "inline" or some other fancy display value

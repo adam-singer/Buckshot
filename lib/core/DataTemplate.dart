@@ -58,21 +58,24 @@ class DataTemplate extends BuckshotObject{
       throw new BuckshotException("Property name '${propertyName}' already exists in DataTemplate properties.");
 
     if (defaultData == null && changedCallback == null){
-      _properties[propertyName] = new FrameworkProperty(this, propertyName, (_){});
+      _properties[propertyName] = new FrameworkProperty(this, propertyName);
       return;
     }
 
     if (defaultData != null && changedCallback == null){
-      _properties[propertyName] = new FrameworkProperty(this, propertyName, (_){}, defaultData);
+      _properties[propertyName] = new FrameworkProperty(this, propertyName,
+          defaultValue:defaultData);
       return;
     }
 
     if (defaultData == null && changedCallback != null){
-      _properties[propertyName] = new FrameworkProperty(this, propertyName, changedCallback);
+      _properties[propertyName] = new FrameworkProperty(this, propertyName,
+          changedCallback);
       return;
     }
 
     //defaultData != null && changedCallback != null
-    _properties[propertyName] = new FrameworkProperty(this, propertyName, changedCallback, defaultData);
+    _properties[propertyName] = new FrameworkProperty(this, propertyName,
+        changedCallback, defaultValue:defaultData);
   }
 }

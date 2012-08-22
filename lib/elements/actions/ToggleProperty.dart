@@ -19,10 +19,10 @@ class ToggleProperty extends ActionBase
   }
 
   void _initTogglePropertyActionProperties(){
-    targetProperty = new FrameworkProperty(this, 'target', (_){});
-    propertyProperty = new FrameworkProperty(this, 'property', (_){});
-    firstValueProperty = new FrameworkProperty(this, 'firstValue', (_){});
-    secondValueProperty = new FrameworkProperty(this, 'secondValue', (_){});
+    targetProperty = new FrameworkProperty(this, 'target');
+    propertyProperty = new FrameworkProperty(this, 'property');
+    firstValueProperty = new FrameworkProperty(this, 'firstValue');
+    secondValueProperty = new FrameworkProperty(this, 'secondValue');
   }
 
   String get target() => getValue(targetProperty);
@@ -40,7 +40,8 @@ class ToggleProperty extends ActionBase
   void onEventTrigger(){
 
     //TODO throw?
-    if (target == null || property == null || firstValue == null || secondValue == null) return;
+    if (target == null || property == null
+        || firstValue == null || secondValue == null) return;
 
     var el = buckshot.namedElements[target];
 

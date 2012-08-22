@@ -136,7 +136,8 @@ class TreeView extends Panel
     borderThicknessProperty = new FrameworkProperty(
       this,
       "borderThickness",
-      (value){
+      propertyChangedCallback:
+        (value){
 
         String color = borderColor != null ? rawElement.style.borderColor : Colors.White.toString();
 
@@ -147,7 +148,9 @@ class TreeView extends Panel
         rawElement.style.borderLeft = 'solid ${value.left}px $color';
         rawElement.style.borderBottom = 'solid ${value.bottom}px $color';
 
-      }, new Thickness(0), converter:const StringToThicknessConverter());
+      },
+      defaultValue:new Thickness(0),
+      converter:const StringToThicknessConverter());
 
   }
 

@@ -52,12 +52,10 @@ class GridLength extends FrameworkObject{
   set value(num v) => setValue(valueProperty, v);
 
   void _initGridUnitTypeProperties(){
-    gridUnitTypeProperty = new FrameworkProperty(this, "gridUnitType", (GridUnitType v){
+    gridUnitTypeProperty = new FrameworkProperty(this,
+        "gridUnitType",
+        defaultValue:GridUnitType.auto);
 
-    }, GridUnitType.auto);
-
-    valueProperty = new FrameworkProperty(this, "value", (num v){
-
-    }, -1);
+    valueProperty = new FrameworkProperty(this, "value", defaultValue:-1);
   }
 }
