@@ -38,10 +38,10 @@ class DemoModel {
                 ];
 
     videoList = [
+                 new DataTemplate.fromMap({"Title":"Buckshot Templates",  "Description":"The Buckshot Template System.", "Hash":"LOacOkmd9FI"}),
                  new DataTemplate.fromMap({"Title":"Buckshot Resources",          "Description":"An overview of Buckshot Resource Binding.",   "Hash":"cFxf3OBIj8Q"}),
                  new DataTemplate.fromMap({"Title":"Buckshot Element Binding",    "Description":"An overview of Buckshot Element Binding.",    "Hash":"WC25C5AHYAI"}),
-                 new DataTemplate.fromMap({"Title":"Buckshot Control Templates",  "Description":"An overview of Buckshot Control Templates and Template Binding","Hash":"KRGvdID4rPE"}),
-                 new DataTemplate.fromMap({"Title":"Getting Started With Dart",  "Description":"A nice Dart Overview.",                      "Hash":"Gh6SO26SkO8"})
+                 new DataTemplate.fromMap({"Title":"Buckshot Control Templates",  "Description":"An overview of Buckshot Control Templates and Template Binding","Hash":"KRGvdID4rPE"})
                ];
   }
 }

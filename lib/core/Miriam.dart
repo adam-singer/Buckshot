@@ -87,27 +87,4 @@ class Miriam
 
     return result;
   }
-
-
-  /**
-  * Returns a list of Futures for any Types where the type subclasses from
-  * the given list [subclassingFrom].  Optionally, may further restrict the
-  * query by providing a list of library names. */
-  List<Future> getInstancesOf(List<String> subclassingFrom,
-      [List<String> onlyFromLibraries]){
-    var flist = [];
-
-    _mirror.libraries.forEach((String lName, LibraryMirror libMirror){
-      libMirror.classes.forEach((String cName, ClassMirror classMirror){
-
-        if(derivesFrom(classMirror, subclassingFrom))
-        {
-          print('registering ${classMirror}!');
-          flist.add(classMirror.newInstance('', []));
-        }
-      });
-    });
-
-    return flist;
-  }
 }
