@@ -8,6 +8,8 @@
 class BuckshotObject extends HashableObject{
   final HashMap<String, Dynamic> stateBag;
   final List<Binding> _bindings;
+
+  //TODO: remove once reflection handles all FrameworkProperty resolution
   final Set<FrameworkProperty> _frameworkProperties;
 
   BuckshotObject():
@@ -64,8 +66,9 @@ class BuckshotObject extends HashableObject{
 
 
     if (!found){
-      if (classMirror.superclass.simpleName != 'BuckshotObject'
-          && classMirror.superclass.simpleName != 'Object'){
+      if (classMirror.superclass.simpleName != 'BuckshotObject')
+//          && classMirror.superclass.simpleName != 'Object')
+      {
         _getPropertyNameInternal(propertyName, classMirror.superclass)
           .then((result) => c.complete(result));
       }else{
@@ -76,7 +79,6 @@ class BuckshotObject extends HashableObject{
       buckshot.miriam.mirrorOf(this)
         .getField(name)
         .then((im){
-//          print('>>> $this $im $name');
           c.complete(im.reflectee);
         });
     }
@@ -200,14 +202,4 @@ class BuckshotObject extends HashableObject{
 //
 //  }
 
-
-  /*
-   * Lowers = higher priority
-   * Resources = 5
-   * TemplateObject = 10
-   * Core FrameworkElements = 15
-   * Core Controls = 20
-   * External Controls = 100
-   */
-  int _templatePriority() => 100;
 }
