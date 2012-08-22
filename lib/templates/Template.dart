@@ -136,7 +136,7 @@ class Template {
       //TODO cache...
 
       var c = new Completer();
-      var r = new XMLHttpRequest();
+      var r = new HttpRequest();
       r.on.readyStateChange.add((e){
         if (r.readyState != 4){
           c.complete(null);

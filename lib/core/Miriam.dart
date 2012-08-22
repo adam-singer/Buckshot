@@ -42,10 +42,10 @@ class Miriam
    */
   bool derivesFrom(ClassMirror im, List<String> classNames){
     if (classNames.indexOf(im.simpleName) > -1) return true;
-    if (im.superclass() == null ||
-        im.superclass().simpleName == 'Object') return false;
+    if (im.superclass == null ||
+        im.superclass.simpleName == 'Object') return false;
 
-    return derivesFrom(im.superclass(), classNames);
+    return derivesFrom(im.superclass, classNames);
   }
 
   /**
@@ -97,8 +97,8 @@ class Miriam
       [List<String> onlyFromLibraries]){
     var flist = [];
 
-    _mirror.libraries().forEach((String lName, LibraryMirror libMirror){
-      libMirror.classes().forEach((String cName, InterfaceMirror classMirror){
+    _mirror.libraries.forEach((String lName, LibraryMirror libMirror){
+      libMirror.classes.forEach((String cName, ClassMirror classMirror){
 
         if(derivesFrom(classMirror, subclassingFrom))
         {
