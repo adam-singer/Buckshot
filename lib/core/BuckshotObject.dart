@@ -25,10 +25,50 @@ class BuckshotObject extends HashableObject{
       _frameworkProperties.some((FrameworkProperty p) =>
           p.propertyName.toLowerCase() == propertyName.toLowerCase());
 
-  /// A [Future] that returns a [FrameworkProperty] matching the given
-  /// [propertyName].
-  Future<FrameworkProperty> getPropertyByName(String propertyName) =>
-      _functionToFuture(() => _getPropertyByName(propertyName));
+
+  /**
+   *  A [Future] that returns a [FrameworkProperty] matching the given
+   * [propertyName].
+   *
+   * Case Insensitive.
+   */
+  Future<FrameworkProperty> getPropertyByName(String propertyName){
+    final c = new Completer();
+
+    final m = buckshot.miriam.mirrorOf(this);
+
+    var name = '';
+
+    final found = m
+                   .type
+                   .variables
+                   .getKeys()
+                   .some((k){
+                     if (!(k.endsWith('Property'))) return false;
+                     final str = k.replaceAll('Property','').toLowerCase();
+                     if (str == propertyName){
+                       if (name != ''){
+                         throw const BuckshotException('duplicate property names.');
+                       }
+                       name = k;
+                       return true;
+                     }else{
+                       return false;
+                     }
+                     return str == propertyName;
+                   });
+
+
+    if (!found){
+      c.complete(null);
+    }else{
+      m.getField(name).then((im){
+        c.complete(im.reflectee);
+      });
+    }
+
+    return c.future;
+  }
 
   FrameworkProperty _getPropertyByName(String propertyName){
     Collection<FrameworkProperty> result =
@@ -55,7 +95,6 @@ class BuckshotObject extends HashableObject{
    * along until the last dot property is resolved, and then return it.
    */
   FrameworkProperty resolveProperty(String propertyNameChain){
-    //TODO Make this a Future<FrameworkProperty> instead?
     return BuckshotObject._resolvePropertyInternal(this, propertyNameChain.trim().split('.'));
   }
 
@@ -70,13 +109,13 @@ class BuckshotObject extends HashableObject{
   static FrameworkProperty _resolvePropertyInternal(
                                     BuckshotObject currentObject,
                                     List<String> propertyChain){
-    FrameworkProperty prop = currentObject._getPropertyByName(propertyChain[0]);
+    final prop = currentObject._getPropertyByName(propertyChain[0]);
 
     // couldn't resolve current property name to a property
     if (prop == null){
       db('property resolution err: ${propertyChain[0]}');
       throw new FrameworkPropertyResolutionException('Unable to resolve'
-        ' FrameworkProperty: "${propertyChain[0]}".');
+          ' FrameworkProperty: "${propertyChain[0]}".');
     }
 
     // Mmore properties in the chain, but cannot resolve further.
@@ -86,8 +125,8 @@ class BuckshotObject extends HashableObject{
     // TODO: Return null instead?
     if (prop.value is! BuckshotObject && propertyChain.length > 1)
       throw const FrameworkPropertyResolutionException('Unable to resolve'
-        ' further.  Remaining properties in the chain while current property'
-        ' value is not a BuckshotObject');
+          ' further.  Remaining properties in the chain while current property'
+      ' value is not a BuckshotObject');
 
     // return the property if there are no further names to resolve or the property
     // is not a BuckshotObject
@@ -95,6 +134,7 @@ class BuckshotObject extends HashableObject{
 
     // recurse down to the next BuckshotObject and property name
     return _resolvePropertyInternal(prop.value, propertyChain.getRange(1, propertyChain.length - 1));
+
   }
 
 

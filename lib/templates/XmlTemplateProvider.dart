@@ -98,17 +98,17 @@ class XmlTemplateProvider implements IPresentationFormatProvider
 
   Future processProperty(ofElement, ofXMLNode){
     final c = new Completer();
-    final String elementLowerTagName = ofXMLNode.name.toLowerCase();
+    final String lowered = ofXMLNode.name.toLowerCase();
 
     //property node
 
-    final p = ofElement._getPropertyByName(elementLowerTagName);
+    final p = ofElement._getPropertyByName(lowered);
 
     if (p == null) throw new PresentationProviderException("Property node"
-        " name '${elementLowerTagName}' is not a valid"
+        " name '${lowered}' is not a valid"
         " property of ${ofElement.type}.");
 
-    if (elementLowerTagName == "itemstemplate"){
+    if (lowered == "itemstemplate"){
       //accomodation for controls that use itemstemplates...
       if (ofXMLNode.children.length != 1){
         throw const PresentationProviderException('ItemsTemplate'

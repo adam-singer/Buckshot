@@ -84,7 +84,6 @@ void setValue(FrameworkProperty property, Dynamic value)
      value = property.stringToValueConverter.convert(value);
    }
 
-
    if (property.value == value) return;
 
     property._previousValue = property.value;

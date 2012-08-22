@@ -33,6 +33,6 @@ class FrameworkPropertyBase extends HashableObject{
   FrameworkPropertyBase(this.sourceObject, this.propertyName, callback, [this.stringToValueConverter = null]) :
    propertyChanging = new FrameworkEvent<PropertyChangingEventArgs>(),
    propertyChangedCallback = (callback == null ? (_){} : callback);
-
-   String toString() => '(${sourceObject}) $propertyName';
+//
+//   String toString() => '(${sourceObject}) $propertyName';
 }
