@@ -56,6 +56,4 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
   get content() => getValue(contentProperty);
   /// Sets the [contentProperty] value.
   set content(value) => setValue(contentProperty, value);
-
-  String get type() => "ContentPresenter";
 }

@@ -30,9 +30,7 @@
 #source('DemoViewModel.dart');
 #source('DemoModel.dart');
 
-
 void main() {
-
   // create our main view and error view
 
   var dummy = buckshot.isContainer;

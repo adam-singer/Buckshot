@@ -64,8 +64,6 @@ class Shape extends FrameworkElement
 
   abstract String get shapeTag();
 
-  String get type() => 'Shape';
-
   void createElement(){
     rawElement = new DivElement();
 //

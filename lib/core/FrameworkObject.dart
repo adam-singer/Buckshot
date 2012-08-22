@@ -366,6 +366,4 @@ class FrameworkObject extends BuckshotObject {
   /// visual layout.
   void updateLayout(){}
 
-  String get type() => "FrameworkObject";
-
 }

@@ -52,6 +52,4 @@ class RowDefinition extends GridLayoutDefinition{
   set height(GridLength v) => setValue(heightProperty, v);
   /// Gets the [heightProperty] value.
   GridLength get height() => getValue(heightProperty);
-
-  String get type() => "RowDefinition";
 }

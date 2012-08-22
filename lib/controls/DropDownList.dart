@@ -93,8 +93,6 @@ class DropDownList extends Control
   void createElement(){
     rawElement = new Element.tag('select');
   }
-
-  String get type() => "DropDownList";
 }
 
 
@@ -118,9 +116,4 @@ class DropDownItem extends TemplateObject
 
   Dynamic get value() => getValue(valueProperty);
   set value(Dynamic v) => setValue(valueProperty, v);
-
-
-  String get type() => "DropDownItem";
-
-  int _templatePriority() => 20;
 }

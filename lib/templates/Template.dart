@@ -72,11 +72,15 @@ class Template {
   /**
    * Returns the first parent that matches the given [type].  Returns
    * null if parent not found in visual tree.
+   *
+   * Case sensitive.
    */
   static FrameworkElement findParentByType(FrameworkElement element, String type){
     if (element.parent == null) return null;
 
-    if (element.parent.type != type){
+    final m = buckshot.miriam.mirrorOf(element.parent);
+
+    if (m.type.simpleName != type){
       return findParentByType(element.parent, type);
     }
 

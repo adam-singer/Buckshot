@@ -190,6 +190,4 @@ class TreeNode extends Control implements IFrameworkContainer
         </controltemplate>
     ''';
   }
-
-  String get type() => "TreeNode";
 }

@@ -188,9 +188,6 @@ class TreeView extends Panel
     rawElement.style.overflowX = "auto";
     rawElement.style.overflowY = "auto";
   }
-
-  // Identity reflection
-  String get type() => "TreeView";
 }
 
 

@@ -88,10 +88,6 @@ class TextBox extends Control
     rawElement = new InputElement();
     rawElement.attributes["type"] = "text";
   }
-
-  String get type() => "TextBox";
-
-  int _templatePriority() => 20;
 }
 
 class InputTypes{

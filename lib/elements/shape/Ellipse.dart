@@ -48,6 +48,4 @@ class Ellipse extends Shape{
   }
 
   String get shapeTag() => 'ellipse';
-
-  String get type() => 'Ellipse';
 }

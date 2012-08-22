@@ -46,6 +46,4 @@ class SetProperty extends ActionBase
 
     setValue(prop, value);
   }
-
-  String get type() => "SetProperty";
 }

@@ -157,9 +157,6 @@ class Binding extends BuckshotObject
           binding.unregister();
     });
   }
-
-  String get type() => "Binding";
-
 }
 
 

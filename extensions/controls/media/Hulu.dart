@@ -71,6 +71,4 @@ class Hulu extends FrameworkElement
     rawElement.nodes.add(param2);
     rawElement.nodes.add(embed);
   }
-
-  String get type() => "Hulu";
 }

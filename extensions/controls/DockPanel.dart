@@ -193,8 +193,6 @@ class DockPanel extends Panel
     Polly.setVerticalFlexBoxAlignment(this, VerticalAlignment.stretch);
     Polly.setHorizontalFlexBoxAlignment(this, HorizontalAlignment.stretch);
   }
-
-  String get type() => 'DockPanel';
 }
 
 
@@ -279,6 +277,4 @@ class _DockPanelCell extends FrameworkElement
     Polly.setFlexboxAlignment(content);
     content.parent = parent;
   }
-
-  String get type() => "_DockPanelCell";
 }

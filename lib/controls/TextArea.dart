@@ -84,8 +84,4 @@ class TextArea extends Control
   void createElement(){
     rawElement = new TextAreaElement();
   }
-
-  String get type() => "TextArea";
-
-  int _templatePriority() => 20;
 }

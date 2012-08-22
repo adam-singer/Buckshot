@@ -173,7 +173,4 @@ class ListBox extends Control implements IFrameworkContainer
     verticalScrollEnabledProperty = new FrameworkProperty(this, "verticalScrollEnabled", (bool value){
     }, true, converter:const StringToBooleanConverter());
   }
-
-
-  String get type() => "ListBox";
 }

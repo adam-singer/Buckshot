@@ -125,7 +125,4 @@ class ActionBase extends TemplateObject {
       _target = el;
     }
   }
-
-  String get type() => "ActionBase";
-
 }

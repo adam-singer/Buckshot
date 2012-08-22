@@ -4,11 +4,9 @@
 /**
 * A base class for brush objects. */
 class Brush extends FrameworkResource
-{ 
- 
+{
+
   /**
   * Renders the brush output to the given [Element].*/
   abstract void renderBrush(Element component);
- 
-  String get type() => "Brush";
 }

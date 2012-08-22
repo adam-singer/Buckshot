@@ -42,6 +42,4 @@ class GradientStop extends TemplateObject
 
     percentProperty = new FrameworkProperty(this, "percent", (v){}, -1, converter:const StringToNumericConverter());
   }
-
-  String get type() => "GradientStop";
 }

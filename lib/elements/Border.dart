@@ -172,7 +172,4 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
     Polly.setFlexboxAlignment(content);
   }
-
-
-  String get type() => "Border";
 }

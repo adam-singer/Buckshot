@@ -53,6 +53,4 @@ class Var extends FrameworkResource implements IFrameworkContainer
 
   Dynamic get value() => getValue(valueProperty);
   set value(Dynamic c) => setValue(valueProperty, c);
-
-  String get type() => "Var";
 }

@@ -30,8 +30,6 @@ class SolidColorBrush extends Brush
     element.style.background = "${color}";
 //    element.style.setProperty('fill', "${color}");
   }
-
-  String get type() => "SolidColorBrush";
 }
 
 

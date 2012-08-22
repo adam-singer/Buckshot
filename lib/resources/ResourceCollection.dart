@@ -28,6 +28,4 @@ class ResourceCollection extends FrameworkResource implements IFrameworkContaine
       });
     }
   }
-
-  String get type() => "ResourceCollection";
 }

@@ -63,8 +63,6 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
   /// Gets the [backgroundProperty] value.
   Brush get background() => getValue(backgroundProperty);
 
-  String get type() => "Panel";
-
   /// Overridden [FrameworkObject] method.
   void createElement(){
     rawElement = new DivElement();

@@ -65,8 +65,4 @@ class Button extends Control implements IFrameworkContainer
     rawElement = new ButtonElement();
     rawElement.style.display = 'block';
   }
-
-  String get type() => "Button";
-
-  int _templatePriority() => 20;
 }

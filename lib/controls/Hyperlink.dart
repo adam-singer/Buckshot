@@ -136,8 +136,4 @@ class Hyperlink extends Control implements IFrameworkContainer
     //TODO find correct constructor for 'a'.
     rawElement = new Element.tag('a');
   }
-
-  String get type() => "Hyperlink";
-
-  int _templatePriority() => 20;
 }

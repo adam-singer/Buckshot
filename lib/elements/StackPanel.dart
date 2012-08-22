@@ -5,10 +5,7 @@
 /**
  * Alias element for [StackPanel].  Provides a shortened name in templates.
  */
-class Stack extends StackPanel
-{
-  String get type() => "Stack";
-}
+class Stack extends StackPanel { }
 
 /**
 * Provides a container that stacks child elements vertically or horizontally. */
@@ -77,6 +74,4 @@ class StackPanel extends Panel
       });
     }
   }
-
-  String get type() => "StackPanel";
 }

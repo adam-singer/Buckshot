@@ -72,8 +72,6 @@ class PlusOne extends FrameworkElement
     rawElement.attributes["annotation"] = "none";
     rawElement.attributes["size"] = "standard";
   }
-
-  String get type() => "PlusOne";
 }
 
 class PlusOneButtonSizes{

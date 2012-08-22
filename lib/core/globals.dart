@@ -131,7 +131,7 @@ db(String message, [FrameworkObject element]){
     print(message);
     return;
   }
-  print("[${element.type}(${element.name})] $message");
+  print("[${buckshot.miriam.mirrorOf(element).type.simpleName}(${element.name})] $message");
 }
 
 

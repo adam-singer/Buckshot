@@ -107,8 +107,4 @@ class BuckshotObject extends HashableObject{
    * External Controls = 100
    */
   int _templatePriority() => 100;
-
-  abstract String get type();
-
-  String toString() => type;
 }

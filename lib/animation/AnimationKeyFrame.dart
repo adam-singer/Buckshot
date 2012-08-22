@@ -28,6 +28,4 @@ class AnimationKeyFrame extends TemplateObject
 
   List<AnimationState> get states() => getValue(statesProperty);
   set states(List<AnimationState> v) => setValue(statesProperty, v);
-
-  String get type() => 'AnimationKeyFrame';
 }

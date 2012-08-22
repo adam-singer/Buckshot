@@ -8,6 +8,4 @@ class MeasurementChangedEventArgs extends EventArgs {
   final ElementRect newMeasurement;
 
   MeasurementChangedEventArgs(this.oldMeasurement, this.newMeasurement);
-
-  String get type() => "MeasurementChangedEventArgs";
 }

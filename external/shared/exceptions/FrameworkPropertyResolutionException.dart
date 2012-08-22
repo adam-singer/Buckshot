@@ -12,8 +12,6 @@ class FrameworkPropertyResolutionException implements Exception
 {
   /// The description of the exception that occurred.
   final String message;
-  
+
   const FrameworkPropertyResolutionException(String this.message);
-  
-  String get _type() => "FrameworkPropertyResolutionException";
 }

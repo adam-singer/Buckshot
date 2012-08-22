@@ -337,124 +337,122 @@ void _updateRowLayout(num gridHeight){
 
 //attached properties
 
-/**
-* Attaches a [column] value to the given [element].
-* This will be used later by Grid to layout the element at the correct location. */
-static void setColumn(FrameworkElement element, column){
-  if (element == null) return;
+  /**
+  * Attaches a [column] value to the given [element].
+  * This will be used later by Grid to layout the element at the correct location. */
+  static void setColumn(FrameworkElement element, column){
+    if (element == null) return;
 
-  assert(column is String || column is num);
+    assert(column is String || column is num);
 
-  column = const StringToNumericConverter().convert(column);
+    column = const StringToNumericConverter().convert(column);
 
-  if (column < 0) column = 0;
+    if (column < 0) column = 0;
 
-  if (Grid.columnProperty == null){
-    Grid.columnProperty = new AttachedFrameworkProperty("column", (FrameworkElement e, num value){
-    });
+    if (Grid.columnProperty == null){
+      Grid.columnProperty = new AttachedFrameworkProperty("column", (FrameworkElement e, num value){
+      });
+    }
+
+    FrameworkObject.setAttachedValue(element, columnProperty, column);
   }
 
-  FrameworkObject.setAttachedValue(element, columnProperty, column);
-}
 
+  static num getColumn(FrameworkElement element){
+    if (element == null) return 0;
 
-static num getColumn(FrameworkElement element){
-  if (element == null) return 0;
+    var value = FrameworkObject.getAttachedValue(element, Grid.columnProperty);
 
-  var value = FrameworkObject.getAttachedValue(element, Grid.columnProperty);
+    if (Grid.columnProperty == null || value == null)
+      Grid.setColumn(element, 0);
 
-  if (Grid.columnProperty == null || value == null)
-    Grid.setColumn(element, 0);
-
-  return FrameworkObject.getAttachedValue(element, columnProperty);
-}
-
-static void setRow(FrameworkElement element, row){
-  if (element == null) return;
-
-  assert(row is String || row is num);
-
-  row = const StringToNumericConverter().convert(row);
-
-  if (row < 0) row = 0;
-
-  if (Grid.rowProperty == null){
-    Grid.rowProperty = new AttachedFrameworkProperty("row", (FrameworkElement e, num value){
-
-    });
+    return FrameworkObject.getAttachedValue(element, columnProperty);
   }
 
-  FrameworkObject.setAttachedValue(element, rowProperty, row);
-}
+  static void setRow(FrameworkElement element, row){
+    if (element == null) return;
 
-static num getRow(FrameworkElement element){
-  if (element == null) return 0;
+    assert(row is String || row is num);
 
-  var value = FrameworkObject.getAttachedValue(element, Grid.rowProperty);
+    row = const StringToNumericConverter().convert(row);
 
-  if (Grid.rowProperty == null || value == null)
-    Grid.setRow(element, 0);
+    if (row < 0) row = 0;
 
-  return FrameworkObject.getAttachedValue(element, rowProperty);
-}
+    if (Grid.rowProperty == null){
+      Grid.rowProperty = new AttachedFrameworkProperty("row", (FrameworkElement e, num value){
 
-static void setColumnSpan(FrameworkElement element, columnSpan){
-  if (element == null) return;
+      });
+    }
 
-  assert(columnSpan is String || columnSpan is num);
-
-  columnSpan = const StringToNumericConverter().convert(columnSpan);
-
-  if (columnSpan < 0) columnSpan = 0;
-
-  if (Grid.columnSpanProperty == null){
-    Grid.columnSpanProperty = new AttachedFrameworkProperty("columnSpan", (FrameworkElement e, num value){
-
-    });
+    FrameworkObject.setAttachedValue(element, rowProperty, row);
   }
 
-  FrameworkObject.setAttachedValue(element, columnSpanProperty, columnSpan);
-}
+  static num getRow(FrameworkElement element){
+    if (element == null) return 0;
 
-static num getColumnSpan(FrameworkElement element){
-  if (element == null) return 0;
+    var value = FrameworkObject.getAttachedValue(element, Grid.rowProperty);
 
-  var value = FrameworkObject.getAttachedValue(element, Grid.columnSpanProperty);
+    if (Grid.rowProperty == null || value == null)
+      Grid.setRow(element, 0);
 
-  if (Grid.columnSpanProperty == null || value == null)
-    Grid.setColumnSpan(element, 0);
-
-  return FrameworkObject.getAttachedValue(element, Grid.columnSpanProperty);
-}
-
-static void setRowSpan(FrameworkElement element, rowSpan){
-  if (element == null) return;
-
-  assert(rowSpan is String || rowSpan is num);
-
-  rowSpan = const StringToNumericConverter().convert(rowSpan);
-
-  if (rowSpan < 0) rowSpan = 0;
-
-  if (Grid.rowSpanProperty == null){
-    Grid.rowSpanProperty = new AttachedFrameworkProperty("rowSpan", (FrameworkElement e, num value){
-
-    });
+    return FrameworkObject.getAttachedValue(element, rowProperty);
   }
 
-  FrameworkObject.setAttachedValue(element, rowSpanProperty, rowSpan);
-}
+  static void setColumnSpan(FrameworkElement element, columnSpan){
+    if (element == null) return;
 
-static num getRowSpan(FrameworkElement element){
-  if (element == null) return 0;
+    assert(columnSpan is String || columnSpan is num);
 
-  var value = FrameworkObject.getAttachedValue(element, Grid.rowSpanProperty);
+    columnSpan = const StringToNumericConverter().convert(columnSpan);
 
-  if (Grid.rowSpanProperty == null || value == null)
-    Grid.setRowSpan(element, 0);
+    if (columnSpan < 0) columnSpan = 0;
 
-  return FrameworkObject.getAttachedValue(element, rowSpanProperty);
-}
+    if (Grid.columnSpanProperty == null){
+      Grid.columnSpanProperty = new AttachedFrameworkProperty("columnSpan", (FrameworkElement e, num value){
 
-String get type() => "Grid";
+      });
+    }
+
+    FrameworkObject.setAttachedValue(element, columnSpanProperty, columnSpan);
+  }
+
+  static num getColumnSpan(FrameworkElement element){
+    if (element == null) return 0;
+
+    var value = FrameworkObject.getAttachedValue(element, Grid.columnSpanProperty);
+
+    if (Grid.columnSpanProperty == null || value == null)
+      Grid.setColumnSpan(element, 0);
+
+    return FrameworkObject.getAttachedValue(element, Grid.columnSpanProperty);
+  }
+
+  static void setRowSpan(FrameworkElement element, rowSpan){
+    if (element == null) return;
+
+    assert(rowSpan is String || rowSpan is num);
+
+    rowSpan = const StringToNumericConverter().convert(rowSpan);
+
+    if (rowSpan < 0) rowSpan = 0;
+
+    if (Grid.rowSpanProperty == null){
+      Grid.rowSpanProperty = new AttachedFrameworkProperty("rowSpan", (FrameworkElement e, num value){
+
+      });
+    }
+
+    FrameworkObject.setAttachedValue(element, rowSpanProperty, rowSpan);
+  }
+
+  static num getRowSpan(FrameworkElement element){
+    if (element == null) return 0;
+
+    var value = FrameworkObject.getAttachedValue(element, Grid.rowSpanProperty);
+
+    if (Grid.rowSpanProperty == null || value == null)
+      Grid.setRowSpan(element, 0);
+
+    return FrameworkObject.getAttachedValue(element, rowSpanProperty);
+  }
 }

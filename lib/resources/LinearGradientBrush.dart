@@ -81,6 +81,4 @@ class LinearGradientBrush extends Brush
     element.style.background = "linear-gradient(${direction.toString()}, ${colorString})";
 
   }
-
-  String get type() => "LinearGradientBrush";
 }

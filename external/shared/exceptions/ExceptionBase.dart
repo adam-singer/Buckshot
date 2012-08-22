@@ -5,8 +5,6 @@
 
 class ExceptionBase implements Exception{
   /// Description of the exception that occured.
- 
+
   const ExceptionBase([var msg]);
-  
-  String get type() => "ExceptionBase";
 }

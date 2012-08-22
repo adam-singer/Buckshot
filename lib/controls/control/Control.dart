@@ -135,9 +135,7 @@ class Control extends FrameworkElement
   }
 
   /// Gets a standardized name for assignment to the [ControlTemplate] 'controlType' property.
-  String get templateName() => 'template_${type}';
-
-  String get type() => "Control";
+  String get templateName() => 'template_${hashCode()}';
 
   int _templatePriority() => 100;
 }

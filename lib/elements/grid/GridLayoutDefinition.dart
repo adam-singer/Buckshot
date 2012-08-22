@@ -26,6 +26,4 @@ class GridLayoutDefinition extends TemplateObject{
 
   num maxLength = 32767; //why not? ;)
   num minLength = 0;
-
-  String get type() => "GridLayoutDefinition";
 }

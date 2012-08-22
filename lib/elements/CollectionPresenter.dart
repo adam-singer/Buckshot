@@ -138,8 +138,6 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   void createElement(){
     rawElement = new DivElement();
   }
-
-  String get type() => "CollectionPresenter";
 }
 
 

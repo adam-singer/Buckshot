@@ -35,6 +35,4 @@ class YouTube extends FrameworkElement
     rawElement.attributes["type"] = "text/html";
     rawElement.attributes["frameborder"] = "0";
   }
-
-  String get type() => "YouTube";
 }

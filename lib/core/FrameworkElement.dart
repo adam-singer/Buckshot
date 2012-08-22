@@ -122,8 +122,8 @@ class FrameworkElement extends FrameworkObject {
 
     _initFrameworkProperties();
 
-    rawElement.attributes["data-buckshot-element"] = this.type;
-    rawElement.attributes['data-buckshot-id'] = '${this.hashCode()}';
+    //rawElement.attributes["data-buckshot-element"] = '$this';
+    //rawElement.attributes['data-buckshot-id'] = '${this.hashCode()}';
 
     _initFrameworkEvents();
   }
@@ -822,8 +822,4 @@ class FrameworkElement extends FrameworkObject {
 
   /// Overridden [FrameworkObject] method.
   updateLayout(){}
-
-  String get type() => "FrameworkElement";
-
-  int _templatePriority() => 15;
 }

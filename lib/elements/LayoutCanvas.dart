@@ -136,10 +136,5 @@ class LayoutCanvas extends Panel
     rawElement = new DivElement();
     rawElement.style.overflow = "hidden";
   }
-
-  /// Overridden [FrameworkObject] method.
-  updateLayout(){ }
-
-  String get type() { return "LayoutCanvas"; }
 }
 

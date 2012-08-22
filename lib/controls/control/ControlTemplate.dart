@@ -36,6 +36,4 @@ class ControlTemplate extends FrameworkResource implements IFrameworkContainer
 
   FrameworkElement get template() => getValue(templateProperty);
   set template(FrameworkElement value) => setValue(templateProperty, value);
-
-  String get type() => "ControlTemplate";
 }

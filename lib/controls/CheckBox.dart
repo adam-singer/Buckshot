@@ -65,8 +65,4 @@ class CheckBox extends Control
     rawElement.attributes["checked"] = "true";
     selectionChanged.invoke(this, new EventArgs());
   }
-
-  String get type() => "CheckBox";
-
-  int _templatePriority() => 20;
 }

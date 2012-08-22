@@ -77,8 +77,6 @@ class FrameworkProperty extends FrameworkPropertyBase
       propertyChanging.invoke(this, new PropertyChangingEventArgs(null, value));
     }
   }
-
-  String get type() => "FrameworkProperty";
 }
 
 /// A [FrameworkProperty] that supports participation in transition/animation features.
@@ -90,7 +88,4 @@ class AnimatingFrameworkProperty extends FrameworkProperty{
   {
     if (sourceObject is! FrameworkElement) throw const BuckshotException('AnimatingFrameworkProperty can only be used with elements that derive from FrameworkElement.');
   }
-
-
-  String get type() => "AnimatingFrameworkProperty";
 }

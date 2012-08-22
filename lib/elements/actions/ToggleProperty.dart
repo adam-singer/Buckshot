@@ -61,6 +61,4 @@ class ToggleProperty extends ActionBase
     setValue(prop, _currentValue);
 
   }
-
-  String get type() => "ToggleProperty";
 }

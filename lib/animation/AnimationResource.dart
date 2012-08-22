@@ -31,6 +31,4 @@ class AnimationResource extends FrameworkResource
 
   List<AnimationKeyFrame> get keyFrames() => getValue(keyFramesProperty);
   set keyFrames(List<AnimationKeyFrame> v) => setValue(keyFramesProperty, v);
-
-  String get type() => 'AnimationResource';
 }

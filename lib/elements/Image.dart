@@ -40,6 +40,4 @@ class Image extends FrameworkElement {
   void createElement(){
     rawElement = new ImageElement();
   }
-
-  String get type() => "Image";
 }

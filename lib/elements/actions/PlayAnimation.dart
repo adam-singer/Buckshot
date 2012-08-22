@@ -27,6 +27,4 @@ class PlayAnimation extends ActionBase {
 
     FrameworkAnimation.playAnimation(animation);
   }
-
-  String get type() => "PlayAnimation";
 }

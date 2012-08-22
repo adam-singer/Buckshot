@@ -54,8 +54,4 @@ class FrameworkResource extends FrameworkObject
   set key(String v) => setValue(keyProperty, v);
   /// Gets the [keyProperty] value.
   String get key() => getValue(keyProperty);
-
-  String get type() => "FrameworkResource";
-
-  int _templatePriority() => 5;
 }

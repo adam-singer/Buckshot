@@ -8,8 +8,6 @@
 class BuckshotException extends ExceptionBase
 {
   const BuckshotException([var msg]);
-  
-  String get type() => "FrameworkException";
 }
 
 

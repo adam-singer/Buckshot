@@ -33,6 +33,4 @@ class FunnyOrDie extends FrameworkElement
     rawElement = new Element.tag("iframe");
     rawElement.attributes["frameborder"] = "0";
   }
-
-  String get type() => "FunnyOrDie";
 }

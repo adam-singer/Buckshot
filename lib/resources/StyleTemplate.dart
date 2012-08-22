@@ -129,6 +129,4 @@ class StyleTemplate extends FrameworkResource
       p.sourceObject.stateBag["$stateBagPrefix${setter.property}__"] = b;
     });
   }
-
-  String get type() => "StyleTemplate";
 }

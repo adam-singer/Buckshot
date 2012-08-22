@@ -68,8 +68,4 @@ class Slider extends Control
     rawElement = new InputElement();
     rawElement.attributes["type"] = "range";
   }
-
-  String get type() => "Slider";
-
-  int _templatePriority() => 20;
 }

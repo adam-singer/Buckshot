@@ -48,7 +48,8 @@ class DemoModel {
 
 
 // a demo Buckshot object to demonstrate the dot notation resolver for properties
-class SomeColors extends BuckshotObject{
+class SomeColors extends BuckshotObject
+{
   FrameworkProperty redProperty, orangeProperty, blueProperty;
 
   SomeColors(){
@@ -56,6 +57,4 @@ class SomeColors extends BuckshotObject{
     orangeProperty = new FrameworkProperty(this, "orange", (_){}, "Orange");
     blueProperty = new FrameworkProperty(this, "blue", (_){}, "Blue");
   }
-
-  String get type() => 'SomeColors';
 }

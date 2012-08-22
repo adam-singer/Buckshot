@@ -53,6 +53,4 @@ class ColumnDefinition extends GridLayoutDefinition{
   set width(GridLength v) => setValue(widthProperty, v);
   /// Gets the [widthProperty] value.
   GridLength get width() => getValue(widthProperty);
-
-  String get type() => "ColumnDefinition";
 }

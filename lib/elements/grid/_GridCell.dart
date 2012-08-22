@@ -73,6 +73,4 @@ class _GridCell extends FrameworkObject
     Polly.setFlexboxAlignment(content);
     content.parent = parent;
   }
-
-  String get type() => "_GridCell";
 }

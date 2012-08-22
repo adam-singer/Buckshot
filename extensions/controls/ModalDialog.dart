@@ -124,9 +124,6 @@ class ModalDialog extends Control
 </controltemplate>
         ''';
   }
-
-
-  String get type() => "ModalDialog";
 }
 
 

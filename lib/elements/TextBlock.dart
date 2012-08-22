@@ -91,10 +91,4 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
   void createElement(){
     rawElement = new ParagraphElement();
   }
-
-  void updateLayout(){
-
-  }
-
-  String get type() => "TextBlock";
 }

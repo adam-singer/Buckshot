@@ -46,8 +46,4 @@ class RawHtml extends FrameworkElement
   void createElement(){
     rawElement = new DivElement();
   }
-
-  void updateLayout(){}
-
-  String get type() => "RawHtml";
 }

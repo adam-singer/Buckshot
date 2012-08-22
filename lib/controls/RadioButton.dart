@@ -53,8 +53,4 @@ class RadioButton extends Control
     rawElement.attributes["checked"] = "true";
     selectionChanged.invoke(this, new EventArgs());
   }
-
-  String get type() => "RadioButton";
-
-  int _templatePriority() => 20;
 }
