@@ -8,10 +8,11 @@ class Main extends View
     Template
       .deserialize(Template.getTemplate('#main2'))
       .then((t){
-        rootVisual = t;
         ddlMode = buckshot.namedElements['ddlMode'];
 
         final vm = new ViewModel();
+
+        rootVisual = t;
 
         // Assign the view model to the datacontext so that template
         // bindings will hook up.
