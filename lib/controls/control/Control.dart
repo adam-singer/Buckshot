@@ -125,12 +125,15 @@ class Control extends FrameworkElement
     _getAllTemplateBindings(tb, template);
 
     tb.forEach((FrameworkProperty k, String v){
-      var prop = this._getPropertyByName(v);
-      if (prop == null){
-        throw const BuckshotException('Attempted binding to null property in Control.');
-      }
+      getPropertyByName(v)
+        .then((prop){
+          if (prop == null){
+            throw const BuckshotException('Attempted binding to null property in'
+                ' Control.');
+          }
 
-        new Binding(prop, k);
+          new Binding(prop, k);
+        });
     });
   }
 

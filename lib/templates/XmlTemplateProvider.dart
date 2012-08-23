@@ -97,74 +97,76 @@ class XmlTemplateProvider implements IPresentationFormatProvider
 
     //property node
 
-    final p = ofElement._getPropertyByName(lowered);
+    ofElement.getPropertyByName(lowered)
+    .then((p){
+      if (p == null) throw new PresentationProviderException("Property node"
+          " name '${lowered}' is not a valid"
+          " property of ${ofElement.type}.");
 
-    if (p == null) throw new PresentationProviderException("Property node"
-        " name '${lowered}' is not a valid"
-        " property of ${ofElement.type}.");
-
-    if (lowered == "itemstemplate"){
-      //accomodation for controls that use itemstemplates...
-      if (ofXMLNode.children.length != 1){
-        throw const PresentationProviderException('ItemsTemplate'
-        ' can only have a single child.');
-      }
-      // defer parsing of the template xml, the template
-      // iterator should handle later.
-      setValue(p, ofXMLNode.children[0].toString());
-      c.complete(true);
-    }else{
-
-      var testValue = getValue(p);
-
-      if (testValue != null && testValue is List){
-        //complex property (list)
-
-        var fList = [];
-
-        for (final se in ofXMLNode.children){
-          fList.add(_getNextElement(se));
+      if (lowered == "itemstemplate"){
+        //accomodation for controls that use itemstemplates...
+        if (ofXMLNode.children.length != 1){
+          throw const PresentationProviderException('ItemsTemplate'
+          ' can only have a single child.');
         }
-
-        Futures
-        .wait(fList)
-        .then((results){
-          results.forEach((r){
-            testValue.add(r);
-          });
-          c.complete(true);
-        });
-
-      }else if (ofXMLNode.text.trim().startsWith("{")){
-
-        //binding or resource
-        _resolveBinding(p, ofXMLNode.text.trim());
+        // defer parsing of the template xml, the template
+        // iterator should handle later.
+        setValue(p, ofXMLNode.children[0].toString());
         c.complete(true);
       }else{
-        //property node
 
-        if (ofXMLNode.children.isEmpty()){
-          //assume text assignment
-          setValue(p, ofXMLNode.text.trim());
+        var testValue = getValue(p);
+
+        if (testValue != null && testValue is List){
+          //complex property (list)
+
+          var fList = [];
+
+          for (final se in ofXMLNode.children){
+            fList.add(_getNextElement(se));
+          }
+
+          Futures
+          .wait(fList)
+          .then((results){
+            results.forEach((r){
+              testValue.add(r);
+            });
+            c.complete(true);
+          });
+
+        }else if (ofXMLNode.text.trim().startsWith("{")){
+
+          //binding or resource
+          _resolveBinding(p, ofXMLNode.text.trim());
           c.complete(true);
         }else{
-          if (ofXMLNode.children.every((n) => n is XmlText)){
-            // text assignment to property
+          //property node
+
+          if (ofXMLNode.children.isEmpty()){
+            //assume text assignment
             setValue(p, ofXMLNode.text.trim());
             c.complete(true);
-          }else if (ofXMLNode.children.length == 1 &&
-              ofXMLNode.children[0] is! XmlText){
-
-            // node assignment to property
-
-            _getNextElement(ofXMLNode.children[0]).then((ne){
-              setValue(p, ne);
+          }else{
+            if (ofXMLNode.children.every((n) => n is XmlText)){
+              // text assignment to property
+              setValue(p, ofXMLNode.text.trim());
               c.complete(true);
-            });
+            }else if (ofXMLNode.children.length == 1 &&
+                ofXMLNode.children[0] is! XmlText){
+
+              // node assignment to property
+
+              _getNextElement(ofXMLNode.children[0]).then((ne){
+                setValue(p, ne);
+                c.complete(true);
+              });
+            }
           }
         }
       }
-    }
+
+    });
 
     return c.future;
   }

@@ -40,10 +40,12 @@ class SetProperty extends ActionBase
 
     if (el == null) return; //TODO throw?
 
-    var prop = el._getPropertyByName(property);
+    el
+      .getPropertyByName(property)
+      .then((prop){
+        if (prop == null) return;
 
-    if (prop == null) return;
-
-    setValue(prop, value);
+        setValue(prop, value);
+      });
   }
 }

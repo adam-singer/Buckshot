@@ -47,19 +47,20 @@ class ToggleProperty extends ActionBase
 
     if (el == null) return; //TODO throw?
 
-    var prop = el._getPropertyByName(property);
+    el
+      .getPropertyByName(property)
+      .then((prop){
+        if (prop == null) return;
 
-    if (prop == null) return;
+        if (_currentValue == null){
+          _currentValue = secondValue;
+          setValue(prop, secondValue);
+          return;
+        }
 
-    if (_currentValue == null){
-      _currentValue = secondValue;
-      setValue(prop, secondValue);
-      return;
-    }
+        _currentValue = (_currentValue == firstValue) ? secondValue : firstValue;
 
-    _currentValue = (_currentValue == firstValue) ? secondValue : firstValue;
-
-    setValue(prop, _currentValue);
-
+        setValue(prop, _currentValue);
+      });
   }
 }

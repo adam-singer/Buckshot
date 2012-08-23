@@ -62,6 +62,7 @@ class _CssCompiler
       //write the properties
       k.states.forEach((AnimationState s){
          _CssAnimationObject ao = animHash[s.target];
+        //TODO: Convert to async handling.  Currently broken
         AnimatingFrameworkProperty prop = ao.concreteElement._getPropertyByName(s.property);
         if (prop == null){
           throw new AnimationException('Unable to find specified property: ${s.property}');

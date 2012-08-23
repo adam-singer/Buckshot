@@ -23,9 +23,17 @@ class BuckshotObject extends HashableObject{
 
   /// Returns a boolean value indicting whether the object contains
   /// a [FrameworkProperty] by the given friendly [propertyName].
-  bool hasProperty(String propertyName) =>
-      _frameworkProperties.some((FrameworkProperty p) =>
-          p.propertyName.toLowerCase() == propertyName.toLowerCase());
+  bool hasProperty(String propertyName){
+    final classMirror = buckshot.miriam.mirrorOf(this).type;
+    return classMirror
+      .variables
+      .getKeys()
+      .some((k){
+        return '${propertyName}property' == k.toLowerCase();
+      });
+  }
+//      _frameworkProperties.some((FrameworkProperty p) =>
+//          p.propertyName.toLowerCase() == propertyName.toLowerCase());
 
 
   /**
@@ -48,24 +56,19 @@ class BuckshotObject extends HashableObject{
 
     var name = '';
 
-    final found = classMirror
-                   .variables
-                   .getKeys()
-                   .some((k){
-                     if (!(k.endsWith('Property'))) return false;
-                     final str = k.replaceAll('Property','').toLowerCase();
-                     if (str == propertyName){
-                       if (name != ''){
-                         throw const BuckshotException('duplicate property names.');
-                       }
-                       name = k;
-                       return true;
-                     }
-                     return false;
-                   });
+    classMirror
+      .variables
+      .getKeys()
+      .some((k){
+        if ('${propertyName}property' == k.toLowerCase()){
+          name = k;
+          return true;
+        }
+        return false;
+      });
 
 
-    if (!found){
+    if (name == ''){
       if (classMirror.superclass.simpleName != 'BuckshotObject')
 //          && classMirror.superclass.simpleName != 'Object')
       {
@@ -87,21 +90,51 @@ class BuckshotObject extends HashableObject{
   }
 
   FrameworkProperty _getPropertyByName(String propertyName){
-    Collection<FrameworkProperty> result =
-        _frameworkProperties.filter((FrameworkProperty p) =>
-            p.propertyName.toLowerCase() == propertyName.toLowerCase());
-
-    if (result.length == 0) return null;
-    return result.iterator().next();
+    throw const NotImplementedException('Convert to async .getPropertyName()'
+        ' instead.');
+//    Collection<FrameworkProperty> result =
+//        _frameworkProperties.filter((FrameworkProperty p) =>
+//            p.propertyName.toLowerCase() == propertyName.toLowerCase());
+//
+//    if (result.length == 0) return null;
+//    return result.iterator().next();
   }
 
 
+  /**
+   * Returns a [Future][FrameworkProperty] from a
+   * dot-notation [propertyNameChain].
+   *
+   * Property name queries are case in-sensitive.
+   *
+   * ## Examples ##
+   * * "background" - returns the 'background' FrameworkProperty of
+   *  the root [BuckshotObject].
+   * * "content.background" - returns the 'background' FrameworkProperty of
+   * the [BuckshotObject] assigned to the 'content' property.
+   *
+   * As long as a property in the dot chain is a [BuckshotObject] then
+   * resolveProperty() will continue along until the last dot property is
+   * resolved, and then return it via a [Future].
+   */
   Future<FrameworkProperty> resolveProperty(String propertyNameChain){
-    return BuckshotObject._resolvePropertyInternal(this, propertyNameChain.trim().split('.'));
+    return BuckshotObject
+              ._resolvePropertyInternal(this,
+                  propertyNameChain.trim().split('.'));
   }
 
+  /**
+   * Returns a [Future][FrameworkProperty] from the first property mentioned
+   * in a dot-notation [propertyNameChain].
+   *
+   * Property name queries are case in-sensitive.
+   *
+   * ## Examples ##
+   * * "background" - returns the 'background' FrameworkProperty of
+   *  the root [BuckshotObject].
+   * * "content.background" - returns the 'content' FrameworkProperty.
+   */
   Future<FrameworkProperty> resolveFirstProperty(String propertyNameChain){
-    //TODO Make this a Future<FrameworkProperty> instead?
     return BuckshotObject._resolvePropertyInternal(
       this,
       [propertyNameChain.trim().split('.')[0]]
@@ -116,25 +149,20 @@ class BuckshotObject extends HashableObject{
     currentObject.getPropertyByName(propertyChain[0]).then((prop){
       // couldn't resolve current property name to a property
       if (prop == null){
-        print('not found in object ${currentObject} (property null) ${propertyChain[0]}');
         c.complete(null);
       }else{
-        // Mmore properties in the chain, but cannot resolve further.
-        // (NOTE!!!) Template parser will handle this exception in certain cases.
-        // The Dart debugger currently stops on this exception even though it
-        // is handled (reported).
-        // TODO: Return null instead?
+        // More properties in the chain, but cannot resolve further.
         if (prop.value is! BuckshotObject && propertyChain.length > 1){
-          print('not found (cannot resolve further) ${propertyChain[0]}');
           c.complete(null);
         }else{
-          // return the property if there are no further names to resolve or the property
-          // is not a BuckshotObject
+          // return the property if there are no further names to resolve or
+          // the property is not a BuckshotObject
           if (prop.value is! BuckshotObject || propertyChain.length == 1){
             c.complete(prop);
           }else{
             // recurse down to the next BuckshotObject and property name
-            _resolvePropertyInternal(prop.value, propertyChain.getRange(1, propertyChain.length - 1))
+            _resolvePropertyInternal(prop.value,
+                propertyChain.getRange(1, propertyChain.length - 1))
             .then((result) => c.complete(result));
           }
         }
@@ -143,63 +171,4 @@ class BuckshotObject extends HashableObject{
 
     return c.future;
   }
-
-  /**
-   * Returns a [FrameworkProperty] from a dot-notation [propertyNameChain].
-   *
-   * Throws a [FrameworkPropertyResolutionException] if any property cannot be resolved.
-   *
-   * Property name queries are case in-sensitive.
-   *
-   * ## Examples ##
-   * * "background" - returns the 'background' FrameworkProperty of the root [BuckshotObject].
-   * * "content.background" - returns the 'background' FrameworkProperty of the [BuckshotObject] assigned
-   * to the 'content' property.
-   *
-   * As long as a property in the dot chain is a [BuckshotObject] then resolve() will continue
-   * along until the last dot property is resolved, and then return it.
-   */
-//  FrameworkProperty resolveProperty(String propertyNameChain){
-//    return BuckshotObject._resolvePropertyInternal(this, propertyNameChain.trim().split('.'));
-//  }
-//
-//  FrameworkProperty resolveFirstProperty(String propertyNameChain){
-//    //TODO Make this a Future<FrameworkProperty> instead?
-//    return BuckshotObject._resolvePropertyInternal(
-//      this,
-//      [propertyNameChain.trim().split('.')[0]]
-//      );
-//  }
-//
-//  static FrameworkProperty _resolvePropertyInternal(
-//                                    BuckshotObject currentObject,
-//                                    List<String> propertyChain){
-//    final prop = currentObject._getPropertyByName(propertyChain[0]);
-//
-//    // couldn't resolve current property name to a property
-//    if (prop == null){
-//      db('property resolution err: ${propertyChain[0]}');
-//      throw new FrameworkPropertyResolutionException('Unable to resolve'
-//          ' FrameworkProperty: "${propertyChain[0]}".');
-//    }
-//
-//    // More properties in the chain, but cannot resolve further.
-//    // (NOTE!!!) Template parser will handle this exception in certain cases.
-//    // The Dart debugger currently stops on this exception even though it
-//    // is handled (reported).
-//    // TODO: Return null instead?
-//    if (prop.value is! BuckshotObject && propertyChain.length > 1)
-//      throw const FrameworkPropertyResolutionException('Unable to resolve'
-//          ' further.  Remaining properties in the chain while current property'
-//      ' value is not a BuckshotObject');
-//
-//    // return the property if there are no further names to resolve or the property
-//    // is not a BuckshotObject
-//    if (prop.value is! BuckshotObject || propertyChain.length == 1) return prop;
-//
-//    // recurse down to the next BuckshotObject and property name
-//    return _resolvePropertyInternal(prop.value, propertyChain.getRange(1, propertyChain.length - 1));
-//
-//  }
-
 }
