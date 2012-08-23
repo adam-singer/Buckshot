@@ -12,7 +12,7 @@ class StringToNumericConverter implements IValueConverter {
     if (value is! String || value == 'auto') return value;
 
     try{
-      return Math.parseDouble(value);
+      return parseDouble(value);
     }catch(Exception e){
       return value;
     }

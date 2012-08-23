@@ -5,6 +5,7 @@
 #library('web.buckshotui.org');
 
 #import('dart:html');
+#import('dart:math');
 
 #source('Browser.dart');
 #source('BrowserInfo.dart');

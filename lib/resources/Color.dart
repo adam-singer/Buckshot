@@ -43,11 +43,11 @@ class Color extends FrameworkResource
   }
 
   /// Gets the R (red) component of the RGB color.
-  num get R() => Math.parseInt('0x${value.substring(1,3)}');
+  num get R() => parseInt('0x${value.substring(1,3)}');
   /// Gets the G (green) component of the RGB color.
-  num get G() => Math.parseInt('0x${value.substring(3,5)}');
+  num get G() => parseInt('0x${value.substring(3,5)}');
   /// Gets the B (blue) compoonent of the RGB color.
-  num get B() => Math.parseInt('0x${value.substring(5,7)}');
+  num get B() => parseInt('0x${value.substring(5,7)}');
 
   /// Gets the [valueProperty] value.
   String get value() => getValue(valueProperty);

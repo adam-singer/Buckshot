@@ -1,4 +1,5 @@
 #import('dart:html');
+#import('dart:math', prefix:'Math');
 #import('../../lib/Buckshot.dart');
 #import('package:DartNet-Event-Model/events.dart');
 

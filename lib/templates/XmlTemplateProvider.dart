@@ -186,7 +186,7 @@ class XmlTemplateProvider implements IPresentationFormatProvider
 
       //no data binding for attached properties
       setAttachedPropertyFunction(ofElement,
-          Math.parseInt(ofXMLNode.text.trim()));
+          parseInt(ofXMLNode.text.trim()));
       c.complete(true);
     }else{
       //element or resource

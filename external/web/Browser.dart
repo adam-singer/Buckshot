@@ -76,9 +76,9 @@ class Browser
 
     num getMajor(String ver){
       if (ver.contains('.')){
-        return Math.parseInt(ver.substring(0, ver.indexOf('.')));
+        return parseInt(ver.substring(0, ver.indexOf('.')));
       }else{
-        return Math.parseInt(ver);
+        return parseInt(ver);
       }
     }
 
