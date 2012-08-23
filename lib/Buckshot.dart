@@ -109,7 +109,7 @@
 #source('resources/SolidColorBrush.dart');
 #source('resources/LinearGradientBrush.dart');
 #source('resources/RadialGradientBrush.dart');
-#source('resources/StyleSetter.dart');
+#source('resources/Setter.dart');
 #source('resources/StyleTemplate.dart');
 #source('resources/GradientStop.dart');
 

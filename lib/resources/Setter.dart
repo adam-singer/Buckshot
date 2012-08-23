@@ -5,16 +5,16 @@
 /**
 * Represents a setter/value pair for a [FrameworkProperty].
 */
-class StyleSetter extends TemplateObject
+class Setter extends TemplateObject
 {
   FrameworkProperty valueProperty;
   FrameworkProperty propertyProperty;
 
-  StyleSetter(){
+  Setter(){
     _initStyleSetterProperties();
   }
 
-  StyleSetter.with(String propertyName, Dynamic propertyValue)
+  Setter.with(String propertyName, Dynamic propertyValue)
   {
     _initStyleSetterProperties();
     property = propertyName;

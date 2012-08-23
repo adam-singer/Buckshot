@@ -7,13 +7,13 @@
 class StyleTemplate extends FrameworkResource
 {
   final Set<FrameworkElement> _registeredElements;
-  final HashMap<String, StyleSetter> _setters;
+  final HashMap<String, Setter> _setters;
   final String stateBagPrefix = "__StyleBinding__";
   FrameworkProperty settersProperty;
 
   StyleTemplate()
   : _registeredElements = new HashSet<FrameworkElement>(),
-    _setters = new HashMap<String, StyleSetter>()
+    _setters = new HashMap<String, Setter>()
     {
       _initStyleTemplateProperties();
 
@@ -21,10 +21,10 @@ class StyleTemplate extends FrameworkResource
 
     }
 
-  /** Gets the [StyleSetter] [ObservableList] from [settersProperty]. */
-  ObservableList<StyleSetter> get setters() => getValue(settersProperty);
-  /** Setst he [StyleSetter] [ObsersableList] from [settersProperty]. */
-  set setters(ObservableList<StyleSetter> value) => setValue(settersProperty, value);
+  /** Gets the [Setter] [ObservableList] from [settersProperty]. */
+  ObservableList<Setter> get setters() => getValue(settersProperty);
+  /** Setst he [Setter] [ObsersableList] from [settersProperty]. */
+  set setters(ObservableList<Setter> value) => setValue(settersProperty, value);
 
   /** Returns a [Collection] of [FrameworkElement]'s registered to the StyleTemplate */
   Collection<FrameworkElement> get registeredElements() => _registeredElements;
@@ -40,7 +40,7 @@ class StyleTemplate extends FrameworkResource
       if (style == null || style == this) continue; //ignore if null or same template
 
       //copy the style setters
-      style._setters.forEach((_, StyleSetter s){
+      style._setters.forEach((_, Setter s){
         setProperty(s.property, s.value);
       });
     }
@@ -64,14 +64,14 @@ class StyleTemplate extends FrameworkResource
     if (_setters.containsKey(property)){
       _setters[property].value = newValue;
     }else{
-      _setters[property] = new StyleSetter.with(property, newValue);
+      _setters[property] = new Setter.with(property, newValue);
       setters.add(_setters[property]);
       _registerNewSetterBindings(_setters[property]);
     }
   }
 
   void _onSettersCollectionChanging(Object _, ListChangedEventArgs args){
-    args.oldItems.forEach((StyleSetter item){
+    args.oldItems.forEach((Setter item){
       if (_setters.containsKey(item.property))
         _setters.remove(item.property);
     });
@@ -83,7 +83,7 @@ class StyleTemplate extends FrameworkResource
 
   }
 
-  void _registerNewSetterBindings(StyleSetter newSetter){
+  void _registerNewSetterBindings(Setter newSetter){
     _registeredElements.forEach((FrameworkElement e)
       {
           _bindSetterToElement(newSetter, e);
@@ -92,7 +92,7 @@ class StyleTemplate extends FrameworkResource
 
   void _initStyleTemplateProperties(){
     settersProperty = new FrameworkProperty(this, "setters",
-        defaultValue:new ObservableList<StyleSetter>());
+        defaultValue:new ObservableList<Setter>());
   }
 
   void _registerElement(FrameworkElement element){
@@ -108,7 +108,7 @@ class StyleTemplate extends FrameworkResource
   }
 
   void _setStyleBindings(FrameworkElement element){
-    _setters.forEach((_, StyleSetter s){
+    _setters.forEach((_, Setter s){
       _bindSetterToElement(s, element);
     });
   }
@@ -122,21 +122,20 @@ class StyleTemplate extends FrameworkResource
     });
   }
 
-  void _bindSetterToElement(StyleSetter setter, FrameworkElement element){
+  void _bindSetterToElement(Setter setter, FrameworkElement element){
     final instanceMirror = buckshot.miriam.mirrorOf(element);
-    final propString = '${setter.property}Property';
 
     //TODO handle with lookup instead of try/catch
     if (!element.hasProperty(setter.property.toLowerCase())) return;
 
     instanceMirror
-    .getField(propString)
-    .then((p){
-      final b = new Binding(setter.valueProperty, p.reflectee);
-      p.reflectee
-        .sourceObject
-        .stateBag["$stateBagPrefix${setter.property}__"] = b;
-    });
+      .getField('${setter.property}Property')
+      .then((p){
+        final b = new Binding(setter.valueProperty, p.reflectee);
+        p.reflectee
+          .sourceObject
+          .stateBag["$stateBagPrefix${setter.property}__"] = b;
+      });
 
 
 //    element._frameworkProperties

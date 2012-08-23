@@ -80,29 +80,29 @@ class TreeView extends Panel
 <resourcecollection>
   <styletemplate key="__TreeView_mouse_enter_style_template__">
     <setters>
-      <stylesetter property="background" value="#eeeeff" />
-      <stylesetter property="borderColor" value="#ccccdd" />
+      <setter property="background" value="#eeeeff" />
+      <setter property="borderColor" value="#ccccdd" />
     </setters>
   </styletemplate>
 
   <styletemplate key="__TreeView_mouse_leave_style_template__">
     <setters>
-      <stylesetter property="background" value="White" />
-      <stylesetter property="borderColor" value="White" />
+      <setter property="background" value="White" />
+      <setter property="borderColor" value="White" />
     </setters>
   </styletemplate>
 
   <styletemplate key="__TreeView_mouse_down_style_template__">
     <setters>
-      <stylesetter property="background" value="#ddddee" />
-      <stylesetter property="borderColor" value="#ccccdd" />
+      <setter property="background" value="#ddddee" />
+      <setter property="borderColor" value="#ccccdd" />
     </setters>
   </styletemplate>
 
   <styletemplate key="__TreeView_mouse_up_style_template__">
     <setters>
-      <stylesetter property="background" value="#eeeeff" />
-      <stylesetter property="borderColor" value="#ccccdd" />
+      <setter property="background" value="#eeeeff" />
+      <setter property="borderColor" value="#ccccdd" />
     </setters>
   </styletemplate>
 </resourcecollection>
