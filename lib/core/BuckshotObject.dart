@@ -24,13 +24,24 @@ class BuckshotObject extends HashableObject{
   /// Returns a boolean value indicting whether the object contains
   /// a [FrameworkProperty] by the given friendly [propertyName].
   bool hasProperty(String propertyName){
-    final classMirror = buckshot.miriam.mirrorOf(this).type;
-    return classMirror
-      .variables
-      .getKeys()
-      .some((k){
-        return '${propertyName}property' == k.toLowerCase();
-      });
+    bool hasPropertyInternal(classMirror, propertyName){
+      final result = classMirror
+          .variables
+          .getKeys()
+          .some((k){
+            return '${propertyName}property' == k.toLowerCase();
+          });
+
+      if (result) return result;
+
+      if (classMirror.superclass.simpleName != 'BuckshotObject'){
+        return hasPropertyInternal(classMirror.superclass, propertyName);
+      }
+
+      return false;
+    }
+
+    return hasPropertyInternal(buckshot.miriam.mirrorOf(this).type, propertyName);
   }
 //      _frameworkProperties.some((FrameworkProperty p) =>
 //          p.propertyName.toLowerCase() == propertyName.toLowerCase());

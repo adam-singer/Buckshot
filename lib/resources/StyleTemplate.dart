@@ -123,11 +123,27 @@ class StyleTemplate extends FrameworkResource
   }
 
   void _bindSetterToElement(StyleSetter setter, FrameworkElement element){
-    element._frameworkProperties
-    .filter((FrameworkProperty p) => p.propertyName == setter.property)
-    .forEach((FrameworkProperty p) {
-      Binding b = new Binding(setter.valueProperty, p);
-      p.sourceObject.stateBag["$stateBagPrefix${setter.property}__"] = b;
+    final instanceMirror = buckshot.miriam.mirrorOf(element);
+    final propString = '${setter.property}Property';
+
+    //TODO handle with lookup instead of try/catch
+    if (!element.hasProperty(setter.property.toLowerCase())) return;
+
+    instanceMirror
+    .getField(propString)
+    .then((p){
+      final b = new Binding(setter.valueProperty, p.reflectee);
+      p.reflectee
+        .sourceObject
+        .stateBag["$stateBagPrefix${setter.property}__"] = b;
     });
+
+
+//    element._frameworkProperties
+//    .filter((FrameworkProperty p) => p.propertyName == setter.property)
+//    .forEach((FrameworkProperty p) {
+//      final b = new Binding(setter.valueProperty, p);
+//      p.sourceObject.stateBag["$stateBagPrefix${setter.property}__"] = b;
+//    });
   }
 }
