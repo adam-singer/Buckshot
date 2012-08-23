@@ -2,22 +2,6 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-/**
- * Global Definitions. */
-class Globals
-{
-  static final bool addPropertyAttributes = false;
-
-  /**
-  * Sets an attribute on the element with the given FrameworkProperty value */
-  static satt(FrameworkProperty property){
-    if (property == null || !(property.sourceObject is FrameworkElement)) return;
-
-    FrameworkElement fl = property.sourceObject;
-    fl.rawElement.attributes["data-lucaui-${property.propertyName}"] = getValue(property);
-  }
-
-}
 
 Future _functionToFuture(Function f){
   Completer c = new Completer();

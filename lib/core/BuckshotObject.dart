@@ -9,13 +9,9 @@ class BuckshotObject extends HashableObject{
   final HashMap<String, Dynamic> stateBag;
   final List<Binding> _bindings;
 
-  //TODO: remove once reflection handles all FrameworkProperty resolution
-//  final Set<FrameworkProperty> _frameworkProperties;
-
   BuckshotObject():
     stateBag = new HashMap<String, Dynamic>(),
     _bindings = new List<Binding>();
-//    _frameworkProperties = new Set<FrameworkProperty>();
 
   /// Gets a boolean value indicating whether the given object
   /// is a container or not.
@@ -43,9 +39,6 @@ class BuckshotObject extends HashableObject{
 
     return hasPropertyInternal(buckshot.miriam.mirrorOf(this).type, propertyName);
   }
-//      _frameworkProperties.some((FrameworkProperty p) =>
-//          p.propertyName.toLowerCase() == propertyName.toLowerCase());
-
 
   /**
    *  A [Future] that returns a [FrameworkProperty] matching the given
@@ -54,20 +47,18 @@ class BuckshotObject extends HashableObject{
    * Case Insensitive.
    */
   Future<FrameworkProperty> getPropertyByName(String propertyName){
-    return _getPropertyNameInternal(propertyName.toLowerCase(), buckshot.miriam.mirrorOf(this).type);
-  }
+    Future<FrameworkProperty> getPropertyNameInternal(String propertyName,
+        classMirror){
+      final c = new Completer();
 
-  Future<FrameworkProperty> _getPropertyNameInternal(String propertyName, classMirror){
-    final c = new Completer();
+      if (this is DataTemplate){
+        c.complete((this as DataTemplate).getProperty(propertyName));
+        return c.future;
+      }
 
-    if (this is DataTemplate){
-      c.complete((this as DataTemplate).getProperty(propertyName));
-      return c.future;
-    }
+      var name = '';
 
-    var name = '';
-
-    classMirror
+      classMirror
       .variables
       .getKeys()
       .some((k){
@@ -79,25 +70,29 @@ class BuckshotObject extends HashableObject{
       });
 
 
-    if (name == ''){
-      if (classMirror.superclass.simpleName != 'BuckshotObject')
-//          && classMirror.superclass.simpleName != 'Object')
-      {
-        _getPropertyNameInternal(propertyName, classMirror.superclass)
-          .then((result) => c.complete(result));
+      if (name == ''){
+        if (classMirror.superclass.simpleName != 'BuckshotObject')
+  //          && classMirror.superclass.simpleName != 'Object')
+        {
+          getPropertyNameInternal(propertyName, classMirror.superclass)
+            .then((result) => c.complete(result));
+        }else{
+          c.complete(null);
+        }
+
       }else{
-        c.complete(null);
+        buckshot.miriam.mirrorOf(this)
+          .getField(name)
+          .then((im){
+            c.complete(im.reflectee);
+          });
       }
 
-    }else{
-      buckshot.miriam.mirrorOf(this)
-        .getField(name)
-        .then((im){
-          c.complete(im.reflectee);
-        });
+      return c.future;
     }
 
-    return c.future;
+    return getPropertyNameInternal(propertyName.toLowerCase(),
+        buckshot.miriam.mirrorOf(this).type);
   }
 
   FrameworkProperty _getPropertyByName(String propertyName){
