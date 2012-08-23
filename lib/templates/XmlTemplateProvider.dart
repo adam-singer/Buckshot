@@ -10,11 +10,7 @@
 class XmlTemplateProvider implements IPresentationFormatProvider
 {
 
-  final Miriam miriam;
-
-  XmlTemplateProvider()
-      :
-        miriam = new Miriam();
+  /* Begin IPresentationFormatProvider Interface */
 
   bool isFormat(String template) => template.startsWith('<');
 
@@ -25,6 +21,12 @@ class XmlTemplateProvider implements IPresentationFormatProvider
 
     return c.future;
   }
+
+  String serialize(FrameworkElement elementRoot){
+    throw const NotImplementedException();
+  }
+
+  /* End IPresentationFormatProvider Interface */
 
   Future<FrameworkObject> _getNextElement(XmlElement xmlElement){
 
@@ -43,7 +45,7 @@ class XmlTemplateProvider implements IPresentationFormatProvider
       }
     }
 
-    final interfaceMirrorOf = new Miriam().getObjectByName(lowerTagName);
+    final interfaceMirrorOf = buckshot.miriam.getObjectByName(lowerTagName);
 
     if (interfaceMirrorOf == null){
       throw new PresentationProviderException('Element "${xmlElement.name}"'
@@ -68,14 +70,6 @@ class XmlTemplateProvider implements IPresentationFormatProvider
           }else {
             fList.add(processTag(newElement, e));
           }
-
-          //we exclude template here because shares the same name as the 'Template'
-          //class, but we want to process it as a property.
-//          if (elementLowerTagName != 'template' && miriam.getObjectByName(elementLowerTagName) != null){
-//            fList.add(processTag(newElement, e));
-//          }else{
-//            fList.add(processProperty(newElement, e));
-//          }
         }
       }else{
         //no nodes, check for text element
@@ -442,9 +436,5 @@ class XmlTemplateProvider implements IPresentationFormatProvider
     .then((_) => c.complete(true));
 
     return c.future;
-  }
-
-  String serialize(FrameworkElement elementRoot){
-    throw const NotImplementedException();
   }
 }

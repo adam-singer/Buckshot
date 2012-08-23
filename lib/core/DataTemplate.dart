@@ -46,6 +46,24 @@ class DataTemplate extends BuckshotObject{
     });
   }
 
+  FrameworkProperty getProperty(String propertyName){
+    propertyName = propertyName.toLowerCase();
+
+    var name = '';
+
+    _properties
+    .getKeys()
+    .some((k){
+      if (k.toLowerCase() == propertyName){
+        name = k;
+        return true;
+      }
+      return false;
+    });
+
+    return (name != '') ? _properties[name] : null;
+  }
+
   /// Sets a property's value in the DataTemplate.
   void setV(String propertyName, Dynamic value) => setValue(_properties[propertyName], value);
 

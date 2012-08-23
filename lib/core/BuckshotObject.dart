@@ -35,16 +35,16 @@ class BuckshotObject extends HashableObject{
    * Case Insensitive.
    */
   Future<FrameworkProperty> getPropertyByName(String propertyName){
-    final c = new Completer();
-
-    _getPropertyNameInternal(propertyName.toLowerCase(), buckshot.miriam.mirrorOf(this).type)
-    .then((result) => c.complete(result));
-
-    return c.future;
+    return _getPropertyNameInternal(propertyName.toLowerCase(), buckshot.miriam.mirrorOf(this).type);
   }
 
   Future<FrameworkProperty> _getPropertyNameInternal(String propertyName, classMirror){
     final c = new Completer();
+
+    if (this is DataTemplate){
+      c.complete((this as DataTemplate).getProperty(propertyName));
+      return c.future;
+    }
 
     var name = '';
 
