@@ -10,12 +10,12 @@ class BuckshotObject extends HashableObject{
   final List<Binding> _bindings;
 
   //TODO: remove once reflection handles all FrameworkProperty resolution
-  final Set<FrameworkProperty> _frameworkProperties;
+//  final Set<FrameworkProperty> _frameworkProperties;
 
   BuckshotObject():
     stateBag = new HashMap<String, Dynamic>(),
-    _bindings = new List<Binding>(),
-    _frameworkProperties = new Set<FrameworkProperty>();
+    _bindings = new List<Binding>();
+//    _frameworkProperties = new Set<FrameworkProperty>();
 
   /// Gets a boolean value indicating whether the given object
   /// is a container or not.
