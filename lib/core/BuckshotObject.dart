@@ -183,7 +183,7 @@ class BuckshotObject extends HashableObject{
 //          ' FrameworkProperty: "${propertyChain[0]}".');
 //    }
 //
-//    // Mmore properties in the chain, but cannot resolve further.
+//    // More properties in the chain, but cannot resolve further.
 //    // (NOTE!!!) Template parser will handle this exception in certain cases.
 //    // The Dart debugger currently stops on this exception even though it
 //    // is handled (reported).

@@ -2,7 +2,11 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-class AnimationException extends ExceptionBase {
+class AnimationException implements Exception {
 
-  const AnimationException([var msg]);
+  final String _msg;
+  
+  const AnimationException(this._msg);
+  
+  String toString() => _msg === null ? 'AnimationException' : 'AnimationException: $_msg';
 }

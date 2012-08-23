@@ -10,8 +10,9 @@
 */
 class FrameworkPropertyResolutionException implements Exception
 {
-  /// The description of the exception that occurred.
-  final String message;
-
-  const FrameworkPropertyResolutionException(String this.message);
+  final String _msg;
+  
+  const FrameworkPropertyResolutionException(this._msg);
+  
+  String toString() => _msg === null ? 'FrameworkPropertyResolutionException' : 'FrameworkPropertyResolutionException: $_msg';
 }

@@ -5,7 +5,6 @@
 #source('Thickness.dart');
 #source('Tuple.dart');
 
-#source('exceptions/ExceptionBase.dart');
 #source('exceptions/BuckshotException.dart');
 #source('exceptions/AnimationException.dart');
 #source('exceptions/PresentationProviderException.dart');

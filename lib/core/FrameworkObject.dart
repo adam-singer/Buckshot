@@ -242,10 +242,10 @@ class FrameworkObject extends BuckshotObject {
                 p, bindingMode:bd.bindingMode, converter:bd.converter);
           });
         }else{
+          print('${bd.dataContextPath}');
           dc.value.resolveProperty(bd.dataContextPath)
           .then((prop){
-            new Binding(prop,
-                p, bindingMode:bd.bindingMode);
+            new Binding(prop, p, bindingMode:bd.bindingMode);
           });
         }
       }

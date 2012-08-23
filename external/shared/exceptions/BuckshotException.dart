@@ -5,9 +5,13 @@
 
 /**
 * Implements a general framework [Exception] object. */
-class BuckshotException extends ExceptionBase
+class BuckshotException implements Exception
 {
-  const BuckshotException([var msg]);
+  final String _msg;
+  
+  const BuckshotException(this._msg);
+  
+  String toString() => _msg === null ? 'BuckshotException' : 'BuckshotException: $_msg';
 }
 
 
