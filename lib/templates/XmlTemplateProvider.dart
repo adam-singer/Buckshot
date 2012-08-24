@@ -176,7 +176,7 @@ class XmlTemplateProvider implements IPresentationFormatProvider
     final String elementLowerTagName = ofXMLNode.name.toLowerCase();
 
     if (ofXMLNode.name.contains(".")){
-      _assignAttachedProperty(ofElement, ofXMLNode.name, ofXMLNode.text.trim());
+      AttachedFrameworkProperty.invokeSetPropertyFunction(ofXMLNode.name, ofElement, value);
       c.complete(true);
     }else{
       //element or resource
@@ -224,21 +224,6 @@ class XmlTemplateProvider implements IPresentationFormatProvider
 
       setValue(cc, ofXMLNode.text.trim());
     }
-  }
-
-  void _assignAttachedProperty(ofElement, String elementPropertyPair, value){
-    final prop = elementPropertyPair.toLowerCase();
-
-    AttachedFrameworkProperty.invokeSetPropertyFunction(prop, ofElement, value);
-//    return;
-//
-//    //attached property
-//    if (buckshot._objectRegistry.containsKey(prop)){
-//
-//      Function setAttachedPropertyFunction = buckshot._objectRegistry[prop];
-//
-//      setAttachedPropertyFunction(ofElement, value);
-//    }
   }
 
   void _resolveBinding(FrameworkProperty p, String binding){
@@ -412,7 +397,7 @@ class XmlTemplateProvider implements IPresentationFormatProvider
       .attributes
       .forEach((String k, String v){
         if (k.contains(".")){
-            _assignAttachedProperty(element, k, v);
+          AttachedFrameworkProperty.invokeSetPropertyFunction(k, element, v);
         }else{
           //property
           final f = element.resolveProperty(k);
