@@ -78,8 +78,9 @@ class DataTemplate extends BuckshotObject{
   }
 
   /** Sets [propertyName] to the given [value] in the DataTemplate. */
-  void setV(String propertyName, Dynamic value) =>
+  void setV(String propertyName, Dynamic value) {
       setValue(_properties[propertyName], value);
+  }
 
   /** Gets the value from [propertyName] in the DataTemplate.*/
   Dynamic getV(String propertyName) => getValue(_properties[propertyName]);

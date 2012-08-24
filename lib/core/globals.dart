@@ -42,7 +42,7 @@ void setView(View view, [String elementID = 'BuckshotHost'])
 
 /**
  * Sets the value of a given [FrameworkProperty] to a given [v]. */
-Future foo(FrameworkProperty property, Dynamic value)
+Future setValueAsync(FrameworkProperty property, Dynamic value)
 {
   Completer c = new Completer();
 
