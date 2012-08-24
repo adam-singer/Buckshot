@@ -229,15 +229,16 @@ class XmlTemplateProvider implements IPresentationFormatProvider
   void _assignAttachedProperty(ofElement, String elementPropertyPair, value){
     final prop = elementPropertyPair.toLowerCase();
 
-    //AttachedFrameworkProperty.invokeSetPropertyFunction(prop, ofElement, value);
-
-    //attached property
-    if (buckshot._objectRegistry.containsKey(prop)){
-
-      Function setAttachedPropertyFunction = buckshot._objectRegistry[prop];
-
-      setAttachedPropertyFunction(ofElement, value);
-    }
+    AttachedFrameworkProperty.invokeSetPropertyFunction(prop, ofElement, value);
+//    return;
+//
+//    //attached property
+//    if (buckshot._objectRegistry.containsKey(prop)){
+//
+//      Function setAttachedPropertyFunction = buckshot._objectRegistry[prop];
+//
+//      setAttachedPropertyFunction(ofElement, value);
+//    }
   }
 
   void _resolveBinding(FrameworkProperty p, String binding){

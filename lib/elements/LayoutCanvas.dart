@@ -18,8 +18,6 @@ class LayoutCanvas extends Panel
 
   LayoutCanvas(){
     Browser.appendClass(rawElement, "layoutcanvas");
-    buckshot.registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
-    buckshot.registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
   }
 
   void onChildrenChanging(ListChangedEventArgs args){

@@ -27,9 +27,6 @@ class Buckshot extends FrameworkObject {
 
   final HashMap<String, FrameworkResource> _resourceRegistry;
 
-  //poor man's reflection...
-  final HashMap<String, Dynamic> _objectRegistry;
-
   /// The root container that all elements are children of.
   final Border domRoot;
 
@@ -55,7 +52,6 @@ class Buckshot extends FrameworkObject {
   :
     namedElements = new HashMap<String, FrameworkObject>(),
     _resourceRegistry = new HashMap<String, FrameworkResource>(),
-    _objectRegistry = new HashMap<String, Dynamic>(),
     domRoot = new Border(),
     miriam = new Miriam()
   {
@@ -77,7 +73,6 @@ class Buckshot extends FrameworkObject {
   :
     namedElements = new HashMap<String, FrameworkObject>(),
     _resourceRegistry = new HashMap<String, FrameworkResource>(),
-    _objectRegistry = new HashMap<String, Dynamic>(),
     domRoot = new Border(),
     miriam = new Miriam()
   {
@@ -169,15 +164,6 @@ class Buckshot extends FrameworkObject {
       return res;
     }
   }
-
-  /**
-   * Registers an attached property to the framework.  Will be replace with
-   * mirror-based reflection.
-   */
-  void registerAttachedProperty(String propertyName, Function setterFunc){
-    _objectRegistry[propertyName] = setterFunc;
-  }
-
 
   /**
    * Registers a resource to the framework.  Will be replaced with mirror-

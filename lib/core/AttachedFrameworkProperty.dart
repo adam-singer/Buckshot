@@ -33,8 +33,6 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
    * string looks like:
    *
    *     'class.attachedPropertyName'
-   *
-   * NOT WORKING (see inner comments)
    */
   static void invokeSetPropertyFunction(String classPropertyPair, element, value){
     final split = classPropertyPair.split('.');
@@ -54,13 +52,11 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
     });
 
     if (setterMethodName == null){
-      throw new BuckshotException('Attached property $classPropertyPair not found.');
+      throw new BuckshotException('Attached property $classPropertyPair'
+          ' not found.');
     }
 
-
-    //TODO Fails because .invoke() doesn't support complex types as arguments...
-    classMirror.invoke(setterMethodName, [element, value]);
-
+    classMirror.invoke(setterMethodName, [reflect(element), reflect(value)]);
   }
 
   /**

@@ -21,8 +21,6 @@ class DockPanel extends Panel
 
   DockPanel()
   {
-    buckshot.registerAttachedProperty('dockpanel.dock', DockPanel.setDock);
-
     Browser.appendClass(rawElement, "DockPanel");
 
     _initDockPanelProperties();

@@ -44,17 +44,17 @@ void main() {
       final errorUI = l[1];
 
       // get references to all the ui interactives that we need
-      TextBlock tbError = buckshot.namedElements["tbErrorMessage"];
-      Border borderContent = buckshot.namedElements["borderContent"];
-      Button btnRefresh = buckshot.namedElements["btnRefresh"];
-      Button btnClear = buckshot.namedElements["btnClear"];
-      TextArea tbUserInput = buckshot.namedElements["tbUserInput"];
-      DropDownList ddlElements = buckshot.namedElements["ddlElements"];
-      DropDownList ddlControls = buckshot.namedElements["ddlControls"];
-      DropDownList ddlBinding = buckshot.namedElements["ddlBinding"];
-      DropDownList ddlMediaExtensions =
+      final TextBlock tbError = buckshot.namedElements["tbErrorMessage"];
+      final Border borderContent = buckshot.namedElements["borderContent"];
+      final Button btnRefresh = buckshot.namedElements["btnRefresh"];
+      final Button btnClear = buckshot.namedElements["btnClear"];
+      final TextArea tbUserInput = buckshot.namedElements["tbUserInput"];
+      final DropDownList ddlElements = buckshot.namedElements["ddlElements"];
+      final DropDownList ddlControls = buckshot.namedElements["ddlControls"];
+      final DropDownList ddlBinding = buckshot.namedElements["ddlBinding"];
+      final DropDownList ddlMediaExtensions =
           buckshot.namedElements["ddlMediaExtensions"];
-      StackPanel spRoot = buckshot.namedElements['spRoot'];
+      final StackPanel spRoot = buckshot.namedElements['spRoot'];
 
       // set buckshot to the root's datacontext
       spRoot.dataContext = buckshot;
