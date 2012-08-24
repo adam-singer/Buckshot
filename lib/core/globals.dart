@@ -2,20 +2,43 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
+/**
+ * Sets a [View] into the DOM for rendering.
+ *
+ * ## Placement in DOM ##
+ * By default Views will look for a DOM element with the 'BuckshotHost' ID,
+ * but you can supply an optional ID to render the content elsewhere.  This
+ * will allow you to render Buckshot content to multiple places on the page,
+ * although typically you will have only one rendering location.
+ *
+ * ## Implicit Container For Root Views ##
+ * Buckshot places root views into an implicit [Border] root container.  You
+ * can manipulate this container with:
+ *
+ *     myView.rootVisual.parent.{...}
+ *
+ * This is useful if you want to do things like set explicit width & height
+ * values for the root container, but you can also set other typical [Border]
+ * properties like borderWidth, borderThickness, etc.
+ */
+void setView(View view, [String elementID = 'BuckshotHost'])
+{
+  final el = query('#${elementID}');
 
-Future _functionToFuture(Function f){
-  Completer c = new Completer();
-
-  void doIt(foo) => c.complete(f());
-
-  try{
-    window.requestAnimationFrame(doIt);
-  }catch (Exception e){
-    c.completeException(e);
+  if (el == null){
+    throw new BuckshotException('Could not find DOM element with ID of '
+        ' "${elementID}"');
   }
 
-  return c.future;
+  view.ready.then((_){
+    final b = new Border();
+    el.elements.clear();
+    b._isLoaded = true;
+    el.elements.add(b.rawElement);
+    b.content = view.rootVisual;
+  });
 }
+
 
 /**
  * Sets the value of a given [FrameworkProperty] to a given [v]. */
@@ -99,10 +122,9 @@ void setValue(FrameworkProperty property, Dynamic value)
 
 /**
  * Gets the current value of a given [FrameworkProperty] object.
- * Returns null if the [propertyInfo] object does not exist or if the underlying
- * property is not found. */
-getValue(FrameworkProperty propertyInfo) =>
-    (propertyInfo == null) ? null : propertyInfo.value;
+ */
+getValue(FrameworkProperty property) =>
+    (property == null) ? null : property.value;
 
 /**
 * Executes a javascript alert "break point" with optional [breakInfo]. */
@@ -111,7 +133,7 @@ br([breakInfo]){
 }
 
 /**
-* Prints output to the javascript console with optional FrameworkElement [element] info. */
+* Prints output to stout with optional FrameworkElement [element] info. */
 db(String message, [FrameworkObject element]){
   if (element == null){
     print(message);
@@ -144,6 +166,21 @@ printTree(startWith, [int indent = 0]){
       printTree(startWith.content, indent + 5);
     }
   }
+}
+
+
+Future _functionToFuture(Function f){
+  Completer c = new Completer();
+
+  void doIt(foo) => c.complete(f());
+
+  try{
+    window.requestAnimationFrame(doIt);
+  }catch (Exception e){
+    c.completeException(e);
+  }
+
+  return c.future;
 }
 
 

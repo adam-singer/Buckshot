@@ -11,33 +11,6 @@
 Buckshot get buckshot() => new Buckshot._cached();
 
 /**
- * Sets a [View] into the DOM for rendering.
- *
- * By default Views will look for a DOM element with the 'BuckshotHost' ID,
- * but you can supply an optional ID to render the content elsewhere.  This
- * will allow you to render Buckshot content to multiple places on the page,
- * although typically you will have only one rendering location.
- *
- */
-void setView(View view, [String elementID = 'BuckshotHost'])
-{
-  final el = query('#${elementID}');
-
-  if (el == null){
-    throw new BuckshotException('Could not find DOM element with ID of '
-        ' "${elementID}"');
-  }
-
-  view.ready.then((_){
-    final b = new Border();
-    el.elements.clear();
-    b._isLoaded = true;
-    el.elements.add(b.rawElement);
-    b.content = view.rootVisual;
-  });
-}
-
-/**
 * A general utility service for the Buckshot framework.
 *
 * Use the globally available 'buckshot' object to access the
@@ -49,12 +22,7 @@ class Buckshot extends FrameworkObject
   static final String _defaultRootID = "#BuckshotHost";
   static final String _version = '0.55 Alpha';
 
-  View _currentView;
-  Element _domRootElement;
   StyleElement _buckshotCSS;
-
-  /// The root container that all elements are children of.
-  final Border domRoot;
 
   /// Central registry of named [FrameworkObject] elements.
   final HashMap<String, FrameworkObject> namedElements;
@@ -74,8 +42,7 @@ class Buckshot extends FrameworkObject
   /// Pass the ID of the element in the DOM where buckshot will render content.
   Buckshot(String buckshotRootID)
   :
-    namedElements = new HashMap<String, FrameworkObject>(),
-    domRoot = new Border()
+    namedElements = new HashMap<String, FrameworkObject>()
   {
     _initBuckshotSystem(buckshotRootID);
   }
@@ -93,8 +60,7 @@ class Buckshot extends FrameworkObject
 
   Buckshot._init([String rootID = Buckshot._defaultRootID])
   :
-    namedElements = new HashMap<String, FrameworkObject>(),
-    domRoot = new Border()
+    namedElements = new HashMap<String, FrameworkObject>()
   {
     _ref = this;
     _initBuckshotSystem(rootID);
@@ -102,18 +68,6 @@ class Buckshot extends FrameworkObject
 
   void _initBuckshotSystem(String rootID)
   {
-
-    _domRootElement = document.query(rootID);
-
-    if (_domRootElement == null)
-      throw new BuckshotException("Unable to locate required root"
-        " element (must be <div id='$rootID' />)");
-
-    if (_domRootElement.tagName != "DIV")
-      throw new BuckshotException("Root element for Buckshot"
-        " must be a <div>. Element given was"
-        " a <${_domRootElement.tagName.toLowerCase()}>");
-
     if (!Polly.browserOK){
       print('Buckshot Warning: Browser may not be compatible with Buckshot'
           ' framework.');
@@ -122,10 +76,6 @@ class Buckshot extends FrameworkObject
     _initCSS();
 
     _initializeBuckshotProperties();
-
-    //set the domRoot
-    _domRootElement.elements.clear();
-    _domRootElement.elements.add(domRoot.rawElement);
   }
 
   void _initCSS(){
