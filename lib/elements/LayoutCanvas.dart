@@ -81,7 +81,7 @@ class LayoutCanvas extends Panel
         e.margin = new Thickness.specified(v, 0, 0, LayoutCanvas.getLeft(e));
       });
 
-    FrameworkObject.setAttachedValue(element, topProperty, value);
+    AttachedFrameworkProperty.setValue(element, topProperty, value);
 
   }
 
@@ -90,12 +90,12 @@ class LayoutCanvas extends Panel
   static num getTop(FrameworkElement element){
     if (element == null) return 0;
 
-    var value = FrameworkObject.getAttachedValue(element, topProperty);
+    var value = AttachedFrameworkProperty.getValue(element, topProperty);
 
     if (LayoutCanvas.topProperty == null || value == null)
       LayoutCanvas.setTop(element, 0);
 
-    return FrameworkObject.getAttachedValue(element, topProperty);
+    return AttachedFrameworkProperty.getValue(element, topProperty);
   }
 
   /**
@@ -115,7 +115,7 @@ class LayoutCanvas extends Panel
           e.margin = new Thickness.specified(LayoutCanvas.getTop(e), 0, 0, v);
       });
 
-    FrameworkObject.setAttachedValue(element, leftProperty, value);
+    AttachedFrameworkProperty.setValue(element, leftProperty, value);
   }
 
   /**
@@ -123,12 +123,12 @@ class LayoutCanvas extends Panel
   static num getLeft(FrameworkElement element){
     if (element == null) return 0;
 
-    var value = FrameworkObject.getAttachedValue(element, leftProperty);
+    var value = AttachedFrameworkProperty.getValue(element, leftProperty);
 
     if (LayoutCanvas.leftProperty == null || value == null)
       LayoutCanvas.setLeft(element, 0);
 
-    return FrameworkObject.getAttachedValue(element, leftProperty);
+    return AttachedFrameworkProperty.getValue(element, leftProperty);
   }
 
   /// Overridden [FrameworkObject] method.

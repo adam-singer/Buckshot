@@ -157,12 +157,12 @@ class Validation{
   static List<String> getValidation(FrameworkElement element){
     if (element == null) return null;
 
-    List<String> value = FrameworkObject.getAttachedValue(element, validationProperty);
+    List<String> value = AttachedFrameworkProperty.getValue(element, validationProperty);
 
     if (Validation.validationProperty == null || value == null)
       setValidation(element, new List<String>());
 
-    return FrameworkObject.getAttachedValue(element, validationProperty);
+    return AttachedFrameworkProperty.getValue(element, validationProperty);
   }
 
 

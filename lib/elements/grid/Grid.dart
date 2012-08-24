@@ -360,19 +360,19 @@ void _updateRowLayout(num gridHeight){
       });
     }
 
-    FrameworkObject.setAttachedValue(element, columnProperty, column);
+    AttachedFrameworkProperty.setValue(element, columnProperty, column);
   }
 
 
   static num getColumn(FrameworkElement element){
     if (element == null) return 0;
 
-    var value = FrameworkObject.getAttachedValue(element, Grid.columnProperty);
+    var value = AttachedFrameworkProperty.getValue(element, Grid.columnProperty);
 
     if (Grid.columnProperty == null || value == null)
       Grid.setColumn(element, 0);
 
-    return FrameworkObject.getAttachedValue(element, columnProperty);
+    return AttachedFrameworkProperty.getValue(element, columnProperty);
   }
 
   static void setRow(FrameworkElement element, row){
@@ -390,18 +390,18 @@ void _updateRowLayout(num gridHeight){
       });
     }
 
-    FrameworkObject.setAttachedValue(element, rowProperty, row);
+    AttachedFrameworkProperty.setValue(element, rowProperty, row);
   }
 
   static num getRow(FrameworkElement element){
     if (element == null) return 0;
 
-    var value = FrameworkObject.getAttachedValue(element, Grid.rowProperty);
+    var value = AttachedFrameworkProperty.getValue(element, Grid.rowProperty);
 
     if (Grid.rowProperty == null || value == null)
       Grid.setRow(element, 0);
 
-    return FrameworkObject.getAttachedValue(element, rowProperty);
+    return AttachedFrameworkProperty.getValue(element, rowProperty);
   }
 
   static void setColumnSpan(FrameworkElement element, columnSpan){
@@ -419,18 +419,18 @@ void _updateRowLayout(num gridHeight){
       });
     }
 
-    FrameworkObject.setAttachedValue(element, columnSpanProperty, columnSpan);
+    AttachedFrameworkProperty.setValue(element, columnSpanProperty, columnSpan);
   }
 
   static num getColumnSpan(FrameworkElement element){
     if (element == null) return 0;
 
-    var value = FrameworkObject.getAttachedValue(element, Grid.columnSpanProperty);
+    var value = AttachedFrameworkProperty.getValue(element, Grid.columnSpanProperty);
 
     if (Grid.columnSpanProperty == null || value == null)
       Grid.setColumnSpan(element, 0);
 
-    return FrameworkObject.getAttachedValue(element, Grid.columnSpanProperty);
+    return AttachedFrameworkProperty.getValue(element, Grid.columnSpanProperty);
   }
 
   static void setRowSpan(FrameworkElement element, rowSpan){
@@ -448,17 +448,17 @@ void _updateRowLayout(num gridHeight){
       });
     }
 
-    FrameworkObject.setAttachedValue(element, rowSpanProperty, rowSpan);
+    AttachedFrameworkProperty.setValue(element, rowSpanProperty, rowSpan);
   }
 
   static num getRowSpan(FrameworkElement element){
     if (element == null) return 0;
 
-    var value = FrameworkObject.getAttachedValue(element, Grid.rowSpanProperty);
+    var value = AttachedFrameworkProperty.getValue(element, Grid.rowSpanProperty);
 
     if (Grid.rowSpanProperty == null || value == null)
       Grid.setRowSpan(element, 0);
 
-    return FrameworkObject.getAttachedValue(element, rowSpanProperty);
+    return AttachedFrameworkProperty.getValue(element, rowSpanProperty);
   }
 }

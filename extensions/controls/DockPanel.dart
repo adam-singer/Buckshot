@@ -57,7 +57,7 @@ class DockPanel extends Panel
       DockPanel.dockProperty = new AttachedFrameworkProperty("dock",
         (FrameworkElement e, DockLocation l){});
 
-    FrameworkObject.setAttachedValue(element, dockProperty, value);
+    AttachedFrameworkProperty.setValue(element, dockProperty, value);
 
   }
 
@@ -67,12 +67,12 @@ class DockPanel extends Panel
   static DockLocation getDock(FrameworkElement element){
     if (element == null) return DockLocation.left;
 
-    final value = FrameworkObject.getAttachedValue(element, dockProperty);
+    final value = AttachedFrameworkProperty.getValue(element, dockProperty);
 
     if (DockPanel.dockProperty == null || value == null)
       DockPanel.setDock(element, DockLocation.left);
 
-    return FrameworkObject.getAttachedValue(element, dockProperty);
+    return AttachedFrameworkProperty.getValue(element, dockProperty);
   }
 
 

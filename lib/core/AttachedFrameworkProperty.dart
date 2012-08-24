@@ -28,4 +28,39 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
     static Function getSetPropertyFunction(String classPropertyPair){
       throw const NotImplementedException();
     }
+
+    /**
+     * Sets the value of a given [AttachedFrameworkProperty] for a given Element. */
+    static void setValue(FrameworkElement element,
+                                 AttachedFrameworkProperty property,
+                                 value)
+    {
+      final aDepInfo = buckshot._attachedProperties[property];
+
+      //no need to invoke if nothing has changed
+      if (aDepInfo[element] == value) return;
+
+      Dynamic oldValue = aDepInfo[element];
+      aDepInfo[element] = value;
+
+      //invoke the event so that any subscribers will get the message
+      //subscribers will typically be parents interested to know if attached
+      // properties change on children
+      element.attachedPropertyChanged.invoke(element,
+          new AttachedPropertyChangedEventArgs(element, property, value));
+
+      property.propertyChanging.invoke(property,
+          new PropertyChangingEventArgs(oldValue, value));
+    }
+
+    /**
+     * Gets the value of a given [AttachedFrameworkProperty] for a given Element. */
+    static getValue(FrameworkElement element,
+                                    AttachedFrameworkProperty property){
+      if (property == null) return null;
+
+      final aDepInfo = buckshot._attachedProperties[property];
+
+      return (aDepInfo.containsKey(element)) ? aDepInfo[element] : null;
+  }
 }
