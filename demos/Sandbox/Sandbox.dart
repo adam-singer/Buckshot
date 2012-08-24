@@ -127,7 +127,7 @@ void main() {
       ddlControls.selectionChanged + handleSelection;
 
       // render the main view
-      buckshot.renderRaw(o);
+      setView(new View.from(o));
     });
 }
 

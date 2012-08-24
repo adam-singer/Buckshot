@@ -62,6 +62,9 @@ Future setValueAsync(FrameworkProperty property, Dynamic value)
    return c.future;
 }
 
+/**
+ * Sets the value of a given [FrameworkProperty] [property] to a given [value].
+ */
 void setValue(FrameworkProperty property, Dynamic value)
 {
    if (property.stringToValueConverter != null && value is String){
@@ -117,19 +120,18 @@ db(String message, [FrameworkObject element]){
   print("[${reflect(element).type.simpleName}(${element.name})] $message");
 }
 
-
-String space(int n){
-  var s = new StringBuffer();
-  for(int i = 0; i < n; i++){
-    s.add(' ');
-  }
-  return s.toString();
-}
-
 /**
  * Debug function that pretty prints an element tree. */
 printTree(startWith, [int indent = 0]){
   if (startWith == null || startWith is! FrameworkElement) return;
+
+  String space(int n){
+    var s = new StringBuffer();
+    for(int i = 0; i < n; i++){
+      s.add(' ');
+    }
+    return s.toString();
+  }
 
   print('${space(indent)}${startWith}(Parent=${startWith.parent})');
 

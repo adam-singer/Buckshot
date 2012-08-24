@@ -186,7 +186,9 @@ class FrameworkObject extends BuckshotObject {
 
     _isLoaded = true;
 
-    parent.updateLayout();
+    if (parent != null){
+      parent.updateLayout();
+    }
 
     onLoaded();
     loaded.invoke(this, new EventArgs());

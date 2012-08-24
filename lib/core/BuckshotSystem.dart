@@ -11,13 +11,41 @@
 Buckshot get buckshot() => new Buckshot._cached();
 
 /**
+ * Sets a [View] into the DOM for rendering.
+ *
+ * By default Views will look for a DOM element with the 'BuckshotHost' ID,
+ * but you can supply an optional ID to render the content elsewhere.  This
+ * will allow you to render Buckshot content to multiple places on the page,
+ * although typically you will have only one rendering location.
+ *
+ */
+void setView(View view, [String elementID = 'BuckshotHost'])
+{
+  final el = query('#${elementID}');
+
+  if (el == null){
+    throw new BuckshotException('Could not find DOM element with ID of '
+        ' "${elementID}"');
+  }
+
+  view.ready.then((_){
+    final b = new Border();
+    el.elements.clear();
+    b._isLoaded = true;
+    el.elements.add(b.rawElement);
+    b.content = view.rootVisual;
+  });
+}
+
+/**
 * A general utility service for the Buckshot framework.
 *
 * Use the globally available 'buckshot' object to access the
 * framework system.  It is normally not necessary to create your own instance
 * of the [Buckshot] class.
 */
-class Buckshot extends FrameworkObject {
+class Buckshot extends FrameworkObject
+{
   static final String _defaultRootID = "#BuckshotHost";
   static final String _version = '0.55 Alpha';
 

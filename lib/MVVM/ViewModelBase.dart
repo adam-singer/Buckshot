@@ -5,9 +5,6 @@
 /**
 * Base class for MVVM view models.
 * See:
-* * [IView]
+* * [View]
 */
-class ViewModelBase extends FrameworkObject
-{
-
-}
+class ViewModelBase extends FrameworkObject{}
