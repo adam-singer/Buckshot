@@ -289,7 +289,7 @@ class XmlTemplateProvider implements IPresentationFormatProvider
           throw const PresentationProviderException('Binding'
             ' syntax incorrect.');
 
-        setValue(p, buckshot.retrieveResource(words[1]));
+        setValue(p, FrameworkResource.retrieveResource(words[1]));
         break;
       case "template":
         if (words.length != 2)
@@ -382,7 +382,7 @@ class XmlTemplateProvider implements IPresentationFormatProvider
         " a key identifier.");
 
     //add/replace resource at given key
-    buckshot.registerResource(resource);
+    FrameworkResource.registerResource(resource);
   }
 
   Future _assignAttributeProperties(BuckshotObject element,

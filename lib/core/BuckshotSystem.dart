@@ -25,8 +25,6 @@ class Buckshot extends FrameworkObject {
   Element _domRootElement;
   StyleElement _buckshotCSS;
 
-  final HashMap<String, FrameworkResource> _resourceRegistry;
-
   /// The root container that all elements are children of.
   final Border domRoot;
 
@@ -51,7 +49,6 @@ class Buckshot extends FrameworkObject {
   Buckshot(String buckshotRootID)
   :
     namedElements = new HashMap<String, FrameworkObject>(),
-    _resourceRegistry = new HashMap<String, FrameworkResource>(),
     domRoot = new Border(),
     miriam = new Miriam()
   {
@@ -72,7 +69,6 @@ class Buckshot extends FrameworkObject {
   Buckshot._init([String rootID = Buckshot._defaultRootID])
   :
     namedElements = new HashMap<String, FrameworkObject>(),
-    _resourceRegistry = new HashMap<String, FrameworkResource>(),
     domRoot = new Border(),
     miriam = new Miriam()
   {
@@ -144,33 +140,6 @@ class Buckshot extends FrameworkObject {
         setValue(windowHeightProperty, window.innerHeight);
       }
     });
-  }
-
-  /**
-   *  Returns a resource that is registered with the given [resourceKey].
-   */
-  retrieveResource(String resourceKey){
-    String lowered = resourceKey.trim().toLowerCase();
-
-    if (!_resourceRegistry.containsKey(lowered)) return null;
-
-    var res = _resourceRegistry[lowered];
-
-    if (res.stateBag.containsKey(FrameworkResource.RESOURCE_PROPERTY)){
-      // resource property defined so return it's value
-      return getValue(res.stateBag[FrameworkResource.RESOURCE_PROPERTY]);
-    }else{
-      // no resource property defined so just return the resource
-      return res;
-    }
-  }
-
-  /**
-   * Registers a resource to the framework.  Will be replaced with mirror-
-   * based reflection.
-   */
-  void registerResource(FrameworkResource resource){
-    _resourceRegistry[resource.key.trim().toLowerCase()] = resource;
   }
 
   /// Gets the innerWidth of the window

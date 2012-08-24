@@ -11,17 +11,17 @@ class TransitionStateManager{
 
 class TransitionStateGroup{
   final List<TransitionState> states;
-  
+
   TransitionStateGroup()
   :
   states = new List<TransitionState>()
   {
-    
+
   }
 }
 
 class TransitionState{
-  
+
 }
 
 class PropertyTransition
@@ -30,36 +30,36 @@ class PropertyTransition
   final TransitionTiming timing;
   final List<num> bezierValues;
   final num delay;
-  
+
   PropertyTransition(this.durationInSeconds, this.timing, [this.bezierValues = const [0,0,0,0], this.delay = 0]);
 }
 
 
 class FrameworkAnimation
 {
-  
+
   static void playAnimation(String name){
-    
-    AnimationResource anim = buckshot._resourceRegistry['$name'];
-    
+
+    AnimationResource anim = FrameworkResource._resourceRegistry['$name'];
+
     if (anim == null) return;
-    
+
     if (anim._cachedAnimation == null){
       _CssCompiler.compileAnimation(anim);
     }
-    
+
     buckshot._buckshotCSS.innerHTML = '';
     buckshot._buckshotCSS.innerHTML = anim._cachedAnimation;
   }
-  
+
   /// Low-level function that clears a CSS3 transition property for a given [AnimatingFrameworkProperty].
   static void clearPropertyTransition(AnimatingFrameworkProperty property){
     String transProp = Polly.getCSS(property.sourceObject.dynamic.rawElement, 'transition');
-        
+
     if (transProp == null || !transProp.contains(property.cssPropertyPeer)) return;
-    
+
     List props = transProp != null ? transProp.split(',') : [];
-    
+
     if (props.length == 1){
       Polly.setCSS(property.sourceObject.dynamic.rawElement, 'transition', '');
       return;
@@ -67,7 +67,7 @@ class FrameworkAnimation
 
     int i = 0;
     int fi = -1;
-        
+
     for (final String prop in props){
       if (prop.startsWith(property.cssPropertyPeer)){
         props.removeRange(i, 1);
@@ -75,31 +75,31 @@ class FrameworkAnimation
       }
       i++;
     }
-        
+
     StringBuffer sb = new StringBuffer();
-    
+
     for(i = 0; i < props.length - 1; i++){
       sb.add('${props[i]},');
     }
 
     sb.add(props.last());
-    
+
     Polly.setCSS(property.sourceObject.dynamic.rawElement, 'transition', sb.toString());
   }
-  
+
   /// Low-level function that sets a CSS3 transition property for a given [AnimatingFrameworkProperty].
   static void setPropertyTransition(AnimatingFrameworkProperty property, PropertyTransition transition){
-    
-    String newProp = '${property.cssPropertyPeer} ${transition.durationInSeconds}s ${transition.timing} ${transition.delay}s';    
-    
+
+    String newProp = '${property.cssPropertyPeer} ${transition.durationInSeconds}s ${transition.timing} ${transition.delay}s';
+
     String transProp = Polly.getCSS(property.sourceObject.dynamic.rawElement, 'transition');
-    
+
     if (transProp == null){
       //create and return;
       Polly.setCSS(property.sourceObject.dynamic.rawElement, 'transition', newProp);
       return;
     }
-    
+
     if (transProp != null && !transProp.contains(property.cssPropertyPeer)){
       //append and return;
       Polly.setCSS(property.sourceObject.dynamic.rawElement, 'transition', '${transProp}, $newProp');
@@ -107,12 +107,12 @@ class FrameworkAnimation
     }
 
     //replace existing
-    
+
     List props = transProp != null ? transProp.split(',') : [];
-       
+
     int i = 0;
     int fi = -1;
-        
+
     for (final String prop in props){
       if (prop.startsWith(property.cssPropertyPeer)){
         fi = i;
@@ -125,18 +125,18 @@ class FrameworkAnimation
       props[fi] = newProp;
     else
       props.add(newProp);
-    
+
     StringBuffer sb = new StringBuffer();
-    
+
     for(i = 0; i < props.length - 1; i++){
       sb.add('${props[i]},');
     }
 
     sb.add(props.last());
-    
+
     Polly.setCSS(property.sourceObject.dynamic.rawElement, 'transition', sb.toString());
   }
-  
+
   BuckshotAnimation(){
     document.head.elements.add(new Element.html('<style id="__BuckshotStyle__">.luca_ui_textblock {font-size:30px;}</style>'));
   }

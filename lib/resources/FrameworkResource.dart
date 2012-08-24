@@ -29,6 +29,8 @@
 */
 class FrameworkResource extends FrameworkObject
 {
+  static HashMap<String, FrameworkResource> _resourceRegistry;
+
   /// An application-wide unique identifier for the resource.
   /// Required.
   FrameworkProperty keyProperty;
@@ -41,6 +43,10 @@ class FrameworkResource extends FrameworkObject
   static final String RESOURCE_PROPERTY = "RESOURCE_PROPERTY";
 
   FrameworkResource(){
+    if (_resourceRegistry == null){
+      _resourceRegistry = new HashMap<String, FrameworkResource>();
+    }
+
     _initFrameworkResourceProperties();
   }
 
@@ -54,4 +60,37 @@ class FrameworkResource extends FrameworkObject
   set key(String v) => setValue(keyProperty, v);
   /// Gets the [keyProperty] value.
   String get key() => getValue(keyProperty);
+
+  /**
+   *  Returns a resource that is registered with the given [resourceKey].
+   */
+  static retrieveResource(String resourceKey){
+    if (_resourceRegistry == null) return null;
+
+    String lowered = resourceKey.trim().toLowerCase();
+
+    if (!_resourceRegistry.containsKey(lowered)) return null;
+
+    var res = _resourceRegistry[lowered];
+
+    // TODO: check the rawData field of the resource to see if it is a template.
+    // Deserialize it if so.
+
+    if (res.stateBag.containsKey(FrameworkResource.RESOURCE_PROPERTY)){
+      // resource property defined so return it's value
+      return getValue(res.stateBag[FrameworkResource.RESOURCE_PROPERTY]);
+    }else{
+      // no resource property defined so just return the resource
+      return res;
+    }
+  }
+
+  /**
+   * Registers a resource to the framework.  Will be replaced with mirror-
+   * based reflection.
+   */
+  static void registerResource(FrameworkResource resource){
+    _resourceRegistry[resource.key.trim().toLowerCase()] = resource;
+  }
+
 }

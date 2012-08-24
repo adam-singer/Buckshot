@@ -41,17 +41,17 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
     var setterMethodName;
 
     classMirror
-    .methods
-    .getKeys()
-    .some((k){
-      // this follows the convention that all AttachedFrameworkProperty setter
-      // methods will begin with 'set'
-      if (k.toLowerCase() == 'set${split[1]}'){
-        setterMethodName = k;
-        return true;
-      }
-      return false;
-    });
+      .methods
+      .getKeys()
+      .some((k){
+        // this follows the convention that all AttachedFrameworkProperty setter
+        // methods will begin with 'set'
+        if (k.toLowerCase() == 'set${split[1]}'){
+          setterMethodName = k;
+          return true;
+        }
+        return false;
+      });
 
     if (setterMethodName == null){
       throw new BuckshotException('Attached property $classPropertyPair'

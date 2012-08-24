@@ -108,10 +108,10 @@ class TreeView extends Panel
 </resourcecollection>
   ''')
       .then((_){
-        mouseEnterBorderStyle = buckshot.retrieveResource('__TreeView_mouse_enter_style_template__');
-        mouseLeaveBorderStyle = buckshot.retrieveResource('__TreeView_mouse_leave_style_template__');
-        mouseDownBorderStyle = buckshot.retrieveResource('__TreeView_mouse_down_style_template__');
-        mouseUpBorderStyle = buckshot.retrieveResource('__TreeView_mouse_up_style_template__');
+        mouseEnterBorderStyle = FrameworkResource.retrieveResource('__TreeView_mouse_enter_style_template__');
+        mouseLeaveBorderStyle = FrameworkResource.retrieveResource('__TreeView_mouse_leave_style_template__');
+        mouseDownBorderStyle = FrameworkResource.retrieveResource('__TreeView_mouse_down_style_template__');
+        mouseUpBorderStyle = FrameworkResource.retrieveResource('__TreeView_mouse_up_style_template__');
       });
   }
 
