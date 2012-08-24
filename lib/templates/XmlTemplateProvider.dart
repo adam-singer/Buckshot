@@ -176,7 +176,10 @@ class XmlTemplateProvider implements IPresentationFormatProvider
     final String elementLowerTagName = ofXMLNode.name.toLowerCase();
 
     if (ofXMLNode.name.contains(".")){
-      AttachedFrameworkProperty.invokeSetPropertyFunction(ofXMLNode.name, ofElement, value);
+      AttachedFrameworkProperty
+        .invokeSetPropertyFunction(ofXMLNode.name,
+            ofElement,
+            ofXMLNode.text.trim());
       c.complete(true);
     }else{
       //element or resource
