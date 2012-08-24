@@ -33,8 +33,6 @@
 #source('DemoModel.dart');
 
 void main() {
-  //register manually for now until reflection can do it.
-  buckshot.registerAttachedProperty('dockpanel.dock', DockPanel.setDock);
 
   Futures
     .wait([

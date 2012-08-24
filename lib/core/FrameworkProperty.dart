@@ -67,9 +67,6 @@ class FrameworkProperty extends FrameworkPropertyBase
       stringToValueConverter:converter)
   {
 
-//    if (this.sourceObject != null)
-//      this.sourceObject._frameworkProperties.add(this);
-
     // If the value is provided, then call it's propertyChanged function to set the value on the property.
     if (defaultValue !== null){
       value = defaultValue;

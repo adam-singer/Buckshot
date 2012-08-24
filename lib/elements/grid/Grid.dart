@@ -54,6 +54,11 @@ _internalChildren = new List<_GridCell>()
 {
   Browser.appendClass(rawElement, "grid");
 
+  buckshot.registerAttachedProperty('grid.column', Grid.setColumn);
+  buckshot.registerAttachedProperty('grid.row', Grid.setRow);
+  buckshot.registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
+  buckshot.registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
+
   columnDefinitionsProperty = new FrameworkProperty(this,
       "columnDefinitions",
       (ObservableList<ColumnDefinition> list){

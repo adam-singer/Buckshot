@@ -34,9 +34,33 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
    *
    *     'class.attachedPropertyName'
    *
+   * NOT WORKING (see inner comments)
    */
-  static Function getSetPropertyFunction(String classPropertyPair){
-    throw const NotImplementedException();
+  static void invokeSetPropertyFunction(String classPropertyPair, element, value){
+    final split = classPropertyPair.split('.');
+    final classMirror = buckshot.miriam.getObjectByName(split[0]);
+
+    var setterMethodName;
+
+    classMirror
+    .methods
+    .getKeys()
+    .some((k){
+      if (k.toLowerCase() == 'set${split[1]}'){
+        setterMethodName = k;
+        return true;
+      }
+      return false;
+    });
+
+    if (setterMethodName == null){
+      throw new BuckshotException('Attached property $classPropertyPair not found.');
+    }
+
+
+    //TODO Fails because .invoke() doesn't support complex types as arguments...
+    classMirror.invoke(setterMethodName, [element, value]);
+
   }
 
   /**

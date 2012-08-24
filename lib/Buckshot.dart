@@ -11,6 +11,7 @@
 #import('dart:json');
 #import('dart:isolate');
 #import('dart:math');
+#import('dart:mirrors');
 
 #import('package:dart-xml/lib/xml.dart');
 #import('package:DartNet-Event-Model/events.dart');

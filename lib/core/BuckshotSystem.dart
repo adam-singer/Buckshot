@@ -111,12 +111,6 @@ class Buckshot extends FrameworkObject {
     //set the domRoot
     _domRootElement.elements.clear();
     _domRootElement.elements.add(domRoot.rawElement);
-
-    // register core elements that do not derive from Control
-    _registerCoreElements();
-
-    // now register controls that may depend on control templates for visuals
-    //_registerCoreControls();
   }
 
   void _initCSS(){
@@ -155,19 +149,6 @@ class Buckshot extends FrameworkObject {
         setValue(windowHeightProperty, window.innerHeight);
       }
     });
-  }
-
-  void _registerCoreElements(){
-    // registers stuff not yet handled by the reflection queries
-    //TODO: move to mirror-based discovery
-
-    registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
-    registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
-
-    registerAttachedProperty('grid.column', Grid.setColumn);
-    registerAttachedProperty('grid.row', Grid.setRow);
-    registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
-    registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
   }
 
   /**

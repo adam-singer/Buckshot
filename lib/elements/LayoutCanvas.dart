@@ -18,7 +18,8 @@ class LayoutCanvas extends Panel
 
   LayoutCanvas(){
     Browser.appendClass(rawElement, "layoutcanvas");
-
+    registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
+    registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
   }
 
   void onChildrenChanging(ListChangedEventArgs args){
