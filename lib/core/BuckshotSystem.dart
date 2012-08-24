@@ -25,9 +25,6 @@ class Buckshot extends FrameworkObject {
   Element _domRootElement;
   StyleElement _buckshotCSS;
 
-  final HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject,
-  Dynamic>> _attachedProperties;
-
   final HashMap<String, FrameworkResource> _resourceRegistry;
 
   //poor man's reflection...
@@ -59,8 +56,6 @@ class Buckshot extends FrameworkObject {
     namedElements = new HashMap<String, FrameworkObject>(),
     _resourceRegistry = new HashMap<String, FrameworkResource>(),
     _objectRegistry = new HashMap<String, Dynamic>(),
-    _attachedProperties = new HashMap<AttachedFrameworkProperty,
-            HashMap<FrameworkObject, Dynamic>>(),
     domRoot = new Border(),
     miriam = new Miriam()
   {
@@ -83,8 +78,6 @@ class Buckshot extends FrameworkObject {
     namedElements = new HashMap<String, FrameworkObject>(),
     _resourceRegistry = new HashMap<String, FrameworkResource>(),
     _objectRegistry = new HashMap<String, Dynamic>(),
-    _attachedProperties = new HashMap<AttachedFrameworkProperty,
-            HashMap<FrameworkObject, Dynamic>>(),
     domRoot = new Border(),
     miriam = new Miriam()
   {
