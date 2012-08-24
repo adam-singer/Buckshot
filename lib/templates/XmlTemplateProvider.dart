@@ -7,7 +7,7 @@
 /**
 * Provides serialization/deserialization for XML format templates.
 */
-class XmlTemplateProvider implements IPresentationFormatProvider
+class XmlTemplateProvider extends IPresentationFormatProvider
 {
 
   /* Begin IPresentationFormatProvider Interface */
@@ -45,7 +45,7 @@ class XmlTemplateProvider implements IPresentationFormatProvider
       }
     }
 
-    final interfaceMirrorOf = buckshot.miriam.getObjectByName(lowerTagName);
+    final interfaceMirrorOf = Miriam.context.getObjectByName(lowerTagName);
 
     if (interfaceMirrorOf == null){
       throw new PresentationProviderException('Element "${xmlElement.name}"'

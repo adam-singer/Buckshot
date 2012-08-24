@@ -37,9 +37,10 @@ class BuckshotObject extends HashableObject{
       return false;
     }
 
-    return hasPropertyInternal(buckshot.miriam.mirrorOf(this).type, propertyName);
+    return hasPropertyInternal(reflect(this).type, propertyName);
   }
 
+  //TODO: Move a generalized version of this into Miriam
   /**
    *  A [Future] that returns a [FrameworkProperty] matching the given
    * [propertyName].
@@ -81,7 +82,7 @@ class BuckshotObject extends HashableObject{
         }
 
       }else{
-        buckshot.miriam.mirrorOf(this)
+        reflect(this)
           .getField(name)
           .then((im){
             c.complete(im.reflectee);
@@ -92,7 +93,7 @@ class BuckshotObject extends HashableObject{
     }
 
     return getPropertyNameInternal(propertyName.toLowerCase(),
-        buckshot.miriam.mirrorOf(this).type);
+        reflect(this).type);
   }
 
   FrameworkProperty _getPropertyByName(String propertyName){

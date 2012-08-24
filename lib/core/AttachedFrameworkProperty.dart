@@ -36,7 +36,7 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
    */
   static void invokeSetPropertyFunction(String classPropertyPair, element, value){
     final split = classPropertyPair.split('.');
-    final classMirror = buckshot.miriam.getObjectByName(split[0]);
+    final classMirror = Miriam.context.getObjectByName(split[0]);
 
     var setterMethodName;
 

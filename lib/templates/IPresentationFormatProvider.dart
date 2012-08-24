@@ -10,21 +10,21 @@
 * * [JSONTemplateProvider]
 * * [YAMLTemplateProvider]
 */
-interface IPresentationFormatProvider
+class IPresentationFormatProvider
 {
 
   /**
   * Takes a string representation of elements in [template] and attempts to convert it to an object tree
   * using parsing rules from the implementing class. */
-  Future<FrameworkElement> deserialize(String template);
+  abstract Future<FrameworkElement> deserialize(String template);
 
   /**
   * Takes an object tree starting at [elementRoot] and attempts to convert it to a serialized string
   * in the format of the implementing class. */
-  String serialize(FrameworkElement elementRoot);
+  abstract String serialize(FrameworkElement elementRoot);
 
   /**
   * Returns true if the given template is detected to be of a compatible format.
   */
-  bool isFormat(String template);
+  abstract bool isFormat(String template);
 }

@@ -9,6 +9,9 @@
 
 /**
  * Reflection and Mirror Utilities for Buckshot.
+ *
+ * This is a singleton class, easily referenced through
+ * the [Miriam.context] getter.
  */
 class Miriam
 {
@@ -16,23 +19,25 @@ class Miriam
   static Map<String, ClassMirror> _mirrorCache;
 
   MirrorSystem get mirror() => _mirror;
+  static Miriam _ref;
 
-  Miriam()
-      :
-        _mirror = currentMirrorSystem(){
-        if (_mirrorCache == null){
-          _mirrorCache = {};
-        }
-      }
+  static Miriam get context() => new Miriam();
 
-  /**
-   * Returns a new instance of a given object using it's default constructor
-   */
-  newInstanceOf(Object object){
-    throw const NotImplementedException();
+  factory Miriam()
+  {
+    if (_ref != null) return _ref;
+
+    _ref = new Miriam._internal();
+    return _ref;
   }
 
-  mirrorOf(object) => reflect(object);
+  Miriam._internal()
+        :
+        _mirror = currentMirrorSystem(){
+          if (_mirrorCache == null){
+            _mirrorCache = {};
+          }
+  }
 
   /**
    * Returns true if a given [ClassMirror] derives from any

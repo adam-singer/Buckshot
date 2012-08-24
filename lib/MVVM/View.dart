@@ -8,7 +8,8 @@
 * (in the MVVM context of a "view")
 *
 */
-class View {
+class View
+{
   FrameworkElement _rootElement;
   final Completer _c;
 

@@ -41,16 +41,13 @@ class Buckshot extends FrameworkObject {
   /// Bindable property representing the current version of Buckshot
   FrameworkProperty versionProperty;
 
-  final Miriam miriam;
-
   static Buckshot _ref;
 
   /// Pass the ID of the element in the DOM where buckshot will render content.
   Buckshot(String buckshotRootID)
   :
     namedElements = new HashMap<String, FrameworkObject>(),
-    domRoot = new Border(),
-    miriam = new Miriam()
+    domRoot = new Border()
   {
     _initBuckshotSystem(buckshotRootID);
   }
@@ -69,8 +66,7 @@ class Buckshot extends FrameworkObject {
   Buckshot._init([String rootID = Buckshot._defaultRootID])
   :
     namedElements = new HashMap<String, FrameworkObject>(),
-    domRoot = new Border(),
-    miriam = new Miriam()
+    domRoot = new Border()
   {
     _ref = this;
     _initBuckshotSystem(rootID);

@@ -123,7 +123,7 @@ class StyleTemplate extends FrameworkResource
   }
 
   void _bindSetterToElement(Setter setter, FrameworkElement element){
-    final instanceMirror = buckshot.miriam.mirrorOf(element);
+    final instanceMirror = reflect(element);
 
     //TODO handle with lookup instead of try/catch
     if (!element.hasProperty(setter.property.toLowerCase())) return;

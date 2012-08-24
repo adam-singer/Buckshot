@@ -78,9 +78,7 @@ class Template {
   static FrameworkElement findParentByType(FrameworkElement element, String type){
     if (element.parent == null) return null;
 
-    final m = buckshot.miriam.mirrorOf(element.parent);
-
-    if (m.type.simpleName != type){
+    if (reflect(element.parent).type.simpleName != type){
       return findParentByType(element.parent, type);
     }
 
