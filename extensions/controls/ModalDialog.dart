@@ -4,6 +4,7 @@
 
 #library('modaldialog.controls.buckshotui.org');
 
+#import('dart:html');
 #import('../../lib/Buckshot.dart');
 
 /**
@@ -85,7 +86,7 @@ class ModalDialog extends Control
     b1 = new Binding(buckshot.windowWidthProperty, cvRoot.widthProperty);
     b2 = new Binding(buckshot.windowHeightProperty, cvRoot.heightProperty);
 
-    buckshot.domRoot.rawElement.elements.add(cvRoot.rawElement);
+    document.body.elements.add(cvRoot.rawElement);
 
     // manually trigger loaded state since we aren't adding this
     // to the visual tree using the API...
