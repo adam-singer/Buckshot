@@ -24,16 +24,17 @@
 #import('../../extensions/controls/media/Vimeo.dart');
 #import('../../extensions/controls/media/FunnyOrDie.dart');
 #import('../../extensions/controls/ListBox.dart');
-//#import('../../extensions/controls/ModalDialog.dart');
+#import('../../extensions/controls/ModalDialog.dart');
 #import('../../extensions/controls/social/PlusOne.dart');
+#import('../../extensions/controls/TreeView/TreeView.dart');
+#import('../../extensions/controls/DockPanel.dart');
 
 #source('DemoViewModel.dart');
 #source('DemoModel.dart');
 
 void main() {
-  // create our main view and error view
-
-  var dummy = buckshot.isContainer;
+  //register manually for now until reflection can do it.
+  buckshot.registerAttachedProperty('dockpanel.dock', DockPanel.setDock);
 
   Futures
     .wait([
