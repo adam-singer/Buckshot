@@ -19,9 +19,6 @@
 #import('../external/yaml/yaml.dart');
 #import('../external/shared/shared.dart');
 
-//TODO: move to dedicated library at some point
-#import('core/Miriam.dart');
-
 #source('core/globals.dart');
 #source('core/BuckshotSystem.dart');
 #source('core/FrameworkObject.dart');

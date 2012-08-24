@@ -37,7 +37,7 @@ void main() {
       //buckshot.rootView = new View.from(t);
 
       // Load the main view, to start the app.
-      buckshot.rootView = new Main();
+      setView(new Main());
     });
 
 }

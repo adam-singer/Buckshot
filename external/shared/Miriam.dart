@@ -2,10 +2,6 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-#library('utils.buckshotui.org');
-
-#import('dart:mirrors');
-
 
 /**
  * Reflection and Mirror Utilities for Buckshot.

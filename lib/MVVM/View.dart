@@ -67,8 +67,4 @@ class View
         ready = _c.future;
         rootVisual = element;
   }
-
-  /** Sets this [IView] as the rootView of the Buckshot application. */
-  void setAsRootView() { buckshot.rootView = this; }
-
 }

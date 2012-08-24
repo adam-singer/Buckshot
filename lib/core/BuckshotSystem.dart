@@ -174,23 +174,4 @@ class Buckshot extends FrameworkObject
 
   /// Gets the Buckshot version.
   String get version() => getValue(versionProperty);
-
-  /// Sets the given [View] as the root visual element.
-  set rootView(View view){
-    _currentView = view;
-
-    domRoot._isLoaded = true;
-
-    view.ready.then((_){
-      domRoot.content = view.rootVisual;
-    });
-  }
-
-  /// Gets the currently assigned [IView].
-  View get rootView() => _currentView;
-
-  /// Wraps a FrameworkElement into an [IView] and sets it as the root view.
-  void renderRaw(FrameworkElement element){
-    rootView = new View.from(element);
-  }
 }

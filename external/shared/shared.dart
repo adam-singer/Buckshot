@@ -1,4 +1,7 @@
 #library('shared.buckshotui.org');
+#import('dart:mirrors');
+
+#source('Miriam.dart');
 
 #source('HashableObject.dart');
 #source('IValueConverter.dart');
