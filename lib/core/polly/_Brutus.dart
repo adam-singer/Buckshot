@@ -237,16 +237,16 @@ class _Brutus
 
 
   void _sizeChangedEventHandler(_, MeasurementChangedEventArgs args){
-    var newTop = 0;
-    var newLeft = 0;
+    num newTop = 0;
+    num newLeft = 0;
 
     void handleHorizontalStretch(){
-      final parentPaddingOffset = element.parent.hasProperty('padding')
+      final num parentPaddingOffset = element.parent.hasProperty('padding')
                   ? element.parent.dynamic.padding.left +
                       element.parent.dynamic.padding.right
                   : 0;
 
-      final borderRadiusOffset = element.hasProperty('borderThickness')
+      final num borderRadiusOffset = element.hasProperty('borderThickness')
               ? element.dynamic.borderThickness.left +
                   element.dynamic.borderThickness.right
               : 0;
@@ -273,17 +273,17 @@ class _Brutus
     }
 
     void handleHorizontalCenter(ElementRect r){
-      final parentPaddingOffset = element.parent.hasProperty('padding')
+      final num parentPaddingOffset = element.parent.hasProperty('padding')
           ? element.parent.dynamic.padding.left +
               element.parent.dynamic.padding.right
           : 0;
 
-      final borderRadiusOffset = element.hasProperty('borderThickness')
+      final num borderRadiusOffset = element.hasProperty('borderThickness')
               ? element.dynamic.borderThickness.left +
                   element.dynamic.borderThickness.right
               : 0;
 
-      final measurementOffset = parentPaddingOffset + borderRadiusOffset;
+      final num measurementOffset = parentPaddingOffset + borderRadiusOffset;
 
 
       newLeft = ((args.newMeasurement.client.width / 2) -
@@ -291,12 +291,12 @@ class _Brutus
     }
 
     void handleHorizontalRight(ElementRect r){
-      final parentPaddingOffset = element.parent.hasProperty('padding')
+      final num parentPaddingOffset = element.parent.hasProperty('padding')
           ? element.parent.dynamic.padding.left +
               element.parent.dynamic.padding.right
           : 0;
 
-      final borderRadiusOffset = element.hasProperty('borderThickness')
+      final num borderRadiusOffset = element.hasProperty('borderThickness')
               ? element.dynamic.borderThickness.left +
                   element.dynamic.borderThickness.right
               : 0;
@@ -308,12 +308,12 @@ class _Brutus
     }
 
     void handleVerticalStretch(){
-      final parentPaddingOffset = (element.parent.hasProperty('padding'))
+      final num parentPaddingOffset = (element.parent.hasProperty('padding'))
           ? element.parent.dynamic.padding.top +
               element.parent.dynamic.padding.bottom
           : 0;
 
-      final borderRadiusOffset = element.hasProperty('borderThickness')
+      final num borderRadiusOffset = element.hasProperty('borderThickness')
               ? element.dynamic.borderThickness.top +
                   element.dynamic.borderThickness.bottom
               : 0;
@@ -341,17 +341,17 @@ class _Brutus
 
     void handleVerticalCenter(ElementRect r){
 
-      final parentPaddingOffset = (element.parent.hasProperty('padding'))
+      final num parentPaddingOffset = (element.parent.hasProperty('padding'))
                 ? element.parent.dynamic.padding.top +
                     element.parent.dynamic.padding.bottom
                 : 0;
 
-      final borderRadiusOffset = element.hasProperty('borderThickness')
+      final num borderRadiusOffset = element.hasProperty('borderThickness')
               ? element.dynamic.borderThickness.top +
                   element.dynamic.borderThickness.bottom
               : 0;
 
-      final measurementOffset = parentPaddingOffset + borderRadiusOffset;
+      final num measurementOffset = parentPaddingOffset + borderRadiusOffset;
 
       newTop = ((args.newMeasurement.client.height / 2) -
           ((r.client.height + measurementOffset) / 2)).toInt();
@@ -360,12 +360,12 @@ class _Brutus
     }
 
     void handleVerticalBottom(ElementRect r){
-      final parentPaddingOffset = (element.parent.hasProperty('padding'))
+      final num parentPaddingOffset = (element.parent.hasProperty('padding'))
           ? element.parent.dynamic.padding.top +
               element.parent.dynamic.padding.bottom
           : 0;
 
-      final borderRadiusOffset = element.hasProperty('borderThickness')
+      final num borderRadiusOffset = element.hasProperty('borderThickness')
               ? element.dynamic.borderThickness.top +
                   element.dynamic.borderThickness.bottom
               : 0;
