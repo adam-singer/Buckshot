@@ -3,7 +3,8 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 /**
- * Sets a [View] into the DOM for rendering.
+ * Sets a [View] into the DOM for rendering. Returns a future which completes
+ * when the view is ready (fully deserialized and constructed).
  *
  * ## Placement in DOM ##
  * By default Views will look for a DOM element with the 'BuckshotHost' ID,
@@ -21,8 +22,10 @@
  * values for the root container, but you can also set other typical [Border]
  * properties like borderWidth, borderThickness, etc.
  */
-void setView(View view, [String elementID = 'BuckshotHost'])
+Future setView(View view, [String elementID = 'BuckshotHost'])
 {
+  final c = new Completer();
+
   final el = query('#${elementID}');
 
   if (el == null){
@@ -36,7 +39,10 @@ void setView(View view, [String elementID = 'BuckshotHost'])
     b._isLoaded = true;
     el.elements.add(b.rawElement);
     b.content = view.rootVisual;
+    c.complete(true);
   });
+
+  return c.future;
 }
 
 
