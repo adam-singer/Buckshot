@@ -224,6 +224,9 @@ class FrameworkObject extends BuckshotObject {
     //TODO: Support multiple datacontext updates
 
     var dc = resolveDataContext();
+
+    _wireEventBindings(dc);
+
     if (dc == null) return;
 
     //binding each property in the lateBindings collection
@@ -254,14 +257,24 @@ class FrameworkObject extends BuckshotObject {
         }
       }
     });
+  }
 
-    if (!_eventBindings.isEmpty()){
-      if (dc.value == null){
-        throw new BuckshotException('Tried to hook up event handlers, but the'
-            ' datacontext is null.');
-      }
+  void _wireEventBindings(dataContextObject){
+    if (_eventBindings.isEmpty()) return;
 
-      final im = reflect(dc.value);
+    if (dataContextObject == null || dataContextObject.value == null){
+      final lm = currentMirrorSystem().isolate.rootLibrary;
+      _eventBindings.forEach((String handler, FrameworkEvent event){
+        if (lm.functions.containsKey(handler)){
+
+          //invoke the handler when the event fires
+          event + (sender, args){
+            lm.invoke(handler, [reflect(sender), reflect(args)]);
+          };
+        }
+      });
+    }else{
+      final im = reflect(dataContextObject.value);
 
       _eventBindings.forEach((String handler, FrameworkEvent event){
         if (im.type.methods.containsKey(handler)){
