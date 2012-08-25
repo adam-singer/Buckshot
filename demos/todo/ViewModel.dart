@@ -46,6 +46,10 @@ class ViewModel extends ViewModelBase
     }
   }
 
+  void onSubmit_handler(sender, args){
+    addNewEntry();
+  }
+
   //convenience getters/setters for our properties.
 
   ObservableList get items() => getValue(itemsProperty);
