@@ -3,23 +3,23 @@
 * A naive calculator implementation.
 */
 class Calc implements ICalculator
-{   
+{
   static final int EMPTY = 0;
   static final int FOPERAND = 1;
   static final int OP = 2;
   static final int SOPERAND = 3;
-  
+
   static final num PI = 3.1415926535897;
-  
+
   final List<Function> registeredMain;
   final List<Function> registeredSub;
   final StringBuffer numBuffer1;
   final StringBuffer numBuffer2;
-  
+
   Map<String, Function> operators;
   String currentOp = '';
   String memory = '0';
-  
+
   Calc()
   :
     registeredMain = [],
@@ -30,7 +30,7 @@ class Calc implements ICalculator
     subOutputChanged = new FrameworkEvent<OutputChangedEventArgs>(),
     memoryMarkerChanged = new FrameworkEvent<OutputChangedEventArgs>()
   {
-    operators = 
+    operators =
       {
       '+-' : neg,
       'C' : clear,
@@ -57,44 +57,44 @@ class Calc implements ICalculator
       'pi' : pi
      };
   }
-  
+
   /* Begin ICalculator Interface */
-  
+
   final FrameworkEvent<OutputChangedEventArgs> mainOutputChanged;
   final FrameworkEvent<OutputChangedEventArgs> subOutputChanged;
   final FrameworkEvent<OutputChangedEventArgs> memoryMarkerChanged;
-  
-  void put(String something){   
+
+  void put(String something){
     if (_isNumber(something)){
       handleNumber(something);
     }else{
       handleOperator(something);
     }
   }
-  
+
   /* End ICalculator Interface */
-  
-  
+
+
   // These helper methods are called by the implementation to fire the
   // corresponding event from the ICalculator interface.
-  
+
   void onMemoryMarkerChanged(String output){
     memoryMarkerChanged.invoke(this, new OutputChangedEventArgs(output));
   }
-  
+
   void onSubOutputChanged(String output){
     subOutputChanged.invoke(this, new OutputChangedEventArgs(output));
   }
-  
+
   void onMainOutputChanged(String output){
     mainOutputChanged.invoke(this, new OutputChangedEventArgs(output));
   }
-  
-  
+
+
   /*
    * Implementation
    */
-  
+
   void handleOperator(String op){
     switch(op){
       case 'C':
@@ -127,7 +127,7 @@ class Calc implements ICalculator
         }
     }
   }
-  
+
   void handleNumber(String number){
     if (_state < OP){
       if (numBuffer1.length == 15) return;
@@ -136,27 +136,27 @@ class Calc implements ICalculator
       if (numBuffer2.length == 15) return;
       numBuffer2.add(number);
     }
-    
+
     _updateOutput();
   }
-    
+
   int get _state() {
     if (!numBuffer2.isEmpty()) return SOPERAND;
     if (!currentOp.isEmpty()) return OP;
     if (!numBuffer1.isEmpty()) return FOPERAND;
     return EMPTY;
   }
-  
+
   bool _isNumber(String value){
     final String test = '1234567890';
-    
+
     return (test.contains(value));
   }
-      
+
   void _updateOutput(){
-    
-    var str;
-    
+
+    String str;
+
     if (_state == EMPTY){
       str = '0';
     }else if (_state == FOPERAND){
@@ -168,27 +168,27 @@ class Calc implements ICalculator
     }else if (_state == SOPERAND){
       str = numBuffer2.toString();
     }
-    
+
     //TODO perform rounding/precision instead of truncating
     if (str.length > 15){
       str = str.substring(0, 14);
     }
-    
+
     onMainOutputChanged(str);
-    
+
     onSubOutputChanged(
       _state >= OP ? '${numBuffer1.toString()} ${currentOp}' : '');
-    
+
     onMemoryMarkerChanged(memory == '0' ? '' : 'M');
   }
-    
+
   void _putNumber(num number){
     if (_state != FOPERAND && _state != SOPERAND) return;
-    
+
     if (number == number.floor()){
       number = Math.parseInt(number.toString().replaceAll('.0', ''));
     }
-    
+
     if (_state == FOPERAND){
       numBuffer1.clear();
       numBuffer1.add(number.toString());
@@ -197,7 +197,7 @@ class Calc implements ICalculator
       numBuffer2.add(number.toString());
     }
   }
-  
+
   num _getNumber(){
     if (_state != FOPERAND && _state != SOPERAND) return null;
 
@@ -207,21 +207,21 @@ class Calc implements ICalculator
     }
     return  str.contains('.') ? Math.parseDouble(str) : Math.parseInt(str);
   }
-  
+
   num _getNumberFrom(String str){
-    
+
     if (str.endsWith('.')){
       str = str.substring(0, str.length - 1);
     }
-    
+
     return str.contains('.') ? Math.parseDouble(str) : Math.parseInt(str);
   }
-  
+
   /* Operators */
-  
+
   void neg(){
     bool isNeg(String str) => str.startsWith('-');
-        
+
     if (_state == FOPERAND){
       var str = numBuffer1.toString();
       numBuffer1.clear();
@@ -241,14 +241,14 @@ class Calc implements ICalculator
     }
     _updateOutput();
   }
-  
+
   void clear(){
     numBuffer1.clear();
     numBuffer2.clear();
     currentOp = '';
     _updateOutput();
   }
-  
+
   void clearEntry(){
     if (_state == FOPERAND){
       numBuffer1.clear();
@@ -258,7 +258,7 @@ class Calc implements ICalculator
     }
     _updateOutput();
   }
-  
+
   void backspace(){
     switch(_state){
       case FOPERAND:
@@ -275,72 +275,72 @@ class Calc implements ICalculator
         currentOp = '';
         break;
     }
-    
+
     _updateOutput();
   }
 
   void squareRoot(){
     num v = _getNumber();
-    
+
     if (v == null) return;
-      
+
     _putNumber(Math.sqrt(v));
-        
+
     _updateOutput();
   }
-  
+
   void reciproc(){
     num v = _getNumber();
-    
+
     if (v == null || v == 0) return;
-      
+
     _putNumber(1 / v);
-        
+
     _updateOutput();
   }
-  
+
   void sin(){
     num v = _getNumber();
     if (v == null) return;
-    
+
     _putNumber(Math.sin(v));
     _updateOutput();
   }
-  
+
   void cos(){
     num v = _getNumber();
     if (v == null) return;
-    
+
     _putNumber(Math.cos(v));
     _updateOutput();
   }
-  
+
   void pi(){
     _putNumber(PI);
     _updateOutput();
   }
-  
+
   void pow2(){
     num v = _getNumber();
     if (v == null) return;
-    
+
     _putNumber(v * v);
     _updateOutput();
   }
-  
+
   void pow3(){
     num v = _getNumber();
     if (v == null) return;
-    
+
     _putNumber(v * v * v);
     _updateOutput();
   }
-  
+
   void mc(){
     this.memory = '0';
     _updateOutput();
   }
-  
+
   void mr(){
     if (_state <= FOPERAND){
       numBuffer1.clear();
@@ -355,99 +355,99 @@ class Calc implements ICalculator
     }
     _updateOutput();
   }
-  
+
   void ms(){
     num v = _getNumber();
     memory = v.toString();
     _updateOutput();
   }
-  
+
   void mp(){
     num v = _getNumber();
     num m = _getNumberFrom(memory);
-    
+
     memory = (m - v).toString();
-    
+
     _updateOutput();
 
   }
-  
+
   void mm(){
     num v = _getNumber();
     num m = _getNumberFrom(memory);
-    
+
     print(v);
-    
+
     memory = (m - v).toString();
-    
+
     _updateOutput();
   }
-  
+
   void eq(){
     if (_state < OP) return;
-    
+
     if (_state == OP){
       numBuffer2.add(numBuffer1.toString());
     }
-    
+
     var result = operators[currentOp]();
     if (result == result.floor()){
       result = Math.parseInt(result.toString().replaceAll('.0', ''));
     }
     clear();
-    
+
     numBuffer1.add(result.toString());
     _updateOutput();
   }
-  
+
   void percent(){
     if (_state < SOPERAND) return;
-    
+
     var fo = _getNumberFrom(numBuffer1.toString());
-    
+
     var so = _getNumberFrom(numBuffer2.toString());
-    
+
     var result = fo * (so * .01);
-    
+
     numBuffer2.clear();
     numBuffer2.add(result.toString());
     _updateOutput();
   }
-  
+
   num add(){
     assert(_state == SOPERAND);
-    
-    return _getNumberFrom(numBuffer1.toString()) 
+
+    return _getNumberFrom(numBuffer1.toString())
         + _getNumberFrom(numBuffer2.toString());
   }
-  
+
   num sub(){
     assert(_state == SOPERAND);
-    
-    return _getNumberFrom(numBuffer1.toString()) 
+
+    return _getNumberFrom(numBuffer1.toString())
         - _getNumberFrom(numBuffer2.toString());
   }
-  
+
   num mul(){
     assert(_state == SOPERAND);
-    
-    return _getNumberFrom(numBuffer1.toString()) 
+
+    return _getNumberFrom(numBuffer1.toString())
         * _getNumberFrom(numBuffer2.toString());
   }
-  
+
   num div(){
     assert(_state == SOPERAND);
-    
+
     var denom = _getNumberFrom(numBuffer2.toString());
     if (denom == 0) return 0;
-    
-    return _getNumberFrom(numBuffer1.toString()) 
+
+    return _getNumberFrom(numBuffer1.toString())
         / _getNumberFrom(numBuffer2.toString());
   }
-  
-  void decimal(){    
+
+  void decimal(){
     bool hasDecimal(String str) => str.contains('.');
-        
+
     if (_state == FOPERAND || _state == EMPTY){
       if (hasDecimal(numBuffer1.toString())) return;
       numBuffer1.add('.');
@@ -457,7 +457,7 @@ class Calc implements ICalculator
     }
     _updateOutput();
   }
-  
+
 }
 
 
