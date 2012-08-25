@@ -32,7 +32,8 @@ class DemoViewModel extends ViewModelBase
                     videosProperty,
                     colorProperty,
                     fruitProperty,
-                    iconsProperty;
+                    iconsProperty,
+                    versionProperty;
 
   DemoViewModel()
   :
@@ -43,6 +44,10 @@ class DemoViewModel extends ViewModelBase
     // Update the timeStampProperty every second with a new timestamp.
     // Anything binding to this will get updated.
     window.setInterval(() => setValue(timeStampProperty, new Date.now().toString()), 1000);
+  }
+
+  void refresh_handler(sender, args){
+    print('click in handler!');
   }
 
   // Initialize the properties that we want to allow binding to.
@@ -62,5 +67,7 @@ class DemoViewModel extends ViewModelBase
     // resolution to any properties within that object as well.
     // ex. "color.red" or "color.orange"
     colorProperty = new FrameworkProperty(this, "color", defaultValue:model.colorClass);
+
+    versionProperty = new FrameworkProperty(this, 'version', defaultValue:buckshot.version);
   }
 }

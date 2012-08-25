@@ -23,6 +23,8 @@ class FrameworkObject extends BuckshotObject {
   /// the element renders to the DOM.
   final HashMap<FrameworkProperty, BindingData> lateBindings;
 
+  final Map<String, FrameworkEvent> _eventBindings;
+
   /// Fires when the FrameworkElement is inserted into the DOM.
   final FrameworkEvent<EventArgs> loaded;
   /// Fires when the FrameworkElement is removed from the DOM.
@@ -57,6 +59,7 @@ class FrameworkObject extends BuckshotObject {
 
   FrameworkObject() :
     lateBindings = new HashMap<FrameworkProperty, BindingData>(),
+    _eventBindings = new Map<String, FrameworkEvent>(),
     loaded = new FrameworkEvent<EventArgs>(),
     unloaded = new FrameworkEvent<EventArgs>(),
     attachedPropertyChanged =
@@ -251,6 +254,25 @@ class FrameworkObject extends BuckshotObject {
         }
       }
     });
+
+    if (!_eventBindings.isEmpty()){
+      if (dc.value == null){
+        throw new BuckshotException('Tried to hook up event handlers, but the'
+            ' datacontext is null.');
+      }
+
+      final im = reflect(dc.value);
+
+      _eventBindings.forEach((String handler, FrameworkEvent event){
+        if (im.type.methods.containsKey(handler)){
+
+          //invoke the handler when the event fires
+          event + (sender, args){
+            im.invoke(handler, [reflect(sender), reflect(args)]);
+          };
+        }
+      });
+    }
   }
 
   void removeFromLayoutTree(){
@@ -316,9 +338,9 @@ class FrameworkObject extends BuckshotObject {
   FrameworkObject get parent() => _parent;
 
   /// Sets the [dataContextProperty] value.
-  set dataContext(Dynamic value) => setValue(dataContextProperty, value);
+  set dataContext(value) => setValue(dataContextProperty, value);
   /// Gets the [dataContextProperty] value.
-  Dynamic get dataContext() => getValue(dataContextProperty);
+  get dataContext() => getValue(dataContextProperty);
 
   void applyVisualTemplate() {
     //the base method just calls CreateElement

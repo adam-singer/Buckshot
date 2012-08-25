@@ -54,6 +54,7 @@ class BuckshotObject extends HashableObject{
           .getKeys()
           .some((k){
             if (k.startsWith('_')) return false;
+            //TODO: provide a better checking here (= is FrameworkProperty)
             return '${propertyName}property' == k.toLowerCase();
           });
 
@@ -67,6 +68,50 @@ class BuckshotObject extends HashableObject{
     }
 
     return hasPropertyInternal(reflect(this).type);
+  }
+
+
+  Future<FrameworkProperty> getEventByName(String eventName){
+    Future<FrameworkProperty> getEventNameInternal(String eventNameLowered,
+        classMirror){
+      final c = new Completer();
+
+      var name = '';
+
+      classMirror
+      .variables
+      .getKeys()
+      .some((k){
+        if (eventNameLowered == k.toLowerCase()){
+          name = k;
+          return true;
+        }
+        return false;
+      });
+
+
+      if (name == ''){
+        if (classMirror.superclass.simpleName != 'BuckshotObject')
+  //          && classMirror.superclass.simpleName != 'Object')
+        {
+          getEventNameInternal(eventNameLowered, classMirror.superclass)
+            .then((result) => c.complete(result));
+        }else{
+          c.complete(null);
+        }
+
+      }else{
+        reflect(this)
+          .getField(name)
+          .then((im){
+            c.complete(im.reflectee);
+          });
+      }
+
+      return c.future;
+    }
+
+    return getEventNameInternal(eventName.toLowerCase(), reflect(this).type);
   }
 
   //TODO: Move a generalized version of this into Miriam
@@ -128,12 +173,6 @@ class BuckshotObject extends HashableObject{
   FrameworkProperty _getPropertyByName(String propertyName){
     throw const NotImplementedException('Convert to async .getPropertyName()'
         ' instead.');
-//    Collection<FrameworkProperty> result =
-//        _frameworkProperties.filter((FrameworkProperty p) =>
-//            p.propertyName.toLowerCase() == propertyName.toLowerCase());
-//
-//    if (result.length == 0) return null;
-//    return result.iterator().next();
   }
 
 

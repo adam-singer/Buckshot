@@ -57,10 +57,7 @@ void main() {
       final StackPanel spRoot = buckshot.namedElements['spRoot'];
 
       // set buckshot to the root's datacontext
-      spRoot.dataContext = buckshot;
-
-      // set a demo view model into the borderContent's datacontext
-      borderContent.dataContext = new DemoViewModel();
+      spRoot.dataContext = new DemoViewModel();
 
       // this event actually renders the chosen content, or provides and error
       // message if something went wrong

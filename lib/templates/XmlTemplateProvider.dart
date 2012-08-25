@@ -90,11 +90,21 @@ class XmlTemplateProvider extends IPresentationFormatProvider
     return oc.future;
   }
 
-  Future processEvent(BuckshotObject element, String e, v){
+  Future processEvent(ofElement, String e, v){
     final c = new Completer();
 
-    print('found it! $e');
-    c.complete(true);
+    ofElement.getEventByName(e)
+    .then((event){
+      if (event is! FrameworkEvent || ofElement is! FrameworkObject){
+        c.complete(false);
+        return;
+      }
+      // registered the handler name and the event for later binding
+      // when the data context is set.
+      ofElement._eventBindings[v] = event;
+
+      c.complete(true);
+    });
 
     return c.future;
   }
@@ -411,16 +421,14 @@ class XmlTemplateProvider extends IPresentationFormatProvider
         if (k.contains(".")){
           AttachedFrameworkProperty.invokeSetPropertyFunction(k, element, v);
         }else if (element.hasEvent(k.toLowerCase())){
-            fList.add(processEvent(element, k, v));
+          //event
+          fList.add(processEvent(element, k, v));
         }else{
           //property
           final f = element.resolveProperty(k.toLowerCase());
           fList.add(f);
           f.then((p){
-              if (p == null){
-                print('$k not found.');
-                return; //TODO throw?
-              }
+              if (p == null) return;
 
               if (v.trim().startsWith("{")){
                 //binding or resource
