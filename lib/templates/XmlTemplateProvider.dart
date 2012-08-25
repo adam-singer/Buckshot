@@ -67,7 +67,7 @@ class XmlTemplateProvider extends IPresentationFormatProvider
 
           if(newElement.hasProperty(elementLowerTagName)){
             fList.add(processProperty(newElement, e));
-          }else {
+          }else{
             fList.add(processTag(newElement, e));
           }
         }
@@ -88,6 +88,15 @@ class XmlTemplateProvider extends IPresentationFormatProvider
     });
 
     return oc.future;
+  }
+
+  Future processEvent(BuckshotObject element, String e, v){
+    final c = new Completer();
+
+    print('found it! $e');
+    c.complete(true);
+
+    return c.future;
   }
 
 
@@ -401,12 +410,17 @@ class XmlTemplateProvider extends IPresentationFormatProvider
       .forEach((String k, String v){
         if (k.contains(".")){
           AttachedFrameworkProperty.invokeSetPropertyFunction(k, element, v);
+        }else if (element.hasEvent(k.toLowerCase())){
+            fList.add(processEvent(element, k, v));
         }else{
           //property
-          final f = element.resolveProperty(k);
+          final f = element.resolveProperty(k.toLowerCase());
           fList.add(f);
           f.then((p){
-              if (p == null) return; //TODO throw?
+              if (p == null){
+                print('$k not found.');
+                return; //TODO throw?
+              }
 
               if (v.trim().startsWith("{")){
                 //binding or resource

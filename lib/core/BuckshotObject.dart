@@ -17,27 +17,56 @@ class BuckshotObject extends HashableObject{
   /// is a container or not.
   bool get isContainer() => this is IFrameworkContainer;
 
-  /// Returns a boolean value indicting whether the object contains
-  /// a [FrameworkProperty] by the given friendly [propertyName].
-  bool hasProperty(String propertyName){
-    bool hasPropertyInternal(classMirror, propertyName){
+
+  bool hasEvent(String eventName)
+  {
+    bool hasEventInternal(classMirror){
       final result = classMirror
           .variables
           .getKeys()
           .some((k){
+            if (k.startsWith('_')) return false;
+            //TODO: provide a better checking here (= is FrameworkEvent)
+            return '${eventName}' == k.toLowerCase();
+          });
+
+      if (result) return result;
+
+      if (classMirror.superclass.simpleName != 'BuckshotObject'){
+        return hasEventInternal(classMirror.superclass);
+      }
+
+      return false;
+    }
+
+    return hasEventInternal(reflect(this).type);
+  }
+
+
+  /**
+   * Returns a boolean value indicting whether the object contains
+   * a [FrameworkProperty] by the given friendly [propertyName].
+   */
+  bool hasProperty(String propertyName){
+    bool hasPropertyInternal(classMirror){
+      final result = classMirror
+          .variables
+          .getKeys()
+          .some((k){
+            if (k.startsWith('_')) return false;
             return '${propertyName}property' == k.toLowerCase();
           });
 
       if (result) return result;
 
       if (classMirror.superclass.simpleName != 'BuckshotObject'){
-        return hasPropertyInternal(classMirror.superclass, propertyName);
+        return hasPropertyInternal(classMirror.superclass);
       }
 
       return false;
     }
 
-    return hasPropertyInternal(reflect(this).type, propertyName);
+    return hasPropertyInternal(reflect(this).type);
   }
 
   //TODO: Move a generalized version of this into Miriam

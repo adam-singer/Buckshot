@@ -172,7 +172,7 @@ Begin Buckshot Templates
     <textarea placeholder="Type something here or select one of the samples from above." spellcheck="false" 
       name="tbUserInput" minwidth='690' maxwidth='690' minheight="300"></textarea>
     <stack orientation="horizontal">
-       <button name="btnRefresh" content="Refresh Output"></button>
+       <button name="btnRefresh" click='refresh_handler' content="Refresh Output"></button>
        <button name="btnClear" margin="0,0,0,5" content="Clear All"></button>
     </stack>
     <textblock style="{resource iotext}" text="Output:"/>
