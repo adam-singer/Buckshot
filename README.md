@@ -86,16 +86,14 @@ Buckshot supports 4 different types of binding from XML templates (or in code): 
 
 **And Much, Much More** [More Details Here] (https://github.com/prujohn/Buckshot/wiki/What-is-Buckshot%3F)
 
-## Dependencies (git submodules in the 'external' folder)
-* [Dart-XML](https://github.com/prujohn/dart-xml)
-
-## License
+## License ##
 Apache 2.0. See license.txt for project licensing information.
 
-## Contact
+## Contact ##
+Buckshot Discussion Group: <https://groups.google.com/forum/#!forum/buckshot-ui>
 
-John
+Buckshot on G+: <https://plus.google.com/b/105133271658972815666/105133271658972815666/posts>
 
-G+: https://plus.google.com/115427174005651655317/about
+John on G+: <https://plus.google.com/115427174005651655317/about>
 
-Blog: http://phylotic.blogspot.com
+Blog: <http://phylotic.blogspot.com>
