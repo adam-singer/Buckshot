@@ -14,7 +14,6 @@ class DemoViewModel extends ViewModelBase
 {
   final DemoModel model;
 
-  //declare our framework properties
   FrameworkProperty timeStampProperty;
   FrameworkProperty videosProperty;
   FrameworkProperty colorProperty;
@@ -69,7 +68,7 @@ class DemoViewModel extends ViewModelBase
    */
   void refresh_handler(sender, args){
 
-    // I had to put this here because the closure wasn't workign
+    // I had to put this here because the closure wasn't working
     // correctly in the final{} block.
     void doError(String error){
       var errorView = new Error();
