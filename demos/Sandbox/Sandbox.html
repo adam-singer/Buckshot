@@ -20,7 +20,7 @@ Begin Buckshot Templates
 -->
 
 <script id='main' type='text/xml'>
-<stack name='spRoot' orientation="horizontal" halign="center">
+<stack orientation="horizontal" halign="center">
   <resourcecollection>
     <color key="buckshotBlue" value="#165284"></color>
 
@@ -115,7 +115,7 @@ Begin Buckshot Templates
     <textblock margin="0,10" fontsize="20" fontfamily="arial" text="Select a sample or design your own in the Input area below."/>
     <stack style='{resource sample_row}'>
       <textblock margin="0,10,0,0" text="Elements:" fontfamily="arial"/>
-      <dropdownlist name="ddlElements">
+      <dropdownlist selectionChanged='selection_handler'>
         <items>
           <dropdownitem name='' value='' />
           <dropdownitem name='Hello World' value='textblock' />
@@ -129,7 +129,7 @@ Begin Buckshot Templates
     </stack>
     <stack style='{resource sample_row}'>
       <textblock margin="0,10,0,0" text="Controls:" fontfamily="arial"/>
-      <dropdownlist name="ddlControls">
+      <dropdownlist selectionChanged='selection_handler'>
         <items>
           <dropdownitem name='' value='' />
           <dropdownitem name='TreeView' value='treeview' />
@@ -147,7 +147,7 @@ Begin Buckshot Templates
     </stack>
     <stack style='{resource sample_row}'>
       <textblock text="Binding Demos:" margin="0,5,0,0" fontfamily="arial"/>
-      <dropdownlist name="ddlBinding">
+      <dropdownlist selectionChanged='selection_handler'>
         <items>
           <dropdownitem name='' value='' />
           <dropdownitem name='Resource Binding' value='resources' />
@@ -159,7 +159,7 @@ Begin Buckshot Templates
     </stack>
     <stack style='{resource sample_row}'>
       <textblock text="Media Extensions:" margin="0,5,0,0" fontfamily="arial"/>
-      <dropdownlist name="ddlMediaExtensions">
+      <dropdownlist selectionChanged='selection_handler'>
         <items>
           <dropdownitem name='' value='' />
           <dropdownitem name='YouTube' value='youtube' />
@@ -171,13 +171,13 @@ Begin Buckshot Templates
     </stack>
     <textblock style="{resource iotext}" text="Input (you can edit this or create your own):"/>
     <textarea placeholder="Type something here or select one of the samples from above." spellcheck="false" 
-      name="tbUserInput" minwidth='690' maxwidth='690' minheight="300"></textarea>
+      text='{data templateText, mode=twoway}' minwidth='690' maxwidth='690' minheight="300"></textarea>
     <stack orientation="horizontal">
-       <button name="btnRefresh" click='refresh_handler' content="Refresh Output"></button>
-       <button name="btnClear" margin="0,0,0,5" content="Clear All"></button>
+       <button click='refresh_handler' content="Refresh Output"></button>
+       <button click='clearAll_handler' margin="0,0,0,5" content="Clear All"></button>
     </stack>
     <textblock style="{resource iotext}" text="Output:"/>
-    <border name="borderContent" margin="0,0,10,0" width="690" borderThickness="3" borderColor="{resource buckshotBlue}">
+    <border content='{data renderedOutput}' margin="0,0,10,0" width="690" borderThickness="3" borderColor="{resource buckshotBlue}">
     </border>
   </stack>
 </stack>
@@ -292,9 +292,9 @@ Begin Buckshot Templates
 
 
 <script id='error' type='text/xml'>
-<border borderColor="Red" borderThickness="3" padding="5" background="Yellow">
-  <textblock name="tbErrorMessage" foreground="Red" text="" />
-</border>
+   <border halign='center' maxwidth='650' borderColor="Red" borderThickness="3" padding="5" background="Yellow">
+      <textblock halign='stretch' foreground="Red" text="{data errorMessage}" />
+   </border>
 </script>
 
 <script id='textblock' type='text/xml'>
