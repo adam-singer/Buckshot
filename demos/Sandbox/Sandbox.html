@@ -74,101 +74,62 @@ Begin Buckshot Templates
     </border>
     <border style="{resource sideboxdark}">
       <stack>
-          <textblock foreground="White" fontSize="48" text="Buckshot"/>
-          <textblock fontfamily="arial" foreground="White" text="A Better Way To Web"/>
-          <stack orientation="horizontal" margin="5,0,0,0">
-          		<textblock fontSize='10' fontfamily="arial" foreground="White" text="Version:"/>
-  	            <textblock margin='0,0,0,5' fontSize='10' fontfamily="arial" foreground="White" text="{data version}"/>
-          </stack>
+          <textblock fontFamily='arial' foreground="White" fontSize="48" text="Buckshot"/>
+          <textblock fontfamily="arial" foreground="White" text="Sandbox"/>
+      </stack>
+    </border>
+    <border halign='stretch' margin='0,0,10,0' borderthickness='1' bordercolor='SteelBlue' padding='5'>
+      <stack>
+        <textblock fontfamily='arial' text='Select a sample:' />
+     	<treeview treenodeselected='selection_handler'>
+	     <treenode header='Elements' tag=''>
+	     	<treenode header='Hello World' tag='textblock' />
+	     	<treenode header='Stack' tag='stack' />
+	     	<treenode header='Border' tag='border' />
+	     	<treenode header='Grid' tag='grid' />
+	     	<treenode header='RawHtml' tag='rawhtml' />
+	     	<treenode header='LayoutCanvas' tag='layoutcanvas' />
+	     	<treenode header='This Page!' tag='main' />
+	     </treenode>
+	     <treenode header='Controls' tag=''>
+	     	<treenode header='TreeView' tag='treeview' />
+	     	<treenode header='DockPanel' tag='dockpanel' />
+	     	<treenode header='ListBox' tag='listbox' />
+	     	<treenode header='DropDownList' tag='dropdownlist' />
+	     	<treenode header='Slider' tag='slider' />
+	     	<treenode header='Button' tag='button' />
+	     	<treenode header='RadioButton' tag='radiobutton' />
+	     	<treenode header='CheckBox' tag='checkbox' />
+	     	<treenode header='Hyperlink' tag='hyperlink' />
+	     </treenode>
+	     <treenode header='Binding Demos' tag=''>
+	     	<treenode header='Resource Binding' tag='resources' />
+	     	<treenode header='Element Binding' tag='elementbinding' />
+	     	<treenode header='Data Binding' tag='databinding' />
+	     	<treenode header='Binding To Collections' tag='collections' />
+	     </treenode>
+	     <treenode header='Media Extensions' tag=''>
+	     	<treenode header='YouTube' tag='youtube' />
+	     	<treenode header='Hulu' tag='hulu' />
+	     	<treenode header='Vimeo' tag='vimeo' />
+	     	<treenode header='FunnyOrDie' tag='funnyordie' />
+	     </treenode>
+	  	</treeview>  
       </stack>
     </border>
     <border style="{resource sidebox}">
-      <stack halign='stretch'>
-        <textblock style="{resource sideboxtext}">
-        Buckshot is a User Interface framework for the web written in Google Dart.  
-        On this page you can explore how the framework's simple layout structure makes designing and working with web pages easy.
-        </textblock>
-        <textblock foreground="White" margin="10,0,0,0" fontSize="14">
-        (this page is 100% generated with Buckshot)
-        </textblock>
-      </stack>
-    </border>
-    <border style="{resource sidebox}">
-      <textblock style="{resource sideboxtext}">
-      Buckshot is currently in the ALPHA stage of development. That means you may find some things that don't work as expected.
-      </textblock>
-    </border>
-    <border style="{resource sidebox}">
-       <hyperlink targetName="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki">
-          <textblock style="{resource sideboxtext}">Buckshot Project Site</textblock>
+       <hyperlink targetName="_blank" navigateto="https://github.com/prujohn/Buckshot/">
+          <textblock style="{resource sideboxtext}">Project Site</textblock>
        </hyperlink>
     </border>
     <border style="{resource sidebox}">
-       <hyperlink targetName="_blank" navigateto="http://www.lucastudios.com/trybuckshot/docs/">
+       <hyperlink targetName="_blank" navigateto="http://www.buckshotui.org/docs/">
           <textblock style="{resource sideboxtext}">Library Documentation</textblock>
        </hyperlink>
     </border>
     <plusone annotation="inline"></plusone>
   </stack>
-  <stack margin="0,0,0,10" width="700">
-    <!-- border.halign="stretch" isn't working properly here (textblock wont center), so setting width explicitely instead -->
-    <textblock margin="0,10" fontsize="20" fontfamily="arial" text="Select a sample or design your own in the Input area below."/>
-    <stack style='{resource sample_row}'>
-      <textblock margin="0,10,0,0" text="Elements:" fontfamily="arial"/>
-      <dropdownlist selectionChanged='selection_handler'>
-        <items>
-          <dropdownitem name='' value='' />
-          <dropdownitem name='Hello World' value='textblock' />
-          <dropdownitem name='Stack' value='stack' />
-          <dropdownitem name='Border' value='border' />
-          <dropdownitem name='Grid' value='grid' />
-          <dropdownitem name='Layout Canvas' value='layoutcanvas' />
-          <dropdownitem name='This Page!' value='main' />
-        </items>
-      </dropdownlist>
-    </stack>
-    <stack style='{resource sample_row}'>
-      <textblock margin="0,10,0,0" text="Controls:" fontfamily="arial"/>
-      <dropdownlist selectionChanged='selection_handler'>
-        <items>
-          <dropdownitem name='' value='' />
-          <dropdownitem name='TreeView' value='treeview' />
-          <dropdownitem name='DockPanel' value='dockpanel' />
-          <dropdownitem name='ListBox' value='listbox' />          
-          <dropdownitem name='DropDownList' value='dropdownlist' />
-          <dropdownitem name='Slider' value='slider' />
-          <dropdownitem name='Button' value='button' />
-          <dropdownitem name='Radio Buttons' value='radiobutton' />
-          <dropdownitem name='Checkboxes' value='checkbox' />
-          <dropdownitem name='Hyperlink' value='hyperlink' />
-          <dropdownitem name='Image' value='image' />
-        </items>
-      </dropdownlist>
-    </stack>
-    <stack style='{resource sample_row}'>
-      <textblock text="Binding Demos:" margin="0,5,0,0" fontfamily="arial"/>
-      <dropdownlist selectionChanged='selection_handler'>
-        <items>
-          <dropdownitem name='' value='' />
-          <dropdownitem name='Resource Binding' value='resources' />
-          <dropdownitem name='Element Binding' value='elementbinding' />
-          <dropdownitem name='Data Binding' value='databinding' />
-          <dropdownitem name='Collections Demo' value='collections' />
-        </items>
-      </dropdownlist>
-    </stack>
-    <stack style='{resource sample_row}'>
-      <textblock text="Media Extensions:" margin="0,5,0,0" fontfamily="arial"/>
-      <dropdownlist selectionChanged='selection_handler'>
-        <items>
-          <dropdownitem name='' value='' />
-          <dropdownitem name='YouTube' value='youtube' />
-          <dropdownitem name='Hulu' value='hulu' />
-          <dropdownitem name='Vimeo' value='vimeo' />
-          <dropdownitem name='FunnyOrDie' value='funnyordie' />
-        </items>
-      </dropdownlist>
-    </stack>
+  <stack margin="0,0,0,10" halign='stretch'>
     <textblock style="{resource iotext}" text="Input (you can edit this or create your own):"/>
     <textarea placeholder="Type something here or select one of the samples from above." spellcheck="false" 
       text='{data templateText, mode=twoway}' minwidth='690' maxwidth='690' minheight="300"></textarea>
@@ -181,6 +142,10 @@ Begin Buckshot Templates
     </border>
   </stack>
 </stack>
+</script>
+
+<script id='rawhtml' type='text/xml'>
+<rawhtml htmlstring="<div style='font-size:32px'>Hello World!</div>"/>
 </script>
 
 <script id='treeview' type='text/xml'>

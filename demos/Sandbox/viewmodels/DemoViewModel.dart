@@ -145,9 +145,8 @@ class DemoViewModel extends ViewModelBase
   /**
    * Handles selection changed events coming from the drop down lists.
    */
-  void selection_handler(sender,
-                         SelectedItemChangedEventArgs<DropDownItem> args){
-    final value = args.selectedItem.value.toString();
+  void selection_handler(sender, args){
+    final value = args.node.tag;
 
     if (value == ''){
       resetUI();
