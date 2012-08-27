@@ -3,13 +3,12 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 /**
-* A demo view model for displaying information in tryit.
-*
-* Objects that participate in data binding must derive from [LucaObject].
-* ([ViewModelBase] does)
-*
-* Properties that need to be bound to must be of type [FrameworkProperty].
-*/
+ * A view model for displaying information in the Sandbox Demo.
+ *
+ * Objects that participate in data binding should derive from [ViewModelBase].
+ *
+ * Properties that need to be bound to must be of type [FrameworkProperty].
+ */
 class DemoViewModel extends ViewModelBase
 {
   final DemoModel model;
@@ -32,25 +31,32 @@ class DemoViewModel extends ViewModelBase
 
     // Update the timeStampProperty every second with a new timestamp.
     // Anything binding to this will get updated.
-    window.setInterval(() => setValue(timeStampProperty, new Date.now().toString()), 1000);
+    window.setInterval(() => setValue(timeStampProperty,
+        new Date.now().toString()), 1000);
   }
 
-  // Initialize the properties that we want to allow binding to.
+  // Initialize the properties that we want to expose for template binding.
   void _initDemoViewModelProperties(){
-    timeStampProperty = new FrameworkProperty(this, "timeStamp", defaultValue:new Date.now().toString());
+    timeStampProperty = new FrameworkProperty(this, "timeStamp",
+        defaultValue:new Date.now().toString());
 
-    iconsProperty = new FrameworkProperty(this, "icons", defaultValue:model.iconList);
+    iconsProperty = new FrameworkProperty(this, "icons",
+        defaultValue:model.iconList);
 
-    videosProperty = new FrameworkProperty(this, "videos", defaultValue:model.videoList);
+    videosProperty = new FrameworkProperty(this, "videos",
+        defaultValue:model.videoList);
 
-    fruitProperty = new FrameworkProperty(this, "fruit", defaultValue:model.fruitList);
+    fruitProperty = new FrameworkProperty(this, "fruit",
+        defaultValue:model.fruitList);
 
-    // Since colorProperty is itself a BuckshotObject, the framework will allow dot-notation
-    // resolution to any properties within that object as well.
-    // ex. "color.red" or "color.orange"
-    colorProperty = new FrameworkProperty(this, "color", defaultValue:model.colorClass);
+    // Since colorProperty is itself a BuckshotObject, the framework will
+    // allow dot-notation resolution to any properties within that object as
+    // well. ex. "color.red" or "color.orange"
+    colorProperty = new FrameworkProperty(this, "color",
+        defaultValue:model.colorClass);
 
-    versionProperty = new FrameworkProperty(this, 'version', defaultValue:buckshot.version);
+    versionProperty = new FrameworkProperty(this, 'version',
+        defaultValue:buckshot.version);
 
     renderedOutputProperty = new FrameworkProperty(this, 'renderedOutput');
 
@@ -58,6 +64,32 @@ class DemoViewModel extends ViewModelBase
 
     errorMessageProperty = new FrameworkProperty(this, 'errorMessage');
   }
+
+  /**
+   * Sets the given [templateText] to the [templateTextProperty] and renders
+   * it into the [renderedOutputProperty].
+   */
+  void setTemplate(String templateText){
+    if (templateText == ''){
+      resetUI();
+      return;
+    }
+
+    setValue(templateTextProperty, templateText);
+
+    Template.deserialize(templateText).then((c){
+      setValue(renderedOutputProperty, c);
+    });
+  }
+
+  /**
+   * Resets the UI properties to default states. */
+  void resetUI(){
+    //TODO: reset dropdown lists
+    setValue(templateTextProperty, '');
+    setValue(renderedOutputProperty, null);
+  }
+
 
   /*
    * Event Handlers
@@ -82,12 +114,7 @@ class DemoViewModel extends ViewModelBase
     String error = '';
 
     try{
-      final tt = getValue(templateTextProperty).trim();
-
-      if (tt == "") return;
-
-      Template.deserialize(tt)
-        .then((t) => setValue(renderedOutputProperty, t));
+      setTemplate(getValue(templateTextProperty).trim());
     }catch(AnimationException ae){
       error = "An error occurred while attempting to process an"
         " animation resource: ${ae}";
@@ -113,28 +140,19 @@ class DemoViewModel extends ViewModelBase
   /**
    * Handles click events coming from the 'clear all' button.
    */
-  void clearAll_handler(sender, args){
-    setValue(templateTextProperty, '');
-    setValue(renderedOutputProperty, null);
-  }
+  void clearAll_handler(sender, args) => resetUI();
 
   /**
    * Handles selection changed events coming from the drop down lists.
    */
-  void selection_handler(sender, SelectedItemChangedEventArgs<DropDownItem> args){
+  void selection_handler(sender,
+                         SelectedItemChangedEventArgs<DropDownItem> args){
     final value = args.selectedItem.value.toString();
 
     if (value == ''){
-      setValue(templateTextProperty, '');
-      setValue(renderedOutputProperty, null);
+      resetUI();
     }else{
-      final view = Template.getTemplate('#${value}');
-
-      setValue(templateTextProperty, view);
-
-      Template.deserialize(view).then((c){
-        setValue(renderedOutputProperty, c);
-      });
+      setTemplate(Template.getTemplate('#${value}'));
     }
   }
 }
