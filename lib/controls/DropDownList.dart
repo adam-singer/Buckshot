@@ -86,11 +86,11 @@ class DropDownList extends Control
     }
   }
 
-  DropDownItem get selectedItem() => getValue(selectedItemProperty);
+  DropDownItem get selectedItem => getValue(selectedItemProperty);
 
-  List<String> get itemsSource() => getValue(itemsSourceProperty);
+  List<String> get itemsSource => getValue(itemsSourceProperty);
 
-  ObservableList<DropDownItem> get items() => getValue(itemsProperty);
+  ObservableList<DropDownItem> get items => getValue(itemsProperty);
 
   /// Overridden [FrameworkObject] method for generating the html representation of the DDL.
   void createElement(){
@@ -114,9 +114,9 @@ class DropDownItem extends TemplateObject
     valueProperty = new FrameworkProperty(this, "value", (Dynamic v){}, null);
   }
 
-  String get name() => getValue(nameProperty);
+  String get name => getValue(nameProperty);
   set name(String v) => setValue(nameProperty, v);
 
-  Dynamic get value() => getValue(valueProperty);
+  Dynamic get value => getValue(valueProperty);
   set value(Dynamic v) => setValue(valueProperty, v);
 }

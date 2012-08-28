@@ -140,7 +140,7 @@ class Calc implements ICalculator
     _updateOutput();
   }
 
-  int get _state() {
+  int get _state {
     if (!numBuffer2.isEmpty()) return SOPERAND;
     if (!currentOp.isEmpty()) return OP;
     if (!numBuffer1.isEmpty()) return FOPERAND;

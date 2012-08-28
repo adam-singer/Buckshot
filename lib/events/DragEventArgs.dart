@@ -12,5 +12,5 @@ class DragEventArgs extends RoutedEventArgs
 
   DragEventArgs(this._dataTransfer);
 
-  Clipboard get dataTransfer() => _dataTransfer;
+  Clipboard get dataTransfer => _dataTransfer;
 }

@@ -22,12 +22,12 @@ class StyleTemplate extends FrameworkResource
     }
 
   /** Gets the [Setter] [ObservableList] from [settersProperty]. */
-  ObservableList<Setter> get setters() => getValue(settersProperty);
+  ObservableList<Setter> get setters => getValue(settersProperty);
   /** Setst he [Setter] [ObsersableList] from [settersProperty]. */
   set setters(ObservableList<Setter> value) => setValue(settersProperty, value);
 
   /** Returns a [Collection] of [FrameworkElement]'s registered to the StyleTemplate */
-  Collection<FrameworkElement> get registeredElements() => _registeredElements;
+  Collection<FrameworkElement> get registeredElements => _registeredElements;
 
   /**
   * Copies setters from one or more [templates] into the current StyleTemplate.

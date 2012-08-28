@@ -16,10 +16,10 @@ class PlayAnimation extends ActionBase {
     actionProperty = new FrameworkProperty(this, 'action');
   }
 
-  String get animation() => getValue(animationProperty);
+  String get animation => getValue(animationProperty);
   set animation(String value) => setValue(animationProperty, value);
 
-  String get action() => getValue(actionProperty);
+  String get action => getValue(actionProperty);
   set action(String value) => setValue(actionProperty, value);
 
   void onEventTrigger(){

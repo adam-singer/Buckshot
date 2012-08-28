@@ -55,8 +55,8 @@ class PlusOne extends FrameworkElement
     converter:const StringToPlusOneButtonSizeConverter());
   }
 
-  PlusOneAnnotationTypes get annotation() => getValue(annotationProperty);
-  PlusOneButtonSizes get size() => getValue(sizeProperty);
+  PlusOneAnnotationTypes get annotation => getValue(annotationProperty);
+  PlusOneButtonSizes get size => getValue(sizeProperty);
 
   /**
   * Injects javascript into the DOM, and optionally removes it after the script has run. */

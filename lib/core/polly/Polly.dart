@@ -34,7 +34,7 @@ class Polly {
    * Gets a [BrowserInfo] object representing various data
    * about the current browser context.
    */
-  static BrowserInfo get browserInfo() => _browserInfo;
+  static BrowserInfo get browserInfo => _browserInfo;
 
   static void init(){
     _browserInfo = Browser.getBrowserInfo();
@@ -63,7 +63,7 @@ class Polly {
    * Returns true if the framework is known to be compatible with
    * the browser type/version it is running in.
    */
-  static bool get browserOK() {
+  static bool get browserOK {
 
     if (browserInfo.browser == Browser.DARTIUM) return true;
 

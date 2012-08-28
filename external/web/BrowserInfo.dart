@@ -13,9 +13,9 @@ class BrowserInfo {
     _vendorPrefix = Browser.vendorPrefixMap[browser];
   }
   
-  String get vendorPrefix() => _vendorPrefix;
+  String get vendorPrefix => _vendorPrefix;
   
-  bool get isMobile() => mobileType != Browser.UNKNOWN;
+  bool get isMobile => mobileType != Browser.UNKNOWN;
   
   String toString() => "Browser Info (Type: ${browser}, Version: ${version}, Platform: ${platform}, MobileType: ${mobileType})";
 

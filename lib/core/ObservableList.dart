@@ -44,7 +44,7 @@ class ObservableList<T> implements List<T>{
 
   int lastIndexOf(T element, [int start = 0]) => _list.lastIndexOf(element, start);
 
-  int get length() => _list.length;
+  int get length => _list.length;
 
   List getRange(int start, int length) => _list.getRange(start, length);
 

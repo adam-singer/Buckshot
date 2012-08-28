@@ -52,16 +52,16 @@ class Slider extends Control
     }, converter:const StringToNumericConverter());
   }
 
-  num get value() => getValue(valueProperty);
+  num get value => getValue(valueProperty);
   set value(v) => setValue(valueProperty, v);
 
-  num get step() => getValue(stepProperty);
+  num get step => getValue(stepProperty);
   set step(v) => setValue(stepProperty, v);
 
-  num get min() => getValue(minProperty);
+  num get min => getValue(minProperty);
   set min(v) => setValue(minProperty, v);
 
-  num get max() => getValue(maxProperty);
+  num get max => getValue(maxProperty);
   set max(v) => setValue(maxProperty, v);
 
   void createElement(){

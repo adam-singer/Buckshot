@@ -39,7 +39,7 @@ class ListBox extends Control implements IFrameworkContainer
 
   final FrameworkEvent<SelectedItemChangedEventArgs> selectionChanged;
 
-  int get selectedIndex() => _selectedIndex;
+  int get selectedIndex => _selectedIndex;
 
   ListBox()
   :
@@ -62,7 +62,7 @@ class ListBox extends Control implements IFrameworkContainer
 
   }
 
-  String get defaultControlTemplate() {
+  String get defaultControlTemplate {
     return
     '''<controltemplate controlType="${this.templateName}">
           <template>
@@ -103,7 +103,7 @@ class ListBox extends Control implements IFrameworkContainer
     item.mouseUp + (_, __) => onItemMouseUp(item);
   }
 
-  get content() => template;
+  get content => template;
 
   /// Override this method to implement your own mouse over behavior for items in
   /// the ListBox.

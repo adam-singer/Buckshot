@@ -29,6 +29,6 @@ class AnimationResource extends FrameworkResource
     _CssCompiler.compileAnimation(this);
   }
 
-  List<AnimationKeyFrame> get keyFrames() => getValue(keyFramesProperty);
+  List<AnimationKeyFrame> get keyFrames => getValue(keyFramesProperty);
   set keyFrames(List<AnimationKeyFrame> v) => setValue(keyFramesProperty, v);
 }

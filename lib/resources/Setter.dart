@@ -21,10 +21,10 @@ class Setter extends TemplateObject
     value = propertyValue;
   }
 
-  get value() => getValue(valueProperty);
+  get value => getValue(valueProperty);
   set value(newValue) => setValue(valueProperty, newValue);
 
-  String get property() => getValue(propertyProperty);
+  String get property => getValue(propertyProperty);
   set property(String v) => setValue(propertyProperty, v);
 
   void _initStyleSetterProperties(){

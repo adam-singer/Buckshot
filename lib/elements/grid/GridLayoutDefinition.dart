@@ -22,7 +22,7 @@ class GridLayoutDefinition extends TemplateObject{
 
     _adjustedLengthInternal = value;
   }
-  num get _adjustedLength() => _adjustedLengthInternal;
+  num get _adjustedLength => _adjustedLengthInternal;
 
   num maxLength = 32767; //why not? ;)
   num minLength = 0;

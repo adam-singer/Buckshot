@@ -16,10 +16,10 @@ class ActionBase extends TemplateObject {
   FrameworkProperty _sourceProperty;
   FrameworkElement _target;
 
-  FrameworkElement get source() => getValue(_sourceProperty);
-  FrameworkElement get targetElement() => _target;
+  FrameworkElement get source => getValue(_sourceProperty);
+  FrameworkElement get targetElement => _target;
 
-  String get targetName() => getValue(targetNameProperty);
+  String get targetName => getValue(targetNameProperty);
   set targetName(String v) => setValue(targetNameProperty, v);
 
   final HashMap <String, EventHandlerReference> _ref;

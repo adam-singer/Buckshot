@@ -20,7 +20,7 @@ class View
   Future<bool> ready;
 
   /// Gets the visual root of the view.
-  FrameworkElement get rootVisual() => _rootElement;
+  FrameworkElement get rootVisual => _rootElement;
   set rootVisual(FrameworkElement element) {
     if (_rootElement != null){
       throw const BuckshotException('View already initialized.');

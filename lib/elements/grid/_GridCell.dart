@@ -41,13 +41,13 @@ class _GridCell extends FrameworkObject
   }
 
   /// Gets the [contentProperty] value.
-  FrameworkElement get content() => getValue(contentProperty);
+  FrameworkElement get content => getValue(contentProperty);
   /// Sets the [contentProperty] value.
   set content(FrameworkElement value) => setValue(contentProperty, value);
   /// Sets the [marginProperty] value.
   set margin(Thickness value) => setValue(marginProperty, value);
   /// Gets the [marginProperty] value.
-  Thickness get margin() => getValue(marginProperty);
+  Thickness get margin => getValue(marginProperty);
 
   void updateMeasurement(){
     rawElement

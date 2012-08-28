@@ -278,10 +278,10 @@ class TestElement extends FrameworkElement{
   }
 
   set a(String value) => setValue(_aProperty, value);
-  String get a() => getValue(_aProperty);
+  String get a => getValue(_aProperty);
 
   set b(String value) => setValue(_bProperty, value);
-  String get b() => getValue(_bProperty);
+  String get b => getValue(_bProperty);
 }
 
 /**

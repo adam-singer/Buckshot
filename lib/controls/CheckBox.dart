@@ -45,12 +45,12 @@ class CheckBox extends Control
   }
 
   /// Gets the [valueProperty] value.
-  String get value() => getValue(valueProperty);
+  String get value => getValue(valueProperty);
   /// Sets the [valueProperty] value.
   set value(String v) => setValue(valueProperty, v);
 
   /// Gets the [groupNameProperty] value.
-  String get groupName() => getValue(groupNameProperty);
+  String get groupName => getValue(groupNameProperty);
   /// Sets the [groupNameProperty] value.
   set groupName(String v) => setValue(groupNameProperty, v);
 

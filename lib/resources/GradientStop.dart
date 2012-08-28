@@ -30,12 +30,12 @@ class GradientStop extends TemplateObject
   /// Sets the [colorProperty] value.
   set color(Color value) => setValue(colorProperty, value);
   /// Gets the [colorProperty] value.
-  Color get color() => getValue(colorProperty);
+  Color get color => getValue(colorProperty);
 
   /// Sets the [percentProperty] value.
   set percent(int value) => setValue(percentProperty, value);
   /// Gets the [percentProperty] value.
-  int get percent() => getValue(percentProperty);
+  int get percent => getValue(percentProperty);
 
   void _initGradientStopProperties(){
     colorProperty = new FrameworkProperty(this, "color", converter:const StringToColorConverter());

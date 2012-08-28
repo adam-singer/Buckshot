@@ -376,95 +376,95 @@ class FrameworkElement extends FrameworkObject {
   */
 
   /// Gets the [styleProperty] value.
-  StyleTemplate get style() => getValue(styleProperty);
+  StyleTemplate get style => getValue(styleProperty);
   /// Sets the [styleProperty] value.
   set style(StyleTemplate value) => setValue(styleProperty, value);
 
   /// Gets the inner width of the element less any bordering offsets (margin, padding, borderThickness)
-  num get actualWidth() => getValue(actualWidthProperty);
+  num get actualWidth => getValue(actualWidthProperty);
 
   /// Gets the inner height of the element less any bordering offsets (margin, padding, borderThickness)
-  num get actualHeight() => getValue(actualHeightProperty);
+  num get actualHeight => getValue(actualHeightProperty);
 
   /// Sets the [htmlIDProperty] value.
   set htmlID(String value) => setValue(htmlIDProperty, value);
   /// Gets the [htmlIDProperty] value.
-  String get htmlID() => getValue(htmlIDProperty);
+  String get htmlID => getValue(htmlIDProperty);
 
   /// Sets the [opacityProperty] value.
   set opacity(double value) => setValue(opacityProperty, value);
   /// Gets the [opacityProperty] value.
-  double get opacity() => getValue(opacityProperty);
+  double get opacity => getValue(opacityProperty);
 
   /// Sets the [visibilityProperty] value.
   set visibility(Visibility value) => setValue(visibilityProperty, value);
   /// Gets the [visibilityProperty] value.
-  Visibility get visibility() => getValue(visibilityProperty);
+  Visibility get visibility => getValue(visibilityProperty);
 
   /// Sets the [zOrderProperty] value.
   set zOrder(num value) => setValue(zOrderProperty, value);
   /// Gets the [zOrderProperty] value.
-  num get zOrder() => getValue(zOrderProperty);
+  num get zOrder => getValue(zOrderProperty);
 
   /// Sets the [tagProperty] value.
   set tag(Dynamic value) => setValue(tagProperty, value);
   /// Gets the [tagProperty] value.
-  Dynamic get tag() => getValue(tagProperty);
+  Dynamic get tag => getValue(tagProperty);
 
   /// Sets the [marginProperty] value.
   set margin(Thickness value) => setValue(marginProperty, value);
   /// Gets the [marginProperty] value.
-  Thickness get margin() => getValue(marginProperty);
+  Thickness get margin => getValue(marginProperty);
 
   /// Sets the [widthProperty] value.
   set width(Dynamic value) => setValue(widthProperty, value);
   /// Gets the [widthProperty] value.
-  Dynamic get width() => getValue(widthProperty);
+  Dynamic get width => getValue(widthProperty);
 
   /// Sets the [heightProperty] value.
   set height(Dynamic value) => setValue(heightProperty, value);
   /// Gets the [heightProperty] value.
-  Dynamic get height() => getValue(heightProperty);
+  Dynamic get height => getValue(heightProperty);
 
   /// Sets the [minWidthProperty] value.
   set minWidth(num value) => setValue(minWidthProperty, value);
   /// Gets the [minWidthProperty] value.
-  num get minWidth() => getValue(minWidthProperty);
+  num get minWidth => getValue(minWidthProperty);
 
   /// Sets the [maxWidthProperty] value.
   set maxWidth(num value) => setValue(maxWidthProperty, value);
   /// Gets the [maxWidthProperty] value.
-  num get maxWidth() => getValue(maxWidthProperty);
+  num get maxWidth => getValue(maxWidthProperty);
 
   /// Sets the [minHeightProperty] value.
   set minHeight(num value) => setValue(minHeightProperty, value);
   /// Gets the [minHeightProperty] value.
-  num get minHeight() => getValue(minHeightProperty);
+  num get minHeight => getValue(minHeightProperty);
 
   /// Sets the [maxHeightProperty] value.
   set maxHeight(num value) => setValue(maxHeightProperty, value);
   /// Gets the [maxHeightProperty] value.
-  num get maxHeight() => getValue(maxHeightProperty);
+  num get maxHeight => getValue(maxHeightProperty);
 
   /// Sets the [cursorProperty] value.
   set cursor(Cursors value) => setValue(cursorProperty, value);
   /// Gets the [cursorProperty] value.
-  Cursors get cursor() => getValue(cursorProperty);
+  Cursors get cursor => getValue(cursorProperty);
 
   /// Sets the [verticalAlignmentProperty] value.
   set vAlign(VerticalAlignment value) => setValue(vAlignProperty, value);
   /// Gets the [verticalAlignmentProperty] value.
-  VerticalAlignment get vAlign() => getValue(vAlignProperty);
+  VerticalAlignment get vAlign => getValue(vAlignProperty);
 
   /// Sets the [horizontalAlignmentProperty] value.
   set hAlign(HorizontalAlignment value) => setValue(hAlignProperty, value);
   /// Gets the [horizontalAlignmentProperty] value.
-  HorizontalAlignment get hAlign() => getValue(hAlignProperty);
+  HorizontalAlignment get hAlign => getValue(hAlignProperty);
 
   /// Sets the [draggableProperty] value.
   set draggable(bool value) => setValue(draggableProperty, value);
   /// Gets the [draggableProperty] value.
-  bool get draggable() => getValue(draggableProperty);
+  bool get draggable => getValue(draggableProperty);
 
   /// ** Internal Use Only **
   void calculateWidth(value){
@@ -535,7 +535,7 @@ class FrameworkElement extends FrameworkObject {
   }
 
   //TODO: throw exception (maybe) if element is not loaded in DOM
-  Future<ElementRect> get updateMeasurementAsync(){
+  Future<ElementRect> get updateMeasurementAsync{
    Completer c = new Completer();
 
    rawElement.rect.then((ElementRect r){

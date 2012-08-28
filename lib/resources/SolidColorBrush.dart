@@ -24,7 +24,7 @@ class SolidColorBrush extends Brush
   }
 
   set color(Color c) => setValue(colorProperty, c);
-  Color get color() => getValue(colorProperty);
+  Color get color => getValue(colorProperty);
 
   void renderBrush(Element element){
     element.style.background = "${color}";

@@ -31,17 +31,17 @@ class LinearGradientBrush extends Brush
   /// Sets the [stopsProperty] value.
   set stops(List<GradientStop> value) => setValue(stopsProperty, value);
   /// Gets the [stopsProperty] value.
-  List<GradientStop> get stops() => getValue(stopsProperty);
+  List<GradientStop> get stops => getValue(stopsProperty);
 
   /// Sets the [directionProperty] value.
   set direction(LinearGradientDirection value) => setValue(directionProperty, value);
   /// Gets the [directionProperty] value.
-  LinearGradientDirection get direction() => getValue(directionProperty);
+  LinearGradientDirection get direction => getValue(directionProperty);
 
   /// Sets the [fallbackColorProperty] value.
   set fallbackColor(Color value) => setValue(fallbackColorProperty, value);
   /// Gets the [fallbackColorProperty] value.
-  Color get fallbackColor() => getValue(fallbackColorProperty);
+  Color get fallbackColor => getValue(fallbackColorProperty);
 
   void _initLinearGradientBrushProperties(){
     stopsProperty = new FrameworkProperty(this, "stops",

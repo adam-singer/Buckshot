@@ -13,7 +13,7 @@ class Colors{
   
   String toString() => _hex;
   
-  String get name() => _name;
+  String get name => _name;
   
   static final AliceBlue = const Colors("#F0F8FF", "AliceBlue");
   static final AntiqueWhite = const Colors("#FAEBD7", "AntiqueWhite");

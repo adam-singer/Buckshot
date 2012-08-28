@@ -70,15 +70,15 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   }
 
   /// Gets the [presentationPanelProperty] value.
-  Panel get presentationPanel() => getValue(presentationPanelProperty);
+  Panel get presentationPanel => getValue(presentationPanelProperty);
   /// Sets the [presentationPanelProperty] value.
   set presentationPanel(Panel value) => setValue(presentationPanelProperty, value);
 
   //IFrameworkContainer interface
-  get content() => presentationPanel;
+  get content => presentationPanel;
 
   /// Gets the [itemsTemplateProperty] value.
-  String get itemsTemplate() => getValue(itemsTemplateProperty);
+  String get itemsTemplate => getValue(itemsTemplateProperty);
   /// Sets the [itemsTemplateProperty] value.
   set itemsTemplate(String value) => setValue(itemsTemplateProperty, value);
 

@@ -119,19 +119,19 @@ class DemoViewModel extends ViewModelBase
 
     try{
       setTemplate(getValue(templateTextProperty).trim());
-    }catch(AnimationException ae){
+    }on AnimationException catch(ae){
       error = "An error occurred while attempting to process an"
         " animation resource: ${ae}";
-    }catch(PresentationProviderException pe){
+    }on PresentationProviderException catch(pe){
       error = "We were unable to parse your input into content for"
         " display: ${pe}";
-    }catch(FrameworkPropertyResolutionException pre){
+    }on FrameworkPropertyResolutionException catch(pre){
       error = "A framework error occured while attempting to resolve"
         " a property binding: ${pre}";
-    }catch(BuckshotException fe){
+    }on BuckshotException catch(fe){
       error = "A framework error occured while attempting to render"
         " the content: ${fe}";
-    }catch(Exception e){
+    }on Exception catch(e){
       error = "A general exception occured while attempting to"
         " render the content.  Please bear with us as we (and Dart) are"
         " still in the early stages of development.  Thanks! ${e}";

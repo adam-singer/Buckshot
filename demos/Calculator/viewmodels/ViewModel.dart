@@ -154,28 +154,28 @@ class ViewModel extends ViewModelBase
   * any defined FrameworkProperty should have a getter/setter pair as below.
   */
 
-  num get width() => getValue(widthProperty);
+  num get width => getValue(widthProperty);
   set width(num value) => setValue(widthProperty, value);
 
   /// Gets the [String] value of the [outputProperty] [FrameworkProperty].
-  String get output() => getValue(outputProperty);
+  String get output => getValue(outputProperty);
   /// Sets the [String] value for the [outputProperty] [FrameworkProperty].
   set output(String value) => setValue(outputProperty, value);
 
   /// Gets the [String] value of the [subOutputProperty] [FrameworkProperty].
-  String get subOutput() => getValue(subOutputProperty);
+  String get subOutput => getValue(subOutputProperty);
   /// Sets the [String] value for the [subOutputProperty] [FrameworkProperty].
   set subOutput(String value) => setValue(subOutputProperty, value);
 
   /// Gets the [String] value of the [memoryMarkerProperty] [FrameworkProperty].
-  String get memoryMarker() => getValue(memoryMarkerProperty);
+  String get memoryMarker => getValue(memoryMarkerProperty);
   /// Sets the [String] value for the [memoryMarkerProperty]
   /// [FrameworkProperty].
   set memoryMarker(String value) => setValue(memoryMarkerProperty, value);
 
   /// Gets the [FrameworkElement] value of the [keypadProperty]
   /// [FrameworkProperty].
-  FrameworkElement get keypad() => getValue(keypadProperty);
+  FrameworkElement get keypad => getValue(keypadProperty);
   /// Sets the [FrameworkElement] value for the [keypadProperty]
   /// [FrameworkProperty].
   set keypad(FrameworkElement value) => setValue(keypadProperty, value);

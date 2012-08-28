@@ -8,5 +8,5 @@
  */
 class IFrameworkContainer{
   
-  abstract get content();
+  abstract get content;
 }

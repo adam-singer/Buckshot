@@ -8,7 +8,7 @@
 * It is normally not be necessary to create your own instance
 * of the [Buckshot] class.
 */
-Buckshot get buckshot() => new Buckshot._cached();
+Buckshot get buckshot => new Buckshot._cached();
 
 /**
 * A general utility service for the Buckshot framework.
@@ -117,11 +117,11 @@ class Buckshot extends FrameworkObject
   }
 
   /// Gets the innerWidth of the window
-  int get windowWidth() => getValue(windowWidthProperty);
+  int get windowWidth => getValue(windowWidthProperty);
 
   /// Gets the innerHeight of the window
-  int get windowHeight() => getValue(windowHeightProperty);
+  int get windowHeight => getValue(windowHeightProperty);
 
   /// Gets the Buckshot version.
-  String get version() => getValue(versionProperty);
+  String get version => getValue(versionProperty);
 }

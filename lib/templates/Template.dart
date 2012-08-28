@@ -151,7 +151,7 @@ class Template {
         r.open('GET', from, true);
         r.setRequestHeader('Accept', 'text/xml');
         r.send();
-      }catch(Exception e){
+      }on Exception catch(e){
         c.complete(null);
       }
 

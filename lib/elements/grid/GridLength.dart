@@ -42,12 +42,12 @@ class GridLength extends FrameworkObject{
   }
 
   /// Gets the [gridUnitTypeProperty] value.
-  GridUnitType get gridUnitType() => getValue(gridUnitTypeProperty);
+  GridUnitType get gridUnitType => getValue(gridUnitTypeProperty);
   /// Sets the [gridUnitTypeProperty] value.
   set gridUnitType(GridUnitType v) => setValue(gridUnitTypeProperty, v);
 
   /// Gets the [valueProperty] value.
-  num get value() => getValue(valueProperty);
+  num get value => getValue(valueProperty);
   /// Sets the [valueProperty] value.
   set value(num v) => setValue(valueProperty, v);
 

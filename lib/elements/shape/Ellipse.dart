@@ -47,5 +47,5 @@ class Ellipse extends Shape{
     new Binding(heightProperty, _cyProperty);
   }
 
-  String get shapeTag() => 'ellipse';
+  String get shapeTag => 'ellipse';
 }

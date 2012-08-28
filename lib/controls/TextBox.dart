@@ -75,14 +75,14 @@ class TextBox extends Control
   }
 
   //framework property exposure
-  String get text() => getValue(textProperty);
+  String get text => getValue(textProperty);
   set text(String value) => setValue(textProperty, value);
 
-  InputTypes get inputType() => getValue(inputTypeProperty);
+  InputTypes get inputType => getValue(inputTypeProperty);
   set inputType(InputTypes value) => setValue(inputTypeProperty, value);
 
   set placeholder(String value) => setValue(placeholderProperty, value);
-  String get placeholder() => getValue(placeholderProperty);
+  String get placeholder => getValue(placeholderProperty);
 
 
   void createElement(){
@@ -130,7 +130,7 @@ interface IValidatable
 {
   bool isValid;
 
-  FrameworkProperty get textProperty();
+  FrameworkProperty get textProperty;
 
   setInvalid();
 

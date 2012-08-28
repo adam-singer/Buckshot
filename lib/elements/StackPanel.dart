@@ -50,7 +50,7 @@ class StackPanel extends Panel
   }
 
   set orientation(Orientation value) => setValue(orientationProperty, value);
-  Orientation get orientation() => getValue(orientationProperty);
+  Orientation get orientation => getValue(orientationProperty);
 
   void createElement(){
     rawElement = new DivElement();

@@ -25,16 +25,16 @@ class ToggleProperty extends ActionBase
     secondValueProperty = new FrameworkProperty(this, 'secondValue');
   }
 
-  String get target() => getValue(targetProperty);
+  String get target => getValue(targetProperty);
   set target(String v) => setValue(targetProperty, v);
 
-  String get property() => getValue(propertyProperty);
+  String get property => getValue(propertyProperty);
   set property(String v) => setValue(propertyProperty, v);
 
-  Dynamic get firstValue() => getValue(firstValueProperty);
+  Dynamic get firstValue => getValue(firstValueProperty);
   set firstValue(Dynamic v) => setValue(firstValueProperty, v);
 
-  Dynamic get secondValue() => getValue(secondValueProperty);
+  Dynamic get secondValue => getValue(secondValueProperty);
   set secondValue(Dynamic v) => setValue(secondValueProperty, v);
 
   void onEventTrigger(){

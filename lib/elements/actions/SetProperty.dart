@@ -22,13 +22,13 @@ class SetProperty extends ActionBase
     valueProperty = new FrameworkProperty(this, 'value');
   }
 
-  String get target() => getValue(targetProperty);
+  String get target => getValue(targetProperty);
   set target(String v) => setValue(targetProperty, v);
 
-  String get property() => getValue(propertyProperty);
+  String get property => getValue(propertyProperty);
   set property(String v) => setValue(propertyProperty, v);
 
-  Dynamic get value() => getValue(valueProperty);
+  Dynamic get value => getValue(valueProperty);
   set value(Dynamic v) => setValue(valueProperty, v);
 
   void onEventTrigger(){

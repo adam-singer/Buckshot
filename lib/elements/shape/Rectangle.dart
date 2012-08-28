@@ -42,7 +42,7 @@ class Rectangle extends Shape{
 
   }
 
-  String get shapeTag() => 'rect';
+  String get shapeTag => 'rect';
 
   void createElement(){
     rawElement = new DivElement();

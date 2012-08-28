@@ -79,10 +79,10 @@ _internalChildren = new List<_GridCell>()
 }
 
 /// Gets the [columnDefinitionsProperty] [ObservableList].
-ObservableList<ColumnDefinition> get columnDefinitions() => getValue(columnDefinitionsProperty);
+ObservableList<ColumnDefinition> get columnDefinitions => getValue(columnDefinitionsProperty);
 
 /// Gets the [rowDefinitionsProperty] [ObservableList].
-ObservableList<RowDefinition> get rowDefinitions() => getValue(rowDefinitionsProperty);
+ObservableList<RowDefinition> get rowDefinitions => getValue(rowDefinitionsProperty);
 
 void _onChildrenChanging(Object _, ListChangedEventArgs args){
 

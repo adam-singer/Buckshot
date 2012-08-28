@@ -14,10 +14,10 @@ class Miriam
   final MirrorSystem _mirror;
   static Map<String, ClassMirror> _mirrorCache;
 
-  MirrorSystem get mirror() => _mirror;
+  MirrorSystem get mirror => _mirror;
   static Miriam _ref;
 
-  static Miriam get context() => new Miriam();
+  static Miriam get context => new Miriam();
 
   factory Miriam()
   {

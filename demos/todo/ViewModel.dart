@@ -52,18 +52,18 @@ class ViewModel extends ViewModelBase
 
   //convenience getters/setters for our properties.
 
-  ObservableList get items() => getValue(itemsProperty);
+  ObservableList get items => getValue(itemsProperty);
 
-  String get taskName() => getValue(taskNameProperty);
+  String get taskName => getValue(taskNameProperty);
   set taskName(String value) => setValue(taskNameProperty, value);
 
-  String get dueDate() => getValue(dueDateProperty);
+  String get dueDate => getValue(dueDateProperty);
   set dueDate(String value) => setValue(dueDateProperty, value);
 
-  String get statusText() => getValue(statusTextProperty);
+  String get statusText => getValue(statusTextProperty);
   set statusText(String value) => setValue(statusTextProperty, value);
 
-  Brush get statusColor() => getValue(statusColorProperty);
+  Brush get statusColor => getValue(statusColorProperty);
   set statusColor(Brush value) => setValue(statusColorProperty, value);
 
 }

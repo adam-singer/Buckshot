@@ -40,7 +40,7 @@ class DockPanel extends Panel
     }
   }
 
-  bool get fillLast() => getValue(fillLastProperty);
+  bool get fillLast => getValue(fillLastProperty);
   set fillLast(bool value) => setValue(fillLastProperty, value);
 
   /**
@@ -259,7 +259,7 @@ class _DockPanelCell extends FrameworkElement
     }
   }
 
-  FrameworkElement get content() => getValue(contentProperty);
+  FrameworkElement get content => getValue(contentProperty);
   set content(FrameworkElement value) => setValue(contentProperty, value);
 
   /// Overridden [FrameworkObject] method for generating the html representation of the border.

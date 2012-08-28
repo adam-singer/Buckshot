@@ -32,34 +32,34 @@ class Hyperlink extends Control implements IFrameworkContainer
   }
 
   /// Gets the [navigateToProperty] value.
-  String get navigateTo() => getValue(navigateToProperty);
+  String get navigateTo => getValue(navigateToProperty);
   /// Sets the [navigateToProperty] value.
   set navigateTo(String value) => setValue(navigateToProperty, value);
 
   /// Gets the [targetNameProperty] value.
-  String get targetName() => getValue(targetNameProperty);
+  String get targetName => getValue(targetNameProperty);
   /// Sets the [targetNameProperty] value.
   set targetName(String value) => setValue(targetNameProperty, value);
 
   /// Gets the [contentProperty] value.
-  Dynamic get content() => getValue(contentProperty);
+  Dynamic get content => getValue(contentProperty);
   /// Sets the [targetNameProperty] value.
   set content(Dynamic value) => setValue(contentProperty, value);
 
   /// Gets the [foregroundProperty] value.
   set foreground(SolidColorBrush value) => setValue(foregroundProperty, value);
   /// Sets the [foregroundProperty] value.
-  SolidColorBrush get foreground() => getValue(foregroundProperty);
+  SolidColorBrush get foreground => getValue(foregroundProperty);
 
   /// Gets the [fontFamilyProperty] value.
   set fontFamily(String value) => setValue(fontFamilyProperty, value);
   /// Sets the [fontFamilyProperty] value.
-  String get fontFamily() => getValue(fontFamilyProperty);
+  String get fontFamily => getValue(fontFamilyProperty);
 
   /// Gets the [fontSizeProperty] value.
   set fontSize(num value) => setValue(fontSizeProperty, value);
   /// Sets the [fontSizeProperty] value.
-  num get fontSize() => getValue(fontSizeProperty);
+  num get fontSize => getValue(fontSizeProperty);
 
   void _initHyperlinkProperties(){
     // Initialize FrameworkProperty declarations.

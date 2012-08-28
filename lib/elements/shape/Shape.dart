@@ -59,10 +59,10 @@ class Shape extends FrameworkElement
     new Binding(heightProperty, _shProperty);
   }
 
-  Brush get fill() => getValue(fillProperty);
+  Brush get fill => getValue(fillProperty);
   set fill(Brush v) => setValue(fillProperty, v);
 
-  abstract String get shapeTag();
+  abstract String get shapeTag;
 
   void createElement(){
     rawElement = new DivElement();

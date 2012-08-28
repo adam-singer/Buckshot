@@ -27,12 +27,12 @@ class Image extends FrameworkElement {
   }
 
   /// Gets the [sourceUriProperty] value.
-  String get sourceUri() => getValue(sourceUriProperty);
+  String get sourceUri => getValue(sourceUriProperty);
   /// Sets the [sourceUriProperty] value.
   set sourceUri(String value) => setValue(sourceUriProperty, value);
 
   /// Gets the [altProperty] value.
-  String get alt() => getValue(altProperty);
+  String get alt => getValue(altProperty);
   /// Sets the [altProperty] value.
   set alt(String value) => setValue(altProperty, value);
 

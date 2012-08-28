@@ -29,7 +29,7 @@ class StringToGridLengthConverter implements IValueConverter
       try{
         num val = parseDouble(stripped);
         return new GridLength.star(val);
-      }catch (FormatException e){
+      }on FormatException catch (e){
         throw const BuckshotException("Unable to parse gridlength value.");
       }
     }
@@ -38,7 +38,7 @@ class StringToGridLengthConverter implements IValueConverter
     try{
       num val = parseInt(value);
       return new GridLength.pixel(val);
-    }catch (FormatException e){
+    }on FormatException catch (e){
       throw const BuckshotException("Unable to parse gridlength value.");
     }
   }

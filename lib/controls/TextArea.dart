@@ -74,11 +74,11 @@ class TextArea extends Control
   }
 
   //framework property exposure
-  String get text() => getValue(textProperty);
+  String get text => getValue(textProperty);
   set text(String value) => setValue(textProperty, value);
 
   set placeholder(String value) => setValue(placeholderProperty, value);
-  String get placeholder() => getValue(placeholderProperty);
+  String get placeholder => getValue(placeholderProperty);
 
 
   void createElement(){

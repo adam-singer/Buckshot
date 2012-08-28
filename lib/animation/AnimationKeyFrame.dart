@@ -25,9 +25,9 @@ class AnimationKeyFrame extends TemplateObject
         defaultValue:new List<AnimationState>());
   }
 
-  num get time() => getValue(timeProperty);
+  num get time => getValue(timeProperty);
   set time(num v) => setValue(timeProperty, v);
 
-  List<AnimationState> get states() => getValue(statesProperty);
+  List<AnimationState> get states => getValue(statesProperty);
   set states(List<AnimationState> v) => setValue(statesProperty, v);
 }

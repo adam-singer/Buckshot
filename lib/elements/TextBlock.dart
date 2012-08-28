@@ -25,7 +25,7 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
   }
 
-  get content() => getValue(textProperty);
+  get content => getValue(textProperty);
 
   void _initTextBlockProperties(){
 
@@ -72,21 +72,21 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
   /// Sets [fontFamilyProperty] with the given [value]
   set fontFamily(String value) => setValue(fontFamilyProperty, value);
   /// Gets the current value of [fontFamilyProperty]
-  String get fontFamily() => getValue(fontFamilyProperty);
+  String get fontFamily => getValue(fontFamilyProperty);
 
   /// Sets [fontSizeProperty] with the given [value]
   set fontSize(num value) => setValue(fontSizeProperty, value);
   /// Gets the value of [fontSizeProperty]
-  num get fontSize() => getValue(fontSizeProperty);
+  num get fontSize => getValue(fontSizeProperty);
 
   set foreground(SolidColorBrush value) => setValue(foregroundProperty, value);
-  SolidColorBrush get foreground() => getValue(foregroundProperty);
+  SolidColorBrush get foreground => getValue(foregroundProperty);
 
   set background(Brush value) => setValue(backgroundProperty, value);
-  Brush get background() => getValue(backgroundProperty);
+  Brush get background => getValue(backgroundProperty);
 
   set text(String value) => setValue(textProperty, value);
-  String get text() => getValue(textProperty);
+  String get text => getValue(textProperty);
 
   void createElement(){
     rawElement = new ParagraphElement();

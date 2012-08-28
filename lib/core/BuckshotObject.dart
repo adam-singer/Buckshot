@@ -15,7 +15,7 @@ class BuckshotObject extends HashableObject{
 
   /// Gets a boolean value indicating whether the given object
   /// is a container or not.
-  bool get isContainer() => this is IFrameworkContainer;
+  bool get isContainer => this is IFrameworkContainer;
 
 
   bool hasEvent(String eventName)

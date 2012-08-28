@@ -40,7 +40,7 @@ class RawHtml extends FrameworkElement
       });
   }
 
-  String get htmlString() => getValue(htmlStringProperty);
+  String get htmlString => getValue(htmlStringProperty);
   set htmlString(String value) => setValue(htmlStringProperty, value);
 
   void createElement(){

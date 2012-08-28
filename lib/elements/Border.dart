@@ -139,30 +139,30 @@ class Border extends FrameworkElement implements IFrameworkContainer
   /// Sets the [backgroundProperty] value.
   set background(Brush value) => setValue(backgroundProperty, value);
   /// Gets the [backgroundProperty] value.
-  Brush get background() => getValue(backgroundProperty);
+  Brush get background => getValue(backgroundProperty);
 
   /// Sets the [paddingProperty] value.
   set padding(Thickness value) => setValue(paddingProperty, value);
   /// Gets the [paddingProperty] value.
-  Thickness get padding() => getValue(paddingProperty);
+  Thickness get padding => getValue(paddingProperty);
 
   /// Sets the [cornerRadiusProperty] value.
   set cornerRadius(int value) => setValue(cornerRadiusProperty, value);
   /// Gets the [cornerRadiusProperty] value.
-  int get cornerRadius() => getValue(cornerRadiusProperty);
+  int get cornerRadius => getValue(cornerRadiusProperty);
 
   /// Sets the [borderColorProperty] value.
   set borderColor(SolidColorBrush value) => setValue(borderColorProperty, value);
   /// Gets the [borderColorProperty] value.
-  SolidColorBrush get borderColor() => getValue(borderColorProperty);
+  SolidColorBrush get borderColor => getValue(borderColorProperty);
 
   /// Sets the [borderThicknessProperty] value.
   set borderThickness(Thickness value) => setValue(borderThicknessProperty, value);
   /// Gets the [borderThicknessProperty] value.
-  Thickness get borderThickness() => getValue(borderThicknessProperty);
+  Thickness get borderThickness => getValue(borderThicknessProperty);
 
   /// Gets the [contentProperty] value.
-  FrameworkElement get content() => getValue(contentProperty);
+  FrameworkElement get content => getValue(contentProperty);
   /// Sets the [contentProperty] value.
   set content(FrameworkElement value) => setValue(contentProperty, value);
 
