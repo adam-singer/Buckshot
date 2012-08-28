@@ -25,7 +25,7 @@ class DockPanel extends Panel
 
     _initDockPanelProperties();
 
-    loaded + (_, __) => _redraw();
+    loaded + (_, __) => invalidate();
   }
 
   void _initDockPanelProperties(){
@@ -36,7 +36,7 @@ class DockPanel extends Panel
 
   void onChildrenChanging(ListChangedEventArgs args){
     if (isLoaded){
-      _redraw();
+      invalidate();
     }
   }
 
@@ -76,7 +76,8 @@ class DockPanel extends Panel
   }
 
 
-  void _redraw(){
+  /** Invalidates the DockPanel layout and causes it to redraw. */
+  void invalidate(){
     //TODO .removeLast() instead?
     rawElement.elements.clear();
 

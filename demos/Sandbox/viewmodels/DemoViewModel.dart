@@ -22,6 +22,7 @@ class DemoViewModel extends ViewModelBase
   FrameworkProperty renderedOutputProperty;
   FrameworkProperty templateTextProperty;
   FrameworkProperty errorMessageProperty;
+  FrameworkProperty demoTreeNodeSelectedProperty;
 
   DemoViewModel()
   :
@@ -63,6 +64,9 @@ class DemoViewModel extends ViewModelBase
     templateTextProperty = new FrameworkProperty(this, 'templateText');
 
     errorMessageProperty = new FrameworkProperty(this, 'errorMessage');
+
+    demoTreeNodeSelectedProperty = new FrameworkProperty(this,
+        'demoTreeNodeSelected', defaultValue: '');
   }
 
   /**
@@ -143,7 +147,7 @@ class DemoViewModel extends ViewModelBase
   void clearAll_handler(sender, args) => resetUI();
 
   /**
-   * Handles selection changed events coming from the drop down lists.
+   * Handles selection changed events coming from the TreeView.
    */
   void selection_handler(sender, args){
     final value = args.node.tag;
@@ -154,4 +158,36 @@ class DemoViewModel extends ViewModelBase
       setTemplate(Template.getTemplate('#${value}'));
     }
   }
+
+  void demotreeview_selection(sender, args)
+  {
+    setValue(demoTreeNodeSelectedProperty, args.node.header);
+  }
+
+  void dockpanel_click(sender, args){
+      final dp = buckshot.namedElements['dockpanelDemo'];
+      final b = buckshot.namedElements['btnDock'];
+      if (dp == null || b == null) return;
+
+      switch(sender.content){
+        case 'Left':
+          DockPanel.setDock(b, DockLocation.left);
+          break;
+        case 'Top':
+          DockPanel.setDock(b, DockLocation.top);
+          break;
+        case 'Right':
+          DockPanel.setDock(b, DockLocation.right);
+          break;
+        case 'Bottom':
+          DockPanel.setDock(b, DockLocation.bottom);
+          break;
+        default:
+          print('boo!');
+          break;
+      }
+
+      (dp as DockPanel).invalidate();
+  }
+
 }

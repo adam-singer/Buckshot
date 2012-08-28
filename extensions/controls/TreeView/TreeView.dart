@@ -52,6 +52,7 @@ class TreeView extends Panel
   FrameworkProperty openArrowProperty;
   FrameworkProperty borderThicknessProperty;
   FrameworkProperty borderColorProperty;
+  FrameworkProperty selectedNodeProperty;
 
   /// Event which fires when a node is selected in the TreeView.
   final FrameworkEvent<TreeNodeSelectedEventArgs> treeNodeSelected;
@@ -116,13 +117,14 @@ class TreeView extends Panel
   }
 
   void _onTreeNodeSelected(TreeNode node){
-    //not working yet, Dart bug with Timer.
-    //treeNodeSelected.invokeAsync(this, new TreeNodeSelectedEventArgs(node));
-
+    selectedNode = node;
     treeNodeSelected.invoke(this, new TreeNodeSelectedEventArgs(node));
   }
 
   void _initializeTreeViewProperties(){
+    selectedNodeProperty = new FrameworkProperty(this, 'selectedNode',
+        defaultValue:new TreeNode());
+
     indentProperty = new FrameworkProperty(this, 'indent'
       , (_) => updateLayout(), 10, converter:const StringToNumericConverter());
 
@@ -172,6 +174,9 @@ class TreeView extends Panel
   }
 
   // FrameworkProperty getters/setters
+  TreeNode get selectedNode => getValue(selectedNodeProperty);
+  set selectedNode(TreeNode node) => setValue(selectedNodeProperty, node);
+
   num get indent() => getValue(indentProperty);
   set indent(num value) => setValue(indentProperty, value);
 

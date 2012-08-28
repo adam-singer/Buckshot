@@ -5,97 +5,59 @@
     <title>Buckshot UI - Sandbox</title>
   </head>
   <body>
-	<div id="BuckshotHost">
-	   <div style="width:250px;text-align:center;padding:5px;border:solid 1px black;background:whitesmoke;font-family:arial">
-		   <h3>Buckshot Framework (alpha)</h3>
-		   <img width="100" height="80" src="http://www.lucastudios.com/img/lucaui_logo_candidate2.png" alt="Buckshot Framework Logo"></img>
-		   <p>Loading...</p>
-	   </div>
-	</div>
+	<div id="BuckshotHost"></div>
 
 <!--
-
 Begin Buckshot Templates
-
 -->
 
 <script id='main' type='text/xml'>
 <stack orientation="horizontal" halign="center">
   <resourcecollection>
     <color key="buckshotBlue" value="#165284"></color>
-
-    <styletemplate key="sideboxdark">
-      <setters>
-        <setter property="margin" value="0,0,10,0" />
-        <setter property="padding" value="10" />
-        <setter property="background" value="{resource buckshotBlue}" />
-        <setter property="hAlign" value="stretch" />
-      </setters>
-    </styletemplate>
-    
-    <styletemplate key="sidebox">
-      <setters>
-        <setter property="margin" value="0,0,10,0" />
-        <setter property="padding" value="10" />
-        <setter property="background" value="SteelBlue" />
-        <setter property="hAlign" value="stretch" />
-      </setters>
-    </styletemplate>
-    
-    <styletemplate key="sideboxtext">
-      <setters>
-        <setter property="foreground" value="White" />
-        <setter property="fontSize" value="18" />
-        <setter property="hAlign" value="stretch" />
-      </setters>
-    </styletemplate>
-    
+   
     <styletemplate key="iotext">
-      <setters>
-        <setter property="margin" value="15,0,0,0" />
-        <setter property="fontFamily" value="courier" />
-        <setter property="fontSize" value="20" />
-      </setters>
+       <setters>
+          <setter property="margin" value="15,0,0,0" />
+          <setter property="fontFamily" value="Arial" />
+          <setter property="fontSize" value="20" />
+       </setters>
     </styletemplate>
-    
-    <styletemplate key="sample_row">
-      <setters>
-        <setter property="margin" value="0,0,10,0" />
-        <setter property="orientation" value="horizontal" />
-        <setter property="width" value="600" />
-      </setters>
+    <styletemplate key='headerText'>
+       <setters>
+          <setter property='fontSize' value='18' />
+          <setter property='fontFamily' value='Arial' />
+          <setter property='margin' value='15,0,0,0' />
+       </setters>
+    </styletemplate>
+    <styletemplate key='defaultText'>
+       <setters>
+          <setter property='fontSize' value='14' />
+          <setter property='fontFamily' value='Arial' />
+          <setter property='margin' value='0,3' />
+       </setters>
     </styletemplate>
   </resourcecollection>
 
-  <stack maxWidth='270'>
-  	<border halign="center">
-	    <image  alt="Buckshot Logo Candidate" 
-	        sourceuri="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></image>
-    </border>
-    <border style="{resource sideboxdark}">
-      <stack>
-          <textblock fontFamily='arial' foreground="White" fontSize="48" text="Buckshot"/>
-          <textblock fontfamily="arial" foreground="White" text="Sandbox"/>
-      </stack>
-    </border>
-    <border halign='stretch' margin='0,0,10,0' borderthickness='1' bordercolor='SteelBlue' padding='5'>
-      <stack>
-        <textblock fontfamily='arial' text='Select a sample:' />
+  <stack minWidth='250'>
+    <textblock style="{resource iotext}" text="Select A Sample"/>
+    <border minHeight='300' halign='stretch' borderthickness='1' bordercolor='SteelBlue' padding='5'>
+      <stack>       
      	<treeview treenodeselected='selection_handler'>
-	     <treenode header='Elements' tag=''>
-	     	<treenode header='Hello World' tag='textblock' />
+	     <treenode childvisibility='visible' header='Elements' tag=''>
+	     	<treenode header='TextBlock' tag='textblock' />
 	     	<treenode header='Stack' tag='stack' />
 	     	<treenode header='Border' tag='border' />
 	     	<treenode header='Grid' tag='grid' />
 	     	<treenode header='RawHtml' tag='rawhtml' />
 	     	<treenode header='LayoutCanvas' tag='layoutcanvas' />
-	     	<treenode header='This Page!' tag='main' />
 	     </treenode>
 	     <treenode header='Controls' tag=''>
 	     	<treenode header='TreeView' tag='treeview' />
 	     	<treenode header='DockPanel' tag='dockpanel' />
 	     	<treenode header='ListBox' tag='listbox' />
 	     	<treenode header='DropDownList' tag='dropdownlist' />
+	     	<treenode header='TextBox' tag='textbox' />
 	     	<treenode header='Slider' tag='slider' />
 	     	<treenode header='Button' tag='button' />
 	     	<treenode header='RadioButton' tag='radiobutton' />
@@ -117,30 +79,35 @@ Begin Buckshot Templates
 	  	</treeview>  
       </stack>
     </border>
-    <border style="{resource sidebox}">
-       <hyperlink targetName="_blank" navigateto="https://github.com/prujohn/Buckshot/">
-          <textblock style="{resource sideboxtext}">Project Site</textblock>
-       </hyperlink>
-    </border>
-    <border style="{resource sidebox}">
-       <hyperlink targetName="_blank" navigateto="http://www.buckshotui.org/docs/">
-          <textblock style="{resource sideboxtext}">Library Documentation</textblock>
-       </hyperlink>
-    </border>
-    <plusone annotation="inline"></plusone>
   </stack>
   <stack margin="0,0,0,10" halign='stretch'>
-    <textblock style="{resource iotext}" text="Input (you can edit this or create your own):"/>
-    <textarea placeholder="Type something here or select one of the samples from above." spellcheck="false" 
-      text='{data templateText, mode=twoway}' minwidth='690' maxwidth='690' minheight="300"></textarea>
+    <textblock style="{resource iotext}" text="Output:"/>
+    <border content='{data renderedOutput}' margin="0,0,10,0" minheight='200' 
+    width="680" borderThickness="3" borderColor="{resource buckshotBlue}"
+    cornerradius='4' padding='5'/>
+    <textblock style="{resource iotext}" text="Template:"/>
+    <textarea placeholder="Type something here or select one of the samples to the left." spellcheck="false" 
+      text='{data templateText, mode=twoway}' minwidth='690' maxwidth='690' minheight="200" />
     <stack orientation="horizontal">
-       <button click='refresh_handler' content="Refresh Output"></button>
+       <button click='refresh_handler' content="Generate Output"></button>
        <button click='clearAll_handler' margin="0,0,0,5" content="Clear All"></button>
     </stack>
-    <textblock style="{resource iotext}" text="Output:"/>
-    <border content='{data renderedOutput}' margin="0,0,10,0" width="690" borderThickness="3" borderColor="{resource buckshotBlue}">
-    </border>
   </stack>
+</stack>
+</script>
+
+<script id='textbox' type='text/xml'>
+<stack minheight='100'>
+   <textblock style='{resource headerText}'>
+   A TextBox allows you to input some text.
+   </textblock>
+
+   <textbox width='300' margin='0,5' name='tbDemo' placeholder='type something...' />
+
+   <stack orientation='horizontal'>
+      <textblock style='{resource defaultText}' text='You wrote:' />
+      <textblock style='{resource defaultText}' text='{element tbDemo.text}' />
+   </stack>
 </stack>
 </script>
 
@@ -149,88 +116,114 @@ Begin Buckshot Templates
 </script>
 
 <script id='treeview' type='text/xml'>
-<treeview name='tvDemo' borderthickness='1' bordercolor='Black' >
-	<treenode header='Tree Node L1A' >
-		<treenode header='Tree Node L2A (custom icon)' >
-			<fileicon>
-				<border width='20' height='20' cornerradius='20' background='Orange' />
-			</fileicon>
-		</treenode>
-		<treenode header='Tree Node L2B'>
-			<treenode header='Tree Node L3A' />
-			<treenode header='Tree Node L3B' />
-			<treenode header='Tree Node L3C' />
-		</treenode>
-		<treenode header='Tree Node L2C' />
-	</treenode>
-	<treenode header='Tree Node L1B' />
-</treeview>
+<stack>
+   <treeview treenodeselected='demotreeview_selection' borderthickness='1' bordercolor='Black' >
+      <treenode childvisibility='visible' header='Tree Node L1A' >
+         <treenode header='Tree Node L2A (custom icon)' >
+            <fileicon>
+               <border width='20' height='20' cornerradius='20' background='Orange' />
+            </fileicon>
+         </treenode>
+         <treenode childvisibility='visible' header='Tree Node L2B'>
+            <treenode header='Tree Node L3A' />
+            <treenode header='Tree Node L3B' />
+            <treenode header='Tree Node L3C' />
+         </treenode>
+         <treenode header='Tree Node L2C' />
+      </treenode>
+      <treenode header='Tree Node L1B' />
+   </treeview>
+   
+   <stack orientation='horizontal'>
+      <textblock style='{resource defaultText}' text='Your selection:' margin='0,10,0,0' />
+      <textblock background='WhiteSmoke' style='{resource defaultText}' text='{data demoTreeNodeSelected}' />
+   </stack>
+</stack>
 </script>
 
 <script id='dockpanel' type='text/xml'>
-<dockpanel fillLast='false' width='500' height='500' background='Orange'>
-	<resourcecollection>
-		<styletemplate key='borderStyle'>
-			<setters>
-				<setter property='borderThickness' value='1' />
-				<setter property='borderColor' value='Black' />
-				<setter property='background' value='WhiteSmoke' />
-			</setters>
-		</styletemplate>
-		<styletemplate key='textStyle'>
-			<setters>
-				<setter property='vAlign' value='center' />
-				<setter property='hAlign' value='center' />
-				<setter property='background' value='WhiteSmoke' />
-			</setters>
-		</styletemplate>
-	</resourcecollection>
-		<border dockpanel.dock='left' style='{resource borderStyle}'>
-			<textblock text='#1' style='{resource textStyle}' />
-		</border>
-		<border dockpanel.dock='top' style='{resource borderStyle}'>
-			<textblock text='#2' style='{resource textStyle}' />
-		</border>
-		<border dockpanel.dock='right' style='{resource borderStyle}'>
-			<textblock text='#3' style='{resource textStyle}' />
-		</border>
-		<border dockpanel.dock='bottom' style='{resource borderStyle}'>
-			<textblock text='#4' style='{resource textStyle}' />
-		</border>
-		<border dockpanel.dock='left' style='{resource borderStyle}'>
-			<textblock text='#5' style='{resource textStyle}' />
-		</border>
-		<border dockpanel.dock='top' style='{resource borderStyle}'>
-			<textblock text='#6' style='{resource textStyle}' />
-		</border>
-		<border dockpanel.dock='right' style='{resource borderStyle}'>
-			<textblock text='#7' style='{resource textStyle}' />
-		</border>
-		<border dockpanel.dock='bottom' style='{resource borderStyle}'>
-			<textblock text='#8' style='{resource textStyle}' />
-		</border>
-		<border dockpanel.dock='left' style='{resource borderStyle}'>
-			<textblock text='#9' style='{resource textStyle}' />
-		</border>
-		<border dockpanel.dock='top' style='{resource borderStyle}'>
-			<textblock text='#10' style='{resource textStyle}' />
-		</border>
-		<border dockpanel.dock='right' style='{resource borderStyle}'>
-			<textblock text='#11' style='{resource textStyle}' />
-		</border>
-		
-</dockpanel>
+<stack>
+   <resourcecollection>
+      <styletemplate key='borderStyle'>
+         <setters>
+            <setter property='borderThickness' value='1' />
+            <setter property='borderColor' value='Black' />
+            <setter property='background' value='WhiteSmoke' />
+         </setters>
+      </styletemplate>
+      <styletemplate key='textStyle'>
+         <setters>
+            <setter property='vAlign' value='center' />
+            <setter property='hAlign' value='center' />
+            <setter property='background' value='WhiteSmoke' />
+         </setters>
+      </styletemplate>
+   </resourcecollection>
+   <textblock style='{resource headerText}' text='DockPanel Snaps Content To Edges' />
+   <dockpanel name='dockpanelDemo' fillLast='false' width='250' height='250' background='Khaki'>
+      <border background='LightGreen' cornerradius='7' padding='3' borderthickness='1' bordercolor='Black' name='btnDock'>
+         <textblock style='{resource defaultText}' halign='center' valign='center' text="I'm docked." />
+      </border>
+   </dockpanel>
+   <stack orientation='horizontal'>
+      <textblock style='{resource defaultText}' text='Click One:' />
+      <button click='dockpanel_click' content='Left'/>
+      <button click='dockpanel_click' content='Top'/>
+      <button click='dockpanel_click' content='Right'/>
+      <button click='dockpanel_click' content='Bottom'/>
+   </stack>
+   
+   <textblock style='{resource headerText}' text='Nested Content In DockPanel' />
+   <dockpanel fillLast='true' width='250' height='250' background='Orange'>
+      <border dockpanel.dock='left' style='{resource borderStyle}'>
+         <textblock text='#1' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='top' style='{resource borderStyle}'>
+         <textblock text='#2' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='right' style='{resource borderStyle}'>
+         <textblock text='#3' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='bottom' style='{resource borderStyle}'>
+         <textblock text='#4' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='left' style='{resource borderStyle}'>
+         <textblock text='#5' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='top' style='{resource borderStyle}'>
+         <textblock text='#6' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='right' style='{resource borderStyle}'>
+         <textblock text='#7' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='bottom' style='{resource borderStyle}'>
+        <textblock text='#8' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='left' style='{resource borderStyle}'>
+         <textblock text='#9' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='top' style='{resource borderStyle}'>
+         <textblock text='#10' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='right' style='{resource borderStyle}'>
+         <textblock text='#11' style='{resource textStyle}' />
+      </border>
+      <border>
+         <textblock style='{resource defaultText}' fontsize='20' valign='center' halign='center' text='Neat!' />
+      </border>
+   </dockpanel>
+</stack>
 </script>
 
 <script id='image' type='text/xml'>
-<stack orientation='horizontal' margin="10">
+<stack orientation='horizontal'>
   <textblock valign='center' text='Like this logo for Buckshot?' />
   <image alt="Buckshot Logo Candidate" sourceuri="http://www.lucastudios.com/img/lucaui_logo_candidate2.png" />
 </stack>
 </script>
 
 <script id='youtube' type='text/xml'>
-<stack margin="10">
+<stack>
     <textblock fontfamily="arial" text="About Buckshot Templates" />
     <youtube margin="10" videoid="LOacOkmd9FI" width="400" height="300" />
 </stack> 
@@ -241,7 +234,7 @@ Begin Buckshot Templates
 </script>
 
 <script id='vimeo' type='text/xml'>
-<stack margin="10">
+<stack>
     <textblock fontfamily="arial" text="Seth Ladd's 'Intro To Box2D'" />>  
     <vimeo videoid="32214850" margin="10" width="400" height="300" />
 </stack>
@@ -249,7 +242,7 @@ Begin Buckshot Templates
 
 <script id='funnyordie' type='text/xml'>
 <!-- FunnyOrDie element is part of the media extension library for Buckshot. -->
-<stack margin="10">
+<stack>
     <textblock fontfamily="arial" text='Darth Vader Sells Out' />
     <funnyordie videoid="1cf04006d2" margin="10" width="400" height="300" />
 </stack>
@@ -263,117 +256,179 @@ Begin Buckshot Templates
 </script>
 
 <script id='textblock' type='text/xml'>
-<textblock text="Hello World!" />
+<stack>
+   <!-- Inline -->
+   <textblock style='{resource defaultText}' text="Hello World!" />
+
+   <!-- As text node -->
+   <textblock style='{resource defaultText}'>
+      This text is in a node where
+      line breaks are tolerated.
+   </textblock>
+
+   <!-- From data source ('timeStamp' property in view model) -->
+   <textblock style='{resource defaultText}' text='{data timeStamp}' />
+
+   <!-- Other properties -->
+   <textblock fontsize='48' foreground='Green' fontfamily='courier' text='Buckshot!' />
+</stack>
 </script>
 
 <script id='stack' type='text/xml'>
-<!-- demonstrating vertical and horizontal stacks -->
-<stack margin="10">
-  <textblock text="Vertical Stack" />
+<stack>
+  <resourcecollection>
+     <styletemplate key='defaultBorder'>
+        <setters>
+         <setter property='width' value='30' />
+         <setter property='height' value='30' />
+         <setter property='margin' value='1' />
+         <setter property='cornerRadius' value='30' />
+        </setters>
+     </styletemplate>
+  </resourcecollection>
+
+  <textblock style='{resource headerText}' text="Vertical Stack" />
+
   <stack>
-     <border background="Red" padding="5">
-        <textblock text="Item 1" />
-     </border>
-     <border background="Green" padding="5">
-        <textblock text="Item 2" />
-     </border>
-     <border background="Blue" padding="5">
-        <textblock text="Item 3" />
+     <border style='{resource defaultBorder}' background="Red" />
+     <border style='{resource defaultBorder}' background="Purple" />
+     <border style='{resource defaultBorder}' background="Orange" />
+  </stack>
+
+  <textblock style='{resource headerText}' text="Horizontal Stack" />
+
+  <stack orientation="horizontal">
+     <border style='{resource defaultBorder}' background="Red" />
+     <border style='{resource defaultBorder}' background="Purple" />
+     <border style='{resource defaultBorder}' background="Orange" />
+  </stack>
+
+  <textblock style='{resource headerText}' text="Cross-axis Alignment" />
+
+  <stack background='LightGreen' width='150'>
+     <border style='{resource defaultBorder}' background="Red" />
+     <border halign='center' style='{resource defaultBorder}' background="Purple" />
+     <border halign='right' style='{resource defaultBorder}' background="Orange" />
+     <border halign='stretch' height='30' cornerradius='30' background="Blue">
+        <textblock foreground='White' valign='center' halign='center' text='Stretch' />
      </border>
   </stack>
-  <textblock margin="10,0,0,0" text="Horizontal stack" />
-  <stack orientation="horizontal">
-     <border background="Red" padding="5">
-        <textblock text="Item 1" />
-     </border>
-     <border background="Green" padding="5">
-        <textblock text="Item 2" />
-     </border>
-     <border background="Blue" padding="5">
-        <textblock text="Item 3" />
+
+  <stack margin='0,5' orientation='horizontal' background='LightGreen' height='150'>
+     <border valign='bottom' style='{resource defaultBorder}' background="Red" />
+     <border valign='center' style='{resource defaultBorder}' background="Purple" />
+     <border style='{resource defaultBorder}' background="Orange" />
+     <border valign='stretch' width='55' cornerradius='30' background="Blue">
+        <textblock foreground='White' valign='center' halign='center' text='Stretch' />
      </border>
   </stack>
 </stack>
 </script>
 
 <script id='border' type='text/xml'>
-<!-- borders can contain a single content element and are useful in many scenarios -->
 <stack>
   <resourcecollection>
     <styletemplate key='bStyle'>
       <setters>
-        <setter property='borderThickness' value='2'/>
-        <setter property='borderColor' value='Green'/>
+        <setter property='borderThickness' value='1'/>
+        <setter property='borderColor' value='Black'/>
         <setter property='cornerRadius' value='9'/>
         <setter property='padding' value='10'/>
         <setter property='margin' value='10'/>
       </setters>
     </styletemplate>
   </resourcecollection>
-  <border style='{resource bStyle}' background="Yellow" width="400" height="400">
-    <border style='{resource bStyle}' background="Pink" halign="stretch" valign="stretch">
-      <border style='{resource bStyle}' background="Purple" halign="stretch" valign="stretch">
-        <border style='{resource bStyle}' background="Orange" halign="stretch" valign="stretch">
-           <textblock halign="center" valign="center" text="borders are cool."/>
+
+  <border style='{resource bStyle}' width='165'>
+    <textblock style='{resource defaultText}' halign='stretch'>
+    Borders provide a visible container around another element.
+    </textblock>
+  </border>
+    <border style='{resource bStyle}' width='165'>
+       <stack halign='stretch'>
+          <textblock style='{resource defaultText}' halign='stretch'>
+            They can also approximate circles.
+          </textblock>
+          <stack orientation='horizontal'>
+             <border background='Red' width='20' height='20' cornerradius='10' />
+             <border background='Orange' width='20' height='20' cornerradius='10' />
+             <border background='Green' width='20' height='20' cornerradius='10' />
+             <border background='Blue' width='20' height='20' cornerradius='10' />
+             <border background='Purple' width='20' height='20' cornerradius='10' />
+          </stack>
+       </stack>
+  </border>
+  <border style='{resource bStyle}' background="Green" width="250" height="250">
+    <border style='{resource bStyle}' background="Blue" halign="stretch" valign="stretch">
+      <border style='{resource bStyle}' background="Orange" halign="stretch" valign="stretch">
+        <border style='{resource bStyle}' background="WhiteSmoke" halign="stretch" valign="stretch">
+           <textblock style='{resource defaultText}' halign="center" valign="center" text="Borders are cool!"/>
         </border>
       </border>
     </border>
   </border>
-</stack>		
+</stack>
 </script>
 
 <script id='slider' type='text/xml'>
-<!-- 
-In this slider demo, we are using element binding to bind 
-each slider's 'value' property to the corresponding textblock's
-'text' property.  No coding is necessary to achieve this.
--->
-
-<border borderthickness="2" bordercolor="Green" background="WhiteSmoke" 
-cornerradius="9" margin="10">
-   <stack margin='10'>
-      <textblock>Slide us. We dare you.</textblock>
-
-      <stack width="170" orientation="horizontal">
-        <slider name="myslider" value="50" />      
-        <textblock margin="0,0,0,5" text="{element myslider.value}" />
-      </stack>
-
-      <stack width="170" orientation="horizontal">      
-        <slider name="s2" min="1" max="500" value="250" />
-        <textblock margin="0,0,0,5" text="{element s2.value}" />
-      </stack>
-
-      <stack width="170" orientation="horizontal">
-        <slider name="s3" min="0" max="200" step="10" value="100" />
-        <textblock margin="0,0,0,5" text="{element s3.value}" />
-      </stack>
+<stack>
+   <resourcecollection>
+      <styletemplate key='borderValue'>
+         <setters>
+           <setter property='margin' value='0,0,0,5' />
+           <setter property='padding' value='2' />
+           <setter property='borderThickness' value='2' />
+           <setter property='borderColor' value='Black'/>
+           <setter property='width' value='40'/>
+           <setter property='background' value='WhiteSmoke' />
+         </setters>
+      </styletemplate>
+   </resourcecollection>
+   
+   <textblock style='{resource headerText}'>1-100, Step 1</textblock>
+   <stack margin='10' orientation="horizontal">
+      <slider valign='center' name="myslider" value="50" />
+      <border style='{resource borderValue}'>
+          <textblock style='{resource defaultText}' text="{element myslider.value}" />
+      </border>
    </stack>
-</border>
+
+   <textblock style='{resource headerText}'>1-50, Step .5</textblock>
+   <stack margin='10' orientation="horizontal">      
+      <slider valign='center' name="s2" min="1" max="50" value="25" step='.5' />
+      <border style='{resource borderValue}'>
+           <textblock style='{resource defaultText}' text="{element s2.value}" />
+       </border>    
+    </stack>
+
+   <textblock style='{resource headerText}'>1-200, Step 10</textblock>
+   <stack margin='10' orientation="horizontal">
+      <slider valign='center' name="s3" min="0" max="200" step="10" value="100" />
+      <border style='{resource borderValue}'>
+          <textblock style='{resource defaultText}' text="{element s3.value}" />
+      </border>
+   </stack>
+</stack>
 </script>
 
 
 
 <script id='layoutcanvas' type='text/xml'>
-<!-- 
-LayoutCanvas allows you to position children at explicit locations, 
-with overlap and z-ordering supported.  Notice how the positions of the 
-elements are set using attached properties (LayoutCanvas.left & 
-LayoutCanvas.top)
--->
-<layoutcanvas width="400" height="400" background="WhiteSmoke">
-  <border layoutcanvas.top="40" layoutcanvas.left="40" width="80" height="80" background="Red">
-  </border>
-  <!-- set zorder of next border above the others -->
-  <border layoutcanvas.top="60" layoutcanvas.left="60" width="80" height="80" background="Green" zorder="4">
-  </border>
-  <border layoutcanvas.top="80" layoutcanvas.left="80" width="80" height="80" background="Blue">
-  </border>
-</layoutcanvas>	
+<layoutcanvas width="300" height="300" background="WhiteSmoke">
+   <border layoutcanvas.top="40" layoutcanvas.left="40" width="150" height="20" background="Red" />
+
+   <border layoutcanvas.top="30" layoutcanvas.left="80" width="20" height="130" background="Purple" zorder="1" />
+
+   <border layoutcanvas.top="100" layoutcanvas.left="60" width="170" height="30" background="#0077FF" zorder='2' />
+
+   <border layoutcanvas.top="180" layoutcanvas.left="120" width="80" height="80" background="Orange" />
+  
+   <textblock text='Place Stuff Anywhere.' style='{resource defaultText}' layoutcanvas.top='210' layoutcanvas.left='150' />
+</layoutcanvas>
 </script>
 
 <script id='button' type='text/xml'>
-<stack margin="10">
+<stack>
   <textblock margin="0,10" text='Buttons can contain text or other elements.' />
   <button width="80">text button</button>
   <button margin="10,0,0,0">
@@ -385,7 +440,7 @@ LayoutCanvas.top)
 </script>
 
 <script id='radiobutton' type='text/xml'>
-<stack margin="10">
+<stack>
   <textblock margin="0,10" text='Radio Buttons' />
 
   <stack orientation="horizontal">
@@ -411,7 +466,7 @@ LayoutCanvas.top)
 </script>
 
 <script id='checkbox' type='text/xml'>
-<stack margin="10">
+<stack>
   <textblock margin="0,10" text='Checkboxes' />
 
   <stack orientation="horizontal">
@@ -437,7 +492,7 @@ LayoutCanvas.top)
 </script>
 
 <script id='hyperlink' type='text/xml'>
-<stack margin="10">
+<stack >
   <textblock margin="0,10" text='Hyperlinks can contain text or other elements.' />
   <hyperlink targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki/">Text Hyperlink</hyperlink>
   <hyperlink width="170" margin="10,0,0,0" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki/">
@@ -477,7 +532,7 @@ The fourth column is pixel-type of 100, and remains fixed in place.
      <lineargradientbrush direction="vertical" key="gridbg" fallbackcolor="PowderBlue">
        <stops>
          <gradientstop color="White"></gradientstop>
-         <gradientstop color="#335577"></gradientstop>
+         <gradientstop color="Orange"></gradientstop>
        </stops>
      </lineargradientbrush>
      
@@ -507,42 +562,42 @@ The fourth column is pixel-type of 100, and remains fixed in place.
     <textblock text="Grid Demo" grid.columnspan="4" halign="center"/>
   
     <border grid.row="1" style='{resource borderCell}'>
-      <textblock>auto</textblock>
+      <textblock style='{resource defaultText}'>auto</textblock>
     </border>
     <border grid.row="1" grid.column="1" style='{resource borderCell}'>
-      <textblock>*1</textblock>
+      <textblock style='{resource defaultText}'>*1</textblock>
     </border>
     <border grid.row="1" grid.column="2" style='{resource borderCell}'>
-      <textblock>*2</textblock>
+      <textblock style='{resource defaultText}'>*2</textblock>
     </border>
     <border grid.row="1" grid.column="3" style='{resource borderCell}'>
-      <textblock>pixel 100</textblock>
+      <textblock style='{resource defaultText}'>pixel 100</textblock>
     </border>
     
     <border grid.row="2" borderthickness="1" bordercolor="Black" valign='stretch'>
-      <textblock>auto column</textblock>
+      <textblock style='{resource defaultText}'>auto column</textblock>
     </border>
     <border grid.row="2" grid.column="1" style='{resource borderCell}'>
-      <textblock>*1</textblock>
+      <textblock style='{resource defaultText}'>*1</textblock>
     </border>
     <border grid.row="2" grid.column="2" style='{resource borderCell}'>
-      <textblock>*2</textblock>
+      <textblock style='{resource defaultText}'>*2</textblock>
     </border>
     <border grid.row="2" grid.column="3" style='{resource borderCell}'>
-      <textblock>pixel 100</textblock>
+      <textblock style='{resource defaultText}'>pixel 100</textblock>
     </border>
     
     <border grid.row="3" style='{resource borderCell}'>
-      <textblock>auto</textblock>
+      <textblock style='{resource defaultText}'>auto</textblock>
     </border>
     <border grid.row="3" grid.column="1" style='{resource borderCell}'>
-      <textblock>*1</textblock>
+      <textblock style='{resource defaultText}'>*1</textblock>
     </border>
     <border grid.row="3" grid.column="2" style='{resource borderCell}'>
-      <textblock>*2</textblock>
+      <textblock style='{resource defaultText}'>*2</textblock>
     </border>
     <border grid.row="3" grid.column="3" style='{resource borderCell}'>
-      <textblock>pixel 100</textblock>
+      <textblock style='{resource defaultText}'>pixel 100</textblock>
     </border>
   
   </grid>
@@ -566,7 +621,7 @@ property="{resource [nameOfResource]}"
 
 -->
 
-<stack margin="10">
+<stack>
   
   <!-- 
   <resourcecollection> is used to declare a group of resources.
@@ -690,7 +745,7 @@ boarder in the display area.  This is accomplished through
 declarative element-to-element binding.
 -->
 
-<stack margin="5">
+<stack>
   <textblock fontsize="24" text='This demo is written entirely with templates - no code.'/>
   <stack width="650" orientation="horizontal">
   
@@ -781,15 +836,10 @@ if you assign an object to it, that object or it's properties
 can be bound to properties of the element.
 
 When elements declare a data binding (using '{data ...}'), the
-Framework looks tries to bind to whatever object is assigned 
+Framework tries to bind to whatever object is assigned 
 to the dataContext of that element.  If dataContext is null, 
 then the framework walks up the visual tree until it finds a 
 dataContext that has some data, and attempts to bind to that.
-
-This type of binding occurs "late", meaning that it occurs at the
-moment that the object is added to the browser visually.  This
-is different from resource and element binding, both which occur as
-soon as they are declared.
 -->
 
 
@@ -808,31 +858,32 @@ soon as they are declared.
     </styletemplate>
   </resourcecollection>
 
-  <stack margin="5" orientation="horizontal">
-    <textblock text="Timestamp:"/>
-
+  <textblock style='{resource headerText}' text='Binding to a timer.' />
+  <stack orientation="horizontal">
     <!-- binding to the 'timeStamp' property of the dataContext object -->
-    <textblock text="{data timeStamp}" margin="0,0,0,5"/>
-
+    <textblock style='{resource defaultText}' text="{data timeStamp}" />
   </stack>
 
+  <textblock style='{resource headerText}' text='Binding to some color values.' />
   <stack orientation="horizontal">
-
     <!-- these borders are binding to a sub-property of a property, using 
      Buckshot's dot notation resolver -->
-    <border style="{resource borderstyle}" background="{data color.red}"></border>
-    <border style="{resource borderstyle}" background="{data color.orange}"></border>
-    <border style="{resource borderstyle}" background="{data color.blue}"></border>
-
+    <border style="{resource borderstyle}" background="{data color.red}" />
+    <border style="{resource borderstyle}" background="{data color.orange}" />
+    <border style="{resource borderstyle}" background="{data color.blue}" />
   </stack>
 
-  <textblock>To see the view model that this demo is binding to:</textblock>
-  <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
+  <textblock style='{resource headerText}' text='Two-Way Binding' />
+  <stack orientation='horizontal'>
+     <textbox placeholder='Type something here...' name='tbFirst' />
+     <textblock text='<-->' />
+     <textbox placeholder='Or here...' text='{element tbFirst.text, mode=twoway}' />
+  </stack>  
 </stack>
 </script>
 
 <script id='collections' type='text/xml'>
-<stack margin="10">
+<stack>
   <!-- declare resources for common settings -->
   <resourcecollection>
     <lineargradientbrush key="rowbg" direction="vertical" fallbackcolor="Orange">
@@ -915,32 +966,20 @@ soon as they are declared.
 </script>
 
 <script id='dropdownlist' type='text/xml'>
-<!--
-DropDownList provides an easy way to display a list of choices to the user.
-In Buckshot, DropDownList's can be populated statically or dynamically via data binding.
-
-In the example below, both methods are shown.  Element binding is also
-used to provide a little interactivity in the demo.  Aside from the
-data source 'fruit' the entire demo required no Dart coding in order to work.
--->
-
-<stack margin='5'>
-
-  <textblock text="DropDownList From Data Source:"/>
+<stack>
+  <textblock style='{resource headerText}' text="List From Data Source:"/>
   
-  <!-- This DropDownList is binding to a list of Strings a view model -->
   <dropdownlist name="ddlFruit" itemssource="{data fruit}"></dropdownlist>
 
   <stack orientation="horizontal">
-    <textblock text="Current Choice:" margin="0,5,0,0"/>
-
-    <!-- Element binding is used here to set the text property. -->
-    <textblock text="{element ddlFruit.selectedItem.name}"/>
+    <textblock style='{resource defaultText}' valign='center' text="Current Choice:" />
+    <border margin='0,0,0,5' padding='4' borderColor='Black' borderthickness='2' background='Khaki'>
+       <textblock style='{resource defaultText}' text="{element ddlFruit.selectedItem.name}"/>
+    </border>
   </stack>
   
-  <textblock margin="20,0,0,0" text="Static DropDownList (Select A Color):"/>
+  <textblock style='{resource headerText}' text="List From Template:"/>
   
-  <!-- This DropDownList is created statically. -->
   <dropdownlist name="ddlColors">
     <items>
       <DropDownItem name="Red" value="Red" />
@@ -969,7 +1008,7 @@ All of the ListBoxes are binding to collections in a view model, and then
 using client-side element binding to display the selected item from
 each list. 
  --> 
-<stack margin="10">
+<stack>
 
   <!-- declare resources for common settings -->
   <resourcecollection>
