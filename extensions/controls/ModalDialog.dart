@@ -59,8 +59,6 @@ class ModalDialog extends Control
     bDialog = Template.findByName('bDialog', template);
     bMask = Template.findByName('bMask', template);
 
-    assert(cvRoot != null);
-
     // Override the underlying DOM element on this canvas so that it
     // is absolutely positioned int the window at 0,0
     cvRoot.rawElement.style.position = 'absolute';

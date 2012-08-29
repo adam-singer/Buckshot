@@ -132,9 +132,6 @@ class ViewModel extends ViewModelBase
    * Event handler that handles button clicks coming from the calculator.
    */
   void buttonClick_handler(Button sender, _){
-    assert(sender is Button);
-    assert(sender.content is String);
-
     input(sender.content);
   }
 
@@ -143,8 +140,6 @@ class ViewModel extends ViewModelBase
    * mode selector on the calculator.
    */
   void selectionChanged_handler(sender, args){
-    assert(sender is DropDownList);
-
     setMode(args.selectedItem.value);
   }
 

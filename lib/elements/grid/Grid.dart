@@ -349,8 +349,6 @@ void _updateRowLayout(num gridHeight){
   static void setColumn(FrameworkElement element, column){
     if (element == null) return;
 
-    assert(column is String || column is num);
-
     column = const StringToNumericConverter().convert(column);
 
     if (column < 0) column = 0;

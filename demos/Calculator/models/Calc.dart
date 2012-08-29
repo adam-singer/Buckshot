@@ -415,29 +415,21 @@ class Calc implements ICalculator
   }
 
   num add(){
-    assert(_state == SOPERAND);
-
     return _getNumberFrom(numBuffer1.toString())
         + _getNumberFrom(numBuffer2.toString());
   }
 
   num sub(){
-    assert(_state == SOPERAND);
-
     return _getNumberFrom(numBuffer1.toString())
         - _getNumberFrom(numBuffer2.toString());
   }
 
   num mul(){
-    assert(_state == SOPERAND);
-
     return _getNumberFrom(numBuffer1.toString())
         * _getNumberFrom(numBuffer2.toString());
   }
 
   num div(){
-    assert(_state == SOPERAND);
-
     var denom = _getNumberFrom(numBuffer2.toString());
     if (denom == 0) return 0;
 

@@ -4,9 +4,9 @@ version: 0.0.1
 dependencies:
   unittest:
     sdk: unittest
-  dartxml:
+  dart-xml:
     git: git://github.com/prujohn/dart-xml.git
-  events:
+  DartNet-Event-Model:
     git: git://github.com/prujohn/DartNet-Event-Model.git
-  darternizr:
+  Darternizr:
     git: git://github.com/prujohn/Darternizr.git
