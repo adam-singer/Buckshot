@@ -2,7 +2,7 @@
 
 #import('dart:html');
 #import('dart:math', prefix:'Math');
-#import('../../buckshot.dart');
+#import('../../../../buckshot.dart');
 #import('package:DartNet-Event-Model/events.dart');
 
 #source('common/i_calculator.dart');
@@ -30,17 +30,7 @@
 * * Extensible by implementing [ICalculator].
 */
 void main() {
-
-  // Always load resources first.
-
-  Template
-    .deserialize(Template.getTemplate('#resources'))
-    .then((t){
-      //buckshot.rootView = new View.from(t);
-
-      // Load the main view, to start the app.
-      setView(new Main());
-    });
-
+  setView(new Main());
+  
 }
 

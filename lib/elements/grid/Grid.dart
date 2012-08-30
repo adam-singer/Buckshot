@@ -124,7 +124,8 @@ num _totalLengthOf(List<GridLayoutDefinition> definitions){
 
 /// Overidden [FrameworkObject] method.
 void updateLayout(){
-
+  if (!isLoaded) return;
+  
   _updateMeasurements();
 
   window.requestLayoutFrame((){

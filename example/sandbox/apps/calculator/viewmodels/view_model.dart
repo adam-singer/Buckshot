@@ -1,6 +1,4 @@
 /**
-* Primary singleton view model for the application.
-*
 * Note that ViewModel extends from [ViewModelBase], which allows it to
 * participate in the Buckshot property binding system.
 */
@@ -30,19 +28,9 @@ class ViewModel extends ViewModelBase
 
   FrameworkProperty widthProperty;
 
-  /* Singleton */
-  static ViewModel _vm;
-
-  factory ViewModel()
-  {
-    if (_vm != null) return _vm;
-
-    _vm = new ViewModel._internal();
-    return _vm;
-  }
   /* End Singleton */
 
-  ViewModel._internal()
+  ViewModel()
   :
     standardCalc = new StandardCalc(),
     extendedCalc = new ExtendedCalc(),
