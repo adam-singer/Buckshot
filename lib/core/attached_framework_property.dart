@@ -37,7 +37,8 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
   static void invokeSetPropertyFunction(String classPropertyPair, element, value){
     final split = classPropertyPair.split('.');
     final classMirror = Miriam.context.getObjectByName(split[0]);
-
+    final propLower = split[1].toLowerCase();
+    
     var setterMethodName;
 
     classMirror
@@ -46,7 +47,7 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
       .some((k){
         // this follows the convention that all AttachedFrameworkProperty setter
         // methods will begin with 'set'
-        if (k.toLowerCase() == 'set${split[1]}'){
+        if (k.toLowerCase() == 'set${propLower}'){
           setterMethodName = k;
           return true;
         }
