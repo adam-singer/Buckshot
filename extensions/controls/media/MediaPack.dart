@@ -4,7 +4,7 @@
 
 #library('media.controls.buckshotui.org');
 
-#import('../../../lib/Buckshot.dart');
+#import('../../../buckshot.dart');
 
 #import('YouTube.dart');
 #import('Hulu.dart');

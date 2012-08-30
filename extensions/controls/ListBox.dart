@@ -6,7 +6,7 @@
 
 #library('listbox.controls.buckshotui.org');
 
-#import('../../lib/Buckshot.dart');
+#import('../../buckshot.dart');
 #import('package:DartNet-Event-Model/events.dart');
 #import('../../external/shared/shared.dart');
 #import('../../external/web/web.dart');

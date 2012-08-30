@@ -5,7 +5,7 @@
 #library('modaldialog.controls.buckshotui.org');
 
 #import('dart:html');
-#import('../../lib/Buckshot.dart');
+#import('../../buckshot.dart');
 
 /**
 * A Buckshot control that displays a general purpose

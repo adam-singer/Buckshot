@@ -3,7 +3,7 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 #import('dart:html');
-#import('../../lib/Buckshot.dart');
+#import('../../buckshot.dart');
 #import('../../external/shared/shared.dart');
 #import('package:DartNet-Event-Model/events.dart');
 #import('../../extensions/controls/media/YouTube.dart');
@@ -16,10 +16,10 @@
 #import('../../extensions/controls/TreeView/TreeView.dart');
 #import('../../extensions/controls/DockPanel.dart');
 
-#source('viewmodels/DemoViewModel.dart');
-#source('models/DemoModel.dart');
-#source('views/Main.dart');
-#source('views/Error.dart');
+#source('viewmodels/demo_view_model.dart');
+#source('models/demo_model.dart');
+#source('views/main.dart');
+#source('views/error.dart');
 
 void main() {
   setView(new Main());

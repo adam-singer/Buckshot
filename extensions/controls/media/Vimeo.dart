@@ -4,7 +4,7 @@
 
 #library('vimeo.media.controls.buckshotui.org');
 #import('dart:html');
-#import('../../../lib/Buckshot.dart');
+#import('../../../buckshot.dart');
 #import('../../../external/web/web.dart');
 
 class Vimeo extends FrameworkElement
