@@ -16,6 +16,9 @@
 #import('../../extensions/controls/TreeView/TreeView.dart');
 #import('../../extensions/controls/DockPanel.dart');
 
+#import('apps/calculator/calculator.dart', prefix:'calc');
+#import('apps/todo/todo.dart', prefix:'todo');
+
 #source('viewmodels/demo_view_model.dart');
 #source('models/demo_model.dart');
 #source('views/main.dart');

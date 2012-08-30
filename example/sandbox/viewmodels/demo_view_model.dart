@@ -78,12 +78,33 @@ class DemoViewModel extends ViewModelBase
       resetUI();
       return;
     }
+    
+    if (templateText.startsWith('app.')){
+      final appName = templateText.split('.')[1];
+      switch(appName){
+        case 'todo':
+          final todoView = new todo.Main();
+          todoView.ready.then((_){
+            setValue(renderedOutputProperty, todoView.rootVisual);
+          });
+          break;
+        case 'calc':
+          final calcView = new calc.Main();
+          calcView.ready.then((_){
+            setValue(renderedOutputProperty, calcView.rootVisual);
+          });        
+          break;
+        default:
+          resetUI();
+          return;
+      }
+    }else{
+      setValue(templateTextProperty, templateText);
 
-    setValue(templateTextProperty, templateText);
-
-    Template.deserialize(templateText).then((c){
-      setValue(renderedOutputProperty, c);
-    });
+      Template.deserialize(templateText).then((c){
+        setValue(renderedOutputProperty, c);
+      });      
+    }
   }
 
   /**
@@ -155,7 +176,7 @@ class DemoViewModel extends ViewModelBase
     if (value == ''){
       resetUI();
     }else{
-      setTemplate(Template.getTemplate('#${value}'));
+      setTemplate(value.startsWith('app.') ? value : Template.getTemplate('#${value}'));
     }
   }
 
