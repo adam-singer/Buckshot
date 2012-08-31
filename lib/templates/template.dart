@@ -133,7 +133,8 @@ class Template {
     if (from.startsWith('#')){
       var result = document.query(from);
       if (result == null)
-        throw new BuckshotException('Unabled to find template "${from}" in HTML file.');
+        throw new BuckshotException('Unabled to find template'
+            ' "${from}" in HTML file.');
         return result.text.trim();
     }else{
       //TODO cache...
@@ -401,7 +402,8 @@ class Template {
           return;
         }
 
-        //CONTAINER_CONTEXT is a FrameworkProperty for single element, List for multiple
+        // CONTAINER_CONTEXT is a FrameworkProperty for single element, List
+        // for multiple
         if (cc is List){
           //list content
           cc.add(childElement);

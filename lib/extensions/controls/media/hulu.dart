@@ -5,7 +5,7 @@
 #library('hulu.media.controls.buckshotui.org');
 
 #import('dart:html');
-#import('../../../buckshot.dart');
+#import('../../../../buckshot.dart');
 #import('../../../external/web/web.dart');
 
 class Hulu extends FrameworkElement

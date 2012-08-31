@@ -2,26 +2,26 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-#library('youtube.media.controls.buckshotui.org');
+#library('vimeo.media.controls.buckshotui.org');
 #import('dart:html');
-#import('../../../buckshot.dart');
+#import('../../../../buckshot.dart');
 #import('../../../external/web/web.dart');
 
-class YouTube extends FrameworkElement
+class Vimeo extends FrameworkElement
 {
   FrameworkProperty videoIDProperty;
 
-  YouTube(){
-    Browser.appendClass(rawElement, "youtube");
+  Vimeo(){
+    Browser.appendClass(rawElement, "vimeo");
 
-    _initializeYouTubeProperties();
+    _initializeVimeoProperties();
 
   }
 
 
-  void _initializeYouTubeProperties(){
+  void _initializeVimeoProperties(){
     videoIDProperty = new FrameworkProperty(this, "videoID", (String value){
-      rawElement.attributes["src"] = 'http://www.youtube.com/embed/${value.toString()}';
+      rawElement.attributes["src"] = 'http://player.vimeo.com/video/${value.toString()}';
     });
   }
 
@@ -31,8 +31,6 @@ class YouTube extends FrameworkElement
 
   void createElement(){
     rawElement = new Element.tag("iframe");
-    Browser.appendClass(rawElement, 'youtube-player');
-    rawElement.attributes["type"] = "text/html";
     rawElement.attributes["frameborder"] = "0";
   }
 }

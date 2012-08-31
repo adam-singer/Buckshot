@@ -4,17 +4,17 @@
 
 #import('dart:html');
 #import('../../buckshot.dart');
-#import('../../external/shared/shared.dart');
+#import('../../lib/external/shared/shared.dart');
 #import('package:DartNet-Event-Model/events.dart');
-#import('../../extensions/controls/media/youtube.dart');
-#import('../../extensions/controls/media/hulu.dart');
-#import('../../extensions/controls/media/vimeo.dart');
-#import('../../extensions/controls/media/funny_or_die.dart');
-#import('../../extensions/controls/list_box.dart');
-#import('../../extensions/controls/modal_dialog.dart');
-#import('../../extensions/controls/social/plus_one.dart');
-#import('../../extensions/controls/treeview/tree_view.dart');
-#import('../../extensions/controls/dock_panel.dart');
+#import('../../lib/extensions/controls/media/youtube.dart');
+#import('../../lib/extensions/controls/media/hulu.dart');
+#import('../../lib/extensions/controls/media/vimeo.dart');
+#import('../../lib/extensions/controls/media/funny_or_die.dart');
+#import('../../lib/extensions/controls/list_box.dart');
+#import('../../lib/extensions/controls/modal_dialog.dart');
+#import('../../lib/extensions/controls/social/plus_one.dart');
+#import('../../lib/extensions/controls/treeview/tree_view.dart');
+#import('../../lib/extensions/controls/dock_panel.dart');
 
 #import('apps/calculator/calculator.dart', prefix:'calc');
 #import('apps/todo/todo.dart', prefix:'todo');
