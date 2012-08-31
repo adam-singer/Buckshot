@@ -60,6 +60,7 @@
 */
 class Template {
 
+  //TODO make providers discoverable via reflection instead of pre-registered.
   final List<IPresentationFormatProvider> providers;
 
   Template()
