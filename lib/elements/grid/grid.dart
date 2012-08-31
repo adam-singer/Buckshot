@@ -191,8 +191,9 @@ void _updateColumnLayout(num gridWidth){
           })
           .forEach((_GridCell child){
             num childWidth = child.content.mostRecentMeasurement.bounding.width;
-            if (childWidth > widestAuto)
-              widestAuto = childWidth;
+            num mOffset = child.content.margin.left + child.content.margin.right;
+            if (childWidth + mOffset > widestAuto)
+              widestAuto = childWidth + mOffset;
           });
 
         c._adjustedLength = widestAuto;
@@ -288,8 +289,9 @@ void _updateRowLayout(num gridHeight){
         })
         .forEach((_GridCell child){
           num childHeight = child.content.mostRecentMeasurement.bounding.height;
-          if (childHeight > widestAuto)
-            widestAuto = childHeight;
+          num mOffset = child.content.margin.top + child.content.margin.bottom;
+          if (childHeight + mOffset > widestAuto)
+            widestAuto = childHeight + mOffset;
         });
 
       c._adjustedLength = widestAuto;
