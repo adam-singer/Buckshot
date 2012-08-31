@@ -8,25 +8,7 @@
 class YAMLTemplateProvider implements IPresentationFormatProvider
 {
 
-  /**
-  * Takes a string representation of elements in [template] and
-  * attempts to convert it to an object tree
-  * using parsing rules from the implementing class. */
-  Future<FrameworkElement> deserialize(String template){
-    if (!isFormat(template)){
-      throw const PresentationProviderException('Template format'
-        ' not recognized.');
-    }
-
-    //convert the yaml into an XmlElement tree and let the
-    //XmlTemplateProvider do the rest...
-
-    final p = new XmlTemplateProvider();
-
-    return p._getNextElement(_toYAMLTree(template));
-  }
-
-  XmlElement _toYAMLTree(String template){
+  XmlElement toXmlTree(String template){
     var yaml = loadYaml(template);
 
     assert(yaml is List);

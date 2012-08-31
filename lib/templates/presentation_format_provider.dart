@@ -5,19 +5,13 @@
 /**
 * Interface contract for classes registering as presentation format providers.
 *
-* ## See Also
+* ## See Also ##
 * * [XmlTemplateProvider]
 * * [JSONTemplateProvider]
 * * [YAMLTemplateProvider]
 */
 class IPresentationFormatProvider
 {
-
-  /**
-  * Takes a string representation of elements in [template] and attempts to convert it to an object tree
-  * using parsing rules from the implementing class. */
-  abstract Future<FrameworkElement> deserialize(String template);
-
   /**
   * Takes an object tree starting at [elementRoot] and attempts to convert it to a serialized string
   * in the format of the implementing class. */
@@ -27,4 +21,9 @@ class IPresentationFormatProvider
   * Returns true if the given template is detected to be of a compatible format.
   */
   abstract bool isFormat(String template);
+  
+  /**
+   * Returns a normalized Xml Tree from the given template.
+   */
+  abstract XmlElement toXmlTree(String template);
 }

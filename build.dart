@@ -3,10 +3,14 @@
 
 // waiting for the Dart Edit to start picking this up.
 void main(){
-  final out = new File('c:\test.tmp').openOutputStream();
+  print('build script running...');
+  
+  final out = new File('test.tmp').openOutputStream();
   out.onError = (e){
-    print('build.dart error!');
+    print('build.dart error! $e');
+    exit(1);
   };
   out.writeString('hello world');
+   
   out.close();
 }

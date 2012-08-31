@@ -19,7 +19,8 @@ class Main extends View
 // put template into the sandbox html page, or load it from a Uri.
 String _view = 
 @'''
-    <stackpanel margin="5">
+<border bordercolor='Black' borderthickness='1' padding='5'>
+    <stackpanel>
       <textblock text="TO-DO List" fontsize="24"></textblock>
     
       <textblock text="Enter TO-DO Item And Click Submit" fontsize="18" margin="0,5"></textblock>
@@ -57,4 +58,5 @@ String _view =
         </stackpanel>
       </border>
     </stackpanel>
+</border>
 ''';
