@@ -21,7 +21,6 @@ void generateCode(){
   out.close();
 }
 
-
 String test =
 '''
 <stack orientation="horizontal" halign="center">
