@@ -7,5 +7,5 @@
 #import('dart:html');
 #import('dart:math');
 
-#source('Browser.dart');
-#source('BrowserInfo.dart');
+#source('browser.dart');
+#source('browser_info.dart');

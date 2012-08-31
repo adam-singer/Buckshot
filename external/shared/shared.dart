@@ -1,27 +1,27 @@
 #library('shared.buckshotui.org');
 #import('dart:mirrors');
 
-#source('Miriam.dart');
+#source('miriam.dart');
 
-#source('HashableObject.dart');
-#source('IValueConverter.dart');
-#source('Thickness.dart');
-#source('Tuple.dart');
+#source('hashable_object.dart');
+#source('i_value_converter.dart');
+#source('thickness.dart');
+#source('tuple.dart');
 
-#source('exceptions/BuckshotException.dart');
-#source('exceptions/AnimationException.dart');
-#source('exceptions/PresentationProviderException.dart');
-#source('exceptions/FrameworkPropertyResolutionException.dart');
+#source('exceptions/buckshot_exception.dart');
+#source('exceptions/animation_exception.dart');
+#source('exceptions/presentation_provider_exception.dart');
+#source('exceptions/framework_property_resolution_exception.dart');
 
-#source('enums/Visibility.dart');
-#source('enums/Orientation.dart');
-#source('enums/Colors.dart');
-#source('enums/Cursors.dart');
-#source('enums/LinearGradientDirection.dart');
-#source('enums/RadialGradientDrawMode.dart');
-#source('enums/GridUnitType.dart');
-#source('enums/HorizontalAlignment.dart');
-#source('enums/VerticalAlignment.dart');
-#source('enums/Transforms.dart');
-#source('enums/TransitionTiming.dart');
-#source('enums/DockLocation.dart');
+#source('enums/visibility.dart');
+#source('enums/orientation.dart');
+#source('enums/colors.dart');
+#source('enums/cursors.dart');
+#source('enums/linear_gradient_brush.dart');
+#source('enums/radial_gradient_draw_mode.dart');
+#source('enums/grid_unit_type.dart');
+#source('enums/horizontal_alignment.dart');
+#source('enums/vertical_alignment.dart');
+#source('enums/transforms.dart');
+#source('enums/transition_timing.dart');
+#source('enums/dock_location.dart');
