@@ -13,7 +13,7 @@
 #import('../../extensions/controls/list_box.dart');
 #import('../../extensions/controls/modal_dialog.dart');
 #import('../../extensions/controls/social/plus_one.dart');
-#import('../../extensions/controls/TreeView/tree_view.dart');
+#import('../../extensions/controls/treeview/tree_view.dart');
 #import('../../extensions/controls/dock_panel.dart');
 
 #import('apps/calculator/calculator.dart', prefix:'calc');
