@@ -1,3 +1,0 @@
-[submodule "external/dartxml"]
-	path = external/dartxml
-	url = git@github.com:prujohn/dart-xml.git
