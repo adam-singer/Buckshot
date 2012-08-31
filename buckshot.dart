@@ -13,7 +13,7 @@
 #import('dart:math');
 #import('dart:mirrors');
 
-#import('package:dart-xml/lib/xml.dart');
+#import('package:dart-xml/xml.dart');
 #import('package:DartNet-Event-Model/events.dart');
 #import('external/web/web.dart');
 #import('external/yaml/yaml.dart');

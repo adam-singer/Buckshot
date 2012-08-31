@@ -7,7 +7,6 @@
 #import('package:DartNet-Event-Model/events.dart');
 #import('../extensions/controls/DockPanel.dart');
 
-// point this to wherever your copy of the dart source code is
 #import('package:unittest/unittest.dart');
 #import('package:unittest/html_enhanced_config.dart');
 
