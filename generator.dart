@@ -6,7 +6,7 @@
 
 #import('lib/gen/genie.dart');
 
-void generateCode(){
+void generateCode(List<String> files){
   final out = new File('test.tmp').openOutputStream();
   
   out.onError = (e){

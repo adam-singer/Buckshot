@@ -1,12 +1,17 @@
 #import('generator.dart');
 #import('dart:io');
 
-// waiting for the Dart Edit to start picking this up.
 void main(){
+  final args = new Options()
+                    .arguments
+                    .filter((arg) => 
+                        arg.startsWith('--changed') &&
+                        (arg.endsWith('.buckshot') || arg.endsWith('.html')))
+                    .map((arg) => arg.replaceFirst('--changed=', ''));
   
-  print('Don\'t worry, this is supposed to fail right now: ${new Options().arguments}');
+  if (args.isEmpty()) return;
+  
+  generateCode(args);
   
   exit(1);
-  
-  //generateCode();  
 }

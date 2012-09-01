@@ -2,6 +2,10 @@
 
 #import('dart:json');
 #import('package:dart-xml/xml.dart');
+//#import('dart:isolate');
+//#import('dart:mirrors');
+
+#source('core_gen.dart');
 
 /**
  * Returns a JSON string containing a map of filename:filedata pairs.
@@ -25,6 +29,10 @@ String genCode(String baseFileName, XmlElement template, [List<String> options])
   {
     options = [];
   }
+  
+//  final test = spawnUri('buckshot.dart');
+//  final m = mirrorSystemOf(test);
+//  print('$m');
   
   final results = new Map<String, String>();
   

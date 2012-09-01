@@ -129,4 +129,4 @@
 #source('lib/templates/template_object.dart');
 
 //Use this to generate clean dart docs of just the buckshot library
-//main(){}
+main(){}

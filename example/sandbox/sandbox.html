@@ -11,7 +11,7 @@
 Begin Buckshot Templates
 -->
 
-<script id='main' type='text/xml'>
+<script id='main' type='application/xml'>
 <stack orientation="horizontal" halign="center">
   <resourcecollection>
     <color key="buckshotBlue" value="#165284"></color>
@@ -100,7 +100,7 @@ Begin Buckshot Templates
 </stack>
 </script>
 
-<script id='textbox' type='text/xml'>
+<script id='textbox' type='application/xml'>
 <stack minheight='100'>
    <textblock style='{resource headerText}'>
    A TextBox allows you to input some text.
@@ -115,11 +115,11 @@ Begin Buckshot Templates
 </stack>
 </script>
 
-<script id='rawhtml' type='text/xml'>
+<script id='rawhtml' type='application/xml'>
 <rawhtml htmlstring="<div style='font-size:32px'>Hello World!</div>"/>
 </script>
 
-<script id='treeview' type='text/xml'>
+<script id='treeview' type='application/xml'>
 <stack>
    <treeview treenodeselected='demotreeview_selection' borderthickness='1' bordercolor='Black' >
       <treenode childvisibility='visible' header='Tree Node L1A' >
@@ -145,7 +145,7 @@ Begin Buckshot Templates
 </stack>
 </script>
 
-<script id='dockpanel' type='text/xml'>
+<script id='dockpanel' type='application/xml'>
 <stack>
    <resourcecollection>
       <styletemplate key='borderStyle'>
@@ -219,32 +219,32 @@ Begin Buckshot Templates
 </stack>
 </script>
 
-<script id='image' type='text/xml'>
+<script id='image' type='application/xml'>
 <stack orientation='horizontal'>
   <textblock valign='center' text='Like this logo for Buckshot?' />
   <image alt="Buckshot Logo Candidate" sourceuri="http://www.lucastudios.com/img/lucaui_logo_candidate2.png" />
 </stack>
 </script>
 
-<script id='youtube' type='text/xml'>
+<script id='youtube' type='application/xml'>
 <stack>
     <textblock fontfamily="arial" text="About Buckshot Templates" />
     <youtube margin="10" videoid="LOacOkmd9FI" width="400" height="300" />
 </stack> 
 </script>
 
-<script id='hulu' type='text/xml'>
+<script id='hulu' type='application/xml'>
 <hulu margin="10" width="400" height="300" videoID="QRNTv9APf02C6J_xFpY0Dg" />
 </script>
 
-<script id='vimeo' type='text/xml'>
+<script id='vimeo' type='application/xml'>
 <stack>
     <textblock fontfamily="arial" text="Seth Ladd's 'Intro To Box2D'" />>  
     <vimeo videoid="32214850" margin="10" width="400" height="300" />
 </stack>
 </script>
 
-<script id='funnyordie' type='text/xml'>
+<script id='funnyordie' type='application/xml'>
 <!-- FunnyOrDie element is part of the media extension library for Buckshot. -->
 <stack>
     <textblock fontfamily="arial" text='Darth Vader Sells Out' />
@@ -253,13 +253,13 @@ Begin Buckshot Templates
 </script>
 
 
-<script id='error' type='text/xml'>
+<script id='error' type='application/xml'>
    <border halign='center' maxwidth='650' borderColor="Red" borderThickness="3" padding="5" background="Yellow">
       <textblock halign='stretch' foreground="Red" text="{data errorMessage}" />
    </border>
 </script>
 
-<script id='textblock' type='text/xml'>
+<script id='textblock' type='application/xml'>
 <stack>
    <!-- Inline -->
    <textblock style='{resource defaultText}' text="Hello World!" />
@@ -278,7 +278,7 @@ Begin Buckshot Templates
 </stack>
 </script>
 
-<script id='stack' type='text/xml'>
+<script id='stack' type='application/xml'>
 <stack>
   <resourcecollection>
      <styletemplate key='defaultBorder'>
@@ -329,7 +329,7 @@ Begin Buckshot Templates
 </stack>
 </script>
 
-<script id='border' type='text/xml'>
+<script id='border' type='application/xml'>
 <stack>
   <resourcecollection>
     <styletemplate key='bStyle'>
@@ -374,7 +374,7 @@ Begin Buckshot Templates
 </stack>
 </script>
 
-<script id='slider' type='text/xml'>
+<script id='slider' type='application/xml'>
 <stack>
    <resourcecollection>
       <styletemplate key='borderValue'>
@@ -417,7 +417,7 @@ Begin Buckshot Templates
 
 
 
-<script id='layoutcanvas' type='text/xml'>
+<script id='layoutcanvas' type='application/xml'>
 <layoutcanvas width="300" height="300" background="WhiteSmoke">
    <border layoutcanvas.top="40" layoutcanvas.left="40" width="150" height="20" background="Red" />
 
@@ -431,7 +431,7 @@ Begin Buckshot Templates
 </layoutcanvas>
 </script>
 
-<script id='button' type='text/xml'>
+<script id='button' type='application/xml'>
 <stack>
   <textblock margin="0,10" text='Buttons can contain text or other elements.' />
   <button width="80">text button</button>
@@ -443,7 +443,7 @@ Begin Buckshot Templates
 </stack>
 </script>
 
-<script id='radiobutton' type='text/xml'>
+<script id='radiobutton' type='application/xml'>
 <stack>
   <textblock margin="0,10" text='Radio Buttons' />
 
@@ -469,7 +469,7 @@ Begin Buckshot Templates
 </stack>
 </script>
 
-<script id='checkbox' type='text/xml'>
+<script id='checkbox' type='application/xml'>
 <stack>
   <textblock margin="0,10" text='Checkboxes' />
 
@@ -495,7 +495,7 @@ Begin Buckshot Templates
 </stack>
 </script>
 
-<script id='hyperlink' type='text/xml'>
+<script id='hyperlink' type='application/xml'>
 <stack >
   <textblock margin="0,10" text='Hyperlinks can contain text or other elements.' />
   <hyperlink targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki/">Text Hyperlink</hyperlink>
@@ -507,7 +507,7 @@ Begin Buckshot Templates
 </stack>
 </script>
 
-<script id='grid' type='text/xml'>
+<script id='grid' type='application/xml'>
 <!--
 grid Demo
 
@@ -608,7 +608,7 @@ The fourth column is pixel-type of 100, and remains fixed in place.
 </stack>
 </script>
 
-<script id='resources' type='text/xml'>
+<script id='resources' type='application/xml'>
 <!--
 Resources Demo
 --------------
@@ -739,7 +739,7 @@ property="{resource [nameOfResource]}"
 </stack>
 </script>
 
-<script id='elementbinding' type='text/xml'>
+<script id='elementbinding' type='application/xml'>
 <!--
 This demo shows how easy it is to build a simple, but interactive 
 UI without having to write any code.
@@ -826,7 +826,7 @@ declarative element-to-element binding.
 </stack>
 </script>
 
-<script id='databinding' type='text/xml'>
+<script id='databinding' type='application/xml'>
 <!-- 
 Data Binding Demo
 
@@ -886,7 +886,7 @@ dataContext that has some data, and attempts to bind to that.
 </stack>
 </script>
 
-<script id='collections' type='text/xml'>
+<script id='collections' type='application/xml'>
 <stack>
   <!-- declare resources for common settings -->
   <resourcecollection>
@@ -969,7 +969,7 @@ dataContext that has some data, and attempts to bind to that.
 </stack>
 </script>
 
-<script id='dropdownlist' type='text/xml'>
+<script id='dropdownlist' type='application/xml'>
 <stack>
   <textblock style='{resource headerText}' text="List From Data Source:"/>
   
@@ -1000,7 +1000,7 @@ dataContext that has some data, and attempts to bind to that.
 </stack>
 </script>
 
-<script id='listbox' type='text/xml'>
+<script id='listbox' type='application/xml'>
 <!--
 ListBox Demo
 
