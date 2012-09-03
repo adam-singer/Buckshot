@@ -42,10 +42,10 @@ This process should get easier over time as the pub utility matures.
 **Many more videos at the [Buckshot playlist on YouTube](http://www.youtube.com/playlist?list=PLE04C8698A5FD2E9E&feature=view_all).**
 
 ### Buckshot Online Sandbox ###
-[Online Interactive Buckshot](http://66.240.183.37/sandbox/)
+[Online Interactive Buckshot](http://www.buckshotui.org/sandbox/)
 
 ### Reference Material ###
-* [API Reference](http://66.240.183.37/docs/)
+* [API Reference](http://www.buckshotui.org/docs/)
 * [Wiki Documentation](https://github.com/prujohn/Buckshot/wiki/_pages)
 * [Developers: How To Contribute](https://github.com/prujohn/Buckshot/wiki/How-To-Contribute)
 
