@@ -10,3 +10,5 @@ dependencies:
     git: git://github.com/prujohn/DartNet-Event-Model.git
   Darternizr:
     git: git://github.com/prujohn/Darternizr.git
+  dart_utils:
+    git: git://github.com/prujohn/dart_utils.git

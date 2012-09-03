@@ -15,9 +15,10 @@
 
 #import('package:dart-xml/xml.dart');
 #import('package:DartNet-Event-Model/events.dart');
-#import('lib/external/web/web.dart');
-#import('lib/external/yaml/yaml.dart');
-#import('lib/external/shared/shared.dart');
+#import('package:dart_utils/web.dart');
+#import('package:dart_utils/shared.dart');
+#import('package:dart_utils/miriam.dart');
+#import('lib/yaml/yaml.dart');
 
 #source('lib/core/globals.dart');
 #source('lib/core/buckshot_system.dart');

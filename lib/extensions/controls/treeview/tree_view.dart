@@ -7,8 +7,8 @@
 #import('dart:html');
 #import('../../../../buckshot.dart');
 #import('package:DartNet-Event-Model/events.dart');
-#import('../../../external/web/web.dart');
-#import('../../../external/shared/shared.dart');
+#import('package:dart_utils/shared.dart');
+#import('package:dart_utils/web.dart');
 
 #source('tree_node.dart');
 

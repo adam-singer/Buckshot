@@ -6,9 +6,8 @@
 
 #import('dart:html');
 #import('../../../../buckshot.dart');
-#import('../../../external/shared/shared.dart');
-#import('../../../external/web/web.dart');
-
+#import('package:dart_utils/shared.dart');
+#import('package:dart_utils/web.dart');
 
 /**
 * Implements a Google+ +1 button element.
