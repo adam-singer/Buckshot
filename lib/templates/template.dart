@@ -610,7 +610,6 @@ class Template {
           if (k.startsWith('on.')){
             // event
             final tk = k.substring(3, k.length);
-            print('$tk');
             if (element.hasEvent(tk.toLowerCase())){
               fList.add(_processEvent(element, tk, v));
             }
