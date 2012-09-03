@@ -18,97 +18,97 @@
  * recognize character classes; these are named `is*`.
  */
 class _Parser {
-  static final TAB = 0x9;
-  static final LF = 0xA;
-  static final CR = 0xD;
-  static final SP = 0x20;
-  static final TILDE = 0x7E;
-  static final NEL = 0x85;
-  static final PLUS = 0x2B;
-  static final HYPHEN = 0x2D;
-  static final QUESTION_MARK = 0x3F;
-  static final COLON = 0x3A;
-  static final COMMA = 0x2C;
-  static final LEFT_BRACKET = 0x5B;
-  static final RIGHT_BRACKET = 0x5D;
-  static final LEFT_BRACE = 0x7B;
-  static final RIGHT_BRACE = 0x7D;
-  static final HASH = 0x23;
-  static final AMPERSAND = 0x26;
-  static final ASTERISK = 0x2A;
-  static final EXCLAMATION = 0x21;
-  static final VERTICAL_BAR = 0x7C;
-  static final GREATER_THAN = 0x3E;
-  static final SINGLE_QUOTE = 0x27;
-  static final DOUBLE_QUOTE = 0x22;
-  static final PERCENT = 0x25;
-  static final AT = 0x40;
-  static final GRAVE_ACCENT = 0x60;
+  static const TAB = 0x9;
+  static const LF = 0xA;
+  static const CR = 0xD;
+  static const SP = 0x20;
+  static const TILDE = 0x7E;
+  static const NEL = 0x85;
+  static const PLUS = 0x2B;
+  static const HYPHEN = 0x2D;
+  static const QUESTION_MARK = 0x3F;
+  static const COLON = 0x3A;
+  static const COMMA = 0x2C;
+  static const LEFT_BRACKET = 0x5B;
+  static const RIGHT_BRACKET = 0x5D;
+  static const LEFT_BRACE = 0x7B;
+  static const RIGHT_BRACE = 0x7D;
+  static const HASH = 0x23;
+  static const AMPERSAND = 0x26;
+  static const ASTERISK = 0x2A;
+  static const EXCLAMATION = 0x21;
+  static const VERTICAL_BAR = 0x7C;
+  static const GREATER_THAN = 0x3E;
+  static const SINGLE_QUOTE = 0x27;
+  static const DOUBLE_QUOTE = 0x22;
+  static const PERCENT = 0x25;
+  static const AT = 0x40;
+  static const GRAVE_ACCENT = 0x60;
 
-  static final NULL = 0x0;
-  static final BELL = 0x7;
-  static final BACKSPACE = 0x8;
-  static final VERTICAL_TAB = 0xB;
-  static final FORM_FEED = 0xC;
-  static final ESCAPE = 0x1B;
-  static final SLASH = 0x2F;
-  static final BACKSLASH = 0x5C;
-  static final UNDERSCORE = 0x5F;
-  static final NBSP = 0xA0;
-  static final LINE_SEPARATOR = 0x2028;
-  static final PARAGRAPH_SEPARATOR = 0x2029;
+  static const NULL = 0x0;
+  static const BELL = 0x7;
+  static const BACKSPACE = 0x8;
+  static const VERTICAL_TAB = 0xB;
+  static const FORM_FEED = 0xC;
+  static const ESCAPE = 0x1B;
+  static const SLASH = 0x2F;
+  static const BACKSLASH = 0x5C;
+  static const UNDERSCORE = 0x5F;
+  static const NBSP = 0xA0;
+  static const LINE_SEPARATOR = 0x2028;
+  static const PARAGRAPH_SEPARATOR = 0x2029;
 
-  static final NUMBER_0 = 0x30;
-  static final NUMBER_9 = 0x39;
+  static const NUMBER_0 = 0x30;
+  static const NUMBER_9 = 0x39;
 
-  static final LETTER_A = 0x61;
-  static final LETTER_B = 0x62;
-  static final LETTER_E = 0x65;
-  static final LETTER_F = 0x66;
-  static final LETTER_N = 0x6E;
-  static final LETTER_R = 0x72;
-  static final LETTER_T = 0x74;
-  static final LETTER_U = 0x75;
-  static final LETTER_V = 0x76;
-  static final LETTER_X = 0x78;
+  static const LETTER_A = 0x61;
+  static const LETTER_B = 0x62;
+  static const LETTER_E = 0x65;
+  static const LETTER_F = 0x66;
+  static const LETTER_N = 0x6E;
+  static const LETTER_R = 0x72;
+  static const LETTER_T = 0x74;
+  static const LETTER_U = 0x75;
+  static const LETTER_V = 0x76;
+  static const LETTER_X = 0x78;
 
-  static final LETTER_CAP_A = 0x41;
-  static final LETTER_CAP_F = 0x46;
-  static final LETTER_CAP_L = 0x4C;
-  static final LETTER_CAP_N = 0x4E;
-  static final LETTER_CAP_P = 0x50;
-  static final LETTER_CAP_U = 0x55;
-  static final LETTER_CAP_X = 0x58;
+  static const LETTER_CAP_A = 0x41;
+  static const LETTER_CAP_F = 0x46;
+  static const LETTER_CAP_L = 0x4C;
+  static const LETTER_CAP_N = 0x4E;
+  static const LETTER_CAP_P = 0x50;
+  static const LETTER_CAP_U = 0x55;
+  static const LETTER_CAP_X = 0x58;
 
-  static final C_SEQUENCE_ENTRY = 4;
-  static final C_MAPPING_KEY = 5;
-  static final C_MAPPING_VALUE = 6;
-  static final C_COLLECT_ENTRY = 7;
-  static final C_SEQUENCE_START = 8;
-  static final C_SEQUENCE_END = 9;
-  static final C_MAPPING_START = 10;
-  static final C_MAPPING_END = 11;
-  static final C_COMMENT = 12;
-  static final C_ANCHOR = 13;
-  static final C_ALIAS = 14;
-  static final C_TAG = 15;
-  static final C_LITERAL = 16;
-  static final C_FOLDED = 17;
-  static final C_SINGLE_QUOTE = 18;
-  static final C_DOUBLE_QUOTE = 19;
-  static final C_DIRECTIVE = 20;
-  static final C_RESERVED = 21;
+  static const C_SEQUENCE_ENTRY = 4;
+  static const C_MAPPING_KEY = 5;
+  static const C_MAPPING_VALUE = 6;
+  static const C_COLLECT_ENTRY = 7;
+  static const C_SEQUENCE_START = 8;
+  static const C_SEQUENCE_END = 9;
+  static const C_MAPPING_START = 10;
+  static const C_MAPPING_END = 11;
+  static const C_COMMENT = 12;
+  static const C_ANCHOR = 13;
+  static const C_ALIAS = 14;
+  static const C_TAG = 15;
+  static const C_LITERAL = 16;
+  static const C_FOLDED = 17;
+  static const C_SINGLE_QUOTE = 18;
+  static const C_DOUBLE_QUOTE = 19;
+  static const C_DIRECTIVE = 20;
+  static const C_RESERVED = 21;
 
-  static final BLOCK_OUT = 0;
-  static final BLOCK_IN = 1;
-  static final FLOW_OUT = 2;
-  static final FLOW_IN = 3;
-  static final BLOCK_KEY = 4;
-  static final FLOW_KEY = 5;
+  static const BLOCK_OUT = 0;
+  static const BLOCK_IN = 1;
+  static const FLOW_OUT = 2;
+  static const FLOW_IN = 3;
+  static const BLOCK_KEY = 4;
+  static const FLOW_KEY = 5;
 
-  static final CHOMPING_STRIP = 0;
-  static final CHOMPING_KEEP = 1;
-  static final CHOMPING_CLIP = 2;
+  static const CHOMPING_STRIP = 0;
+  static const CHOMPING_KEEP = 1;
+  static const CHOMPING_CLIP = 2;
 
   /** The source string being parsed. */
   final String s;
@@ -144,6 +144,12 @@ class _Parser {
   int farthestColumn = 0;
 
   /**
+   * The farthest position in the source string that has been parsed
+   * successfully before backtracking. Used for error reporting.
+   */
+  int farthestPos = 0;
+
+  /**
    * The name of the context of the farthest position that has been parsed
    * successfully before backtracking. Used for error reporting.
    */
@@ -151,6 +157,12 @@ class _Parser {
 
   /** A stack of the names of parse contexts. Used for error reporting. */
   List<String> contextStack;
+
+  /**
+   * Annotations attached to ranges of the source string that add extra
+   * information to any errors that occur in the annotated range.
+   */
+  _RangeMap<String> errorAnnotations;
 
   /**
    * The buffer containing the string currently being captured.
@@ -170,7 +182,8 @@ class _Parser {
   _Parser(String s)
     : this.s = s,
       len = s.length,
-      contextStack = <String>["document"];
+      contextStack = <String>["document"],
+      errorAnnotations = new _RangeMap();
 
   /**
    * Return the character at the current position, then move that position
@@ -194,6 +207,7 @@ class _Parser {
       farthestColumn = column;
       farthestContext = contextStack.last();
     }
+    farthestPos = pos;
 
     return char;
   }
@@ -416,6 +430,22 @@ class _Parser {
     }
   }
 
+  /**
+   * Adds [message] as extra information to any errors that occur between the
+   * current position and the position of the cursor after running [fn]. The
+   * cursor is reset after [fn] is run.
+   */
+  annotateError(String message, fn()) {
+    var start = pos;
+    var end;
+    transaction(() {
+      fn();
+      end = pos;
+      return false;
+    });
+    errorAnnotations[new _Range(start, end)] = message;
+  }
+
   /** Throws an error with additional context information. */
   error(String message) {
     // Line and column should be one-based.
@@ -437,11 +467,13 @@ class _Parser {
    * [farthestColumn], and [farthestContext] to provide additional information.
    */
   parseFailed() {
-    throw new SyntaxError(farthestLine + 1, farthestColumn + 1,
-        "invalid YAML in $farthestContext");
+    var message = "invalid YAML in $farthestContext";
+    var extraError = errorAnnotations[farthestPos];
+    if (extraError != null) message = "$message ($extraError)";
+    throw new SyntaxError(farthestLine + 1, farthestColumn + 1, message);
   }
 
-  /** Returns the number of spaces after the current position. */ 
+  /** Returns the number of spaces after the current position. */
   int countIndentation() {
     var i = 0;
     while (peek(i) == SP) i++;
@@ -674,12 +706,29 @@ class _Parser {
     }));
 
   // 63
-  bool s_indent(int indent) => nAtOnce(indent, (c, i) => c == SP);
+  bool s_indent(int indent) {
+    var result = nAtOnce(indent, (c, i) => c == SP);
+    if (peek() == TAB) {
+      annotateError("tab characters are not allowed as indentation in YAML",
+          () => zeroOrMore(() => consume(isSpace)));
+    }
+    return result;
+  }
 
   // 64
   bool s_indentLessThan(int indent) {
     for (int i = 0; i < indent - 1; i++) {
-      if (!consumeChar(SP)) break;
+      if (!consumeChar(SP)) {
+        if (peek() == TAB) {
+          annotateError("tab characters are not allowed as indentation in YAML",
+              () {
+            for (; i < indent - 1; i++) {
+              if (!consume(isSpace)) break;
+            }
+          });
+        }
+        break;
+      }
     }
     return true;
   }
@@ -1900,4 +1949,51 @@ class _BlockHeader {
   _BlockHeader(this.additionalIndent, this.chomping);
 
   bool get autoDetectIndent => additionalIndent == null;
+}
+
+/**
+ * A range of characters in the YAML document, from [start] to [end] (inclusive).
+ */
+class _Range {
+  /** The first character in the range. */
+  final int start;
+
+  /** The last character in the range. */
+  final int end;
+
+  _Range(this.start, this.end);
+
+  /** Returns whether or not [pos] lies within this range. */
+  bool contains(int pos) => pos >= start && pos <= end;
+}
+
+/**
+ * A map that associates [E] values with [_Range]s. It's efficient to create new
+ * associations, but finding the value associated with a position is more
+ * expensive.
+ */
+class _RangeMap<E> {
+  /** The ranges and their associated elements. */
+  final List<_Pair<_Range, E>> contents;
+
+  _RangeMap() : this.contents = <_Pair<_Range, E>>[];
+
+  /**
+   * Returns the value associated with the range in which [pos] lies, or null if
+   * there is no such range. If there's more than one such range, the most
+   * recently set one is used.
+   */
+  E operator[](int pos) {
+    // Iterate backwards through contents so the more recent range takes
+    // precedence. TODO(nweiz): clean this up when issue 2804 is fixed.
+    for (var i = contents.length - 1; i >= 0; i--) {
+      var pair = contents[i];
+      if (pair.first.contains(pos)) return pair.last;
+    }
+    return null;
+  }
+
+  /** Associates [value] with [range]. */
+  operator[]=(_Range range, E value) =>
+    contents.add(new _Pair<_Range, E>(range, value));
 }
