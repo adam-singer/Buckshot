@@ -127,7 +127,7 @@ String _main =
         </stackpanel>
         <stackpanel orientation='horizontal' valign='center' halign='right' margin='0,5,0,0'>
           <textblock style='{resource defaultText}' text='Mode:' margin='0,0,0,5' />
-          <dropdownlist selectionChanged='selectionChanged_handler'>
+          <dropdownlist on.selectionChanged='selectionChanged_handler'>
             <items>
               <dropdownitem name='Standard' value='Standard' />
               <dropdownitem name='Extended' value='Extended' />

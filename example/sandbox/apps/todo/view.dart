@@ -35,7 +35,7 @@ String _view =
         <textbox placeholder="MM/DD/YY" text="{data dueDate, mode=twoway}" width="75" margin="0,0,0,10"></textbox>
       </stackpanel>
       
-      <button click='onSubmit_handler' content="Add Task" width="75" margin="5,0,0,0"></button>
+      <button on.click='onSubmit_handler' content="Add Task" width="75" margin="5,0,0,0"></button>
       
       <textblock foreground="{data statusColor}" text="{data statusText, mode=twoway}"></textblock>
       

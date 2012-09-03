@@ -607,12 +607,19 @@ class Template {
       .attributes
       .forEach((String k, String v){
         if (k.contains(".")){
-          AttachedFrameworkProperty.invokeSetPropertyFunction(k, element, v);
-        }else if (element.hasEvent(k.toLowerCase())){
-          //event
-          fList.add(_processEvent(element, k, v));
+          if (k.startsWith('on.')){
+            // event
+            final tk = k.substring(3, k.length);
+            print('$tk');
+            if (element.hasEvent(tk.toLowerCase())){
+              fList.add(_processEvent(element, tk, v));
+            }
+          }else{
+            // attached property
+            AttachedFrameworkProperty.invokeSetPropertyFunction(k, element, v);            
+          }
         }else{
-          //property
+          // property
           final f = element.resolveProperty(k.toLowerCase());
           fList.add(f);
           f.then((p){

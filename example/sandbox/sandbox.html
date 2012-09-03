@@ -43,7 +43,7 @@ Begin Buckshot Templates
     <textblock style="{resource iotext}" text="Select A Sample"/>
     <border minHeight='300' halign='stretch' borderthickness='1' bordercolor='SteelBlue' padding='5'>
       <stack>       
-     	<treeview treenodeselected='selection_handler'>
+     	<treeview on.treenodeselected='selection_handler'>
  		 <treenode header='App Demos' childvisibility='visible'>
             <treenode header='Calculator' tag='app.calc' />
             <treenode header='Simple Todo List' tag='app.todo' />
@@ -93,8 +93,8 @@ Begin Buckshot Templates
     <textarea placeholder="Type something here or select one of the samples to the left." spellcheck="false" 
       text='{data templateText, mode=twoway}' minwidth='690' maxwidth='690' minheight="200" />
     <stack orientation="horizontal">
-       <button click='refresh_handler' content="Generate Output"></button>
-       <button click='clearAll_handler' margin="0,0,0,5" content="Clear All"></button>
+       <button on.click='refresh_handler' content="Generate Output"></button>
+       <button on.click='clearAll_handler' margin="0,0,0,5" content="Clear All"></button>
     </stack>
   </stack>
 </stack>
@@ -121,7 +121,7 @@ Begin Buckshot Templates
 
 <script id='treeview' type='application/xml'>
 <stack>
-   <treeview treenodeselected='demotreeview_selection' borderthickness='1' bordercolor='Black' >
+   <treeview on.treenodeselected='demotreeview_selection' borderthickness='1' bordercolor='Black' >
       <treenode childvisibility='visible' header='Tree Node L1A' >
          <treenode header='Tree Node L2A (custom icon)' >
             <fileicon>
@@ -171,10 +171,10 @@ Begin Buckshot Templates
    </dockpanel>
    <stack orientation='horizontal'>
       <textblock style='{resource defaultText}' text='Click One:' />
-      <button click='dockpanel_click' content='Left'/>
-      <button click='dockpanel_click' content='Top'/>
-      <button click='dockpanel_click' content='Right'/>
-      <button click='dockpanel_click' content='Bottom'/>
+      <button on.click='dockpanel_click' content='Left'/>
+      <button on.click='dockpanel_click' content='Top'/>
+      <button on.click='dockpanel_click' content='Right'/>
+      <button on.click='dockpanel_click' content='Bottom'/>
    </stack>
    
    <textblock style='{resource headerText}' text='Nested Content In DockPanel' />
