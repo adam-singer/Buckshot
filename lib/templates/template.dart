@@ -76,7 +76,8 @@ class Template {
    *
    * Case sensitive.
    */
-  static FrameworkElement findParentByType(FrameworkElement element, String type){
+  static FrameworkElement findParentByType(FrameworkElement element, 
+                                           String type){
     if (element.parent == null) return null;
 
     if (reflect(element.parent).type.simpleName != type){
@@ -94,11 +95,16 @@ class Template {
    * ## Instead use:
    *     Buckshot.namedElements[elementName];
    */
-  static FrameworkElement findByName(String name, FrameworkElement startingWith){
+  static FrameworkElement findByName(String name, 
+                                     FrameworkElement startingWith){
 
-    if (startingWith.name != null && startingWith.name == name) return startingWith;
+    if (startingWith.name != null && startingWith.name == name){
+      return startingWith;
+    }
 
-    if (!startingWith.isContainer) return null;
+    if (!startingWith.isContainer){
+      return null;
+    }
 
     var cc = startingWith.stateBag[FrameworkObject.CONTAINER_CONTEXT];
     if (cc is List){

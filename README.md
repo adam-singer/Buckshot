@@ -10,6 +10,8 @@ If you've worked with .net WPF or Silverlight then this framework will feel very
 Project is currently in the **alpha** stage of development.  It will likely not move to beta or v1.0 until after Dart ships v1.0. This is to ensure that that library is working correctly with the Dart APIs, which are still in flux.
 
 ## Getting Started ##
+Visit the [Buckshot Discussion Group](https://groups.google.com/forum/#!forum/buckshot-ui) for the latest information.
+
 ### Installation using the pub package manager ###
 
 In your Dart application, make a **pubspec.yaml** file and add this line to it:

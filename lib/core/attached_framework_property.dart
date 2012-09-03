@@ -29,7 +29,7 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
     }
 
   /**
-   * Returns the setter function of a given [classPropertyPair] where the
+   * Invokes the setter function of a given [classPropertyPair] where the
    * string looks like:
    *
    *     'class.attachedPropertyName'
