@@ -5,8 +5,6 @@
 //#import('dart:isolate');
 //#import('dart:mirrors');
 
-#source('core_gen.dart');
-
 /**
  * Returns a JSON string containing a map of filename:filedata pairs.
  * 
