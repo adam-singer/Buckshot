@@ -15,6 +15,9 @@ class AnimationResource extends FrameworkResource
 
     this.stateBag[FrameworkObject.CONTAINER_CONTEXT] = keyFramesProperty;
   }
+  
+  AnimationResource.register() : super.register();
+  makeMe() => new AnimationResource();
 
   _initAnimationResourceProperties(){
 

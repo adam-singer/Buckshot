@@ -27,6 +27,8 @@ class Buckshot extends FrameworkObject
   /// Central registry of named [FrameworkObject] elements.
   final HashMap<String, FrameworkObject> namedElements;
 
+  final HashMap<String, Function> _objectRegistry;
+  
   /// Bindable window width/height properties.  Readonly, so can only
   /// bind from, not to.
   FrameworkProperty windowWidthProperty;
@@ -42,6 +44,7 @@ class Buckshot extends FrameworkObject
   /// Pass the ID of the element in the DOM where buckshot will render content.
   Buckshot(String buckshotRootID)
   :
+    _objectRegistry = new HashMap<String, Dynamic>(),
     namedElements = new HashMap<String, FrameworkObject>()
   {
     _initBuckshotSystem(buckshotRootID);
@@ -60,6 +63,7 @@ class Buckshot extends FrameworkObject
 
   Buckshot._init([String rootID = Buckshot._defaultRootID])
   :
+    _objectRegistry = new HashMap<String, Dynamic>(),
     namedElements = new HashMap<String, FrameworkObject>()
   {
     _ref = this;
@@ -76,8 +80,66 @@ class Buckshot extends FrameworkObject
     _initCSS();
 
     _initializeBuckshotProperties();
+    
+    _registerCoreElements();
   }
 
+  void _registerCoreElements(){
+    registerElement(BuckshotObject o){
+      _objectRegistry['${o.toString().toLowerCase()}'] = o.makeMe;
+    }
+    
+    registerElement(new Ellipse.register());
+    registerElement(new Rectangle.register());
+    registerElement(new StackPanel.register());
+    registerElement(new LayoutCanvas.register());
+    registerElement(new Grid.register());
+    registerElement(new Border.register());
+    registerElement(new ContentPresenter.register());
+    registerElement(new TextArea.register());
+    registerElement(new TextBlock.register());
+    registerElement(new CheckBox.register());
+    registerElement(new RadioButton.register());
+    registerElement(new Hyperlink.register());
+    registerElement(new Image.register());
+    registerElement(new RawHtml.register());
+    registerElement(new ColumnDefinition.register());
+    registerElement(new RowDefinition.register());
+    registerElement(new DropDownItem.register());
+    registerElement(new CollectionPresenter.register());
+
+    //resources
+    registerElement(new ResourceCollection.register());
+    registerElement(new Color.register());
+    registerElement(new LinearGradientBrush.register());
+    registerElement(new GradientStop.register());
+    registerElement(new SolidColorBrush.register());
+    registerElement(new RadialGradientBrush.register());
+    registerElement(new Setter.register());
+    registerElement(new StyleTemplate.register());
+    registerElement(new Var.register());
+    registerElement(new ControlTemplate.register());
+    registerElement(new AnimationResource.register());
+    registerElement(new AnimationKeyFrame.register());
+    registerElement(new AnimationState.register());
+
+    //actions
+    registerElement(new SetProperty.register());
+    
+    registerElement(new TextBox());
+    registerElement(new Slider());
+    registerElement(new Button());
+    registerElement(new DropDownList());
+    
+//    registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
+//    registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
+//    registerAttachedProperty('grid.column', Grid.setColumn);
+//    registerAttachedProperty('grid.row', Grid.setRow);
+//    registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
+//    registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
+  
+  }
+  
   void _initCSS(){
     document.head.elements.add(
       new Element.html('<style id="__BuckshotCSS__"></style>'));

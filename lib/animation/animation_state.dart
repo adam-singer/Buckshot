@@ -11,6 +11,9 @@ class AnimationState extends TemplateObject
   AnimationState(){
     _initAnimationStateProperties();
   }
+  
+  AnimationState.register() : super.register();
+  makeMe() => new AnimationState();
 
   _initAnimationStateProperties(){
 

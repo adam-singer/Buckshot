@@ -16,6 +16,9 @@ class AnimationKeyFrame extends TemplateObject
 
     this.stateBag[FrameworkObject.CONTAINER_CONTEXT] = statesProperty;
   }
+  
+  AnimationKeyFrame.register() : super.register();
+  makeMe() => new AnimationKeyFrame();
 
   _initAnimationKeyFrameProperties(){
     timeProperty = new FrameworkProperty(this, 'time',

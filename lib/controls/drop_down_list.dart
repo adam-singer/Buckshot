@@ -111,6 +111,9 @@ class DropDownItem extends TemplateObject
   DropDownItem(){
     _initDropDownListItemProperties();
   }
+  
+  DropDownItem.register() : super.register();
+  makeMe() => new DropDownItem();
 
   void _initDropDownListItemProperties(){
     nameProperty = new FrameworkProperty(this, "name", (String v){}, '');
