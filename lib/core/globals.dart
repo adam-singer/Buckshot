@@ -146,7 +146,11 @@ db(String message, [FrameworkObject element]){
     print(message);
     return;
   }
-  print("[${reflect(element).type.simpleName}(${element.name})] $message");
+  if (reflectionEnabled){
+    print("[${reflect(element).type.simpleName}(${element.name})] $message");
+  }else{
+    print("[${element}(${element.name})] $message");
+  }
 }
 
 /**
