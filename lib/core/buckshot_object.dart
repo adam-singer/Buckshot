@@ -10,11 +10,13 @@ class BuckshotObject extends HashableObject
   final HashMap<String, Dynamic> stateBag;
   final List<Binding> _bindings;
   final Set<FrameworkProperty> _frameworkProperties;
+  final HashMap<String, FrameworkEvent> _bindableEvents;
 
   BuckshotObject() :
     _frameworkProperties = new Set<FrameworkProperty>(),
     stateBag = new HashMap<String, Dynamic>(),
-    _bindings = new List<Binding>();
+    _bindings = new List<Binding>(),
+    _bindableEvents = new HashMap<String, FrameworkEvent>();
 
   /// Gets a boolean value indicating whether the given object
   /// is a container or not.
@@ -23,11 +25,14 @@ class BuckshotObject extends HashableObject
   BuckshotObject.register() :
     _frameworkProperties = new Set<FrameworkProperty>(),
     stateBag = new HashMap<String, Dynamic>(),
-    _bindings = new List<Binding>();
+    _bindings = new List<Binding>(),
+    _bindableEvents = new HashMap<String, FrameworkEvent>();
   
   bool hasEvent(String eventName)
   {
-    if (!reflectionEnabled) return false;
+    if (!reflectionEnabled){
+      return _bindableEvents.containsKey(eventName.toLowerCase());
+    }
     
     bool hasEventInternal(classMirror){
       final result = classMirror
@@ -104,7 +109,6 @@ class BuckshotObject extends HashableObject
         }
         return false;
       });
-
 
       if (name == ''){
         if (classMirror.superclass.simpleName != 'BuckshotObject')

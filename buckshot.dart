@@ -20,7 +20,7 @@
 
 // Uncomment this to run with reflection.  
 // Also below, set reflectionEnabled = true.
-//#import('dart:mirrors');
+#import('dart:mirrors');
 
 #source('lib/core/globals.dart');
 #source('lib/core/buckshot_system.dart');
@@ -136,6 +136,7 @@ main(){}
 
 /** 
  * Set this to true in order to use the mirror-based code.
- * Note that you muse also enable the import directives for mirrors and miriam.
+ * 
+ * You must also uncomment the import directive for mirrors.
  */
-bool reflectionEnabled = false;
+bool reflectionEnabled = true;

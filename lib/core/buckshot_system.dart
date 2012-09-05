@@ -192,7 +192,7 @@ class Buckshot extends FrameworkObject
   /// Gets the Buckshot version.
   String get version => getValue(versionProperty);
   
-  // Mirror-shunting stuff
+  // Wrappers to prevent propagation of static warnings elsewhere.
   reflectMe(object) => reflect(object);
   mirrorSystem() => currentMirrorSystem();
   
