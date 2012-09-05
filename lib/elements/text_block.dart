@@ -24,6 +24,9 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
   }
+  
+  TextBlock.register() : super.register();
+  makeMe() => new TextBlock();
 
   get content => getValue(textProperty);
 

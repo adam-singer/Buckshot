@@ -25,6 +25,9 @@ class Slider extends Control
 
     _initSliderEvents();
   }
+  
+  Slider.register() : super.register();
+  makeMe() => new Slider();
 
   void _initSliderEvents(){
     rawElement.on.change.add((e){

@@ -78,6 +78,10 @@ _internalChildren = new List<_GridCell>()
   };
 }
 
+Grid.register() : super.register(),
+_internalChildren = new List<_GridCell>();
+makeMe() => new Grid();
+
 /// Gets the [columnDefinitionsProperty] [ObservableList].
 ObservableList<ColumnDefinition> get columnDefinitions => getValue(columnDefinitionsProperty);
 

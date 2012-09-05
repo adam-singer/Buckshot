@@ -33,6 +33,9 @@ class TreeNode extends Control implements IFrameworkContainer
     _setMouseStyles();
   }
 
+  TreeNode.register() : super.register();
+  makeMe() => new TreeNode();
+  
   void _initControl(){
     var lastWasEmpty = false;
     void adjustIndicator(){

@@ -20,6 +20,9 @@ class Color extends FrameworkResource
     //meta data for binding system
     this.stateBag[FrameworkResource.RESOURCE_PROPERTY] = valueProperty;
   }
+  
+  Color.register() : super.register();
+  makeMe() => new Color();
 
   /// Allows construction of the color from 3 numeric values representing the R,G,B
   /// components of the color (0-255)

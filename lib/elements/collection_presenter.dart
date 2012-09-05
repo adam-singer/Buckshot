@@ -51,6 +51,10 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
     Browser.appendClass(rawElement, "collectionpresenter");
     _initCollectionPresenterProperties();
   }
+  
+  CollectionPresenter.register() : super.register(),
+    itemCreated = new FrameworkEvent<ItemCreatedEventArgs>();
+  makeMe() => new CollectionPresenter();
 
   void _initCollectionPresenterProperties(){
     presentationPanelProperty = new FrameworkProperty(this, "presentationPanel", (Panel p){

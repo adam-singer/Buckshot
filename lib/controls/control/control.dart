@@ -30,6 +30,10 @@ class Control extends FrameworkElement
     Browser.appendClass(rawElement, "control");
     _initControlProperties();
   }
+  
+  Control.register() : super.register(),
+    _c = new Completer();
+  makeMe() => null;
 
   void _initControlProperties(){
 

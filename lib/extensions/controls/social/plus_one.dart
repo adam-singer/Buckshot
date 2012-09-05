@@ -37,6 +37,9 @@ class PlusOne extends FrameworkElement
       loaded - ref;
     };
   }
+  
+  PlusOne.register() : super.register();
+  makeMe() => new PlusOne();
 
 
   void _initializePlusOneProperties(){

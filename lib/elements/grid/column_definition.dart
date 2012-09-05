@@ -32,6 +32,10 @@ class ColumnDefinition extends GridLayoutDefinition{
     _initColumnDefinitionProperties();
   }
 
+  ColumnDefinition.register() : super.register(),
+    _columnDefinitionChanged = new FrameworkEvent();
+  makeMe() => new ColumnDefinition();
+  
   /// Constructs a column definition with a given [GridLength] value.
   ColumnDefinition.with(GridLength value) : _columnDefinitionChanged = new FrameworkEvent()
   {

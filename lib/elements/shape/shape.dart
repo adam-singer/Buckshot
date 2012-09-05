@@ -19,6 +19,9 @@ class Shape extends FrameworkElement
     Browser.appendClass(rawElement, "shape");
     _initShapeProperties();
   }
+  
+  Shape.register() : super.register();
+  makeMe() => null;
 
   _initShapeProperties(){
 

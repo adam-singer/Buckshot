@@ -31,6 +31,9 @@ class Hyperlink extends Control implements IFrameworkContainer
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
 
+  Hyperlink.register() : super.register();
+  makeMe() => new Hyperlink();
+  
   /// Gets the [navigateToProperty] value.
   String get navigateTo => getValue(navigateToProperty);
   /// Sets the [navigateToProperty] value.

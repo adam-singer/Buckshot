@@ -44,6 +44,9 @@ class Var extends FrameworkResource implements IFrameworkContainer
     stateBag[FrameworkResource.RESOURCE_PROPERTY] = valueProperty;
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = valueProperty;
   }
+  
+  Var.register() : super.register();
+  makeMe() => new Var();
 
   get content => value;
 

@@ -14,7 +14,9 @@ class Image extends FrameworkElement {
     Browser.appendClass(rawElement, "image");
     _initializeImageProperties();
   }
-
+  
+  Image.register() : super.register();
+  makeMe() => new Image();
 
   void _initializeImageProperties(){
     sourceUriProperty = new FrameworkProperty(this, "sourceUri", (String value){

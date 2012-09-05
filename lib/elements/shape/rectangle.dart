@@ -8,6 +8,9 @@ class Rectangle extends Shape{
   Rectangle(){
     Browser.appendClass(rawElement, "rectangle");
   }
+  
+  Rectangle.register() : super.register();
+  makeMe() => new Rectangle();
 
   //override shape properties since we are just using a div here instead of SVG element
   _initShapeProperties(){

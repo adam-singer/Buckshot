@@ -17,6 +17,10 @@ class RadioButton extends Control
     _initProperties();
     _initEvents();
   }
+  
+  RadioButton.register() : super.register(),
+    selectionChanged = new FrameworkEvent<EventArgs>();
+  makeMe() => new RadioButton();
 
   void _initProperties(){
 

@@ -17,6 +17,9 @@ class ToggleProperty extends ActionBase
   ToggleProperty(){
     _initTogglePropertyActionProperties();
   }
+  
+  ToggleProperty.register() : super.register();
+  makeMe() => new ToggleProperty();
 
   void _initTogglePropertyActionProperties(){
     targetProperty = new FrameworkProperty(this, 'target');

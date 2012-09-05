@@ -19,6 +19,9 @@ class StackPanel extends Panel
 
     initStackPanelProperties();
   }
+  
+  StackPanel.register() : super.register();
+  makeMe() => new StackPanel();
 
   void initStackPanelProperties(){
     orientationProperty = new FrameworkProperty(

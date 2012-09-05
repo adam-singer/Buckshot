@@ -16,6 +16,9 @@ class Ellipse extends Shape{
     Browser.appendClass(rawElement, "ellipse");
     _initEllipseProperties();
   }
+  
+  Ellipse.register() : super.register();
+  makeMe() => new Ellipse();
 
   void _initEllipseProperties(){
     _cxProperty = new FrameworkProperty(this, '_cx', (v){

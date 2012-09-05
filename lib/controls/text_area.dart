@@ -24,6 +24,10 @@ class TextArea extends Control
 
     _initEvents();
   }
+  
+  TextArea.register() : super.register(),
+    textChanged = new FrameworkEvent<TextChangedEventArgs>();
+  makeMe() => new TextArea();
 
   void _initProperties(){
 

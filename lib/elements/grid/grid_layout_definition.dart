@@ -16,6 +16,11 @@ class GridLayoutDefinition extends TemplateObject{
   GridLength _value;
   num _adjustedOffset = 0;
 
+  
+  GridLayoutDefinition();
+  GridLayoutDefinition.register() : super.register();
+  makeMe() => null;
+  
   set _adjustedLength(num value){
     if (value < minLength) value = minLength;
     if (value > maxLength) value = maxLength;

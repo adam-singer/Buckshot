@@ -29,6 +29,11 @@ class ActionBase extends TemplateObject {
   {
     _initActionBaseProperties();
   }
+  
+  ActionBase.register() : super.register(),
+    _ref = new HashMap<String, EventHandlerReference>();
+  
+  makeMe() => null;
 
   void _initActionBaseProperties(){
 

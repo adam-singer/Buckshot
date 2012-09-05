@@ -30,6 +30,10 @@ class RowDefinition extends GridLayoutDefinition{
   {
     _initRowDefinitionProperties();
   }
+  
+  RowDefinition.register() : super.register(),
+  _rowDefinitionChanged = new FrameworkEvent();
+  makeMe() => new RowDefinition();
 
   /// Constructs a row definition with a given [GridLength] value.
   RowDefinition.with(GridLength value) : _rowDefinitionChanged = new FrameworkEvent()

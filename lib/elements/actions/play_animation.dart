@@ -10,6 +10,9 @@ class PlayAnimation extends ActionBase {
   PlayAnimation(){
     _initAnimationActionProperties();
   }
+  
+  PlayAnimation.register() : super.register();
+  makeMe() => new PlayAnimation();
 
   void _initAnimationActionProperties(){
     animationProperty = new FrameworkProperty(this, 'animation');

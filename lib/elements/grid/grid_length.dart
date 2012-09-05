@@ -22,6 +22,8 @@ class GridLength extends FrameworkObject{
     _initGridUnitTypeProperties();
   }
 
+  makeMe() => null;
+  
   /// Constructs a GridLength as a [GridUnitType] star type.
   GridLength.star(num v){
     _initGridUnitTypeProperties();

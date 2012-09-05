@@ -27,6 +27,9 @@ class DockPanel extends Panel
 
     loaded + (_, __) => invalidate();
   }
+  
+  DockPanel.register() : super.register();
+  makeMe() => new DockPanel();
 
   void _initDockPanelProperties(){
 

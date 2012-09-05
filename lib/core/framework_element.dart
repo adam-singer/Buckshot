@@ -127,8 +127,14 @@ class FrameworkElement extends FrameworkObject {
 
     _initFrameworkEvents();
   }
+  
+  FrameworkElement.register() : super.register(),
+    _templateBindings = new HashMap<FrameworkProperty, String>(),
+    _transitionProperties = new HashMap<String, String>();
 
-
+  makeMe() => null;
+  
+  
   void _initFrameworkProperties(){
 
     void doTransform(FrameworkElement e){

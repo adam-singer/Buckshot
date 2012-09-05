@@ -20,6 +20,10 @@ class TextBox extends Control
 
     _initEvents();
   }
+  
+  TextBox.register() : super.register(),
+   textChanged = new FrameworkEvent<TextChangedEventArgs>();
+  makeMe() => new TextBox();
 
   void _initTextBoxProperties(){
 

@@ -49,6 +49,9 @@ class FrameworkResource extends FrameworkObject
 
     _initFrameworkResourceProperties();
   }
+  
+  FrameworkResource.register() : super.register();
+  makeMe() => null;
 
   void _initFrameworkResourceProperties(){
     keyProperty = new FrameworkProperty(this, "key", defaultValue:"");

@@ -20,7 +20,9 @@ class Hulu extends FrameworkElement
     _initializeHuluProperties();
 
   }
-
+  
+  Hulu.register() : super.register();
+  makeMe() => new Hulu();
 
   void _initializeHuluProperties(){
     videoIDProperty = new FrameworkProperty(this, "videoID", (String value){

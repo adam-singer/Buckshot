@@ -18,7 +18,11 @@ class BuckshotObject extends HashableObject
   /// is a container or not.
   bool get isContainer => this is IFrameworkContainer;
 
-
+  BuckshotObject.register()
+      :
+      stateBag = new HashMap<String, Dynamic>(),
+      _bindings = new List<Binding>();
+  
   bool hasEvent(String eventName)
   {
     bool hasEventInternal(classMirror){
@@ -43,7 +47,8 @@ class BuckshotObject extends HashableObject
     return hasEventInternal(reflect(this).type);
   }
 
-
+  abstract makeMe();
+  
   /**
    * Returns a boolean value indicting whether the object contains
    * a [FrameworkProperty] by the given friendly [propertyName].
@@ -247,4 +252,10 @@ class BuckshotObject extends HashableObject
 
     return c.future;
   }
+  
+  String toString() => super
+                        .toString()
+                        .replaceFirst("Instance of '", '')
+                        .replaceFirst("'", '');
+
 }

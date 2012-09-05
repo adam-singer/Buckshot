@@ -19,6 +19,9 @@ class GradientStop extends TemplateObject
   GradientStop(){
     _initGradientStopProperties();
   }
+  
+  GradientStop.register() : super.register();
+  makeMe() => new GradientStop();
 
   /// Constructs a GradientStop with a given [Color] and optional offset %.
   GradientStop.with(Color stopColor, [int stopPercent = -1]){

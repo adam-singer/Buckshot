@@ -18,6 +18,9 @@ class SolidColorBrush extends Brush
 
    if (toColor != null) color = toColor;
   }
+  
+  SolidColorBrush.register() : super.register();
+  makeMe() => new SolidColorBrush();
 
   void _initSolidColorBrushProperties(){
     colorProperty = new FrameworkProperty(this, "color");

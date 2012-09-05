@@ -19,6 +19,9 @@ class LayoutCanvas extends Panel
   LayoutCanvas(){
     Browser.appendClass(rawElement, "layoutcanvas");
   }
+  
+  LayoutCanvas.register() : super.register();
+  makeMe() => new LayoutCanvas();
 
   void onChildrenChanging(ListChangedEventArgs args){
       super.onChildrenChanging(args);

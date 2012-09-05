@@ -24,6 +24,9 @@ class RadialGradientBrush extends Brush {
     if (fallback != null) fallbackColor = fallback;
     if (mode != null) drawMode = mode;
   }
+  
+  RadialGradientBrush.register() : super.register();
+  makeMe() => new RadialGradientBrush();
 
   /// Sets the [stopsProperty] value.
   set stops(List<GradientStop> value) => setValue(stopsProperty, value);

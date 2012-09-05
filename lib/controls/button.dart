@@ -53,6 +53,9 @@ class Button extends Control implements IFrameworkContainer
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
+  
+  Button.register() : super.register();
+  makeMe() => new Button();
 
   /// Gets the [contentProperty] value.
   Dynamic get content => getValue(contentProperty);

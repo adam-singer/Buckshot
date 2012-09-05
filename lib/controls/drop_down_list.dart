@@ -23,6 +23,10 @@ class DropDownList extends Control
     _initDropDownListProperties();
   }
 
+  DropDownList.register() : super.register(),
+    selectionChanged = new FrameworkEvent<EventArgs>();
+  makeMe() => new DropDownList();
+  
   void _initDropDownListProperties(){
     itemsProperty = new FrameworkProperty(this, "items",
         defaultValue:new ObservableList<DropDownItem>());

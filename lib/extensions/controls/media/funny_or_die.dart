@@ -15,10 +15,11 @@ class FunnyOrDie extends FrameworkElement
     Browser.appendClass(rawElement, "funnyordie");
 
     _initializeFunnyOrDieProperties();
-
   }
 
-
+  FunnyOrDie.register() : super.register();
+  makeMe() => new FunnyOrDie();
+  
   void _initializeFunnyOrDieProperties(){
     videoIDProperty = new FrameworkProperty(this, "videoID", (String value){
       rawElement.attributes["src"] = 'http://www.funnyordie.com/embed/${value.toString()}';

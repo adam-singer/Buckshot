@@ -71,6 +71,10 @@ class TreeView extends Panel
 
     background = new SolidColorBrush(new Color.predefined(Colors.White));
   }
+  
+  TreeView.register() : super.register(),
+    treeNodeSelected = new FrameworkEvent<TreeNodeSelectedEventArgs>();
+  makeMe() => new TreeView();
 
   /**
    * Override this method to customize the mouse event styles on [TreeNode]s.

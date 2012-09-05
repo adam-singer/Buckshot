@@ -20,6 +20,9 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
+  
+  ContentPresenter.register() : super.register();
+  makeMe() => new ContentPresenter();
 
   FrameworkElement currentContent;
 

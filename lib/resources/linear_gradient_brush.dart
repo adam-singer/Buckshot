@@ -27,6 +27,9 @@ class LinearGradientBrush extends Brush
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = stopsProperty;
   }
+  
+  LinearGradientBrush.register() : super.register();
+  makeMe() => new LinearGradientBrush();
 
   /// Sets the [stopsProperty] value.
   set stops(List<GradientStop> value) => setValue(stopsProperty, value);

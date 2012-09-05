@@ -61,6 +61,10 @@ class ListBox extends Control implements IFrameworkContainer
     _presenter.itemCreated + _OnItemCreated;
 
   }
+  
+  ListBox.register() : super.register(),
+    selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs>();
+  makeMe() => new ListBox();
 
   String get defaultControlTemplate {
     return

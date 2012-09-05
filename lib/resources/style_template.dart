@@ -20,6 +20,11 @@ class StyleTemplate extends FrameworkResource
       setters.listChanged + _onSettersCollectionChanging;
 
     }
+  
+  StyleTemplate.register() : super.register(),
+    _registeredElements = new HashSet<FrameworkElement>(),
+    _setters = new HashMap<String, Setter>();
+  makeMe() => new StyleTemplate();
 
   /** Gets the [Setter] [ObservableList] from [settersProperty]. */
   ObservableList<Setter> get setters => getValue(settersProperty);

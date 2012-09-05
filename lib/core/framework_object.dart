@@ -5,7 +5,8 @@
 /**
 * Represents and element that can participate in the framework's
 * [Binding] and [FrameworkProperty] model. */
-class FrameworkObject extends BuckshotObject {
+class FrameworkObject extends BuckshotObject 
+{
   bool _watchingMeasurement = false;
   int _animationFrameID;
   ElementRect _previousMeasurement;
@@ -76,7 +77,17 @@ class FrameworkObject extends BuckshotObject {
 
       _initFrameworkObjectEvents();
     }
-
+  
+  FrameworkObject.register() : super.register(),
+    lateBindings = new HashMap<FrameworkProperty, BindingData>(),
+    _eventBindings = new Map<String, FrameworkEvent>(),
+    loaded = new FrameworkEvent<EventArgs>(),
+    unloaded = new FrameworkEvent<EventArgs>(),
+    attachedPropertyChanged =
+    new FrameworkEvent<AttachedPropertyChangedEventArgs>();
+      
+  makeMe() => null;
+  
   void _initFrameworkObjectProperties(){
     nameProperty = new FrameworkProperty(
       this,

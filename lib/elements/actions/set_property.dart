@@ -15,6 +15,9 @@ class SetProperty extends ActionBase
   SetProperty(){
     _initSetPropertyActionProperties();
   }
+  
+  SetProperty.register() : super.register();
+  makeMe() => new SetProperty();
 
   void _initSetPropertyActionProperties(){
     targetProperty = new FrameworkProperty(this, 'target');

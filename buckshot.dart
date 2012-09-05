@@ -63,7 +63,7 @@
 #source('lib/elements/grid/grid_layout_definition.dart');
 #source('lib/elements/grid/grid_length.dart');
 #source('lib/elements/collection_presenter.dart');
-#source('lib/elements/conten_presenter.dart');
+#source('lib/elements/content_presenter.dart');
 //#source('elements/DockPanel.dart');
 
 #source('lib/elements/actions/action_base.dart');

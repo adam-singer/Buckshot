@@ -35,6 +35,9 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
+  
+  Border.register() : super.register();
+  makeMe() => new Border();
 
   void _initBorderProperties(){
     //register the dependency properties

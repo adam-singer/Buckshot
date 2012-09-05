@@ -13,6 +13,9 @@ class Setter extends TemplateObject
   Setter(){
     _initStyleSetterProperties();
   }
+  
+  Setter.register() : super.register();
+  makeMe() => new Setter();
 
   Setter.with(String propertyName, Dynamic propertyValue)
   {

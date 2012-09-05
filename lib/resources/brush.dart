@@ -6,6 +6,11 @@
 class Brush extends FrameworkResource
 {
 
+  Brush();
+
+  Brush.register() : super.register();
+  makeMe() => null;
+  
   /**
   * Renders the brush output to the given [Element].*/
   abstract void renderBrush(Element component);

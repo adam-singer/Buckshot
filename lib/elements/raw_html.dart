@@ -29,6 +29,9 @@ class RawHtml extends FrameworkElement
 
     _initRawHtmlProperties();
   }
+  
+  RawHtml.register() : super.register();
+  makeMe() => new RawHtml();
 
   void _initRawHtmlProperties(){
 

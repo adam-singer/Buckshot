@@ -36,6 +36,10 @@ class ModalDialog extends Control
   {
     _initModalDialogProperties();
   }
+  
+  ModalDialog.register() : super.register(),
+    buttons = new List<ModalDialogButtons>();
+  makeMe() => new ModalDialog();
 
   ModalDialog.with(String dialogTitle, String dialogMessage)
   :

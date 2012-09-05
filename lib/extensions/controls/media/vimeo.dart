@@ -15,9 +15,10 @@ class Vimeo extends FrameworkElement
     Browser.appendClass(rawElement, "vimeo");
 
     _initializeVimeoProperties();
-
   }
-
+  
+  Vimeo.register() : super.register();
+  makeMe() => new Vimeo();
 
   void _initializeVimeoProperties(){
     videoIDProperty = new FrameworkProperty(this, "videoID", (String value){

@@ -25,6 +25,10 @@ class CheckBox extends Control
     _initProperties();
     _initEvents();
   }
+  
+  CheckBox.register() : super.register(),
+    selectionChanged = new FrameworkEvent<EventArgs>();
+  makeMe() => new CheckBox();
 
   void _initProperties(){
 

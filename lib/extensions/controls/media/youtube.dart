@@ -15,8 +15,10 @@ class YouTube extends FrameworkElement
     Browser.appendClass(rawElement, "youtube");
 
     _initializeYouTubeProperties();
-
   }
+  
+  YouTube.register() : super.register();
+  makeMe() => new YouTube();
 
 
   void _initializeYouTubeProperties(){
