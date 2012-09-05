@@ -26,6 +26,8 @@ class ViewModel extends ViewModelBase
     statusColorProperty = new FrameworkProperty(this, "statusColor", defaultValue:good);
 
     itemsProperty = new FrameworkProperty(this, "items", defaultValue:new ObservableList());
+    
+    registerEventHandler('onsubmit_handler', onSubmit_handler);
   }
 
   void addNewEntry(){

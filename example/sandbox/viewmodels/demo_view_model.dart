@@ -29,6 +29,8 @@ class DemoViewModel extends ViewModelBase
     model = new DemoModel()
   {
     _initDemoViewModelProperties();
+    
+    _regEventHandlers();
 
     // Update the timeStampProperty every second with a new timestamp.
     // Anything binding to this will get updated.
@@ -120,6 +122,14 @@ class DemoViewModel extends ViewModelBase
    * Event Handlers
    */
 
+  void _regEventHandlers(){   
+    registerEventHandler('refresh_handler', refresh_handler);
+    registerEventHandler('clearall_handler', clearAll_handler);
+    registerEventHandler('selection_handler', selection_handler);
+    registerEventHandler('demotreeview_selection', demotreeview_selection);
+    registerEventHandler('dockpanel_click', dockpanel_click);
+  }
+  
   /**
    * Handles click events coming from the 'refresh output' button
    */

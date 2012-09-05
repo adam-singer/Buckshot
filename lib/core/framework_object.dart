@@ -276,6 +276,20 @@ class FrameworkObject extends BuckshotObject
   void _wireEventBindings(dataContextObject){
     if (_eventBindings.isEmpty()) return;
 
+    if (!reflectionEnabled){
+      _eventBindings.forEach((String handler, FrameworkEvent event){
+        final dc = dataContextObject.value;
+        
+        if (dc != null && dc is BuckshotObject && 
+            dc._eventHandlers.containsKey(handler.toLowerCase())){
+          
+          event.register(dc._eventHandlers[handler.toLowerCase()]);
+        }
+      });
+      
+      return;
+    }
+    
     if (dataContextObject == null || dataContextObject.value == null){
       final lm = buckshot.mirrorSystem().isolate.rootLibrary;
       _eventBindings.forEach((String handler, FrameworkEvent event){

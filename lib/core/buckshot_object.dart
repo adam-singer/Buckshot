@@ -11,12 +11,14 @@ class BuckshotObject extends HashableObject
   final List<Binding> _bindings;
   final Set<FrameworkProperty> _frameworkProperties;
   final HashMap<String, FrameworkEvent> _bindableEvents;
+  final HashMap<String, Function> _eventHandlers;
 
   BuckshotObject() :
     _frameworkProperties = new Set<FrameworkProperty>(),
     stateBag = new HashMap<String, Dynamic>(),
     _bindings = new List<Binding>(),
-    _bindableEvents = new HashMap<String, FrameworkEvent>();
+    _bindableEvents = new HashMap<String, FrameworkEvent>(),
+    _eventHandlers = new HashMap<String, Function>();
 
   /// Gets a boolean value indicating whether the given object
   /// is a container or not.
@@ -26,7 +28,8 @@ class BuckshotObject extends HashableObject
     _frameworkProperties = new Set<FrameworkProperty>(),
     stateBag = new HashMap<String, Dynamic>(),
     _bindings = new List<Binding>(),
-    _bindableEvents = new HashMap<String, FrameworkEvent>();
+    _bindableEvents = new HashMap<String, FrameworkEvent>(),
+    _eventHandlers = new HashMap<String, Function>();
   
   /**
    * Registers an event for later lookup during template event binding
@@ -36,6 +39,11 @@ class BuckshotObject extends HashableObject
   void registerEvent(String name, FrameworkEvent event){
     if (reflectionEnabled) return;
     _bindableEvents[name.toLowerCase()] = event;
+  }
+  
+  void registerEventHandler(String name, func(sender, args)){
+    if (reflectionEnabled) return;
+    _eventHandlers[name.toLowerCase()] = func;
   }
   
   /**
@@ -106,6 +114,19 @@ class BuckshotObject extends HashableObject
 
 
   Future<FrameworkProperty> getEventByName(String eventName){
+    if (!reflectionEnabled){
+      final c = new Completer();
+      
+      if (_bindableEvents.containsKey(eventName.toLowerCase())){
+        c.complete(_bindableEvents[eventName.toLowerCase()]);
+      }else{
+        c.complete(null);
+      }
+      
+      return c.future;
+    }
+    
+    
     Future<FrameworkProperty> getEventNameInternal(String eventNameLowered,
         classMirror){
       final c = new Completer();

@@ -61,6 +61,9 @@ class ViewModel extends ViewModelBase
 
     widthProperty = new FrameworkProperty(this, 'width',
         defaultValue:300);
+    
+    registerEventHandler('buttonclick_handler', buttonClick_handler);
+    registerEventHandler('selectionchanged_handler', selectionChanged_handler);
   }
 
   /**
