@@ -423,7 +423,7 @@ class Template {
         throw const PresentationProviderException("Attempted to add"
         " element to another element which is not a container.");
 
-      var cc = ofElement.stateBag[FrameworkObject.CONTAINER_CONTEXT];
+      final cc = ofElement.stateBag[FrameworkObject.CONTAINER_CONTEXT];
 
       toFrameworkObject(ofXMLNode).then((childElement){
 

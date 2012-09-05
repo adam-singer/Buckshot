@@ -274,25 +274,27 @@ class FrameworkObject extends BuckshotObject
     if (_eventBindings.isEmpty()) return;
 
     if (dataContextObject == null || dataContextObject.value == null){
-      final lm = currentMirrorSystem().isolate.rootLibrary;
+      final lm = buckshot.mirrorSystem().isolate.rootLibrary;
       _eventBindings.forEach((String handler, FrameworkEvent event){
         if (lm.functions.containsKey(handler)){
 
           //invoke the handler when the event fires
           event + (sender, args){
-            lm.invoke(handler, [reflect(sender), reflect(args)]);
+            lm.invoke(handler, [buckshot.reflectMe(sender), 
+                                buckshot.reflectMe(args)]);
           };
         }
       });
     }else{
-      final im = reflect(dataContextObject.value);
+      final im = buckshot.reflectMe(dataContextObject.value);
 
       _eventBindings.forEach((String handler, FrameworkEvent event){
         if (im.type.methods.containsKey(handler)){
 
           //invoke the handler when the event fires
           event + (sender, args){
-            im.invoke(handler, [reflect(sender), reflect(args)]);
+            im.invoke(handler, [buckshot.reflectMe(sender), 
+                                buckshot.reflectMe(args)]);
           };
         }
       });

@@ -37,13 +37,11 @@ class _CssCompiler
     AnimationKeyFrame previous;
     anim.keyFrames.forEach((AnimationKeyFrame k){
 
-      final m = new Miriam();
-
       //initialize any new elements
       k.states.forEach((AnimationState s){
         if (!animHash.containsKey(s.target)){
           animHash[s.target] = new _CssAnimationObject();
-          final cm = m.getObjectByName(s.target);
+          final cm = buckshot.getObjectByName(s.target);
           cm
           .newInstance('',[])
           .then((newElementMirror){

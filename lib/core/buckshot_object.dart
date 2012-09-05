@@ -48,7 +48,7 @@ class BuckshotObject extends HashableObject
       return false;
     }
 
-    return hasEventInternal(reflect(this).type);
+    return hasEventInternal(buckshot.reflectMe(this).type);
   }
 
   abstract makeMe();
@@ -78,7 +78,7 @@ class BuckshotObject extends HashableObject
     }
 
     if (reflectionEnabled){
-      return hasPropertyInternal(reflect(this).type);
+      return hasPropertyInternal(buckshot.reflectMe(this).type);
     }else{
       final pLower = propertyName.toLowerCase();
       return _frameworkProperties.some((FrameworkProperty p) =>
@@ -117,7 +117,7 @@ class BuckshotObject extends HashableObject
         }
 
       }else{
-        reflect(this)
+        buckshot.reflectMe(this)
           .getField(name)
           .then((im){
             c.complete(im.reflectee);
@@ -127,7 +127,8 @@ class BuckshotObject extends HashableObject
       return c.future;
     }
 
-    return getEventNameInternal(eventName.toLowerCase(), reflect(this).type);
+    return getEventNameInternal(eventName.toLowerCase(), 
+        buckshot.reflectMe(this).type);
   }
 
   //TODO: Move a generalized version of this into Miriam
@@ -172,7 +173,7 @@ class BuckshotObject extends HashableObject
         }
 
       }else{
-        reflect(this)
+        buckshot.reflectMe(this)
           .getField(name)
           .then((im){
             c.complete(im.reflectee);
@@ -184,7 +185,7 @@ class BuckshotObject extends HashableObject
 
     if (reflectionEnabled){
       return getPropertyNameInternal(propertyName.toLowerCase(),
-          reflect(this).type);
+          buckshot.reflectMe(this).type);
     }else{
       final cc = new Completer();
       final result = _frameworkProperties.filter((FrameworkProperty p) =>

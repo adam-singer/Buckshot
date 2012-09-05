@@ -194,6 +194,7 @@ class Buckshot extends FrameworkObject
   
   // Mirror-shunting stuff
   reflectMe(object) => reflect(object);
+  mirrorSystem() => currentMirrorSystem();
   
   /**
    * Returns the InterfaceMirror of a given [name] by searching through all
