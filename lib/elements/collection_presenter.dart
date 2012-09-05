@@ -50,6 +50,8 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   {
     Browser.appendClass(rawElement, "collectionpresenter");
     _initCollectionPresenterProperties();
+    
+    registerEvent('itemcreated', itemCreated);
   }
   
   CollectionPresenter.register() : super.register(),

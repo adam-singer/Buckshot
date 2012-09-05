@@ -19,6 +19,8 @@ class TextBox extends Control
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
 
     _initEvents();
+    
+    registerEvent('textchanged', textChanged);
   }
   
   TextBox.register() : super.register(),

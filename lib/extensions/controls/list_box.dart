@@ -60,6 +60,7 @@ class ListBox extends Control implements IFrameworkContainer
 
     _presenter.itemCreated + _OnItemCreated;
 
+    registerEvent('selectionchanged', selectionChanged);
   }
   
   ListBox.register() : super.register(),

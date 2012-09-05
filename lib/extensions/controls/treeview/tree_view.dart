@@ -70,6 +70,8 @@ class TreeView extends Panel
     cursor = Cursors.Arrow;
 
     background = new SolidColorBrush(new Color.predefined(Colors.White));
+    
+    registerEvent('treenodeselected', treeNodeSelected);
   }
   
   TreeView.register() : super.register(),

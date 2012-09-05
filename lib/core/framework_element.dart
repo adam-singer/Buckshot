@@ -118,7 +118,8 @@ class FrameworkElement extends FrameworkObject {
 
     _manualAlignmentHandler = new _Brutus.with(this);
 
-    _style = new StyleTemplate(); //give a blank style so merging works immediately
+    //give a blank style so merging works immediately
+    _style = new StyleTemplate(); 
 
     _initFrameworkProperties();
 
@@ -126,6 +127,9 @@ class FrameworkElement extends FrameworkObject {
     //rawElement.attributes['data-buckshot-id'] = '${this.hashCode()}';
 
     _initFrameworkEvents();
+    
+    _registerEvents();
+
   }
   
   FrameworkElement.register() : super.register(),
@@ -824,7 +828,23 @@ class FrameworkElement extends FrameworkObject {
       () => rawElement.on.dragEnd.remove(dragEndHandler)
     );
   }
-
+  
+  void _registerEvents(){
+    registerEvent('dragend', dragEnd);
+    registerEvent('dragstart', dragStart);
+    registerEvent('drop', drop);
+    registerEvent('dragover', dragOver);
+    registerEvent('dragenter', dragEnter);
+    registerEvent('dragleave', dragLeave);
+    registerEvent('gotfocus', gotFocus);
+    registerEvent('lostfocus', lostFocus);
+    registerEvent('click', click);
+    registerEvent('mouseleave', mouseLeave);
+    registerEvent('mouseenter', mouseEnter);
+    registerEvent('mousedown', mouseDown);
+    registerEvent('mouseup', mouseUp);
+    registerEvent('mousemove', mouseMove);
+  }
 
   /// Overridden [FrameworkObject] method.
   void createElement(){

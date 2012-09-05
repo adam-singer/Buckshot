@@ -64,7 +64,7 @@ class FrameworkObject extends BuckshotObject
     loaded = new FrameworkEvent<EventArgs>(),
     unloaded = new FrameworkEvent<EventArgs>(),
     attachedPropertyChanged =
-    new FrameworkEvent<AttachedPropertyChangedEventArgs>()
+      new FrameworkEvent<AttachedPropertyChangedEventArgs>()
     {
       applyVisualTemplate();
 
@@ -76,6 +76,11 @@ class FrameworkObject extends BuckshotObject
       _initFrameworkObjectProperties();
 
       _initFrameworkObjectEvents();
+      
+      registerEvent('attachedpropertychanged', attachedPropertyChanged);
+      registerEvent('loaded', loaded);
+      registerEvent('unloaded', unloaded);
+      registerEvent('measurementchanged', measurementChanged);
     }
   
   FrameworkObject.register() : super.register(),
@@ -83,8 +88,8 @@ class FrameworkObject extends BuckshotObject
     _eventBindings = new Map<String, FrameworkEvent>(),
     loaded = new FrameworkEvent<EventArgs>(),
     unloaded = new FrameworkEvent<EventArgs>(),
-    attachedPropertyChanged =
-    new FrameworkEvent<AttachedPropertyChangedEventArgs>();
+    attachedPropertyChanged = 
+      new FrameworkEvent<AttachedPropertyChangedEventArgs>();
       
   makeMe() => null;
   
@@ -112,8 +117,6 @@ class FrameworkObject extends BuckshotObject
       "dataContext",
       (value){});
   }
-
-
 
   void _startWatchMeasurement(){
     _watchingMeasurement = true;

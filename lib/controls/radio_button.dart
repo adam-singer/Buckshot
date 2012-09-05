@@ -16,6 +16,8 @@ class RadioButton extends Control
     Browser.appendClass(rawElement, "radiobutton");
     _initProperties();
     _initEvents();
+    
+    registerEvent('selectionchanged', selectionChanged);
   }
   
   RadioButton.register() : super.register(),

@@ -24,6 +24,8 @@ class CheckBox extends Control
     Browser.appendClass(rawElement, "checkbox");
     _initProperties();
     _initEvents();
+    
+    registerEvent('selectionchanged', selectionChanged);
   }
   
   CheckBox.register() : super.register(),

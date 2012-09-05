@@ -21,6 +21,8 @@ class DropDownList extends Control
   {
     Browser.appendClass(rawElement, "dropdownlist");
     _initDropDownListProperties();
+    
+    registerEvent('selectionchanged', selectionChanged);
   }
 
   DropDownList.register() : super.register(),

@@ -5,7 +5,8 @@
 /**
 * A helper class for managing a group of [RadioButton]s.  Does not itself provide any rendering
 * capability. */
-class RadioButtonGroup {
+class RadioButtonGroup 
+{
   final Map<RadioButton, EventHandlerReference> radioButtonList;
   final FrameworkEvent<RadioButtonSelectionChangedEventArgs> selectionChanged;
   

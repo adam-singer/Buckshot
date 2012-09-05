@@ -23,6 +23,8 @@ class TextArea extends Control
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
 
     _initEvents();
+    
+    registerEvent('textchanged', textChanged);
   }
   
   TextArea.register() : super.register(),

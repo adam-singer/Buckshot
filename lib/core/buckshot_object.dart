@@ -28,6 +28,19 @@ class BuckshotObject extends HashableObject
     _bindings = new List<Binding>(),
     _bindableEvents = new HashMap<String, FrameworkEvent>();
   
+  /**
+   * Registers an event for later lookup during template event binding
+   * 
+   * This will go away once Dart supports reflection on all platforms.
+   */
+  void registerEvent(String name, FrameworkEvent event){
+    if (reflectionEnabled) return;
+    _bindableEvents[name.toLowerCase()] = event;
+  }
+  
+  /**
+   * Returns true if the given [eventName] is present.
+   */
   bool hasEvent(String eventName)
   {
     if (!reflectionEnabled){
