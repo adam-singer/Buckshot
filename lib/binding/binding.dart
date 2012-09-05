@@ -51,6 +51,32 @@ class Binding extends BuckshotObject
 
     _registerBinding();
   }
+  
+  /**
+   * Instantiates a binding between [fromProperty] and [toProperty],
+   * with an optional [bindingMode] and [converter].
+  *
+  * This constructor fails silently if the binding isn't established.
+  */
+  Binding.loose(
+    this._fromProperty,
+    this._toProperty,
+    [this.bindingMode = BindingMode.OneWay,
+    this.converter = const _DefaultConverter()])
+  {
+    if (_fromProperty == null || _toProperty == null) return;
+
+    //NOTE: circular bindings of same property are not checked
+    // Circular bindings are not generally harmful because the property
+    // system doesn't fire when values are equivalent
+    // There is a case where it may be harmful, when value converters are
+    // used to transform the values through the chain...
+    if (_fromProperty === _toProperty)
+      throw const BuckshotException("Attempted to bind"
+        " same property together.");
+
+    _registerBinding();
+  }
 
   makeMe() => null;
   

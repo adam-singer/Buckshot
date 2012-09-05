@@ -62,7 +62,8 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
     // This may break in the future when the mirror API wraps the arguements
     // automatically in mirrors.
     // See: http://goo.gl/8Rs7q
-    classMirror.invoke(setterMethodName, [reflect(element), reflect(value)]);
+    classMirror.invoke(setterMethodName, 
+        [buckshot.reflectMe(element), buckshot.reflectMe(value)]);
   }
 
   /**

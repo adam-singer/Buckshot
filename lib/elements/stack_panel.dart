@@ -5,7 +5,11 @@
 /**
  * Alias element for [StackPanel].  Provides a shortened name in templates.
  */
-class Stack extends StackPanel { }
+class Stack extends StackPanel {
+  
+  Stack.register() : super.register();
+  makeMe() => new StackPanel();
+}
 
 /**
 * Provides a container that stacks child elements vertically or horizontally. */

@@ -21,6 +21,8 @@ class Buckshot extends FrameworkObject
 {
   static final String _defaultRootID = "#BuckshotHost";
   static final String _version = '0.55 Alpha';
+  
+  final Map<String, Dynamic> _mirrorCache;
 
   StyleElement _buckshotCSS;
 
@@ -45,7 +47,8 @@ class Buckshot extends FrameworkObject
   Buckshot(String buckshotRootID)
   :
     _objectRegistry = new HashMap<String, Dynamic>(),
-    namedElements = new HashMap<String, FrameworkObject>()
+    namedElements = new HashMap<String, FrameworkObject>(),
+    _mirrorCache = new Map<String, Dynamic>()
   {
     _initBuckshotSystem(buckshotRootID);
   }
@@ -64,12 +67,13 @@ class Buckshot extends FrameworkObject
   Buckshot._init([String rootID = Buckshot._defaultRootID])
   :
     _objectRegistry = new HashMap<String, Dynamic>(),
-    namedElements = new HashMap<String, FrameworkObject>()
+    namedElements = new HashMap<String, FrameworkObject>(),
+    _mirrorCache = new Map<String, Dynamic>()
   {
     _ref = this;
     _initBuckshotSystem(rootID);
   }
-
+ 
   void _initBuckshotSystem(String rootID)
   {
     if (!Polly.browserOK){
@@ -84,14 +88,15 @@ class Buckshot extends FrameworkObject
     _registerCoreElements();
   }
 
-  void _registerCoreElements(){
-    registerElement(BuckshotObject o){
-      _objectRegistry['${o.toString().toLowerCase()}'] = o.makeMe;
-    }
-    
+  void registerElement(BuckshotObject o){
+    _objectRegistry['${o.toString().toLowerCase()}'] = o.makeMe;
+  }
+  
+  void _registerCoreElements(){    
     registerElement(new Ellipse.register());
     registerElement(new Rectangle.register());
     registerElement(new StackPanel.register());
+    registerElement(new Stack.register());
     registerElement(new LayoutCanvas.register());
     registerElement(new Grid.register());
     registerElement(new Border.register());
@@ -186,4 +191,51 @@ class Buckshot extends FrameworkObject
 
   /// Gets the Buckshot version.
   String get version => getValue(versionProperty);
+  
+  // Mirror-shunting stuff
+  reflectMe(object) => reflect(object);
+  
+  /**
+   * Returns the InterfaceMirror of a given [name] by searching through all
+   * available in-scope libraries.
+   *
+   * Case insensitive.
+   *
+   * Returns null if not found.
+   */
+  getObjectByName(String name){
+    final lowerName = name.toLowerCase();
+    
+    if (!reflectionEnabled){
+      if (!_objectRegistry.containsKey(lowerName)) return null;
+      return _objectRegistry[lowerName]();
+    }else{
+      if (_mirrorCache.containsKey(lowerName)){
+        //print('[Miriam] Returning cached mirror of "$lowerName"');
+        return _mirrorCache[lowerName];
+      }
+
+      var result;
+
+      currentMirrorSystem()
+      .libraries
+      .forEach((String lName, libMirror){
+        libMirror
+          .classes
+          .forEach((String cName, classMirror){
+            if (classMirror.simpleName.toLowerCase() == lowerName){
+              result = classMirror;
+            }
+          });
+      });
+
+      if (result != null){
+        //cache result;
+        //print('[Miriam] caching mirror "$lowerName"');
+        _mirrorCache[lowerName] = result;
+      }
+  
+      return result;
+    }
+  }
 }

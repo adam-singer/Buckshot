@@ -29,7 +29,7 @@ class Rectangle extends Shape{
 
     strokeProperty = new AnimatingFrameworkProperty(this, 'stroke', (value){
 
-      shapeElement.style.borderColor = value.color.toString();
+      shapeElement.style.borderColor = value.color.toColorString();
 
     }, 'border-color', converter:const StringToSolidColorBrushConverter());
 

@@ -25,5 +25,17 @@
 #source('views/error.dart');
 
 void main() {
+  if (!reflectionEnabled){
+    buckshot.registerElement(new TreeView.register());
+    buckshot.registerElement(new TreeNode.register());
+    buckshot.registerElement(new YouTube.register());
+    buckshot.registerElement(new Hulu.register());
+    buckshot.registerElement(new Vimeo.register());
+    buckshot.registerElement(new FunnyOrDie.register());
+    buckshot.registerElement(new ListBox.register());
+    buckshot.registerElement(new PlusOne.register());
+    buckshot.registerElement(new DockPanel.register());
+  }
+  
   setView(new Main());
 }

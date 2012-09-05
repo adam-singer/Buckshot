@@ -85,7 +85,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
       this,
       "borderColor",
       (value){
-        rawElement.style.borderColor = value.color.toString();
+        rawElement.style.borderColor = value.color.toColorString();
       }, 'border', converter:const StringToSolidColorBrushConverter());
 
     borderThicknessProperty = new FrameworkProperty(

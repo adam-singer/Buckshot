@@ -13,7 +13,8 @@
 * ## See Also ##
 * * Select the "Collections" example on the Online Sandbox: [Try Buckshot](http://www.buckshotui.org/sandbox)
 */
-class DataTemplate extends BuckshotObject{
+class DataTemplate extends BuckshotObject
+{
   final HashMap<String, FrameworkProperty> _properties;
 
   /** Constructs a DataTemplate with no properties. */
@@ -53,6 +54,8 @@ class DataTemplate extends BuckshotObject{
     });
   }
 
+  makeMe() => null;
+  
   /**
    * Returns a [FrameworkProperty] matching the given [propertyName], if match
    * is found.

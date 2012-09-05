@@ -9,8 +9,10 @@ class BuckshotObject extends HashableObject
 {
   final HashMap<String, Dynamic> stateBag;
   final List<Binding> _bindings;
+  final Set<FrameworkProperty> _frameworkProperties;
 
-  BuckshotObject():
+  BuckshotObject() :
+    _frameworkProperties = new Set<FrameworkProperty>(),
     stateBag = new HashMap<String, Dynamic>(),
     _bindings = new List<Binding>();
 
@@ -18,13 +20,15 @@ class BuckshotObject extends HashableObject
   /// is a container or not.
   bool get isContainer => this is IFrameworkContainer;
 
-  BuckshotObject.register()
-      :
-      stateBag = new HashMap<String, Dynamic>(),
-      _bindings = new List<Binding>();
+  BuckshotObject.register() :
+    _frameworkProperties = new Set<FrameworkProperty>(),
+    stateBag = new HashMap<String, Dynamic>(),
+    _bindings = new List<Binding>();
   
   bool hasEvent(String eventName)
   {
+    if (!reflectionEnabled) return false;
+    
     bool hasEventInternal(classMirror){
       final result = classMirror
           .variables
@@ -73,7 +77,13 @@ class BuckshotObject extends HashableObject
       return false;
     }
 
-    return hasPropertyInternal(reflect(this).type);
+    if (reflectionEnabled){
+      return hasPropertyInternal(reflect(this).type);
+    }else{
+      final pLower = propertyName.toLowerCase();
+      return _frameworkProperties.some((FrameworkProperty p) =>
+              p.propertyName.toLowerCase() == pLower);
+    }
   }
 
 
@@ -172,8 +182,23 @@ class BuckshotObject extends HashableObject
       return c.future;
     }
 
-    return getPropertyNameInternal(propertyName.toLowerCase(),
-        reflect(this).type);
+    if (reflectionEnabled){
+      return getPropertyNameInternal(propertyName.toLowerCase(),
+          reflect(this).type);
+    }else{
+      final cc = new Completer();
+      final result = _frameworkProperties.filter((FrameworkProperty p) =>
+              p.propertyName.toLowerCase() == propertyName.toLowerCase());
+
+      if (result.length == 0)
+        {
+          cc.complete(null);
+        }else{
+          cc.complete(result.iterator().next());
+        }
+      
+      return cc.future;
+    }
   }
 
   FrameworkProperty _getPropertyByName(String propertyName){

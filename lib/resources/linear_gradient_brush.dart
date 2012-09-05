@@ -62,13 +62,13 @@ class LinearGradientBrush extends Brush
   /// Overridden [Brush] method.
   void renderBrush(Element element){
     //set the fallback
-    element.style.background = fallbackColor.toString();
+    element.style.background = fallbackColor.toColorString();
 
     final colorString = new StringBuffer();
 
     //create the string of stop colors
     stops.forEach((GradientStop stop){
-      colorString.add(stop.color.toString());
+      colorString.add(stop.color.toColorString());
 
       if (stop.percent != -1)
         colorString.add(" ${stop.percent}%");

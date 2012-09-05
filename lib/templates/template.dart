@@ -80,10 +80,16 @@ class Template {
                                            String type){
     if (element.parent == null) return null;
 
-    if (reflect(element.parent).type.simpleName != type){
-      return findParentByType(element.parent, type);
+    if (reflectionEnabled){
+      if (buckshot.reflectMe(element.parent).type.simpleName != type){
+        return findParentByType(element.parent, type);
+      }
+    }else{     
+      if (element.parent.toString() != type){
+        return findParentByType(element.parent, type);
+      }
     }
-
+    
     return element.parent;
   }
 
@@ -237,18 +243,16 @@ class Template {
         oc.complete(element);
       }
     }
+    
+    final objectOrMirror = buckshot.getObjectByName(lowerTagName);
+//    final interfaceMirrorOf = Miriam.context.getObjectByName(lowerTagName);
 
-    final interfaceMirrorOf = Miriam.context.getObjectByName(lowerTagName);
-
-    if (interfaceMirrorOf == null){
+    if (objectOrMirror == null){
       throw new PresentationProviderException('Element "${xmlElement.name}"'
       ' not found.');
     }
 
-    interfaceMirrorOf
-    .newInstance('',[])
-    .then((newElementMirror){
-      final newElement = newElementMirror.reflectee;
+    void processElement(newElement){
       final fList = [];
 
       if (xmlElement.children.length > 0 &&
@@ -278,8 +282,19 @@ class Template {
       .then((_){
         completeElementParse(newElement);
       });
-    });
-
+    }
+    
+    if (!reflectionEnabled){  
+      assert(objectOrMirror is BuckshotObject);
+      processElement(objectOrMirror);
+    }else{
+      objectOrMirror
+      .newInstance('',[])
+      .then((newElementMirror){
+        processElement(newElementMirror.reflectee);
+      });
+    }
+    
     return oc.future;
   }
 
@@ -388,10 +403,10 @@ class Template {
     final String elementLowerTagName = ofXMLNode.name.toLowerCase();
 
     if (ofXMLNode.name.contains(".")){
-      AttachedFrameworkProperty
-        .invokeSetPropertyFunction(ofXMLNode.name,
-            ofElement,
-            ofXMLNode.text.trim());
+//      AttachedFrameworkProperty
+//        .invokeSetPropertyFunction(ofXMLNode.name,
+//            ofElement,
+//            ofXMLNode.text.trim());
       c.complete(true);
     }else{
       //element or resource
@@ -621,7 +636,7 @@ class Template {
             }
           }else{
             // attached property
-            AttachedFrameworkProperty.invokeSetPropertyFunction(k, element, v);            
+//            AttachedFrameworkProperty.invokeSetPropertyFunction(k, element, v);            
           }
         }else{
           // property

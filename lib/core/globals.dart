@@ -147,7 +147,7 @@ db(String message, [FrameworkObject element]){
     return;
   }
   if (reflectionEnabled){
-    print("[${reflect(element).type.simpleName}(${element.name})] $message");
+    print("[${buckshot.reflectMe(element).type.simpleName}(${element.name})] $message");
   }else{
     print("[${element}(${element.name})] $message");
   }

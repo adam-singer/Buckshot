@@ -136,7 +136,7 @@ class TreeView extends Panel
       this,
       "borderColor",
       (value){
-        rawElement.style.borderColor = value.color.toString();
+        rawElement.style.borderColor = value.color.toColorString();
       }, 'border', converter:const StringToSolidColorBrushConverter());
 
     borderThicknessProperty = new FrameworkProperty(

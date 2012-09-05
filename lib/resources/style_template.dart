@@ -128,26 +128,28 @@ class StyleTemplate extends FrameworkResource
   }
 
   void _bindSetterToElement(Setter setter, FrameworkElement element){
-    final instanceMirror = reflect(element);
-
-    //TODO handle with lookup instead of try/catch
-    if (!element.hasProperty(setter.property.toLowerCase())) return;
-
-    instanceMirror
-      .getField('${setter.property}Property')
-      .then((p){
-        final b = new Binding(setter.valueProperty, p.reflectee);
-        p.reflectee
-          .sourceObject
-          .stateBag["$stateBagPrefix${setter.property}__"] = b;
-      });
-
-
-//    element._frameworkProperties
-//    .filter((FrameworkProperty p) => p.propertyName == setter.property)
-//    .forEach((FrameworkProperty p) {
-//      final b = new Binding(setter.valueProperty, p);
-//      p.sourceObject.stateBag["$stateBagPrefix${setter.property}__"] = b;
-//    });
+    
+    if (reflectionEnabled){
+      final instanceMirror = reflect(element);
+  
+      //TODO handle with lookup instead of try/catch
+      if (!element.hasProperty(setter.property.toLowerCase())) return;
+  
+      instanceMirror
+        .getField('${setter.property}Property')
+        .then((p){
+          final b = new Binding(setter.valueProperty, p.reflectee);
+          p.reflectee
+            .sourceObject
+            .stateBag["$stateBagPrefix${setter.property}__"] = b;
+        });
+    }else{
+    element._frameworkProperties
+    .filter((FrameworkProperty p) => p.propertyName == setter.property)
+    .forEach((FrameworkProperty p) {
+      final b = new Binding(setter.valueProperty, p);
+      p.sourceObject.stateBag["$stateBagPrefix${setter.property}__"] = b;
+    });      
+    }
   }
 }

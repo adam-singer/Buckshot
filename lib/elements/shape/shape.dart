@@ -32,7 +32,7 @@ class Shape extends FrameworkElement
 //
 //    strokeProperty = new AnimatingFrameworkProperty(this, 'stroke', (value){
 //
-//      shapeElement.style.setProperty('stroke', value.color.toString());
+//      shapeElement.style.setProperty('stroke', value.color.toColorString());
 //
 //    }, 'stroke', converter:const StringToSolidColorBrushConverter());
 

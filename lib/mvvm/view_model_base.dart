@@ -7,4 +7,7 @@
 * See:
 * * [View]
 */
-class ViewModelBase extends FrameworkObject{}
+class ViewModelBase extends FrameworkObject
+{
+  makeMe() => null;
+}
