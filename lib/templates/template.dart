@@ -408,6 +408,12 @@ class Template {
           .invokeSetPropertyFunction(ofXMLNode.name,
               ofElement,
               ofXMLNode.text.trim());        
+      }else{
+        if (buckshot._objectRegistry.containsKey(ofXMLNode.name.toLowerCase())){
+          buckshot
+          ._objectRegistry
+          [ofXMLNode.name.toLowerCase()](ofElement, ofXMLNode.text.trim());          
+        }
       }
       c.complete(true);
     }else{
@@ -641,7 +647,11 @@ class Template {
             if (reflectionEnabled){
               AttachedFrameworkProperty
                 .invokeSetPropertyFunction(k, element, v);      
-            }      
+            }else{
+              if (buckshot._objectRegistry.containsKey(k.toLowerCase())){
+                buckshot._objectRegistry[k.toLowerCase()](element, v);
+              }
+            }
           }
         }else{
           // property

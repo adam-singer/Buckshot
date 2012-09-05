@@ -96,6 +96,10 @@ class Buckshot extends FrameworkObject
     _objectRegistry['${o.toString().toLowerCase()}'] = o.makeMe;
   }
   
+  void registerAttachedProperty(String property, setterFunction){
+    _objectRegistry[property] = setterFunction;
+  }
+  
   void _registerCoreElements(){    
     registerElement(new Ellipse.register());
     registerElement(new Rectangle.register());
@@ -139,14 +143,6 @@ class Buckshot extends FrameworkObject
     registerElement(new Slider());
     registerElement(new Button());
     registerElement(new DropDownList());
-    
-//    registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
-//    registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
-//    registerAttachedProperty('grid.column', Grid.setColumn);
-//    registerAttachedProperty('grid.row', Grid.setRow);
-//    registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
-//    registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
-  
   }
   
   void _initCSS(){

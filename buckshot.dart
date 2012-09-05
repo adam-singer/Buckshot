@@ -18,9 +18,9 @@
 #import('package:dart_utils/shared.dart');
 #import('lib/yaml/yaml.dart');
 
-// Uncomment these to run with reflection.  Set reflectionEnabled = true.
-#import('dart:mirrors');
-//#import('package:dart_utils/miriam.dart');
+// Uncomment this to run with reflection.  
+// Also below, set reflectionEnabled = true.
+//#import('dart:mirrors');
 
 #source('lib/core/globals.dart');
 #source('lib/core/buckshot_system.dart');
@@ -138,4 +138,4 @@ main(){}
  * Set this to true in order to use the mirror-based code.
  * Note that you muse also enable the import directives for mirrors and miriam.
  */
-bool reflectionEnabled = true;
+bool reflectionEnabled = false;
