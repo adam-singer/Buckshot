@@ -85,10 +85,14 @@ class Buckshot extends FrameworkObject
 
     _initializeBuckshotProperties();
     
-    _registerCoreElements();
+    if (!reflectionEnabled){
+      _registerCoreElements();
+    }
   }
 
   void registerElement(BuckshotObject o){
+    assert(!reflectionEnabled);
+    
     _objectRegistry['${o.toString().toLowerCase()}'] = o.makeMe;
   }
   

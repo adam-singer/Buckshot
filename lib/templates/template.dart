@@ -403,10 +403,12 @@ class Template {
     final String elementLowerTagName = ofXMLNode.name.toLowerCase();
 
     if (ofXMLNode.name.contains(".")){
-//      AttachedFrameworkProperty
-//        .invokeSetPropertyFunction(ofXMLNode.name,
-//            ofElement,
-//            ofXMLNode.text.trim());
+      if (reflectionEnabled){
+        AttachedFrameworkProperty
+          .invokeSetPropertyFunction(ofXMLNode.name,
+              ofElement,
+              ofXMLNode.text.trim());        
+      }
       c.complete(true);
     }else{
       //element or resource
@@ -636,7 +638,10 @@ class Template {
             }
           }else{
             // attached property
-//            AttachedFrameworkProperty.invokeSetPropertyFunction(k, element, v);            
+            if (reflectionEnabled){
+              AttachedFrameworkProperty
+                .invokeSetPropertyFunction(k, element, v);      
+            }      
           }
         }else{
           // property

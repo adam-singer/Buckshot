@@ -6,7 +6,7 @@
  * Alias element for [StackPanel].  Provides a shortened name in templates.
  */
 class Stack extends StackPanel {
-  
+  Stack() : super();
   Stack.register() : super.register();
   makeMe() => new StackPanel();
 }
