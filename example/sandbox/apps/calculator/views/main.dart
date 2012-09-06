@@ -38,7 +38,7 @@ String _main =
           </stops>
         </lineargradientbrush>
         
-      <styletemplate key='defaultText'>
+      <styletemplate key='calcDefaultText'>
         <setters>
           <setter property='fontFamily' value='Consolas' />
           <setter property='fontSize' value='16' />
@@ -121,12 +121,12 @@ String _main =
         <stackpanel orientation='horizontal' valign='center' margin='0,0,0,2'>
             <image width='50' alt="Buckshot Logo" sourceuri="apps/calculator/resources/buckshot_logo.png" />
           <stackpanel>
-            <textblock style='{resource defaultText}' text='Buckshot' />
-            <textblock style='{resource defaultText}' text='Calculator' />
+            <textblock style='{resource calcDefaultText}' text='Buckshot' />
+            <textblock style='{resource calcDefaultText}' text='Calculator' />
           </stackpanel>
         </stackpanel>
         <stackpanel orientation='horizontal' valign='center' halign='right' margin='0,5,0,0'>
-          <textblock style='{resource defaultText}' text='Mode:' margin='0,0,0,5' />
+          <textblock style='{resource calcDefaultText}' text='Mode:' margin='0,0,0,5' />
           <dropdownlist on.selectionChanged='selectionChanged_handler'>
             <items>
               <dropdownitem name='Standard' value='Standard' />
