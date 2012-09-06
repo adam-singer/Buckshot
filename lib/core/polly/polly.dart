@@ -39,10 +39,6 @@ class Polly {
   static void init(){
     _browserInfo = Browser.getBrowserInfo();
 
-    if (browserInfo.browser == Browser.FIREFOX){
-      _setFirefox();
-    }
-
     var e = new DivElement();
 
     document.body.elements.add(e);
@@ -54,9 +50,31 @@ class Polly {
     e.remove();
   }
 
-  static void _setFirefox(){
-    //yay firefox and it's weird line spacing...
-    //document.body.style.lineHeight = '100%';
+  /**
+   * Returns a future containing the mouse coordinates within a give [element]
+   * coordinate space.
+   */
+  static Future<SafePoint> localMouseCoordinate(Element element, 
+      num pageX, num pageY){
+    if (browserInfo == null){
+      Polly.init();
+    }
+    
+    final c = new Completer();
+    
+    if (browserInfo.browser != Browser.CHROME){
+      element.rect.then((ElementRect r){
+        c.complete(new SafePoint(pageX - r.bounding.left,
+            pageY - r.bounding.top));
+      });
+    }else{
+      final wkitPoint = document.window
+          .webkitConvertPointFromPageToNode(element,
+          new Point(pageX, pageY));
+      c.complete(new SafePoint(wkitPoint.x, wkitPoint.y));
+    }
+    
+    return c.future;
   }
 
   /**
@@ -535,5 +553,14 @@ class Polly {
     print('');
   }
 }
+
+class SafePoint
+{
+  final num x;
+  final num y;
+  
+  SafePoint(this.x, this.y);
+}
+
 
 

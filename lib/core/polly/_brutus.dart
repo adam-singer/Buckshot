@@ -287,7 +287,7 @@ class _Brutus
 
 
       newLeft = ((args.newMeasurement.client.width / 2) -
-          ((r.bounding.width + measurementOffset) / 2)).toInt();
+          ((r.bounding.width + measurementOffset) / 2));
     }
 
     void handleHorizontalRight(ElementRect r){
@@ -354,7 +354,7 @@ class _Brutus
       final num measurementOffset = parentPaddingOffset + borderRadiusOffset;
 
       newTop = ((args.newMeasurement.client.height / 2) -
-          ((r.client.height + measurementOffset) / 2)).toInt();
+          ((r.client.height + measurementOffset) / 2));
 
      // db('*** vertical center parent height:${args.newMeasurement.client.height}, element height: ${r.client.height}, $position', element);
     }

@@ -591,11 +591,12 @@ class FrameworkElement extends FrameworkObject {
       if (!mouseUp.hasHandlers) return;
 
       e.stopPropagation();
-
-      var p = document.window.webkitConvertPointFromPageToNode(rawElement,
-        new Point(e.pageX, e.pageY));
-      mouseUp.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
-
+      
+      Polly
+      .localMouseCoordinate(rawElement, e.pageX, e.pageY)
+      .then((p){
+        mouseUp.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
+      });
     }
 
     mouseUp = new BuckshotEvent<MouseEventArgs>
@@ -611,9 +612,12 @@ class FrameworkElement extends FrameworkObject {
 
       e.stopPropagation();
 
-      var p = document.window.webkitConvertPointFromPageToNode(rawElement,
-        new Point(e.pageX, e.pageY));
-      mouseDown.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
+     
+      Polly
+      .localMouseCoordinate(rawElement, e.pageX, e.pageY)
+      .then((p){
+        mouseDown.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
+      });
     }
 
     mouseDown = new BuckshotEvent<MouseEventArgs>
@@ -628,9 +632,11 @@ class FrameworkElement extends FrameworkObject {
 
       e.stopPropagation();
 
-      var p = document.window.webkitConvertPointFromPageToNode(rawElement,
-        new Point(e.pageX, e.pageY));
-      mouseMove.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
+      Polly
+      .localMouseCoordinate(rawElement, e.pageX, e.pageY)
+      .then((p){
+        mouseMove.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
+      });
     }
 
     mouseMove = new BuckshotEvent<MouseEventArgs>
@@ -646,10 +652,11 @@ class FrameworkElement extends FrameworkObject {
 
       e.stopPropagation();
 
-      var p = document.window.webkitConvertPointFromPageToNode(rawElement,
-        new Point(e.pageX, e.pageY));
-
-      click.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
+      Polly
+      .localMouseCoordinate(rawElement, e.pageX, e.pageY)
+      .then((p){
+        click.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
+      });
     }
 
     click = new BuckshotEvent<MouseEventArgs>
@@ -718,17 +725,18 @@ class FrameworkElement extends FrameworkObject {
 
       rawElement.rect.then((ElementRect r){
 
-        var p = document.window.webkitConvertPointFromPageToNode(rawElement,
-          new Point(e.pageX, e.pageY));
+        Polly
+        .localMouseCoordinate(rawElement, e.pageX, e.pageY)
+        .then((p){
+          if (p.x > -1 && p.y > -1 && p.x < r.bounding.width
+              && p.y < r.bounding.height){
+            isMouseReallyOut = false;
+            return;
+          }
 
-        if (p.x > -1 && p.y > -1 && p.x < r.bounding.width
-            && p.y < r.bounding.height){
-          isMouseReallyOut = false;
-          return;
-        }
-
-        isMouseReallyOut = true;
-        mouseLeave.invoke(this, new EventArgs());
+          isMouseReallyOut = true;
+          mouseLeave.invoke(this, new EventArgs());
+        });
       });
     }
 
