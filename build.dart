@@ -13,5 +13,5 @@ void main(){
   
   generateCode(args);
   
-  exit(1);
+//  exit(1);
 }
