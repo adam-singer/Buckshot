@@ -124,12 +124,13 @@ void layoutTests()
 
   });
 
-  return;
-  
   // Take measurements of reference layout to make sure they exactly match
   // expected results.
   test('StackPanel Layout', (){
-    buckshot.rootView = new StackPanelDebug();
+    setView(new StackPanelDebug())
+    .then(expectAsync1((_){
+      
+    }));
 
     window.setTimeout(expectAsync0((){
 
@@ -183,7 +184,7 @@ void layoutTests()
         measureElement(lblRight, 57, 275, 107, 17);
 
         //left aligned
-        measureElement(lblLeft, 74, 10, 276, 17);
+        measureElement(lblLeft, 74, 10, 311, 17);
 
         /* Circle (centered horizontally) */
         measureElement(bCircle, 91, 116, 160, 160);
@@ -213,7 +214,10 @@ void layoutTests()
   // Take measurements of reference layout to make sure they match
   // expected results.
   test('Grid Layout', (){
-    buckshot.rootView = new GridDebug();
+    setView(new GridDebug())
+    .then(expectAsync1((_){
+      
+    }));
 
     // Adding a delay to allow the layout to complete
     // otherwise some measurements will still be 0. Especially in JS.

@@ -19,11 +19,13 @@ class VarResourceTests extends TestGroupBase
 </resourcecollection>
 ''';
     
-    Template.deserialize(t);
-    
-    var result = buckshot.retrieveResource("contenttest");
-    
-    Expect.isTrue(result is TextBlock);
+    Template
+    .deserialize(t)
+    .then(expectAsync1((_){
+      final result = FrameworkResource.retrieveResource("contenttest");
+      
+      Expect.isTrue(result is TextBlock);      
+    }));
   }
   
   void stringValuesWork(){
@@ -35,11 +37,13 @@ class VarResourceTests extends TestGroupBase
 <var key="urltest" value="http://www.lucastudios.com/img/lucaui_logo_candidate2.png"></var>
 </resourcecollection>
 ''';
-    Template.deserialize(t);
+    Template.deserialize(t)
+      .then(expectAsync1((_){
+        Expect.equals("hello world!", FrameworkResource.retrieveResource("test"));
+        Expect.equals("#007777", FrameworkResource.retrieveResource("colortest"));
+        Expect.equals("150", FrameworkResource.retrieveResource("numtest"));
+        Expect.equals("http://www.lucastudios.com/img/lucaui_logo_candidate2.png", FrameworkResource.retrieveResource("urltest"));        
+      }));
     
-    Expect.equals("hello world!", buckshot.retrieveResource("test"));
-    Expect.equals("#007777", buckshot.retrieveResource("colortest"));
-    Expect.equals("150", buckshot.retrieveResource("numtest"));
-    Expect.equals("http://www.lucastudios.com/img/lucaui_logo_candidate2.png", buckshot.retrieveResource("urltest"));
   }
 }
