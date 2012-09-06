@@ -4,11 +4,6 @@
 
 /**
 * Interface contract for classes registering as presentation format providers.
-*
-* ## See Also ##
-* * [XmlTemplateProvider]
-* * [JSONTemplateProvider]
-* * [YAMLTemplateProvider]
 */
 class IPresentationFormatProvider
 {

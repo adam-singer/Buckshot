@@ -65,9 +65,7 @@ class Template {
 
   Template()
   :
-    providers = [new XmlTemplateProvider(),
-                 new JSONTemplateProvider(),
-                 new YAMLTemplateProvider()];
+    providers = [new XmlTemplateProvider()];
 
 
   /**

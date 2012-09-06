@@ -16,7 +16,6 @@
 #import('package:DartNet-Event-Model/events.dart');
 #import('package:dart_utils/web.dart');
 #import('package:dart_utils/shared.dart');
-#import('lib/yaml/yaml.dart');
 
 // Uncomment this to run with reflection.  
 // Also below, set reflectionEnabled = true.
@@ -126,8 +125,6 @@
 
 #source('lib/templates/presentation_format_provider.dart');
 #source('lib/templates/xml_template_provider.dart');
-#source('lib/templates/json_template_provider.dart');
-#source('lib/templates/yaml_template_provider.dart');
 #source('lib/templates/template.dart');
 #source('lib/templates/template_object.dart');
 

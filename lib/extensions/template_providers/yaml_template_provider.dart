@@ -2,35 +2,41 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
+#library('yaml.templateproviders.buckshotui.org');
+#import('dart:json');
+#import('../../../buckshot.dart');
+#import('package:dart-xml/xml.dart');
+#import('package:dart_utils/shared.dart');
+#import('yaml/yaml.dart');
 
 /**
-* Provides serialization/deserialization for JSON format templates.
+* Provides serialization/deserialization for YAML format templates.
 */
-class JSONTemplateProvider implements IPresentationFormatProvider
+class YAMLTemplateProvider implements IPresentationFormatProvider
 {
 
   XmlElement toXmlTree(String template){
-    var json = JSON.parse(template);
+    var yaml = loadYaml(template);
 
-    assert(json is List);
+    assert(yaml is List);
 
-    if (json.length > 2){
+    if (yaml.length > 2){
       _err('Expected only 1 or 2 elements in json top level array.');
     }
 
-    if (json[0] is! String){
+    if (yaml[0] is! String){
       _err('Expected first element to be a String literal');
     }
 
-    return _nextElement(json);
+    return _nextElement(yaml);
   }
 
-  XmlElement _nextElement(List json){
-    final e = new XmlElement(json[0]);
+  XmlElement _nextElement(List yaml){
+    final e = new XmlElement(yaml[0]);
 
-    if(json.length == 1) return e; //no body
+    if(yaml.length == 1) return e; //no body
 
-    final List body = json[1];
+    final List body = yaml[1];
 
     assert(body is List);
 
@@ -41,7 +47,7 @@ class JSONTemplateProvider implements IPresentationFormatProvider
     for(final b in body){
       if (b is Map){
         b.forEach((property, value){
-          e.attributes[property] = value;
+          e.attributes[property] = '$value';
         });
       }else if (b is List){
         //iterate
@@ -73,7 +79,8 @@ class JSONTemplateProvider implements IPresentationFormatProvider
   /**
   * Returns true if the given template is detected to be of a compatible format.
   */
-  bool isFormat(String template) => template.startsWith('[');
+  bool isFormat(String template) =>
+      !template.startsWith('<') && !template.startsWith('[');
 
   void _err(String str){
     throw new PresentationProviderException('$str');

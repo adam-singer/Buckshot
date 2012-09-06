@@ -2,34 +2,40 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
+#library('json.templateproviders.buckshotui.org');
+#import('dart:json');
+#import('../../../buckshot.dart');
+#import('package:dart-xml/xml.dart');
+#import('package:dart_utils/shared.dart');
+
 /**
-* Provides serialization/deserialization for YAML format templates.
+* Provides serialization/deserialization for JSON format templates.
 */
-class YAMLTemplateProvider implements IPresentationFormatProvider
+class JSONTemplateProvider implements IPresentationFormatProvider
 {
 
   XmlElement toXmlTree(String template){
-    var yaml = loadYaml(template);
+    var json = JSON.parse(template);
 
-    assert(yaml is List);
+    assert(json is List);
 
-    if (yaml.length > 2){
+    if (json.length > 2){
       _err('Expected only 1 or 2 elements in json top level array.');
     }
 
-    if (yaml[0] is! String){
+    if (json[0] is! String){
       _err('Expected first element to be a String literal');
     }
 
-    return _nextElement(yaml);
+    return _nextElement(json);
   }
 
-  XmlElement _nextElement(List yaml){
-    final e = new XmlElement(yaml[0]);
+  XmlElement _nextElement(List json){
+    final e = new XmlElement(json[0]);
 
-    if(yaml.length == 1) return e; //no body
+    if(json.length == 1) return e; //no body
 
-    final List body = yaml[1];
+    final List body = json[1];
 
     assert(body is List);
 
@@ -40,7 +46,7 @@ class YAMLTemplateProvider implements IPresentationFormatProvider
     for(final b in body){
       if (b is Map){
         b.forEach((property, value){
-          e.attributes[property] = '$value';
+          e.attributes[property] = value;
         });
       }else if (b is List){
         //iterate
@@ -72,8 +78,7 @@ class YAMLTemplateProvider implements IPresentationFormatProvider
   /**
   * Returns true if the given template is detected to be of a compatible format.
   */
-  bool isFormat(String template) =>
-      !template.startsWith('<') && !template.startsWith('[');
+  bool isFormat(String template) => template.startsWith('[');
 
   void _err(String str){
     throw new PresentationProviderException('$str');
