@@ -26,9 +26,11 @@ class TemplateTests extends TestGroupBase
   //TODO convert to async
   void attachedPropertyNodeAssignsCorrectly(){
     String t = "<StackPanel><grid.column>2</grid.column></StackPanel>";
-
-    var result = Template.deserialize(t);
-    Expect.equals(2, Grid.getColumn(result));
+    Template
+      .deserialize(t)
+      .then(expectAsync1((result){
+        Expect.equals(2, Grid.getColumn(result));
+      }));
   }
 
   void enumPropertyNodeAssignsCorrectly(){
@@ -41,9 +43,12 @@ class TemplateTests extends TestGroupBase
 
   void simplePropertyNodeAssignsCorrectly(){
     String t = "<StackPanel><width>40</width></StackPanel>";
-
-    var result = Template.deserialize(t);
-    Expect.equals(40, result.width);
+    
+    Template
+      .deserialize(t)
+      .then(expectAsync1((result){
+        Expect.equals(40, result.width);
+      }));
   }
 
   void textNodeInListContainerThrows(){
@@ -116,23 +121,28 @@ class TemplateTests extends TestGroupBase
                 Grid.rowSpan="8">
     </StackPanel>
     ''';
-
-    var result = Template.deserialize(t);
-
-    Expect.equals(3, Grid.getColumn(result));
-    Expect.equals(4, Grid.getRow(result));
-    Expect.equals(5, LayoutCanvas.getTop(result));
-    Expect.equals(6, LayoutCanvas.getLeft(result));
-    Expect.equals(7, Grid.getColumnSpan(result));
-    Expect.equals(8, Grid.getRowSpan(result));
+ 
+    Template
+      .deserialize(t)
+      .then(expectAsync1((result){
+        Expect.equals(3, Grid.getColumn(result));
+        Expect.equals(4, Grid.getRow(result));
+        Expect.equals(5, LayoutCanvas.getTop(result));
+        Expect.equals(6, LayoutCanvas.getLeft(result));
+        Expect.equals(7, Grid.getColumnSpan(result));
+        Expect.equals(8, Grid.getRowSpan(result));
+      }));
   }
 
   void enumProperties(){
     String t = '<StackPanel orientation="horizontal" valign="center"></StackPanel>';
-    var result = Template.deserialize(t);
 
-    Expect.equals(Orientation.horizontal, result.dynamic.orientation);
-    Expect.equals(VerticalAlignment.center, result.vAlign);
+    Template
+      .deserialize(t)
+      .then(expectAsync1((result){
+        Expect.equals(Orientation.horizontal, result.dynamic.orientation);
+        Expect.equals(VerticalAlignment.center, result.vAlign);
+      }));
   }
 
   void simpleProperties(){
@@ -145,7 +155,6 @@ class TemplateTests extends TestGroupBase
 
   void registryLookupNotFoundThrows(){
     String t = "<foo></foo>";
-
 
     Expect.throws(
     ()=> Template.deserialize(t),

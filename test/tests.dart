@@ -1,16 +1,15 @@
 
 #import('dart:html');
 #import('../buckshot.dart');
-#import('package:dart-xml/lib/xml.dart');
-#import('../external/shared/shared.dart');
-#import('../external/web/web.dart');
+#import('package:dart-xml/xml.dart');
+#import('package:dart_utils/web.dart');
+#import('package:dart_utils/shared.dart');
 #import('package:DartNet-Event-Model/events.dart');
-#import('../extensions/controls/DockPanel.dart');
+#import('../lib/extensions/controls/dock_panel.dart');
 
 #import('package:unittest/unittest.dart');
 #import('package:unittest/html_enhanced_config.dart');
 
-#source('initialization_tests.dart');
 #source('framework_fundamentals_tests.dart');
 #source('framework_property_tests.dart');
 #source('framework_element_tests.dart');
@@ -41,20 +40,19 @@
 
 void main() {
 
-  buckshot.registerAttachedProperty('dockpanel.dock', DockPanel.setDock);
-
-  Template
-    .deserialize(Template.getTemplate('#dockPanelTest'))
-//    .deserialize(Template.getTemplate('#borderTest'))
-//    .deserialize(Template.getTemplate('#stackPanelTest'))
-//    .deserialize(Template.getTemplate('#gridTest'))
-//    .deserialize(Template.getTemplate('#horizontalTest'))
-    .then((e){
-      buckshot.rootView = new View.from(e);
+  if (!reflectionEnabled){
+    buckshot.registerElement(new DockPanel.register());
+  }
+  
+  setView(new View.fromTemplate('#dockPanelTest'))
+//  setView(new View.fromTemplate('#borderTest'))
+//  setView(new View.fromTemplate('#stackPanelTest'))
+//  setView(new View.fromTemplate('#gridTest'))
+//  setView(new View.fromTemplate('#horizontalTest'))
+    .then((_){
       Polly.dump();
     });
-
-
+  
   return;
 
   final _tList = new List<TestGroupBase>();
@@ -83,11 +81,6 @@ void main() {
       var result = r.style.getPropertyValue('fill');
       Expect.isNotNull(result);
     });
-  });
-
-  group('Initialization', (){
-    tearDown(() =>   Polly.dump());
-    test('Buckshot Initialized', () => Expect.isNotNull(buckshot.domRoot));
   });
 
   group('Layout Tests', (){
