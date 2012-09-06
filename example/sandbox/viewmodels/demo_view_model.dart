@@ -138,7 +138,7 @@ class DemoViewModel extends ViewModelBase
     // I had to put this here because the closure wasn't working
     // correctly in the final{} block.
     void doError(String error){
-      var errorView = new Error();
+      var errorView = new ErrorView();
 
       errorView.ready.then((_){
         setValue(renderedOutputProperty, errorView.rootVisual);
