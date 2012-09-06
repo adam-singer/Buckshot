@@ -30,10 +30,12 @@ class FrameworkProperty extends FrameworkPropertyBase
 {
   Dynamic _value;
 
-  /// Represents the stored value of the FrameworkProperty.
-  ///
-  /// Generally, this should not be access directly, but through:
-  ///     getValue({propertyName});
+  /**
+   * Represents the stored value of the FrameworkProperty.
+   *
+   * Generally, this should not be access directly, but through:
+   *     getValue({propertyName});
+   */
   Dynamic get value => _value;
   set value(Dynamic v) {
     if (readOnly){

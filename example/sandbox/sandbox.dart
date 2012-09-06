@@ -22,7 +22,7 @@
 #source('viewmodels/demo_view_model.dart');
 #source('models/demo_model.dart');
 #source('views/main.dart');
-#source('views/error.dart');
+#source('views/error_view.dart');
 
 void main() {
   if (!reflectionEnabled){
