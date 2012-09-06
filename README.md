@@ -30,7 +30,7 @@ Next you'll need to point the Dart editor to your package directory.  You can se
 
 Now you can reference buckshot in your application like so:
 
-    #import('package:buckshot/lib/Buckshot.dart');
+    #import('package:buckshot/buckshot.dart');
     
 This process should get easier over time as the pub utility matures.
 
