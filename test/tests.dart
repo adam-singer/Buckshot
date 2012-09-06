@@ -44,16 +44,16 @@ void main() {
     buckshot.registerElement(new DockPanel.register());
   }
   
-  setView(new View.fromTemplate('#dockPanelTest'))
-//  setView(new View.fromTemplate('#borderTest'))
+////  setView(new View.fromTemplate('#dockPanelTest'))
+////  setView(new View.fromTemplate('#borderTest'))
 //  setView(new View.fromTemplate('#stackPanelTest'))
-//  setView(new View.fromTemplate('#gridTest'))
-//  setView(new View.fromTemplate('#horizontalTest'))
-    .then((_){
-      Polly.dump();
-    });
-  
-  return;
+////  setView(new View.fromTemplate('#gridTest'))
+////  setView(new View.fromTemplate('#horizontalTest'))
+//    .then((_){
+//      Polly.dump();
+//    });
+//  
+//  return;
 
   final _tList = new List<TestGroupBase>();
 

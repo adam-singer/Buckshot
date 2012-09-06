@@ -36,8 +36,10 @@ class TemplateTests extends TestGroupBase
   void enumPropertyNodeAssignsCorrectly(){
     String t = "<StackPanel><orientation>horizontal</orientation></StackPanel>";
 
-    var result = Template.deserialize(t);
-    Expect.equals(Orientation.horizontal, result.dynamic.orientation);
+    Template.deserialize(t)
+      .then(expectAsync1((result){
+        Expect.equals(Orientation.horizontal, (result as StackPanel).orientation);
+      }));
   }
 
 
@@ -72,15 +74,28 @@ class TemplateTests extends TestGroupBase
     String t = "<Slider><fooProperty>bar</fooProperty></Slider>";
 
     Expect.throws(
-    ()=> Template.deserialize(t),
-    (err) => (err is FrameworkPropertyResolutionException));
+    (){
+      Template.deserialize(t)
+      .then(expectAsync1((result){
+        Expect.isNull(result);
+      }));
+    },
+    (err) => (err is PresentationProviderException)
+    );
+    
+
   }
 
   void childElementOfNonContainerThrows(){
     String t = "<Slider><TextBlock></TextBlock></Slider>";
 
     Expect.throws(
-    ()=> Template.deserialize(t),
+    () {
+      Template.deserialize(t)
+        .then(expectAsync1((result){
+          Expect.isNull(result);
+        }));
+    },
     (err) => (err is PresentationProviderException)
     );
   }
@@ -98,17 +113,19 @@ class TemplateTests extends TestGroupBase
     </StackPanel>
     ''';
 
-    var result = Template.deserialize(t);
-    Expect.isTrue(result is StackPanel);
-    Expect.equals(7, result.dynamic.children.length);
+    Template.deserialize(t)
+        .then(expectAsync1((result){
+          Expect.isTrue(result is StackPanel);
+          Expect.equals(7, result.dynamic.children.length);
 
-    Expect.isTrue(result.dynamic.children[0] is Grid, "Grid");
-    Expect.isTrue(result.dynamic.children[1] is Border, "Border");
-    Expect.isTrue(result.dynamic.children[2] is Button, "Button");
-    Expect.isTrue(result.dynamic.children[3] is TextBlock, "TextBlock");
-    Expect.isTrue(result.dynamic.children[4] is TextBox, "TextBox");
-    Expect.isTrue(result.dynamic.children[5] is Slider, "Slider");
-    Expect.isTrue(result.dynamic.children[6] is LayoutCanvas, "LayoutCanvas");
+          Expect.isTrue(result.dynamic.children[0] is Grid, "Grid");
+          Expect.isTrue(result.dynamic.children[1] is Border, "Border");
+          Expect.isTrue(result.dynamic.children[2] is Button, "Button");
+          Expect.isTrue(result.dynamic.children[3] is TextBlock, "TextBlock");
+          Expect.isTrue(result.dynamic.children[4] is TextBox, "TextBox");
+          Expect.isTrue(result.dynamic.children[5] is Slider, "Slider");
+          Expect.isTrue(result.dynamic.children[6] is LayoutCanvas, "LayoutCanvas");          
+        }));
   }
 
   void attachedProperties(){
@@ -148,9 +165,10 @@ class TemplateTests extends TestGroupBase
   void simpleProperties(){
     String testString = "Hello World";
     String t = '<TextBlock text="$testString"></TextBlock>';
-    var result = Template.deserialize(t);
-
-    Expect.equals(testString, result.dynamic.text);
+    Template.deserialize(t)
+      .then(expectAsync1((result){
+        Expect.equals(testString, result.dynamic.text);
+      }));
   }
 
   void registryLookupNotFoundThrows(){

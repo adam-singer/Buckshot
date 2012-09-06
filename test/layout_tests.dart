@@ -12,13 +12,16 @@ void layoutTests()
   // Setting to true will cause the unit test run to pause after each layout
   // is drawn to allow for visual inspection.  Clicking in the browser window
   // will cause the test to proceed.
-  final bool usePause = true;
+  final bool usePause = false;
 
   // Take measurements of reference layout to make sure they match
   // expected results.
   test('Border Layout', (){
-    buckshot.rootView = new BorderDebug();
-
+    setView(new BorderDebug())
+    .then(expectAsync1((_){
+      
+    }));
+    
     window.setTimeout(expectAsync0((){
 
     buckshot.namedElements.getValues().forEach((v)=> v.updateMeasurement());
@@ -121,7 +124,8 @@ void layoutTests()
 
   });
 
-
+  return;
+  
   // Take measurements of reference layout to make sure they exactly match
   // expected results.
   test('StackPanel Layout', (){
