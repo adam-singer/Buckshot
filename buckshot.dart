@@ -19,7 +19,7 @@
 
 // Uncomment this to run with reflection.  
 // Also below, set reflectionEnabled = true.
-//#import('dart:mirrors');
+// #import('dart:mirrors');
 
 #source('lib/core/globals.dart');
 #source('lib/core/buckshot_system.dart');
