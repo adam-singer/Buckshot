@@ -97,6 +97,8 @@ class Buckshot extends FrameworkObject
   }
   
   void registerAttachedProperty(String property, setterFunction){
+    assert(!reflectionEnabled);
+    
     _objectRegistry[property] = setterFunction;
   }
   
