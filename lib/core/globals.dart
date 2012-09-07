@@ -22,7 +22,7 @@
  * values for the root container, but you can also set other typical [Border]
  * properties like borderWidth, borderThickness, etc.
  */
-Future setView(View view, [String elementID = 'BuckshotHost'])
+Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
 {
   final c = new Completer();
 
@@ -39,7 +39,7 @@ Future setView(View view, [String elementID = 'BuckshotHost'])
     b._isLoaded = true;
     el.elements.add(b.rawElement);
     b.content = view.rootVisual;
-    c.complete(true);
+    c.complete(view.rootVisual);
   });
 
   return c.future;

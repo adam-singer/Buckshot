@@ -1,4 +1,23 @@
 
+void templateTests(){
+
+  test('event bindings wire up from template', (){
+    final vm = new TestViewModel();
+
+    Template
+      .deserialize("<button on.click='click_handler' content='click me' />")
+      .then(expectAsync1((t){
+        t.dataContext = vm;
+        setView(new View.from(t));
+
+        // fire the click event
+        (t as Button).click.invoke(t, null);
+
+        Expect.equals(42, getValue(vm.testProperty));
+      }));
+  });
+}
+
 class TemplateTests extends TestGroupBase
 {
 
@@ -25,7 +44,7 @@ class TemplateTests extends TestGroupBase
 
   //TODO convert to async
   void attachedPropertyNodeAssignsCorrectly(){
-    String t = "<StackPanel><grid.column>2</grid.column></StackPanel>";
+    final t = "<StackPanel><grid.column>2</grid.column></StackPanel>";
     Template
       .deserialize(t)
       .then(expectAsync1((result){
@@ -45,7 +64,7 @@ class TemplateTests extends TestGroupBase
 
   void simplePropertyNodeAssignsCorrectly(){
     String t = "<StackPanel><width>40</width></StackPanel>";
-    
+
     Template
       .deserialize(t)
       .then(expectAsync1((result){
@@ -82,7 +101,7 @@ class TemplateTests extends TestGroupBase
     },
     (err) => (err is PresentationProviderException)
     );
-    
+
 
   }
 
@@ -124,7 +143,7 @@ class TemplateTests extends TestGroupBase
           Expect.isTrue(result.dynamic.children[3] is TextBlock, "TextBlock");
           Expect.isTrue(result.dynamic.children[4] is TextBox, "TextBox");
           Expect.isTrue(result.dynamic.children[5] is Slider, "Slider");
-          Expect.isTrue(result.dynamic.children[6] is LayoutCanvas, "LayoutCanvas");          
+          Expect.isTrue(result.dynamic.children[6] is LayoutCanvas, "LayoutCanvas");
         }));
   }
 
@@ -138,7 +157,7 @@ class TemplateTests extends TestGroupBase
                 Grid.rowSpan="8">
     </StackPanel>
     ''';
- 
+
     Template
       .deserialize(t)
       .then(expectAsync1((result){
@@ -167,7 +186,7 @@ class TemplateTests extends TestGroupBase
     String t = '<TextBlock text="$testString"></TextBlock>';
     Template.deserialize(t)
       .then(expectAsync1((result){
-        Expect.equals(testString, result.dynamic.text);
+        Expect.equals(testString, (result as TextBlock).text);
       }));
   }
 
@@ -180,3 +199,22 @@ class TemplateTests extends TestGroupBase
     );
   }
 }
+
+class TestViewModel extends ViewModelBase
+{
+  FrameworkProperty testProperty;
+
+  TestViewModel(){
+
+    if (!reflectionEnabled){
+      registerEventHandler('click_handler', click_handler);
+    }
+
+    testProperty = new FrameworkProperty(this, 'test');
+  }
+
+  void click_handler(sender, args){
+    setValue(testProperty, 42);
+  }
+}
+
