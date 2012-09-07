@@ -15,9 +15,9 @@
  * Popup, much like [ModalDialog] is not meant to be declared directly in 
  * templates, but instead initialized and handled in code.
  * 
- * It is up to the developer to manage the logic under which the Popup will
- * open and close.  The examples below demonstrate a basic mechanism whereby
- * clicking on the Popup will close it.
+ * Aside from the above, it is up to the developer to manage the logic under 
+ * which the Popup will open and close.  The examples below demonstrate a basic 
+ * mechanism whereby clicking on the Popup will close it.
  * 
  * See the Sandbox demo for an example of a more complex Popup implementation.
  * 

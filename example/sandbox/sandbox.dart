@@ -36,7 +36,6 @@ void main() {
     buckshot.registerElement(new ListBox.register());
     buckshot.registerElement(new PlusOne.register());
     buckshot.registerElement(new DockPanel.register());
-    buckshot.registerElement(new Popup.register());
   }
   
   setView(new Main());

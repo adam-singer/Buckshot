@@ -136,36 +136,13 @@ class DemoViewModel extends ViewModelBase
 
   void _showModalDialogDemo(){
     final titleView = new View.fromTemplate(
-        '''
-        <textblock fontfamily='Arial' fontsize='20' text='Modal Dialog Box Title' />
-        '''    
+'''
+<textblock fontfamily='Arial' fontsize='20' text='Modal Dialog Box Title' />
+'''    
     );
     
-    final bodyView = new View.fromTemplate(
-        '''
-<stack>
-  <textblock fontfamily='Arial' margin='0,5' text='Dialogs can host any content in the title and body.' />
-  <textbox width='400' placeholder='Including input from the user' />
-  <textblock fontfamily='Arial' margin='0,5' text='ModalDialog also supports buttons for everything from simple dialogs to multi-step wizards.' />
-  <textblock fontfamily='Arial' margin='0,5' text='Here are some examples:' />
-  <stack background='Gray' orientation='horizontal'>
-    <button content='Ok' />
-    <button content='Cancel' />
-  </stack>
-  <stack background='Gray' orientation='horizontal'>
-    <button content='Yes' />
-    <button content='No' />
-  </stack>
-  <stack background='Gray' orientation='horizontal'>
-    <button content='Next' />
-    <button content='Back' />
-    <button content='Finished' />
-  </stack>
-</stack>
-        '''
-    );
-    
-    
+    final bodyView = new View.fromResource('#modaldialog');
+        
     Futures
     .wait([
            titleView.ready,
@@ -186,7 +163,7 @@ class DemoViewModel extends ViewModelBase
               new Color.predefined(Colors.Green))
           ..show();
       });
-    });    
+    });
   }
   
   
