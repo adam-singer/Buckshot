@@ -15,7 +15,7 @@
 #import('../../lib/extensions/controls/social/plus_one.dart');
 #import('../../lib/extensions/controls/treeview/tree_view.dart');
 #import('../../lib/extensions/controls/dock_panel.dart');
-
+#import('../../lib/extensions/controls/popup.dart');
 
 #import('apps/calculator/calculator.dart', prefix:'calc');
 #import('apps/todo/todo.dart', prefix:'todo');
@@ -36,7 +36,16 @@ void main() {
     buckshot.registerElement(new ListBox.register());
     buckshot.registerElement(new PlusOne.register());
     buckshot.registerElement(new DockPanel.register());
+    buckshot.registerElement(new Popup.register());
   }
   
-  setView(new Main());
+  final view = new View.fromTemplate("<textblock text='hello world' />");
+  
+  setView(new Main())
+    .then((el){
+      new Popup.with(view.rootVisual)
+        ..offsetX = 400
+        ..offsetY = 100
+        ..show(el);
+    });
 }
