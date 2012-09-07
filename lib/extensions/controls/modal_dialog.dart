@@ -44,9 +44,17 @@
 *              .with(title.rootVisual, body.rootVisual, ModalDialog.OKCancel)
 *              .show();
 *        });
-*        
-*  ### Extending for Specialized Use ###
-*      // TODO write example
+*  
+*  ### Setting Other Properties ###
+*      new ModalDialog
+*         .with('Title', 'Body', ModalDialog.YesNo)
+*         ..cornerRadius = 7
+*         ..borderThickness = new Thickness(3)
+*         ..maskOpacity = 0.5
+*         ..maskColor = new SolidColorBrush(new Color.predefined(Colors.Blue))
+*         ..background = new SolidColorBrush(new Color.predefined(Colors.Yellow))
+*         ..show()
+*  
 */
 class ModalDialog extends Control
 {
