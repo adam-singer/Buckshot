@@ -17,7 +17,7 @@ class View
    * Future completes when view is ready (has an element assigned to
    * rootVisual).
    */
-  Future<bool> ready;
+  Future<FrameworkElement> ready;
 
   /// Gets the visual root of the view.
   FrameworkElement get rootVisual => _rootElement;
@@ -33,7 +33,7 @@ class View
 
     _rootElement = element;
 
-    _c.complete(true);
+    _c.complete(_rootElement);
   }
 
   View()
@@ -44,13 +44,27 @@ class View
   }
 
   /**
+   * Constructs a view from a given raw [template] string.
+   * 
+   * Future View.ready will complete when the template is loaded.
+   */
+  View.fromTemplate(String template) :
+    _c = new Completer()
+  {
+    ready = _c.future;
+
+    Template
+      .deserialize(template)
+      .then((t) => rootVisual = t);
+  }
+  
+  /**
    * Constructs a view from a given template [resourceName].  Depending on
    * what is provided in the string (Uri, or DOM id ['#something']), the
    * constructor will retrieve the resource and deserialize it.
    */
-  View.fromTemplate(String resourceName)
-        :
-        _c = new Completer()
+  View.fromResource(String resourceName) :
+    _c = new Completer()
   {
     ready = _c.future;
 

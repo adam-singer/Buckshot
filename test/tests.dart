@@ -44,11 +44,11 @@ void main() {
     buckshot.registerElement(new DockPanel.register());
   }
 
-////  setView(new View.fromTemplate('#dockPanelTest'))
-////  setView(new View.fromTemplate('#borderTest'))
-//  setView(new View.fromTemplate('#stackPanelTest'))
-////  setView(new View.fromTemplate('#gridTest'))
-////  setView(new View.fromTemplate('#horizontalTest'))
+////  setView(new View.fromResource('#dockPanelTest'))
+////  setView(new View.fromResource('#borderTest'))
+//  setView(new View.fromResource('#stackPanelTest'))
+////  setView(new View.fromResource('#gridTest'))
+////  setView(new View.fromResource('#horizontalTest'))
 //    .then((_){
 //      Polly.dump();
 //    });

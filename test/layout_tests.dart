@@ -312,21 +312,21 @@ void layoutTests()
 
 class BorderDebug extends View {
 
-  BorderDebug() : super.fromTemplate('#borderTest');
+  BorderDebug() : super.fromResource('#borderTest');
 
 }
 
 
 class StackPanelDebug extends View {
 
-  StackPanelDebug() : super.fromTemplate('#stackPanelTest');
+  StackPanelDebug() : super.fromResource('#stackPanelTest');
 
 }
 
 class GridDebug extends View
 {
 
-  GridDebug() : super.fromTemplate('#gridTest');
+  GridDebug() : super.fromResource('#gridTest');
 
 }
 
