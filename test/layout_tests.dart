@@ -1,4 +1,6 @@
 
+num measurementTolerance = 1;
+
 /// Baseline measurements are taken using Dartium.
 /// This set of tests takes sample measurements of layout elements and
 /// compares them against expected values.
@@ -19,9 +21,9 @@ void layoutTests()
   test('Border Layout', (){
     setView(new BorderDebug())
     .then(expectAsync1((_){
-      
+
     }));
-    
+
     window.setTimeout(expectAsync0((){
 
     buckshot.namedElements.getValues().forEach((v)=> v.updateMeasurement());
@@ -129,7 +131,7 @@ void layoutTests()
   test('StackPanel Layout', (){
     setView(new StackPanelDebug())
     .then(expectAsync1((_){
-      
+
     }));
 
     window.setTimeout(expectAsync0((){
@@ -216,7 +218,7 @@ void layoutTests()
   test('Grid Layout', (){
     setView(new GridDebug())
     .then(expectAsync1((_){
-      
+
     }));
 
     // Adding a delay to allow the layout to complete
@@ -332,10 +334,10 @@ class GridDebug extends View
 void measureElement(FrameworkElement element, num top, num left, num width, num height){
 //  dumpMeasurements(element);
 //  Expect.approxEquals(top, element.mostRecentMeasurement.bounding.top, tolerance:1.5, reason:'${element.name} top');
-  Expect.approxEquals(top, element.mostRecentMeasurement.bounding.top, .5, '${element.name} top');
-  Expect.approxEquals(left, element.mostRecentMeasurement.bounding.left, .5, '${element.name} left');
-  Expect.approxEquals(width, element.mostRecentMeasurement.bounding.width, .5, '${element.name} Width');
-  Expect.approxEquals(height, element.mostRecentMeasurement.bounding.height, .5, '${element.name} Height');
+  Expect.approxEquals(top, element.mostRecentMeasurement.bounding.top, measurementTolerance, '${element.name} top');
+  Expect.approxEquals(left, element.mostRecentMeasurement.bounding.left, measurementTolerance, '${element.name} left');
+  Expect.approxEquals(width, element.mostRecentMeasurement.bounding.width, measurementTolerance, '${element.name} Width');
+  Expect.approxEquals(height, element.mostRecentMeasurement.bounding.height, measurementTolerance, '${element.name} Height');
 }
 
 /// Adds a manual pause that only proceeds after clicking the browser.
