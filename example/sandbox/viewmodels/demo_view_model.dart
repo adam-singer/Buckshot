@@ -126,25 +126,25 @@ class DemoViewModel extends ViewModelBase
     
     final bodyView = new View.fromTemplate(
         '''
-        <stack>
-        <textblock fontfamily='Arial' margin='0,5' text='Dialogs can host any content in the title and body.' />
-        <textbox width='400' placeholder='Including input from the user' />
-        <textblock fontfamily='Arial' margin='0,5' text='ModalDialog also supports buttons for everything from simple dialogs to multi-step wizards.' />
-        <textblock fontfamily='Arial' margin='0,5' text='Here are some examples:' />
-        <stack background='Gray' orientation='horizontal'>
-        <button content='Ok' />
-        <button content='Cancel' />
-        </stack>
-        <stack background='Gray' orientation='horizontal'>
-        <button content='Yes' />
-        <button content='No' />
-        </stack>
-        <stack background='Gray' orientation='horizontal'>
-        <button content='Next' />
-        <button content='Back' />
-        <button content='Finished' />
-        </stack>
-        </stack>
+<stack>
+  <textblock fontfamily='Arial' margin='0,5' text='Dialogs can host any content in the title and body.' />
+  <textbox width='400' placeholder='Including input from the user' />
+  <textblock fontfamily='Arial' margin='0,5' text='ModalDialog also supports buttons for everything from simple dialogs to multi-step wizards.' />
+  <textblock fontfamily='Arial' margin='0,5' text='Here are some examples:' />
+  <stack background='Gray' orientation='horizontal'>
+    <button content='Ok' />
+    <button content='Cancel' />
+  </stack>
+  <stack background='Gray' orientation='horizontal'>
+    <button content='Yes' />
+    <button content='No' />
+  </stack>
+  <stack background='Gray' orientation='horizontal'>
+    <button content='Next' />
+    <button content='Back' />
+    <button content='Finished' />
+  </stack>
+</stack>
         '''
     );
     
@@ -155,12 +155,19 @@ class DemoViewModel extends ViewModelBase
            bodyView.ready])
     .then((views){
       final md = new ModalDialog
-          .with(views[0], views[1], ModalDialog.OkCancel);
+        .with(views[0], views[1], ModalDialog.OkCancel)
+        ..cornerRadius = 7;
       
       md.show().then((DialogButtonType dbt){
-        new ModalDialog.with('Dialog Results', 
-            'You clicked the "$dbt" button on the previous dialog.', ModalDialog.Ok)
-        ..show();
+        new ModalDialog
+          .with('Dialog Results', 
+            'You clicked the "$dbt" button on the previous dialog.', 
+              ModalDialog.Ok)
+          ..cornerRadius = 7
+          ..borderThickness = new Thickness(3)
+          ..maskColor = new SolidColorBrush(
+              new Color.predefined(Colors.Green))
+          ..show();
       });
     });    
   }

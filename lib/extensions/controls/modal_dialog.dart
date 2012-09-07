@@ -10,15 +10,52 @@
 #import('package:dart_utils/shared.dart');
 
 /**
-* A Buckshot control that displays a general purpose
-* modal dialog and returns results.
+* Displays a general purpose modal dialog and returns results.
+* 
+* ## Not Used In Templates ##
+* ModalDialog is a activated and handled in code.  It's title and body content
+* areas can be templates or simple strings.
+* 
+* ## Examples ##
+* ### A very basic dialog with textual title and body. ###
+*     new ModalDialog
+*        .with('Title', 'body', ModalDialog.Ok)
+*        .show();
 *
+* ### Determining Button Clicked ###
+*     new ModalDialog
+*        .with('Title', 'body', ModalDialog.OkCancel)
+*        .show() // .show() returns a Future with the button clicked.
+*        .then((DialogButtonType b){
+*           print('You clicked the "$b" button.');
+*        });
+* 
+* ### Using Templates For Title and Body ###
+*     // ModalDialog supports arbitrary content in the title and body.
+*     
+*     final title = new View.fromTemplate('<textblock text="title" />');
+*     final body = new View.fromTemplate('<border width="30" height="30"'
+*        ' background="Orange" />');
+*        
+*     Futures
+*        .wait([title.ready, body.ready]) //make sure the views are ready
+*        .then((views){
+*           new ModalDialog
+*              .with(title.rootVisual, body.rootVisual, ModalDialog.OKCancel)
+*              .show();
+*        });
+*        
+*  ### Extending for Specialized Use ###
+*      // TODO write example
 */
 class ModalDialog extends Control
 {
   FrameworkProperty backgroundProperty;
   FrameworkProperty borderColorProperty;
   FrameworkProperty borderThicknessProperty;
+  FrameworkProperty cornerRadiusProperty;
+  FrameworkProperty maskColorProperty;
+  FrameworkProperty maskOpacityProperty;
   FrameworkProperty titleProperty;
   FrameworkProperty bodyProperty;
   Binding b1, b2;
@@ -64,7 +101,7 @@ class ModalDialog extends Control
   static final List<DialogButtonType> Cancel = 
       const [DialogButtonType.CANCEL];
   
-  Completer c;
+  Completer _dialogCompleter;
   
   ModalDialog()
   {
@@ -95,7 +132,7 @@ class ModalDialog extends Control
     this.rawElement.remove();
     onUnloaded();
         
-    c.complete(DialogButtonType.fromString(b.content));
+    _dialogCompleter.complete(DialogButtonType.fromString(b.content));
   }
   
   void _initButtons(List buttons){
@@ -119,12 +156,40 @@ class ModalDialog extends Control
  
 
   void _initModalDialogProperties(){
-    titleProperty = new FrameworkProperty(this, 'title', defaultValue:'undefined');
-    bodyProperty = new FrameworkProperty(this, 'content', defaultValue:'undefined');
+    titleProperty = new FrameworkProperty(this, 'title', 
+        defaultValue:'undefined');
+    bodyProperty = new FrameworkProperty(this, 'content', 
+        defaultValue:'undefined');
+    backgroundProperty = new FrameworkProperty(this, 'background',
+        defaultValue: new SolidColorBrush(
+                        new Color.predefined(Colors.WhiteSmoke)),
+        converter: const StringToSolidColorBrushConverter());
+    
+    maskColorProperty = new FrameworkProperty(this, 'maskColor',
+        defaultValue: new SolidColorBrush(
+                        new Color.predefined(Colors.Gray)),
+        converter: const StringToSolidColorBrushConverter());
+    
+    maskOpacityProperty = new FrameworkProperty(this, 'maskOpacity',
+        defaultValue: 0.5,
+        converter: const StringToNumericConverter());
+    
+    borderColorProperty = new FrameworkProperty(this, 'borderColor',
+        defaultValue: new SolidColorBrush(
+                        new Color.predefined(Colors.Black)),
+        converter: const StringToSolidColorBrushConverter());
+    
+    borderThicknessProperty = new FrameworkProperty(this, 'borderThickness',
+        defaultValue: new Thickness(1),
+        converter: const StringToThicknessConverter());
+    
+    cornerRadiusProperty = new FrameworkProperty(this, 'cornerRadius',
+        defaultValue: 0,
+        converter: const StringToNumericConverter());
 
     cvRoot = Template.findByName('cvRoot', template);
 //    bDialog = Template.findByName('bDialog', template);
-    bMask = Template.findByName('bMask', template);
+    //bMask = Template.findByName('bMask', template);
 
     // Override the underlying DOM element on this canvas so that it
     // is absolutely positioned int the window at 0,0
@@ -132,20 +197,10 @@ class ModalDialog extends Control
     cvRoot.rawElement.style.top = '0px';
     cvRoot.rawElement.style.left = '0px';
 
-
-    //TODO: this is just for testing, click events should hook
-    //into the dialog buttons.
-//    bDialog.click + (_, __){
-//      b1.unregister();
-//      b2.unregister();
-//      this.rawElement.remove();
-//      onUnloaded();
-//      c.complete(DialogButtonType.OK);
-//    };
   }
 
   Future<DialogButtonType> show(){
-    c = new Completer<DialogButtonType>();
+    _dialogCompleter = new Completer<DialogButtonType>();
     //inject into DOM
 
     b1 = new Binding(buckshot.windowWidthProperty, cvRoot.widthProperty);
@@ -159,7 +214,7 @@ class ModalDialog extends Control
     onLoaded();
     cvRoot.updateLayout();
 
-    return c.future;
+    return _dialogCompleter.future;
   }
 
   get content => getValue(bodyProperty);
@@ -167,14 +222,41 @@ class ModalDialog extends Control
 
   get title => getValue(titleProperty);
   set title(v) => setValue(titleProperty, v);
+  
+  Brush get maskColor => getValue(maskColorProperty);
+  set maskColor(Brush value) => setValue(maskColorProperty, value);
+  
+  num get maskOpacity => getValue(maskOpacityProperty);
+  set maskOpacity(num value) => setValue(maskOpacityProperty, value);
+  
+  /// Sets the [backgroundProperty] value.
+  set background(Brush value) => setValue(backgroundProperty, value);
+  /// Gets the [backgroundProperty] value.
+  Brush get background => getValue(backgroundProperty);
+
+  /// Sets the [cornerRadiusProperty] value.
+  set cornerRadius(int value) => setValue(cornerRadiusProperty, value);
+  /// Gets the [cornerRadiusProperty] value.
+  int get cornerRadius => getValue(cornerRadiusProperty);
+
+  /// Sets the [borderColorProperty] value.
+  set borderColor(SolidColorBrush value) => setValue(borderColorProperty, value);
+  /// Gets the [borderColorProperty] value.
+  SolidColorBrush get borderColor => getValue(borderColorProperty);
+
+  /// Sets the [borderThicknessProperty] value.
+  set borderThickness(Thickness value) => setValue(borderThicknessProperty, value);
+  /// Gets the [borderThicknessProperty] value.
+  Thickness get borderThickness => getValue(borderThicknessProperty);
+  
 
   String get defaultControlTemplate {
     return
         '''
 <controltemplate controlType='${this.templateName}'>
   <grid name='cvRoot'>
-    <border halign='stretch' valign='stretch' name='bMask' background='Gray' opacity='0.5'></border>
-    <border minwidth='200' halign='center' valign='center' padding='5' borderthickness='1' bordercolor='Black' background='White'>
+    <border halign='stretch' valign='stretch' name='bMask' background='{template maskColor}' opacity='{template maskOpacity}'></border>
+    <border minwidth='200' halign='center' valign='center' padding='5' cornerRadius='{template cornerRadius}' borderthickness='{template borderThickness}' bordercolor='{template borderColor}' background='{template background}'>
       <stackpanel minwidth='200' maxwidth='500'>
         <contentpresenter content='{template title}' halign='center' />
         <contentpresenter halign='center' content='{template content}' />
