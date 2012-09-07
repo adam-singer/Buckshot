@@ -24,6 +24,8 @@ class DemoViewModel extends ViewModelBase
   FrameworkProperty errorMessageProperty;
   FrameworkProperty demoTreeNodeSelectedProperty;
 
+  View _mainView;
+  
   DemoViewModel()
   :
     model = new DemoModel()
@@ -37,6 +39,21 @@ class DemoViewModel extends ViewModelBase
     window.setInterval(() => setValue(timeStampProperty,
         new Date.now().toString()), 1000);
   }
+  
+  DemoViewModel.withView(this._mainView)
+  :
+    model = new DemoModel()
+  {
+    _initDemoViewModelProperties();
+    
+    _regEventHandlers();
+
+    // Update the timeStampProperty every second with a new timestamp.
+    // Anything binding to this will get updated.
+    window.setInterval(() => setValue(timeStampProperty,
+        new Date.now().toString()), 1000);
+  }
+  
 
   // Initialize the properties that we want to expose for template binding.
   void _initDemoViewModelProperties(){
@@ -173,6 +190,24 @@ class DemoViewModel extends ViewModelBase
   }
   
   
+  void _showPopupDemo(){
+    if (_mainView == null) return;
+    
+    final tn = Template.findByName('tn_popup_demo', _mainView.rootVisual);
+    final view = new View.fromResource("#popup");
+    
+    final p = new Popup
+        .with(view.rootVisual)
+        ..offsetX = 100
+        ..offsetY = -150
+        ..cornerRadius = 7
+        ..borderThickness = new Thickness(3)
+        ..borderColor = new SolidColorBrush(
+            new Color.predefined(Colors.SteelBlue))
+        ..show(tn);
+    p.click + (_,__) => p.hide();
+  }
+  
   /*
    * Event Handlers
    */
@@ -238,12 +273,21 @@ class DemoViewModel extends ViewModelBase
   void selection_handler(sender, args){
     final value = args.node.tag;
 
-    if (value == ''){
-      resetUI();
-    } else if (value == 'modaldialog'){
-      _showModalDialogDemo();
-    }else{
-      setTemplate(value.startsWith('app.') ? value : Template.getTemplate('#${value}'));
+    switch(value){
+      case '':
+        resetUI();
+        break;
+      case 'modaldialog':
+        _showModalDialogDemo();
+        break;
+      case 'popup':
+        _showPopupDemo();
+        break;
+      default:
+        setTemplate(value.startsWith('app.') 
+            ? value 
+            : Template.getTemplate('#${value}'));
+        break;
     }
   }
 

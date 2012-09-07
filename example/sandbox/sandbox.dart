@@ -39,13 +39,5 @@ void main() {
     buckshot.registerElement(new Popup.register());
   }
   
-  final view = new View.fromTemplate("<textblock text='hello world' />");
-  
-  setView(new Main())
-    .then((el){
-      new Popup.with(view.rootVisual)
-        ..offsetX = 400
-        ..offsetY = 100
-        ..show(el);
-    });
+  setView(new Main());
 }

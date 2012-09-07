@@ -7,6 +7,52 @@
 
 /**
  * A popup control that hovers over a given element.
+ * 
+ * Popup ensures that only a single instance of it is visible at any given
+ * time.  If another Popup is visible, it will be removed before displaying
+ * the current Popup.
+ * 
+ * Popup, much like [ModalDialog] is not meant to be declared directly in 
+ * templates, but instead initialized and handled in code.
+ * 
+ * It is up to the developer to manage the logic under which the Popup will
+ * open and close.  The examples below demonstrate a basic mechanism whereby
+ * clicking on the Popup will close it.
+ * 
+ * See the Sandbox demo for an example of a more complex Popup implementation.
+ * 
+ * ## Examples ##
+ * ### A basic Popup ###
+ *     // A Popup with no content.
+ *     final p = new Popup().show();
+ *     p.click(_,__) => p.hide();
+ *     
+ * ### Offset from the window ###
+ *     final p = new Popup()
+ *        ..offsetX = 50
+ *        ..offsetY = 50
+ *        ..show();
+ *     p.click(_,__) => p.hide();
+ *
+ * ### Offset relative to another element ###
+ *     final p = new Popup()
+ *        ..offsetX = 50
+ *        ..offsetY = 50
+ *        ..show(someOtherElement);
+ *     p.click(_,__) => p.hide();
+ * 
+ * ### Providing content to the popup ###
+ *     final content = new 
+ *        View.fromTemplate("<textblock margin='10' text='hello world!' />");
+ *     
+ *     content.ready((_){
+ *        final p = new Popup.with(content)
+ *           ..offsetX = 50
+ *           ..offsetY = 50
+ *           ..show(someOtherElement);
+ *        p.click(_,__) => p.hide();   
+ *     });
+ * 
  */
 class Popup extends Control
 {
@@ -18,11 +64,11 @@ class Popup extends Control
   FrameworkProperty cornerRadiusProperty;
   FrameworkProperty contentProperty;
   
-  Border _root;
   FrameworkElement _target;
   EventHandlerReference _ref;
   SafePoint _currentPos;
-  
+  static Popup _currentPopup;
+
   Popup(){
     _initPopupProperties();
   }
@@ -33,22 +79,43 @@ class Popup extends Control
   }
     
   Popup.register() : super.register();
-  makeMe() => new Popup();
+  makeMe() => new Popup(); 
   
-  
-  
-  void show(FrameworkElement target){
-    document.body.elements.add(_root.rawElement);
+  void show([FrameworkElement target = null]){    
+    if (_currentPopup != null) _currentPopup.hide();
     
-    // manually trigger loaded state since we aren't adding this
-    // to the visual tree using the API...
-    _root.isLoaded = true;
-    onLoaded();
-    _root.updateLayout();
+    if (target == null || !target.isLoaded){
+      rawElement.style.left = '${offsetX}px';
+      rawElement.style.top = '${offsetY}px';
+      document.body.elements.add(rawElement);
+      
+      // manually trigger loaded state since we aren't adding this
+      // to the visual tree using the API...
+      isLoaded = true;
+      onLoaded();
+      updateLayout();  
+      _currentPopup = this;
+    }else{
+      target
+        .updateMeasurementAsync
+        .then((ElementRect r){
+          rawElement.style.left = '${offsetX + r.bounding.left}px';
+          rawElement.style.top = '${offsetY + r.bounding.top}px';
+          document.body.elements.add(rawElement);
+          
+          // manually trigger loaded state since we aren't adding this
+          // to the visual tree using the API...
+          isLoaded = true;
+          onLoaded();
+          updateLayout();
+          _currentPopup = this;
+        }); 
+    }    
   }
   
   void hide(){
-    _target = null;
+    rawElement.remove();
+    _currentPopup = null;
   }
   
   /// Gets the [contentProperty] value.
@@ -103,21 +170,20 @@ class Popup extends Control
     
     contentProperty = new FrameworkProperty(this, 'content');
     
-    offsetXProperty = new FrameworkProperty(this, 'offsetX', 
+    offsetXProperty = new FrameworkProperty(this, 'offsetX',
+        defaultValue: 0,
         converter: const StringToNumericConverter());
     
-    offsetYProperty = new FrameworkProperty(this, 'offsetY', 
+    offsetYProperty = new FrameworkProperty(this, 'offsetY',
+        defaultValue: 0,
         converter: const StringToNumericConverter());
     
-    _root = Template.findByName('__borderRoot__', template) as Border;
-//    bDialog = Template.findByName('bDialog', template);
-    //bMask = Template.findByName('bMask', template);
-
-    // Override the underlying DOM element on this canvas so that it
+    // Override the underlying DOM element so that it
     // is absolutely positioned int the window at 0,0
-    _root.rawElement.style.position = 'absolute';
-    _root.rawElement.style.top = '0px';
-    _root.rawElement.style.left = '0px';
+    cursor = Cursors.Arrow;
+    rawElement.style.position = 'absolute';
+    rawElement.style.top = '0px';
+    rawElement.style.left = '0px';
     
   }
   

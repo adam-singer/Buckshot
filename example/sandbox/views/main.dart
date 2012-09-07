@@ -11,7 +11,7 @@ class Main extends View
 
       // Assign the view model to the datacontext so that template
       // bindings will hook up.
-      rootVisual.dataContext = new DemoViewModel();
+      rootVisual.dataContext = new DemoViewModel.withView(this);
     });
   }
 }
