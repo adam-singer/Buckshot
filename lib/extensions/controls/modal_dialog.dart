@@ -53,8 +53,7 @@
 *         ..maskOpacity = 0.5
 *         ..maskColor = new SolidColorBrush(new Color.predefined(Colors.Blue))
 *         ..background = new SolidColorBrush(new Color.predefined(Colors.Yellow))
-*         ..show()
-*  
+*         ..show();
 */
 class ModalDialog extends Control
 {
