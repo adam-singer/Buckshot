@@ -122,7 +122,7 @@ class Template {
         if (result != null) return result;
       }
     }else if (cc is FrameworkProperty){
-      FrameworkElement obj = getValue(cc);
+      final obj = getValue(cc);
       if (obj == null || !(obj is FrameworkElement)) return null;
       return findByName(name, obj);
     }else{
