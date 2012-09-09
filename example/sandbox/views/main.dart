@@ -5,7 +5,7 @@
 class Main extends View
 {
   Main(){
-    Template.deserialize(Template.getTemplate('#main'))
+    Template.deserialize('#main')
     .then((t){
       rootVisual = t;
 
