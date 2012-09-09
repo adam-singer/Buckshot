@@ -45,7 +45,7 @@ class View
 
   /**
    * Constructs a view from a given raw [template] string.
-   * 
+   *
    * Future View.ready will complete when the template is loaded.
    */
   View.fromTemplate(String template) :
@@ -57,7 +57,7 @@ class View
       .deserialize(template)
       .then((t) => rootVisual = t);
   }
-  
+
   /**
    * Constructs a view from a given template [resourceName].  Depending on
    * what is provided in the string (Uri, or DOM id ['#something']), the
@@ -69,7 +69,7 @@ class View
     ready = _c.future;
 
     Template
-      .deserialize(Template.getTemplate(resourceName))
+      .deserialize(resourceName)
       .then((t) => rootVisual = t);
   }
 

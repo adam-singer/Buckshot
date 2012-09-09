@@ -63,6 +63,11 @@ class Template {
   //TODO make providers discoverable via reflection instead of pre-registered.
   final List<IPresentationFormatProvider> providers;
 
+  static final int _UNKNOWN = -1;
+  static final int _HTML_ELEMENT = 0;
+  static final int _HTTP_RESOURCE = 1;
+  static final int _SERIALIZED = 2;
+
   Template()
   :
     providers = [new XmlTemplateProvider()];
@@ -74,7 +79,7 @@ class Template {
    *
    * Case sensitive.
    */
-  static FrameworkElement findParentByType(FrameworkElement element, 
+  static FrameworkElement findParentByType(FrameworkElement element,
                                            String type){
     if (element.parent == null) return null;
 
@@ -82,12 +87,12 @@ class Template {
       if (buckshot.reflectMe(element.parent).type.simpleName != type){
         return findParentByType(element.parent, type);
       }
-    }else{     
+    }else{
       if (element.parent.toString() != type){
         return findParentByType(element.parent, type);
       }
     }
-    
+
     return element.parent;
   }
 
@@ -99,7 +104,7 @@ class Template {
    * ## Instead use:
    *     Buckshot.namedElements[elementName];
    */
-  static FrameworkElement findByName(String name, 
+  static FrameworkElement findByName(String name,
                                      FrameworkElement startingWith){
 
     if (startingWith.name != null && startingWith.name == name){
@@ -126,38 +131,70 @@ class Template {
   }
 
   /**
+  * Used to determine the type of the string.
+  *
+  * Checks to see if its referencing a [_HTML_ELEMENT], a [_HTTP_RESOURCE]
+  * or one of the serialized types [_SERIALIZED].
+  */
+  static int _determineType(String from) {
+    if (from.startsWith('#')) {
+      return _HTML_ELEMENT;
+    }else{
+      final t = new Template();
+
+      for(final p in t.providers){
+        if(p.isFormat(from)){
+          return _SERIALIZED;
+        }
+      }
+    }
+
+    // Assume its pointing to a HTTP resource
+    return _HTTP_RESOURCE;
+  }
+
+  /**
   * # Usage #
   *     //Retrieves the template from the current web page
   *     //and returns a String containing the template
   *     //synchronously.
-  *     
+  *
   *     getTemplate('#templateID').then(...);
   *
   *     //Retrieves the template from the URI (same domain)
   *     //and returns a Future<String> containing the template.
-  *     
+  *
   *     getTemplate('/relative/path/to/templateName.xml').then(...);
   *
   * Use the [deserialize] method to convert a template to a [FrameworkObject].
   */
-  static getTemplate(String from){
-    if (from.startsWith('#')){
+  static Future<String> getTemplate(String from, [type = _UNKNOWN]){
+    var c = new Completer();
+
+    if (type == _UNKNOWN)
+      type = _determineType(from);
+
+    if (type == _HTML_ELEMENT) {
       var result = document.query(from);
-      if (result == null)
+      if (result == null) {
         throw new BuckshotException('Unabled to find template'
             ' "${from}" in HTML file.');
-        return result.text.trim();
-    }else{
+      }
+
+      c.complete(result.text.trim());
+    }else if (type == _HTTP_RESOURCE){
       //TODO cache...
 
-      var c = new Completer();
       var r = new HttpRequest();
-      r.on.readyStateChange.add((e){
-        if (r.readyState != 4){
-          c.complete(null);
-        }else{
-          c.complete(r.responseText.trim());
-        }
+
+      void onError(e) {
+        c.complete(null);
+      }
+
+      r.on.abort.add(onError);
+      r.on.error.add(onError);
+      r.on.loadEnd.add((e) {
+        c.complete(r.responseText.trim());
       });
 
       try{
@@ -167,11 +204,13 @@ class Template {
       }on Exception catch(e){
         c.complete(null);
       }
-
-      return c.future;
+    }else{
+      c.complete(from);
     }
+
+    return c.future;
   }
- 
+
   /**
   * Takes a buckshot Template and attempts deserialize it into an object
   * structure.
@@ -188,41 +227,44 @@ class Template {
     final c = new Completer();
 
     final tt = buckshotTemplate.trim();
-    
-    Template
-      .toFrameworkObject(Template.toXmlTree(tt))
-      .then((e){
-        c.complete(e);
+
+    Template.getTemplate(tt)
+      .then((value) {
+        Template
+          .toFrameworkObject(Template.toXmlTree(value))
+          .then((e){
+            c.complete(e);
+          });
       });
- 
+
     return c.future;
   }
-  
-  /** 
-   * Low-level function which returns a normalized Xml Tree from a given Xml, 
+
+  /**
+   * Low-level function which returns a normalized Xml Tree from a given Xml,
    * Json, or Yaml [template].
-   * 
-   * This function does not normally need to be called directly.  Use 
+   *
+   * This function does not normally need to be called directly.  Use
    * Template.deserialize() instead.
    */
   static XmlElement toXmlTree(String template){
     final t = new Template();
-    
+
     for(final p in t.providers){
       if(p.isFormat(template)){
         return p.toXmlTree(template);
       }
     }
-    
+
     throw new BuckshotException('Unable to determine a template provider for'
         ' the given template.');
   }
-  
-  
-  /** 
+
+
+  /**
    * Returns a [FrameworkObject] in a [Future] representing the deserialized
    * instance of a given [xmlElement] tree.
-   * 
+   *
    * The [xmlElement] tree most conform to the Buckshot template schema.
    */
   static Future<FrameworkObject> toFrameworkObject(XmlElement xmlElement){
@@ -241,7 +283,7 @@ class Template {
         oc.complete(element);
       }
     }
-    
+
     final objectOrMirror = buckshot.getObjectByName(lowerTagName);
 //    final interfaceMirrorOf = Miriam.context.getObjectByName(lowerTagName);
 
@@ -281,8 +323,8 @@ class Template {
         completeElementParse(newElement);
       });
     }
-    
-    if (!reflectionEnabled){  
+
+    if (!reflectionEnabled){
       assert(objectOrMirror is BuckshotObject);
       processElement(objectOrMirror);
     }else{
@@ -292,7 +334,7 @@ class Template {
         processElement(newElementMirror.reflectee);
       });
     }
-    
+
     return oc.future;
   }
 
@@ -405,12 +447,12 @@ class Template {
         AttachedFrameworkProperty
           .invokeSetPropertyFunction(ofXMLNode.name,
               ofElement,
-              ofXMLNode.text.trim());        
+              ofXMLNode.text.trim());
       }else{
         if (buckshot._objectRegistry.containsKey(ofXMLNode.name.toLowerCase())){
           buckshot
           ._objectRegistry
-          [ofXMLNode.name.toLowerCase()](ofElement, ofXMLNode.text.trim());          
+          [ofXMLNode.name.toLowerCase()](ofElement, ofXMLNode.text.trim());
         }
       }
       c.complete(true);
@@ -644,7 +686,7 @@ class Template {
             // attached property
             if (reflectionEnabled){
               AttachedFrameworkProperty
-                .invokeSetPropertyFunction(k, element, v);      
+                .invokeSetPropertyFunction(k, element, v);
             }else{
               if (buckshot._objectRegistry.containsKey(k.toLowerCase())){
                 buckshot._objectRegistry[k.toLowerCase()](element, v);
@@ -676,5 +718,5 @@ class Template {
     .then((_) => c.complete(true));
 
     return c.future;
-  } 
+  }
 }

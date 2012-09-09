@@ -25,13 +25,13 @@ class DemoViewModel extends ViewModelBase
   FrameworkProperty demoTreeNodeSelectedProperty;
 
   View _mainView;
-  
+
   DemoViewModel()
   :
     model = new DemoModel()
   {
     _initDemoViewModelProperties();
-    
+
     _regEventHandlers();
 
     // Update the timeStampProperty every second with a new timestamp.
@@ -39,13 +39,13 @@ class DemoViewModel extends ViewModelBase
     window.setInterval(() => setValue(timeStampProperty,
         new Date.now().toString()), 1000);
   }
-  
+
   DemoViewModel.withView(this._mainView)
   :
     model = new DemoModel()
   {
     _initDemoViewModelProperties();
-    
+
     _regEventHandlers();
 
     // Update the timeStampProperty every second with a new timestamp.
@@ -53,7 +53,7 @@ class DemoViewModel extends ViewModelBase
     window.setInterval(() => setValue(timeStampProperty,
         new Date.now().toString()), 1000);
   }
-  
+
 
   // Initialize the properties that we want to expose for template binding.
   void _initDemoViewModelProperties(){
@@ -97,7 +97,7 @@ class DemoViewModel extends ViewModelBase
       resetUI();
       return;
     }
-    
+
     if (templateText.startsWith('app.')){
       final appName = templateText.split('.')[1];
       switch(appName){
@@ -111,7 +111,7 @@ class DemoViewModel extends ViewModelBase
           final calcView = new calc.Main();
           calcView.ready.then((_){
             setValue(renderedOutputProperty, calcView.rootVisual);
-          });        
+          });
           break;
         default:
           resetUI();
@@ -122,7 +122,7 @@ class DemoViewModel extends ViewModelBase
 
       Template.deserialize(templateText).then((c){
         setValue(renderedOutputProperty, c);
-      });      
+      });
     }
   }
 
@@ -138,11 +138,11 @@ class DemoViewModel extends ViewModelBase
     final titleView = new View.fromTemplate(
 '''
 <textblock fontfamily='Arial' fontsize='20' text='Modal Dialog Box Title' />
-'''    
+'''
     );
-    
+
     final bodyView = new View.fromResource('#modaldialog');
-        
+
     Futures
     .wait([
            titleView.ready,
@@ -151,11 +151,11 @@ class DemoViewModel extends ViewModelBase
       final md = new ModalDialog
         .with(views[0], views[1], ModalDialog.OkCancel)
         ..cornerRadius = 7;
-      
+
       md.show().then((DialogButtonType dbt){
         new ModalDialog
-          .with('Dialog Results', 
-            'You clicked the "$dbt" button on the previous dialog.', 
+          .with('Dialog Results',
+            'You clicked the "$dbt" button on the previous dialog.',
               ModalDialog.Ok)
           ..cornerRadius = 7
           ..borderThickness = new Thickness(3)
@@ -165,14 +165,14 @@ class DemoViewModel extends ViewModelBase
       });
     });
   }
-  
-  
+
+
   void _showPopupDemo(){
     if (_mainView == null) return;
-    
+
     final tn = Template.findByName('tn_popup_demo', _mainView.rootVisual);
     final view = new View.fromResource("#popup");
-    
+
     final p = new Popup
         .with(view.rootVisual)
         ..offsetX = 100
@@ -184,19 +184,19 @@ class DemoViewModel extends ViewModelBase
         ..show(tn);
     p.click + (_,__) => p.hide();
   }
-  
+
   /*
    * Event Handlers
    */
 
-  void _regEventHandlers(){   
+  void _regEventHandlers(){
     registerEventHandler('refresh_handler', refresh_handler);
     registerEventHandler('clearall_handler', clearAll_handler);
     registerEventHandler('selection_handler', selection_handler);
     registerEventHandler('demotreeview_selection', demotreeview_selection);
     registerEventHandler('dockpanel_click', dockpanel_click);
   }
-  
+
   /**
    * Handles click events coming from the 'refresh output' button
    */
@@ -250,21 +250,19 @@ class DemoViewModel extends ViewModelBase
   void selection_handler(sender, args){
     final value = args.node.tag;
 
-    switch(value){
-      case '':
-        resetUI();
-        break;
-      case 'modaldialog':
-        _showModalDialogDemo();
-        break;
-      case 'popup':
-        _showPopupDemo();
-        break;
-      default:
-        setTemplate(value.startsWith('app.') 
-            ? value 
-            : Template.getTemplate('#${value}'));
-        break;
+    if (value == ''){
+      resetUI();
+    }else if (value == 'modaldialog'){
+      _showModalDialogDemo();
+    }else if (value == 'popup'){
+      _showPopupDemo();
+    }else if (value.startsWith('app.')){
+      setTemplate(value);
+    }else{
+      Template.getTemplate('#${value}')
+        .then((value) {
+          setTemplate(value);
+        });
     }
   }
 
