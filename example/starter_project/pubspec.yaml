@@ -1,0 +1,6 @@
+name: template
+description: A starter project for Buckshot applications
+version: 0.0.1
+dependencies:
+  Buckshot:
+    git: git://github.com/prujohn/Buckshot.git
