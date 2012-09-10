@@ -23,6 +23,7 @@ class DemoViewModel extends ViewModelBase
   FrameworkProperty templateTextProperty;
   FrameworkProperty errorMessageProperty;
   FrameworkProperty demoTreeNodeSelectedProperty;
+  FrameworkProperty dockTextProperty;
 
   View _mainView;
 
@@ -86,6 +87,9 @@ class DemoViewModel extends ViewModelBase
 
     demoTreeNodeSelectedProperty = new FrameworkProperty(this,
         'demoTreeNodeSelected', defaultValue: '');
+    
+    dockTextProperty = new FrameworkProperty(this, 'dockText',
+        defaultValue: 'Docked left.');
   }
 
   /**
@@ -272,6 +276,7 @@ class DemoViewModel extends ViewModelBase
   }
 
   void dockpanel_click(sender, args){
+      String text = "Docked ";
       final dp = buckshot.namedElements['dockpanelDemo'];
       final b = buckshot.namedElements['btnDock'];
       if (dp == null || b == null) return;
@@ -279,15 +284,19 @@ class DemoViewModel extends ViewModelBase
       switch(sender.content){
         case 'Left':
           DockPanel.setDock(b, DockLocation.left);
+          setValue(dockTextProperty, '$text left.');
           break;
         case 'Top':
           DockPanel.setDock(b, DockLocation.top);
+          setValue(dockTextProperty, '$text top.');
           break;
         case 'Right':
           DockPanel.setDock(b, DockLocation.right);
+          setValue(dockTextProperty, '$text right.');
           break;
         case 'Bottom':
           DockPanel.setDock(b, DockLocation.bottom);
+          setValue(dockTextProperty, '$text bottom.');
           break;
         default:
           print('boo!');
