@@ -23,6 +23,7 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
     _initTextBlockProperties();
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
+
   }
   
   TextBlock.register() : super.register();

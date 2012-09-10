@@ -69,7 +69,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       p.loaded + (_,__) => _updateCollection();
 
       p.addToLayoutTree(this);
-
+     
     }, new StackPanel());
 
     itemsTemplateProperty = new FrameworkProperty(this, "itemsTemplate");
@@ -82,12 +82,14 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
 
   //IFrameworkContainer interface
   get content => presentationPanel;
-
+  
   /// Gets the [itemsTemplateProperty] value.
   String get itemsTemplate => getValue(itemsTemplateProperty);
   /// Sets the [itemsTemplateProperty] value.
   set itemsTemplate(String value) => setValue(itemsTemplateProperty, value);
 
+  void invalidate() => _updateCollection();
+  
   void _updateCollection(){
 
     var dc = resolveDataContext();

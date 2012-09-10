@@ -18,6 +18,7 @@ class ControlTemplate extends FrameworkResource implements IFrameworkContainer
     //otherwise the ControlTemplate itself would be retrieved as the resource
     //this.stateBag[FrameworkResource.RESOURCE_PROPERTY] = templateProperty;
     this.stateBag[FrameworkObject.CONTAINER_CONTEXT] = templateProperty;
+
   }
   
   ControlTemplate.register() : super.register();

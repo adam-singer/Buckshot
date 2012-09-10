@@ -127,4 +127,6 @@ class ObservableList<T> implements List<T>{
 
     listChanged.invoke(this, new ListChangedEventArgs<T>(ol, nl));
   }
+  
+  String toString() => _list.toString();
 }

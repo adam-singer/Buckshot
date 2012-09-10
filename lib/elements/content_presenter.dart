@@ -16,9 +16,10 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
   {
     Browser.appendClass(rawElement, "ContentPresenter");
 
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+    
     _initContentPresenterProperties();
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
   
   ContentPresenter.register() : super.register();

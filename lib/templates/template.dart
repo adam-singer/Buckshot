@@ -575,7 +575,7 @@ class Template {
           p.sourceObject.dynamic._templateBindings[p] = words[1];
         break;
       case "data":
-        if (!(p.sourceObject is FrameworkElement)){
+        if (p.sourceObject is! FrameworkElement){
           throw const PresentationProviderException('{data...} binding only'
             ' supported on types that derive from FrameworkElement.');
         }

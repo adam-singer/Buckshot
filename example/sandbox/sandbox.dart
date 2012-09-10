@@ -16,6 +16,7 @@
 #import('../../lib/extensions/controls/treeview/tree_view.dart');
 #import('../../lib/extensions/controls/dock_panel.dart');
 #import('../../lib/extensions/controls/popup.dart');
+#import('../../lib/extensions/controls/tab/tab_container.dart');
 
 #import('apps/calculator/calculator.dart', prefix:'calc');
 #import('apps/todo/todo.dart', prefix:'todo');
@@ -36,6 +37,8 @@ void main() {
     buckshot.registerElement(new ListBox.register());
     buckshot.registerElement(new PlusOne.register());
     buckshot.registerElement(new DockPanel.register());
+    buckshot.registerElement(new TabContainer.register());
+    buckshot.registerElement(new TabItem.register());
   }
   
   setView(new Main());

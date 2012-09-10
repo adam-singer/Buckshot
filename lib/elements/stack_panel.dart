@@ -48,6 +48,7 @@ class StackPanel extends Panel
 
     if (!args.newItems.isEmpty()){
       args.newItems.forEach((FrameworkElement element){
+
         element.addToLayoutTree(this);
         if (Polly._flexModel == FlexModel.Manual){
           Polly.setManualMultiStackOrientation(element, orientation);

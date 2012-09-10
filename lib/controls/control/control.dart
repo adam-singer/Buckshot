@@ -96,7 +96,9 @@ class Control extends FrameworkElement
     _templateBindingsApplied = true;
 
     _bindTemplateBindings();
-    template._isLoaded = true;
+
+    //template._isLoaded = true;
+    template._onAddedToDOM();
   }
 
   onUnLoaded(){
