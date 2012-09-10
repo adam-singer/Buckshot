@@ -171,10 +171,9 @@ class DemoViewModel extends ViewModelBase
   }
 
 
-  void _showPopupDemo(){
+  void _showPopupDemo(TreeNode popUpNode){
     if (_mainView == null) return;
 
-    final tn = Template.findByName('tn_popup_demo', _mainView.rootVisual);
     final view = new View.fromResource("#popup");
 
     final p = new Popup
@@ -185,7 +184,7 @@ class DemoViewModel extends ViewModelBase
         ..borderThickness = new Thickness(3)
         ..borderColor = new SolidColorBrush(
             new Color.predefined(Colors.SteelBlue))
-        ..show(tn);
+        ..show(popUpNode);
     p.click + (_,__) => p.hide();
   }
 
@@ -259,7 +258,7 @@ class DemoViewModel extends ViewModelBase
     }else if (value == 'modaldialog'){
       _showModalDialogDemo();
     }else if (value == 'popup'){
-      _showPopupDemo();
+      _showPopupDemo(args.node);
     }else if (value.startsWith('app.')){
       setTemplate(value);
     }else{
