@@ -37,9 +37,11 @@ class SetProperty extends ActionBase
   void onEventTrigger(){
 
     //TODO throw?
-    if (target == null || property == null || value == null) return;
-
-    var el = buckshot.namedElements[target];
+    if (property == null || value == null) return;
+    
+    var el = target != null 
+        ? buckshot.namedElements[target] 
+        : getValue(_sourceProperty);
 
     if (el == null) return; //TODO throw?
 

@@ -140,6 +140,7 @@ class Buckshot extends FrameworkObject
 
     //actions
     registerElement(new SetProperty.register());
+    registerElement(new ToggleProperty.register());
     
     registerElement(new TextBox());
     registerElement(new Slider());

@@ -249,7 +249,7 @@ class FrameworkObject extends BuckshotObject
       if (bd.dataContextPath == ""){
         new Binding(dc, p);
       }else{
-        if (!(dc.value is BuckshotObject))
+        if (dc.value is! BuckshotObject)
           throw new BuckshotException("Datacontext binding attempted to"
             " resolve properties '${bd.dataContextPath}'"
             " on non-BuckshotObject type.");

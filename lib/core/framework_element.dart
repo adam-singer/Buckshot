@@ -123,9 +123,6 @@ class FrameworkElement extends FrameworkObject {
 
     _initFrameworkProperties();
 
-    //rawElement.attributes["data-buckshot-element"] = '$this';
-    //rawElement.attributes['data-buckshot-id'] = '${this.hashCode()}';
-
     _initFrameworkEvents();
     
     _registerEvents();

@@ -41,6 +41,10 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
 
   /// Represents the UI that will display for each item in the collection.
   FrameworkProperty itemsTemplateProperty;
+  
+  /** Represents the collection to be used by the CollectionPresenter */
+  FrameworkProperty collectionProperty;
+  
 
   final FrameworkEvent<ItemCreatedEventArgs> itemCreated;
 
@@ -73,6 +77,8 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
     }, new StackPanel());
 
     itemsTemplateProperty = new FrameworkProperty(this, "itemsTemplate");
+    
+    collectionProperty = new FrameworkProperty(this, 'collection');
   }
 
   /// Gets the [presentationPanelProperty] value.
@@ -91,18 +97,23 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   void invalidate() => _updateCollection();
   
   void _updateCollection(){
+    
+    var values = getValue(collectionProperty);
+    
+    if (values == null){
+      // fall back to dataContext as Collection source
+      final dc = resolveDataContext();
 
-    var dc = resolveDataContext();
-
-    if (dc == null && presentationPanel._isLoaded){
+      if (dc == null && presentationPanel._isLoaded){
         presentationPanel.children.clear();
         return;
-    } else if (dc == null){
-        return;
+      } else if (dc == null){
+          return;
+      }
+      
+      values = getValue(dc);
     }
-
-    var values = getValue(dc);
-
+   
     if (values is ObservableList && _eHandler == null){
       _eHandler = values.listChanged + (_, __) => _updateCollection();
     }

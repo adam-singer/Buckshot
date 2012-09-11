@@ -569,10 +569,10 @@ class Template {
         break;
       case "template":
         if (words.length != 2)
-          throw const BuckshotException('{template} bindings must contain a'
-            ' property name parameter: {template [propertyName]}');
+          throw const BuckshotException('{template} binding malformed.');
 
-          p.sourceObject.dynamic._templateBindings[p] = words[1];
+        (p.sourceObject as FrameworkElement)._templateBindings[p] = words[1];
+        
         break;
       case "data":
         if (p.sourceObject is! FrameworkElement){

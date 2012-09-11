@@ -5,6 +5,7 @@
 class TabItem extends Control
 {
   FrameworkProperty headerProperty;
+  FrameworkProperty iconProperty;
   
   TabItem(){
     Browser.appendClass(rawElement, "TabItem"); 
@@ -16,6 +17,7 @@ class TabItem extends Control
   makeMe() => new TabItem();
   
   void _initTabItemProperties(){
-    headerProperty = new FrameworkProperty(this, 'header', defaultValue:'Hi');
+    headerProperty = new FrameworkProperty(this, 'header');
+    iconProperty = new FrameworkProperty(this, 'icon');
   }
 }

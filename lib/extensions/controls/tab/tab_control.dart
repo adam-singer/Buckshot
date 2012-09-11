@@ -17,6 +17,7 @@ class TabControl extends Control implements IFrameworkContainer
   FrameworkProperty currentContentProperty;
   FrameworkProperty tabItemsProperty;
   FrameworkProperty tabAlignmentProperty;
+  FrameworkProperty tabBackgroundProperty;
 
   final ObservableList<TabItem> children;
 
@@ -47,6 +48,7 @@ class TabControl extends Control implements IFrameworkContainer
     tabAlignmentProperty = new FrameworkProperty(this, 'tabAlignment',
         defaultValue: HorizontalAlignment.left,
         converter: const StringToHorizontalAlignmentConverter());
+    
   }
 
 
@@ -56,17 +58,29 @@ class TabControl extends Control implements IFrameworkContainer
 <controltemplate controlType='${this.templateName}'>
   <template>
      <stack>
-        <collectionpresenter halign='{template tabAlignment}' datacontext='{template tabItems}'>
+        <collectionpresenter halign='{template tabAlignment}' collection='{template tabItems}'>
            <presentationpanel>
               <stack orientation='horizontal' />
            </presentationpanel>
            <itemstemplate>
-              <border borderthickness='1,1,0,1' bordercolor='Black' padding='2'>
-                 <textblock text='{data header}' />
+              <border cursor='Arrow' background='White' borderthickness='1,1,0,1' bordercolor='Black' padding='2'>
+                 <actions>
+                    <setproperty event='mouseEnter' property='background' value='Green' />
+                    <setproperty event='mouseLeave' property='background' value='White' />
+                 </actions>
+                 <stack orientation='horizontal'>
+                    <contentpresenter content='{data icon}' margin='0,2,0,0' />
+                    <contentpresenter content='{data header}' />
+                 </stack>
               </border>
            </itemstemplate>
         </collectionpresenter>
-        <border margin='-1,0,0,0' halign='stretch' borderthickness='1' bordercolor='Black' padding='5' content='{template currentContent}' />
+        <border halign='stretch' background='WhiteSmoke' borderthickness='1' 
+             bordercolor='Black' padding='5' content='{template currentContent}'>
+           <actions>
+              <toggleproperty event='click' property='background' firstvalue='Green' secondvalue='WhiteSmoke' />
+           </actions>
+        </border>
      </stack>
   </template>
 </controltemplate>
