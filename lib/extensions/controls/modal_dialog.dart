@@ -196,8 +196,8 @@ class ModalDialog extends Control
         converter: const StringToThicknessConverter());
     
     cornerRadiusProperty = new FrameworkProperty(this, 'cornerRadius',
-        defaultValue: 0,
-        converter: const StringToNumericConverter());
+        defaultValue: new Thickness(0),
+        converter: const StringToThicknessConverter());
 
     cvRoot = Template.findByName('cvRoot', template);
 //    bDialog = Template.findByName('bDialog', template);
@@ -247,9 +247,9 @@ class ModalDialog extends Control
   Brush get background => getValue(backgroundProperty);
 
   /// Sets the [cornerRadiusProperty] value.
-  set cornerRadius(int value) => setValue(cornerRadiusProperty, value);
+  set cornerRadius(Thickness value) => setValue(cornerRadiusProperty, value);
   /// Gets the [cornerRadiusProperty] value.
-  int get cornerRadius => getValue(cornerRadiusProperty);
+  Thickness get cornerRadius => getValue(cornerRadiusProperty);
 
   /// Sets the [borderColorProperty] value.
   set borderColor(SolidColorBrush value) => setValue(borderColorProperty, value);
