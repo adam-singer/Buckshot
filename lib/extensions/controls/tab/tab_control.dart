@@ -63,7 +63,7 @@ class TabControl extends Control implements IFrameworkContainer
               <stack orientation='horizontal' />
            </presentationpanel>
            <itemstemplate>
-              <border cursor='Arrow' background='White' borderthickness='1,1,0,1' bordercolor='Black' padding='2'>
+              <border cornerradius='7,7,0,0' cursor='Arrow' background='White' borderthickness='1,1,0,1' bordercolor='Black' padding='2'>
                  <actions>
                     <setproperty event='mouseEnter' property='background' value='Green' />
                     <setproperty event='mouseLeave' property='background' value='White' />

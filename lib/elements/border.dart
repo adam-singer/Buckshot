@@ -76,10 +76,11 @@ class Border extends FrameworkElement implements IFrameworkContainer
     cornerRadiusProperty = new AnimatingFrameworkProperty(
       this,
       "cornerRadius",
-      (value){
-        if (value == null || value < 0) value = 0;
-        rawElement.style.borderRadius = '${value}px';
-      }, 'border-radius', converter:const StringToNumericConverter());
+      (Thickness value){
+        rawElement.style.borderRadius = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
+      }, 'border-radius',
+      defaultValue: new Thickness(0),
+      converter:const StringToThicknessConverter());
 
     borderColorProperty = new AnimatingFrameworkProperty(
       this,
