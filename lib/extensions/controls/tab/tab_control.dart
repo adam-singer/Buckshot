@@ -97,7 +97,6 @@ class TabControl extends Control implements IFrameworkContainer
     
   }
   
-  
   void _initControl(sender, args){
     if (tabItems.isEmpty()) return;
 
@@ -178,7 +177,7 @@ class TabControl extends Control implements IFrameworkContainer
                  <stack orientation='horizontal'>
                     <contentpresenter content='{data icon}' margin='0,2,0,0' />
                     <contentpresenter content='{data header}' margin='0,3,0,0' />
-                    <border margin='0,2,0,3' valign='center' width='12' height='12'>
+                    <border margin='0,2,0,3' valign='top' width='13' height='13' padding='0,0,2,0'>
                       <border name='__close_button__' borderColor='Gray' borderthickness='1' halign='stretch' valign='stretch' visibility='{data closeButtonVisibility}'>
                           <actions>
                              <setproperty event='mouseEnter' property='background' value='Orange' />
@@ -186,7 +185,7 @@ class TabControl extends Control implements IFrameworkContainer
                              <setproperty event='mouseDown' property='background' value='#CCCCCC' />
                              <setproperty event='mouseUp' property='background' value='Orange' />
                           </actions>
-                          <textblock text='X' valign='center' halign='center' fontfamily='Arial' fontsize='10' />
+                          <textblock text='X' foreground='Gray' valign='center' halign='center' fontfamily='Arial' fontsize='10' />
                       </border>
                     </border>
                  </stack>
