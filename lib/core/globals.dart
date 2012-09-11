@@ -36,7 +36,7 @@ Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
   view.ready.then((_){
     final b = new Border();
     el.elements.clear();
-    b._isLoaded = true;
+    b.isLoaded = true;
     el.elements.add(b.rawElement);
     b.content = view.rootVisual;
     c.complete(view.rootVisual);

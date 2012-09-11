@@ -42,7 +42,7 @@ class DropDownList extends Control
         defaultValue:new DropDownItem());
 
     items.listChanged + (_, __) {
-      if (!_isLoaded) return;
+      if (!isLoaded) return;
       _updateDDL();
     };
 

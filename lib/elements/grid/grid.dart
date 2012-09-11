@@ -154,11 +154,11 @@ void _updateMeasurements(){
     .forEach((child){
       child.content.updateMeasurement();
     });
-  }
+}
 
 // Updates the column layout of the Grid based on given [gridWidth]
 void _updateColumnLayout(num gridWidth){
-  if (!_isLoaded) return;
+  if (!isLoaded) return;
 
   if (columnDefinitions.length == 0){
     //handle case where no columnDefinitions are set
@@ -258,7 +258,7 @@ void _updateColumnLayout(num gridWidth){
 
 // Updates the row layout of the Grid based on the given [gridHeight]
 void _updateRowLayout(num gridHeight){
-  if (!_isLoaded) return;
+  if (!isLoaded) return;
 
   if (rowDefinitions.length == 0){
     //handle case where no rowDefinitions are set

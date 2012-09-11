@@ -345,7 +345,6 @@ class FrameworkElement extends FrameworkObject {
       (VerticalAlignment value){
         updateMeasurementAsync.then((_){
           if (parent != null) parent.updateLayout();
-
         });
       },
       VerticalAlignment.top, converter:const StringToVerticalAlignmentConverter());

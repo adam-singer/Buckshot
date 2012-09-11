@@ -104,7 +104,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       // fall back to dataContext as Collection source
       final dc = resolveDataContext();
 
-      if (dc == null && presentationPanel._isLoaded){
+      if (dc == null && presentationPanel.isLoaded){
         presentationPanel.children.clear();
         return;
       } else if (dc == null){

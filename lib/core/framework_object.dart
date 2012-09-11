@@ -11,10 +11,7 @@ class FrameworkObject extends BuckshotObject
   int _animationFrameID;
   ElementRect _previousMeasurement;
   FrameworkObject _parent;
-  bool _isLoaded = false;
-
-  bool get isLoaded => _isLoaded;
-  set isLoaded(bool v) => _isLoaded = v;
+  bool isLoaded = false;
 
   /// Represents the data context assigned to the FrameworkElement.
   /// Declarative xml binding can be used to bind to data context.
@@ -196,12 +193,14 @@ class FrameworkObject extends BuckshotObject
     _onAddedToDOM();
   }
 
+  void onAddedToDOM() => _onAddedToDOM();
+  
   void _onAddedToDOM(){
     //parent is in the DOM so we should call loaded event and check for children
-
+    
     updateDataContext();
 
-    _isLoaded = true;
+    isLoaded = true;
 
     if (parent != null){
       parent.updateLayout();
@@ -210,7 +209,7 @@ class FrameworkObject extends BuckshotObject
     onLoaded();
     loaded.invoke(this, new EventArgs());
 
-    //db('Added to DOM', this);
+//    db('>>> adding to DOM', this);
 
     if (this is! IFrameworkContainer) return;
 
@@ -326,13 +325,13 @@ class FrameworkObject extends BuckshotObject
 
     parent = null;
 
-    if (!p._isLoaded) return;
+    if (!p.isLoaded) return;
 
     _onRemoveFromDOM();
   }
 
   _onRemoveFromDOM(){
-    _isLoaded = false;
+    isLoaded = false;
 
     onUnloaded();
     unloaded.invoke(this, new EventArgs());

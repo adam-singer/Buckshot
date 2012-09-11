@@ -68,6 +68,7 @@ class ModalDialog extends Control
   Binding b1, b2;
   Border bDialog;
   Border bMask;
+  Grid cvRoot;
 
   static final List<DialogButtonType> Ok = 
       const [DialogButtonType.OK];
@@ -118,7 +119,7 @@ class ModalDialog extends Control
   ModalDialog.register() : super.register();
   makeMe() => new ModalDialog();
 
-  ModalDialog.with(titleContent, bodyContent, List<DialogButtonType> buttons)
+  ModalDialog.with(titleContent, String bodyContent, List<DialogButtonType> buttons)
   {
     _initModalDialogProperties();
     _initButtons(buttons);
@@ -139,6 +140,11 @@ class ModalDialog extends Control
     onUnloaded();
         
     _dialogCompleter.complete(DialogButtonType.fromString(b.content));
+  }
+
+  // modalDialog needs to override this in order to work property.
+  void finishOnUnloaded(){
+     template.isLoaded = true;
   }
   
   void _initButtons(List buttons){
@@ -190,14 +196,18 @@ class ModalDialog extends Control
         converter: const StringToThicknessConverter());
     
     cornerRadiusProperty = new FrameworkProperty(this, 'cornerRadius',
-        defaultValue: new Thickness(0),
-        converter: const StringToThicknessConverter());
+        defaultValue: 0,
+        converter: const StringToNumericConverter());
+
+    cvRoot = Template.findByName('cvRoot', template);
+//    bDialog = Template.findByName('bDialog', template);
+    //bMask = Template.findByName('bMask', template);
 
     // Override the underlying DOM element on this canvas so that it
     // is absolutely positioned int the window at 0,0
-    rawElement.style.position = 'absolute';
-    rawElement.style.top = '0px';
-    rawElement.style.left = '0px';
+    cvRoot.rawElement.style.position = 'absolute';
+    cvRoot.rawElement.style.top = '0px';
+    cvRoot.rawElement.style.left = '0px';
 
   }
 
@@ -205,16 +215,16 @@ class ModalDialog extends Control
     _dialogCompleter = new Completer<DialogButtonType>();
     //inject into DOM
 
-    b1 = new Binding(buckshot.windowWidthProperty, widthProperty);
-    b2 = new Binding(buckshot.windowHeightProperty, heightProperty);
+    b1 = new Binding(buckshot.windowWidthProperty, cvRoot.widthProperty);
+    b2 = new Binding(buckshot.windowHeightProperty, cvRoot.heightProperty);
 
-    document.body.elements.add(rawElement);
+    document.body.elements.add(cvRoot.rawElement);
 
     // manually trigger loaded state since we aren't adding this
     // to the visual tree using the API...
-    isLoaded = true;
+    cvRoot.isLoaded = true;
     onLoaded();
-    updateLayout();
+    cvRoot.updateLayout();
 
     return _dialogCompleter.future;
   }
@@ -237,9 +247,9 @@ class ModalDialog extends Control
   Brush get background => getValue(backgroundProperty);
 
   /// Sets the [cornerRadiusProperty] value.
-  set cornerRadius(Thickness value) => setValue(cornerRadiusProperty, value);
+  set cornerRadius(int value) => setValue(cornerRadiusProperty, value);
   /// Gets the [cornerRadiusProperty] value.
-  Thickness get cornerRadius => getValue(cornerRadiusProperty);
+  int get cornerRadius => getValue(cornerRadiusProperty);
 
   /// Sets the [borderColorProperty] value.
   set borderColor(SolidColorBrush value) => setValue(borderColorProperty, value);
@@ -256,8 +266,8 @@ class ModalDialog extends Control
     return
         '''
 <controltemplate controlType='${this.templateName}'>
-  <grid>
-    <border halign='stretch' valign='stretch' background='{template maskColor}' opacity='{template maskOpacity}'></border>
+  <grid name='cvRoot'>
+    <border halign='stretch' valign='stretch' name='bMask' background='{template maskColor}' opacity='{template maskOpacity}'></border>
     <border minwidth='200' halign='center' valign='center' padding='5' cornerRadius='{template cornerRadius}' borderthickness='{template borderThickness}' bordercolor='{template borderColor}' background='{template background}'>
       <stackpanel minwidth='200' maxwidth='500'>
         <contentpresenter content='{template title}' halign='center' />

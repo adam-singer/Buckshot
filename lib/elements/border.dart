@@ -180,7 +180,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
   /// Overridden [FrameworkObject] method is called when the framework
   /// requires elements to recalculate layout.
   void updateLayout(){
-    if (!_isLoaded) return;
+    if (!isLoaded) return;
 
     if (content == null) return;
 

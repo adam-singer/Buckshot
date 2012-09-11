@@ -96,8 +96,11 @@ class Control extends FrameworkElement
     _templateBindingsApplied = true;
 
     _bindTemplateBindings();
-
-    //template._isLoaded = true;
+  
+    finishOnUnloaded();
+  }
+  
+  finishOnUnloaded(){
     template._onAddedToDOM();
   }
 
@@ -105,7 +108,7 @@ class Control extends FrameworkElement
     //returning if we have already done this, or if no template was actually used for this control
     if (!_templateApplied) return;
 
-    template._isLoaded = false;
+    template.isLoaded = false;
   }
 
   void _bindTemplateBindings(){

@@ -16,7 +16,7 @@
 #import('../../lib/extensions/controls/treeview/tree_view.dart');
 #import('../../lib/extensions/controls/dock_panel.dart');
 #import('../../lib/extensions/controls/popup.dart');
-#import('../../lib/extensions/controls/tab/tab_control.dart');
+#import('../../lib/extensions/controls/tab_control/tab_control.dart');
 
 #import('apps/calculator/calculator.dart', prefix:'calc');
 #import('apps/todo/todo.dart', prefix:'todo');
