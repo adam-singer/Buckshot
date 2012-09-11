@@ -77,6 +77,12 @@ class Border extends FrameworkElement implements IFrameworkContainer
       this,
       "cornerRadius",
       (Thickness value){
+        // TODO (John) this is a temprorary fix until value converters are working in
+        // templates...
+        if (value is num){
+          value = new Thickness(value);
+        }
+        
         rawElement.style.borderRadius = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
       }, 'border-radius',
       defaultValue: new Thickness(0),
