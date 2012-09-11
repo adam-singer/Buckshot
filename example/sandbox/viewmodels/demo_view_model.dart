@@ -154,14 +154,14 @@ class DemoViewModel extends ViewModelBase
     .then((views){
       final md = new ModalDialog
         .with(views[0], views[1], ModalDialog.OkCancel)
-        ..cornerRadius = 7;
+        ..cornerRadius = new Thickness(7);
 
       md.show().then((DialogButtonType dbt){
         new ModalDialog
           .with('Dialog Results',
             'You clicked the "$dbt" button on the previous dialog.',
               ModalDialog.Ok)
-          ..cornerRadius = 7
+          ..cornerRadius = new Thickness(7)
           ..borderThickness = new Thickness(3)
           ..maskColor = new SolidColorBrush(
               new Color.predefined(Colors.Green))
@@ -180,7 +180,7 @@ class DemoViewModel extends ViewModelBase
         .with(view.rootVisual)
         ..offsetX = 100
         ..offsetY = -150
-        ..cornerRadius = 7
+        ..cornerRadius = new Thickness(7)
         ..borderThickness = new Thickness(3)
         ..borderColor = new SolidColorBrush(
             new Color.predefined(Colors.SteelBlue))

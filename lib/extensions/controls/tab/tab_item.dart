@@ -6,6 +6,8 @@ class TabItem extends Control
 {
   FrameworkProperty headerProperty;
   FrameworkProperty iconProperty;
+  FrameworkProperty closeEnabledProperty;
+  FrameworkProperty closeButtonVisiblityProperty;
   
   TabItem(){
     Browser.appendClass(rawElement, "TabItem"); 
@@ -19,5 +21,9 @@ class TabItem extends Control
   void _initTabItemProperties(){
     headerProperty = new FrameworkProperty(this, 'header');
     iconProperty = new FrameworkProperty(this, 'icon');
+    closeButtonVisiblityProperty = new FrameworkProperty(this, 
+        'closeButtonVisibility',
+        defaultValue: Visibility.collapsed,
+        converter: const StringToVisibilityConverter());
   }
 }
