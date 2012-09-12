@@ -16,14 +16,14 @@ class YouTube extends FrameworkElement
 
     _initializeYouTubeProperties();
   }
-  
+
   YouTube.register() : super.register();
   makeMe() => new YouTube();
 
 
   void _initializeYouTubeProperties(){
     videoIDProperty = new FrameworkProperty(this, "videoID", (String value){
-      rawElement.attributes["src"] = 'http://www.youtube.com/embed/${value.toString()}';
+      rawElement.attributes["src"] = 'http://www.youtube.com/embed/${value.toString()}?wmode=transparent';
     });
   }
 

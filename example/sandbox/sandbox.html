@@ -1161,22 +1161,26 @@ each list.
 </script>
 
 <script id='tabcontrol' type='application/xml'>
-<tabcontrol width='400' height='400'>
-  <tabitem header='Tab 1'>
-     <border width='100' height='100' cornerradius='100' background='Green'>
-        <textblock foreground='White' halign='center' valign='center' text='content' />
-     </border>
+<stack>
+<textblock style='{resource headerText}' text='TabControl allows you to group content into tabs.' />
+<tabcontrol margin='10,0,0,0' background='SteelBlue' width='600' height='340'>
+  <tabitem header='Actions' closeenabled='false'>
+     <youtube width='350' height='300' videoid='C8qwuD2Bz3E' />
   </tabitem>
-  <tabitem header='Tab 2'>
-     <textblock text='content 2' />
+  <tabitem header='Event Model' closeenabled='false'>
+     <youtube width='350' height='300' videoid='eUmVlWxrE9E' />
   </tabitem>
-  <tabitem header='Tab 3'>
-     <textblock text='content 3' />
+  <tabitem header='Templates' closeenabled='false'>
+     <youtube width='350' height='300' videoid='LOacOkmd9FI' />
   </tabitem>
-  <tabitem header='Tab 4'>
-     <textblock text='content 4' />
+  <tabitem header='DockPanel' closeenabled='false'>
+     <youtube width='350' height='300' videoid='aVlRGukZN3k' />
+  </tabitem>
+  <tabitem header='TreeView' closeenabled='false'>
+     <youtube width='350' height='300' videoid='6DWP-E7omJs' />
   </tabitem>
 </tabcontrol>
+</stack>
 </script>
 
 <!--
