@@ -2,10 +2,10 @@
 
 ## Your First Project ##
 The best way get started with Buckshot is to copy one of the starter projects
-located in the example/starter_projects/ folder of the library.  
+located in the example/starter_projects/ folder of the library. 
 
 These projects provide a standarized layout for a Buckshot application that uses
-the MVVM pattern.
+the MVVM pattern.  They are also full of comments.
 
 
 ## Using Pub ##
