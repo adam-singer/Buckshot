@@ -5,7 +5,7 @@
 #library('plusone.social.controls.buckshotui.org');
 
 #import('dart:html');
-#import('../../../../buckshot.dart');
+#import('package:buckshot/buckshot.dart');
 #import('package:dart_utils/shared.dart');
 #import('package:dart_utils/web.dart');
 

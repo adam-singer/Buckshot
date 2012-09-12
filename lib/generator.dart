@@ -4,7 +4,7 @@
 #import('dart:json');
 #import('package:dart-xml/xml.dart');
 
-#import('lib/gen/genie.dart');
+#import('package:buckshot/gen/genie.dart');
 
 void generateCode(List<String> files){
   final out = new File('test.tmp').openOutputStream();

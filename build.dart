@@ -1,4 +1,4 @@
-#import('generator.dart');
+#import('package:buckshot/generator.dart');
 #import('dart:io');
 
 void main(){

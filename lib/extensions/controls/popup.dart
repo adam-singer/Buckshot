@@ -1,7 +1,7 @@
 #library('popup.controls.buckshotui.org');
 
 #import('dart:html');
-#import('../../../buckshot.dart');
+#import('package:buckshot/buckshot.dart');
 #import('package:DartNet-Event-Model/events.dart');
 #import('package:dart_utils/shared.dart');
 

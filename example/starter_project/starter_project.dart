@@ -1,5 +1,5 @@
 
-#import('../../buckshot.dart');
+#import('package:buckshot/buckshot.dart');
 
 // Switch to this import after you copy your project.
 // #import('package:Buckshot/buckshot.dart');

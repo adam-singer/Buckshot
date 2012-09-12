@@ -2,7 +2,7 @@
 
 #import('dart:html');
 #import('dart:math', prefix:'Math');
-#import('../../../../buckshot.dart');
+#import('package:buckshot/buckshot.dart');
 #import('package:DartNet-Event-Model/events.dart');
 
 #source('common/i_calculator.dart');

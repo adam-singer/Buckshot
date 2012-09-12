@@ -1,11 +1,11 @@
 
 #import('dart:html');
-#import('../buckshot.dart');
+#import('package:buckshot/buckshot.dart');
 #import('package:dart-xml/xml.dart');
 #import('package:dart_utils/web.dart');
 #import('package:dart_utils/shared.dart');
 #import('package:DartNet-Event-Model/events.dart');
-#import('../lib/extensions/controls/dock_panel.dart');
+#import('package:buckshot/extensions/controls/dock_panel.dart');
 
 #import('package:unittest/unittest.dart');
 #import('package:unittest/html_enhanced_config.dart');

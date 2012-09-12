@@ -1,6 +1,6 @@
 #library('todo_apps_buckshotui_org');
 
-#import('../../../../buckshot.dart');
+#import('package:buckshot/buckshot.dart');
 #import('package:dart_utils/shared.dart');
 #import('dart:html');
 #source('view.dart');
