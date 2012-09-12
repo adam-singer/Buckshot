@@ -11,11 +11,11 @@
 
 /**
 * Displays a general purpose modal dialog and returns results.
-* 
+*
 * ## Not Used In Templates ##
 * ModalDialog is a activated and handled in code.  It's title and body content
 * areas can be templates or simple strings.
-* 
+*
 * ## Examples ##
 * ### A very basic dialog with textual title and body. ###
 *     new ModalDialog
@@ -29,14 +29,14 @@
 *        .then((DialogButtonType b){
 *           print('You clicked the "$b" button.');
 *        });
-* 
+*
 * ### Using Templates For Title and Body ###
 *     // ModalDialog supports arbitrary content in the title and body.
-*     
+*
 *     final title = new View.fromTemplate('<textblock text="title" />');
 *     final body = new View.fromTemplate('<border width="30" height="30"'
 *        ' background="Orange" />');
-*        
+*
 *     Futures
 *        .wait([title.ready, body.ready]) //make sure the views are ready
 *        .then((views){
@@ -44,7 +44,7 @@
 *              .with(title.rootVisual, body.rootVisual, ModalDialog.OKCancel)
 *              .show();
 *        });
-*  
+*
 *  ### Setting Other Properties ###
 *      new ModalDialog
 *         .with('Title', 'Body', ModalDialog.YesNo)
@@ -70,52 +70,52 @@ class ModalDialog extends Control
   Border bMask;
   Grid cvRoot;
 
-  static final List<DialogButtonType> Ok = 
+  static final List<DialogButtonType> Ok =
       const [DialogButtonType.OK];
-  
-  static final List<DialogButtonType> OkCancel = 
-      const [DialogButtonType.OK, 
+
+  static final List<DialogButtonType> OkCancel =
+      const [DialogButtonType.OK,
              DialogButtonType.CANCEL];
-  
-  static final List<DialogButtonType> YesNo = 
-      const [DialogButtonType.YES, 
+
+  static final List<DialogButtonType> YesNo =
+      const [DialogButtonType.YES,
              DialogButtonType.NO];
-  
-  static final List<DialogButtonType> BackNext = 
-      const [DialogButtonType.BACK, 
+
+  static final List<DialogButtonType> BackNext =
+      const [DialogButtonType.BACK,
              DialogButtonType.NEXT];
-  
-  static final List<DialogButtonType> BackNextCancel = 
-      const [DialogButtonType.BACK, 
-             DialogButtonType.NEXT, 
+
+  static final List<DialogButtonType> BackNextCancel =
+      const [DialogButtonType.BACK,
+             DialogButtonType.NEXT,
              DialogButtonType.CANCEL];
-  
-  static final List<DialogButtonType> BackNextFinished = 
-      const [DialogButtonType.BACK, 
-             DialogButtonType.NEXT, 
+
+  static final List<DialogButtonType> BackNextFinished =
+      const [DialogButtonType.BACK,
+             DialogButtonType.NEXT,
              DialogButtonType.FINISHED];
 
-  static final List<DialogButtonType> NextFinished = 
-      const [DialogButtonType.NEXT, 
+  static final List<DialogButtonType> NextFinished =
+      const [DialogButtonType.NEXT,
              DialogButtonType.FINISHED];
-  
-  static final List<DialogButtonType> Next = 
+
+  static final List<DialogButtonType> Next =
       const [DialogButtonType.NEXT];
-  
-  static final List<DialogButtonType> Back = 
+
+  static final List<DialogButtonType> Back =
       const [DialogButtonType.BACK];
-  
-  static final List<DialogButtonType> Cancel = 
+
+  static final List<DialogButtonType> Cancel =
       const [DialogButtonType.CANCEL];
-  
+
   Completer _dialogCompleter;
-  
+
   ModalDialog()
   {
     _initModalDialogProperties();
-    
+
   }
-  
+
   ModalDialog.register() : super.register();
   makeMe() => new ModalDialog();
 
@@ -127,18 +127,18 @@ class ModalDialog extends Control
     content = bodyContent;
   }
 
-  
+
   void setButtons(List<DialogButtonType> buttons){
     _initButtons(buttons);
   }
-  
+
   void buttonClick_handler(sender, args){
     final b = sender as Button;
     b1.unregister();
     b2.unregister();
     this.rawElement.remove();
     onUnloaded();
-        
+
     _dialogCompleter.complete(DialogButtonType.fromString(b.content));
   }
 
@@ -146,11 +146,11 @@ class ModalDialog extends Control
   void finishOnUnloaded(){
      template.isLoaded = true;
   }
-  
+
   void _initButtons(List buttons){
-    final buttonsContainer = 
+    final buttonsContainer =
         Template.findByName('spButtonContainer', template) as Panel;
-    
+
     for (final Button b in buttonsContainer.children){
       if (buttons.some((tb) => tb.toString() == b.content.toLowerCase())){
         b.visibility = Visibility.visible;
@@ -164,37 +164,37 @@ class ModalDialog extends Control
       }
     }
   }
-  
- 
+
+
 
   void _initModalDialogProperties(){
-    titleProperty = new FrameworkProperty(this, 'title', 
+    titleProperty = new FrameworkProperty(this, 'title',
         defaultValue:'undefined');
-    bodyProperty = new FrameworkProperty(this, 'content', 
+    bodyProperty = new FrameworkProperty(this, 'content',
         defaultValue:'undefined');
     backgroundProperty = new FrameworkProperty(this, 'background',
         defaultValue: new SolidColorBrush(
                         new Color.predefined(Colors.WhiteSmoke)),
         converter: const StringToSolidColorBrushConverter());
-    
+
     maskColorProperty = new FrameworkProperty(this, 'maskColor',
         defaultValue: new SolidColorBrush(
                         new Color.predefined(Colors.Gray)),
         converter: const StringToSolidColorBrushConverter());
-    
+
     maskOpacityProperty = new FrameworkProperty(this, 'maskOpacity',
         defaultValue: 0.5,
         converter: const StringToNumericConverter());
-    
+
     borderColorProperty = new FrameworkProperty(this, 'borderColor',
         defaultValue: new SolidColorBrush(
                         new Color.predefined(Colors.Black)),
         converter: const StringToSolidColorBrushConverter());
-    
+
     borderThicknessProperty = new FrameworkProperty(this, 'borderThickness',
         defaultValue: new Thickness(1),
         converter: const StringToThicknessConverter());
-    
+
     cornerRadiusProperty = new FrameworkProperty(this, 'cornerRadius',
         defaultValue: new Thickness(0),
         converter: const StringToThicknessConverter());
@@ -234,13 +234,13 @@ class ModalDialog extends Control
 
   get title => getValue(titleProperty);
   set title(v) => setValue(titleProperty, v);
-  
+
   Brush get maskColor => getValue(maskColorProperty);
   set maskColor(Brush value) => setValue(maskColorProperty, value);
-  
+
   num get maskOpacity => getValue(maskOpacityProperty);
   set maskOpacity(num value) => setValue(maskOpacityProperty, value);
-  
+
   /// Sets the [backgroundProperty] value.
   set background(Brush value) => setValue(backgroundProperty, value);
   /// Gets the [backgroundProperty] value.
@@ -260,13 +260,13 @@ class ModalDialog extends Control
   set borderThickness(Thickness value) => setValue(borderThicknessProperty, value);
   /// Gets the [borderThicknessProperty] value.
   Thickness get borderThickness => getValue(borderThicknessProperty);
-  
+
 
   String get defaultControlTemplate {
     return
         '''
 <controltemplate controlType='${this.templateName}'>
-  <grid name='cvRoot'>
+  <grid name='cvRoot' zorder='32766'>
     <border halign='stretch' valign='stretch' name='bMask' background='{template maskColor}' opacity='{template maskOpacity}'></border>
     <border minwidth='200' halign='center' valign='center' padding='5' cornerRadius='{template cornerRadius}' borderthickness='{template borderThickness}' bordercolor='{template borderColor}' background='{template background}'>
       <stackpanel minwidth='200' maxwidth='500'>
@@ -305,7 +305,7 @@ class DialogButtonType
   static final FINISHED = const DialogButtonType('finished');
 
   String toString() => _str;
-  
+
   static DialogButtonType fromString(String name){
     switch(name.toLowerCase()){
       case 'ok':
@@ -324,7 +324,7 @@ class DialogButtonType
         return DialogButtonType.FINISHED;
       default:
         throw new Exception('Unable to match $name to a DialogButtonType');
-    }  
+    }
   }
-  
+
 }
