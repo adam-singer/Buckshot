@@ -1,9 +1,6 @@
 
 #import('package:buckshot/buckshot.dart');
 
-// Switch to this import after you copy your project.
-// #import('package:Buckshot/buckshot.dart');
-
 #source('views/main_view.dart');
 #source('viewmodels/viewmodel.dart');
 #source('models/model.dart');
