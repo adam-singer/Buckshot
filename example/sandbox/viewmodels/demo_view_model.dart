@@ -53,6 +53,14 @@ class DemoViewModel extends ViewModelBase
     // Anything binding to this will get updated.
     window.setInterval(() => setValue(timeStampProperty,
         new Date.now().toString()), 1000);
+    
+    window.on.popState.add((e){
+      final demo = queryString['demo'];
+      
+      if (demo != null){
+        _mainView.rootVisual.dataContext.setTemplate('#${demo}');
+      }
+    });
   }
 
 
@@ -92,6 +100,10 @@ class DemoViewModel extends ViewModelBase
         defaultValue: 'Docked left.');
   }
 
+  void setQueryStringTo(String value){
+    window.history.pushState({}, document.title, '?demo=$value');
+  }
+  
   /**
    * Sets the given [templateText] to the [templateTextProperty] and renders
    * it into the [renderedOutputProperty].
@@ -122,11 +134,24 @@ class DemoViewModel extends ViewModelBase
           return;
       }
     }else{
-      setValue(templateTextProperty, templateText);
+      if (templateText.startsWith('#')){
+        Template.getTemplate(templateText)
+          .then((t){
+            if (t == null) return;
+            setValue(templateTextProperty, t);
+            
+            Template.deserialize(t).then((c){
+              setValue(renderedOutputProperty, c);
+            });               
+          });
 
-      Template.deserialize(templateText).then((c){
-        setValue(renderedOutputProperty, c);
-      });
+      }else{
+        setValue(templateTextProperty, templateText);
+        
+        Template.deserialize(templateText).then((c){
+          setValue(renderedOutputProperty, c);
+        });        
+      }
     }
   }
 
@@ -262,6 +287,7 @@ class DemoViewModel extends ViewModelBase
     }else if (value.startsWith('app.')){
       setTemplate(value);
     }else{
+      setQueryStringTo(value);
       Template.getTemplate('#${value}')
         .then((value) {
           setTemplate(value);

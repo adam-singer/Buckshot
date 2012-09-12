@@ -41,5 +41,31 @@ void main() {
     buckshot.registerElement(new TabItem.register() as BuckshotObject);
   }
 
-  setView(new Main());
+  final view = new Main();
+  
+  setView(view).
+    then((t){
+      final demo = queryString['demo'];
+      
+      if (demo != null){
+        t.dataContext.setTemplate('#${demo}');
+      }
+    });
+}
+
+
+Map<String, String> get queryString() {
+  var results = {};
+  var qs;
+  qs = window.location.search.isEmpty() ? '' 
+      : window.location.search.substring(1);
+  var pairs = qs.split('&');
+
+  for(final pair in pairs){
+    var kv = pair.split('=');
+    if (kv.length != 2) continue;
+    results[kv[0]] = kv[1];
+  }
+
+  return results;
 }
