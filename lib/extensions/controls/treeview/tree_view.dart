@@ -137,9 +137,11 @@ class TreeView extends Panel
     borderColorProperty = new AnimatingFrameworkProperty(
       this,
       "borderColor",
-      (value){
+      'border', 
+      propertyChangedCallback: (value){
         rawElement.style.borderColor = value.color.toColorString();
-      }, 'border', converter:const StringToSolidColorBrushConverter());
+      }, 
+      converter:const StringToSolidColorBrushConverter());
 
     borderThicknessProperty = new FrameworkProperty(
       this,

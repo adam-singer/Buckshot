@@ -19,7 +19,7 @@ class Slider extends Control
   FrameworkProperty valueProperty;
 
   Slider(){
-    Browser.appendClass(rawElement, "slider");
+    Browser.appendClass(rawElement, "Slider");
 
     _initSliderProperties();
 

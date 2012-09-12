@@ -139,11 +139,34 @@ class FrameworkElement extends FrameworkObject {
   void _initFrameworkProperties(){
 
     void doTransform(FrameworkElement e){
-      Polly.setCSS(e.rawElement, 'transform',
-        '''translateX(${getValue(translateXProperty)}px) translateY(${getValue(translateYProperty)}px) translateZ(${getValue(translateZProperty)}px)
-           scaleX(${getValue(scaleXProperty)}) scaleY(${getValue(scaleYProperty)}) scaleZ(${getValue(scaleZProperty)}) 
-           rotateX(${getValue(rotateXProperty)}deg) rotateY(${getValue(rotateYProperty)}deg) rotateZ(${getValue(rotateZProperty)}deg)
-        ''');
+      
+      var tx = getValue(translateXProperty);
+      var ty = getValue(translateYProperty);
+      var tz = getValue(translateZProperty);
+      var sx = getValue(scaleXProperty);
+      var sy = getValue(scaleYProperty);
+      var sz = getValue(scaleZProperty);
+      var rx = getValue(rotateXProperty);
+      var ry = getValue(rotateYProperty);
+      var rz = getValue(rotateZProperty);
+      
+      // set to identity if null
+      if (tx == null) tx = 0;
+      if (ty == null) ty = 0;
+      if (tz == null) tz = 0;
+      if (sx == null) sx = 1;
+      if (sy == null) sy = 1;
+      if (sz == null) sz = 1;
+      if (rx == null) rx = 0;
+      if (ry == null) ry = 0;
+      if (rz == null) rz = 0;
+      
+      e.rawElement.style.transform =         
+        '''
+        translateX(${tx}px) translateY(${ty}px) translateZ(${tz}px)
+        scaleX(${sx}) scaleY(${sy}) scaleZ(${sz}) 
+        rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)
+        ''';
     }
 
     actionsProperty = new FrameworkProperty(this, 'actions',
@@ -172,41 +195,57 @@ class FrameworkElement extends FrameworkObject {
       Polly.setCSS(rawElement, 'perspective', '$value');
     },converter:const StringToNumericConverter());
 
-    translateXProperty = new AnimatingFrameworkProperty(this, "translateX", (num value){
-      doTransform(this);
-    }, 'transform', converter:const StringToNumericConverter());
+    translateXProperty = new AnimatingFrameworkProperty(this, "translateX",    
+      'transform',
+      propertyChangedCallback:(num value) => doTransform(this),
+      converter:const StringToNumericConverter());
 
-    translateYProperty = new AnimatingFrameworkProperty(this, "translateY", (num value){
-      doTransform(this);
-    }, 'transform', converter:const StringToNumericConverter());
+    translateYProperty = new AnimatingFrameworkProperty(this, "translateY",    
+      'transform', 
+      propertyChangedCallback:(num value) => doTransform(this),
+      converter:const StringToNumericConverter());
 
-    translateZProperty = new AnimatingFrameworkProperty(this, "translateZ", (num value){
-      doTransform(this);
-    }, 'transform', converter:const StringToNumericConverter());
 
-    scaleXProperty = new AnimatingFrameworkProperty(this, "scaleX", (num value){
-      doTransform(this);
-    }, 'transform', converter:const StringToNumericConverter());
+    translateZProperty = new AnimatingFrameworkProperty(this, "translateZ",    
+      'transform', 
+      propertyChangedCallback:(num value) => doTransform(this),
+      converter:const StringToNumericConverter());
 
-    scaleYProperty = new AnimatingFrameworkProperty(this, "scaleY", (num value){
-      doTransform(this);
-    }, 'transform', converter:const StringToNumericConverter());
 
-    scaleZProperty = new AnimatingFrameworkProperty(this, "scaleZ", (num value){
-      doTransform(this);
-    }, 'transform', converter:const StringToNumericConverter());
+    scaleXProperty = new AnimatingFrameworkProperty(this, "scaleX",    
+      'transform', 
+      propertyChangedCallback:(num value) => doTransform(this),
+      converter:const StringToNumericConverter());
 
-    rotateXProperty = new AnimatingFrameworkProperty(this, "rotateX", (num value){
-      doTransform(this);
-    }, 'transform', converter:const StringToNumericConverter());
 
-    rotateYProperty = new AnimatingFrameworkProperty(this, "rotateY", (num value){
-      doTransform(this);
-    }, 'transform', converter:const StringToNumericConverter());
+    scaleYProperty = new AnimatingFrameworkProperty(this, "scaleY",    
+        'transform', 
+        propertyChangedCallback:(num value) => doTransform(this),
+        converter:const StringToNumericConverter());
 
-    rotateZProperty = new AnimatingFrameworkProperty(this, "rotateZ", (num value){
-      doTransform(this);
-    }, 'transform', converter:const StringToNumericConverter());
+
+    scaleZProperty = new AnimatingFrameworkProperty(this, "scaleZ",   
+        'transform', 
+        propertyChangedCallback:(num value) => doTransform(this),
+        converter:const StringToNumericConverter());
+
+    rotateXProperty = new AnimatingFrameworkProperty(this, "rotateX",    
+        'transform', 
+        propertyChangedCallback:(num value) => doTransform(this),
+        converter:const StringToNumericConverter());
+
+
+    rotateYProperty = new AnimatingFrameworkProperty(this, "rotateY",    
+        'transform', 
+        propertyChangedCallback:(num value) => doTransform(this),
+        converter:const StringToNumericConverter());
+
+
+    rotateZProperty = new AnimatingFrameworkProperty(this, "rotateZ",    
+        'transform', 
+        propertyChangedCallback:(num value) => doTransform(this),
+        converter:const StringToNumericConverter());
+
 
     transformOriginXProperty = new FrameworkProperty(this, "transformOriginX", (num value){
       Polly.setCSS(rawElement, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
@@ -223,17 +262,20 @@ class FrameworkElement extends FrameworkObject {
     opacityProperty = new AnimatingFrameworkProperty(
       this,
       "opacity",
-      (value){
+      'opacity',
+      propertyChangedCallback:(value){
         if (value < 0.0) value = 0.0;
         if (value > 1.0) value = 1.0;
         rawElement.style.opacity = value.toStringAsPrecision(2);
         //rawElement.style.filter = "alpha(opacity=${value * 100})";
-      }, 'opacity', converter:const StringToNumericConverter());
+      },
+      converter:const StringToNumericConverter());
 
     visibilityProperty = new AnimatingFrameworkProperty(
       this,
       "visibility",
-      (Visibility value){
+      'visibility', 
+      propertyChangedCallback:(Visibility value){
         if (value == Visibility.visible){
           rawElement.style.visibility = '$value';
 
@@ -247,7 +289,8 @@ class FrameworkElement extends FrameworkObject {
 
           rawElement.style.display = "none";
         }
-      }, 'visibility', converter:const StringToVisibilityConverter());
+      },
+      converter:const StringToVisibilityConverter());
 
     zOrderProperty = new FrameworkProperty(
       this,

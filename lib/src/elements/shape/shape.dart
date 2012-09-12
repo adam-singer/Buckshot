@@ -37,14 +37,15 @@ class Shape extends FrameworkElement
 //    }, 'stroke', converter:const StringToSolidColorBrushConverter());
 
 
-    fillProperty = new AnimatingFrameworkProperty(this, 'fill', (Brush value){
+    fillProperty = new AnimatingFrameworkProperty(this, 'fill', 
+        'fill', 
+        propertyChangedCallback: (Brush value){
+          //TODO Animation hooks won't work because shapeElement is not root
+          //need to implement some sort of proxy element solution
 
-      //TODO Animation hooks won't work because shapeElement is not root
-      //need to implement some sort of proxy element solution
-
-      value.renderBrush(shapeElement);
-
-    }, 'fill', converter:const StringToSolidColorBrushConverter());
+          value.renderBrush(shapeElement);
+        }, 
+        converter:const StringToSolidColorBrushConverter());
 
     _swProperty = new FrameworkProperty(this, '_sw', (v){
       if (v is! num) return;

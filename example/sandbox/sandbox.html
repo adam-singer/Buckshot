@@ -55,6 +55,7 @@ Begin Buckshot Templates
 	     	<treenode header='Grid' tag='grid' />
 	     	<treenode header='RawHtml' tag='rawhtml' />
 	     	<treenode header='LayoutCanvas' tag='layoutcanvas' />
+	     	<treenode header='3D Transformations' tag='transforms' />
 	     </treenode>
 	     <treenode header='Controls' tag=''>
 	        <treenode header='TabControl' tag='tabcontrol' />
@@ -1180,6 +1181,73 @@ each list.
          <youtube width='350' height='300' videoid='6DWP-E7omJs' />
       </tabitem>
    </tabcontrol>
+</stack>
+</script>
+
+<script id='transforms' type='application/xml'>
+<stack>
+   <textblock style='{resource headerText}'>You can scale, rotate, and translate any Buckshot element.</textblock>
+
+   <stack orientation='horizontal'>
+      <stack>
+         <textblock style='{resource headerText}' text='Rotate' />
+         <stack orientation='horizontal'>
+            <textblock style='{resource defaultText}' text='X:' />
+            <slider name='slRX' min='-180' max='180' value='0' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock style='{resource defaultText}' text='Y:' />
+            <slider name='slRY' min='-180' max='180' value='0' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock style='{resource defaultText}' text='Z:' />
+            <slider name='slRZ' min='-180' max='180' value='0' />
+         </stack>
+         <textblock style='{resource headerText}' text='Scale' />
+         <stack orientation='horizontal'>
+            <textblock style='{resource defaultText}' text='X:' />
+            <slider name='slSX' min='1' max='3' value='1' step='.1' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock style='{resource defaultText}' text='Y:' />
+            <slider name='slSY' min='1' max='3' value='1' step='.1' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock style='{resource defaultText}' text='Z:' />
+            <slider name='slSZ' min='1' max='3' value='1' step='.1' />
+         </stack>
+         <textblock style='{resource headerText}' text='Translate' />
+         <stack orientation='horizontal'>
+            <textblock style='{resource defaultText}' text='X:' />
+            <slider name='slTX' min='-100' max='100' value='0' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock style='{resource defaultText}' text='Y:' />
+            <slider name='slTY' min='-100' max='100' value='0' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock style='{resource defaultText}' text='Z:' />
+            <slider name='slTZ' min='-100' max='100' value='0' />
+         </stack>
+      </stack>
+      <border margin='0,0,0,15' bordercolor='SteelBlue' borderthickness='2' width='300' height='300'>
+         <border halign='center' valign='center' 
+            scalex='{element slSX.value}' 
+            scaley='{element slSY.value}'
+            scalez='{element slSZ.value}'
+            translatex='{element slTX.value}'
+            translatey='{element slTY.value}'
+            translatez='{element slTZ.value}'
+            rotatex='{element slRX.value}'
+            rotatey='{element slRY.value}'
+            rotatez='{element slRZ.value}'
+            background='Orange' 
+            width='75' 
+            height='75'>
+            <image halign='center' valign='center' width='65' sourceuri='apps/calculator/resources/buckshot_logo.png' alt='Buckshot Logo' />
+         </border>
+      </border> 
+   </stack>
 </stack>
 </script>
 

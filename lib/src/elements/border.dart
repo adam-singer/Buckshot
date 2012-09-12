@@ -55,14 +55,14 @@ class Border extends FrameworkElement implements IFrameworkContainer
     backgroundProperty = new AnimatingFrameworkProperty(
       this,
       "background",
-      (Brush value){
+      'background',
+      propertyChangedCallback:(Brush value){
         if (value == null){
           rawElement.style.background = "None";
           return;
         }
         value.renderBrush(rawElement);
       },
-      'background',
       converter:const StringToSolidColorBrushConverter());
 
     paddingProperty = new FrameworkProperty(
@@ -76,7 +76,8 @@ class Border extends FrameworkElement implements IFrameworkContainer
     cornerRadiusProperty = new AnimatingFrameworkProperty(
       this,
       "cornerRadius",
-      (Thickness value){
+      'border-radius',
+      propertyChangedCallback:(Thickness value){
         // TODO (John) this is a temprorary fix until value converters are working in
         // templates...
         if (value is num){
@@ -84,16 +85,18 @@ class Border extends FrameworkElement implements IFrameworkContainer
         }
         
         rawElement.style.borderRadius = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
-      }, 'border-radius',
+      }, 
       defaultValue: new Thickness(0),
       converter:const StringToThicknessConverter());
 
     borderColorProperty = new AnimatingFrameworkProperty(
       this,
       "borderColor",
-      (value){
+      'border', 
+      propertyChangedCallback:(value){
         rawElement.style.borderColor = value.color.toColorString();
-      }, 'border', converter:const StringToSolidColorBrushConverter());
+      }, 
+      converter:const StringToSolidColorBrushConverter());
 
     borderThicknessProperty = new FrameworkProperty(
       this,
@@ -113,20 +116,20 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
     horizontalScrollEnabledProperty = new AnimatingFrameworkProperty(this,
         "horizontalScrollEnabled",
-        (bool value){
+        'overflow',
+        defaultValue: false,
+        propertyChangedCallback:(bool value){
           _assignOverflowX(value);
         },
-        'overflow',
-        false,
         converter:const StringToBooleanConverter());
 
     verticalScrollEnabledProperty = new AnimatingFrameworkProperty(this,
         "verticalScrollEnabled",
-        (bool value){
+        'overflow',
+        propertyChangedCallback:(bool value){
           _assignOverflowY(value);
         },
-        'overflow',
-        false,
+        defaultValue: false,
         converter:const StringToBooleanConverter());
   }
 
