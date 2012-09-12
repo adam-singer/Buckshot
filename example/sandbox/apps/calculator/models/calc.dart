@@ -4,12 +4,12 @@
 */
 class Calc implements ICalculator
 {
-  static final int EMPTY = 0;
-  static final int FOPERAND = 1;
-  static final int OP = 2;
-  static final int SOPERAND = 3;
+  static const int EMPTY = 0;
+  static const int FOPERAND = 1;
+  static const int OP = 2;
+  static const int SOPERAND = 3;
 
-  static final num PI = 3.1415926535897;
+  static const num PI = 3.1415926535897;
 
   final List<Function> registeredMain;
   final List<Function> registeredSub;

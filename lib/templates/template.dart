@@ -63,10 +63,10 @@ class Template {
   //TODO make providers discoverable via reflection instead of pre-registered.
   final List<IPresentationFormatProvider> providers;
 
-  static final int _UNKNOWN = -1;
-  static final int _HTML_ELEMENT = 0;
-  static final int _HTTP_RESOURCE = 1;
-  static final int _SERIALIZED = 2;
+  static const int _UNKNOWN = -1;
+  static const int _HTML_ELEMENT = 0;
+  static const int _HTTP_RESOURCE = 1;
+  static const int _SERIALIZED = 2;
 
   Template()
   :

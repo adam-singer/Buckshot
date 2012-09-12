@@ -23,7 +23,7 @@
 class Polly {
 
   /// List of vendor prefixes.
-  static final prefixes = const ['','-webkit-','-moz-','-o-','-ms-'];
+  static const prefixes = const ['','-webkit-','-moz-','-o-','-ms-'];
 
   static BrowserInfo _browserInfo;
 

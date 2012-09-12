@@ -19,8 +19,8 @@ Buckshot get buckshot => new Buckshot._cached();
 */
 class Buckshot extends FrameworkObject
 {
-  static final String _defaultRootID = "#BuckshotHost";
-  static final String _version = '0.55 Alpha';
+  static const String _defaultRootID = "#BuckshotHost";
+  static const String _version = '0.55 Alpha';
   
   final Map<String, Dynamic> _mirrorCache;
 

@@ -9,13 +9,13 @@ class BindingMode
   const BindingMode(this._val);
   
   /// Indicates a [Binding] where changes only flow in one direction.
-  static final OneWay = const BindingMode(1);
+  static const OneWay = const BindingMode(1);
   
   /// Indicates a [Binding] where changes flow in both directions.
-  static final TwoWay = const BindingMode(2);
+  static const TwoWay = const BindingMode(2);
   
   /// Indicates a [Binding] that fires once and then unregisters automatically.
-  static final OneTime = const BindingMode(3);
+  static const OneTime = const BindingMode(3);
   
   String toString() {
     switch (_val){

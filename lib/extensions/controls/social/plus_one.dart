@@ -85,10 +85,10 @@ class PlusOneButtonSizes{
   final String _str;
   const PlusOneButtonSizes(this._str);
 
-  static final small = const PlusOneButtonSizes("small");
-  static final medium = const PlusOneButtonSizes("medium");
-  static final large = const PlusOneButtonSizes("large");
-  static final standard = const PlusOneButtonSizes("standard");
+  static const small = const PlusOneButtonSizes("small");
+  static const medium = const PlusOneButtonSizes("medium");
+  static const large = const PlusOneButtonSizes("large");
+  static const standard = const PlusOneButtonSizes("standard");
 
   String toString() => _str;
 }
@@ -97,9 +97,9 @@ class PlusOneAnnotationTypes{
   final String _str;
   const PlusOneAnnotationTypes(this._str);
 
-  static final inline = const PlusOneAnnotationTypes("inline");
-  static final bubble = const PlusOneAnnotationTypes("bubble");
-  static final none = const PlusOneAnnotationTypes("none");
+  static const inline = const PlusOneAnnotationTypes("inline");
+  static const bubble = const PlusOneAnnotationTypes("bubble");
+  static const none = const PlusOneAnnotationTypes("none");
 
   String toString() => _str;
 }

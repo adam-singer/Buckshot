@@ -17,10 +17,10 @@
 */
 class TreeView extends Panel
 {
-  static final String INDICATOR_COLLAPSED = '\u{25b7}';
-  static final String INDICATOR_EXPANDED = '\u{25e2}';
+  static const String INDICATOR_COLLAPSED = '\u{25b7}';
+  static const String INDICATOR_EXPANDED = '\u{25e2}';
 
-  static final String FILE_DEFAULT_TEMPLATE =
+  static const String FILE_DEFAULT_TEMPLATE =
       '''
 <border width='16' height='16' cornerradius='2' borderthickness='1' bordercolor='Gray' background='#ffff77'>
   <stackpanel halign='stretch' valign='center'>
@@ -32,7 +32,7 @@ class TreeView extends Panel
 ''';
 
 
-  static final String FOLDER_DEFAULT_TEMPLATE =
+  static const String FOLDER_DEFAULT_TEMPLATE =
       '''
 <layoutcanvas width='16' height='16'>
   <border width='16' height='14' layoutcanvas.top='1' cornerradius='2' borderthickness='1' bordercolor='Gray' background='#ffff77'>

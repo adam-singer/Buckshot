@@ -70,42 +70,42 @@ class ModalDialog extends Control
   Border bMask;
   Grid cvRoot;
 
-  static final List<DialogButtonType> Ok =
+  static const List<DialogButtonType> Ok =
       const [DialogButtonType.OK];
 
-  static final List<DialogButtonType> OkCancel =
+  static const List<DialogButtonType> OkCancel =
       const [DialogButtonType.OK,
              DialogButtonType.CANCEL];
 
-  static final List<DialogButtonType> YesNo =
+  static const List<DialogButtonType> YesNo =
       const [DialogButtonType.YES,
              DialogButtonType.NO];
 
-  static final List<DialogButtonType> BackNext =
+  static const List<DialogButtonType> BackNext =
       const [DialogButtonType.BACK,
              DialogButtonType.NEXT];
 
-  static final List<DialogButtonType> BackNextCancel =
+  static const List<DialogButtonType> BackNextCancel =
       const [DialogButtonType.BACK,
              DialogButtonType.NEXT,
              DialogButtonType.CANCEL];
 
-  static final List<DialogButtonType> BackNextFinished =
+  static const List<DialogButtonType> BackNextFinished =
       const [DialogButtonType.BACK,
              DialogButtonType.NEXT,
              DialogButtonType.FINISHED];
 
-  static final List<DialogButtonType> NextFinished =
+  static const List<DialogButtonType> NextFinished =
       const [DialogButtonType.NEXT,
              DialogButtonType.FINISHED];
 
-  static final List<DialogButtonType> Next =
+  static const List<DialogButtonType> Next =
       const [DialogButtonType.NEXT];
 
-  static final List<DialogButtonType> Back =
+  static const List<DialogButtonType> Back =
       const [DialogButtonType.BACK];
 
-  static final List<DialogButtonType> Cancel =
+  static const List<DialogButtonType> Cancel =
       const [DialogButtonType.CANCEL];
 
   Completer _dialogCompleter;
@@ -296,13 +296,13 @@ class DialogButtonType
 
   const DialogButtonType(this._str);
 
-  static final OK = const DialogButtonType('ok');
-  static final CANCEL = const DialogButtonType('cancel');
-  static final YES = const DialogButtonType('yes');
-  static final NO = const DialogButtonType('no');
-  static final NEXT = const DialogButtonType('next');
-  static final BACK = const DialogButtonType('back');
-  static final FINISHED = const DialogButtonType('finished');
+  static const OK = const DialogButtonType('ok');
+  static const CANCEL = const DialogButtonType('cancel');
+  static const YES = const DialogButtonType('yes');
+  static const NO = const DialogButtonType('no');
+  static const NEXT = const DialogButtonType('next');
+  static const BACK = const DialogButtonType('back');
+  static const FINISHED = const DialogButtonType('finished');
 
   String toString() => _str;
 

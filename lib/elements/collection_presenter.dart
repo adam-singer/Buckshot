@@ -32,7 +32,7 @@
 */
 class CollectionPresenter extends FrameworkElement implements IFrameworkContainer
 {
-  static final String SBO = '__CollectionPresenterData__';
+  static const String SBO = '__CollectionPresenterData__';
   var _eHandler;
 
   /// Represents the [Panel] element which will contain the generated UI for

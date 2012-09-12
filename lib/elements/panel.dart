@@ -15,7 +15,7 @@
 class Panel extends FrameworkElement implements IFrameworkContainer {
   /// An observable list of the child elements associated with the panel.
   final ObservableList<FrameworkElement> children;
-  static final String childHasParentExceptionMessage
+  static const String childHasParentExceptionMessage
   = "Element is already child of another element.";
 
   /// Represents the background [Color] value of the panel.

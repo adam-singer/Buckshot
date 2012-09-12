@@ -40,7 +40,7 @@ class FrameworkResource extends FrameworkObject
   ///
   /// ### To set the resource property of an element:
   ///     stateBag[RESOURCE_PROPERTY] = {propertyNameOfElementResourceProperty};
-  static final String RESOURCE_PROPERTY = "RESOURCE_PROPERTY";
+  static const String RESOURCE_PROPERTY = "RESOURCE_PROPERTY";
 
   FrameworkResource(){
     if (_resourceRegistry == null){

@@ -43,7 +43,7 @@ class FrameworkObject extends BuckshotObject
   ///
   /// ### To set the container context of an element:
   ///     stateBag[CONTAINER_CONTEXT] = {propertyNameOfElementContainerContext};
-  static final String CONTAINER_CONTEXT = "CONTAINER_CONTEXT";
+  static const String CONTAINER_CONTEXT = "CONTAINER_CONTEXT";
 
   //allows container elements to subscribe/unsubscribe to attached property
   //changes of children.

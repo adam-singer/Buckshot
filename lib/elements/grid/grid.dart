@@ -32,7 +32,9 @@
 */
 class Grid extends Panel
 {
-static final String noDirectGridCellExceptionMessage = "GridCell cannot be added directly to Grid.";
+static const String noDirectGridCellExceptionMessage = "GridCell cannot be"
+  " added directly to Grid.";
+
 final List<_GridCell> _internalChildren;
 
 /// Represents a collection of [ColumnDefinition]s.

@@ -12,9 +12,9 @@ class ManualFlexType
 
   const ManualFlexType(this._str);
 
-  static final Single = const ManualFlexType('Single');
-  static final Multi = const ManualFlexType('Multi');
-  static final None = const ManualFlexType('None');
+  static const Single = const ManualFlexType('Single');
+  static const Multi = const ManualFlexType('Multi');
+  static const None = const ManualFlexType('None');
 
 
   static ManualFlexType getManualFlexType(Element element){
@@ -77,10 +77,10 @@ class FlexModel
     return _model;
   }
 
-  static final FlexBox = const FlexModel(2);
-  static final Flex = const FlexModel(3);
-  static final Unknown = const FlexModel(4);
-  static final Manual = const FlexModel(5);
+  static const FlexBox = const FlexModel(2);
+  static const Flex = const FlexModel(3);
+  static const Unknown = const FlexModel(4);
+  static const Manual = const FlexModel(5);
 
   String toString() {
     switch(_val){

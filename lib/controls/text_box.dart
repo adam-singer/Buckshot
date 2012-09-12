@@ -101,19 +101,19 @@ class InputTypes{
   final String _str;
   const InputTypes(this._str);
 
-  static final password = const InputTypes("password");
-  static final email = const InputTypes("email");
-  static final date = const InputTypes("date");
-  static final datetime = const InputTypes("datetime");
-  static final month = const InputTypes("month");
-  static final search = const InputTypes("search");
-  static final telephone = const InputTypes("tel");
-  static final text = const InputTypes("text");
-  static final time = const InputTypes("time");
-  static final url = const InputTypes("url");
-  static final week = const InputTypes("week");
+  static const password = const InputTypes("password");
+  static const email = const InputTypes("email");
+  static const date = const InputTypes("date");
+  static const datetime = const InputTypes("datetime");
+  static const month = const InputTypes("month");
+  static const search = const InputTypes("search");
+  static const telephone = const InputTypes("tel");
+  static const text = const InputTypes("text");
+  static const time = const InputTypes("time");
+  static const url = const InputTypes("url");
+  static const week = const InputTypes("week");
 
-  static final List<InputTypes> validInputTypes = const <InputTypes>[password, email, date, datetime, month, search, telephone, text, time, url, week];
+  static const List<InputTypes> validInputTypes = const <InputTypes>[password, email, date, datetime, month, search, telephone, text, time, url, week];
 
   static bool _isValidInputType(InputTypes candidate){
     return validInputTypes.indexOf(candidate, 0) > -1;
