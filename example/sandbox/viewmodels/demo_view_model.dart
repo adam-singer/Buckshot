@@ -116,6 +116,7 @@ class DemoViewModel extends ViewModelBase
 
     if (templateText.startsWith('app.')){
       final appName = templateText.split('.')[1];
+      resetUI();
       switch(appName){
         case 'todo':
           final todoView = new todo.Main();

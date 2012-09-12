@@ -92,16 +92,16 @@ Begin Buckshot Templates
       </stack>
     </border>
   </stack>
-  <dockpanel grid.column='1' halign='stretch' valign='stretch'>
+  <dockpanel filllast='true' grid.column='1' halign='stretch' valign='stretch'>
   	<border dockpanel.dock='top' padding='5' background='White' content='{data renderedOutput}' margin="5" minheight='200' maxheight='600' 
     borderThickness="1" verticalscrollenabled='true' borderColor="LightGray" />
          
-    <stack dockpanel.dock='bottom' margin='0,0,0,5' orientation="horizontal">
+    <stack dockpanel.dock='top' margin='0,0,0,5' orientation="horizontal">
        <button on.click='refresh_handler' content="Generate Output"></button>
        <button on.click='clearAll_handler' margin="0,0,0,5" content="Clear All"></button>
     </stack>
     
-    <textarea dockpanel.dock='top' minwidth='800' minheight='300' margin='0,10,0,5'
+    <textarea dockpanel.dock='bottom' minwidth='800' minheight='300' margin='0,10,0,5'
 	    placeholder="Type something here or select one of the samples to the left." 
 	    spellcheck="false" 
 	  	text='{data templateText, mode=twoway}' />

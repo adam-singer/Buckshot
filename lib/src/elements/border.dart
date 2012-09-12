@@ -148,6 +148,9 @@ class Border extends FrameworkElement implements IFrameworkContainer
       rawElement.style.overflowY = "hidden";
     }
   }
+  
+  set verticalScrollEnabled(bool value) => setValue(verticalScrollEnabledProperty, value);
+  
 
   /// Sets the [backgroundProperty] value.
   set background(Brush value) => setValue(backgroundProperty, value);

@@ -50,6 +50,8 @@ void main() {
       t.parent.background = 
           new SolidColorBrush(new Color.predefined(Colors.WhiteSmoke));
       
+      t.parent.verticalScrollEnabled = true;
+      
       final demo = queryString['demo'];
       
       if (demo != null){
