@@ -39,6 +39,8 @@
 
 #source('lib/events/buckshot_event.dart');
 #source('lib/events/measurement_changed_event_args.dart');
+#source('lib/events/attached_property_changed_event_args.dart');
+#source('lib/events/property_changed_event_args.dart');
 #source('lib/events/drag_event_args.dart');
 
 #source('lib/mvvm/view_model_base.dart');
