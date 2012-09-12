@@ -12,11 +12,7 @@ Begin Buckshot Templates
 -->
 
 <script id='main' type='application/xml'>
-<grid margin='5' halign='stretch' valign='stretch'>
-  <columndefinitions>
-     <columndefinition width='250' />
-     <columndefinition width='*' />
-  </columndefinitions>
+<dockpanel halign='stretch' valign='stretch'>
   <resourcecollection>
     <color key="buckshotBlue" value="#165284"></color>
    
@@ -43,7 +39,17 @@ Begin Buckshot Templates
     </styletemplate>
   </resourcecollection>
 
-  <stack minWidth='250'>
+  <border padding='5' dockpanel.dock='top' background='{resource buckshotBlue}'>
+    <stack orientation='horizontal'>
+       <hyperlink valign='center' navigateto='http://www.buckshotui.org/'>
+	       <image width='35' sourceuri='apps/calculator/resources/buckshot_logo.png' alt='Buckshot Logo' />
+	       </hyperlink>
+       <textblock margin='0,0,0,5' valign='center' foreground='White' fontfamily='Arial' text='Buckshot Sandbox' />
+       <textblock margin='0,0,0,5' valign='bottom' foreground='White' fontsize='10' fontfamily='Arial' text='alpha' />
+    </stack>
+  </border>
+
+  <stack margin='5' dockpanel.dock='left' minWidth='250'>
     <textblock maxwidth='250' fontfamily='Arial' text="Select a sample below, or create your own in the text area."/>
     <border valign='stretch' halign='stretch' background='White' borderthickness='1' bordercolor='LightGray' padding='5' margin='0,5,0,0'>
       <stack>       
@@ -92,7 +98,7 @@ Begin Buckshot Templates
       </stack>
     </border>
   </stack>
-  <dockpanel filllast='true' grid.column='1' halign='stretch' valign='stretch'>
+  <dockpanel margin='5' dockpanel.dock='left' filllast='true' grid.column='1'>
   	<border dockpanel.dock='top' padding='5' background='White' content='{data renderedOutput}' margin="5" minheight='200' maxheight='600' 
     borderThickness="1" verticalscrollenabled='true' borderColor="LightGray" />
          
@@ -107,7 +113,7 @@ Begin Buckshot Templates
 	  	text='{data templateText, mode=twoway}' />
     
   </dockpanel>
-</grid>
+</dockpanel>
 </script>
 
 <script id='textbox' type='application/xml'>
