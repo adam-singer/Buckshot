@@ -7,29 +7,6 @@ located in the example/starter_projects/ folder of the library.
 These projects provide a standarized layout for a Buckshot application that uses
 the MVVM pattern.  They are also full of comments.
 
-
-## Using Pub ##
-In your Dart application, make a **pubspec.yaml** file and add this line to it:
-
-    dependencies:
-      buckshot:
-        git: git://github.com/prujohn/Buckshot.git
-        
-From the command line, change directory to the root of your Dart project, then run pub install
-
-    pub install
-    
-pub will go out and retrieve buckshot for you, including any of it's dependencies, then placing it in a **packages** directory in your project.
-
-Next you'll need to point the Dart editor to your package directory.  You can set this in the Dart Editor's preferences dialog (Tools -> Preferences).
-
-Now you can reference buckshot in your application like so:
-
-    #import('package:buckshot/buckshot.dart');
-    
-This process should get easier over time as the pub utility matures.
-
-
 ## Resources ##
 Visit the [Buckshot Discussion Group](https://groups.google.com/forum/#!forum/buckshot-ui) for the latest information.
 
