@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Buckshot UI - Sandbox</title>
   </head>
-  <body>
+  <body style='padding:0px;margin:0px'>
 	<div id="BuckshotHost"></div>
 
 <!--
@@ -12,7 +12,11 @@ Begin Buckshot Templates
 -->
 
 <script id='main' type='application/xml'>
-<stack orientation="horizontal" halign="center">
+<grid margin='5' halign='stretch' valign='stretch'>
+  <columndefinitions>
+     <columndefinition width='250' />
+     <columndefinition width='*' />
+  </columndefinitions>
   <resourcecollection>
     <color key="buckshotBlue" value="#165284"></color>
    
@@ -40,8 +44,8 @@ Begin Buckshot Templates
   </resourcecollection>
 
   <stack minWidth='250'>
-    <textblock style="{resource iotext}" text="Select A Sample"/>
-    <border minHeight='300' halign='stretch' borderthickness='1' bordercolor='SteelBlue' padding='5'>
+    <textblock maxwidth='250' fontfamily='Arial' text="Select a sample below, or create your own in the text area."/>
+    <border valign='stretch' halign='stretch' background='White' borderthickness='1' bordercolor='LightGray' padding='5' margin='0,5,0,0'>
       <stack>       
      	<treeview on.treenodeselected='selection_handler'>
  		 <treenode header='App Demos' childvisibility='visible'>
@@ -88,20 +92,22 @@ Begin Buckshot Templates
       </stack>
     </border>
   </stack>
-  <stack margin="0,0,0,10" halign='stretch'>
-    <textblock style="{resource iotext}" text="Output:"/>
-    <border content='{data renderedOutput}' margin="0,0,10,0" minheight='200' 
-    width="680" borderThickness="3" borderColor="{resource buckshotBlue}"
-    cornerradius='4' padding='5'/>
-    <textblock style="{resource iotext}" text="Template:"/>
-    <textarea placeholder="Type something here or select one of the samples to the left." spellcheck="false" 
-      text='{data templateText, mode=twoway}' minwidth='690' maxwidth='690' minheight="200" />
-    <stack orientation="horizontal">
+  <dockpanel grid.column='1' halign='stretch' valign='stretch'>
+  	<border dockpanel.dock='top' padding='5' background='White' content='{data renderedOutput}' margin="5" minheight='200' maxheight='600' 
+    borderThickness="1" verticalscrollenabled='true' borderColor="LightGray" />
+         
+    <stack dockpanel.dock='bottom' margin='0,0,0,5' orientation="horizontal">
        <button on.click='refresh_handler' content="Generate Output"></button>
        <button on.click='clearAll_handler' margin="0,0,0,5" content="Clear All"></button>
     </stack>
-  </stack>
-</stack>
+    
+    <textarea dockpanel.dock='top' minwidth='800' minheight='300' margin='0,10,0,5'
+	    placeholder="Type something here or select one of the samples to the left." 
+	    spellcheck="false" 
+	  	text='{data templateText, mode=twoway}' />
+    
+  </dockpanel>
+</grid>
 </script>
 
 <script id='textbox' type='application/xml'>

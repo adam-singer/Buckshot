@@ -45,6 +45,11 @@ void main() {
   
   setView(view).
     then((t){
+      new Binding(buckshot.windowHeightProperty, t.parent.heightProperty);
+      
+      t.parent.background = 
+          new SolidColorBrush(new Color.predefined(Colors.WhiteSmoke));
+      
       final demo = queryString['demo'];
       
       if (demo != null){
