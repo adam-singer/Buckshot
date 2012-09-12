@@ -6,17 +6,17 @@
 #import('package:buckshot/buckshot.dart');
 #import('package:dart_utils/shared.dart');
 #import('package:DartNet-Event-Model/events.dart');
-#import('../../lib/extensions/controls/media/youtube.dart');
-#import('../../lib/extensions/controls/media/hulu.dart');
-#import('../../lib/extensions/controls/media/vimeo.dart');
-#import('../../lib/extensions/controls/media/funny_or_die.dart');
-#import('../../lib/extensions/controls/list_box.dart');
-#import('../../lib/extensions/controls/modal_dialog.dart');
-#import('../../lib/extensions/controls/social/plus_one.dart');
-#import('../../lib/extensions/controls/treeview/tree_view.dart');
-#import('../../lib/extensions/controls/dock_panel.dart');
-#import('../../lib/extensions/controls/popup.dart');
-#import('../../lib/extensions/controls/tab_control/tab_control.dart');
+#import('package:buckshot/extensions/controls/media/youtube.dart');
+#import('package:buckshot/extensions/controls/media/hulu.dart');
+#import('package:buckshot/extensions/controls/media/vimeo.dart');
+#import('package:buckshot/extensions/controls/media/funny_or_die.dart');
+#import('package:buckshot/extensions/controls/list_box.dart');
+#import('package:buckshot/extensions/controls/modal_dialog.dart');
+#import('package:buckshot/extensions/controls/social/plus_one.dart');
+#import('package:buckshot/extensions/controls/treeview/tree_view.dart');
+#import('package:buckshot/extensions/controls/dock_panel.dart');
+#import('package:buckshot/extensions/controls/popup.dart');
+#import('package:buckshot/extensions/controls/tab_control/tab_control.dart');
 
 #import('apps/calculator/calculator.dart', prefix:'calc');
 #import('apps/todo/todo.dart', prefix:'todo');
@@ -28,17 +28,17 @@
 
 void main() {
   if (!reflectionEnabled){
-    buckshot.registerElement(new TreeView.register());
-    buckshot.registerElement(new TreeNode.register());
-    buckshot.registerElement(new YouTube.register());
-    buckshot.registerElement(new Hulu.register());
-    buckshot.registerElement(new Vimeo.register());
-    buckshot.registerElement(new FunnyOrDie.register());
-    buckshot.registerElement(new ListBox.register());
-    buckshot.registerElement(new PlusOne.register());
-    buckshot.registerElement(new DockPanel.register());
-    buckshot.registerElement(new TabControl.register());
-    buckshot.registerElement(new TabItem.register());
+    buckshot.registerElement(new TreeView.register() as BuckshotObject);
+    buckshot.registerElement(new TreeNode.register() as BuckshotObject);
+    buckshot.registerElement(new YouTube.register() as BuckshotObject);
+    buckshot.registerElement(new Hulu.register() as BuckshotObject);
+    buckshot.registerElement(new Vimeo.register() as BuckshotObject);
+    buckshot.registerElement(new FunnyOrDie.register() as BuckshotObject);
+    buckshot.registerElement(new ListBox.register() as BuckshotObject);
+    buckshot.registerElement(new PlusOne.register() as BuckshotObject);
+    buckshot.registerElement(new DockPanel.register() as BuckshotObject);
+    buckshot.registerElement(new TabControl.register() as BuckshotObject);
+    buckshot.registerElement(new TabItem.register() as BuckshotObject);
   }
 
   setView(new Main());
