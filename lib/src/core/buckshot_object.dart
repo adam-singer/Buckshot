@@ -319,6 +319,8 @@ class BuckshotObject extends HashableObject
     return c.future;
   }
   
+  String get safeName => '${toString()}${hashCode()}';
+  
   String toString() => super
                         .toString()
                         .replaceFirst("Instance of '", '')

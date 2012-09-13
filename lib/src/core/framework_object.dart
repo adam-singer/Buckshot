@@ -8,8 +8,9 @@
 class FrameworkObject extends BuckshotObject 
 {
   bool _watchingMeasurement = false;
-  int _animationFrameID;
+  bool _watchingPosition = false;
   ElementRect _previousMeasurement;
+  ElementRect _previousPosition;
   FrameworkObject _parent;
   bool isLoaded = false;
 
@@ -27,9 +28,11 @@ class FrameworkObject extends BuckshotObject
   final FrameworkEvent<EventArgs> loaded;
   /// Fires when the FrameworkElement is removed from the DOM.
   final FrameworkEvent<EventArgs> unloaded;
-  /// Fires when the measurement of the the FrameworkElement changes.
+  /// Fires when the measurement of the the element changes.
   FrameworkEvent<MeasurementChangedEventArgs> measurementChanged;
-
+  /// Fires when the position of the element changes.
+  FrameworkEvent<MeasurementChangedEventArgs> positionChanged;
+  
   /**
   * Accesses the underlying raw HTML root element.
   *
@@ -118,7 +121,7 @@ class FrameworkObject extends BuckshotObject
   void _startWatchMeasurement(){
     _watchingMeasurement = true;
 
-    watchIt(num time){
+    watchIt(int time){
       if (!_watchingMeasurement) return;
 
       rawElement.rect.then((ElementRect m){
@@ -129,23 +132,13 @@ class FrameworkObject extends BuckshotObject
           measurementChanged.invoke(this,
             new MeasurementChangedEventArgs(m, m));
         }else{
-          //TODO: (John) make a positionChanged event and a sizeChanged event
-          // in addition to this measurementChanged event.
           if (
-//              _previousMeasurement.bounding.left != m.bounding.left
-//              || _previousMeasurement.bounding.top != m.bounding.top
               _previousMeasurement.bounding.width != m.bounding.width
               || _previousMeasurement.bounding.height != m.bounding.height
-//              || _previousMeasurement.client.left != m.client.left
-//              || _previousMeasurement.client.top != m.client.top
               || _previousMeasurement.client.width != m.client.width
               || _previousMeasurement.client.height != m.client.height
-//              || _previousMeasurement.offset.left != m.offset.left
-//              || _previousMeasurement.offset.top != m.offset.top
               || _previousMeasurement.offset.width != m.offset.width
               || _previousMeasurement.offset.height != m.offset.height
-//              || _previousMeasurement.scroll.left != m.scroll.left
-//              || _previousMeasurement.scroll.top != m.scroll.top
               || _previousMeasurement.scroll.width != m.scroll.width
               || _previousMeasurement.scroll.height != m.scroll.height
               ){
@@ -155,21 +148,68 @@ class FrameworkObject extends BuckshotObject
           }
         }
         _previousMeasurement = m;
-        _animationFrameID = window.requestAnimationFrame(watchIt);
       });
     }
 
-    _animationFrameID = window.requestAnimationFrame(watchIt);
+    FrameworkAnimation.workers['${safeName}_watch_measurement'] = watchIt;
 
   }
-
-  void _stopWatchMeasurement(){
-    if (_animationFrameID != null)
-      window.cancelAnimationFrame(_animationFrameID);
+  
+  void _stopWatchMeasurement(){   
+    if (FrameworkAnimation.workers.containsKey('${safeName}_watch_measurement')){
+      FrameworkAnimation.workers.remove('${safeName}_watch_measurement');
+    }
+    
     _previousMeasurement = null;
     _watchingMeasurement = false;
   }
 
+  void _startWatchPosition(){
+    _watchingMeasurement = true;
+
+    watchIt(int time){
+      if (!_watchingPosition) return;
+
+      rawElement.rect.then((ElementRect m){
+
+        mostRecentMeasurement = m;
+
+        if (_previousPosition == null){
+          measurementChanged.invoke(this,
+            new MeasurementChangedEventArgs(m, m));
+        }else{
+          if (
+              _previousPosition.bounding.left != m.bounding.left
+              || _previousPosition.bounding.top != m.bounding.top
+              || _previousPosition.client.left != m.client.left
+              || _previousPosition.client.top != m.client.top
+              || _previousPosition.offset.left != m.offset.left
+              || _previousPosition.offset.top != m.offset.top
+              || _previousPosition.scroll.left != m.scroll.left
+              || _previousPosition.scroll.top != m.scroll.top
+              ){
+
+            measurementChanged.invoke(this,
+              new MeasurementChangedEventArgs(_previousPosition, m));
+          }
+        }
+        _previousPosition = m;
+      });
+    }
+
+    FrameworkAnimation.workers['${safeName}_watch_position'] = watchIt;
+
+  }
+  
+  void _stopWatchPosition(){   
+    if (FrameworkAnimation.workers.containsKey('${safeName}_watch_position')){
+      FrameworkAnimation.workers.remove('${safeName}_watch_position');
+    }
+    
+    _previousPosition = null;
+    _watchingPosition = false;
+  }
+  
   void _initFrameworkObjectEvents(){
     // only begins animation loop on first request of the event
     // to preserve resources when not in use.
@@ -177,6 +217,12 @@ class FrameworkObject extends BuckshotObject
     ._watchFirstAndLast(
       () => _startWatchMeasurement(),
       () =>  _stopWatchMeasurement()
+    );
+    
+    positionChanged = new BuckshotEvent<MeasurementChangedEventArgs>
+    ._watchFirstAndLast(
+      () => _startWatchPosition(),
+      () =>  _stopWatchPosition()
     );
   }
 

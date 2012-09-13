@@ -41,7 +41,7 @@ class TabControl extends Control implements IFrameworkContainer
     loaded + _initControl;
   }
 
-  TabControl.register() :
+  TabControl.register() : super.register(),
     tabSelected = new FrameworkEvent<TabSelectedEventArgs>(),
     tabClosing = new FrameworkEvent<TabSelectedEventArgs>();
   makeMe() => new TabControl();

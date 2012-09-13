@@ -26,6 +26,8 @@ Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
 {
   final c = new Completer();
 
+  _initFramework();
+  
   final el = query('#${elementID}');
 
   if (el == null){
@@ -43,6 +45,18 @@ Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
   });
 
   return c.future;
+}
+
+bool _frameworkInitialized = false;
+
+_initFramework(){
+  if (_frameworkInitialized) return;
+  
+  _frameworkInitialized = true;
+  
+  if (!FrameworkAnimation._started){
+    FrameworkAnimation._startAnimatonLoop();
+  }
 }
 
 

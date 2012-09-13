@@ -45,12 +45,12 @@ void main() {
   
   setView(view).
     then((t){
-      new Binding(buckshot.windowHeightProperty, t.parent.heightProperty);
+      new Binding(buckshot.windowHeightProperty, (t.parent as Border).heightProperty);
       
-      t.parent.background = 
+      (t.parent as Border).background = 
           new SolidColorBrush(new Color.predefined(Colors.WhiteSmoke));
       
-      t.parent.verticalScrollEnabled = true;
+      (t.parent as Border).verticalScrollEnabled = true;
       
       final demo = queryString['demo'];
       

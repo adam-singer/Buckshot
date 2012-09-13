@@ -23,6 +23,14 @@ class LayoutCanvas extends Panel
       buckshot.registerAttachedProperty('layoutcanvas.top', LayoutCanvas.setTop);
       buckshot.registerAttachedProperty('layoutcanvas.left', LayoutCanvas.setLeft);
     }
+    
+    loaded + (_, __){
+      positionChanged + positionChanged_handler;
+    };
+  }
+  
+  void positionChanged_handler(sender, MeasurementChangedEventArgs args){
+    db('position changed!', this);
   }
   
   LayoutCanvas.register() : super.register();
@@ -65,7 +73,6 @@ class LayoutCanvas extends Panel
 
   void _onAttachedPropertyChanging(Object sender, AttachedPropertyChangedEventArgs args){
     //the attached property value changed so call it's callback to adjust the value
-//    db('sender', sender);
     Function f = args.property.propertyChangedCallback;
     f(sender, args.value);
   }

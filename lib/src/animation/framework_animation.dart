@@ -37,7 +37,26 @@ class PropertyTransition
 
 class FrameworkAnimation
 {
-
+  static HashMap<String, RequestAnimationFrameCallback> workers;
+  static bool _started = false;
+  
+  static void _startAnimatonLoop(){
+    if (_started) {
+      throw const BuckshotException('Main animation loop already started.');
+    }
+    
+    workers = new HashMap<String, RequestAnimationFrameCallback>();
+     
+     window.requestAnimationFrame(_doWork);
+  }
+ 
+  static void _doWork(int time){
+    
+    workers.forEach((_, work) => work(time));
+    
+    window.requestAnimationFrame(_doWork);
+  }
+  
   static void playAnimation(String name){
 
     AnimationResource anim = FrameworkResource._resourceRegistry['$name'];

@@ -20,7 +20,7 @@ class TabItem extends Control implements IFrameworkContainer
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
    
-  TabItem.register();
+  TabItem.register() : super.register();
   makeMe() => new TabItem();
   
   get content => getValue(contentProperty);
