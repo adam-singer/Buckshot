@@ -16,6 +16,8 @@ class LayoutCanvas extends Panel
   /// from the left of the LayoutCanvas container boundary.
   static AttachedFrameworkProperty leftProperty;
 
+  EventHandlerReference _ref;
+  
   LayoutCanvas(){
     Browser.appendClass(rawElement, "layoutcanvas");
     
@@ -25,17 +27,25 @@ class LayoutCanvas extends Panel
     }
     
     loaded + (_, __){
-      positionChanged + positionChanged_handler;
+      _ref = positionChanged + positionChanged_handler;
+    };
+    
+    unloaded + (_, __){
+      positionChanged - _ref;
     };
   }
-  
-  void positionChanged_handler(sender, MeasurementChangedEventArgs args){
-    db('position changed!', this);
-  }
-  
+    
   LayoutCanvas.register() : super.register();
   makeMe() => new LayoutCanvas();
+  
+  void positionChanged_handler(sender, MeasurementChangedEventArgs args){
+    children.forEach((child){
+      var l = LayoutCanvas.getLeft(child);
 
+      var t = LayoutCanvas.getTop(child);
+    });
+  }
+  
   void onChildrenChanging(ListChangedEventArgs args){
       super.onChildrenChanging(args);
 

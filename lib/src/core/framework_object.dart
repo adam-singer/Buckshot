@@ -125,7 +125,8 @@ class FrameworkObject extends BuckshotObject
       if (!_watchingMeasurement) return;
 
       rawElement.rect.then((ElementRect m){
-
+        if (!_watchingMeasurement) return;
+        
         mostRecentMeasurement = m;
 
         if (_previousMeasurement == null){
@@ -165,17 +166,18 @@ class FrameworkObject extends BuckshotObject
   }
 
   void _startWatchPosition(){
-    _watchingMeasurement = true;
+    _watchingPosition= true;
 
     watchIt(int time){
       if (!_watchingPosition) return;
-
+      
       rawElement.rect.then((ElementRect m){
-
+        if (!_watchingPosition) return;
+        
         mostRecentMeasurement = m;
 
         if (_previousPosition == null){
-          measurementChanged.invoke(this,
+          positionChanged.invoke(this,
             new MeasurementChangedEventArgs(m, m));
         }else{
           if (
@@ -189,7 +191,7 @@ class FrameworkObject extends BuckshotObject
               || _previousPosition.scroll.top != m.scroll.top
               ){
 
-            measurementChanged.invoke(this,
+            positionChanged.invoke(this,
               new MeasurementChangedEventArgs(_previousPosition, m));
           }
         }

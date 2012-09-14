@@ -44,6 +44,20 @@ Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
     c.complete(view.rootVisual);
   });
 
+ 
+  final fruit =  ["apple", "pear", "orange"];
+  
+  fruit.add("Tomatoe");
+
+  final names = const ["John", "Jane", "Jack"];
+  
+  names.add("Jasna");
+  
+  const cars = const ["Honda", "Toyota", "Ford"];
+  
+  cars.add("Buick");
+  
+  
   return c.future;
 }
 
