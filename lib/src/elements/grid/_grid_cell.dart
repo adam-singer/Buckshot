@@ -51,12 +51,6 @@ class _GridCell extends FrameworkObject
   /// Gets the [marginProperty] value.
   Thickness get margin => getValue(marginProperty);
 
-  void updateMeasurement(){
-    rawElement
-      .rect
-      .then((ElementRect r) { mostRecentMeasurement = r;});
-  }
-
 
   /// Overridden [FrameworkObject] method for generating the html representation of the border.
   void createElement(){

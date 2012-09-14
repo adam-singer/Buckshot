@@ -393,12 +393,14 @@ class FrameworkObject extends BuckshotObject
 
   ElementRect mostRecentMeasurement;
 
-  void updateMeasurement(){
-    if (!isLoaded) return;
-
-    rawElement
-      .rect
-      .then((ElementRect r) { mostRecentMeasurement = r;});
+  Future<ElementRect> updateMeasurement(){
+    if (!isLoaded) return null;
+    
+    final rf = rawElement.rect;
+    
+    rf.then((ElementRect r) { mostRecentMeasurement = r;});
+    
+    return rf;
   }
 
   /// Returns the first non-null [dataContext] [FrameworkProperty]

@@ -11,7 +11,15 @@ If you've worked with .net WPF or Silverlight then this framework will feel very
 familiar to you.
 
 ## Status: Alpha ##
-Project is currently in the **alpha** stage of development.  It will likely not move to beta or v1.0 until after Dart ships v1.0. This is to ensure that that library is working correctly with the Dart APIs, which are still in flux.
+Project is currently in the **alpha** stage of development.  It will likely not
+move to beta or v1.0 until after Dart ships v1.0. This is to ensure that that 
+library is working correctly with the Dart APIs, which are still in flux.
+
+## For Modern Web Browsers ##
+While the project will attempt some compatibility with older/non-compliant browsers, 
+the target focus is centered squarely on **modern** web browsers.  If Buckshot 
+isn't working in your browser of choice, then it isn't modern.  Ok that may be a 
+bit harsh, but seriously: Use Chrome.
 
 ## Getting Started ##
 See the "getting_started" document in the doc/ folder.
