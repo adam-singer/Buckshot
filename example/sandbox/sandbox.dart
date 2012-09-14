@@ -28,17 +28,17 @@
 
 void main() {
   if (!reflectionEnabled){
-    buckshot.registerElement(new TreeView.register() as BuckshotObject);
-    buckshot.registerElement(new TreeNode.register() as BuckshotObject);
-    buckshot.registerElement(new YouTube.register() as BuckshotObject);
-    buckshot.registerElement(new Hulu.register() as BuckshotObject);
-    buckshot.registerElement(new Vimeo.register() as BuckshotObject);
-    buckshot.registerElement(new FunnyOrDie.register() as BuckshotObject);
-    buckshot.registerElement(new ListBox.register() as BuckshotObject);
-    buckshot.registerElement(new PlusOne.register() as BuckshotObject);
-    buckshot.registerElement(new DockPanel.register() as BuckshotObject);
-    buckshot.registerElement(new TabControl.register() as BuckshotObject);
-    buckshot.registerElement(new TabItem.register() as BuckshotObject);
+    buckshot.registerElement(new TreeView.register());
+    buckshot.registerElement(new TreeNode.register());
+    buckshot.registerElement(new YouTube.register());
+    buckshot.registerElement(new Hulu.register());
+    buckshot.registerElement(new Vimeo.register());
+    buckshot.registerElement(new FunnyOrDie.register());
+    buckshot.registerElement(new ListBox.register());
+    buckshot.registerElement(new PlusOne.register());
+    buckshot.registerElement(new DockPanel.register());
+    buckshot.registerElement(new TabControl.register());
+    buckshot.registerElement(new TabItem.register());
   }
 
   final view = new Main();

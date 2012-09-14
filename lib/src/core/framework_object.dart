@@ -20,14 +20,16 @@ class FrameworkObject extends BuckshotObject
 
   /// Represents a map of [Binding]s that will be bound just before
   /// the element renders to the DOM.
-  final HashMap<FrameworkProperty, BindingData> lateBindings;
+  final HashMap<FrameworkProperty, BindingData> lateBindings = 
+      new HashMap<FrameworkProperty, BindingData>();
 
-  final Map<String, FrameworkEvent> _eventBindings;
+  final Map<String, FrameworkEvent> _eventBindings =
+      new Map<String, FrameworkEvent>();
 
   /// Fires when the FrameworkElement is inserted into the DOM.
-  final FrameworkEvent<EventArgs> loaded;
+  final FrameworkEvent<EventArgs> loaded = new FrameworkEvent<EventArgs>();
   /// Fires when the FrameworkElement is removed from the DOM.
-  final FrameworkEvent<EventArgs> unloaded;
+  final FrameworkEvent<EventArgs> unloaded = new FrameworkEvent<EventArgs>();
   /// Fires when the measurement of the the element changes.
   FrameworkEvent<MeasurementChangedEventArgs> measurementChanged;
   /// Fires when the position of the element changes.
@@ -51,21 +53,15 @@ class FrameworkObject extends BuckshotObject
   //allows container elements to subscribe/unsubscribe to attached property
   //changes of children.
   final FrameworkEvent<AttachedPropertyChangedEventArgs>
-          attachedPropertyChanged;
+          attachedPropertyChanged = 
+          new FrameworkEvent<AttachedPropertyChangedEventArgs>();
 
   /// Represents a name identifier for the element.
   /// Assigning a name to an element
   /// allows it to be found and bound to by other elements.
   FrameworkProperty nameProperty;
 
-  FrameworkObject() :
-    lateBindings = new HashMap<FrameworkProperty, BindingData>(),
-    _eventBindings = new Map<String, FrameworkEvent>(),
-    loaded = new FrameworkEvent<EventArgs>(),
-    unloaded = new FrameworkEvent<EventArgs>(),
-    attachedPropertyChanged =
-      new FrameworkEvent<AttachedPropertyChangedEventArgs>()
-    {
+  FrameworkObject() {
       applyVisualTemplate();
 
       if (rawElement == null) createElement();
@@ -77,20 +73,18 @@ class FrameworkObject extends BuckshotObject
 
       _initFrameworkObjectEvents();
       
+      if (reflectionEnabled){ 
+        return;
+      }
+      
       registerEvent('attachedpropertychanged', attachedPropertyChanged);
       registerEvent('loaded', loaded);
       registerEvent('unloaded', unloaded);
       registerEvent('measurementchanged', measurementChanged);
-    }
+      registerEvent('positionchanged', positionChanged);
+  }
   
-  FrameworkObject.register() : super.register(),
-    lateBindings = new HashMap<FrameworkProperty, BindingData>(),
-    _eventBindings = new Map<String, FrameworkEvent>(),
-    loaded = new FrameworkEvent<EventArgs>(),
-    unloaded = new FrameworkEvent<EventArgs>(),
-    attachedPropertyChanged = 
-      new FrameworkEvent<AttachedPropertyChangedEventArgs>();
-      
+  FrameworkObject.register() : super.register();
   makeMe() => null;
   
   void _initFrameworkObjectProperties(){

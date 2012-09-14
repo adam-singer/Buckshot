@@ -7,13 +7,16 @@
 * Generally speaking all elements that render DOM output should derive
 * from this class.
 */
-class FrameworkElement extends FrameworkObject {
+class FrameworkElement extends FrameworkObject 
+{
   StyleTemplate _style;
 
-  final HashMap<FrameworkProperty, String> _templateBindings;
-
-  final HashMap<String, String> _transitionProperties;
-
+  final HashMap<FrameworkProperty, String> _templateBindings =
+    new HashMap<FrameworkProperty, String>();
+  
+  final HashMap<String, String> _transitionProperties =
+      new HashMap<String, String>();   
+  
   _Brutus _manualAlignmentHandler;
 
   /// Represents the margin [Thickness] area outside the FrameworkElement boundary.
@@ -110,9 +113,7 @@ class FrameworkElement extends FrameworkObject {
   /// Fires when an object stops being dragged.
   FrameworkEvent<DragEventArgs> dragEnd;
 
-  FrameworkElement() :
-    _templateBindings = new HashMap<FrameworkProperty, String>(),
-    _transitionProperties = new HashMap<String, String>()
+  FrameworkElement()
   {
     Browser.appendClass(rawElement, "FrameworkElement");
 
@@ -125,14 +126,15 @@ class FrameworkElement extends FrameworkObject {
 
     _initFrameworkEvents();
     
+    if (reflectionEnabled){
+      return;
+    }
+    
     _registerEvents();
 
   }
   
-  FrameworkElement.register() : super.register(),
-    _templateBindings = new HashMap<FrameworkProperty, String>(),
-    _transitionProperties = new HashMap<String, String>();
-
+  FrameworkElement.register() : super.register();
   makeMe() => null;
   
   

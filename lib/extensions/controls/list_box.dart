@@ -37,13 +37,12 @@ class ListBox extends Control implements IFrameworkContainer
 
   int _selectedIndex = -1;
 
-  final FrameworkEvent<SelectedItemChangedEventArgs> selectionChanged;
+  final FrameworkEvent<SelectedItemChangedEventArgs> selectionChanged =
+      new FrameworkEvent<SelectedItemChangedEventArgs>();
 
   int get selectedIndex => _selectedIndex;
 
   ListBox()
-  :
-    selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs>()
   {
     Browser.appendClass(rawElement, "listbox");
 
@@ -63,8 +62,7 @@ class ListBox extends Control implements IFrameworkContainer
     registerEvent('selectionchanged', selectionChanged);
   }
   
-  ListBox.register() : super.register(),
-    selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs>();
+  ListBox.register() : super.register();
   makeMe() => new ListBox();
 
   String get defaultControlTemplate {

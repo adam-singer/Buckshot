@@ -13,14 +13,16 @@ class Buckshot extends FrameworkObject
 {
   static const String _defaultRootID = "#BuckshotHost";
   
-  final Map<String, Dynamic> _mirrorCache;
-
-  StyleElement _buckshotCSS;
+  final Map<String, Dynamic> _mirrorCache = new Map<String, Dynamic>();
 
   /// Central registry of named [FrameworkObject] elements.
-  final HashMap<String, FrameworkObject> namedElements;
+  final HashMap<String, FrameworkObject> namedElements = 
+      new HashMap<String, FrameworkObject>();
 
-  final HashMap<String, Function> _objectRegistry;
+  final HashMap<String, Function> _objectRegistry = 
+      new HashMap<String, Dynamic>();
+
+  StyleElement _buckshotCSS;
   
   /// Bindable window width/height properties.  Readonly, so can only
   /// bind from, not to.
@@ -31,19 +33,10 @@ class Buckshot extends FrameworkObject
 
   /// Pass the ID of the element in the DOM where buckshot will render content.
   Buckshot([String buckshotRootID = _defaultRootID])
-  :
-    _objectRegistry = new HashMap<String, Dynamic>(),
-    namedElements = new HashMap<String, FrameworkObject>(),
-    _mirrorCache = new Map<String, Dynamic>()
   {
     //initialize Polly's statics
     Polly.init();
     
-    _initBuckshotSystem(buckshotRootID);
-  }
- 
-  void _initBuckshotSystem(String rootID)
-  {
     if (!Polly.browserOK){
       print('Buckshot Warning: Browser may not be compatible with Buckshot'
           ' framework.');
@@ -57,7 +50,7 @@ class Buckshot extends FrameworkObject
       _registerCoreElements();
     }
   }
-
+ 
   void registerElement(BuckshotObject o){
     assert(!reflectionEnabled);
     
