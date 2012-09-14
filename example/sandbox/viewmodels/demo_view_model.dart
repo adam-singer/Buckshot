@@ -18,7 +18,6 @@ class DemoViewModel extends ViewModelBase
   FrameworkProperty colorProperty;
   FrameworkProperty fruitProperty;
   FrameworkProperty iconsProperty;
-  FrameworkProperty versionProperty;
   FrameworkProperty renderedOutputProperty;
   FrameworkProperty templateTextProperty;
   FrameworkProperty errorMessageProperty;
@@ -83,9 +82,6 @@ class DemoViewModel extends ViewModelBase
     // well. ex. "color.red" or "color.orange"
     colorProperty = new FrameworkProperty(this, "color",
         defaultValue:model.colorClass);
-
-    versionProperty = new FrameworkProperty(this, 'version',
-        defaultValue:buckshot.version);
 
     renderedOutputProperty = new FrameworkProperty(this, 'renderedOutput');
 

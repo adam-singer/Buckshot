@@ -3,14 +3,6 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 /**
-* Represents the globally available instance of Buckshot.
-*
-* It is normally not be necessary to create your own instance
-* of the [Buckshot] class.
-*/
-Buckshot get buckshot => new Buckshot._cached();
-
-/**
 * A general utility service for the Buckshot framework.
 *
 * Use the globally available 'buckshot' object to access the
@@ -20,7 +12,6 @@ Buckshot get buckshot => new Buckshot._cached();
 class Buckshot extends FrameworkObject
 {
   static const String _defaultRootID = "#BuckshotHost";
-  static const String _version = '0.55 Alpha';
   
   final Map<String, Dynamic> _mirrorCache;
 
@@ -38,40 +29,17 @@ class Buckshot extends FrameworkObject
   /// bind from, not to.
   FrameworkProperty windowHeightProperty;
 
-  /// Bindable property representing the current version of Buckshot
-  FrameworkProperty versionProperty;
-
-  static Buckshot _ref;
-
   /// Pass the ID of the element in the DOM where buckshot will render content.
-  Buckshot(String buckshotRootID)
+  Buckshot([String buckshotRootID = _defaultRootID])
   :
     _objectRegistry = new HashMap<String, Dynamic>(),
     namedElements = new HashMap<String, FrameworkObject>(),
     _mirrorCache = new Map<String, Dynamic>()
   {
-    _initBuckshotSystem(buckshotRootID);
-  }
-
-  factory Buckshot._cached()
-  {
-    if (_ref != null) return _ref;
-
     //initialize Polly's statics
     Polly.init();
-
-    new Buckshot._init();
-    return _ref;
-  }
-
-  Buckshot._init([String rootID = Buckshot._defaultRootID])
-  :
-    _objectRegistry = new HashMap<String, Dynamic>(),
-    namedElements = new HashMap<String, FrameworkObject>(),
-    _mirrorCache = new Map<String, Dynamic>()
-  {
-    _ref = this;
-    _initBuckshotSystem(rootID);
+    
+    _initBuckshotSystem(buckshotRootID);
   }
  
   void _initBuckshotSystem(String rootID)
@@ -160,20 +128,14 @@ class Buckshot extends FrameworkObject
   }
 
   void _initializeBuckshotProperties(){
-    versionProperty = new FrameworkProperty(Buckshot._ref,
-      "version", (_){}, _version);
-
-    //TODO unit test
-    versionProperty.readOnly = true;
 
     windowWidthProperty = new FrameworkProperty(
-      Buckshot._ref, "windowWidth", (_){}, window.innerWidth);
+      this, "windowWidth", defaultValue:window.innerWidth);
 
     windowHeightProperty = new FrameworkProperty(
-      Buckshot._ref, "windowHeight", (_){}, window.innerHeight);
+      this, "windowHeight", defaultValue:window.innerHeight);
 
     window.on.resize.add((e){
-      if (_ref == null) return;
 
       //any elements bound to these properties will also get updated...
       if (window.innerWidth != windowWidth){
@@ -191,9 +153,6 @@ class Buckshot extends FrameworkObject
 
   /// Gets the innerHeight of the window
   int get windowHeight => getValue(windowHeightProperty);
-
-  /// Gets the Buckshot version.
-  String get version => getValue(versionProperty);
   
   // Wrappers to prevent propagation of static warnings elsewhere.
   reflectMe(object) => reflect(object);

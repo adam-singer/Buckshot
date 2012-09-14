@@ -3,6 +3,15 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 /**
+* Represents the globally available instance of Buckshot.
+*
+* It is normally not be necessary to create your own instance
+* of the [Buckshot] class.
+*/
+Buckshot buckshot = new Buckshot();
+
+
+/**
  * Sets a [View] into the DOM for rendering. Returns a future which completes
  * when the view is ready (fully deserialized and constructed).
  *
