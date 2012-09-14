@@ -243,9 +243,11 @@ class DemoViewModel extends ViewModelBase
     }
 
     String error = '';
+    String text = '';
 
     try{
-      setTemplate(getValue(templateTextProperty).trim());
+      text = getValue(templateTextProperty).trim();
+      setTemplate(text);
     }on AnimationException catch(ae){
       error = "An error occurred while attempting to process an"
         " animation resource: ${ae}";
@@ -263,11 +265,32 @@ class DemoViewModel extends ViewModelBase
         " render the content.  Please bear with us as we (and Dart) are"
         " still in the early stages of development.  Thanks! ${e}";
     }finally{
-      if (error == '') return;
-      doError(error);
+      if (error != '') doError(error);
+    }
+    
+    
+    try {
+     if (error == '' && text != '') {
+       sendTemplate(text);
+     }
+    } on Exception catch(e) {
+      error = "A general exception occured while attempting to"
+          " send to buckshotbin. Please bear with us as we (and Dart) are"
+          " still in the early stages of development.  Thanks! ${e}";
+    } finally {
+      if (error == '') return; 
+        doError(error);
     }
   }
 
+  /**
+   * Send template to a buckshotbin server
+   */
+  sendTemplate(String templateText) {
+    // TODO: register a callback to display the return url.
+    // TODO: possibly register for url shortner from google. 
+  }
+  
   /**
    * Handles click events coming from the 'clear all' button.
    */
