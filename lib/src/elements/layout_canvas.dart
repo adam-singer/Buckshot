@@ -3,8 +3,10 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 /**
-* Implements a layout container where elements can be arranged left/top position.
-* Element overlapping is supported.
+* Implements a layout container where elements can be arranged explicitly in
+* left/top position within the container area.
+* 
+* Element overlapping, and z-ordering is supported.
 *
 * This class is **not** related to the HTML5 <Canvas> element. */
 class LayoutCanvas extends Panel
