@@ -1,6 +1,6 @@
 ## MVVM in Buckshot ##
-Buckshot's API provides out of the box support for the [Model-View-ViewModel](http://en.wikipedia.org/wiki/Model_View_ViewModel) (MVVM)
-pattern. MVVM provides a good balance af structure and separation of concerns, while at the same time remaining flexible in implementation.
+Buckshot's API provides support for the [Model-View-ViewModel](http://en.wikipedia.org/wiki/Model_View_ViewModel) (MVVM)
+pattern. MVVM provides a good balance of structure and separation of concerns, while at the same time remaining flexible in implementation.
 
 ## Components of MVVM ##
 
