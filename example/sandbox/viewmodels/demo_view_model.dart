@@ -24,7 +24,8 @@ class DemoViewModel extends ViewModelBase
   FrameworkProperty errorMessageProperty;
   FrameworkProperty demoTreeNodeSelectedProperty;
   FrameworkProperty dockTextProperty;
-
+  FrameworkProperty returnLocationProperty;
+  
   View _mainView;
 
   DemoViewModel()
@@ -33,6 +34,8 @@ class DemoViewModel extends ViewModelBase
   {
     _initDemoViewModelProperties();
 
+    model.buckshotbin.returnIdChanged + updateReturnUrl;
+    
     _regEventHandlers();
 
     // Update the timeStampProperty every second with a new timestamp.
@@ -47,6 +50,8 @@ class DemoViewModel extends ViewModelBase
   {
     _initDemoViewModelProperties();
 
+    model.buckshotbin.returnIdChanged + updateReturnUrl;
+    
     _regEventHandlers();
 
     // Update the timeStampProperty every second with a new timestamp.
@@ -62,7 +67,18 @@ class DemoViewModel extends ViewModelBase
       }
     });
   }
-
+  
+  /**
+  * [FrameworkEvent] handler that is called when the model fires a primary
+  * output update.
+  */
+  void updateReturnUrl(_, OutputChangedEventArgs args){
+    //output = args.output;
+    print("args.output = ${args.output}");
+    print("");
+    //setValue(updateReturnU)
+    setValue(returnLocationProperty, "${args.output}");
+  }
 
   // Initialize the properties that we want to expose for template binding.
   void _initDemoViewModelProperties(){
@@ -98,6 +114,9 @@ class DemoViewModel extends ViewModelBase
     
     dockTextProperty = new FrameworkProperty(this, 'dockText',
         defaultValue: 'Docked left.');
+    
+    returnLocationProperty = new FrameworkProperty(this, 'returnLocation',
+        defaultValue: 'Default Value');
   }
 
   void setQueryStringTo(String value){
@@ -289,6 +308,8 @@ class DemoViewModel extends ViewModelBase
   sendTemplate(String templateText) {
     // TODO: register a callback to display the return url.
     // TODO: possibly register for url shortner from google. 
+    print("sendTemplate($templateText)");
+    model.buckshotbin.sendData(templateText);
   }
   
   /**

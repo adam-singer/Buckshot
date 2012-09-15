@@ -28,6 +28,17 @@
 #source('views/main.dart');
 #source('views/error_view.dart');
 
+
+/**
+* Event-handler object to support the [FrameworkEvent]s in [].
+*/
+class OutputChangedEventArgs extends EventArgs{
+  /// The changed output.
+  final String output;
+  
+  OutputChangedEventArgs(this.output);
+}
+
 void main() {
   if (!reflectionEnabled){
     buckshot.registerElement(new TreeView.register() as BuckshotObject);

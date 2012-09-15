@@ -37,12 +37,12 @@ class DemoModel {
 }
 
 class Buckshotbin extends BuckshotObject {
-  // XXX: we might not even be sending directly to cloudant
-  // Since were just the client at this point. 
+   
   String buckshotbinurl = "http://buckshotbin.cloudant.com/buckshotbin/";
   Uri buckshotbinuri;
   FrameworkProperty templateData;
-  FrameworkProperty returnId;
+  FrameworkProperty returnId; // TODO: remove, not used
+  FrameworkEvent<OutputChangedEventArgs> returnIdChanged; 
   
   makeMe() => null;
   
@@ -50,6 +50,11 @@ class Buckshotbin extends BuckshotObject {
     buckshotbinuri = new Uri(buckshotbinurl);
     templateData = new FrameworkProperty(this, "templateData", defaultValue:"");
     returnId = new FrameworkProperty(this, "returnId", defaultValue:"");
+    returnIdChanged = new FrameworkEvent<OutputChangedEventArgs>();
+  }
+  
+  onReturnIdChanged(String output) {
+    returnIdChanged.invoke(this, new OutputChangedEventArgs(output));
   }
   
   /**
@@ -60,7 +65,10 @@ class Buckshotbin extends BuckshotObject {
     request.open("POST", "/buckshotbin", true);
     request.on.loadEnd.add((HttpRequestProgressEvent e) {
       print("responseId = ${request.responseText}");
+      
       var responseId = JSON.parse(request.responseText);
+      onReturnIdChanged(responseId["urlid"]);
+      //returnId.
     });
     
     request.on.error.add((Event e) {
