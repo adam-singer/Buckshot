@@ -4,8 +4,8 @@
 The best way get started with Buckshot is to copy one of the starter projects
 located in the example/starter_projects/ folder of the library. 
 
-These projects provide a standarized layout for a Buckshot application that uses
-the MVVM pattern.  They are also full of comments.
+These projects provide a standarized layout for a Buckshot application using
+the [MVVM](http://en.wikipedia.org/wiki/Model_View_ViewModel) pattern.  They are also full of comments.
 
 ## Resources ##
 Visit the [Buckshot Discussion Group](https://groups.google.com/forum/#!forum/buckshot-ui) for the latest information.
