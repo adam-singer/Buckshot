@@ -48,7 +48,7 @@ represent each view.  This is easy using Dart class extensibility:
 	
 ### Placing Views in the Web Page ###
 Buckshot provies a top-level function called "setView()" to send views to
-the web pages.  Buckshot looks for a <DIV> tag with the id of "BuckshotHost"
+the web pages.  Buckshot looks for a &lt;DIV&gt; tag with the id of "BuckshotHost"
 as a default location for the view.
 
     <!-- Buckshot looks for a div like this in your web page -->
