@@ -47,7 +47,7 @@ represent each view.  This is easy using Dart class extensibility:
     setView(new MyView());
 	
 ### Placing Views in the Web Page ###
-Buckshot provies a top-level function called "setView()" to send views to
+Buckshot provies a top-level function called **setView()** to send views to
 the web pages.  Buckshot looks for a &lt;DIV&gt; tag with the id of "BuckshotHost"
 as a default location for the view.
 
@@ -66,13 +66,13 @@ area of the page:
 	// of the default 'BuckshotHost'.
     setView(myView, "someOtherLocation");
 
-setView() also returns a future, in case we want to do something after the View is
+**setView()** also returns a Future, in case we want to do something after the view is
 loaded:
 
-   setView(myView)
-     .then((FrameworkElement rootElement){
-	    // View loaded, do some stuff here.
-	 });
+    setView(myView)
+      .then((FrameworkElement rootElement){
+	     // View loaded, do some stuff here.
+	  });
 	 
 ## View Models ##
 
