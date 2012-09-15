@@ -26,7 +26,8 @@ Before you groan - there are technical reasons for this.  However, the View clas
 the heavy lifting work for you, and exposes a **ready** Future so that you can be sure the
 view is ready before using it.
 
-    // var myView = new View.fromResource("#myTemplate");
+    var myView = new View.fromResource("#myTemplate");
+	
 	myView
 	  .ready
 	  .then((FrameworkElement rootElement){
