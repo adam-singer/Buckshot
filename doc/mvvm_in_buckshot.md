@@ -15,11 +15,11 @@ Buckshot provides a View class, which helps encapsulate a template for use in ap
 
 Since templates can reside anywhere, the View class provides constructors to retrieve them.
 
-   // Constructing a view residing in an HTML file.
-   View myView = new View.fromResource("#myTemplateName");
-
-   // Or from a URI
-   View myView = new View.fromResource("views/myTemplate.xml");
+    // Constructing a view residing in an HTML file.
+    View myView = new View.fromResource("#myTemplateName");
+    
+    // Or from a URI
+    View myView = new View.fromResource("views/myTemplate.xml");
 
 ### View Construction is Asynchronous ###
 Before you groan - there are technical reasons for this.  However, the View class handles most of
