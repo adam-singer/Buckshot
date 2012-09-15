@@ -3,6 +3,8 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 #import('dart:html');
+#import('dart:uri');
+#import('dart:json');
 #import('package:buckshot/buckshot.dart');
 #import('package:dart_utils/shared.dart');
 #import('package:DartNet-Event-Model/events.dart');

@@ -10,10 +10,13 @@ class DemoModel {
   final List fruitList = const ["apple","pear","grape","orange","tomato"];
   final SomeColors colorClass;
 
+  Buckshotbin buckshotbin;
+
   DemoModel()
   :
     colorClass = new SomeColors()
   {
+    buckshotbin = new Buckshotbin();
     iconList = [
                 new DataTemplate.fromMap({'Name':'Certificate', 'Description':'Image of a certificate document.',         'Uri':'http://www.lucastudios.com/Content/images/Certificate64.png'}),
                 new DataTemplate.fromMap({'Name':'Chart',       'Description':'Represents a chart of information.',       'Uri':'http://www.lucastudios.com/Content/images/ChartGantt64.png'}),
@@ -33,6 +36,57 @@ class DemoModel {
   }
 }
 
+class Buckshotbin extends BuckshotObject {
+  // XXX: we might not even be sending directly to cloudant
+  // Since were just the client at this point. 
+  String buckshotbinurl = "http://buckshotbin.cloudant.com/buckshotbin/";
+  Uri buckshotbinuri;
+  FrameworkProperty templateData;
+  FrameworkProperty returnId;
+  
+  makeMe() => null;
+  
+  Buckshotbin() {
+    buckshotbinuri = new Uri(buckshotbinurl);
+    templateData = new FrameworkProperty(this, "templateData", defaultValue:"");
+    returnId = new FrameworkProperty(this, "returnId", defaultValue:"");
+  }
+  
+  /**
+   * Send template data to store.
+   */
+  sendData(String data) {
+    HttpRequest request = new HttpRequest();
+    request.open("POST", "/buckshotbin", true);
+    request.on.loadEnd.add((HttpRequestProgressEvent e) {
+      print("responseId = ${request.responseText}");
+      var responseId = JSON.parse(request.responseText);
+    });
+    
+    request.on.error.add((Event e) {
+      print("Error: ${e}");
+    });
+    
+    request.send(JSON.stringify({"code": data}));    
+  }
+  
+  /**
+   * Fetch the stored template from the server.
+   */
+  fetchData(String id) {
+    HttpRequest request = new HttpRequest();
+    request.open("GET", "/buckshotbin?q=${id}", async : true);
+    request.on.error.add((Event e) {
+      print("Error: ${e}");
+    });
+    
+    request.on.loadEnd.add((XMLHttpRequestProgressEvent e) { 
+      print("responseTemplate = ${request.responseText}");
+      var responseTemplate = JSON.parse(request.responseText);
+    });
+    request.send();
+  }
+}
 
 // a demo Buckshot object to demonstrate the dot notation resolver for properties
 class SomeColors extends BuckshotObject
