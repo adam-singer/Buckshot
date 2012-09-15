@@ -1,5 +1,19 @@
 # Getting Started With Buckshot #
 
+## Hello World ##
+Here is the fully functioning Buckshot Hello World application.
+
+### HTML Page ###
+    <!-- Make sure you have a div in your web page like so: -->
+    <div id='BuckshotHost'></div>
+
+### Code ###
+    #import('package:buckshot/buckshot.dart');
+	
+	main(){
+	   setView(new View.fromTemplate("<textblock text='Hello World!' />"));
+	}
+	
 ## Your First Project ##
 The best way get started with Buckshot is to copy one of the starter projects
 located in the example/starter_projects/ folder of the library. 
