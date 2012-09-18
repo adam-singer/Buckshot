@@ -112,7 +112,7 @@ class ListBox extends Control implements IFrameworkContainer
   /// the ListBox.
   void onItemMouseDown(item){
     if (item.hasProperty("background")){
-      item.dynamic.background = getValue(selectColorProperty);
+      item.background = getValue(selectColorProperty);
     }
   }
 
@@ -120,7 +120,7 @@ class ListBox extends Control implements IFrameworkContainer
   /// the ListBox.
   void onItemMouseUp(item){
     if (item.hasProperty("background")){
-      item.dynamic.background = getValue(highlightColorProperty);
+      item.background = getValue(highlightColorProperty);
     }
   }
 

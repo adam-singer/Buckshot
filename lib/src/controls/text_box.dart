@@ -15,7 +15,7 @@ class TextBox extends Control
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {
     Browser.appendClass(rawElement, "textbox");
-
+    
     _initTextBoxProperties();
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
@@ -23,8 +23,6 @@ class TextBox extends Control
     _initEvents();
     
     registerEvent('textchanged', textChanged);
-    
-    _ie = rawElement as InputElement;
   }
   
   TextBox.register() : super.register(),
@@ -32,7 +30,8 @@ class TextBox extends Control
   makeMe() => new TextBox();
 
   void _initTextBoxProperties(){
-
+    _ie = rawElement as InputElement;
+    
     placeholderProperty = new FrameworkProperty(
       this,
       "placeholder",
@@ -42,12 +41,12 @@ class TextBox extends Control
 
 
     textProperty = new FrameworkProperty(this, "text", (String value){
-      _ie.value = value;
+      rawElement.value = value;
     },"");
 
     inputTypeProperty = new FrameworkProperty(this, "inputType", (InputTypes value){
       if (InputTypes._isValidInputType(value)){
-        _ie.attributes["type"] = value.toString();
+        rawElement.attributes["type"] = value.toString();
       }else{
         throw new BuckshotException("Invalid input '${value}' type passed to"
         " TextBox.inputType. Use InputTypes.{type} for safe assignment.");

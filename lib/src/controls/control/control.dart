@@ -122,10 +122,10 @@ class Control extends FrameworkElement
 
       if (element is! IFrameworkContainer) return;
 
-      if (element.dynamic.content is List){
-        element.dynamic.content.forEach((FrameworkElement child) => _getAllTemplateBindings(list, child));
-      }else if (element.dynamic.content is FrameworkElement){
-        _getAllTemplateBindings(list, element.dynamic.content);
+      if (element.content is List){
+        element.content.forEach((FrameworkElement child) => _getAllTemplateBindings(list, child));
+      }else if (element.content is FrameworkElement){
+        _getAllTemplateBindings(list, element.content);
       }
     }
 

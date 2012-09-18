@@ -220,7 +220,6 @@ class Polly {
       //TODO: clear any previous manual tracks in Brutus...
       if (element is IFrameworkContainer && (element as IFrameworkContainer).content is Collection){
         element
-          .dynamic
           .content
           .forEach((e) => setManualMultiStackOrientation(e, orientation));
       }

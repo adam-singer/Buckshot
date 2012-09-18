@@ -135,15 +135,15 @@ class TemplateTests extends TestGroupBase
     Template.deserialize(t)
         .then(expectAsync1((result){
           Expect.isTrue(result is StackPanel);
-          Expect.equals(7, result.dynamic.children.length);
+          Expect.equals(7, result.children.length);
 
-          Expect.isTrue(result.dynamic.children[0] is Grid, "Grid");
-          Expect.isTrue(result.dynamic.children[1] is Border, "Border");
-          Expect.isTrue(result.dynamic.children[2] is Button, "Button");
-          Expect.isTrue(result.dynamic.children[3] is TextBlock, "TextBlock");
-          Expect.isTrue(result.dynamic.children[4] is TextBox, "TextBox");
-          Expect.isTrue(result.dynamic.children[5] is Slider, "Slider");
-          Expect.isTrue(result.dynamic.children[6] is LayoutCanvas, "LayoutCanvas");
+          Expect.isTrue(result.children[0] is Grid, "Grid");
+          Expect.isTrue(result.children[1] is Border, "Border");
+          Expect.isTrue(result.children[2] is Button, "Button");
+          Expect.isTrue(result.children[3] is TextBlock, "TextBlock");
+          Expect.isTrue(result.children[4] is TextBox, "TextBox");
+          Expect.isTrue(result.children[5] is Slider, "Slider");
+          Expect.isTrue(result.children[6] is LayoutCanvas, "LayoutCanvas");
         }));
   }
 
