@@ -126,18 +126,18 @@ class ListBox extends Control implements IFrameworkContainer
 
   /// Override this method to implement your own mouse over behavior for items in
   /// the ListBox.
-  void onItemMouseEnter(FrameworkElement item){
+  void onItemMouseEnter(item){
     if (item.hasProperty("background")){
-      item.stateBag["__lb_item_bg_brush__"] = item.dynamic.background;
-      item.dynamic.background = getValue(highlightColorProperty);
+      item.stateBag["__lb_item_bg_brush__"] = item.background;
+      item.background = getValue(highlightColorProperty);
     }
   }
 
   /// Override this method to implement your own mouse out behavior for items in
   /// the ListBox.
-  void onItemMouseLeave(FrameworkElement item){
+  void onItemMouseLeave(item){
     if (item.stateBag.containsKey("__lb_item_bg_brush__")){
-      item.dynamic.background = item.stateBag["__lb_item_bg_brush__"];
+      item.background = item.stateBag["__lb_item_bg_brush__"];
     }
   }
 

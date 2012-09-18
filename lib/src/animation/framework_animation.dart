@@ -73,14 +73,16 @@ class FrameworkAnimation
 
   /// Low-level function that clears a CSS3 transition property for a given [AnimatingFrameworkProperty].
   static void clearPropertyTransition(AnimatingFrameworkProperty property){
-    String transProp = Polly.getCSS(property.sourceObject.dynamic.rawElement, 'transition');
+    final rel = property.sourceObject as FrameworkObject;
+    
+    String transProp = Polly.getCSS(rel.rawElement, 'transition');
 
     if (transProp == null || !transProp.contains(property.cssPropertyPeer)) return;
 
     List props = transProp != null ? transProp.split(',') : [];
 
     if (props.length == 1){
-      Polly.setCSS(property.sourceObject.dynamic.rawElement, 'transition', '');
+      Polly.setCSS(rel.rawElement, 'transition', '');
       return;
     }
 
@@ -103,25 +105,26 @@ class FrameworkAnimation
 
     sb.add(props.last());
 
-    Polly.setCSS(property.sourceObject.dynamic.rawElement, 'transition', sb.toString());
+    Polly.setCSS(rel.rawElement, 'transition', sb.toString());
   }
 
   /// Low-level function that sets a CSS3 transition property for a given [AnimatingFrameworkProperty].
   static void setPropertyTransition(AnimatingFrameworkProperty property, PropertyTransition transition){
-
+    final rel = property.sourceObject as FrameworkObject;
+    
     String newProp = '${property.cssPropertyPeer} ${transition.durationInSeconds}s ${transition.timing} ${transition.delay}s';
 
-    String transProp = Polly.getCSS(property.sourceObject.dynamic.rawElement, 'transition');
+    String transProp = Polly.getCSS(rel.rawElement, 'transition');
 
     if (transProp == null){
       //create and return;
-      Polly.setCSS(property.sourceObject.dynamic.rawElement, 'transition', newProp);
+      Polly.setCSS(rel.rawElement, 'transition', newProp);
       return;
     }
 
     if (transProp != null && !transProp.contains(property.cssPropertyPeer)){
       //append and return;
-      Polly.setCSS(property.sourceObject.dynamic.rawElement, 'transition', '${transProp}, $newProp');
+      Polly.setCSS(rel.rawElement, 'transition', '${transProp}, $newProp');
       return;
     }
 
@@ -153,7 +156,7 @@ class FrameworkAnimation
 
     sb.add(props.last());
 
-    Polly.setCSS(property.sourceObject.dynamic.rawElement, 'transition', sb.toString());
+    Polly.setCSS((property.sourceObject as FrameworkObject).rawElement, 'transition', sb.toString());
   }
 
   BuckshotAnimation(){

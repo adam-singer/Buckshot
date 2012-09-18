@@ -31,8 +31,9 @@ class Slider extends Control
 
   void _initSliderEvents(){
     rawElement.on.change.add((e){
-      if (value == rawElement.dynamic.value) return; //no change
-      value = rawElement.dynamic.value;
+      final ie = rawElement as InputElement;
+      if (value == ie.value) return; //no change
+      value = ie.value;
       e.stopPropagation();
     });
   }
@@ -51,7 +52,7 @@ class Slider extends Control
     }, converter:const StringToNumericConverter());
 
     valueProperty = new FrameworkProperty(this, "value", (num v){
-      rawElement.dynamic.value = v.toString();
+      (rawElement as InputElement).value = v.toString();
     }, converter:const StringToNumericConverter());
   }
 

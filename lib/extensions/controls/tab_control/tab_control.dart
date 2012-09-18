@@ -47,19 +47,22 @@ class TabControl extends Control implements IFrameworkContainer
   makeMe() => new TabControl();
 
   get content => getValue(tabItemsProperty);
-
+  
   void switchToTab(TabItem tab){
     if (currentTab == tab) return;
+
+    assert(currentTab._visualTemplate is Border);
+    
+    final b = currentTab._visualTemplate as Border;
     
     if (currentTab != null){
       
       //remove active markings on this tab.
       setValue(currentTab.closeButtonVisiblityProperty, Visibility.collapsed);
+           
+      b.background = _tabBackground;
       
-      currentTab._visualTemplate.dynamic.background = _tabBackground;
-      
-      currentTab._visualTemplate.dynamic.borderThickness = 
-          new Thickness.specified(1, 1, 0, 1);
+      b.borderThickness = new Thickness.specified(1, 1, 0, 1);
     }
     
 //    print('switch to ${getValue(tab.headerProperty)}');
@@ -68,14 +71,14 @@ class TabControl extends Control implements IFrameworkContainer
     final t = currentTab._visualTemplate;
       //set active markings on the tab.
       
-    _tabBackground = getValue(t.dynamic.backgroundProperty);
+    _tabBackground = getValue(t.backgroundProperty);
     
     setValue(currentTab.closeButtonVisiblityProperty, Visibility.visible);
     
-    currentTab._visualTemplate.dynamic.borderThickness = 
+    b.borderThickness = 
         new Thickness.specified(2, 2, 0, 2);
     
-    setValue(t.dynamic.backgroundProperty, 
+    setValue(t.backgroundProperty, 
         getValue(tabSelectedBrushProperty));
     
     setValue(currentContentProperty, 

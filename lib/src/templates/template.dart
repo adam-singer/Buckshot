@@ -61,17 +61,12 @@
 class Template {
 
   //TODO make providers discoverable via reflection instead of pre-registered.
-  final List<IPresentationFormatProvider> providers;
+  final List<IPresentationFormatProvider> providers = [new XmlTemplateProvider()];
 
   static const int _UNKNOWN = -1;
   static const int _HTML_ELEMENT = 0;
   static const int _HTTP_RESOURCE = 1;
   static const int _SERIALIZED = 2;
-
-  Template()
-  :
-    providers = [new XmlTemplateProvider()];
-
 
   /**
    * Returns the first parent that matches the given [type].  Returns
@@ -299,7 +294,7 @@ class Template {
           xmlElement.children.every((n) => n is! XmlText)){
         //process nodes
 
-        for(final e in xmlElement.children.dynamic){
+        for(final e in xmlElement.children){
           String elementLowerTagName = e.name.toLowerCase();
 
           if(newElement.hasProperty(elementLowerTagName)){
@@ -580,15 +575,16 @@ class Template {
             ' supported on types that derive from FrameworkElement.');
         }
 
+        final so = p.sourceObject as FrameworkObject;
         switch(words.length){
           case 1:
             //dataContext directly
-            p.sourceObject.dynamic.lateBindings[p] =
+            so.lateBindings[p] =
                 new BindingData("", null, mode);
             break;
           case 2:
             //dataContext object via property resolution
-            p.sourceObject.dynamic.lateBindings[p] =
+            so.lateBindings[p] =
                 new BindingData(words[1], null, mode);
             break;
           default:

@@ -43,7 +43,7 @@ class StyleTemplateTests extends TestGroupBase
 
     //red should win
     b.style.mergeWith([st2, st3, null, st]);
-    Expect.equals(Colors.Red.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
   }
 
 
@@ -61,12 +61,12 @@ class StyleTemplateTests extends TestGroupBase
     b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
 
     b.style = st;
-    Expect.equals(Colors.Red.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
 
     //yellow should win
     //st and null should be ignored
     b.style.mergeWith([st2, st, null, st3]);
-    Expect.equals(Colors.Yellow.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Yellow.toString(), (b.background as SolidColorBrush).color.toColorString());
   }
 
   void mergeNewPropertySucceeds(){
@@ -84,7 +84,7 @@ class StyleTemplateTests extends TestGroupBase
 
     b.style.mergeWith([st2]);
     Expect.equals(.5, b.opacity);
-    Expect.equals(Colors.Red.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
   }
 
   void mergeSamePropertySucceeds(){
@@ -98,10 +98,10 @@ class StyleTemplateTests extends TestGroupBase
     b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
 
     b.style = st;
-    Expect.equals(Colors.Red.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
 
     b.style.mergeWith([st2]);
-    Expect.equals(Colors.Green.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Green.toString(), (b.background as SolidColorBrush).color.toColorString());
   }
 
   void mergeNoFailIfListMemberNull(){
@@ -123,20 +123,20 @@ class StyleTemplateTests extends TestGroupBase
 
     var b = new Border();
     b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
-    Expect.equals(Colors.Blue.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Blue.toString(), (b.background as SolidColorBrush).color.toColorString());
 
     int statebagCount = b.stateBag.length;
 
     b.style = st;
-    Expect.equals(Colors.Red.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
     Expect.equals(statebagCount + 1, b.stateBag.length);
     Expect.isTrue(st.registeredElements.some((e) => e == b));
-    Binding bi = b.stateBag['${st.dynamic.stateBagPrefix}background__'];
+    Binding bi = b.stateBag['${st.stateBagPrefix}background__'];
 
     b.style = st2;
     Expect.isFalse(st.registeredElements.some((e) => e == b));
     Expect.isTrue(st2.registeredElements.some((e) => e == b));
-    Expect.equals(Colors.Green.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Green.toString(), (b.background as SolidColorBrush).color.toColorString());
     Expect.isFalse(bi.bindingSet);
   }
 
@@ -146,15 +146,15 @@ class StyleTemplateTests extends TestGroupBase
 
     var b = new Border();
     b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
-    Expect.equals(Colors.Blue.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Blue.toString(), (b.background as SolidColorBrush).color.toColorString());
 
     int statebagCount = b.stateBag.length;
 
     b.style = st;
-    Expect.equals(Colors.Red.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
     Expect.equals(statebagCount + 1, b.stateBag.length);
     Expect.isTrue(st.registeredElements.some((e) => e == b));
-    Binding bi = b.stateBag['${st.dynamic.stateBagPrefix}background__'];
+    Binding bi = b.stateBag['${st.stateBagPrefix}background__'];
 
     b.style = null;
     Expect.equals(statebagCount, b.stateBag.length);
@@ -174,13 +174,13 @@ class StyleTemplateTests extends TestGroupBase
 
     var b = new Border();
     b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
-    Expect.equals(Colors.Blue.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Blue.toString(), (b.background as SolidColorBrush).color.toColorString());
 
     b.style = st;
-    Expect.equals(Colors.Red.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
 
     st.setProperty("background", new SolidColorBrush(new Color.predefined(Colors.Aqua)));
-    Expect.equals(Colors.Aqua.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Aqua.toString(), (b.background as SolidColorBrush).color.toColorString());
   }
 
 
@@ -190,10 +190,10 @@ class StyleTemplateTests extends TestGroupBase
 
     var b = new Border();
     b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
-    Expect.equals(Colors.Blue.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Blue.toString(), (b.background as SolidColorBrush).color.toColorString());
 
     b.style = st;
-    Expect.equals(Colors.Red.toString(), b.background.dynamic.color.toColorString());
+    Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
 
   }
 

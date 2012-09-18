@@ -41,6 +41,7 @@
 void main() {
 
   if (!reflectionEnabled){
+// *** These warnings are incorrect: See http://www.dartbug.com/5183
     buckshot.registerElement(new DockPanel.register());
   }
 

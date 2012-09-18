@@ -9,6 +9,8 @@ class TextBox extends Control
   FrameworkProperty textProperty, inputTypeProperty, placeholderProperty;
   final FrameworkEvent<TextChangedEventArgs> textChanged;
 
+  InputElement _ie;
+  
   TextBox() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {
@@ -21,6 +23,8 @@ class TextBox extends Control
     _initEvents();
     
     registerEvent('textchanged', textChanged);
+    
+    _ie = rawElement as InputElement;
   }
   
   TextBox.register() : super.register(),
@@ -38,12 +42,12 @@ class TextBox extends Control
 
 
     textProperty = new FrameworkProperty(this, "text", (String value){
-      rawElement.dynamic.value = value;
+      _ie.value = value;
     },"");
 
     inputTypeProperty = new FrameworkProperty(this, "inputType", (InputTypes value){
       if (InputTypes._isValidInputType(value)){
-        rawElement.attributes["type"] = value.toString();
+        _ie.attributes["type"] = value.toString();
       }else{
         throw new BuckshotException("Invalid input '${value}' type passed to"
         " TextBox.inputType. Use InputTypes.{type} for safe assignment.");
@@ -54,11 +58,11 @@ class TextBox extends Control
 
   void _initEvents(){
 
-    rawElement.on.keyUp.add((e){
-      if (text == rawElement.dynamic.value) return; //no change from previous keystroke
+    _ie.on.keyUp.add((e){
+      if (text == _ie.value) return; //no change from previous keystroke
 
       String oldValue = text;
-      text = rawElement.dynamic.value;
+      text = _ie.value;
 
       if (!textChanged.hasHandlers) return;
       textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));
@@ -66,11 +70,11 @@ class TextBox extends Control
       if (e.cancelable) e.cancelBubble = true;
     });
 
-    rawElement.on.change.add((e){
-      if (text == rawElement.dynamic.value) return; //no change from previous keystroke
+    _ie.on.change.add((e){
+      if (text == _ie.value) return; //no change from previous keystroke
 
       String oldValue = text;
-      text = rawElement.dynamic.value;
+      text = _ie.value;
 
       if (!textChanged.hasHandlers) return;
       textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));

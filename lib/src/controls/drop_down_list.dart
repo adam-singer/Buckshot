@@ -48,13 +48,14 @@ class DropDownList extends Control
 
     void doNotify(){
       DropDownItem selected;
-
+      final el = rawElement as SelectElement;
+      
       if (itemsSource != null && !itemsSource.isEmpty()) {
-        selectedItemProperty.value.name = itemsSource[rawElement.dynamic.selectedIndex];
-        selectedItemProperty.value.value = itemsSource[rawElement.dynamic.selectedIndex];
+        selectedItemProperty.value.name = itemsSource[el.selectedIndex];
+        selectedItemProperty.value.value = itemsSource[el.selectedIndex];
         selected = selectedItemProperty.value;
       }else if (!items.isEmpty()){
-        selected = items[rawElement.dynamic.selectedIndex];
+        selected = items[el.selectedIndex];
         selectedItemProperty.value.name = selected.name;
         selectedItemProperty.value.value = selected.value;
       }

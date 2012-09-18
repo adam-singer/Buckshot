@@ -102,7 +102,6 @@ class Binding extends BuckshotObject
         .sourceObject
         ._bindings
         .last()
-        .dynamic
         .bindingMode = BindingMode.TwoWay;
 
     }else{
@@ -150,10 +149,10 @@ class Binding extends BuckshotObject
       .sourceObject
       ._bindings
       .forEach((binding){
-        setValue(binding.dynamic._toProperty,
-          binding.dynamic.converter.convert(getValue(binding.dynamic._fromProperty)));
+        setValue(binding._toProperty,
+          binding.converter.convert(getValue(binding._fromProperty)));
 
-        if (binding.dynamic.bindingMode == BindingMode.OneTime)
+        if (binding.bindingMode == BindingMode.OneTime)
           binding.unregister();
     });
   }

@@ -13,6 +13,8 @@ class TextArea extends Control
   FrameworkProperty textProperty, placeholderProperty, spellcheckProperty;
   final FrameworkEvent<TextChangedEventArgs> textChanged;
 
+  TextAreaElement _ie;
+  
   TextArea() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {
@@ -25,6 +27,8 @@ class TextArea extends Control
     _initEvents();
     
     registerEvent('textchanged', textChanged);
+    
+    _ie = rawElement;
   }
   
   TextArea.register() : super.register(),
@@ -37,27 +41,27 @@ class TextArea extends Control
       this,
       "placeholder",
       (String value){
-        rawElement.attributes["placeholder"] = value;
+        _ie.attributes["placeholder"] = value;
       });
 
 
     textProperty = new FrameworkProperty(this, "text", (String value){
-      rawElement.dynamic.value = value;
+      _ie.value = value;
     },"");
 
     spellcheckProperty = new FrameworkProperty(this, "spellcheck", (bool value){
-      rawElement.attributes["spellcheck"] = value.toString();
+      _ie.attributes["spellcheck"] = value.toString();
     }, converter:const StringToBooleanConverter());
   }
 
 
   void _initEvents(){
 
-    rawElement.on.keyUp.add((e){
-      if (text == rawElement.dynamic.value) return; //no change from previous keystroke
+    _ie.on.keyUp.add((e){
+      if (text == _ie.value) return; //no change from previous keystroke
 
       String oldValue = text;
-      text = rawElement.dynamic.value;
+      text = _ie.value;
 
       if (!textChanged.hasHandlers) return;
       textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));
@@ -65,11 +69,11 @@ class TextArea extends Control
       if (e.cancelable) e.cancelBubble = true;
     });
 
-    rawElement.on.change.add((e){
-      if (text == rawElement.dynamic.value) return; //no change from previous keystroke
+    _ie.on.change.add((e){
+      if (text == _ie.value) return; //no change from previous keystroke
 
       String oldValue = text;
-      text = rawElement.dynamic.value;
+      text = _ie.value;
 
       if (!textChanged.hasHandlers) return;
       textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));

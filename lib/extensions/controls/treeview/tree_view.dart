@@ -176,7 +176,7 @@ class TreeView extends Panel
       if (element is! TreeNode){
         throw const BuckshotException('TreeView children must be of type TreeNode');
       }
-      element.dynamic._parentTreeView = this;
+      element._parentTreeView = this;
       element.addToLayoutTree(this);
     });
   }
