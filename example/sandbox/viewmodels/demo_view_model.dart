@@ -153,7 +153,19 @@ class DemoViewModel extends ViewModelBase
           resetUI();
           return;
       }
-    }else{
+    } else if (templateText.startsWith("load.")) {
+      // Get the template text from data store
+      final id = templateText.split('.')[1];
+      model.buckshotbin.fetchData(id).then((t) {
+        print("fetchData t = $t");
+        if (t == null || t == '') return;
+        
+        setValue(templateTextProperty, t);
+        Template.deserialize(t).then((c){
+          setValue(renderedOutputProperty, c);
+        });
+      });
+    } else {
       if (templateText.startsWith('#')){
         Template.getTemplate(templateText)
           .then((t){
@@ -164,7 +176,6 @@ class DemoViewModel extends ViewModelBase
               setValue(renderedOutputProperty, c);
             });               
           });
-
       }else{
         setValue(templateTextProperty, templateText);
         

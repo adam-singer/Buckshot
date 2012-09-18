@@ -105,7 +105,7 @@ Begin Buckshot Templates
     <stack dockpanel.dock='top' margin='0,0,0,5' orientation="horizontal">
        <button on.click='refresh_handler' content="Generate Output"></button>
        <button on.click='clearAll_handler' margin="0,0,0,5" content="Clear All"></button>
-       <hyperlink margin="0,0,0,5" content="{data returnLocation}" navigateto='http://google.com/' />
+       <hyperlink margin="0,0,0,5" content="{data returnLocation}" navigateto='{data returnLocation}' />
     </stack>
     
     <textarea dockpanel.dock='bottom' minwidth='800' minheight='300' margin='0,10,0,5'

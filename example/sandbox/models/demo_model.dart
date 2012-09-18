@@ -67,8 +67,8 @@ class Buckshotbin extends BuckshotObject {
       print("responseId = ${request.responseText}");
       
       var responseId = JSON.parse(request.responseText);
-      onReturnIdChanged(responseId["urlid"]);
-      //returnId.
+      var baseUrl = window.location.toString().split('?')[0];
+      onReturnIdChanged("$baseUrl?load=${responseId["urlid"]}");
     });
     
     request.on.error.add((Event e) {
@@ -82,17 +82,22 @@ class Buckshotbin extends BuckshotObject {
    * Fetch the stored template from the server.
    */
   fetchData(String id) {
+    Completer c = new Completer();
     HttpRequest request = new HttpRequest();
     request.open("GET", "/buckshotbin?q=${id}", async : true);
     request.on.error.add((Event e) {
       print("Error: ${e}");
+      c.completeException(e);
     });
     
     request.on.loadEnd.add((XMLHttpRequestProgressEvent e) { 
       print("responseTemplate = ${request.responseText}");
       var responseTemplate = JSON.parse(request.responseText);
+      c.complete(responseTemplate["code"]);
     });
     request.send();
+    
+    return c.future;
   }
 }
 

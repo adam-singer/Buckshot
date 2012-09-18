@@ -70,6 +70,12 @@ void main() {
       if (demo != null){
         t.dataContext.setTemplate('#${demo}');
       }
+      
+      final load = queryString['load'];
+      if (load != null && demo == null) {
+        // Load up from data store. 
+        t.dataContext.setTemplate("load.$load");
+      }
     });
 }
 
