@@ -387,7 +387,7 @@ class FrameworkObject extends BuckshotObject
     if (cc.content is List){
       cc.content.forEach((FrameworkElement child) => child._onRemoveFromDOM());
     }else if (cc.content is FrameworkElement){
-      this._onRemoveFromDOM();
+      cc.content._onRemoveFromDOM();
     }
   }
 
