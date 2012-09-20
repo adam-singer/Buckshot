@@ -52,10 +52,9 @@ class TabControl extends Control implements IFrameworkContainer
     if (currentTab == tab) return;
 
     assert(currentTab._visualTemplate is Border);
-    
-    final b = currentTab._visualTemplate as Border;
-    
+
     if (currentTab != null){
+      final b = currentTab._visualTemplate as Border;
       
       //remove active markings on this tab.
       setValue(currentTab.closeButtonVisiblityProperty, Visibility.collapsed);
@@ -75,7 +74,7 @@ class TabControl extends Control implements IFrameworkContainer
     
     setValue(currentTab.closeButtonVisiblityProperty, Visibility.visible);
     
-    b.borderThickness = 
+    currentTab._visualTemplate.borderThickness = 
         new Thickness.specified(2, 2, 0, 2);
     
     setValue(t.backgroundProperty, 
