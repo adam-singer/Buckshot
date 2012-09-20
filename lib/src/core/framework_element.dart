@@ -390,7 +390,6 @@ class FrameworkElement extends FrameworkObject
       this,
       "minHeight",
       (value){
-
         rawElement.style.minHeight = '${value}px';
       }, converter:const StringToNumericConverter());
 
@@ -398,7 +397,6 @@ class FrameworkElement extends FrameworkObject
       this,
       "maxHeight",
       (value){
-
         rawElement.style.maxHeight = '${value}px';
       }, converter:const StringToNumericConverter());
 
@@ -406,7 +404,6 @@ class FrameworkElement extends FrameworkObject
       this,
       "minWidth",
       (value){
-
         rawElement.style.minWidth = '${value}px';
       }, converter:const StringToNumericConverter());
 
@@ -414,9 +411,7 @@ class FrameworkElement extends FrameworkObject
       this,
       "maxWidth",
       (value){
-
         rawElement.style.maxWidth = '${value}px';
-
       }, converter:const StringToNumericConverter());
 
     cursorProperty = new FrameworkProperty(
