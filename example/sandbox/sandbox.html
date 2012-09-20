@@ -51,8 +51,7 @@ Begin Buckshot Templates
 
   <stack margin='5' dockpanel.dock='left' minWidth='250'>
     <textblock maxwidth='250' fontfamily='Arial' text="Select a sample below, or create your own in the text area."/>
-    <border valign='stretch' halign='stretch' background='White' borderthickness='1' bordercolor='LightGray' padding='5' margin='0,5,0,0'>
-      <stack>       
+    <border shadowcolor='Gray' shadowx='2' shadowy='2' shadowblur='3' valign='stretch' halign='stretch' background='White' borderthickness='1' bordercolor='LightGray' padding='5' margin='0,5,0,0'>
      	<treeview on.treenodeselected='selection_handler'>
  		 <treenode header='App Demos' childvisibility='visible'>
             <treenode header='Calculator' tag='app.calc' />
@@ -66,6 +65,7 @@ Begin Buckshot Templates
 	     	<treenode header='RawHtml' tag='rawhtml' />
 	     	<treenode header='LayoutCanvas' tag='layoutcanvas' />
 	     	<treenode header='3D Transformations' tag='transforms' />
+	        <treenode header='Shadows' tag='shadows' />
 	     </treenode>
 	     <treenode header='Controls' tag=''>
 	        <treenode header='TabControl' tag='tabcontrol' />
@@ -95,19 +95,21 @@ Begin Buckshot Templates
 	     	<treenode header='FunnyOrDie' tag='funnyordie' />
 	     </treenode>
 	  	</treeview>  
-      </stack>
     </border>
   </stack>
   <dockpanel margin='5' dockpanel.dock='left' filllast='true' grid.column='1'>
-  	<border dockpanel.dock='top' padding='5' background='White' content='{data renderedOutput}' margin="5" minheight='200' maxheight='600' 
-    borderThickness="1" verticalscrollenabled='true' borderColor="LightGray" />
+  	<border 
+  		shadowcolor='Gray' shadowx='2' shadowy='2' shadowblur='3'
+  		dockpanel.dock='top' padding='5' background='White' content='{data renderedOutput}' 
+  		margin="5" minheight='200' maxheight='600' 
+    	borderThickness="1" verticalscrollenabled='true' borderColor="LightGray" />
          
     <stack dockpanel.dock='top' margin='0,0,0,5' orientation="horizontal">
        <button on.click='refresh_handler' content="Generate Output"></button>
        <button on.click='clearAll_handler' margin="0,0,0,5" content="Clear All"></button>
     </stack>
     
-    <textarea dockpanel.dock='bottom' minwidth='800' minheight='300' margin='0,10,0,5'
+    <textarea dockpanel.dock='bottom' minwidth='650' minheight='300' margin='0,10,0,5'
 	    placeholder="Type something here or select one of the samples to the left." 
 	    spellcheck="false" 
 	  	text='{data templateText, mode=twoway}' />
@@ -1193,6 +1195,58 @@ each list.
          <youtube width='350' height='300' videoid='6DWP-E7omJs' />
       </tabitem>
    </tabcontrol>
+</stack>
+</script>
+
+<script id='shadows' type='application/xml'>
+<stack>
+   <textblock style='{resource headerText}'>Buckshot elements support box shadows.</textblock>
+   <stack margin='10,0,0,0' orientation='horizontal'>
+      <stack>
+         <stack orientation='horizontal'>
+            <textblock minwidth='40' style='{resource defaultText}' text='X:' />
+            <slider name='slRX' min='-20' max='20' value='5' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock minwidth='40' style='{resource defaultText}' text='Y:' />
+            <slider name='slRY' min='-20' max='20' value='5' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock minwidth='40' style='{resource defaultText}' text='Blur:' />
+            <slider name='slBlur' min='0' max='20' value='5' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock minwidth='40' style='{resource defaultText}' text='Size:' />
+            <slider name='slSize' min='0' max='20' value='0' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock minwidth='40' style='{resource defaultText}' text='Color:' />
+            <dropdownlist name='ddlColors'>
+               <items>
+                  <dropdownitem name='Black' />
+                  <dropdownitem name='Gray' />
+                  <dropdownitem name='Blue' />
+                  <dropdownitem name='Red' />
+                  <dropdownitem name='Purple' />
+                  <dropdownitem name='Green' />
+               </items>
+            </dropdownlist>
+         </stack>
+      </stack>
+      <border margin='0,0,0,15' bordercolor='SteelBlue' borderthickness='2' width='300' height='300'>
+         <border halign='center' valign='center' 
+            shadowx='{element slRX.value}'
+            shadowy='{element slRY.value}'
+            shadowblur='{element slBlur.value}'
+            shadowsize='{element slSize.value}'
+            shadowcolor='{element ddlColors.selectedItem.name}'
+            background='Orange' 
+            width='75' 
+            height='75'>
+            <image halign='center' valign='center' width='65' sourceuri='apps/calculator/resources/buckshot_logo.png' alt='Buckshot Logo' />
+         </border>
+      </border> 
+   </stack>
 </stack>
 </script>
 

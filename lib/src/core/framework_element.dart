@@ -58,6 +58,13 @@ class FrameworkElement extends FrameworkObject
   /// Represents whether an element is draggable
   FrameworkProperty draggableProperty;
 
+  FrameworkProperty shadowXProperty;
+  FrameworkProperty shadowYProperty;
+  FrameworkProperty shadowBlurProperty;
+  FrameworkProperty shadowSizeProperty;
+  FrameworkProperty shadowColorProperty;
+  FrameworkProperty shadowInsetProperty;
+  
   AnimatingFrameworkProperty translateXProperty;
   AnimatingFrameworkProperty translateYProperty;
   AnimatingFrameworkProperty translateZProperty;
@@ -170,7 +177,57 @@ class FrameworkElement extends FrameworkObject
         rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)
         ''';
     }
+    
+    void drawShadow(FrameworkElement e){
+      var sx = getValue(shadowXProperty);
+      var sy = getValue(shadowYProperty);
+      var b = getValue(shadowBlurProperty);
+      var s = getValue(shadowSizeProperty);
+      var c = getValue(shadowColorProperty);
+      var inset = getValue(shadowInsetProperty);
+      
+      // set nulls
+      sx = (sx == null) ? '' : '${sx}px';
+      sy = (sy == null) ? '' : '${sy}px';
+      b = (b == null) ? '' : '${b}px';
+      s = (s == null) ? '' : '${s}px';
+      if (c != null){
+        c = c.color.toColorString();
+      }else{
+        c = new Color.predefined(Colors.Black).toColorString();
+      }
+      if (inset == null) inset = '';
+      if (inset is bool){
+        inset = (inset) ? 'inset' : '';
+      }
 
+      e.rawElement.style.boxShadow = '$sx $sy $b $s $c $inset'.trim();
+    }
+
+    shadowXProperty = new FrameworkProperty(this, 'shadowX',
+        propertyChangedCallback: (_) => drawShadow(this),
+        converter:const StringToNumericConverter());
+    
+    shadowYProperty = new FrameworkProperty(this, 'shadowY',
+        propertyChangedCallback: (_) => drawShadow(this),
+        converter:const StringToNumericConverter());
+    
+    shadowBlurProperty = new FrameworkProperty(this, 'shadowBlur',
+        propertyChangedCallback: (_) => drawShadow(this),
+        converter:const StringToNumericConverter());
+    
+    shadowSizeProperty = new FrameworkProperty(this, 'shadowSize',
+        propertyChangedCallback: (_) => drawShadow(this),
+        converter:const StringToNumericConverter());
+    
+    shadowColorProperty = new FrameworkProperty(this, 'shadowColor',
+        propertyChangedCallback: (_) => drawShadow(this),
+        converter:const StringToSolidColorBrushConverter());
+    
+    shadowInsetProperty = new FrameworkProperty(this, 'shadowInset',
+        propertyChangedCallback: (_) => drawShadow(this),
+        converter:const StringToBooleanConverter());
+            
     actionsProperty = new FrameworkProperty(this, 'actions',
         (ObservableList<ActionBase> aList){
           if (actionsProperty != null){
