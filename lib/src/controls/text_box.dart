@@ -8,8 +8,6 @@ class TextBox extends Control
 {
   FrameworkProperty textProperty, inputTypeProperty, placeholderProperty;
   final FrameworkEvent<TextChangedEventArgs> textChanged;
-
-  InputElement _ie;
   
   TextBox() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
@@ -30,7 +28,7 @@ class TextBox extends Control
   makeMe() => new TextBox();
 
   void _initTextBoxProperties(){
-    _ie = rawElement as InputElement;
+    final _ie = rawElement as InputElement;
     
     placeholderProperty = new FrameworkProperty(
       this,
@@ -41,7 +39,7 @@ class TextBox extends Control
 
 
     textProperty = new FrameworkProperty(this, "text", (String value){
-      rawElement.value = value;
+      _ie.value = value;
     },"");
 
     inputTypeProperty = new FrameworkProperty(this, "inputType", (InputTypes value){
@@ -56,7 +54,7 @@ class TextBox extends Control
 
 
   void _initEvents(){
-
+    final _ie = rawElement as InputElement;
     _ie.on.keyUp.add((e){
       if (text == _ie.value) return; //no change from previous keystroke
 

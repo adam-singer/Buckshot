@@ -12,8 +12,6 @@ class TextArea extends Control
 {
   FrameworkProperty textProperty, placeholderProperty, spellcheckProperty;
   final FrameworkEvent<TextChangedEventArgs> textChanged;
-
-  TextAreaElement _ie;
   
   TextArea() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
@@ -27,8 +25,6 @@ class TextArea extends Control
     _initEvents();
     
     registerEvent('textchanged', textChanged);
-    
-    _ie = rawElement;
   }
   
   TextArea.register() : super.register(),
@@ -41,27 +37,27 @@ class TextArea extends Control
       this,
       "placeholder",
       (String value){
-        _ie.attributes["placeholder"] = value;
+        (rawElement as TextAreaElement).attributes["placeholder"] = value;
       });
 
 
     textProperty = new FrameworkProperty(this, "text", (String value){
-      _ie.value = value;
+      (rawElement as TextAreaElement).value = value;
     },"");
 
     spellcheckProperty = new FrameworkProperty(this, "spellcheck", (bool value){
-      _ie.attributes["spellcheck"] = value.toString();
+      (rawElement as TextAreaElement).attributes["spellcheck"] = value.toString();
     }, converter:const StringToBooleanConverter());
   }
 
 
   void _initEvents(){
 
-    _ie.on.keyUp.add((e){
-      if (text == _ie.value) return; //no change from previous keystroke
+    (rawElement as TextAreaElement).on.keyUp.add((e){
+      if (text == (rawElement as TextAreaElement).value) return; //no change from previous keystroke
 
       String oldValue = text;
-      text = _ie.value;
+      text = (rawElement as TextAreaElement).value;
 
       if (!textChanged.hasHandlers) return;
       textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));
@@ -69,11 +65,11 @@ class TextArea extends Control
       if (e.cancelable) e.cancelBubble = true;
     });
 
-    _ie.on.change.add((e){
-      if (text == _ie.value) return; //no change from previous keystroke
+    (rawElement as TextAreaElement).on.change.add((e){
+      if (text == (rawElement as TextAreaElement).value) return; //no change from previous keystroke
 
       String oldValue = text;
-      text = _ie.value;
+      text = (rawElement as TextAreaElement).value;
 
       if (!textChanged.hasHandlers) return;
       textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));

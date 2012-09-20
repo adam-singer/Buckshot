@@ -45,6 +45,9 @@ class ObservableList<T> implements List<T>{
   int lastIndexOf(T element, [int start = 0]) => _list.lastIndexOf(element, start);
 
   int get length => _list.length;
+  
+  //TODO Fire events if newLength truncates elements.
+  void set length(int newLength) {_list.length = newLength;}
 
   List getRange(int start, int length) => _list.getRange(start, length);
 
@@ -52,6 +55,12 @@ class ObservableList<T> implements List<T>{
                  Dynamic combine(Dynamic previousValue, T element)) =>
                      _list.reduce(initialValue, combine);
 
+  T removeAt(int index){
+    final removed = _list.removeAt(index);
+    _notifySingleOld(removed);
+    return removed;
+  }
+  
   void add(T element){
     _list.add(element);
     _notifySingleNew(element);

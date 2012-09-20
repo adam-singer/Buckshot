@@ -105,7 +105,6 @@ class TreeNode extends Control implements IFrameworkContainer
       setValue(_mouseEventStylesProperty, _parentTreeView.mouseUpBorderStyle);
       _parentTreeView._onTreeNodeSelected(this);
     };
-
   }
 
 

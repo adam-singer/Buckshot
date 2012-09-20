@@ -264,7 +264,7 @@ class FrameworkObject extends BuckshotObject
             child._onAddedToDOM();
           });
     }else if ((this as IFrameworkContainer).content is FrameworkElement){
-      ((this as IFrameworkContainer).content as FrameworkElement)._onAddedToDOM();
+       this.content._onAddedToDOM();
     }
   }
 
@@ -385,9 +385,8 @@ class FrameworkObject extends BuckshotObject
     final cc = this as IFrameworkContainer;
     
     if (cc.content is List){
-      cc.content.forEach((FrameworkElement child)
-        => child._onRemoveFromDOM());
-    }else if (this is FrameworkElement){
+      cc.content.forEach((FrameworkElement child) => child._onRemoveFromDOM());
+    }else if (cc.content is FrameworkElement){
       this._onRemoveFromDOM();
     }
   }

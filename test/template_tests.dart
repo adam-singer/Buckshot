@@ -176,7 +176,7 @@ class TemplateTests extends TestGroupBase
     Template
       .deserialize(t)
       .then(expectAsync1((result){
-        Expect.equals(Orientation.horizontal, result.dynamic.orientation);
+        Expect.equals(Orientation.horizontal, result.orientation);
         Expect.equals(VerticalAlignment.center, result.vAlign);
       }));
   }

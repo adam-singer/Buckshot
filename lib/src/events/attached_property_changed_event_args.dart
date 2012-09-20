@@ -1,5 +1,5 @@
 // Copyright (c) 2012, John Evans
-// https://github.com/prujohn/DartNet-Event-Model
+// https://github.com/prujohn/dartnet_event_model
 // See LICENSE file for Apache 2.0 licensing information.
 
 /**

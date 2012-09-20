@@ -7,7 +7,7 @@
 #library('listbox.controls.buckshotui.org');
 
 #import('package:buckshot/buckshot.dart');
-#import('package:DartNet-Event-Model/events.dart');
+#import('package:dartnet_event_model/events.dart');
 #import('package:dart_utils/shared.dart');
 #import('package:dart_utils/web.dart');
 
