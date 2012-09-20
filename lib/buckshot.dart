@@ -12,8 +12,8 @@
 #import('dart:isolate');
 #import('dart:math');
 
-#import('package:dart_xml/xml.dart');
-#import('package:dartnet_event_model/events.dart');
+#import('package:dart-xml/xml.dart');
+#import('package:DartNet-Event-Model/events.dart');
 #import('package:dart_utils/web.dart');
 #import('package:dart_utils/shared.dart');
 

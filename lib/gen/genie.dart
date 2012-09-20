@@ -1,7 +1,7 @@
 #library('codegen_core_buckshotui_org');
 
 #import('dart:json');
-#import('package:dart_xml/xml.dart');
+#import('package:dart-xml/xml.dart');
 //#import('dart:isolate');
 //#import('dart:mirrors');
 

@@ -2,7 +2,7 @@
 
 #import('dart:io');
 #import('dart:json');
-#import('package:dart_xml/xml.dart');
+#import('package:dart-xml/xml.dart');
 
 #import('package:buckshot/gen/genie.dart');
 
