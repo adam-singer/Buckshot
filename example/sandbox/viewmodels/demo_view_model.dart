@@ -26,7 +26,8 @@ class DemoViewModel extends ViewModelBase
   FrameworkProperty secondInDegsProperty;
   FrameworkProperty minuteInDegsProperty;
   FrameworkProperty hourInDegsProperty;
-
+  FrameworkProperty dayAndMonthProperty;
+  
   View _mainView;
 
   DemoViewModel()
@@ -70,7 +71,9 @@ class DemoViewModel extends ViewModelBase
   void _startTimer(){
     window.setInterval((){
       Date d = new Date.now();
-
+      
+      _updateDate(d);
+      
       setValue(timeStampProperty, d.toString());
       
       setValue(secondInDegsProperty, d.second * 6);
@@ -82,6 +85,13 @@ class DemoViewModel extends ViewModelBase
       setValue(hourInDegsProperty, (hour * 30) + (d.minute / 2));
     }, 1000);
     
+  }
+  
+  void _updateDate(Date d){
+    final months = const ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+                          'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    setValue(dayAndMonthProperty, "${d.day} ${months[d.month]}");
   }
   
 
@@ -125,6 +135,9 @@ class DemoViewModel extends ViewModelBase
     
     minuteInDegsProperty = new FrameworkProperty(this, 'minuteInDegs', 
         defaultValue: 0);
+    
+    dayAndMonthProperty = new FrameworkProperty(this, 'dayAndMonth',
+        defaultValue: '');
   }
 
   void setQueryStringTo(String value){

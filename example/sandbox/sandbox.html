@@ -1254,6 +1254,14 @@ each list.
 <script id='clock' type='application/xml'>
 <border background='#165284' width='210' height='210' cornerradius='120' padding='10' shadowx='3' shadowy='3' shadowblur='7'>
   <resourcecollection>
+    <lineargradientbrush key='date_background' direction='vertical'>
+       <stops>
+            <gradientstop color='#AAAAAA' />
+            <gradientstop color='White' percent='20' />
+            <gradientstop color='White' percent='80' />
+            <gradientstop color='#AAAAAA' />
+       </stops>
+    </lineargradientbrush>
     <styletemplate key='minutehash'>
        <setters>
           <setter property='transformOriginY' value='95' />
@@ -1277,6 +1285,10 @@ each list.
 
     <!-- clock face -->
     <border background='WhiteSmoke' halign='stretch' valign='stretch' cornerradius='110' />
+
+    <border bordercolor='#777777' background='{resource date_background}' valign='center' borderthickness='1' cornerradius='5' padding='2' margin='0,0,0,135'>
+       <textblock fontsize='12' text='{data dayAndMonth}' />
+    </border>
 
     <stack halign='center' valign='center' margin='100,0,0,0'>
       <image halign='center' alt='Buckshot Logo' width='25' sourceuri='apps/calculator/resources/buckshot_logo.png'></image>
