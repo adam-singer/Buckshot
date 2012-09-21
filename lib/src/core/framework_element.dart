@@ -203,6 +203,18 @@ class FrameworkElement extends FrameworkObject
 
       e.rawElement.style.boxShadow = '$sx $sy $b $s $c $inset'.trim();
     }
+    
+    void setTransformOrigin(FrameworkElement e){
+      var tx = getValue(transformOriginXProperty);
+      var ty = getValue(transformOriginYProperty);
+      var tz = getValue(transformOriginZProperty);
+      
+      if (tx == null) tx = 0;
+      if (ty == null) ty = 0;
+      if (tz == null) tz = 0;
+      
+      e.rawElement.style.transformOrigin = '${tx}px ${ty}px ${tz}px';
+    }
 
     shadowXProperty = new FrameworkProperty(this, 'shadowX',
         propertyChangedCallback: (_) => drawShadow(this),
@@ -306,16 +318,19 @@ class FrameworkElement extends FrameworkObject
         converter:const StringToNumericConverter());
 
 
-    transformOriginXProperty = new FrameworkProperty(this, "transformOriginX", (num value){
-      Polly.setCSS(rawElement, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
+    transformOriginXProperty = new FrameworkProperty(this, "transformOriginX", 
+      (num value){
+        setTransformOrigin(this);
     }, converter:const StringToNumericConverter());
 
-    transformOriginYProperty = new FrameworkProperty(this, "transformOriginY", (num value){
-      Polly.setCSS(rawElement, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
+    transformOriginYProperty = new FrameworkProperty(this, "transformOriginY", 
+      (num value){
+        setTransformOrigin(this);
     }, converter:const StringToNumericConverter());
 
-    transformOriginZProperty = new FrameworkProperty(this, "transformOriginZ", (num value){
-      Polly.setCSS(rawElement, 'transform-origin', '${getValue(transformOriginXProperty)}% ${getValue(transformOriginYProperty)}% ${getValue(transformOriginZProperty)}px');
+    transformOriginZProperty = new FrameworkProperty(this, "transformOriginZ", 
+      (num value){
+        setTransformOrigin(this);
     }, converter:const StringToNumericConverter());
 
     opacityProperty = new AnimatingFrameworkProperty(

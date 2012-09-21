@@ -23,6 +23,9 @@ class DemoViewModel extends ViewModelBase
   FrameworkProperty errorMessageProperty;
   FrameworkProperty demoTreeNodeSelectedProperty;
   FrameworkProperty dockTextProperty;
+  FrameworkProperty secondInDegsProperty;
+  FrameworkProperty minuteInDegsProperty;
+  FrameworkProperty hourInDegsProperty;
 
   View _mainView;
 
@@ -34,24 +37,7 @@ class DemoViewModel extends ViewModelBase
 
     _regEventHandlers();
 
-    // Update the timeStampProperty every second with a new timestamp.
-    // Anything binding to this will get updated.
-    window.setInterval(() => setValue(timeStampProperty,
-        new Date.now().toString()), 1000);
-  }
-
-  DemoViewModel.withView(this._mainView)
-  :
-    model = new DemoModel()
-  {
-    _initDemoViewModelProperties();
-
-    _regEventHandlers();
-
-    // Update the timeStampProperty every second with a new timestamp.
-    // Anything binding to this will get updated.
-    window.setInterval(() => setValue(timeStampProperty,
-        new Date.now().toString()), 1000);
+    _startTimer();
     
     window.on.popState.add((e){
       final demo = queryString['demo'];
@@ -62,6 +48,42 @@ class DemoViewModel extends ViewModelBase
     });
   }
 
+  DemoViewModel.withView(this._mainView)
+  :
+    model = new DemoModel()
+  {
+    _initDemoViewModelProperties();
+
+    _regEventHandlers();
+
+    _startTimer();
+    
+    window.on.popState.add((e){
+      final demo = queryString['demo'];
+      
+      if (demo != null){
+        _mainView.rootVisual.dataContext.setTemplate('#${demo}');
+      }
+    });
+  }
+
+  void _startTimer(){
+    window.setInterval((){
+      Date d = new Date.now();
+
+      setValue(timeStampProperty, d.toString());
+      
+      setValue(secondInDegsProperty, d.second * 6);
+
+      setValue(minuteInDegsProperty, (d.minute * 6) + (d.second / 10));
+
+      final hour = d.hour % 24 > 0 ? d.hour - 11 : d.hour + 1;
+      
+      setValue(hourInDegsProperty, (hour * 15) + (d.minute / 2));
+    }, 1000);
+    
+  }
+  
 
   // Initialize the properties that we want to expose for template binding.
   void _initDemoViewModelProperties(){
@@ -94,6 +116,15 @@ class DemoViewModel extends ViewModelBase
     
     dockTextProperty = new FrameworkProperty(this, 'dockText',
         defaultValue: 'Docked left.');
+    
+    secondInDegsProperty = new FrameworkProperty(this, 'secondInDegs', 
+        defaultValue: 0);
+    
+    hourInDegsProperty = new FrameworkProperty(this, 'hourInDegs', 
+        defaultValue: 0);
+    
+    minuteInDegsProperty = new FrameworkProperty(this, 'minuteInDegs', 
+        defaultValue: 0);
   }
 
   void setQueryStringTo(String value){

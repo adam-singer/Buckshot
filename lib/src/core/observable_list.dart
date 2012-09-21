@@ -55,11 +55,11 @@ class ObservableList<T> implements List<T>{
                  Dynamic combine(Dynamic previousValue, T element)) =>
                      _list.reduce(initialValue, combine);
 
-  T removeAt(int index){
-    final removed = _list.removeAt(index);
-    _notifySingleOld(removed);
-    return removed;
-  }
+//  T removeAt(int index){
+//    final removed = _list.removeAt(index);
+//    _notifySingleOld(removed);
+//    return removed;
+//  }
   
   void add(T element){
     _list.add(element);
