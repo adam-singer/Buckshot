@@ -77,9 +77,9 @@ class DemoViewModel extends ViewModelBase
 
       setValue(minuteInDegsProperty, (d.minute * 6) + (d.second / 10));
 
-      final hour = d.hour % 24 > 0 ? d.hour - 11 : d.hour + 1;
-      
-      setValue(hourInDegsProperty, (hour * 15) + (d.minute / 2));
+      final hour = d.hour % 24 > 0 ? d.hour - 12 : d.hour;
+
+      setValue(hourInDegsProperty, (hour * 30) + (d.minute / 2));
     }, 1000);
     
   }
