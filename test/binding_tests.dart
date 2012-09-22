@@ -6,7 +6,7 @@
 #import('package:dart_utils/shared.dart');
 
 
-run(){
+Future run(){
   group('Bindings', (){
     TestElement e1;
     TestElement e2;
@@ -230,6 +230,8 @@ run(){
       Expect.equals("BINDING TEST", e2.b);
     });
   });
+  
+  return new Future.immediate(true);
 }
 
 class TestElement extends FrameworkElement{
@@ -269,7 +271,5 @@ class TestElement extends FrameworkElement{
 * A demo value convert which takes any string and converts it to uppercase */
 class TestValueConverter implements IValueConverter
 {
-
   Dynamic convert(Dynamic value, [Dynamic parameter]) => (value is String) ? value.toUpperCase() : value;
-
 }

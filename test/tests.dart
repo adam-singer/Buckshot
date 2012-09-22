@@ -1,4 +1,3 @@
-
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:dart-xml/xml.dart');
@@ -6,7 +5,6 @@
 #import('package:dart_utils/shared.dart');
 #import('package:DartNet-Event-Model/events.dart');
 #import('package:buckshot/extensions/controls/dock_panel.dart');
-
 #import('package:unittest/unittest.dart');
 #import('package:unittest/html_enhanced_config.dart');
 
@@ -29,22 +27,6 @@
 #import('var_resource_tests.dart', prefix:'varresource');
 
 void main() {
-
-  if (!reflectionEnabled){
-// *** These warnings are incorrect: See http://www.dartbug.com/5183
-    buckshot.registerElement(new DockPanel.register());
-  }
-
-////  setView(new View.fromResource('#dockPanelTest'))
-////  setView(new View.fromResource('#borderTest'))
-//  setView(new View.fromResource('#stackPanelTest'))
-////  setView(new View.fromResource('#gridTest'))
-////  setView(new View.fromResource('#horizontalTest'))
-//    .then((_){
-//      Polly.dump();
-//    });
-//
-//  return;
 
   useHtmlEnhancedConfiguration();
 

@@ -8,6 +8,7 @@
 
 run(){
   group('StringToGridLengthConverter', (){
+    final c = const StringToGridLengthConverter();
     test('auto', (){
       GridLength l = c.convert("auto");
       Expect.equals(GridUnitType.auto, l.gridUnitType);

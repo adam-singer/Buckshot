@@ -5,7 +5,7 @@
 #import('package:unittest/unittest.dart');
 #import('package:dart_utils/shared.dart');
 
-run(){
+Future run(){ 
   group('Animation', (){
     test('Set property transition', (){
       Border b = new Border();
@@ -47,4 +47,6 @@ run(){
       Expect.isNull(Polly.getCSS(b.rawElement, 'transition'));
     });
   });
+  
+  return new Future.immediate(true);
 }
