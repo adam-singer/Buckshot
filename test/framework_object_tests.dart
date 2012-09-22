@@ -1,20 +1,18 @@
+#library('framework_object_tests_buckshot');
 
-class FrameworkObjectTests extends TestGroupBase {
+#import('package:buckshot/buckshot.dart');
+#import('package:unittest/unittest.dart');
 
-  registerTests(){
-    this.testGroupName = "FrameworkObject Tests";
+run(){
+  group('FrameworkObject', (){
+    // Tests that assignment to the name property of a FrameworkObject
+    // properly registers it with buckshot.namedElements
+    test('name registration', (){
+      var b = new Border();
+      b.name = "hello";
+      
+      Expect.isTrue(buckshot.namedElements.containsKey("hello"));
+    });
     
-    testList["name property registration"] = namePropertyRegistration;
-    //TODO test for throws on attempts to assign name more than once.
-  }
-  
-  // Tests that assignment to the name property of a FrameworkObject
-  // properly registers it with buckshot.namedElements
-  void namePropertyRegistration(){
-    var b = new Border();
-    b.name = "hello";
-    
-    Expect.isTrue(buckshot.namedElements.containsKey("hello"));
-  }
-  
+  });
 }

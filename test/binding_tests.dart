@@ -1,254 +1,235 @@
+#library('binding_tests_buckshot');
 
-class BindingTests extends TestGroupBase
-{
-  TestElement e1;
-  TestElement e2;
+#import('dart:html');
+#import('package:buckshot/buckshot.dart');
+#import('package:unittest/unittest.dart');
+#import('package:dart_utils/shared.dart');
 
-  registerTests(){
+
+run(){
+  group('Bindings', (){
+    TestElement e1;
+    TestElement e2;
+    
+    void resetElements(){
+      e1 = new TestElement();
+      e2 = new TestElement();
+    }
+    
     resetElements();
+    
+    test('Test properties are valid', (){
+      Expect.isNotNull(e1._aProperty);
+      Expect.isNotNull(e1._bProperty);
+      Expect.equals(getValue(e1._aProperty), e1.defaultA);
+      Expect.equals(getValue(e1._bProperty), e1.defaultB);
+
+      Expect.isNotNull(e2._aProperty);
+      Expect.isNotNull(e2._bProperty);
+      Expect.equals(getValue(e2._aProperty), e2.defaultA);
+      Expect.equals(getValue(e2._bProperty), e2.defaultB);
+    });
+    
+    test('Strict binding null pProperties throws', (){
+      Expect.throws(
+          ()=> new Binding(e1._aProperty, null, BindingMode.OneWay),
+          (err)=> (err is BuckshotException)
+      );
+
+      Expect.throws(
+          ()=> new Binding(null, e1._bProperty, BindingMode.OneWay),
+          (err)=> (err is BuckshotException)
+      );
+    });
+
+    test('Binding property to self throws', (){
+      Expect.throws(
+          ()=> new Binding(e1._aProperty, e1._aProperty),
+          (err)=> (err is BuckshotException)
+      );
+
+      Expect.throws(
+          ()=> new Binding.loose(e1._aProperty, e1._aProperty),
+          (err)=> (err is BuckshotException)
+      );
+    });
+    
+    test('Can bind loosely too null', (){
+      Binding b = new Binding.loose(null, e1._bProperty, BindingMode.OneWay);
+      Expect.isFalse(b.bindingSet);
 
-    this.testGroupName = "Binding Tests";
+      Binding b2 = new Binding.loose(e1._bProperty, null, BindingMode.OneWay);
+      Expect.isFalse(b.bindingSet);
+    });
+    
+    test('One-time binding fires only once', (){
+      resetElements();
 
-    testList["Valid Test Properties"] = validateTestProperties;
-    testList["Strict Binding Null Properties Fail"] = nullPropertyFail;
-    testList["Binding Property To Self Fails"] = propertyToSelfFail;
-    testList["Loose binding to null property"] = looseBindingToNullProperty;
-    testList["One-Time Binding Fires Once Only"] = oneTimeFiresOnce;
-    testList["One-Way Binding Fires Properly"] = oneWayBindingSucceeds;
-    testList["One-Way Binding Chain Suceeds"] = oneWayBindingChainSucceeds;
-    testList["OneWay Binding unRegister"] = oneWayBindingUnRegister;
-    testList["TwoWay Binding unRegister"] = twoWayBindingUnRegister;
-    testList["Circular Binding no Overflow"] = circularBindingNoOverflow;
-    testList["TwoWay Binding Succeeds"] = twoWayBindingSucceeds;
-    testList["ValueConverter Succeeds"] = valueConverterApplies;
-  }
+      Expect.notEquals(e1.a, e2.b);
 
-  void valueConverterApplies(){
-    resetElements();
+      Binding b = new Binding(e1._aProperty, e2._bProperty, BindingMode.OneTime);
 
-    Expect.notEquals(e1.a, e2.b);
+      //should be false because the binding fires and then unregisters
+      Expect.isFalse(b.bindingSet);
 
-    Binding b = new Binding(e1._aProperty, e2._bProperty, BindingMode.OneWay, new TestValueConverter());
+      Expect.equals(e1.a, e2.b);
 
-    Expect.isTrue(b.bindingSet);
+      e1.a = "one time foo";
 
-    Expect.notEquals(e1.a, e2.b); //e2.b should be upper case
+      //binding shouldn't fire
+      Expect.notEquals("one time foo", e2.b);
+      Expect.notEquals(e1.a, e2.b);
+    });
+    
+    test('One-way binding fires correctly', (){
+      resetElements();
 
-    Expect.equals(e1.a.toUpperCase(), e2.b);
+      Expect.notEquals(e1.a, e2.b);
 
-    e1.a = "binding test";
+      Binding b = new Binding(e1._aProperty, e2._bProperty, BindingMode.OneWay);
 
-    Expect.equals("binding test", e1.a);
-    Expect.equals("BINDING TEST", e2.b);
-  }
+      Expect.isTrue(b.bindingSet);
 
-  void oneWayBindingUnRegister(){
-    resetElements();
+      //should now be equal
+      Expect.equals(e1.a, e2.b);
 
-    Expect.notEquals(e1.a, e2.b);
+      e1.a = "binding test";
 
-    Binding b = new Binding(e1._aProperty, e2._bProperty, BindingMode.OneWay);
+      //should still be equal
+      Expect.equals(e1.a, e2.b);
 
-    Expect.isTrue(b.bindingSet);
+      //just to be sure...
+      Expect.equals("binding test", e2.b);
+    });
+    
+    test('One-way binding chain succeeds', (){
+      resetElements();
+      TestElement e3 = new TestElement();
+      e3.a = "testFoo";
 
-    b.unregister();
+      Expect.notEquals(e1.a, e2.b);
+      Expect.notEquals(e2.b, e3.a);
 
-    Expect.isFalse(b.bindingSet);
+      //setup a binding chain e1.a -> e2.b -> e3.a
+      Binding b1 = new Binding(e1._aProperty, e2._bProperty, BindingMode.OneWay);
+      Binding b2 = new Binding(e2._bProperty, e3._aProperty, BindingMode.OneWay);
 
-  }
+      //chain should now be equal
+      Expect.equals(e1.a, e2.b);
+      Expect.equals(e2.b, e3.a);
+      Expect.equals(e1.a, e3.a);
 
-  void twoWayBindingUnRegister(){
-    resetElements();
+      e1.a = "chain test";
 
-    Expect.notEquals(e1.a, e2.b);
+      //e3.a should now equal 'chain test';
 
-    Binding b = new Binding(e1._aProperty, e2._bProperty, BindingMode.TwoWay);
+      Expect.equals("chain test", e3.a);
+    });
+    
+    test('One-way binding unregisters', (){
+      resetElements();
 
-    Expect.isTrue(b.bindingSet);
+      Expect.notEquals(e1.a, e2.b);
 
-    b.unregister();
+      Binding b = new Binding(e1._aProperty, e2._bProperty, BindingMode.OneWay);
 
-    Expect.isFalse(b.bindingSet);
-  }
+      Expect.isTrue(b.bindingSet);
 
-  void twoWayBindingSucceeds(){
-   resetElements();
+      b.unregister();
 
-   Expect.notEquals(e1.a, e2.b);
+      Expect.isFalse(b.bindingSet);
+    });
+    
+    test('Two-way binding unregisters', (){
+      resetElements();
 
-   Binding b = new Binding(e1._aProperty, e2._bProperty, BindingMode.TwoWay);
+      Expect.notEquals(e1.a, e2.b);
 
-   Expect.isTrue(b.bindingSet);
+      Binding b = new Binding(e1._aProperty, e2._bProperty, BindingMode.TwoWay);
 
-   //should now be equal
-   Expect.equals(e1.a, e2.b);
+      Expect.isTrue(b.bindingSet);
 
-   e1.a = "foo test";
+      b.unregister();
 
-   Expect.equals("foo test", e2.b);
+      Expect.isFalse(b.bindingSet);
+    });
 
-   //now test back...
+    test('Circular binding doesn\'t overflow', (){
+      //not a real easy way to test for overflow
+      //just have to try it and see that the unit testing doesn't hang
 
-   e2.b = "bar test";
+      resetElements();
+      TestElement e3 = new TestElement();
+      e3.a = "testFoo";
 
-   Expect.equals("bar test", e1.a);
+      Expect.notEquals(e1.a, e2.b);
+      Expect.notEquals(e2.b, e3.a);
 
-  }
+      //setup a binding chain e1.a -> e2.b -> e3.a
+      Binding b1 = new Binding(e1._aProperty, e2._bProperty, BindingMode.OneWay);
+      Binding b2 = new Binding(e2._bProperty, e3._aProperty, BindingMode.OneWay);
 
-  void circularBindingNoOverflow(){
-    //not a real easy way to test for overflow
-    //just have to try it and see that the unit testing doesn't hang
+      //chain should now be equal
+      Expect.equals(e1.a, e2.b);
+      Expect.equals(e2.b, e3.a);
+      Expect.equals(e1.a, e3.a);
 
-    resetElements();
-    TestElement e3 = new TestElement();
-    e3.a = "testFoo";
+      //now add circular binding...
+      Binding b3 = new Binding(e3._aProperty, e1._aProperty, BindingMode.OneWay);
 
-    Expect.notEquals(e1.a, e2.b);
-    Expect.notEquals(e2.b, e3.a);
+      //we will never get here if the circular referencing isn't being interrupted
 
-    //setup a binding chain e1.a -> e2.b -> e3.a
-    Binding b1 = new Binding(e1._aProperty, e2._bProperty, BindingMode.OneWay);
-    Binding b2 = new Binding(e2._bProperty, e3._aProperty, BindingMode.OneWay);
+      e1.a = "overflow test";
 
-    //chain should now be equal
-    Expect.equals(e1.a, e2.b);
-    Expect.equals(e2.b, e3.a);
-    Expect.equals(e1.a, e3.a);
+      //again, shouldn't get past here if circular referencing isn't being interrupted
 
-    //now add circular binding...
-    Binding b3 = new Binding(e3._aProperty, e1._aProperty, BindingMode.OneWay);
+      Expect.equals("overflow test", e1.a);
+      Expect.equals("overflow test", e2.b);
+      Expect.equals("overflow test", e3.a);
+    });
+    
+    test('Two-way binding works both ways', (){
+      resetElements();
 
-    //we will never get here if the circular referencing isn't being interrupted
+      Expect.notEquals(e1.a, e2.b);
 
-    e1.a = "overflow test";
+      Binding b = new Binding(e1._aProperty, e2._bProperty, BindingMode.TwoWay);
 
-    //again, shouldn't get past here if circular referencing isn't being interrupted
+      Expect.isTrue(b.bindingSet);
 
-    Expect.equals("overflow test", e1.a);
-    Expect.equals("overflow test", e2.b);
-    Expect.equals("overflow test", e3.a);
-  }
+      //should now be equal
+      Expect.equals(e1.a, e2.b);
 
-  void oneWayBindingChainSucceeds(){
-    resetElements();
-    TestElement e3 = new TestElement();
-    e3.a = "testFoo";
+      e1.a = "foo test";
 
-    Expect.notEquals(e1.a, e2.b);
-    Expect.notEquals(e2.b, e3.a);
+      Expect.equals("foo test", e2.b);
 
-    //setup a binding chain e1.a -> e2.b -> e3.a
-    Binding b1 = new Binding(e1._aProperty, e2._bProperty, BindingMode.OneWay);
-    Binding b2 = new Binding(e2._bProperty, e3._aProperty, BindingMode.OneWay);
+      //now test back...
 
-    //chain should now be equal
-    Expect.equals(e1.a, e2.b);
-    Expect.equals(e2.b, e3.a);
-    Expect.equals(e1.a, e3.a);
+      e2.b = "bar test";
 
-    e1.a = "chain test";
+      Expect.equals("bar test", e1.a);
+    });
+    
+    test('Value converter applies to binding', (){
+      resetElements();
 
-    //e3.a should now equal 'chain test';
+      Expect.notEquals(e1.a, e2.b);
 
-    Expect.equals("chain test", e3.a);
-  }
+      Binding b = new Binding(e1._aProperty, e2._bProperty, BindingMode.OneWay, new TestValueConverter());
 
-  void oneWayBindingSucceeds(){
-    resetElements();
+      Expect.isTrue(b.bindingSet);
 
-    Expect.notEquals(e1.a, e2.b);
+      Expect.notEquals(e1.a, e2.b); //e2.b should be upper case
 
-    Binding b = new Binding(e1._aProperty, e2._bProperty, BindingMode.OneWay);
+      Expect.equals(e1.a.toUpperCase(), e2.b);
 
-    Expect.isTrue(b.bindingSet);
+      e1.a = "binding test";
 
-    //should now be equal
-    Expect.equals(e1.a, e2.b);
-
-    e1.a = "binding test";
-
-    //should still be equal
-    Expect.equals(e1.a, e2.b);
-
-    //just to be sure...
-    Expect.equals("binding test", e2.b);
-  }
-
-  void oneTimeFiresOnce(){
-    resetElements();
-
-    Expect.notEquals(e1.a, e2.b);
-
-    Binding b = new Binding(e1._aProperty, e2._bProperty, BindingMode.OneTime);
-
-    //should be false because the binding fires and then unregisters
-    Expect.isFalse(b.bindingSet);
-
-    Expect.equals(e1.a, e2.b);
-
-    e1.a = "one time foo";
-
-    //binding shouldn't fire
-    Expect.notEquals("one time foo", e2.b);
-    Expect.notEquals(e1.a, e2.b);
-  }
-
-  void looseBindingToNullProperty(){
-    //bindings .bindingSet property should be false if either property is null
-
-    Binding b = new Binding.loose(null, e1._bProperty, BindingMode.OneWay);
-    Expect.isFalse(b.bindingSet);
-
-    Binding b2 = new Binding.loose(e1._bProperty, null, BindingMode.OneWay);
-    Expect.isFalse(b.bindingSet);
-  }
-
-  void propertyToSelfFail(){
-    Expect.throws(
-    ()=> new Binding(e1._aProperty, e1._aProperty),
-    (err)=> (err is BuckshotException)
-    );
-
-    Expect.throws(
-    ()=> new Binding.loose(e1._aProperty, e1._aProperty),
-    (err)=> (err is BuckshotException)
-    );
-  }
-
-  void validateTestProperties(){
-    Expect.isNotNull(e1._aProperty);
-    Expect.isNotNull(e1._bProperty);
-    Expect.equals(getValue(e1._aProperty), e1.defaultA);
-    Expect.equals(getValue(e1._bProperty), e1.defaultB);
-
-    Expect.isNotNull(e2._aProperty);
-    Expect.isNotNull(e2._bProperty);
-    Expect.equals(getValue(e2._aProperty), e2.defaultA);
-    Expect.equals(getValue(e2._bProperty), e2.defaultB);
-  }
-
-  void nullPropertyFail(){
-    Expect.throws(
-    ()=> new Binding(e1._aProperty, null, BindingMode.OneWay),
-    (err)=> (err is BuckshotException)
-    );
-
-    Expect.throws(
-    ()=> new Binding(null, e1._bProperty, BindingMode.OneWay),
-    (err)=> (err is BuckshotException)
-    );
-  }
-
-
-  void oneWayBinding(){
-    Binding b = new Binding(e1._aProperty, e2._bProperty, BindingMode.OneWay);
-
-  }
-
-  void resetElements(){
-    e1 = new TestElement();
-    e2 = new TestElement();
-  }
+      Expect.equals("binding test", e1.a);
+      Expect.equals("BINDING TEST", e2.b);
+    });
+  });
 }
 
 class TestElement extends FrameworkElement{

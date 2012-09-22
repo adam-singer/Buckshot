@@ -1,32 +1,23 @@
+#library('border_tests_buckshot');
 
-class BorderTests extends TestGroupBase
-{
-  registerTests(){
-    this.testGroupName = "Border Tests";
-    
-    testList["createFromXml"] = createFromXml;
-    testList["nullable content"] = nullableContent;
-  }
-  
-  void nullableContent(){
-    Border b = new Border();
-    TextBlock tb = new TextBlock();
-    tb.text = "hello";
-    
-    b.content = tb;
-    Expect.equals(tb, b.content, "first assignment of textblock");
-    
-    b.content = null;
-    Expect.isNull(b.content);
-    
-    b.content = tb;
-    Expect.equals(tb, b.content, "second assignment of textblock");
-    
-  }
-  
-  void createFromXml(){
-    String t = "<border><border/>";
-    
-    //TODO: finish
-  }
+#import('package:buckshot/buckshot.dart');
+#import('package:unittest/unittest.dart');
+
+run(){
+  group('Border Element', (){
+    test('assigning .content to null is handled', (){
+      Border b = new Border();
+      TextBlock tb = new TextBlock();
+      tb.text = "hello";
+      
+      b.content = tb;
+      Expect.equals(tb, b.content, "first assignment of textblock");
+      
+      b.content = null;
+      Expect.isNull(b.content);
+      
+      b.content = tb;
+      Expect.equals(tb, b.content, "second assignment of textblock");
+    });
+  });
 }

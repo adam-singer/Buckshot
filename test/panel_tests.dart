@@ -1,34 +1,33 @@
+#library('panel_tests_buckshot');
 
-class PanelTests extends TestGroupBase 
-{
+#import('dart:html');
+#import('package:buckshot/buckshot.dart');
+#import('package:unittest/unittest.dart');
+#import('package:dart_utils/shared.dart');
 
-  registerTests(){
-    this.testGroupName = "Panel Tests";
+run(){
+  group('Panel', (){
+    test('Throw when child already has parent.', (){
+      Panel p1 = new Panel();
+      TextBlock tbTest = new TextBlock();
+      p1.children.add(tbTest);
+      
+      Expect.equals(p1.children[0], tbTest);
+      
+      Panel p2 = new Panel();
+      
+      Expect.throws(
+          ()=> p2.children.add(tbTest),
+          (e)=> (e is BuckshotException)
+      );
+    });
     
-    testList["Fail on child already has parent"] = failOnChildAlreadyHasParent;
-    testList["Succeed child no parent"] = succeedOnChildHasNoParent;
-  }
-  
-  void succeedOnChildHasNoParent(){
-    Panel p1 = new Panel();
-    TextBlock tbTest = new TextBlock();
-    p1.children.add(tbTest);
-    
-    Expect.equals(p1.children[0], tbTest);
-  }
-  
-  void failOnChildAlreadyHasParent(){
-    Panel p1 = new Panel();
-    TextBlock tbTest = new TextBlock();
-    p1.children.add(tbTest);
-    
-    Expect.equals(p1.children[0], tbTest);
-    
-    Panel p2 = new Panel();
-    
-    Expect.throws(
-    ()=> p2.children.add(tbTest),
-    (e)=> (e is BuckshotException)
-    );
-  }
+    test('Add child', (){
+      Panel p1 = new Panel();
+      TextBlock tbTest = new TextBlock();
+      p1.children.add(tbTest);
+      
+      Expect.equals(p1.children[0], tbTest);
+    });
+  });
 }
