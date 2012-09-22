@@ -1256,10 +1256,10 @@ each list.
   <resourcecollection>
     <lineargradientbrush key='date_background' direction='vertical'>
        <stops>
-            <gradientstop color='#AAAAAA' />
+            <gradientstop color='#bbbbbb' />
             <gradientstop color='White' percent='20' />
             <gradientstop color='White' percent='80' />
-            <gradientstop color='#AAAAAA' />
+            <gradientstop color='#bbbbbb' />
        </stops>
     </lineargradientbrush>
     <styletemplate key='minutehash'>
@@ -1286,11 +1286,13 @@ each list.
     <!-- clock face -->
     <border background='WhiteSmoke' halign='stretch' valign='stretch' cornerradius='110' />
 
-    <border bordercolor='#777777' background='{resource date_background}' valign='center' borderthickness='1' cornerradius='5' padding='2' margin='0,0,0,135'>
+    <!-- date inset -->
+    <border bordercolor='#777777' background='{resource date_background}' valign='center' borderthickness='1' padding='2' margin='0,0,0,135'>
        <textblock fontsize='12' text='{data dayAndMonth}' />
     </border>
 
-    <stack halign='center' valign='center' margin='100,0,0,0'>
+    <!-- logo -->
+    <stack halign='center' valign='center' margin='90,0,0,0'>
       <image halign='center' alt='Buckshot Logo' width='25' sourceuri='apps/calculator/resources/buckshot_logo.png'></image>
       <textblock text='Buckshot' fontsize='10' fontfamily='Arial' />
     </stack>
