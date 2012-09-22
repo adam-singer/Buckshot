@@ -51,9 +51,7 @@ class TabControl extends Control implements IFrameworkContainer
   void switchToTab(TabItem tab){
     if (currentTab == tab) return;
 
-    assert(currentTab._visualTemplate is Border);
-
-    if (currentTab != null){
+    if (currentTab != null){     
       final b = currentTab._visualTemplate as Border;
       
       //remove active markings on this tab.

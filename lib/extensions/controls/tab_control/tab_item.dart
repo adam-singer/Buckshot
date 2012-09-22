@@ -31,7 +31,7 @@ class TabItem extends Control implements IFrameworkContainer
     iconProperty = new FrameworkProperty(this, 'icon');
     
     contentProperty = new FrameworkProperty(this, 'content', 
-        defaultValue: 'hello johnny');
+        defaultValue: '');
     
     closeButtonVisiblityProperty = new FrameworkProperty(this, 
         'closeButtonVisibility',
