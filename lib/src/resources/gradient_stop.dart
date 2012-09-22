@@ -24,7 +24,7 @@ class GradientStop extends TemplateObject
   makeMe() => new GradientStop();
 
   /// Constructs a GradientStop with a given [Color] and optional offset %.
-  GradientStop.with(Color stopColor, [int stopPercent = -1]){
+  GradientStop.with(Color stopColor, [num stopPercent = -1]){
     _initGradientStopProperties();
     color = stopColor;
     percent = stopPercent;
@@ -36,9 +36,9 @@ class GradientStop extends TemplateObject
   Color get color => getValue(colorProperty);
 
   /// Sets the [percentProperty] value.
-  set percent(int value) => setValue(percentProperty, value);
+  set percent(num value) => setValue(percentProperty, value);
   /// Gets the [percentProperty] value.
-  int get percent => getValue(percentProperty);
+  num get percent => getValue(percentProperty);
 
   void _initGradientStopProperties(){
     colorProperty = new FrameworkProperty(this, "color", converter:const StringToColorConverter());
