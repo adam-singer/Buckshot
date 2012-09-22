@@ -3,17 +3,7 @@
 */
 class StandardCalc extends View
 {
-
-  StandardCalc()
-  {
-
-    // Retrieve the template from the HTML page and deserialize it.
-    Template
-    .deserialize(_standardCalcView)
-    .then((t){
-      rootVisual = t;
-    });
-  }
+  StandardCalc() : super.fromTemplate(_standardCalcView);
 }
 
 // Setting the template in text in addition to the HTML file so that the app

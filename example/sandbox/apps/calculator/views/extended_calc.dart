@@ -2,16 +2,7 @@
 * Represents the view of an extended calculator keypad layout.
 */
 class ExtendedCalc extends View {
-
-  ExtendedCalc()
-  {
-    // Retrieve the template from the HTML page and deserialize it.
-    Template
-    .deserialize(_extendedCalcView)
-    .then((t){
-      rootVisual = t;
-    });
-  }
+  ExtendedCalc() : super.fromTemplate(_extendedCalcView);
 }
 
 
