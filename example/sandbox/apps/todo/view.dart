@@ -1,13 +1,9 @@
 class Main extends View
 {
 
-  Main(){
-
-    Template
-      .deserialize(_view)
-      .then((t){
-        rootVisual = t;
-
+  Main() : super.fromTemplate(_view)
+  {
+      ready.then((t){
         // bind the view model
         rootVisual.dataContext = new ViewModel();
       });
