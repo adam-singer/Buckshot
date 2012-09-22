@@ -50,7 +50,7 @@ class FrameworkAnimation
      window.requestAnimationFrame(_doWork);
   }
  
-  static void _doWork(int time){
+  static bool _doWork(int time){
     
     workers.forEach((_, work) => work(time));
     

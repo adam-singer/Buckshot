@@ -23,13 +23,10 @@
 #import('text_box_tests.dart', prefix:'textbox');
 #import('grid_tests.dart', prefix:'grid');
 #import('panel_tests.dart', prefix:'panel');
-
-#source('text_block_tests.dart');
-#source('radio_button_group_tests.dart');
-#source('style_template_tests.dart');
-#source('string_to_grid_length_converter_tests.dart');
-#source('resource_tests.dart');
-#source('var_resource_tests.dart');
+#import('radio_button_group_tests.dart', prefix:'radiobuttongroup');
+#import('style_template_tests.dart', prefix:'styletemplates');
+#import('string_to_grid_length_converter_tests.dart', prefix:'stringtogridlength');
+#import('var_resource_tests.dart', prefix:'varresource');
 
 void main() {
 
@@ -49,8 +46,6 @@ void main() {
 //
 //  return;
 
-  final _tList = new List<TestGroupBase>();
-
   useHtmlEnhancedConfiguration();
 
   layout.run();
@@ -66,38 +61,8 @@ void main() {
   textbox.run();
   grid.run();
   panel.run();
-  
-  _tList.add(new TextBlockTests());
-  _tList.add(new RadioButtonGroupTests());
-  _tList.add(new StyleTemplateTests());
-  _tList.add(new StringToGridLengthConverterTests());
-  _tList.add(new ResourceTests());
-  _tList.add(new VarResourceTests());
-
-  _tList.forEach((TestGroupBase t){
-    group(t.testGroupName, (){
-      t.testList.forEach((String name, Function testFunc){
-        test(name, testFunc);
-      });
-    });
-  });
-}
-
-
-//TODO:  This is an artifact from the old unit testing system and should be removed
-// at some point.
-/**
-* A base class for defining groups of tests to be performed. */
-class TestGroupBase {
-
-  final LinkedHashMap<String, Function> testList;
-  String testGroupName;
-
-  TestGroupBase() : testList = new LinkedHashMap<String, Function>()
-  {
-    registerTests();
-  }
-
-  abstract void registerTests();
-
+  radiobuttongroup.run();
+  styletemplates.run();  
+  stringtogridlength.run();
+  varresource.run();
 }
