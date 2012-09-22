@@ -141,6 +141,12 @@ String _main =
           areas of the grid cell.
           -->
           <grid halign='stretch' valign='stretch'>
+             <columndefinitions>
+                <columndefinition width='*' />
+             </columndefinitions>
+             <rowdefinitions>
+                <rowdefinition height='*' />
+             </rowdefinitions>
             <textblock style='{resource textblockSubOutput}' valign='bottom' text='{data memoryMarker}' />
             <textblock style='{resource textblockSubOutput}' text='{data subOutput}' />
             <textblock style='{resource textblockOutput}' text='{data output}' />
