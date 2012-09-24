@@ -5,7 +5,7 @@
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:dart_utils/shared.dart');
-#import('package:DartNet-Event-Model/events.dart');
+#import('package:dartnet_event_model/events.dart');
 #import('package:buckshot/extensions/controls/media/youtube.dart');
 #import('package:buckshot/extensions/controls/media/hulu.dart');
 #import('package:buckshot/extensions/controls/media/vimeo.dart');
@@ -29,7 +29,7 @@
 
 void main() {
   if (!reflectionEnabled){
-    
+
 // *** Warnings here are incorrect: See http://www.dartbug.com/5183
     buckshot.registerElement(new TreeView.register());
     buckshot.registerElement(new YouTube.register());
@@ -42,18 +42,18 @@ void main() {
     buckshot.registerElement(new TabControl.register());
     buckshot.registerElement(new Accordion.register());
   }
- 
+
   setView(new Main()).
     then((t){
       new Binding(buckshot.windowHeightProperty, (t.parent as Border).heightProperty);
-      
-      (t.parent as Border).background = 
+
+      (t.parent as Border).background =
           new SolidColorBrush(new Color.predefined(Colors.WhiteSmoke));
-      
+
       (t.parent as Border).verticalScrollEnabled = true;
-      
+
       final demo = queryString['demo'];
-      
+
       if (demo != null){
         t.dataContext.setTemplate('#${demo}');
       }
@@ -64,7 +64,7 @@ void main() {
 Map<String, String> get queryString() {
   var results = {};
   var qs;
-  qs = window.location.search.isEmpty() ? '' 
+  qs = window.location.search.isEmpty() ? ''
       : window.location.search.substring(1);
   var pairs = qs.split('&');
 

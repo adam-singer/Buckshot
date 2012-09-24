@@ -2,22 +2,22 @@
 
 #import('dart:io');
 #import('dart:json');
-#import('package:dart-xml/xml.dart');
+#import('package:dart_xml/xml.dart');
 
 #import('package:buckshot/gen/genie.dart');
 
 void generateCode(List<String> files){
   final out = new File('test.tmp').openOutputStream();
-  
+
   out.onError = (e){
     print('build.dart error! $e');
     exit(1);
   };
-      
+
   var result = JSON.parse(genCode('Foo', XML.parse(test)));
-  
+
   out.writeString(result.getValues()[0]);
-   
+
   out.close();
 }
 

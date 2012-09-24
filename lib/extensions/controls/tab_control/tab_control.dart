@@ -6,7 +6,7 @@
 
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
-#import('package:DartNet-Event-Model/events.dart');
+#import('package:dartnet_event_model/events.dart');
 #import('package:dart_utils/shared.dart');
 #import('package:dart_utils/web.dart');
 
@@ -24,10 +24,10 @@ class TabControl extends Control implements IFrameworkContainer
 
   final FrameworkEvent<TabSelectedEventArgs> tabSelected;
   final FrameworkEvent<TabSelectedEventArgs> tabClosing;
-  
+
   TabItem currentTab;
   Brush _tabBackground;
-  
+
   TabControl() :
     tabSelected = new FrameworkEvent<TabSelectedEventArgs>(),
     tabClosing = new FrameworkEvent<TabSelectedEventArgs>()
@@ -49,38 +49,38 @@ class TabControl extends Control implements IFrameworkContainer
   makeMe() => new TabControl();
 
   get content => getValue(tabItemsProperty);
-  
+
   void switchToTab(TabItem tab){
     if (currentTab == tab) return;
 
-    if (currentTab != null){     
+    if (currentTab != null){
       final b = currentTab._visualTemplate as Border;
-      
+
       //remove active markings on this tab.
       setValue(currentTab.closeButtonVisiblityProperty, Visibility.collapsed);
-           
+
       b.background = _tabBackground;
-      
+
       b.borderThickness = new Thickness.specified(1, 1, 0, 1);
     }
-    
+
 //    print('switch to ${getValue(tab.headerProperty)}');
     currentTab = tab;
-    
+
     final t = currentTab._visualTemplate;
       //set active markings on the tab.
-      
+
     _tabBackground = getValue(t.backgroundProperty);
-    
+
     setValue(currentTab.closeButtonVisiblityProperty, Visibility.visible);
-    
-    currentTab._visualTemplate.borderThickness = 
+
+    currentTab._visualTemplate.borderThickness =
         new Thickness.specified(2, 2, 0, 2);
-    
-    setValue(t.backgroundProperty, 
+
+    setValue(t.backgroundProperty,
         getValue(tabSelectedBrushProperty));
-    
-    setValue(currentContentProperty, 
+
+    setValue(currentContentProperty,
         getValue(currentTab.contentProperty));
 
   }
@@ -88,17 +88,17 @@ class TabControl extends Control implements IFrameworkContainer
   void closeTab(TabItem tab){
     //TODO add handling for last tab closed.
     if (tabItems.length == 1) return;
-      
+
     tab._visualTemplate.rawElement.remove();
-    
+
     tabItems.removeRange(tabItems.indexOf(tab), 1);
-    
+
     currentTab = null;
-    
+
     switchToTab(tabItems[0]);
-    
+
   }
-  
+
   void _initControl(sender, args){
     if (tabItems.isEmpty()) return;
 
@@ -108,7 +108,7 @@ class TabControl extends Control implements IFrameworkContainer
                            as CollectionPresenter)
                         .presentationPanel
                         .children;
-    
+
     int i = 0;
     pc.forEach((e){
       final ti = tabItems[i++];
@@ -116,10 +116,10 @@ class TabControl extends Control implements IFrameworkContainer
       e.mouseUp + (_, __){
         tabSelected.invokeAsync(this, new TabSelectedEventArgs(ti));
       };
-      
+
       final b = Template.findByName('__close_button__', e);
       assert(b != null);
-      
+
       b.mouseUp + (_, __){
         tabClosing.invokeAsync(this, new TabSelectedEventArgs(ti));
       };
@@ -128,15 +128,15 @@ class TabControl extends Control implements IFrameworkContainer
     tabSelected + (_, args){
       switchToTab(args.tab);
     };
-    
+
     tabClosing + (_, args){
       closeTab(args.tab);
     };
-    
+
     switchToTab(tabItems[0]);
-    
+
   }
-  
+
   void _initTabContainerProperties(){
     currentContentProperty = new FrameworkProperty(this, 'currentContent');
 
@@ -146,19 +146,19 @@ class TabControl extends Control implements IFrameworkContainer
     tabAlignmentProperty = new FrameworkProperty(this, 'tabAlignment',
         defaultValue: HorizontalAlignment.left,
         converter: const StringToHorizontalAlignmentConverter());
-    
+
     tabSelectedBrushProperty = new FrameworkProperty(this, 'tabSelectedBrush',
         defaultValue: new SolidColorBrush(new Color.predefined(Colors.White)),
         converter: const StringToSolidColorBrushConverter());
-    
+
     backgroundProperty = new FrameworkProperty(this, 'background',
         defaultValue: new SolidColorBrush(new Color.predefined(Colors.White)),
         converter: const StringToSolidColorBrushConverter());
-    
+
   }
 
   List<FrameworkObject> get tabItems => getValue(tabItemsProperty);
-  
+
 
   String get defaultControlTemplate {
     return

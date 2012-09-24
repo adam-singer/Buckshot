@@ -12,12 +12,12 @@
 #import('dart:isolate');
 #import('dart:math');
 
-#import('package:dart-xml/xml.dart');
-#import('package:DartNet-Event-Model/events.dart');
+#import('package:dart_xml/xml.dart');
+#import('package:dartnet_event_model/events.dart');
 #import('package:dart_utils/web.dart');
 #import('package:dart_utils/shared.dart');
 
-// Uncomment this to run with reflection.  
+// Uncomment this to run with reflection.
 // Also below, set reflectionEnabled = true.
 // #import('dart:mirrors');
 
@@ -133,9 +133,9 @@
 //Use this to generate clean dart docs of just the buckshot library
 //main(){}
 
-/** 
+/**
  * Set this to true in order to use the mirror-based code.
- * 
+ *
  * You must also uncomment the import directive for mirrors.
  */
 bool reflectionEnabled = false;

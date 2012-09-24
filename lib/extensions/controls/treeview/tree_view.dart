@@ -6,7 +6,7 @@
 
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
-#import('package:DartNet-Event-Model/events.dart');
+#import('package:dartnet_event_model/events.dart');
 #import('package:dart_utils/shared.dart');
 #import('package:dart_utils/web.dart');
 
@@ -70,10 +70,10 @@ class TreeView extends Panel
     cursor = Cursors.Arrow;
 
     background = new SolidColorBrush(new Color.predefined(Colors.White));
-    
+
     registerEvent('treenodeselected', treeNodeSelected);
   }
-  
+
   TreeView.register() : super.register(),
     treeNodeSelected = new FrameworkEvent<TreeNodeSelectedEventArgs>(){
     buckshot.registerElement(new TreeNode.register());
@@ -139,10 +139,10 @@ class TreeView extends Panel
     borderColorProperty = new AnimatingFrameworkProperty(
       this,
       "borderColor",
-      'border', 
+      'border',
       propertyChangedCallback: (value){
         rawElement.style.borderColor = value.color.toColorString();
-      }, 
+      },
       converter:const StringToSolidColorBrushConverter());
 
     borderThicknessProperty = new FrameworkProperty(
