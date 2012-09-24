@@ -25,6 +25,8 @@ class Accordion extends Control implements IFrameworkContainer
     
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = 
         getValue(accordionItemsProperty);
+    
+    loaded + _initControl;
   }
 
   Accordion.register() : super.register(){
@@ -43,6 +45,36 @@ class Accordion extends Control implements IFrameworkContainer
     
   get content => getValue(accordionItemsProperty);
     
+  List<FrameworkObject> get accordionItems => getValue(accordionItemsProperty);
+      
+  void _initControl(sender, args){
+    if (accordionItems.isEmpty()) return;
+    
+    final pc = (Template.findByName('__ac_presenter__', template)
+        as CollectionPresenter)
+        .presentationPanel
+        .children;
+    
+    int i = 0;
+    pc.forEach((e){
+      final ai = accordionItems[i++];
+      
+      final header = Template.findByName('__accordion_header__', e);
+      final body = Template.findByName('__accordion_body__', e);
+      
+      assert(header != null && body != null);
+      
+      body.visibility = ai.visibility;
+      
+      header.click + (_, __){
+        body.visibility = (body.visibility == null 
+                          || body.visibility == Visibility.visible ) 
+                            ? Visibility.collapsed 
+                            : Visibility.visible;  
+      };
+    });
+  }
+  
   String get defaultControlTemplate {
     return
 '''
@@ -55,12 +87,8 @@ class Accordion extends Control implements IFrameworkContainer
       <collectionpresenter halign='stretch' name='__ac_presenter__' collection='{template accordionItems}'>
          <itemstemplate>
             <stack halign='stretch'>
-               <border padding='5' borderthickness='0,0,1,0' bordercolor='DarkGray' background='WhiteSmoke' halign='stretch'>
-                  <contentpresenter halign='stretch' content='{data header}' />                   
-               </border>
-               <border padding='5'>
-                 <contentpresenter halign='stretch' content='{data body}' />
-               </border>
+              $headerTemplate
+              $bodyTemplate
             </stack>
          </itemstemplate>
       </collectionpresenter>
@@ -69,4 +97,35 @@ class Accordion extends Control implements IFrameworkContainer
 </controltemplate>
 ''';
   }
+
+  /** 
+   * Override this template if you want to customize the look and feel of the
+   * Accordion header.
+   */
+  String get headerTemplate =>
+'''
+ <border name='__accordion_header__' padding='5' borderthickness='0,0,1,0' bordercolor='DarkGray' background='WhiteSmoke' halign='stretch'>
+    <actions>
+      <setproperty event='mouseEnter' property='background' value='LightGray' />
+      <setproperty event='mouseLeave' property='background' value='WhiteSmoke' />
+      <setproperty event='mouseDown' property='background' value='DarkGray' />
+      <setproperty event='mouseUp' property='background' value='LightGray' />
+    </actions>
+    <contentpresenter halign='stretch' content='{data header}' />                   
+ </border>
+''';
+    
+  /** 
+   * Override this template if you want to customize the look and feel of the
+   * Accordion body.
+   */
+  String get bodyTemplate =>
+'''
+ <border name='__accordion_body__' halign='stretch' borderthickness='0,1,1,1' bordercolor='DarkGray'>
+   <contentpresenter margin='5' halign='stretch' content='{data body}' />
+ </border>
+''';
+
 }
+
+
