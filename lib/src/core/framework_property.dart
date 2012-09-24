@@ -43,10 +43,8 @@ class FrameworkProperty extends FrameworkPropertyBase
     }
     _value = v;
   }
+  Dynamic previousValue;
 
-  /// Gets the previous value assigned to the FrameworkProperty.
-  Dynamic get previousValue => _previousValue;
-  Dynamic _previousValue;
   bool readOnly = false;
 
   /// Constructs a FrameworkProperty and initializes it to the framework.

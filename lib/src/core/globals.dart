@@ -99,7 +99,7 @@ Future setValueAsync(FrameworkProperty property, Dynamic value)
 
      if (property.value == value) return;
 
-      property._previousValue = property.value;
+      property.previousValue = property.value;
       property.value = value;
 
       // 3 different activities take place when a FrameworkProperty value changes,
@@ -141,7 +141,7 @@ void setValue(FrameworkProperty property, Dynamic value)
    //TODO this isn't working well on some complex objects
    if (property.value === value) return;
 
-    property._previousValue = property.value;
+    property.previousValue = property.value;
     property.value = value;
 
     // 3 different activities take place when a FrameworkProperty value changes,

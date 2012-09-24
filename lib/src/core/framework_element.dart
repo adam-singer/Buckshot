@@ -468,7 +468,7 @@ class FrameworkElement extends FrameworkObject
         if (value == null){
           //setting non-null style to null
           _style._unregisterElement(this);
-          styleProperty._previousValue = _style;
+          styleProperty.previousValue = _style;
           _style = new StyleTemplate();
           styleProperty.value = _style;
         }else{
