@@ -14,7 +14,6 @@
 
 class Accordion extends Control implements IFrameworkContainer
 {
-  
   FrameworkProperty accordionItemsProperty;
   FrameworkProperty backgroundProperty;
   
@@ -51,12 +50,17 @@ class Accordion extends Control implements IFrameworkContainer
   <template>
     <border background='{template background}' valign='{template vAlign}' 
             halign='{template hAlign}' height='{template height}' 
-            width='{template width}'>
+            width='{template width}'
+            cursor='Arrow'>
       <collectionpresenter halign='stretch' name='__ac_presenter__' collection='{template accordionItems}'>
          <itemstemplate>
             <stack halign='stretch'>
-               <contentpresenter halign='stretch' content='{data header}' />
-               <contentpresenter halign='stretch' content='{data body}' />
+               <border padding='5' borderthickness='0,0,1,0' bordercolor='DarkGray' background='WhiteSmoke' halign='stretch'>
+                  <contentpresenter halign='stretch' content='{data header}' />                   
+               </border>
+               <border padding='5'>
+                 <contentpresenter halign='stretch' content='{data body}' />
+               </border>
             </stack>
          </itemstemplate>
       </collectionpresenter>

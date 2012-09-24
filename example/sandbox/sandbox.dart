@@ -42,10 +42,8 @@ void main() {
     buckshot.registerElement(new TabControl.register());
     buckshot.registerElement(new Accordion.register());
   }
-
-  final view = new Main();
-  
-  setView(view).
+ 
+  setView(new Main()).
     then((t){
       new Binding(buckshot.windowHeightProperty, (t.parent as Border).heightProperty);
       
