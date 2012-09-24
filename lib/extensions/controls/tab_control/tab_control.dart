@@ -139,7 +139,7 @@ class TabControl extends Control implements IFrameworkContainer
     currentContentProperty = new FrameworkProperty(this, 'currentContent');
 
     tabItemsProperty = new FrameworkProperty(this, 'tabItems',
-        defaultValue: new List<TabItem>());
+        defaultValue: new List<FrameworkObject>());
 
     tabAlignmentProperty = new FrameworkProperty(this, 'tabAlignment',
         defaultValue: HorizontalAlignment.left,
@@ -155,7 +155,7 @@ class TabControl extends Control implements IFrameworkContainer
     
   }
 
-  List<TabItem> get tabItems => getValue(tabItemsProperty);
+  List<FrameworkObject> get tabItems => getValue(tabItemsProperty);
   
 
   String get defaultControlTemplate {
