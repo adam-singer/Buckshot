@@ -16,16 +16,17 @@ class Accordion extends Control implements IFrameworkContainer
 {
   FrameworkProperty accordionItemsProperty;
   FrameworkProperty backgroundProperty;
-  
+  FrameworkProperty selectionModeProperty;
+
   Accordion()
   {
     Browser.appendClass(rawElement, "Accordion");
-    
+
     _initializeAccordianProperties();
-    
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = 
+
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] =
         getValue(accordionItemsProperty);
-    
+
     loaded + _initControl;
   }
 
@@ -33,48 +34,52 @@ class Accordion extends Control implements IFrameworkContainer
     buckshot.registerElement(new AccordionItem.register());
   }
   makeMe() => new Accordion();
-    
+
   void _initializeAccordianProperties(){
-    accordionItemsProperty = new FrameworkProperty(this, 'accordionItems', 
+    accordionItemsProperty = new FrameworkProperty(this, 'accordionItems',
         defaultValue: new List<FrameworkObject>());
-    
+
     backgroundProperty = new FrameworkProperty(this, 'background',
         defaultValue: new SolidColorBrush(new Color.predefined(Colors.White)),
         converter: const StringToSolidColorBrushConverter());
+
+    selectionModeProperty = new FrameworkProperty(this, 'selectionMode',
+        defaultValue: SelectionMode.multi,
+        converter: const StringToSelectionModeConverter());
   }
-    
+
   get content => getValue(accordionItemsProperty);
-    
+
   List<FrameworkObject> get accordionItems => getValue(accordionItemsProperty);
-      
+
   void _initControl(sender, args){
     if (accordionItems.isEmpty()) return;
-    
+
     final pc = (Template.findByName('__ac_presenter__', template)
         as CollectionPresenter)
         .presentationPanel
         .children;
-    
+
     int i = 0;
     pc.forEach((e){
       final ai = accordionItems[i++];
-      
+
       final header = Template.findByName('__accordion_header__', e);
       final body = Template.findByName('__accordion_body__', e);
-      
+
       assert(header != null && body != null);
-      
+
       body.visibility = ai.visibility;
-      
+
       header.click + (_, __){
-        body.visibility = (body.visibility == null 
-                          || body.visibility == Visibility.visible ) 
-                            ? Visibility.collapsed 
-                            : Visibility.visible;  
+        body.visibility = (body.visibility == null
+                          || body.visibility == Visibility.visible )
+                            ? Visibility.collapsed
+                            : Visibility.visible;
       };
     });
   }
-  
+
   String get defaultControlTemplate {
     return
 '''
@@ -98,7 +103,7 @@ class Accordion extends Control implements IFrameworkContainer
 ''';
   }
 
-  /** 
+  /**
    * Override this template if you want to customize the look and feel of the
    * Accordion header.
    */
@@ -114,18 +119,46 @@ class Accordion extends Control implements IFrameworkContainer
     <contentpresenter halign='stretch' content='{data header}' />                   
  </border>
 ''';
-    
-  /** 
+
+  /**
    * Override this template if you want to customize the look and feel of the
    * Accordion body.
    */
   String get bodyTemplate =>
 '''
- <border name='__accordion_body__' halign='stretch' borderthickness='0,1,1,1' bordercolor='DarkGray'>
+ <border name='__accordion_body__' halign='stretch' bordercolor='DarkGray'>
    <contentpresenter margin='5' halign='stretch' content='{data body}' />
  </border>
 ''';
 
 }
 
+class SelectionMode
+{
+  final _str;
+
+  const SelectionMode(this._str);
+
+  static const single = const SelectionMode('single');
+  static const multi = const SelectionMode('multi');
+}
+
+class StringToSelectionModeConverter implements IValueConverter
+{
+
+  const StringToSelectionModeConverter();
+
+  Dynamic convert(Dynamic value, [Dynamic parameter]){
+    if (!(value is String)) return value;
+
+    switch(value){
+      case "single":
+        return SelectionMode.single;
+      case "multi":
+        return SelectionMode.multi;
+      default:
+        throw const BuckshotException("Invalid SelectionMode value.");
+      }
+  }
+}
 
