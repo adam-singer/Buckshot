@@ -68,6 +68,11 @@ _initFramework(){
   }
 }
 
+Binding bind(FrameworkProperty from, FrameworkProperty to, 
+             {BindingMode bindingMode : BindingMode.OneWay,
+              IValueConverter converter :const _DefaultConverter()}){
+  return new Binding(from, to, bindingMode, converter);
+}
 
 /**
  * Sets the value of a given [FrameworkProperty] to a given [v]. */
