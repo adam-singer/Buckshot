@@ -29,10 +29,10 @@ class ActionBase extends TemplateObject {
   {
     _initActionBaseProperties();
   }
-  
+
   ActionBase.register() : super.register(),
     _ref = new HashMap<String, EventHandlerReference>();
-  
+
   makeMe() => null;
 
   void _initActionBaseProperties(){
@@ -104,6 +104,24 @@ class ActionBase extends TemplateObject {
         break;
       case 'unloaded':
         _ref[ee] = _source.unloaded + (_,__) => onEventTrigger();
+        break;
+      case 'dragend':
+        _ref[ee] = _source.dragEnd + (_,__) => onEventTrigger();
+        break;
+      case 'dragstart':
+        _ref[ee] = _source.dragStart + (_,__) => onEventTrigger();
+        break;
+      case 'drop':
+        _ref[ee] = _source.drop + (_,__) => onEventTrigger();
+        break;
+      case 'dragover':
+        _ref[ee] = _source.dragOver + (_,__) => onEventTrigger();
+        break;
+      case 'dragenter':
+        _ref[ee] = _source.dragEnter + (_,__) => onEventTrigger();
+        break;
+      case 'dragleave':
+        _ref[ee] = _source.dragLeave + (_,__) => onEventTrigger();
         break;
     }
   }
