@@ -43,7 +43,9 @@ class TabControl extends Control implements IFrameworkContainer
 
   TabControl.register() : super.register(),
     tabSelected = new FrameworkEvent<TabSelectedEventArgs>(),
-    tabClosing = new FrameworkEvent<TabSelectedEventArgs>();
+    tabClosing = new FrameworkEvent<TabSelectedEventArgs>(){
+    buckshot.registerElement(new TabItem.register());
+  }
   makeMe() => new TabControl();
 
   get content => getValue(tabItemsProperty);

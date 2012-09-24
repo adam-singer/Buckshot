@@ -75,7 +75,9 @@ class TreeView extends Panel
   }
   
   TreeView.register() : super.register(),
-    treeNodeSelected = new FrameworkEvent<TreeNodeSelectedEventArgs>();
+    treeNodeSelected = new FrameworkEvent<TreeNodeSelectedEventArgs>(){
+    buckshot.registerElement(new TreeNode.register());
+  }
   makeMe() => new TreeView();
 
   /**

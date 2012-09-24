@@ -20,7 +20,9 @@ class Accordion extends Control implements IFrameworkContainer
     Browser.appendClass(rawElement, "Accordion");
   }
 
-  Accordion.register() : super.register();
+  Accordion.register() : super.register(){
+    buckshot.registerElement(new AccordionItem.register());
+  }
   makeMe() => new Accordion();
   
   

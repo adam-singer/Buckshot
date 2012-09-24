@@ -17,6 +17,7 @@
 #import('package:buckshot/extensions/controls/dock_panel.dart');
 #import('package:buckshot/extensions/controls/popup.dart');
 #import('package:buckshot/extensions/controls/tab_control/tab_control.dart');
+#import('package:buckshot/extensions/controls/accordion/accordion.dart');
 
 #import('apps/calculator/calculator.dart', prefix:'calc');
 #import('apps/todo/todo.dart', prefix:'todo');
@@ -31,7 +32,6 @@ void main() {
     
 // *** Warnings here are incorrect: See http://www.dartbug.com/5183
     buckshot.registerElement(new TreeView.register());
-    buckshot.registerElement(new TreeNode.register());
     buckshot.registerElement(new YouTube.register());
     buckshot.registerElement(new Hulu.register());
     buckshot.registerElement(new Vimeo.register());
@@ -40,7 +40,7 @@ void main() {
     buckshot.registerElement(new PlusOne.register());
     buckshot.registerElement(new DockPanel.register());
     buckshot.registerElement(new TabControl.register());
-    buckshot.registerElement(new TabItem.register());
+    buckshot.registerElement(new Accordion.register());
   }
 
   final view = new Main();
