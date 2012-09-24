@@ -68,6 +68,16 @@ _initFramework(){
   }
 }
 
+
+/**
+ * Creates a binding between [from] and [to], with optional [bindingMode]
+ * and [converter] parameters.
+ * 
+ * Typically bindings are set via template declarations, but in some cases
+ * it may be necessary to declare a binding in code.
+ * 
+ * To remove the binding, call .unregister() on the returned [Binding] object.
+ */
 Binding bind(FrameworkProperty from, FrameworkProperty to, 
              {BindingMode bindingMode : BindingMode.OneWay,
               IValueConverter converter :const _DefaultConverter()}){
