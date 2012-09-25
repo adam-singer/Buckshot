@@ -6,7 +6,7 @@ homepage: http://www.buckshotui.org
 dependencies:
   unittest:
     sdk: unittest
-  dart_xml:
+  xml:
     git: git://github.com/prujohn/dart-xml.git
   dartnet_event_model:
     git: git://github.com/prujohn/DartNet-Event-Model.git

@@ -5,7 +5,7 @@
 #library('yaml.templateproviders.buckshotui.org');
 #import('dart:json');
 #import('package:buckshot/buckshot.dart');
-#import('package:dart_xml/xml.dart');
+#import('package:xml/xml.dart');
 #import('package:dart_utils/shared.dart');
 #import('yaml/yaml.dart');
 

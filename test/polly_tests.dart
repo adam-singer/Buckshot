@@ -2,7 +2,7 @@
 
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
-#import('package:dart_xml/xml.dart');
+#import('package:xml/xml.dart');
 #import('package:dart_utils/web.dart');
 #import('package:dart_utils/shared.dart');
 #import('package:unittest/unittest.dart');
