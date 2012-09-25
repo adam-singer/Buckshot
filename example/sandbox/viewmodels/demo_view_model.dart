@@ -27,7 +27,7 @@ class DemoViewModel extends ViewModelBase
   FrameworkProperty minuteInDegsProperty;
   FrameworkProperty hourInDegsProperty;
   FrameworkProperty dayAndMonthProperty;
-  
+
   View _mainView;
 
   DemoViewModel()
@@ -39,10 +39,10 @@ class DemoViewModel extends ViewModelBase
     _regEventHandlers();
 
     _startTimer();
-    
+
     window.on.popState.add((e){
       final demo = queryString['demo'];
-      
+
       if (demo != null){
         _mainView.rootVisual.dataContext.setTemplate('#${demo}');
       }
@@ -58,10 +58,10 @@ class DemoViewModel extends ViewModelBase
     _regEventHandlers();
 
     _startTimer();
-    
+
     window.on.popState.add((e){
       final demo = queryString['demo'];
-      
+
       if (demo != null){
         _mainView.rootVisual.dataContext.setTemplate('#${demo}');
       }
@@ -71,11 +71,11 @@ class DemoViewModel extends ViewModelBase
   void _startTimer(){
     window.setInterval((){
       Date d = new Date.now();
-      
+
       _updateDate(d);
-      
+
       setValue(timeStampProperty, d.toString());
-      
+
       setValue(secondInDegsProperty, d.second * 6);
 
       setValue(minuteInDegsProperty, (d.minute * 6) + (d.second / 10));
@@ -84,16 +84,16 @@ class DemoViewModel extends ViewModelBase
 
       setValue(hourInDegsProperty, (hour * 30) + (d.minute / 2));
     }, 1000);
-    
+
   }
-  
+
   void _updateDate(Date d){
     final months = const ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
                           'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     setValue(dayAndMonthProperty, "${d.day} ${months[d.month]}");
   }
-  
+
 
   // Initialize the properties that we want to expose for template binding.
   void _initDemoViewModelProperties(){
@@ -123,19 +123,19 @@ class DemoViewModel extends ViewModelBase
 
     demoTreeNodeSelectedProperty = new FrameworkProperty(this,
         'demoTreeNodeSelected', defaultValue: '');
-    
+
     dockTextProperty = new FrameworkProperty(this, 'dockText',
         defaultValue: 'Docked left.');
-    
-    secondInDegsProperty = new FrameworkProperty(this, 'secondInDegs', 
+
+    secondInDegsProperty = new FrameworkProperty(this, 'secondInDegs',
         defaultValue: 0);
-    
-    hourInDegsProperty = new FrameworkProperty(this, 'hourInDegs', 
+
+    hourInDegsProperty = new FrameworkProperty(this, 'hourInDegs',
         defaultValue: 0);
-    
-    minuteInDegsProperty = new FrameworkProperty(this, 'minuteInDegs', 
+
+    minuteInDegsProperty = new FrameworkProperty(this, 'minuteInDegs',
         defaultValue: 0);
-    
+
     dayAndMonthProperty = new FrameworkProperty(this, 'dayAndMonth',
         defaultValue: '');
   }
@@ -143,7 +143,7 @@ class DemoViewModel extends ViewModelBase
   void setQueryStringTo(String value){
     window.history.pushState({}, document.title, '?demo=$value');
   }
-  
+
   /**
    * Sets the given [templateText] to the [templateTextProperty] and renders
    * it into the [renderedOutputProperty].
@@ -180,18 +180,18 @@ class DemoViewModel extends ViewModelBase
           .then((t){
             if (t == null) return;
             setValue(templateTextProperty, t);
-            
+
             Template.deserialize(t).then((c){
               setValue(renderedOutputProperty, c);
-            });               
+            });
           });
 
       }else{
         setValue(templateTextProperty, templateText);
-        
+
         Template.deserialize(templateText).then((c){
           setValue(renderedOutputProperty, c);
-        });        
+        });
       }
     }
   }
@@ -213,27 +213,27 @@ class DemoViewModel extends ViewModelBase
 
     final bodyView = new View.fromResource('#modaldialog');
 
-    Futures
-    .wait([
-           titleView.ready,
-           bodyView.ready])
-    .then((views){
-      final md = new ModalDialog
-        .with(views[0], views[1], ModalDialog.OkCancel)
-        ..cornerRadius = new Thickness(7);
+    titleView.ready
+      .chain((t) => bodyView.ready)
+      .chain((bv){
+        final md = new ModalDialog
+          .with(titleView.rootVisual, bodyView.rootVisual, ModalDialog.OkCancel)
+          ..cornerRadius = new Thickness(7);
 
-      md.show().then((DialogButtonType dbt){
-        new ModalDialog
+        return md.show();
+        })
+      .chain((DialogButtonType dbt){
+        final md = new ModalDialog
           .with('Dialog Results',
             'You clicked the "$dbt" button on the previous dialog.',
               ModalDialog.Ok)
           ..cornerRadius = new Thickness(7)
           ..borderThickness = new Thickness(3)
           ..maskColor = new SolidColorBrush(
-              new Color.predefined(Colors.Green))
-          ..show();
+              new Color.predefined(Colors.Green));
+
+        return md.show();
       });
-    });
   }
 
 

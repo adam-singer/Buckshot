@@ -43,8 +43,8 @@ void main() {
     buckshot.registerElement(new Accordion.register());
   }
 
-  setView(new Main()).
-    then((t){
+  setView(new Main())
+    .then((t){
       new Binding(buckshot.windowHeightProperty, (t.parent as Border).heightProperty);
 
       (t.parent as Border).background =
