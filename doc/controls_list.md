@@ -13,8 +13,8 @@ issues.
 ## Experimental Band ##
 Control is new and will likely have significant usability or stability issues.
 
-# Stable Band #
 
+# Stable Band #
 ## Border ##
 
 ## StackPanel, Stack ##
@@ -34,8 +34,6 @@ Control is new and will likely have significant usability or stability issues.
 ## LayoutCanvas ##
 
 ## Image ##
-
-## CollectionPresenter ##
 
 ## ListBox ##
 
@@ -59,9 +57,12 @@ Control is new and will likely have significant usability or stability issues.
 
 ## FunnyOrDie ##
 
+## CollectionPresenter ##
+
+## ContentPresenter ##
+
 
 # Unstable Band #
-
 ## RawHtml ##
 
 ## Popup ##
@@ -72,7 +73,6 @@ Control is new and will likely have significant usability or stability issues.
 
 
 # Experimental Band #
-
 ## TreeView ##
 
 ## TabControl, TabItem ##
