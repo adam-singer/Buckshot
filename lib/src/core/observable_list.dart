@@ -45,7 +45,7 @@ class ObservableList<T> implements List<T>{
   int lastIndexOf(T element, [int start = 0]) => _list.lastIndexOf(element, start);
 
   int get length => _list.length;
-  
+
   //TODO Fire events if newLength truncates elements.
   void set length(int newLength) {_list.length = newLength;}
 
@@ -60,10 +60,16 @@ class ObservableList<T> implements List<T>{
 //    _notifySingleOld(removed);
 //    return removed;
 //  }
-  
+
   void add(T element){
     _list.add(element);
     _notifySingleNew(element);
+  }
+
+  T removeAt(int index){
+    final removed = _list.removeAt(index);
+    _notifySingleOld(removed);
+    return removed;
   }
 
   void remove(T element){
@@ -136,6 +142,6 @@ class ObservableList<T> implements List<T>{
 
     listChanged.invoke(this, new ListChangedEventArgs<T>(ol, nl));
   }
-  
+
   String toString() => _list.toString();
 }
