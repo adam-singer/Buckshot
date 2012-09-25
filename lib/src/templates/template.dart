@@ -294,15 +294,12 @@ class Template {
           xmlElement.children.every((n) => n is! XmlText)){
         //process nodes
 
-        for(final e in xmlElement.children){
-          String elementLowerTagName = e.name.toLowerCase();
-
-          if(newElement.hasProperty(elementLowerTagName)){
-            fList.add(_processProperty(newElement, e));
-          }else{
-            fList.add(_processTag(newElement, e));
-          }
-        }
+        fList.addAll(xmlElement.children.map((e) =>
+          (newElement.hasProperty(e.name.toLowerCase()))
+              ? _processProperty(newElement, e)
+              : _processTag(newElement, e)
+          )
+        );
       }else{
         //no nodes, check for text element
         _processTextNode(newElement, xmlElement);
@@ -380,16 +377,8 @@ class Template {
         var testValue = getValue(p);
 
         if (testValue != null && testValue is List){
-          //complex property (list)
-
-          var fList = [];
-
-          for (final se in ofXMLNode.children){
-            fList.add(toFrameworkObject(se));
-          }
-
           Futures
-          .wait(fList)
+          .wait(ofXMLNode.children.map((se) => toFrameworkObject(se)))
           .then((results){
             results.forEach((r){
               testValue.add(r);
@@ -419,9 +408,10 @@ class Template {
 
               // node assignment to property
 
-              toFrameworkObject(ofXMLNode.children[0]).then((ne){
-                setValue(p, ne);
-                c.complete(true);
+              toFrameworkObject(ofXMLNode.children[0])
+                .then((ne){
+                  setValue(p, ne);
+                  c.complete(true);
               });
             }
           }
@@ -567,7 +557,7 @@ class Template {
           throw const BuckshotException('{template} binding malformed.');
 
         (p.sourceObject as FrameworkElement)._templateBindings[p] = words[1];
-        
+
         break;
       case "data":
         if (p.sourceObject is! FrameworkElement){

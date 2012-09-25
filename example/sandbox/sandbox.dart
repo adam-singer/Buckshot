@@ -29,8 +29,6 @@
 
 void main() {
   if (!reflectionEnabled){
-
-// *** Warnings here are incorrect: See http://www.dartbug.com/5183
     buckshot.registerElement(new TreeView.register());
     buckshot.registerElement(new YouTube.register());
     buckshot.registerElement(new Hulu.register());
