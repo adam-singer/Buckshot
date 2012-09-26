@@ -64,7 +64,6 @@ class TabControl extends Control implements IFrameworkContainer
       b.borderThickness = new Thickness.specified(1, 1, 0, 1);
     }
 
-//    print('switch to ${getValue(tab.headerProperty)}');
     currentTab = tab;
 
     final t = currentTab._visualTemplate;
@@ -74,7 +73,7 @@ class TabControl extends Control implements IFrameworkContainer
 
     setValue(currentTab.closeButtonVisiblityProperty, Visibility.visible);
 
-    currentTab._visualTemplate.borderThickness =
+    (currentTab._visualTemplate as Border).borderThickness =
         new Thickness.specified(2, 2, 0, 2);
 
     setValue(t.backgroundProperty,

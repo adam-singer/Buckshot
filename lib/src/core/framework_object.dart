@@ -5,7 +5,7 @@
 /**
 * Represents and element that can participate in the framework's
 * [Binding] and [FrameworkProperty] model. */
-class FrameworkObject extends BuckshotObject 
+class FrameworkObject extends BuckshotObject
 {
   bool _watchingMeasurement = false;
   bool _watchingPosition = false;
@@ -20,7 +20,7 @@ class FrameworkObject extends BuckshotObject
 
   /// Represents a map of [Binding]s that will be bound just before
   /// the element renders to the DOM.
-  final HashMap<FrameworkProperty, BindingData> lateBindings = 
+  final HashMap<FrameworkProperty, BindingData> lateBindings =
       new HashMap<FrameworkProperty, BindingData>();
 
   final Map<String, FrameworkEvent> _eventBindings =
@@ -34,7 +34,7 @@ class FrameworkObject extends BuckshotObject
   FrameworkEvent<MeasurementChangedEventArgs> measurementChanged;
   /// Fires when the position of the element changes.
   FrameworkEvent<MeasurementChangedEventArgs> positionChanged;
-  
+
   /**
   * Accesses the underlying raw HTML root element.
   *
@@ -53,7 +53,7 @@ class FrameworkObject extends BuckshotObject
   //allows container elements to subscribe/unsubscribe to attached property
   //changes of children.
   final FrameworkEvent<AttachedPropertyChangedEventArgs>
-          attachedPropertyChanged = 
+          attachedPropertyChanged =
           new FrameworkEvent<AttachedPropertyChangedEventArgs>();
 
   /// Represents a name identifier for the element.
@@ -72,21 +72,21 @@ class FrameworkObject extends BuckshotObject
       _initFrameworkObjectProperties();
 
       _initFrameworkObjectEvents();
-      
-      if (reflectionEnabled){ 
+
+      if (reflectionEnabled){
         return;
       }
-      
+
       registerEvent('attachedpropertychanged', attachedPropertyChanged);
       registerEvent('loaded', loaded);
       registerEvent('unloaded', unloaded);
       registerEvent('measurementchanged', measurementChanged);
       registerEvent('positionchanged', positionChanged);
   }
-  
+
   FrameworkObject.register() : super.register();
   makeMe() => null;
-  
+
   void _initFrameworkObjectProperties(){
     nameProperty = new FrameworkProperty(
       this,
@@ -120,7 +120,7 @@ class FrameworkObject extends BuckshotObject
 
       rawElement.rect.then((ElementRect m){
         if (!_watchingMeasurement) return;
-        
+
         mostRecentMeasurement = m;
 
         if (_previousMeasurement == null){
@@ -149,12 +149,12 @@ class FrameworkObject extends BuckshotObject
     FrameworkAnimation.workers['${safeName}_watch_measurement'] = watchIt;
 
   }
-  
-  void _stopWatchMeasurement(){   
+
+  void _stopWatchMeasurement(){
     if (FrameworkAnimation.workers.containsKey('${safeName}_watch_measurement')){
       FrameworkAnimation.workers.remove('${safeName}_watch_measurement');
     }
-    
+
     _previousMeasurement = null;
     _watchingMeasurement = false;
   }
@@ -164,10 +164,10 @@ class FrameworkObject extends BuckshotObject
 
     watchIt(int time){
       if (!_watchingPosition) return;
-      
+
       rawElement.rect.then((ElementRect m){
         if (!_watchingPosition) return;
-        
+
         mostRecentMeasurement = m;
 
         if (_previousPosition == null){
@@ -196,16 +196,16 @@ class FrameworkObject extends BuckshotObject
     FrameworkAnimation.workers['${safeName}_watch_position'] = watchIt;
 
   }
-  
-  void _stopWatchPosition(){   
+
+  void _stopWatchPosition(){
     if (FrameworkAnimation.workers.containsKey('${safeName}_watch_position')){
       FrameworkAnimation.workers.remove('${safeName}_watch_position');
     }
-    
+
     _previousPosition = null;
     _watchingPosition = false;
   }
-  
+
   void _initFrameworkObjectEvents(){
     // only begins animation loop on first request of the event
     // to preserve resources when not in use.
@@ -214,7 +214,7 @@ class FrameworkObject extends BuckshotObject
       () => _startWatchMeasurement(),
       () =>  _stopWatchMeasurement()
     );
-    
+
     positionChanged = new BuckshotEvent<MeasurementChangedEventArgs>
     ._watchFirstAndLast(
       () => _startWatchPosition(),
@@ -222,24 +222,22 @@ class FrameworkObject extends BuckshotObject
     );
   }
 
-  //TODO load/unload should be asynchronous?
   void addToLayoutTree(FrameworkObject parentElement){
 
     parentElement.rawElement.elements.add(rawElement);
 
     parent = parentElement;
 
-   // db('Added to Layout Tree', this);
     if (!parentElement.isLoaded) return;
 
     _onAddedToDOM();
   }
 
   void onAddedToDOM() => _onAddedToDOM();
-  
+
   void _onAddedToDOM(){
     //parent is in the DOM so we should call loaded event and check for children
-    
+
     updateDataContext();
 
     isLoaded = true;
@@ -251,20 +249,19 @@ class FrameworkObject extends BuckshotObject
     onLoaded();
     loaded.invoke(this, new EventArgs());
 
-//    db('>>> adding to DOM', this);
-
     if (this is! IFrameworkContainer) return;
 
-    if ((this as IFrameworkContainer).content is List){
-      (this as IFrameworkContainer)
-        .content
+    final containerContent = (this as IFrameworkContainer).content;
+
+    if (containerContent is Collection){
+      containerContent
         .forEach((FrameworkElement child)
           {
             child.parent = this;
             child._onAddedToDOM();
           });
-    }else if ((this as IFrameworkContainer).content is FrameworkElement){
-       this.content._onAddedToDOM();
+    }else if (containerContent is FrameworkElement){
+      containerContent._onAddedToDOM();
     }
   }
 
@@ -320,17 +317,17 @@ class FrameworkObject extends BuckshotObject
     if (!reflectionEnabled){
       _eventBindings.forEach((String handler, FrameworkEvent event){
         final dc = dataContextObject.value;
-        
-        if (dc != null && dc is BuckshotObject && 
+
+        if (dc != null && dc is BuckshotObject &&
             dc._eventHandlers.containsKey(handler.toLowerCase())){
-          
+
           event.register(dc._eventHandlers[handler.toLowerCase()]);
         }
       });
-      
+
       return;
     }
-    
+
     if (dataContextObject == null || dataContextObject.value == null){
       final lm = buckshot.mirrorSystem().isolate.rootLibrary;
       _eventBindings.forEach((String handler, FrameworkEvent event){
@@ -338,7 +335,7 @@ class FrameworkObject extends BuckshotObject
 
           //invoke the handler when the event fires
           event + (sender, args){
-            lm.invoke(handler, [buckshot.reflectMe(sender), 
+            lm.invoke(handler, [buckshot.reflectMe(sender),
                                 buckshot.reflectMe(args)]);
           };
         }
@@ -351,7 +348,7 @@ class FrameworkObject extends BuckshotObject
 
           //invoke the handler when the event fires
           event + (sender, args){
-            im.invoke(handler, [buckshot.reflectMe(sender), 
+            im.invoke(handler, [buckshot.reflectMe(sender),
                                 buckshot.reflectMe(args)]);
           };
         }
@@ -383,7 +380,7 @@ class FrameworkObject extends BuckshotObject
     if (this is! IFrameworkContainer) return;
 
     final cc = this as IFrameworkContainer;
-    
+
     if (cc.content is List){
       cc.content.forEach((FrameworkElement child) => child._onRemoveFromDOM());
     }else if (cc.content is FrameworkElement){
@@ -396,11 +393,11 @@ class FrameworkObject extends BuckshotObject
 
   Future<ElementRect> updateMeasurement(){
     if (!isLoaded) return null;
-    
+
     final rf = rawElement.rect;
-    
+
     rf.then((ElementRect r) { mostRecentMeasurement = r;});
-    
+
     return rf;
   }
 
