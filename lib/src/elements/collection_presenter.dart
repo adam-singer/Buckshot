@@ -41,10 +41,10 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
 
   /// Represents the UI that will display for each item in the collection.
   FrameworkProperty itemsTemplateProperty;
-  
+
   /** Represents the collection to be used by the CollectionPresenter */
   FrameworkProperty collectionProperty;
-  
+
 
   final FrameworkEvent<ItemCreatedEventArgs> itemCreated;
 
@@ -54,10 +54,10 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   {
     Browser.appendClass(rawElement, "collectionpresenter");
     _initCollectionPresenterProperties();
-    
+
     registerEvent('itemcreated', itemCreated);
   }
-  
+
   CollectionPresenter.register() : super.register(),
     itemCreated = new FrameworkEvent<ItemCreatedEventArgs>();
   makeMe() => new CollectionPresenter();
@@ -73,11 +73,11 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       p.loaded + (_,__) => _updateCollection();
 
       p.addToLayoutTree(this);
-     
+
     }, new StackPanel());
 
     itemsTemplateProperty = new FrameworkProperty(this, "itemsTemplate");
-    
+
     collectionProperty = new FrameworkProperty(this, 'collection');
   }
 
@@ -88,18 +88,18 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
 
   //IFrameworkContainer interface
   get content => presentationPanel;
-  
+
   /// Gets the [itemsTemplateProperty] value.
   String get itemsTemplate => getValue(itemsTemplateProperty);
   /// Sets the [itemsTemplateProperty] value.
   set itemsTemplate(String value) => setValue(itemsTemplateProperty, value);
 
   void invalidate() => _updateCollection();
-  
+
   void _updateCollection(){
-    
+
     var values = getValue(collectionProperty);
-    
+
     if (values == null){
       // fall back to dataContext as Collection source
       final dc = resolveDataContext();
@@ -110,10 +110,10 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       } else if (dc == null){
           return;
       }
-      
+
       values = getValue(dc);
     }
-   
+
     if (values is ObservableList && _eHandler == null){
       _eHandler = values.listChanged + (_, __) => _updateCollection();
     }
@@ -148,14 +148,6 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
         });
       });
     }
-  }
-
-  /// Overridden [FrameworkObject] method.
-  void updateLayout(){ }
-
-  /// Overriden [FrameworkObject] method.
-  void createElement(){
-    rawElement = new DivElement();
   }
 }
 

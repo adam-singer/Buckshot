@@ -10,6 +10,20 @@
 */
 Buckshot buckshot = new Buckshot();
 
+// holds a registry of global event handlers when reflection is not
+// enabled.
+final HashMap<String, EventHandler> _globalEventHandlers =
+new HashMap<String, EventHandler>();
+
+/**
+ * Register global event handlers here when reflection is not enabled.  Global
+ * handlers are necessary in some cases, such as when content is generated
+ * within a databound CollectinoPresenter template.
+ */
+void registerGlobalEventHandler(String handlerName, EventHandler handler){
+  if (reflectionEnabled) return;
+  _globalEventHandlers[handlerName.toLowerCase()] = handler;
+}
 
 /**
  * Sets a [View] into the DOM for rendering. Returns a future which completes
@@ -36,7 +50,7 @@ Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
   final c = new Completer();
 
   _initFramework();
-  
+
   final el = query('#${elementID}');
 
   if (el == null){
@@ -52,7 +66,7 @@ Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
     b.content = view.rootVisual;
     c.complete(view.rootVisual);
   });
-  
+
   return c.future;
 }
 
@@ -60,9 +74,9 @@ bool _frameworkInitialized = false;
 
 _initFramework(){
   if (_frameworkInitialized) return;
-  
+
   _frameworkInitialized = true;
-  
+
   if (!FrameworkAnimation._started){
     FrameworkAnimation._startAnimatonLoop();
   }
@@ -72,13 +86,13 @@ _initFramework(){
 /**
  * Creates a binding between [from] and [to], with optional [bindingMode]
  * and [converter] parameters.
- * 
+ *
  * Typically bindings are set via template declarations, but in some cases
  * it may be necessary to declare a binding in code.
- * 
+ *
  * To remove the binding, call .unregister() on the returned [Binding] object.
  */
-Binding bind(FrameworkProperty from, FrameworkProperty to, 
+Binding bind(FrameworkProperty from, FrameworkProperty to,
              {BindingMode bindingMode : BindingMode.OneWay,
               IValueConverter converter :const _DefaultConverter()}){
   return new Binding(from, to, bindingMode, converter);
