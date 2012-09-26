@@ -27,7 +27,7 @@ Begin Buckshot Templates
        <setters>
           <setter property='fontSize' value='18' />
           <setter property='fontFamily' value='Arial' />
-          <setter property='margin' value='15,0,0,0' />
+          <setter property='margin' value='15,0,10,0' />
        </setters>
     </styletemplate>
     <styletemplate key='defaultText'>
@@ -1399,16 +1399,26 @@ each list.
 </script>
 
 <script id='accordion' type='application/xml'>
-<accordion width='300'>
-  <accordionitem header='Header #1'>
-  </accordionitem>
-  <accordionitem header='Header #2'>
-  </accordionitem>
-  <accordionitem header='Header #3'>
-  </accordionitem>
-  <accordionitem header='Header #4'>
-  </accordionitem>
-</accordion>
+<stack>
+   <textblock style='{resource headerText}' text='The Accordion control lets you create collapsible UI.' />
+   <accordion selectionmode='single'>
+      <accordionitem header='Actions'>
+         <youtube width='350' height='300' videoid='C8qwuD2Bz3E' />
+      </accordionitem>
+      <accordionitem header='Event Model'>
+         <youtube width='350' height='300' videoid='eUmVlWxrE9E' />
+      </accordionitem>
+      <accordionitem header='Templates'>
+         <youtube width='350' height='300' videoid='LOacOkmd9FI' />
+      </accordionitem>
+      <accordionitem header='DockPanel'>
+         <youtube width='350' height='300' videoid='aVlRGukZN3k' />
+      </accordionitem>
+      <accordionitem header='TreeView'>
+         <youtube width='350' height='300' videoid='6DWP-E7omJs' />
+      </accordionitem>
+   </accordion>
+</stack>
 </script>
 
 <!--

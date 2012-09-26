@@ -18,6 +18,8 @@ class Accordion extends Control implements IFrameworkContainer
   FrameworkProperty backgroundProperty;
   FrameworkProperty selectionModeProperty;
 
+  var _currentSelected;
+
   Accordion()
   {
     Browser.appendClass(rawElement, "Accordion");
@@ -27,7 +29,7 @@ class Accordion extends Control implements IFrameworkContainer
     stateBag[FrameworkObject.CONTAINER_CONTEXT] =
         getValue(accordionItemsProperty);
 
-    loaded + _initControl;
+    loaded + (_, __) => _invalidate();
   }
 
   Accordion.register() : super.register(){
@@ -44,15 +46,23 @@ class Accordion extends Control implements IFrameworkContainer
         converter: const StringToSolidColorBrushConverter());
 
     selectionModeProperty = new FrameworkProperty(this, 'selectionMode',
+        propertyChangedCallback: (_){
+          if (!isLoaded) return;
+          _invalidate();
+        },
         defaultValue: SelectionMode.multi,
         converter: const StringToSelectionModeConverter());
   }
 
   get content => getValue(accordionItemsProperty);
 
+  SelectionMode get selectionMode => getValue(selectionModeProperty);
+  set selectionMode(SelectionMode mode) =>
+      setValue(selectionModeProperty, mode);
+
   List<FrameworkObject> get accordionItems => getValue(accordionItemsProperty);
 
-  void _initControl(sender, args){
+  void _invalidate(){
     if (accordionItems.isEmpty()) return;
 
     final pc = (Template.findByName('__ac_presenter__', template)
@@ -61,6 +71,7 @@ class Accordion extends Control implements IFrameworkContainer
         .children;
 
     int i = 0;
+
     pc.forEach((e){
       final ai = accordionItems[i++];
 
@@ -69,14 +80,37 @@ class Accordion extends Control implements IFrameworkContainer
 
       assert(header != null && body != null);
 
-      body.visibility = ai.visibility;
+      //TODO Need a better way to handle the event cycle as this will clobber
+      // any user hooked events.
+      header.click.handlers.clear();
 
-      header.click + (_, __){
-        body.visibility = (body.visibility == null
-                          || body.visibility == Visibility.visible )
-                            ? Visibility.collapsed
-                            : Visibility.visible;
-      };
+      if (selectionMode == SelectionMode.multi || accordionItems.length == 1){
+        body.visibility = ai.visibility;
+
+        header.click + (_, __){
+          body.visibility = (body.visibility == null
+              || body.visibility == Visibility.visible )
+              ? Visibility.collapsed
+                  : Visibility.visible;
+        };
+      }else{
+        // first item visible if nothing selected
+        if (_currentSelected == null && pc.indexOf(e) == 0){
+          _currentSelected = header;
+          body.visibility = Visibility.visible;
+        }else{
+          if (header == _currentSelected){
+            body.visibility = Visibility.visible;
+          }else{
+            body.visibility = Visibility.collapsed;
+          }
+        }
+
+        header.click + (_, __){
+          _currentSelected = header;
+          _invalidate();
+        };
+      }
     });
   }
 

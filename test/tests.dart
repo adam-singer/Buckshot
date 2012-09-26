@@ -9,7 +9,7 @@
 #import('package:unittest/html_enhanced_config.dart');
 
 #import('layout_tests.dart', prefix:'layout');
-#import('bug_tests.dart', prefix:'bugs');
+#import('dart_tests.dart', prefix:'dart');
 #import('binding_tests.dart', prefix:'binding');
 #import('border_tests.dart', prefix:'border');
 #import('polly_tests.dart', prefix:'polly');
@@ -31,7 +31,7 @@ void main() {
   useHtmlEnhancedConfiguration();
 
   layout.run();
-  bugs.run();
+  dart.run();
   binding.run();
   border.run();
   polly.run();

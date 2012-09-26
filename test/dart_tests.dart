@@ -1,12 +1,21 @@
-#library('dart_bugs');
+#library('dart_tests');
 
 #import('dart:html');
 #import('package:unittest/unittest.dart');
 
 // Tests against known Dart or other external dependency bugs
-
 run(){
-  group('Dart Bugs', (){
+  group('Dart Features And Bugs', (){
+
+    test(': all objects hashable', (){
+      final o = new Object();
+      Expect.isTrue(o.hashCode() is int);
+    });
+
+    test(': Type available', (){
+      final o = new Object();
+      Expect.isTrue(o.runtimeType() is Type);
+    });
 
     //fails in JS, OK in Dartium
     test('borderRadiusReturnsNull', (){
