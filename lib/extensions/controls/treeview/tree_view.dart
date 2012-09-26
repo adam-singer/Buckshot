@@ -55,11 +55,10 @@ class TreeView extends Panel
   FrameworkProperty selectedNodeProperty;
 
   /// Event which fires when a node is selected in the TreeView.
-  final FrameworkEvent<TreeNodeSelectedEventArgs> treeNodeSelected;
+  final FrameworkEvent<TreeNodeSelectedEventArgs> treeNodeSelected =
+      new FrameworkEvent<TreeNodeSelectedEventArgs>();
 
   TreeView()
-  :
-    treeNodeSelected = new FrameworkEvent<TreeNodeSelectedEventArgs>()
   {
     Browser.appendClass(rawElement, "TreeView");
 
@@ -74,8 +73,7 @@ class TreeView extends Panel
     registerEvent('treenodeselected', treeNodeSelected);
   }
 
-  TreeView.register() : super.register(),
-    treeNodeSelected = new FrameworkEvent<TreeNodeSelectedEventArgs>(){
+  TreeView.register() : super.register(){
     buckshot.registerElement(new TreeNode.register());
   }
   makeMe() => new TreeView();

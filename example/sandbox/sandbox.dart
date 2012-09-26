@@ -54,6 +54,8 @@ void main() {
 
       if (demo != null){
         t.dataContext.setTemplate('#${demo}');
+      }else{
+        t.dataContext.setTemplate('#welcome');
       }
     });
 }

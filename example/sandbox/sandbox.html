@@ -51,52 +51,87 @@ Begin Buckshot Templates
 
   <stack margin='5' dockpanel.dock='left' minWidth='250'>
     <textblock maxwidth='250' fontfamily='Arial' text="Select a sample below, or create your own in the text area."/>
-    <border shadowcolor='Gray' shadowx='2' shadowy='2' shadowblur='3' valign='stretch' halign='stretch' background='White' borderthickness='1' bordercolor='LightGray' padding='5' margin='0,5,0,0'>
-     	<treeview on.treenodeselected='selection_handler'>
- 		 <treenode header='App Demos' childvisibility='visible'>
-            <treenode header='Calculator' tag='app.calc' />
-            <treenode header='Analog Clock' tag='clock' />
-            <treenode header='Simple Todo List' tag='app.todo' />
-	     </treenode>
-	     <treenode header='Elements' tag=''>
-	     	<treenode header='TextBlock' tag='textblock' />
-	     	<treenode header='Stack' tag='stack' />
-	     	<treenode header='Border' tag='border' />
-	     	<treenode header='Grid' tag='grid' />
-	     	<treenode header='RawHtml' tag='rawhtml' />
-	     	<treenode header='LayoutCanvas' tag='layoutcanvas' />
-	     	<treenode header='3D Transformations' tag='transforms' />
-	        <treenode header='Shadows' tag='shadows' />
-	     </treenode>
-	     <treenode header='Controls' tag=''>
-	        <treenode header='TabControl' tag='tabcontrol' />
-	     	<treenode header='TreeView' tag='treeview' />
-	     	<treenode header='DockPanel' tag='dockpanel' />
-	     	<treenode header='Accordion' tag='accordion' />
-	     	<treenode header='ListBox' tag='listbox' />
-	     	<treenode header='ModalDialog' tag='modaldialog' />
-	     	<treenode header='Popup' tag='popup' />
-	     	<treenode header='DropDownList' tag='dropdownlist' />
-	     	<treenode header='TextBox' tag='textbox' />
-	     	<treenode header='Slider' tag='slider' />
-	     	<treenode header='Button' tag='button' />
-	     	<treenode header='RadioButton' tag='radiobutton' />
-	     	<treenode header='CheckBox' tag='checkbox' />
-	     	<treenode header='Hyperlink' tag='hyperlink' />
-	     </treenode>
-	     <treenode header='Binding Demos' tag=''>
-	     	<treenode header='Resource Binding' tag='resources' />
-	     	<treenode header='Element Binding' tag='elementbinding' />
-	     	<treenode header='Data Binding' tag='databinding' />
-	     	<treenode header='Binding To Collections' tag='collections' />
-	     </treenode>
-	     <treenode header='Media Extensions' tag=''>
-	     	<treenode header='YouTube' tag='youtube' />
-	     	<treenode header='Hulu' tag='hulu' />
-	     	<treenode header='Vimeo' tag='vimeo' />
-	     	<treenode header='FunnyOrDie' tag='funnyordie' />
-	     </treenode>
-	  	</treeview>  
+    <border shadowcolor='Gray' shadowx='2' shadowy='2' shadowblur='3' valign='stretch' halign='stretch' background='White' borderthickness='1' bordercolor='LightGray' margin='0,5,0,0'>
+     	<accordion selectionmode='single' halign='stretch'>
+     	   <accordionitem>
+     	     <header>
+     	       <textblock style='{resource defaultText}' text='Application Demos' />
+     	     </header>
+     	     <body>
+     	        <treeview on.treenodeselected='selection_handler'>
+                   <treenode header='Calculator' tag='app.calc' />
+                   <treenode header='Analog Clock' tag='clock' />
+                   <treenode header='Simple Todo List' tag='app.todo' />
+	  	        </treeview>
+     	     </body>
+     	   </accordionitem>
+     	   <accordionitem>
+     	     <header>
+     	       <textblock style='{resource defaultText}' text='Elements' />
+     	     </header>
+     	     <body>
+     	        <treeview on.treenodeselected='selection_handler'>
+			     	<treenode header='TextBlock' tag='textblock' />
+			     	<treenode header='Stack' tag='stack' />
+			     	<treenode header='Border' tag='border' />
+			     	<treenode header='Grid' tag='grid' />
+			     	<treenode header='RawHtml' tag='rawhtml' />
+			     	<treenode header='LayoutCanvas' tag='layoutcanvas' />
+			     	<treenode header='3D Transformations' tag='transforms' />
+			        <treenode header='Shadows' tag='shadows' />
+	  	        </treeview>  
+     	     </body>
+     	   </accordionitem>
+     	   <accordionitem>
+     	     <header>
+     	       <textblock style='{resource defaultText}' text='Controls' />
+     	     </header>
+     	     <body>
+     	        <treeview on.treenodeselected='selection_handler'>
+			        <treenode header='TabControl' tag='tabcontrol' />
+			     	<treenode header='TreeView' tag='treeview' />
+			     	<treenode header='DockPanel' tag='dockpanel' />
+			     	<treenode header='Accordion' tag='accordion' />
+			     	<treenode header='ListBox' tag='listbox' />
+			     	<treenode header='ModalDialog' tag='modaldialog' />
+			     	<treenode header='Popup' tag='popup' />
+			     	<treenode header='DropDownList' tag='dropdownlist' />
+			     	<treenode header='TextBox' tag='textbox' />
+			     	<treenode header='Slider' tag='slider' />
+			     	<treenode header='Button' tag='button' />
+			     	<treenode header='RadioButton' tag='radiobutton' />
+			     	<treenode header='CheckBox' tag='checkbox' />
+			     	<treenode header='Hyperlink' tag='hyperlink' />
+	  	        </treeview>  
+     	     </body>
+     	   </accordionitem>
+     	   <accordionitem>
+     	     <header>
+     	       <textblock style='{resource defaultText}' text='Binding Demos' />
+     	     </header>
+     	     <body>
+     	        <treeview on.treenodeselected='selection_handler'>
+			     	<treenode header='Resource Binding' tag='resources' />
+			     	<treenode header='Element Binding' tag='elementbinding' />
+			     	<treenode header='Data Binding' tag='databinding' />
+			     	<treenode header='Binding To Collections' tag='collections' />
+	  	        </treeview>  
+     	     </body>
+     	   </accordionitem>
+     	   <accordionitem>
+     	     <header>
+     	       <textblock style='{resource defaultText}' text='Media Extensions' />
+     	     </header>
+     	     <body>
+     	        <treeview on.treenodeselected='selection_handler'>
+			     	<treenode header='YouTube' tag='youtube' />
+			     	<treenode header='Hulu' tag='hulu' />
+			     	<treenode header='Vimeo' tag='vimeo' />
+			     	<treenode header='FunnyOrDie' tag='funnyordie' />
+	  	        </treeview>  
+     	     </body>
+     	   </accordionitem>   
+     	</accordion>
     </border>
   </stack>
   <dockpanel margin='5' dockpanel.dock='left' filllast='true' grid.column='1'>
@@ -1418,6 +1453,23 @@ each list.
          <youtube width='350' height='300' videoid='6DWP-E7omJs' />
       </accordionitem>
    </accordion>
+</stack>
+</script>
+
+<script id='welcome' type='application/xml'>
+<stack halign='center'>
+  <border halign='center' borderthickness='3' bordercolor='SteelBlue' margin='35' padding='10' shadowx='3' shadowy='3' shadowblur='4' shadowcolor='Gray' rotatez='-5'>
+    <stack>
+      <textblock fontsize='36' fontfamily='Arial' text='Welcome To The Buckshot Sandbox!' />
+    </stack>
+  </border>
+  <border background='WhiteSmoke' halign='center' borderthickness='3' bordercolor='SteelBlue' margin='15' padding='10' shadowx='3' shadowy='3' shadowblur='4' shadowcolor='Gray'>
+    <stack>
+      <textblock style='{resource headerText}' text='Select a demo from the left or create your own down below.' />
+      <image halign='center' alt='buckshot logo' sourceuri='apps/calculator/resources/buckshot_logo.png' />
+      <textblock halign='center' style='{resource headerText}' text='Have fun!' />
+    </stack>
+  </border>
 </stack>
 </script>
 

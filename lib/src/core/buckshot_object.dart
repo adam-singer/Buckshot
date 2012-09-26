@@ -11,14 +11,14 @@ class BuckshotObject extends HashableObject
   final List<Binding> _bindings;
   final Set<FrameworkProperty> _frameworkProperties;
   final HashMap<String, FrameworkEvent> _bindableEvents;
-  final HashMap<String, Function> _eventHandlers;
+  final HashMap<String, EventHandler> _eventHandlers;
 
   BuckshotObject() :
     _frameworkProperties = new Set<FrameworkProperty>(),
     stateBag = new HashMap<String, Dynamic>(),
     _bindings = new List<Binding>(),
     _bindableEvents = new HashMap<String, FrameworkEvent>(),
-    _eventHandlers = new HashMap<String, Function>();
+    _eventHandlers = new HashMap<String, EventHandler>();
 
   /// Gets a boolean value indicating whether the given object
   /// is a container or not.
@@ -29,23 +29,23 @@ class BuckshotObject extends HashableObject
     stateBag = new HashMap<String, Dynamic>(),
     _bindings = new List<Binding>(),
     _bindableEvents = new HashMap<String, FrameworkEvent>(),
-    _eventHandlers = new HashMap<String, Function>();
-  
+    _eventHandlers = new HashMap<String, EventHandler>();
+
   /**
    * Registers an event for later lookup during template event binding
-   * 
+   *
    * This will go away once Dart supports reflection on all platforms.
    */
   void registerEvent(String name, FrameworkEvent event){
     if (reflectionEnabled) return;
     _bindableEvents[name.toLowerCase()] = event;
   }
-  
-  void registerEventHandler(String name, func(sender, args)){
+
+  void registerEventHandler(String name, EventHandler func){
     if (reflectionEnabled) return;
     _eventHandlers[name.toLowerCase()] = func;
   }
-  
+
   /**
    * Returns true if the given [eventName] is present.
    */
@@ -54,7 +54,7 @@ class BuckshotObject extends HashableObject
     if (!reflectionEnabled){
       return _bindableEvents.containsKey(eventName.toLowerCase());
     }
-    
+
     bool hasEventInternal(classMirror){
       final result = classMirror
           .variables
@@ -78,7 +78,7 @@ class BuckshotObject extends HashableObject
   }
 
   abstract makeMe();
-  
+
   /**
    * Returns a boolean value indicting whether the object contains
    * a [FrameworkProperty] by the given friendly [propertyName].
@@ -116,17 +116,17 @@ class BuckshotObject extends HashableObject
   Future<FrameworkProperty> getEventByName(String eventName){
     if (!reflectionEnabled){
       final c = new Completer();
-      
+
       if (_bindableEvents.containsKey(eventName.toLowerCase())){
         c.complete(_bindableEvents[eventName.toLowerCase()]);
       }else{
         c.complete(null);
       }
-      
+
       return c.future;
     }
-    
-    
+
+
     Future<FrameworkProperty> getEventNameInternal(String eventNameLowered,
         classMirror){
       final c = new Completer();
@@ -165,7 +165,7 @@ class BuckshotObject extends HashableObject
       return c.future;
     }
 
-    return getEventNameInternal(eventName.toLowerCase(), 
+    return getEventNameInternal(eventName.toLowerCase(),
         buckshot.reflectMe(this).type);
   }
 
@@ -235,7 +235,7 @@ class BuckshotObject extends HashableObject
         }else{
           cc.complete(result.iterator().next());
         }
-      
+
       return cc.future;
     }
   }
@@ -318,9 +318,9 @@ class BuckshotObject extends HashableObject
 
     return c.future;
   }
-  
+
   String get safeName => '${toString()}${hashCode()}';
-  
+
   String toString() => super
                         .toString()
                         .replaceFirst("Instance of '", '')

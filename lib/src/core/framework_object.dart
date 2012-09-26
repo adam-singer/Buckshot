@@ -106,10 +106,7 @@ class FrameworkObject extends BuckshotObject
 
       });
 
-    dataContextProperty = new FrameworkProperty(
-      this,
-      "dataContext",
-      (value){});
+    dataContextProperty = new FrameworkProperty(this, "dataContext");
   }
 
   void _startWatchMeasurement(){
@@ -281,6 +278,8 @@ class FrameworkObject extends BuckshotObject
 
     if (dc == null) return;
 
+    //dataContext = dc.value;
+
     //binding each property in the lateBindings collection
     //to the data context
     lateBindings.forEach((FrameworkProperty p, BindingData bd){
@@ -316,12 +315,18 @@ class FrameworkObject extends BuckshotObject
 
     if (!reflectionEnabled){
       _eventBindings.forEach((String handler, FrameworkEvent event){
-        final dc = dataContextObject.value;
 
-        if (dc != null && dc is BuckshotObject &&
-            dc._eventHandlers.containsKey(handler.toLowerCase())){
+        if (_globalEventHandlers.containsKey(handler.toLowerCase())){
+          // handler found in global registry
+          event.register(_globalEventHandlers[handler.toLowerCase()]);
+        }else{
+          // try to get handler from dataContext registry
+          final dc = dataContextObject.value;
 
-          event.register(dc._eventHandlers[handler.toLowerCase()]);
+          if (dc != null && dc is BuckshotObject &&
+              dc._eventHandlers.containsKey(handler.toLowerCase())){
+            event.register(dc._eventHandlers[handler.toLowerCase()]);
+          }
         }
       });
 
