@@ -11,7 +11,7 @@
 class View
 {
   FrameworkElement _rootElement;
-  final Completer _c;
+  final Completer _c = new Completer();
 
   /**
    * Future completes when view is ready (has an element assigned to
@@ -37,8 +37,6 @@ class View
   }
 
   View()
-      :
-        _c = new Completer()
   {
     ready = _c.future;
   }
@@ -48,8 +46,7 @@ class View
    *
    * Future View.ready will complete when the template is loaded.
    */
-  View.fromTemplate(String template) :
-    _c = new Completer()
+  View.fromTemplate(String template)
   {
     ready = _c.future;
 
@@ -63,8 +60,7 @@ class View
    * what is provided in the string (Uri, or DOM id ['#something']), the
    * constructor will retrieve the resource and deserialize it.
    */
-  View.fromResource(String resourceName) :
-    _c = new Completer()
+  View.fromResource(String resourceName)
   {
     ready = _c.future;
 
@@ -75,10 +71,8 @@ class View
 
   /** Constructs a view from a given [element]. */
   View.from(FrameworkElement element)
-      :
-        _c = new Completer()
   {
-        ready = _c.future;
-        rootVisual = element;
+    ready = _c.future;
+    rootVisual = element;
   }
 }
