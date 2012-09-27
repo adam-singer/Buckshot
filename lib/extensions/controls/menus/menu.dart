@@ -29,6 +29,6 @@ class Menu extends Control
         converter: const StringToBooleanConverter());
 
     menuItemsProperty = new FrameworkProperty(this, 'menuItems',
-        defaultValue: new ObservableList<MenuItem>);
+        defaultValue: new ObservableList<MenuItem>());
   }
 }
