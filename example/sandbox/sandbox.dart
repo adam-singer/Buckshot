@@ -56,6 +56,7 @@ void main() {
         t.dataContext.setTemplate('#${demo}');
       }else{
         t.dataContext.setTemplate('#welcome');
+        t.dataContext.setQueryStringTo('welcome');
       }
     });
 }
