@@ -5,5 +5,11 @@
 /** Represents an item in a [Menu] control */
 class MenuItem extends Control
 {
+  MenuItem()
+  {
+    Browser.appendClass(rawElement, "MenuItem");
+  }
 
+  MenuItem.register() : super.register();
+  makeMe() => new MenuItem();
 }

@@ -18,6 +18,7 @@
 #import('package:buckshot/extensions/controls/popup.dart');
 #import('package:buckshot/extensions/controls/tab_control/tab_control.dart');
 #import('package:buckshot/extensions/controls/accordion/accordion.dart');
+#import('package:buckshot/extensions/controls/menus/menu_lib.dart');
 
 #import('apps/calculator/calculator.dart', prefix:'calc');
 #import('apps/todo/todo.dart', prefix:'todo');
@@ -39,6 +40,7 @@ void main() {
     buckshot.registerElement(new DockPanel.register());
     buckshot.registerElement(new TabControl.register());
     buckshot.registerElement(new Accordion.register());
+    registerMenuControls();
   }
 
   setView(new Main())

@@ -15,3 +15,16 @@
 #source('text_menu_strip.dart');
 #source('content_menu_strip.dart');
 
+/**
+ * Registers control components to the framework if reflection is not
+ * enabled.
+ */
+void registerMenuControls(){
+  if (reflectionEnabled) return;
+
+  buckshot.registerElement(new Menu.register());
+  buckshot.registerElement(new MenuItem.register());
+  buckshot.registerElement(new TextMenuStrip.register());
+  buckshot.registerElement(new ContentMenuStrip.register());
+}
+
