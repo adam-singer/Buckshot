@@ -192,6 +192,9 @@ class Popup extends Control
 '''
 <controltemplate controlType='${this.templateName}'>
     <border name='__borderRoot__'
+            shadowx='3'
+            shadowy='3'
+            shadowblur='6'
             zorder='32766'
             minwidth='20'
             minheight='20'

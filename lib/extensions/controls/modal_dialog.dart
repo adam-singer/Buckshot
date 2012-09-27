@@ -267,8 +267,20 @@ class ModalDialog extends Control
         '''
 <controltemplate controlType='${this.templateName}'>
   <grid name='cvRoot' zorder='32766'>
-    <border halign='stretch' valign='stretch' name='bMask' background='{template maskColor}' opacity='{template maskOpacity}'></border>
-    <border minwidth='200' halign='center' valign='center' padding='5' cornerRadius='{template cornerRadius}' borderthickness='{template borderThickness}' bordercolor='{template borderColor}' background='{template background}'>
+    <border halign='stretch' 
+            valign='stretch' 
+            name='bMask' 
+            background='{template maskColor}' 
+            opacity='{template maskOpacity}' />
+    <border shadowx='3' 
+            shadowy='3' 
+            shadowblur='6' 
+            minwidth='200' 
+            halign='center' valign='center' padding='5' 
+            cornerRadius='{template cornerRadius}' 
+            borderthickness='{template borderThickness}' 
+            bordercolor='{template borderColor}' 
+            background='{template background}'>
       <stackpanel minwidth='200' maxwidth='500'>
         <contentpresenter content='{template title}' halign='center' />
         <contentpresenter halign='center' content='{template content}' />
