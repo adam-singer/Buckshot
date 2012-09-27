@@ -12,8 +12,8 @@
 
 #source('menu.dart');
 #source('menu_item.dart');
-#source('text_menu_strip.dart');
-#source('content_menu_strip.dart');
+#source('menu_strip.dart');
+#source('menu_item_selected_event_args.dart');
 
 /**
  * Registers control components to the framework if reflection is not
@@ -24,7 +24,6 @@ void registerMenuControls(){
 
   buckshot.registerElement(new Menu.register());
   buckshot.registerElement(new MenuItem.register());
-  buckshot.registerElement(new TextMenuStrip.register());
-  buckshot.registerElement(new ContentMenuStrip.register());
+  buckshot.registerElement(new MenuStrip.register());
 }
 
