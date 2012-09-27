@@ -154,7 +154,8 @@ class Accordion extends Control implements IFrameworkContainer
    */
   String get headerTemplate =>
 '''
- <border name='__accordion_header__' padding='5' borderthickness='0,0,1,0' bordercolor='DarkGray' background='WhiteSmoke' halign='stretch'>
+ <border name='__accordion_header__' padding='5' borderthickness='0,0,1,0' 
+bordercolor='DarkGray' background='WhiteSmoke' halign='stretch'>
     <actions>
       <setproperty event='mouseEnter' property='background' value='LightGray' />
       <setproperty event='mouseLeave' property='background' value='WhiteSmoke' />

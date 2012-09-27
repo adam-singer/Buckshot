@@ -8,9 +8,9 @@
 class StringToBooleanConverter implements IValueConverter
 {
   const StringToBooleanConverter();
-  
+
   Dynamic convert(Dynamic value, [Dynamic parameter]){
-    if (!(value is String)) return value;
+    if (value is! String) return value;
     if (value.toLowerCase() == "false")
     {
       return false;

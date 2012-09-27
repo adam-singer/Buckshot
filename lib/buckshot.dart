@@ -53,7 +53,9 @@
 #source('src/elements/panel.dart');
 #source('src/elements/stack_panel.dart');
 #source('src/elements/text_block.dart');
-#source('src/elements/border.dart');
+#source('src/elements/border/border.dart');
+#source('src/elements/border/border_style.dart');
+#source('src/elements/border/string_to_border_style.dart');
 #source('src/elements/layout_canvas.dart');
 #source('src/elements/image.dart');
 #source('src/elements/raw_html.dart');

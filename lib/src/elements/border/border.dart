@@ -21,6 +21,9 @@ class Border extends FrameworkElement implements IFrameworkContainer
   /// Represents the [Thickness] of the border frame.
   FrameworkProperty borderThicknessProperty;
 
+  /// Represents the style of the border frame.
+  FrameworkProperty borderStyleProperty;
+
   /// Represents the content inside the border.
   FrameworkProperty contentProperty;
 
@@ -35,7 +38,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
-  
+
   Border.register() : super.register();
   makeMe() => new Border();
 
@@ -65,6 +68,13 @@ class Border extends FrameworkElement implements IFrameworkContainer
       },
       converter:const StringToSolidColorBrushConverter());
 
+    borderStyleProperty = new FrameworkProperty(this, 'borderStyle',
+        propertyChangedCallback: (BorderStyle value){
+          rawElement.style.borderStyle = '$value';
+        },
+        defaultValue: BorderStyle.solid,
+        converter: const StringToBorderStyleConverter());
+
     paddingProperty = new FrameworkProperty(
       this,
       "padding",
@@ -83,19 +93,20 @@ class Border extends FrameworkElement implements IFrameworkContainer
         if (value is num){
           value = new Thickness(value);
         }
-        
-        rawElement.style.borderRadius = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
-      }, 
+
+        rawElement.style.borderRadius = '${value.top}px ${value.right}px'
+          ' ${value.bottom}px ${value.left}px';
+      },
       defaultValue: new Thickness(0),
       converter:const StringToThicknessConverter());
 
     borderColorProperty = new AnimatingFrameworkProperty(
       this,
       "borderColor",
-      'border', 
+      'border',
       propertyChangedCallback:(value){
         rawElement.style.borderColor = value.color.toColorString();
-      }, 
+      },
       converter:const StringToSolidColorBrushConverter());
 
     borderThicknessProperty = new FrameworkProperty(
@@ -105,12 +116,10 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
         String color = borderColor != null ? rawElement.style.borderColor : Colors.White.toString();
 
-        //TODO support border hatch styles
-
-        rawElement.style.borderTop = 'solid ${value.top}px $color';
-        rawElement.style.borderRight = 'solid ${value.right}px $color';
-        rawElement.style.borderLeft = 'solid ${value.left}px $color';
-        rawElement.style.borderBottom = 'solid ${value.bottom}px $color';
+        rawElement.style.borderTop = '${borderStyle} ${value.top}px $color';
+        rawElement.style.borderRight = '${borderStyle} ${value.right}px $color';
+        rawElement.style.borderLeft = '${borderStyle} ${value.left}px $color';
+        rawElement.style.borderBottom = '${borderStyle} ${value.bottom}px $color';
 
       }, new Thickness(0), converter:const StringToThicknessConverter());
 
@@ -148,9 +157,12 @@ class Border extends FrameworkElement implements IFrameworkContainer
       rawElement.style.overflowY = "hidden";
     }
   }
-  
+
   set verticalScrollEnabled(bool value) => setValue(verticalScrollEnabledProperty, value);
-  
+
+
+  set borderStyle(BorderStyle value) => setValue(borderStyleProperty, value);
+  BorderStyle get borderStyle => getValue(borderStyleProperty);
 
   /// Sets the [backgroundProperty] value.
   set background(Brush value) => setValue(backgroundProperty, value);
