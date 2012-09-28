@@ -7,8 +7,6 @@
 */
 class Button extends Control implements IFrameworkContainer
 {
-  Dynamic _content;
-
   /// Represents the content inside the button.
   FrameworkProperty contentProperty;
 
@@ -16,44 +14,19 @@ class Button extends Control implements IFrameworkContainer
   {
     Browser.appendClass(rawElement, "button");
 
-    // Initialize FrameworkProperty declarations.
-    contentProperty = new FrameworkProperty(
-      this,
-      "content",
-      (value) {
-
-        //if the content is previously a textblock and the value is a String then just
-        //replace the text property with the new string
-        if (_content is TextBlock && value is String){
-          _content.text = value;
-          return;
-        }
-
-        //accomodate strings by converting them silently to TextBlock
-        if (value is String){
-            var tempStr = value;
-            value = new TextBlock();
-            (value as TextBlock).text = tempStr;
-        }
-
-        if (_content != null){
-          _content.rawElement.remove();
-          _content.parent = null;
-        }
-
-        if (value != null){
-          _content = value;
-          _content.parent = this;
-          rawElement.nodes.add(_content.rawElement);
-        }else{
-          _content = null;
-        }
-
-      });
+    _initButtonProperties();
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+
   }
-  
+
+  void _initButtonProperties(){
+    // Initialize FrameworkProperty declarations.
+    contentProperty = new FrameworkProperty(this, 'content');
+
+    margin = new Thickness.specified(0, 3, 3, 0);
+  }
+
   Button.register() : super.register();
   makeMe() => new Button();
 
@@ -62,10 +35,46 @@ class Button extends Control implements IFrameworkContainer
   /// Sets the [contentProperty] value.
   set content(Dynamic value) => setValue(contentProperty, value);
 
-  /// Overridden [FrameworkObject] method.
-  void createElement()
-  {
-    rawElement = new ButtonElement();
-    rawElement.style.display = 'block';
+  String get defaultControlTemplate {
+    return
+'''
+<controltemplate controlType='${this.templateName}'>
+  <template>
+    <border shadowx='{resource theme_shadow_x}'
+            shadowy='{resource theme_shadow_y}'
+            shadowblur='{resource theme_shadow_blur}'
+            zorder='32766'
+            minwidth='20'
+            minheight='20'
+            background='{resource theme_background_dark}'
+            borderthickness='{resource theme_border_thickness}'
+            bordercolor='{resource theme_border_color_dark}'
+            padding='{resource theme_border_padding}'
+            cursor='Arrow'>
+        <actions>
+          <setproperty event='mouseEnter' property='background' value='{resource theme_background_mouse_hover}' />
+          <setproperty event='mouseLeave' property='background' value='{resource theme_background_dark}' />
+          <setproperty event='mouseLeave' property='translateX' value='0' />
+          <setproperty event='mouseLeave' property='translateY' value='0' />
+          <setproperty event='mouseLeave' property='shadowX' value='{resource theme_shadow_x}' />
+          <setproperty event='mouseLeave' property='shadowY' value='{resource theme_shadow_y}' />
+          <setproperty event='mouseLeave' property='shadowSize' value='0' />
+          <setproperty event='mouseDown' property='translateX' value='2' />
+          <setproperty event='mouseDown' property='translateY' value='2' />
+          <setproperty event='mouseDown' property='shadowX' value='0' />
+          <setproperty event='mouseDown' property='shadowY' value='0' />
+          <setproperty event='mouseDown' property='shadowSize' value='-1' />
+          <setproperty event='mouseUp' property='translateX' value='0' />
+          <setproperty event='mouseUp' property='translateY' value='0' />
+          <setproperty event='mouseUp' property='shadowX' value='{resource theme_shadow_x}' />
+          <setproperty event='mouseUp' property='shadowY' value='{resource theme_shadow_y}' />
+          <setproperty event='mouseUp' property='shadowSize' value='0' />
+
+        </actions>
+        <contentpresenter halign='center' valign='center' content='{template content}' />
+    </border>
+  </template>
+</controltemplate>
+''';
   }
 }

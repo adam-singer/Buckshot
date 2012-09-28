@@ -7,16 +7,16 @@
 * Generally speaking all elements that render DOM output should derive
 * from this class.
 */
-class FrameworkElement extends FrameworkObject 
+class FrameworkElement extends FrameworkObject
 {
   StyleTemplate _style;
 
   final HashMap<FrameworkProperty, String> _templateBindings =
     new HashMap<FrameworkProperty, String>();
-  
+
   final HashMap<String, String> _transitionProperties =
-      new HashMap<String, String>();   
-  
+      new HashMap<String, String>();
+
   _Brutus _manualAlignmentHandler;
 
   /// Represents the margin [Thickness] area outside the FrameworkElement boundary.
@@ -64,7 +64,7 @@ class FrameworkElement extends FrameworkObject
   FrameworkProperty shadowSizeProperty;
   FrameworkProperty shadowColorProperty;
   FrameworkProperty shadowInsetProperty;
-  
+
   AnimatingFrameworkProperty translateXProperty;
   AnimatingFrameworkProperty translateYProperty;
   AnimatingFrameworkProperty translateZProperty;
@@ -127,28 +127,28 @@ class FrameworkElement extends FrameworkObject
     _manualAlignmentHandler = new _Brutus.with(this);
 
     //give a blank style so merging works immediately
-    _style = new StyleTemplate(); 
+    _style = new StyleTemplate();
 
     _initFrameworkProperties();
 
     _initFrameworkEvents();
-    
+
     if (reflectionEnabled){
       return;
     }
-    
+
     _registerEvents();
 
   }
-  
+
   FrameworkElement.register() : super.register();
   makeMe() => null;
-  
-  
+
+
   void _initFrameworkProperties(){
 
     void doTransform(FrameworkElement e){
-      
+
       var tx = getValue(translateXProperty);
       var ty = getValue(translateYProperty);
       var tz = getValue(translateZProperty);
@@ -158,7 +158,7 @@ class FrameworkElement extends FrameworkObject
       var rx = getValue(rotateXProperty);
       var ry = getValue(rotateYProperty);
       var rz = getValue(rotateZProperty);
-      
+
       // set to identity if null
       if (tx == null) tx = 0;
       if (ty == null) ty = 0;
@@ -169,15 +169,15 @@ class FrameworkElement extends FrameworkObject
       if (rx == null) rx = 0;
       if (ry == null) ry = 0;
       if (rz == null) rz = 0;
-      
-      e.rawElement.style.transform =         
+
+      e.rawElement.style.transform =
         '''
         translateX(${tx}px) translateY(${ty}px) translateZ(${tz}px)
         scaleX(${sx}) scaleY(${sy}) scaleZ(${sz}) 
         rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)
         ''';
     }
-    
+
     void drawShadow(FrameworkElement e){
       var sx = getValue(shadowXProperty);
       var sy = getValue(shadowYProperty);
@@ -185,7 +185,7 @@ class FrameworkElement extends FrameworkObject
       var s = getValue(shadowSizeProperty);
       var c = getValue(shadowColorProperty);
       var inset = getValue(shadowInsetProperty);
-      
+
       // set nulls
       sx = (sx == null) ? '' : '${sx}px';
       sy = (sy == null) ? '' : '${sy}px';
@@ -203,43 +203,43 @@ class FrameworkElement extends FrameworkObject
 
       e.rawElement.style.boxShadow = '$sx $sy $b $s $c $inset'.trim();
     }
-    
+
     void setTransformOrigin(FrameworkElement e){
       var tx = getValue(transformOriginXProperty);
       var ty = getValue(transformOriginYProperty);
       var tz = getValue(transformOriginZProperty);
-      
+
       if (tx == null) tx = 0;
       if (ty == null) ty = 0;
       if (tz == null) tz = 0;
-      
+
       e.rawElement.style.transformOrigin = '${tx}px ${ty}px ${tz}px';
     }
 
     shadowXProperty = new FrameworkProperty(this, 'shadowX',
         propertyChangedCallback: (_) => drawShadow(this),
         converter:const StringToNumericConverter());
-    
+
     shadowYProperty = new FrameworkProperty(this, 'shadowY',
         propertyChangedCallback: (_) => drawShadow(this),
         converter:const StringToNumericConverter());
-    
+
     shadowBlurProperty = new FrameworkProperty(this, 'shadowBlur',
         propertyChangedCallback: (_) => drawShadow(this),
         converter:const StringToNumericConverter());
-    
+
     shadowSizeProperty = new FrameworkProperty(this, 'shadowSize',
         propertyChangedCallback: (_) => drawShadow(this),
         converter:const StringToNumericConverter());
-    
+
     shadowColorProperty = new FrameworkProperty(this, 'shadowColor',
         propertyChangedCallback: (_) => drawShadow(this),
         converter:const StringToSolidColorBrushConverter());
-    
+
     shadowInsetProperty = new FrameworkProperty(this, 'shadowInset',
         propertyChangedCallback: (_) => drawShadow(this),
         converter:const StringToBooleanConverter());
-            
+
     actionsProperty = new FrameworkProperty(this, 'actions',
         (ObservableList<ActionBase> aList){
           if (actionsProperty != null){
@@ -266,69 +266,69 @@ class FrameworkElement extends FrameworkObject
       Polly.setCSS(rawElement, 'perspective', '$value');
     },converter:const StringToNumericConverter());
 
-    translateXProperty = new AnimatingFrameworkProperty(this, "translateX",    
+    translateXProperty = new AnimatingFrameworkProperty(this, "translateX",
       'transform',
       propertyChangedCallback:(num value) => doTransform(this),
       converter:const StringToNumericConverter());
 
-    translateYProperty = new AnimatingFrameworkProperty(this, "translateY",    
-      'transform', 
+    translateYProperty = new AnimatingFrameworkProperty(this, "translateY",
+      'transform',
       propertyChangedCallback:(num value) => doTransform(this),
       converter:const StringToNumericConverter());
 
 
-    translateZProperty = new AnimatingFrameworkProperty(this, "translateZ",    
-      'transform', 
+    translateZProperty = new AnimatingFrameworkProperty(this, "translateZ",
+      'transform',
       propertyChangedCallback:(num value) => doTransform(this),
       converter:const StringToNumericConverter());
 
 
-    scaleXProperty = new AnimatingFrameworkProperty(this, "scaleX",    
-      'transform', 
+    scaleXProperty = new AnimatingFrameworkProperty(this, "scaleX",
+      'transform',
       propertyChangedCallback:(num value) => doTransform(this),
       converter:const StringToNumericConverter());
 
 
-    scaleYProperty = new AnimatingFrameworkProperty(this, "scaleY",    
-        'transform', 
+    scaleYProperty = new AnimatingFrameworkProperty(this, "scaleY",
+        'transform',
         propertyChangedCallback:(num value) => doTransform(this),
         converter:const StringToNumericConverter());
 
 
-    scaleZProperty = new AnimatingFrameworkProperty(this, "scaleZ",   
-        'transform', 
+    scaleZProperty = new AnimatingFrameworkProperty(this, "scaleZ",
+        'transform',
         propertyChangedCallback:(num value) => doTransform(this),
         converter:const StringToNumericConverter());
 
-    rotateXProperty = new AnimatingFrameworkProperty(this, "rotateX",    
-        'transform', 
-        propertyChangedCallback:(num value) => doTransform(this),
-        converter:const StringToNumericConverter());
-
-
-    rotateYProperty = new AnimatingFrameworkProperty(this, "rotateY",    
-        'transform', 
+    rotateXProperty = new AnimatingFrameworkProperty(this, "rotateX",
+        'transform',
         propertyChangedCallback:(num value) => doTransform(this),
         converter:const StringToNumericConverter());
 
 
-    rotateZProperty = new AnimatingFrameworkProperty(this, "rotateZ",    
-        'transform', 
+    rotateYProperty = new AnimatingFrameworkProperty(this, "rotateY",
+        'transform',
         propertyChangedCallback:(num value) => doTransform(this),
         converter:const StringToNumericConverter());
 
 
-    transformOriginXProperty = new FrameworkProperty(this, "transformOriginX", 
+    rotateZProperty = new AnimatingFrameworkProperty(this, "rotateZ",
+        'transform',
+        propertyChangedCallback:(num value) => doTransform(this),
+        converter:const StringToNumericConverter());
+
+
+    transformOriginXProperty = new FrameworkProperty(this, "transformOriginX",
       (num value){
         setTransformOrigin(this);
     }, converter:const StringToNumericConverter());
 
-    transformOriginYProperty = new FrameworkProperty(this, "transformOriginY", 
+    transformOriginYProperty = new FrameworkProperty(this, "transformOriginY",
       (num value){
         setTransformOrigin(this);
     }, converter:const StringToNumericConverter());
 
-    transformOriginZProperty = new FrameworkProperty(this, "transformOriginZ", 
+    transformOriginZProperty = new FrameworkProperty(this, "transformOriginZ",
       (num value){
         setTransformOrigin(this);
     }, converter:const StringToNumericConverter());
@@ -348,7 +348,7 @@ class FrameworkElement extends FrameworkObject
     visibilityProperty = new AnimatingFrameworkProperty(
       this,
       "visibility",
-      'visibility', 
+      'visibility',
       propertyChangedCallback:(Visibility value){
         if (value == Visibility.visible){
           rawElement.style.visibility = '$value';
@@ -699,7 +699,7 @@ class FrameworkElement extends FrameworkObject
       if (!mouseUp.hasHandlers) return;
 
       e.stopPropagation();
-      
+
       Polly
       .localMouseCoordinate(rawElement, e.pageX, e.pageY)
       .then((p){
@@ -720,7 +720,7 @@ class FrameworkElement extends FrameworkObject
 
       e.stopPropagation();
 
-     
+
       Polly
       .localMouseCoordinate(rawElement, e.pageX, e.pageY)
       .then((p){
@@ -763,7 +763,7 @@ class FrameworkElement extends FrameworkObject
       Polly
       .localMouseCoordinate(rawElement, e.pageX, e.pageY)
       .then((p){
-        click.invoke(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
+        click.invokeAsync(this, new MouseEventArgs(p.x, p.y, e.pageX, e.pageY));
       });
     }
 
@@ -944,7 +944,7 @@ class FrameworkElement extends FrameworkObject
       () => rawElement.on.dragEnd.remove(dragEndHandler)
     );
   }
-  
+
   void _registerEvents(){
     registerEvent('dragend', dragEnd);
     registerEvent('dragstart', dragStart);

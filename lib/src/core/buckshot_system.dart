@@ -12,18 +12,18 @@
 class Buckshot extends FrameworkObject
 {
   static const String _defaultRootID = "#BuckshotHost";
-  
+
   final Map<String, Dynamic> _mirrorCache = new Map<String, Dynamic>();
 
   /// Central registry of named [FrameworkObject] elements.
-  final HashMap<String, FrameworkObject> namedElements = 
+  final HashMap<String, FrameworkObject> namedElements =
       new HashMap<String, FrameworkObject>();
 
-  final HashMap<String, Function> _objectRegistry = 
+  final HashMap<String, Function> _objectRegistry =
       new HashMap<String, Dynamic>();
 
   StyleElement _buckshotCSS;
-  
+
   /// Bindable window width/height properties.  Readonly, so can only
   /// bind from, not to.
   FrameworkProperty windowWidthProperty;
@@ -36,7 +36,7 @@ class Buckshot extends FrameworkObject
   {
     //initialize Polly's statics
     Polly.init();
-    
+
     if (!Polly.browserOK){
       print('Buckshot Warning: Browser may not be compatible with Buckshot'
           ' framework.');
@@ -45,25 +45,25 @@ class Buckshot extends FrameworkObject
     _initCSS();
 
     _initializeBuckshotProperties();
-    
+
     if (!reflectionEnabled){
       _registerCoreElements();
     }
   }
- 
+
   void registerElement(BuckshotObject o){
     assert(!reflectionEnabled);
-    
+
     _objectRegistry['${o.toString().toLowerCase()}'] = o.makeMe;
   }
-  
+
   void registerAttachedProperty(String property, setterFunction){
     assert(!reflectionEnabled);
-    
+
     _objectRegistry[property] = setterFunction;
   }
-  
-  void _registerCoreElements(){    
+
+  void _registerCoreElements(){
     registerElement(new Ellipse.register());
     registerElement(new Rectangle.register());
     registerElement(new StackPanel.register());
@@ -102,13 +102,13 @@ class Buckshot extends FrameworkObject
     //actions
     registerElement(new SetProperty.register());
     registerElement(new ToggleProperty.register());
-    
-    registerElement(new TextBox());
-    registerElement(new Slider());
-    registerElement(new Button());
-    registerElement(new DropDownList());
+
+    registerElement(new TextBox.register());
+    registerElement(new Slider.register());
+    registerElement(new Button.register());
+    registerElement(new DropDownList.register());
   }
-  
+
   void _initCSS(){
     document.head.elements.add(
       new Element.html('<style id="__BuckshotCSS__"></style>'));
@@ -146,11 +146,11 @@ class Buckshot extends FrameworkObject
 
   /// Gets the innerHeight of the window
   int get windowHeight => getValue(windowHeightProperty);
-  
+
   // Wrappers to prevent propagation of static warnings elsewhere.
   reflectMe(object) => reflect(object);
   mirrorSystem() => currentMirrorSystem();
-  
+
   /**
    * Returns the InterfaceMirror of a given [name] by searching through all
    * available in-scope libraries.
@@ -161,7 +161,7 @@ class Buckshot extends FrameworkObject
    */
   getObjectByName(String name){
     final lowerName = name.toLowerCase();
-    
+
     if (!reflectionEnabled){
       if (!_objectRegistry.containsKey(lowerName)) return null;
       return _objectRegistry[lowerName]();
@@ -190,7 +190,7 @@ class Buckshot extends FrameworkObject
         //print('[Miriam] caching mirror "$lowerName"');
         _mirrorCache[lowerName] = result;
       }
-  
+
       return result;
     }
   }

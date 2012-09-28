@@ -147,7 +147,7 @@ Begin Buckshot Templates
          
     <stack dockpanel.dock='top' margin='0,0,0,5' orientation="horizontal">
        <button on.click='refresh_handler' content="Generate Output"></button>
-       <button on.click='clearAll_handler' margin="0,0,0,5" content="Clear All"></button>
+       <button on.click='clearAll_handler' content="Clear All"></button>
     </stack>
     
     <textarea dockpanel.dock='bottom' minwidth='650' minheight='300' margin='0,10,0,5'
@@ -500,7 +500,7 @@ Begin Buckshot Templates
 <stack>
   <textblock margin="0,10" text='Buttons can contain text or other elements.' />
   <button width="80">text button</button>
-  <button margin="10,0,0,0">
+  <button margin="10,0,10,0">
     <border width="150" height="150" background="Green">
       <textblock foreground="White" halign="center" valign="center" text='button with content' />
     </border>
@@ -1659,6 +1659,34 @@ each list.
     </stack>
   </border>
 </stack>
+</script>
+
+<script id='theme' type='application/xml'>
+<resourcecollection>
+  <!-- "Theme: Bluesy" -->
+
+  <!-- Default Palette -->
+  <color key='theme_background_light' value='White' />
+  <color key='theme_background_dark' value='WhiteSmoke' />
+  <color key='theme_background_mouse_hover' value='LightGray' />
+  <color key='theme_background_mouse_down' value='DarkGray' />
+
+  <!-- Shadows --> 
+  <color key='theme_shadow_color' value='Black' />
+  <var key='theme_shadow_x' value='2' />
+  <var key='theme_shadow_y' value='2' />
+  <var key='theme_shadow_blur' value='4' />
+
+  <!-- Borders -->
+  <color key='theme_border_color' value='LightGray' />
+  <color key='theme_border_color_dark' value='DarkGray' />
+  <var key='theme_border_thickness' value='1' />
+  <var key='theme_border_padding' value='5' />
+
+  <!-- Text -->
+  <var key='theme_text_font_family' value='Arial' />
+  <color key='theme_text_foreground' value='Black' />
+</resourcecollection>
 </script>
 
 <!--
