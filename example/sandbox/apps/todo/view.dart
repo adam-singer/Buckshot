@@ -13,7 +13,7 @@ class Main extends View
 // Setting the template in text in addition to the HTML file so that the app
 // can be embedded into the Sandbox demo.  Alternatives to this would be to
 // put template into the sandbox html page, or load it from a Uri.
-String _view = 
+String _view =
 @'''
 <border bordercolor='Black' borderthickness='1' padding='5'>
     <stackpanel>
@@ -33,9 +33,9 @@ String _view =
       
       <button on.click='onSubmit_handler' content="Add Task" width="75" margin="5,0,0,0"></button>
       
-      <textblock foreground="{data statusColor}" text="{data statusText, mode=twoway}"></textblock>
+      <textblock margin='5,0,0,0' foreground="{data statusColor}" text="{data statusText, mode=twoway}"></textblock>
       
-      <textblock text="Tasks:" margin="15,0,0,0"></textblock>
+      <textblock text="Tasks:" margin="10,0,0,0"></textblock>
       
       <border bordercolor="Black" borderthickness="1" padding="5" background="#667788">
         <stackpanel>

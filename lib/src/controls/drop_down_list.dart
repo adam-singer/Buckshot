@@ -13,22 +13,20 @@ class DropDownList extends Control
   FrameworkProperty selectedItemProperty;
   FrameworkProperty selectedIndexProperty; //TODO implement this property
 
-  FrameworkEvent<SelectedItemChangedEventArgs<DropDownItem>> selectionChanged;
+  FrameworkEvent<SelectedItemChangedEventArgs<DropDownItem>> selectionChanged =
+      new FrameworkEvent<SelectedItemChangedEventArgs<DropDownItem>>();
 
   DropDownList()
-  :
-    selectionChanged = new FrameworkEvent<SelectedItemChangedEventArgs<DropDownItem>>()
   {
     Browser.appendClass(rawElement, "dropdownlist");
     _initDropDownListProperties();
-    
+
     registerEvent('selectionchanged', selectionChanged);
   }
 
-  DropDownList.register() : super.register(),
-    selectionChanged = new FrameworkEvent<EventArgs>();
+  DropDownList.register() : super.register();
   makeMe() => new DropDownList();
-  
+
   void _initDropDownListProperties(){
     itemsProperty = new FrameworkProperty(this, "items",
         defaultValue:new ObservableList<DropDownItem>());
@@ -49,7 +47,7 @@ class DropDownList extends Control
     void doNotify(){
       DropDownItem selected;
       final el = rawElement as SelectElement;
-      
+
       if (itemsSource != null && !itemsSource.isEmpty()) {
         selectedItemProperty.value.name = itemsSource[el.selectedIndex];
         selectedItemProperty.value.value = itemsSource[el.selectedIndex];
@@ -114,7 +112,7 @@ class DropDownItem extends TemplateObject
   DropDownItem(){
     _initDropDownListItemProperties();
   }
-  
+
   DropDownItem.register() : super.register();
   makeMe() => new DropDownItem();
 

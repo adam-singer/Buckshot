@@ -17,7 +17,6 @@ class Button extends Control implements IFrameworkContainer
     _initButtonProperties();
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
-
   }
 
   void _initButtonProperties(){
@@ -69,7 +68,6 @@ class Button extends Control implements IFrameworkContainer
           <setproperty event='mouseUp' property='shadowX' value='{resource theme_shadow_x}' />
           <setproperty event='mouseUp' property='shadowY' value='{resource theme_shadow_y}' />
           <setproperty event='mouseUp' property='shadowSize' value='0' />
-
         </actions>
         <contentpresenter halign='center' valign='center' content='{template content}' />
     </border>

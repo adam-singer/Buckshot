@@ -97,10 +97,10 @@ class Control extends FrameworkElement
 
     _bindTemplateBindings();
   
-    finishOnUnloaded();
+    finishOnLoaded();
   }
   
-  finishOnUnloaded(){
+  finishOnLoaded(){
     template._onAddedToDOM();
   }
 

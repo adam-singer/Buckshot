@@ -8,13 +8,10 @@ class ViewModel extends ViewModelBase
   FrameworkProperty statusColorProperty;
   FrameworkProperty itemsProperty;
 
-  final Brush bad;
-  final Brush good;
+  final Color bad = new Color.predefined(Colors.Red);
+  final Color good = new Color.predefined(Colors.Green);
 
   ViewModel()
-  :
-    bad = new SolidColorBrush(new Color.predefined(Colors.Red)),
-    good = new SolidColorBrush(new Color.predefined(Colors.Green))
   {
 
     taskNameProperty = new FrameworkProperty(this, "taskName", defaultValue:"");
@@ -26,7 +23,7 @@ class ViewModel extends ViewModelBase
     statusColorProperty = new FrameworkProperty(this, "statusColor", defaultValue:good);
 
     itemsProperty = new FrameworkProperty(this, "items", defaultValue:new ObservableList());
-    
+
     registerEventHandler('onsubmit_handler', onSubmit_handler);
   }
 
@@ -65,7 +62,7 @@ class ViewModel extends ViewModelBase
   String get statusText => getValue(statusTextProperty);
   set statusText(String value) => setValue(statusTextProperty, value);
 
-  Brush get statusColor => getValue(statusColorProperty);
-  set statusColor(Brush value) => setValue(statusColorProperty, value);
+  Color get statusColor => getValue(statusColorProperty);
+  set statusColor(Color value) => setValue(statusColorProperty, value);
 
 }

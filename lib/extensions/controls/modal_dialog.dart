@@ -113,7 +113,6 @@ class ModalDialog extends Control
   ModalDialog()
   {
     _initModalDialogProperties();
-
   }
 
   ModalDialog.register() : super.register();
@@ -124,7 +123,8 @@ class ModalDialog extends Control
     _initModalDialogProperties();
     _initButtons(buttons);
     title = titleContent;
-    content = bodyContent;
+    body = bodyContent;
+
   }
 
 
@@ -143,8 +143,12 @@ class ModalDialog extends Control
   }
 
   // modalDialog needs to override this in order to work property.
-  void finishOnUnloaded(){
-     template.isLoaded = true;
+  void finishOnLoaded(){
+    template.isLoaded = true;
+
+    // we have to fire this manually because of the complicate
+    // layout nature of this control.
+    (template as Panel).children[1].onAddedToDOM();
   }
 
   void _initButtons(List buttons){
@@ -230,8 +234,8 @@ class ModalDialog extends Control
     return _dialogCompleter.future;
   }
 
-  get content => getValue(bodyProperty);
-  set content(v) => setValue(bodyProperty, v);
+  get body => getValue(bodyProperty);
+  set body(v) => setValue(bodyProperty, v);
 
   get title => getValue(titleProperty);
   set title(v) => setValue(titleProperty, v);
