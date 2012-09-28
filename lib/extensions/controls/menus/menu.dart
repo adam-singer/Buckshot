@@ -77,10 +77,12 @@ class Menu extends Control implements IFrameworkContainer
 
   }
 
-  void show(){
-   _setPosition().then((_){
-      visibility = Visibility.visible;
-    });
+  Future show(){
+   return _setPosition()
+             .chain((_){
+              visibility = Visibility.visible;
+              return new Future.immediate(true);
+            });
   }
 
   void hide(){

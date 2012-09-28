@@ -11,6 +11,8 @@ class MenuStrip extends Control implements IFrameworkContainer
   final FrameworkEvent<MenuItemSelectedEventArgs> menuItemSelected =
       new FrameworkEvent<MenuItemSelectedEventArgs>();
 
+  Menu _previousMenu;
+
   MenuStrip()
   {
     Browser.appendClass(rawElement, "MenuStrip");
@@ -43,6 +45,10 @@ class MenuStrip extends Control implements IFrameworkContainer
         final b = (m.parent.parent as StackPanel).children[0] as Border;
 
         b.click + (_, __){
+          if (m.visibility == Visibility.visible){
+            m.hide();
+            return;
+          }
           hideAllMenus();
           if (m.menuItems.isEmpty()){
               // item-less menu, so just send the menu in the sender of the
