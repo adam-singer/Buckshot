@@ -22,7 +22,7 @@ class TreeView extends Panel
 
   static const String FILE_DEFAULT_TEMPLATE =
       '''
-<border width='16' height='16' cornerradius='2' borderthickness='1' bordercolor='{resource theme_border_color}' background='{resource theme_background_dark}'>
+<border width='16' height='16' cornerradius='2' borderthickness='1' bordercolor='{resource theme_border_color_dark}' background='{resource theme_background_dark}'>
   <stackpanel halign='stretch' valign='center'>
     <border margin='2,1' borderthickness='1' bordercolor='LightGray' halign='stretch' />
     <border margin='3,1' borderthickness='1' bordercolor='LightGray' halign='stretch' />
@@ -35,11 +35,9 @@ class TreeView extends Panel
   static const String FOLDER_DEFAULT_TEMPLATE =
       '''
 <layoutcanvas width='16' height='16'>
-  <border width='16' height='14' layoutcanvas.top='1' cornerradius='2' borderthickness='1' bordercolor='Gray' background='#ffff77'>
-  </border>
-  <border layoutcanvas.left='10' width='6' height='14' cornerradius='2' borderthickness='1' bordercolor='Gray' background='#ffff77'>
-  </border>
-  <border layoutcanvas.top='5' height='10' width='16' cornerradius='2' borderthickness='1' bordercolor='Gray' background='#ffff77' />
+  <border width='16' height='14' layoutcanvas.top='1' cornerradius='2' borderthickness='1' bordercolor='{resource theme_border_color_dark}' background='{resource theme_background_dark}' />
+  <border layoutcanvas.left='10' width='6' height='14' cornerradius='2' borderthickness='1' bordercolor='{resource theme_border_color_dark}' background='{resource theme_background_dark}' />
+  <border layoutcanvas.top='5' height='10' width='16' cornerradius='2' borderthickness='1' bordercolor='{resource theme_border_color_dark}' background='{resource theme_background_dark}' />
 </layoutcanvas>
 ''';
 

@@ -182,9 +182,9 @@ class Border extends FrameworkElement implements IFrameworkContainer
   int get cornerRadius => getValue(cornerRadiusProperty);
 
   /// Sets the [borderColorProperty] value.
-  set borderColor(SolidColorBrush value) => setValue(borderColorProperty, value);
+  set borderColor(Color value) => setValue(borderColorProperty, value);
   /// Gets the [borderColorProperty] value.
-  SolidColorBrush get borderColor => getValue(borderColorProperty);
+  Color get borderColor => getValue(borderColorProperty);
 
   /// Sets the [borderThicknessProperty] value.
   set borderThickness(Thickness value) => setValue(borderThicknessProperty, value);

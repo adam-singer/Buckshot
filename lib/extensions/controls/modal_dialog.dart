@@ -170,11 +170,13 @@ class ModalDialog extends Control
   void _initModalDialogProperties(){
     titleProperty = new FrameworkProperty(this, 'title',
         defaultValue:'undefined');
-    bodyProperty = new FrameworkProperty(this, 'content',
+
+    bodyProperty = new FrameworkProperty(this, 'body',
         defaultValue:'undefined');
+
     backgroundProperty = new FrameworkProperty(this, 'background',
         defaultValue: new SolidColorBrush(
-                        new Color.predefined(Colors.WhiteSmoke)),
+                        new Color.hex(FrameworkResource.retrieveResource('theme_background_dark'))),
         converter: const StringToSolidColorBrushConverter());
 
     maskColorProperty = new FrameworkProperty(this, 'maskColor',
@@ -187,12 +189,11 @@ class ModalDialog extends Control
         converter: const StringToNumericConverter());
 
     borderColorProperty = new FrameworkProperty(this, 'borderColor',
-        defaultValue: new SolidColorBrush(
-                        new Color.predefined(Colors.Black)),
-        converter: const StringToSolidColorBrushConverter());
+        defaultValue: new Color.hex(FrameworkResource.retrieveResource('theme_border_color_dark')),
+        converter: const StringToColorConverter());
 
     borderThicknessProperty = new FrameworkProperty(this, 'borderThickness',
-        defaultValue: new Thickness(1),
+        defaultValue: new Thickness(FrameworkResource.retrieveResource('theme_border_thickness')),
         converter: const StringToThicknessConverter());
 
     cornerRadiusProperty = new FrameworkProperty(this, 'cornerRadius',
@@ -283,7 +284,7 @@ class ModalDialog extends Control
             background='{template background}'>
       <stackpanel minwidth='200' maxwidth='500'>
         <contentpresenter content='{template title}' halign='center' />
-        <contentpresenter halign='center' content='{template content}' />
+        <contentpresenter halign='center' content='{template body}' />
         <stackpanel name='spButtonContainer' halign='right' orientation='horizontal'>
           <button content='Ok' />
           <button content='Cancel' />

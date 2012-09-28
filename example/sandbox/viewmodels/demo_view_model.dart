@@ -207,18 +207,17 @@ class DemoViewModel extends ViewModelBase
   void _showModalDialogDemo(){
     final titleView = new View.fromTemplate(
 '''
-<textblock fontfamily='Arial' fontsize='20' text='Modal Dialog Box Title' />
+<textblock fontsize='20' text='Modal Dialog Box Title' />
 '''
     );
 
     final bodyView = new View.fromResource('#modaldialog');
 
-    titleView.ready
-      .chain((t) => bodyView.ready)
-      .chain((bv){
+    Futures
+      .wait([titleView.ready, bodyView.ready])
+      .chain((results){
         final md = new ModalDialog
-          .with(titleView.rootVisual, bodyView.rootVisual, ModalDialog.OkCancel)
-          ..cornerRadius = new Thickness(7);
+          .with(results[0], results[1], ModalDialog.OkCancel);
 
         return md.show();
         })
@@ -227,8 +226,6 @@ class DemoViewModel extends ViewModelBase
           .with('Dialog Results',
             'You clicked the "$dbt" button on the previous dialog.',
               ModalDialog.Ok)
-          ..cornerRadius = new Thickness(7)
-          ..borderThickness = new Thickness(3)
           ..maskColor = new SolidColorBrush(
               new Color.predefined(Colors.Green));
 
@@ -248,8 +245,7 @@ class DemoViewModel extends ViewModelBase
         ..offsetY = -150
         ..cornerRadius = new Thickness(7)
         ..borderThickness = new Thickness(3)
-        ..borderColor = new SolidColorBrush(
-            new Color.predefined(Colors.SteelBlue))
+        ..borderColor = new Color.predefined(Colors.SteelBlue)
         ..show(popUpNode);
     p.click + (_,__) => p.hide();
   }

@@ -154,13 +154,13 @@ class Accordion extends Control implements IFrameworkContainer
    */
   String get headerTemplate =>
 '''
- <border name='__accordion_header__' padding='5' borderthickness='0,0,1,0' 
-bordercolor='DarkGray' background='WhiteSmoke' halign='stretch'>
+ <border name='__accordion_header__' padding='{resource theme_border_padding}' borderthickness='0,0,1,0' 
+bordercolor='{resource theme_border_color}' background='{resource theme_background_dark}' halign='stretch'>
     <actions>
-      <setproperty event='mouseEnter' property='background' value='LightGray' />
-      <setproperty event='mouseLeave' property='background' value='WhiteSmoke' />
-      <setproperty event='mouseDown' property='background' value='DarkGray' />
-      <setproperty event='mouseUp' property='background' value='LightGray' />
+      <setproperty event='mouseEnter' property='background' value='{resource theme_background_mouse_hover}' />
+      <setproperty event='mouseLeave' property='background' value='{resource theme_background_dark}' />
+      <setproperty event='mouseDown' property='background' value='{resource theme_background_mouse_down}' />
+      <setproperty event='mouseUp' property='background' value='{resource theme_background_hover}' />
     </actions>
     <contentpresenter halign='stretch' content='{data header}' />                   
  </border>
@@ -172,7 +172,7 @@ bordercolor='DarkGray' background='WhiteSmoke' halign='stretch'>
    */
   String get bodyTemplate =>
 '''
- <border name='__accordion_body__' halign='stretch' bordercolor='DarkGray'>
+ <border name='__accordion_body__' halign='stretch' background='{resource theme_background_light}'>
    <contentpresenter margin='5' halign='stretch' content='{data body}' />
  </border>
 ''';

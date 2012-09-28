@@ -134,9 +134,9 @@ class Popup extends Control
   Thickness get cornerRadius => getValue(cornerRadiusProperty);
 
   /// Sets the [borderColorProperty] value.
-  set borderColor(SolidColorBrush value) => setValue(borderColorProperty, value);
+  set borderColor(Color value) => setValue(borderColorProperty, value);
   /// Gets the [borderColorProperty] value.
-  SolidColorBrush get borderColor => getValue(borderColorProperty);
+  Color get borderColor => getValue(borderColorProperty);
 
   /// Sets the [borderThicknessProperty] value.
   set borderThickness(Thickness value) => setValue(borderThicknessProperty, value);
@@ -152,16 +152,16 @@ class Popup extends Control
   void _initPopupProperties(){
     backgroundProperty = new FrameworkProperty(this, 'background',
         defaultValue: new SolidColorBrush(
-                        new Color.predefined(Colors.WhiteSmoke)),
+                        new Color.hex(FrameworkResource.retrieveResource('theme_background_dark'))),
         converter: const StringToSolidColorBrushConverter());
 
     borderColorProperty = new FrameworkProperty(this, 'borderColor',
         defaultValue: new SolidColorBrush(
-                        new Color.predefined(Colors.Black)),
-        converter: const StringToSolidColorBrushConverter());
+                        new Color.hex(FrameworkResource.retrieveResource('theme_border_color'))),
+        converter: const StringToColorConverter());
 
     borderThicknessProperty = new FrameworkProperty(this, 'borderThickness',
-        defaultValue: new Thickness(1),
+        defaultValue: new Thickness(FrameworkResource.retrieveResource('theme_border_thickness')),
         converter: const StringToThicknessConverter());
 
     cornerRadiusProperty = new FrameworkProperty(this, 'cornerRadius',

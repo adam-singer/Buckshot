@@ -272,6 +272,7 @@ String defaultTheme =
 
   <!-- Borders -->
   <color key='theme_border_color' value='LightGray' />
+  <color key='theme_border_color_dark' value='DarkGray' />
   <var key='theme_border_thickness' value='1' />
   <var key='theme_border_padding' value='5' />
 

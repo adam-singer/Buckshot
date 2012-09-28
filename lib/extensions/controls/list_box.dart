@@ -152,11 +152,16 @@ class ListBox extends Control implements IFrameworkContainer
     }, new SolidColorBrush(new Color.predefined(Colors.SkyBlue)),
     converter:const StringToSolidColorBrushConverter());
 
-    borderColorProperty = new FrameworkProperty(this, "borderColor", (v){
-      if (_border == null) return;
-      _border.borderColor = v;
-    }, new SolidColorBrush(new Color.predefined(Colors.Black)),
-    converter:const StringToSolidColorBrushConverter());
+    borderColorProperty = new FrameworkProperty(
+        this,
+        'borderColor',
+        propertyChangedCallback: (Color c){
+          if (_border == null) return;
+          _border.borderColor = c;
+        },
+        defaultValue: new Color.predefined(Colors.Black),
+        converter:const StringToColorConverter());
+
 
     borderThicknessProperty = new FrameworkProperty(this, "borderThickness", (v){
     }, new Thickness(1), converter:const StringToThicknessConverter());

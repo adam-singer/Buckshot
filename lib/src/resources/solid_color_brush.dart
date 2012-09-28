@@ -18,7 +18,7 @@ class SolidColorBrush extends Brush
 
    if (toColor != null) color = toColor;
   }
-  
+
   SolidColorBrush.register() : super.register();
   makeMe() => new SolidColorBrush();
 
