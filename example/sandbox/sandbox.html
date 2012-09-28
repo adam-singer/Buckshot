@@ -14,44 +14,46 @@ Begin Buckshot Templates
 <script id='main' type='application/xml'>
 <dockpanel halign='stretch' valign='stretch'>
   <resourcecollection>
-    <color key="buckshotBlue" value="#165284"></color>
+    <color key="buckshot_blue" value="#165284"></color>
    
     <styletemplate key="iotext">
        <setters>
           <setter property="margin" value="15,0,0,0" />
-          <setter property="fontFamily" value="Arial" />
           <setter property="fontSize" value="20" />
        </setters>
     </styletemplate>
     <styletemplate key='headerText'>
        <setters>
           <setter property='fontSize' value='18' />
-          <setter property='fontFamily' value='Arial' />
           <setter property='margin' value='15,0,10,0' />
        </setters>
     </styletemplate>
     <styletemplate key='defaultText'>
        <setters>
           <setter property='fontSize' value='14' />
-          <setter property='fontFamily' value='Arial' />
           <setter property='margin' value='0,3' />
        </setters>
     </styletemplate>
   </resourcecollection>
 
-  <border padding='5' dockpanel.dock='top' background='{resource buckshotBlue}'>
+  <border padding='5' dockpanel.dock='top' background='{resource buckshot_blue}'>
 	    <stack orientation='horizontal'>
 	       <hyperlink valign='center' navigateto='http://www.buckshotui.org/'>
 		       <image width='35' sourceuri='apps/calculator/resources/buckshot_logo.png' alt='Buckshot Logo' />
 		       </hyperlink>
-	       <textblock margin='0,0,0,5' valign='center' foreground='White' fontfamily='Arial' text='Buckshot Sandbox' />
-	       <textblock margin='0,0,0,5' valign='bottom' foreground='White' fontsize='10' fontfamily='Arial' text='alpha' />
+	       <textblock margin='0,0,0,5' valign='center' foreground='White' text='Buckshot Sandbox' />
+	       <textblock margin='0,0,0,5' valign='bottom' foreground='White' fontsize='10' text='alpha' />
 	    </stack>
   </border>
 
   <stack margin='5' dockpanel.dock='left' minWidth='250'>
-    <textblock maxwidth='250' fontfamily='Arial' text="Select a sample below, or create your own in the text area."/>
-    <border shadowcolor='Gray' shadowx='2' shadowy='2' shadowblur='3' valign='stretch' halign='stretch' background='White' borderthickness='1' bordercolor='LightGray' margin='0,5,10,0'>
+    <textblock maxwidth='250' text="Select a sample below, or create your own in the text area."/>
+    <border shadowx='{resource theme_shadow_x}' 
+            shadowy='{resource theme_shadow_y}' 
+            shadowblur='{resource theme_shadow_blur}' 
+            valign='stretch' 
+            halign='stretch' 
+            background='{resource theme_background_light}' borderthickness='{resource theme_border_thickness}' bordercolor='{resource theme_border_color}' margin='0,5,10,0'>
      	<accordion selectionmode='single' halign='stretch'>
      	   <accordionitem>
      	     <header>
@@ -136,7 +138,7 @@ Begin Buckshot Templates
     </border>
 	<plusone annotation='inline' width='200' size='medium' dockpanel.dock='right'></plusone>
   </stack>
-  <dockpanel margin='5' dockpanel.dock='left' filllast='true' grid.column='1'>
+  <dockpanel dockpanel.dock='left' filllast='true'>
   	<border 
   		shadowcolor='Gray' shadowx='2' shadowy='2' shadowblur='3'
   		dockpanel.dock='top' padding='5' background='White' content='{data renderedOutput}' 
@@ -1181,10 +1183,10 @@ each list.
 <!-- content for the ModalDialog demo -->
 <script id='modaldialog' type='application/xml'>
 <stack>
-  <textblock fontfamily='Arial' margin='0,5' text='Dialogs can host any content in the title and body.' />
+  <textblock  margin='0,5' text='Dialogs can host any content in the title and body.' />
   <textbox width='400' placeholder='Including input from the user' />
-  <textblock fontfamily='Arial' margin='0,5' text='ModalDialog also supports buttons for everything from simple dialogs to multi-step wizards.' />
-  <textblock fontfamily='Arial' margin='0,5' text='Here are some examples:' />
+  <textblock  margin='0,5' text='ModalDialog also supports buttons for everything from simple dialogs to multi-step wizards.' />
+  <textblock  margin='0,5' text='Here are some examples:' />
   <stack background='Gray' orientation='horizontal'>
     <button content='Ok' />
     <button content='Cancel' />
@@ -1223,7 +1225,7 @@ each list.
 <script id='tabcontrol' type='application/xml'>
 <stack>
    <textblock style='{resource headerText}' text='TabControl allows you to group content into tabs.' />
-   <tabcontrol margin='10,0,0,0' background='SteelBlue' width='600' height='340'>
+   <tabcontrol margin='10,0,0,0' background='{resource theme_background_dark}' width='600' height='340'>
       <tabitem header='Actions' closeenabled='false'>
          <youtube width='350' height='300' videoid='C8qwuD2Bz3E' />
       </tabitem>
@@ -1338,7 +1340,7 @@ each list.
     <!-- logo -->
     <stack halign='center' valign='center' margin='90,0,0,0'>
       <image halign='center' alt='Buckshot Logo' width='25' sourceuri='apps/calculator/resources/buckshot_logo.png'></image>
-      <textblock text='Buckshot' fontsize='10' fontfamily='Arial' />
+      <textblock text='Buckshot' fontsize='10' />
     </stack>
 
     <!-- 5 minute hashes -->
@@ -1537,7 +1539,7 @@ each list.
      <header>
         <stack>
            <image alt='demo image' sourceuri='http://www.lucastudios.com/Content/images/Certificate64.png' />
-           <textblock halign='center' fontsize='14' fontfamily='Arial' text='Files' />
+           <textblock halign='center' fontsize='14' text='Files' />
         </stack>
      </header>
       <menuitem>
@@ -1558,7 +1560,7 @@ each list.
      <header>
         <stack>
            <image alt='demo image' sourceuri='http://www.lucastudios.com/Content/images/ChartGantt64.png' />
-           <textblock halign='center' fontsize='14' fontfamily='Arial' text='Data' />
+           <textblock halign='center' fontsize='14' text='Data' />
         </stack>
      </header>
       <menuitem>
@@ -1579,7 +1581,7 @@ each list.
      <header>
         <stack>
            <image alt='demo image' sourceuri='http://www.lucastudios.com/Content/images/Connected64.png' />
-           <textblock halign='center' fontsize='14' fontfamily='Arial' text='Connection' />
+           <textblock halign='center' fontsize='14' text='Connection' />
         </stack>
      </header>
       <menuitem>
@@ -1600,7 +1602,7 @@ each list.
      <header>
         <stack>
            <image alt='demo image' sourceuri='http://www.lucastudios.com/Content/images/MailBox64.png' />
-           <textblock halign='center' fontsize='14' fontfamily='Arial' text='Messages' />
+           <textblock halign='center' fontsize='14' text='Messages' />
         </stack>
      </header>
       <menuitem>
@@ -1621,7 +1623,7 @@ each list.
      <header>
         <stack>
            <image alt='demo image' sourceuri='http://www.lucastudios.com/Content/images/WindowTriPaneSearch64.png' />
-           <textblock halign='center' fontsize='14' fontfamily='Arial' text='Search' />
+           <textblock halign='center' fontsize='14' text='Search' />
         </stack>
      </header>
       <menuitem>
@@ -1646,7 +1648,7 @@ each list.
 <stack halign='center'>
   <border halign='center' borderthickness='3' bordercolor='SteelBlue' margin='35' padding='10' shadowx='3' shadowy='3' shadowblur='4' shadowcolor='Gray' rotatez='-5'>
     <stack>
-      <textblock fontsize='36' fontfamily='Arial' text='Welcome To The Buckshot Sandbox!' />
+      <textblock fontsize='36' text='Welcome To The Buckshot Sandbox!' />
     </stack>
   </border>
   <border background='WhiteSmoke' halign='center' borderthickness='3' bordercolor='SteelBlue' margin='15' padding='10' shadowx='3' shadowy='3' shadowblur='4' shadowcolor='Gray'>

@@ -20,7 +20,7 @@ class Color extends FrameworkResource
     //meta data for binding system
     this.stateBag[FrameworkResource.RESOURCE_PROPERTY] = valueProperty;
   }
-  
+
   Color.register() : super.register();
   makeMe() => new Color();
 
@@ -59,10 +59,17 @@ class Color extends FrameworkResource
 
   void _initColorProperties(){
     valueProperty = new FrameworkProperty(this, "value", (String c){
-      if (!c.startsWith("#") || c.length != 7){
-        throw const BuckshotException("Invalid color format.  Use '#rrggbb'");
+
+      if (c == null){
+        return;
       }
-    }, Colors.White.toString());
+
+      if (!c.startsWith("#") || c.length != 7){
+        throw new BuckshotException("Invalid color format.  Use '#rrggbb' (given: $c)");
+      }
+    },
+    defaultValue: Colors.White.toString(),
+    converter: const StringToColorStringConverter());
   }
 
   /// Returns the string representation of the color.

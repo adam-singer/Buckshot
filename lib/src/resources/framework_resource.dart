@@ -29,7 +29,8 @@
 */
 class FrameworkResource extends FrameworkObject
 {
-  static HashMap<String, FrameworkResource> _resourceRegistry;
+  static final HashMap<String, FrameworkResource> _resourceRegistry =
+      new HashMap<String, FrameworkResource>();
 
   /// An application-wide unique identifier for the resource.
   /// Required.
@@ -43,13 +44,9 @@ class FrameworkResource extends FrameworkObject
   static const String RESOURCE_PROPERTY = "RESOURCE_PROPERTY";
 
   FrameworkResource(){
-    if (_resourceRegistry == null){
-      _resourceRegistry = new HashMap<String, FrameworkResource>();
-    }
-
     _initFrameworkResourceProperties();
   }
-  
+
   FrameworkResource.register() : super.register();
   makeMe() => null;
 

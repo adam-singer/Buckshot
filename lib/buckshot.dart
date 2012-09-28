@@ -95,6 +95,7 @@
 #source('src/converters/string_to_orientation.dart');
 #source('src/converters/string_to_verticalalignment.dart');
 #source('src/converters/string_to_color.dart');
+#source('src/converters/string_to_color_string.dart');
 #source('src/converters/string_to_solidcolorbrush.dart');
 #source('src/converters/string_to_radialgradientdrawmode.dart');
 #source('src/converters/string_to_frameworkelement.dart');

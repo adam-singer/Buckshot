@@ -92,19 +92,19 @@ class MenuStrip extends Control implements IFrameworkContainer
 '''
 <controltemplate controlType='${this.templateName}'>
   <template>
-    <border cursor='Arrow' background='WhiteSmoke'>
+    <border cursor='Arrow' background='{resource theme_background_dark}'>
       <collectionpresenter halign='stretch' collection='{template menus}'>
          <presentationpanel>
             <stackpanel orientation='horizontal'></stackpanel>
          </presentationpanel>
          <itemstemplate>
            <stack>
-              <border padding='5' background='WhiteSmoke' halign='stretch'>
+              <border padding='{resource theme_border_padding}' background='{resource theme_background_dark}' halign='stretch'>
                 <actions>
-                  <setproperty event='mouseEnter' property='background' value='LightGray' />
-                  <setproperty event='mouseLeave' property='background' value='WhiteSmoke' />
-                  <setproperty event='mouseDown' property='background' value='DarkGray' />
-                  <setproperty event='mouseUp' property='background' value='LightGray' />
+                   <setproperty event='mouseEnter' property='background' value='{resource theme_background_mouse_hover}' />
+                   <setproperty event='mouseLeave' property='background' value='{resource theme_background_dark}' />
+                   <setproperty event='mouseDown' property='background' value='{resource theme_background_mouse_down}' />
+                   <setproperty event='mouseUp' property='background' value='{resource theme_background_hover}' />
                 </actions>
                 <contentpresenter content='{data header}' />
               </border>

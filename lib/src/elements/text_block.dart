@@ -25,7 +25,7 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
 
   }
-  
+
   TextBlock.register() : super.register();
   makeMe() => new TextBlock();
 
@@ -47,9 +47,11 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
     foregroundProperty = new FrameworkProperty(
       this,
       "foreground",
-      (value){
-        rawElement.style.color = value.color.toColorString();
-      }, new SolidColorBrush(new Color.predefined(Colors.Black)), converter:const StringToSolidColorBrushConverter());
+      (Color c){
+         rawElement.style.color = c.toColorString();
+      },
+      defaultValue: new Color.hex(FrameworkResource.retrieveResource('theme_text_foreground')),
+      converter:const StringToColorConverter());
 
     textProperty = new FrameworkProperty(
       this,
@@ -70,7 +72,7 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
       "fontFamily",
       (value){
         rawElement.style.fontFamily = value.toString();
-      });
+      }, defaultValue:FrameworkResource.retrieveResource('theme_text_font_family'));
   }
 
   /// Sets [fontFamilyProperty] with the given [value]

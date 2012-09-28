@@ -48,7 +48,7 @@ void main() {
       new Binding(buckshot.windowHeightProperty, (t.parent as Border).heightProperty);
 
       (t.parent as Border).background =
-          new SolidColorBrush(new Color.predefined(Colors.WhiteSmoke));
+          new SolidColorBrush(new Color.hex(FrameworkResource.retrieveResource('theme_background_dark')));
 
       (t.parent as Border).verticalScrollEnabled = true;
 

@@ -147,11 +147,11 @@ class TabControl extends Control implements IFrameworkContainer
         converter: const StringToHorizontalAlignmentConverter());
 
     tabSelectedBrushProperty = new FrameworkProperty(this, 'tabSelectedBrush',
-        defaultValue: new SolidColorBrush(new Color.predefined(Colors.White)),
+        defaultValue: new SolidColorBrush(new Color.hex(FrameworkResource.retrieveResource('theme_background_light'))),
         converter: const StringToSolidColorBrushConverter());
 
     backgroundProperty = new FrameworkProperty(this, 'background',
-        defaultValue: new SolidColorBrush(new Color.predefined(Colors.White)),
+        defaultValue: new SolidColorBrush(new Color.hex(FrameworkResource.retrieveResource('theme_background_light'))),
         converter: const StringToSolidColorBrushConverter());
 
   }
@@ -174,12 +174,12 @@ class TabControl extends Control implements IFrameworkContainer
               <stack orientation='horizontal' />
            </presentationpanel>
            <itemstemplate>
-              <border valign='stretch' cornerradius='7,7,0,0' cursor='Arrow' background='WhiteSmoke' borderthickness='1,1,0,1' bordercolor='Gray' padding='2'>
+              <border valign='stretch' cursor='Arrow' background='{resource theme_background_dark}' margin='0,1,0,0' borderthickness='1,1,0,1' bordercolor='{resource theme_border_color}' padding='2'>
                  <stack orientation='horizontal'>
                     <contentpresenter content='{data icon}' margin='0,2,0,0' />
                     <contentpresenter content='{data header}' margin='0,3,0,0' />
                     <border margin='0,2,0,3' valign='top' width='13' height='13' padding='0,0,2,0'>
-                      <border name='__close_button__' borderColor='Gray' borderthickness='1' halign='stretch' valign='stretch' visibility='{data closeButtonVisibility}'>
+                      <border name='__close_button__' borderColor='{resource theme_border_color}' borderthickness='{resource theme_border_thickness}' halign='stretch' valign='stretch' visibility='{data closeButtonVisibility}'>
                           <actions>
                              <setproperty event='mouseEnter' property='background' value='Orange' />
                              <setproperty event='mouseLeave' property='background' value='White' />
@@ -193,7 +193,7 @@ class TabControl extends Control implements IFrameworkContainer
               </border>
            </itemstemplate>
         </collectionpresenter>
-        <border grid.row='1' halign='stretch' bordercolor='Gray' borderthickness='1' valign='stretch' background='{template background}' padding='5'>
+        <border grid.row='1' halign='stretch' bordercolor='{resource theme_border_color}' borderthickness='{resource theme_border_thickness}' valign='stretch' background='{template background}' padding='{resource theme_border_padding}'>
             <contentpresenter content='{template currentContent}' />
         </border>
      </grid>

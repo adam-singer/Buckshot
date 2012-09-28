@@ -219,20 +219,14 @@ class Template {
   * * YAML
   */
   static Future<FrameworkElement> deserialize(String buckshotTemplate){
-    final c = new Completer();
-
     final tt = buckshotTemplate.trim();
 
-    Template.getTemplate(tt)
-      .then((value) {
-        Template
-          .toFrameworkObject(Template.toXmlTree(value))
-          .then((e){
-            c.complete(e);
-          });
-      });
-
-    return c.future;
+    return _initFramework()
+              .chain((_) => Template.getTemplate(tt))
+              .chain((template){
+                return Template
+                          .toFrameworkObject(Template.toXmlTree(template));
+              });
   }
 
   /**

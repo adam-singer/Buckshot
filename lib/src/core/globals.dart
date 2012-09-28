@@ -47,39 +47,40 @@ void registerGlobalEventHandler(String handlerName, EventHandler handler){
  */
 Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
 {
-  final c = new Completer();
+  return _initFramework()
+          .chain((_) => view.ready)
+          .chain((t){
+            final el = query('#${elementID}');
 
-  _initFramework();
+            if (el == null){
+              throw new BuckshotException('Could not find DOM element with '
+                  'ID of "${elementID}"');
+            }
 
-  final el = query('#${elementID}');
-
-  if (el == null){
-    throw new BuckshotException('Could not find DOM element with ID of '
-        ' "${elementID}"');
-  }
-
-  view.ready.then((_){
-    final b = new Border();
-    el.elements.clear();
-    b.isLoaded = true;
-    el.elements.add(b.rawElement);
-    b.content = view.rootVisual;
-    c.complete(view.rootVisual);
-  });
-
-  return c.future;
+            final b = new Border();
+            el.elements.clear();
+            b.isLoaded = true;
+            el.elements.add(b.rawElement);
+            b.content = t;
+            return new Future.immediate(t);
+          });
 }
 
 bool _frameworkInitialized = false;
 
-_initFramework(){
-  if (_frameworkInitialized) return;
-
+Future _initFramework(){
+  if (_frameworkInitialized) return new Future.immediate(true);
   _frameworkInitialized = true;
 
-  if (!FrameworkAnimation._started){
-    FrameworkAnimation._startAnimatonLoop();
-  }
+  return Template
+           .deserialize(defaultTheme)
+           .chain((_){
+             if (!FrameworkAnimation._started){
+               FrameworkAnimation._startAnimatonLoop();
+             }
+             return new Future.immediate(true);
+           });
+
 }
 
 
@@ -246,4 +247,37 @@ Future _functionToFuture(Function f){
   return c.future;
 }
 
+/**
+ * A [ResourceCollection] template representing default property settings
+ * for Buckshot controls.
+ *
+ * Buckshot will use this theme template if no other is found.
+ */
+String defaultTheme =
+'''
+<resourcecollection>
+  <!-- "Theme: 50 Shades of Gray" -->
+
+  <!-- Default Palette -->
+  <color key='theme_background_light' value='White' />
+  <color key='theme_background_dark' value='WhiteSmoke' />
+  <color key='theme_background_mouse_hover' value='LightGray' />
+  <color key='theme_background_mouse_down' value='DarkGray' />
+
+  <!-- Shadows --> 
+  <color key='theme_shadow_color' value='Black' />
+  <var key='theme_shadow_x' value='2' />
+  <var key='theme_shadow_y' value='2' />
+  <var key='theme_shadow_blur' value='4' />
+
+  <!-- Borders -->
+  <color key='theme_border_color' value='LightGray' />
+  <var key='theme_border_thickness' value='1' />
+  <var key='theme_border_padding' value='5' />
+
+  <!-- Text -->
+  <var key='theme_text_font_family' value='Arial' />
+  <color key='theme_text_foreground' value='Black' />
+</resourcecollection>
+''';
 

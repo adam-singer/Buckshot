@@ -22,7 +22,7 @@ class TreeView extends Panel
 
   static const String FILE_DEFAULT_TEMPLATE =
       '''
-<border width='16' height='16' cornerradius='2' borderthickness='1' bordercolor='Gray' background='#ffff77'>
+<border width='16' height='16' cornerradius='2' borderthickness='1' bordercolor='{resource theme_border_color}' background='{resource theme_background_dark}'>
   <stackpanel halign='stretch' valign='center'>
     <border margin='2,1' borderthickness='1' bordercolor='LightGray' halign='stretch' />
     <border margin='3,1' borderthickness='1' bordercolor='LightGray' halign='stretch' />
@@ -87,29 +87,29 @@ class TreeView extends Panel
 <resourcecollection>
   <styletemplate key="__TreeView_mouse_enter_style_template__">
     <setters>
-      <setter property="background" value="#eeeeff" />
-      <setter property="borderColor" value="#ccccdd" />
+      <setter property="background" value="{resource theme_background_dark}" />
+      <setter property="borderColor" value="{resource theme_border_color}" />
     </setters>
   </styletemplate>
 
   <styletemplate key="__TreeView_mouse_leave_style_template__">
     <setters>
-      <setter property="background" value="White" />
-      <setter property="borderColor" value="White" />
+      <setter property="background" value="{resource theme_background_light}" />
+      <setter property="borderColor" value="{resource theme_background_light}" />
     </setters>
   </styletemplate>
 
   <styletemplate key="__TreeView_mouse_down_style_template__">
     <setters>
-      <setter property="background" value="#ddddee" />
-      <setter property="borderColor" value="#ccccdd" />
+      <setter property="background" value="{resource theme_background_mouse_down}" />
+      <setter property="borderColor" value="{resource theme_border_color}" />
     </setters>
   </styletemplate>
 
   <styletemplate key="__TreeView_mouse_up_style_template__">
     <setters>
-      <setter property="background" value="#eeeeff" />
-      <setter property="borderColor" value="#ccccdd" />
+      <setter property="background" value="{resource theme_background_dark}" />
+      <setter property="borderColor" value="{resource theme_border_color}" />
     </setters>
   </styletemplate>
 </resourcecollection>

@@ -141,23 +141,23 @@ class Menu extends Control implements IFrameworkContainer
 '''
 <controltemplate controlType='${this.templateName}'>
   <template>
-    <border shadowx='3'
-            shadowy='3'
-            shadowblur='6'
+    <border shadowx='{resource theme_shadow_x}'
+            shadowy='{resource theme_shadow_y}'
+            shadowblur='{resource theme_shadow_blur}'
             zorder='32766'
             minwidth='20'
             minheight='20'
-            borderthickness='1'
-            bordercolor='LightGray'
+            borderthickness='{resource theme_border_thickness}'
+            bordercolor='{resource theme_border_color}'
             cursor='Arrow'>
       <collectionpresenter halign='stretch' collection='{template menuItems}'>
          <itemstemplate>
-           <border padding='5' background='WhiteSmoke' halign='stretch'>
+           <border padding='{resource theme_border_padding}' background='{resource theme_background_dark}' halign='stretch'>
               <actions>
-                <setproperty event='mouseEnter' property='background' value='LightGray' />
-                <setproperty event='mouseLeave' property='background' value='WhiteSmoke' />
-                <setproperty event='mouseDown' property='background' value='DarkGray' />
-                <setproperty event='mouseUp' property='background' value='LightGray' />
+                <setproperty event='mouseEnter' property='background' value='{resource theme_background_mouse_hover}' />
+                <setproperty event='mouseLeave' property='background' value='{resource theme_background_dark}' />
+                <setproperty event='mouseDown' property='background' value='{resource theme_background_mouse_down}' />
+                <setproperty event='mouseUp' property='background' value='{resource theme_background_hover}' />
               </actions>
               <contentpresenter content='{data}' />
            </border>
