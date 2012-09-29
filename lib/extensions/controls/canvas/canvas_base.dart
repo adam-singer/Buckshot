@@ -1,14 +1,24 @@
-// Copyright (c) 2012, Don Olmstead
+// Copyright (c) 2012, the Buckshot project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// Apache-style license that can be found in the LICENSE file.
 
+/**
+ * Event for when a frame changes.
+ */
 class FrameEventArgs extends EventArgs
 {
+  /// The current time of the frame
   int currentTime;
 
   FrameEventArgs(int this.currentTime);
 }
 
+/**
+ * Base class for canvas drawing.
+ */
 class CanvasBase extends FrameworkElement
 {
+  /// Next canvas identifier to hand out
   static int _nextCanvasId = 0;
   /**
    * Identifier for the canvas.
@@ -18,9 +28,11 @@ class CanvasBase extends FrameworkElement
    */
   int _canvasId;
 
+  /// The width of the canvas surface
   FrameworkProperty surfaceWidthProperty;
+  /// The height of the canvas surface
   FrameworkProperty surfaceHeightProperty;
-
+  /// An event triggered on a change of frame
   FrameworkEvent<FrameEventArgs> frame;
 
   CanvasBase() {
@@ -33,10 +45,24 @@ class CanvasBase extends FrameworkElement
   }
 
   void createElement() {
-    rawElement = new Element.tag('canvas');
+    rawElement = new CanvasElement();
   }
 
   CanvasBase.register() : super.register();
+
+  void onLoaded() {
+    super.onLoaded();
+
+    FrameworkAnimation.workers[_name] = _frameHandler;
+  }
+
+  void onUnloaded() {
+    super.onUnloaded();
+
+    FrameworkAnimation.workers.remove(_name);
+  }
+
+  String get _name => "canvas_{canvasId}";
 
   void _initCanvasProperties() {
     surfaceWidthProperty = new FrameworkProperty(this, "surfaceWidth", (num v){
@@ -50,9 +76,6 @@ class CanvasBase extends FrameworkElement
 
   void _initCanvasEvents() {
     frame = new FrameworkEvent<FrameEventArgs>();
-
-    String name = "canvas_{_canvasId}";
-    FrameworkAnimation.workers[name] = _frameHandler;
   }
 
   bool _frameHandler(e) {

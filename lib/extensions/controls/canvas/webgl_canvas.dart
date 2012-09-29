@@ -1,4 +1,6 @@
-// Copyright (c) 2012, Don Olmstead
+// Copyright (c) 2012, the Buckshot project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// Apache-style license that can be found in the LICENSE file.
 
 #library('webglcanvas.canvas.controls.buckshot');
 #import('dart:html');
@@ -19,16 +21,22 @@ class WebGLCanvas extends CanvasBase
     Browser.appendClass(rawElement, 'webglcanvas');
   }
 
-  WebGLRenderingContext get context {
-    if (_context == null) {
-      CanvasElement canvas = rawElement as CanvasElement;
-
-      _context = canvas.getContext('experimental-webgl');
-    }
-
-    return _context;
-  }
+  WebGLRenderingContext get context => _context;
 
   WebGLCanvas.register() : super.register();
   makeMe() => new WebGLCanvas();
+
+  void onLoaded() {
+    super.onLoaded();
+
+    CanvasElement canvas = rawElement as CanvasElement;
+
+    _context = canvas.getContext('experimental-webgl');
+  }
+
+  void onUnloaded() {
+    super.onUnloaded();
+
+    _context = null;
+  }
 }
