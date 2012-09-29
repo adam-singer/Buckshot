@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Switchy</title>
+  </head>
+  <body style='padding:0px;margin:0px'>
+    <!-- This is the default rendering location for Buckshot -->
+    <div id='BuckshotHost'></div>
+
+	<!-- 
+	Templates
+	-->
+	<script id='master' type='application/xml'>
+	  <dockpanel background='#AABBEE' halign='stretch' valign='stretch'>
+	     <menustrip dockpanel.dock='top'>
+	       <menu header='File' />
+	       <menu header='Edit' />
+	       <menu header='View' />
+	       <menu header='Help' />
+	     </menustrip>
+	     
+	     <!-- 
+	     This border will contain status information.
+	     -->
+	     <border 
+	     	padding='{resource theme_border_padding}'
+	     	background='SteelBlue' 
+	     	dockpanel.dock='top'>
+	     	<!--
+	     	The data binding below will look for a FrameworkProperty with the
+	     	name 'statusMessage' in the view model that is bound to this view.
+	     	-->
+	        <textblock foreground='White' text='{data statusMessage}' />
+	     </border>
+	     
+	     <!-- 
+	     dockpanel will stretch the last element to fill the remaining
+	     space by default, so our content border below will stretch automatically.
+	     
+	     We are going to use default theme values wherever possible.
+	     -->
+	     <border 
+	     	margin='5' 
+	     	bordercolor='{resource theme_border_color_dark}' 
+	     	background='{resource theme_background_light}'
+	     	borderthickness='{resource theme_border_thickness}'>
+	     </border>
+	  </dockpanel>
+	</script>
+
+    <script type="application/dart" src="web/switchy.dart"></script>
+    <script src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script>
+  </body>
+</html>

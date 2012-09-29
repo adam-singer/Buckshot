@@ -1,0 +1,5 @@
+name:  switchy
+description:  A sample application
+dependencies: 
+  buckshot: 'any'
+
