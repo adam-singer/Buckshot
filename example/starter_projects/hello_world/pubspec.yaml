@@ -1,0 +1,5 @@
+name:  hello_world
+description:  A buckshot Hello World app.
+dependencies: 
+  buckshot: 'any'
+
