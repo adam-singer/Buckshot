@@ -26,6 +26,9 @@ class MenuItem extends Control
     headerProperty = new FrameworkProperty(this, 'header');
   }
 
+  get header => getValue(headerProperty);
+  set header(value) => setValue(headerProperty, value);
+
   String get defaultControlTemplate {
     return
 '''

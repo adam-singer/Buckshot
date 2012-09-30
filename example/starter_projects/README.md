@@ -26,3 +26,5 @@ Switchy builds on the **starter_project** and demonstrates the following concept
 * How to reference and use control extensions (DockPanel, MenuStrip, etc).
 * How to use theme resources to create consistent UI appearance.
 * How to use attached properties.
+
+Icons credited to <http://www.famfamfam.com/lab/icons/>

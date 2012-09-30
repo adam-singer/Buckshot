@@ -14,11 +14,96 @@
 	-->
 	<script id='master' type='application/xml'>
 	  <dockpanel background='#AABBEE' halign='stretch' valign='stretch'>
-	     <menustrip dockpanel.dock='top'>
-	       <menu header='File' />
-	       <menu header='Edit' />
-	       <menu header='View' />
-	       <menu header='Help' />
+	     <menustrip on.menuitemselected='menu_selected' dockpanel.dock='top'>
+	       <menu tag='home'>
+	          <header>
+	            <stack margin='0,5,0,5'>
+	              <image halign='center' width='25' height='25' alt='house icon' sourceuri='web/resources/house.png' />
+	              <textblock halign='center'>Home</textblock>
+	            </stack>
+	          </header>
+	       </menu>
+	       <menu>
+   	          <header>
+	            <stack margin='0,5,0,5'>
+	              <image halign='center' width='25' height='25' alt='wrench icon' sourceuri='web/resources/wrench.png' />
+	              <textblock halign='center'>Tools</textblock>
+	            </stack>
+	          </header>
+	          <!--
+	          <menuitem header='Stock Ticker' tag='stock_ticker'>
+	            <icon>
+	              <image width='25' height='25' alt='chart icon' sourceuri='web/resources/chart_curve.png' />
+	            </icon>
+	          </menuitem>
+	          -->
+  	          <menuitem header='Calculator' tag='calculator'>
+	            <icon>
+	              <image width='25' height='25' alt='calculator icon' sourceuri='web/resources/calculator.png' />
+	            </icon>
+	          </menuitem>
+	          <menuitem header='Clock' tag='clock'>
+	            <icon>
+	              <image width='25' height='25' alt='clock icon' sourceuri='web/resources/time.png' />
+	            </icon>
+	          </menuitem>
+	       </menu>
+	       <menu>
+  	          <header>
+	            <stack margin='0,5,0,5'>
+	              <image halign='center' width='25' height='25' alt='help icon' sourceuri='web/resources/help.png' />
+	              <textblock halign='center'>Info</textblock>
+	            </stack>
+	          </header>
+	          <menuitem header='About Switchy' tag='about'>
+	            <icon>
+	              <image width='25' height='25' alt='help icon' sourceuri='web/resources/help.png' />
+	            </icon>
+	          </menuitem>
+	       </menu>
+   	       <menu>
+  	          <header>
+	            <stack margin='0,5,0,5'>
+	              <image halign='center' width='30' height='25' alt='buckshot icon' sourceuri='web/resources/buckshot_logo.png' />
+	              <textblock halign='center'>Buckshot</textblock>
+	            </stack>
+	          </header>
+	          <menuitem header='Repo on Github' tag='buckshot_repo'>
+	          	<icon>
+	              <image width='25' height='25' alt='github icon' sourceuri='web/resources/github.png' />
+	            </icon>
+	          </menuitem>
+	          <menuitem header='Discussion Group' tag='buckshot_discuss'>
+	          	<icon>
+	              <image width='25' height='25' alt='github icon' sourceuri='web/resources/user_comment.png' />
+	            </icon>
+	          </menuitem>
+	          <menuitem header='Sandbox' tag='buckshot_sandbox'>
+	          	<icon>
+	              <image width='25' height='25' alt='github icon' sourceuri='web/resources/rainbow.png' />
+	            </icon>
+	          </menuitem>
+  	          <menuitem header='Blog' tag='buckshot_blog'>
+  	            <icon>
+	              <image width='25' height='25' alt='github icon' sourceuri='web/resources/book_open.png' />
+	            </icon>
+	          </menuitem>
+	          <menuitem header='Videos' tag='buckshot_videos'>
+  	            <icon>
+	              <image width='25' height='25' alt='github icon' sourceuri='web/resources/television.png' />
+	            </icon>
+	          </menuitem>
+	          <menuitem header='Page on G+' tag='buckshot_gplus'>
+  	          	<icon>
+	              <image width='25' height='25' alt='github icon' sourceuri='web/resources/gplus-icon.png' />
+	            </icon>
+	          </menuitem>
+	          <menuitem header='Suggestions' tag='buckshot_suggest'>
+	          	<icon>
+	              <image width='25' height='25' alt='github icon' sourceuri='web/resources/lightbulb.png' />
+	            </icon>
+	          </menuitem>
+	       </menu>
 	     </menustrip>
 	     
 	     <!-- 
@@ -28,15 +113,20 @@
 	     	padding='{resource theme_border_padding}'
 	     	background='SteelBlue' 
 	     	dockpanel.dock='top'>
-	     	<!--
-	     	The data binding below will look for a FrameworkProperty with the
-	     	name 'statusMessage' in the view model that is bound to this view.
-	     	-->
-	        <textblock foreground='White' text='{data statusMessage}' />
+	     	<stack orientation='horizontal'>
+	     		<textblock foreground='White' text='Status:' margin='0,5,0,0' />
+		     	<!--
+		     	The data binding below will look for a FrameworkProperty with the
+		     	name 'statusMessage' in the view model that is bound to this view.
+		     	-->
+		        <textblock foreground='White' text='{data statusMessage}' />	     	
+	     	</stack>
 	     </border>
 	     
 	     <!-- 
-	     dockpanel will stretch the last element to fill the remaining
+	     This border will be our content area.
+	     
+	     DockPanel will stretch the last element to fill the remaining
 	     space by default, so our content border below will stretch automatically.
 	     
 	     We are going to use default theme values wherever possible.
@@ -45,9 +135,430 @@
 	     	margin='5' 
 	     	bordercolor='{resource theme_border_color_dark}' 
 	     	background='{resource theme_background_light}'
-	     	borderthickness='{resource theme_border_thickness}'>
+	     	borderthickness='{resource theme_border_thickness}'
+	     	content='{data content}'>
 	     </border>
 	  </dockpanel>
+	</script>
+	
+	<script id='ticker' type='application/xml'>
+		<border
+			width='300'
+			halign='center'
+			valign='center' 
+	     	bordercolor='{resource theme_border_color_dark}' 
+	     	background='SteelBlue'
+	     	borderthickness='{resource theme_border_thickness}'
+	     	padding='{resource theme_border_padding}'
+	     	margin='10'>
+		  <stack halign='stretch'>
+			   <stack halign='center' orientation='horizontal'>
+				   <textbox valign='center' placeholder='Enter a ticker symbol...' text='{data tickerInput, mode=TwoWay}' />
+				   <button on.click='watch_ticker_click' content='Submit' margin='5' />		   
+			   </stack>
+			   <border halign='stretch' margin='5' maxheight='600' minheight='50' verticalscrollenabled='true' background='Black'>
+			   		<collectionpresenter collection='{data tickerOutput}'>
+			   		  <itemstemplate>
+			   		  	<stack orientation='horizontal'>
+			   		  		<textblock margin='5' foreground='White' text='{data datetime}' /> 
+   		  					<textblock margin='5' foreground='White' text='{data symbol}' /> 
+			   		  		<textblock margin='5' foreground='White' text='{data quote}' /> 
+			   		  	</stack>
+			   		  </itemstemplate>
+			   		</collectionpresenter>
+			   </border>
+		  </stack>
+		  
+		</border>
+	</script>
+	
+	<script id='home' type='application/xml'>
+	    <border halign='stretch' valign='stretch' background='{resource calcBackground}'>
+			<stack maxwidth='500' halign='center' valign='center'>
+			  <textblock halign='center' fontsize='48'>Welcome to Switchy!</textblock>
+			  <textblock fontsize='18' margin='0,10'>
+			  Switchy is a Buckshot demo that illustrates the structure and
+			  handling of a typical full-page content switching MVVM application.
+			  </textblock>
+			  <textblock fontsize='18' margin='0,10'>
+			  Select something from the menu at the top of the browser
+			  window to begin.
+			  </textblock>
+			</stack>	    
+	    </border>
+	</script>
+	
+	<script id='about_header' type='application/xml'>
+   		<textblock halign='center' fontsize='28' text='About Switchy' />
+	</script>
+	
+	<script id='about' type='application/xml'>
+	   <stack margin='5'>
+	   	<textblock halign='center' margin='0,5' text='Switchy - A MVVM content switching demo.' />
+	   	<textblock halign='center' margin='0,5' text='Author: John Evans' />
+	   	<textblock halign='center' margin='0,5' text='Written in Google Dart using the Buckshot UI framework.' />
+	   	<image halign='center' alt='buckshotlogo' sourceuri='web/resources/buckshot_logo.png' />
+	   	<hyperlink halign='center' content='www.buckshotui.org' navigateto='http://www.buckshotui.org/' targetname='_blank' />
+	   </stack>
+	</script>
+	
+	<!--
+	Clock Template
+	-->
+	<script id='clock' type='application/xml'>
+<border halign='center' valign='center' background='#165284' width='210' height='210' cornerradius='120' padding='10' shadowx='3' shadowy='3' shadowblur='7'>
+  <resourcecollection>
+    <lineargradientbrush key='date_background' direction='vertical'>
+       <stops>
+            <gradientstop color='#bbbbbb' />
+            <gradientstop color='White' percent='20' />
+            <gradientstop color='White' percent='80' />
+            <gradientstop color='#bbbbbb' />
+       </stops>
+    </lineargradientbrush>
+    <styletemplate key='minutehash'>
+       <setters>
+          <setter property='transformOriginY' value='95' />
+          <setter property='transformOriginX' value='4' />
+          <setter property='translateY' value='-85' />
+          <setter property='vAlign' value='center' />
+          <setter property='hAlign' value='center' />
+          <setter property='background' value='LightGray' />
+          <setter property='width' value='8' />
+          <setter property='height' value='20' />
+       </setters>
+    </styletemplate>
+  </resourcecollection>
+  <grid halign='stretch' valign='stretch'>
+    <columndefinitions>
+       <columndefinition width='*' />
+    </columndefinitions>
+    <rowdefinitions>
+       <rowdefinition height='*' />
+    </rowdefinitions>
+
+    <!-- clock face -->
+    <border background='WhiteSmoke' halign='stretch' valign='stretch' cornerradius='110' />
+
+    <!-- date inset -->
+    <border bordercolor='#777777' background='{resource date_background}' valign='center' borderthickness='1' padding='2' margin='0,0,0,135'>
+       <textblock fontsize='12' text='{data dayAndMonth}' />
+    </border>
+
+    <!-- logo -->
+    <stack halign='center' valign='center' margin='90,0,0,0'>
+      <image halign='center' alt='Buckshot Logo' width='25' sourceuri='web/resources/buckshot_logo.png'></image>
+      <textblock text='Buckshot' fontsize='10' />
+    </stack>
+
+    <!-- 5 minute hashes -->
+    <border rotatez='0' style='{resource minutehash}' />
+    <border rotatez='30' style='{resource minutehash}' />
+    <border rotatez='60' style='{resource minutehash}' />
+    <border rotatez='90' style='{resource minutehash}' />
+    <border rotatez='120' style='{resource minutehash}' />
+    <border rotatez='150' style='{resource minutehash}' />
+    <border rotatez='180' style='{resource minutehash}' />
+    <border rotatez='210' style='{resource minutehash}' />
+    <border rotatez='240' style='{resource minutehash}' />
+    <border rotatez='270' style='{resource minutehash}' />
+    <border rotatez='300' style='{resource minutehash}' />
+    <border rotatez='330' style='{resource minutehash}' />
+
+    <!-- hour hand -->
+    <border rotatez='{data hourInDegs}' transformoriginy='70' transformoriginx='5' translatey='-35' background='#165284' halign='center' valign='center' width='10' height='70' />
+
+    <!-- minute hand -->
+    <border rotatez='{data minuteInDegs}' transformoriginy='90' transformoriginx='5' translatey='-45' background='SteelBlue' halign='center' valign='center' width='10' height='90' />
+
+    <!-- knob -->
+    <border background='SteelBlue' halign='center' valign='center' width='20' height='20' cornerradius='10' />
+
+    <!-- second hand -->
+    <border rotatez='{data secondInDegs}' transformoriginy='80' transformoriginx='1' translatey='-40' background='DarkGray' halign='center' valign='center' width='2' height='80' />
+
+    <!-- second hand knob -->
+    <border background='DarkGray' halign='center' valign='center' width='7' height='7' cornerradius='7' />
+
+  </grid>
+</border>
+</script>
+	
+	<!-- 
+	Calculator templates.
+	-->
+	
+	<script id='calculator_main' type='text/xml'>
+		<border style='{resource calcStyle}'>
+			<grid width='{data width}' height='400'>
+				<rowdefinitions>
+					<rowdefinition height='50' />
+					<rowdefinition height='70' />
+					<rowdefinition height='*1' />
+				</rowdefinitions>
+				<border style='{resource calcHeader}'></border>
+				<border style='{resource borderSeperator}'></border>
+				<stackpanel orientation='horizontal' valign='center' margin='0,0,0,2'>
+	    			<image width='50' alt="Buckshot Logo" sourceuri="web/resources/buckshot_logo.png" />
+					<stackpanel>
+						<textblock style='{resource defaultText}' text='Buckshot' />
+						<textblock style='{resource defaultText}' text='Calculator' />
+					</stackpanel>
+				</stackpanel>
+				<stackpanel orientation='horizontal' valign='center' halign='right' margin='0,5,0,0'>
+					<textblock style='{resource defaultText}' text='Mode:' margin='0,0,0,5' />
+					<dropdownlist on.selectionChanged='selectionChanged_handler'>
+						<items>
+							<dropdownitem name='Standard' value='Standard' />
+							<dropdownitem name='Extended' value='Extended' />
+						</items>
+					</dropdownlist>
+				</stackpanel>
+				<border grid.row='1' style='{resource borderOutput}'>
+					<!-- 
+					In the output grid, we are overlapping several elements,
+					while using alignment to make them appear in different
+					areas of the grid cell.
+					-->
+					<grid halign='stretch' valign='stretch'>
+					   <columndefinitions>
+					      <columndefinition width='*' />
+					   </columndefinitions>
+					   <rowdefinitions>
+					      <rowdefinition height='*' />
+					   </rowdefinitions>
+						<textblock style='{resource textblockSubOutput}' valign='bottom' text='{data memoryMarker}' />
+						<textblock style='{resource textblockSubOutput}' text='{data subOutput}' />
+						<textblock style='{resource textblockOutput}' text='{data output}' />
+					</grid>
+				</border>
+				<border margin='5,5' halign='stretch' valign='stretch' grid.row='2' content='{data keypad}'></border>
+			</grid>
+		</border>
+	</script>
+	
+	
+	<!-- 
+	This template represents the default keypad layout of the calculator.
+	-->
+	<script id='keypad_default' type='text/xml'>
+		<grid halign='stretch' valign='stretch'>
+			<rowdefinitions>
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+			</rowdefinitions>
+			<columndefinitions>
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+			</columndefinitions>
+			<button on.click='buttonClick_handler' style='{resource buttonDefaultStyle}' content='MC'></button>
+			<button on.click='buttonClick_handler' grid.column='1' style='{resource buttonDefaultStyle}' content='MR'></button>
+			<button on.click='buttonClick_handler' grid.column='2' style='{resource buttonDefaultStyle}' content='MS'></button>
+			<button on.click='buttonClick_handler' grid.column='3' style='{resource buttonDefaultStyle}' content='M+'></button>
+			<button on.click='buttonClick_handler' grid.column='4' style='{resource buttonDefaultStyle}' content='M-'></button>
+			
+			<button on.click='buttonClick_handler' grid.row='1' style='{resource buttonDefaultStyle}' content='<--'></button>
+			<button on.click='buttonClick_handler' grid.column='1' grid.row='1' style='{resource buttonDefaultStyle}' content='CE'></button>
+			<button on.click='buttonClick_handler' grid.column='2' grid.row='1' style='{resource buttonDefaultStyle}' content='C'></button>
+			<button on.click='buttonClick_handler' grid.column='3' grid.row='1' style='{resource buttonDefaultStyle}' content='+-'></button>
+			<button on.click='buttonClick_handler' grid.column='4' grid.row='1' style='{resource buttonDefaultStyle}' content='SQRT'></button>
+			
+			<button on.click='buttonClick_handler' grid.row='2' style='{resource buttonDefaultStyle}' content='7'></button>
+			<button on.click='buttonClick_handler' grid.column='1' grid.row='2' style='{resource buttonDefaultStyle}' content='8'></button>
+			<button on.click='buttonClick_handler' grid.column='2' grid.row='2' style='{resource buttonDefaultStyle}' content='9'></button>
+			<button on.click='buttonClick_handler' grid.column='3' grid.row='2' style='{resource buttonDefaultStyle}' content='/'></button>
+			<button on.click='buttonClick_handler' grid.column='4' grid.row='2' style='{resource buttonDefaultStyle}' content='%'></button>
+			
+			<button on.click='buttonClick_handler' grid.row='3' style='{resource buttonDefaultStyle}' content='4'></button>
+			<button on.click='buttonClick_handler'  grid.column='1' grid.row='3' style='{resource buttonDefaultStyle}' content='5'></button>
+			<button on.click='buttonClick_handler' grid.column='2' grid.row='3' style='{resource buttonDefaultStyle}' content='6'></button>
+			<button on.click='buttonClick_handler' grid.column='3' grid.row='3' style='{resource buttonDefaultStyle}' content='*'></button>
+			<button on.click='buttonClick_handler' grid.column='4' grid.row='3' style='{resource buttonDefaultStyle}' content='1/x'></button>
+			
+			<button on.click='buttonClick_handler' grid.row='4' style='{resource buttonDefaultStyle}' content='1'></button>
+			<button on.click='buttonClick_handler' grid.column='1' grid.row='4' style='{resource buttonDefaultStyle}' content='2'></button>
+			<button on.click='buttonClick_handler' grid.column='2' grid.row='4' style='{resource buttonDefaultStyle}' content='3'></button>
+			<button on.click='buttonClick_handler' grid.column='3' grid.row='4' style='{resource buttonDefaultStyle}' content='-'></button>
+			<button on.click='buttonClick_handler' grid.column='4' grid.row='4' grid.rowspan='2' style='{resource buttonDefaultStyle}' content='='></button>
+			
+			<button on.click='buttonClick_handler' grid.row='5' grid.columnspan='2' style='{resource buttonDefaultStyle}' content='0'></button>
+			<button on.click='buttonClick_handler' grid.column='2' grid.row='5' style='{resource buttonDefaultStyle}' content='.'></button>
+			<button on.click='buttonClick_handler' grid.column='3' grid.row='5' style='{resource buttonDefaultStyle}' content='+'></button>
+		</grid>
+	</script>
+	
+	<!-- 
+	This template represents the extended keypad layout of the calcualtor.
+	-->
+	<script id='keypad_extended' type='text/xml'>
+		<grid name='gridExtended' halign='stretch' valign='stretch'>
+			<rowdefinitions>
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+				<rowdefinition height='*1' />
+			</rowdefinitions>
+			<columndefinitions>
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+				<columndefinition width='*1' />
+			</columndefinitions>
+			
+			<button on.click='buttonClick_handler' grid.column='1' style='{resource buttonDefaultStyle}' content='MC'></button>
+			<button on.click='buttonClick_handler' grid.column='2' style='{resource buttonDefaultStyle}' content='MR'></button>
+			<button on.click='buttonClick_handler' grid.column='3' style='{resource buttonDefaultStyle}' content='MS'></button>
+			<button on.click='buttonClick_handler' grid.column='4' style='{resource buttonDefaultStyle}' content='M+'></button>
+			<button on.click='buttonClick_handler' grid.column='5' style='{resource buttonDefaultStyle}' content='M-'></button>
+			
+			<button on.click='buttonClick_handler' grid.row='1' style='{resource buttonDefaultStyle}' content='sin'></button>
+			<button on.click='buttonClick_handler' grid.column='1' grid.row='1' style='{resource buttonDefaultStyle}' content='<--'></button>
+			<button on.click='buttonClick_handler' grid.column='2' grid.row='1' style='{resource buttonDefaultStyle}' content='CE'></button>
+			<button on.click='buttonClick_handler' grid.column='3' grid.row='1' style='{resource buttonDefaultStyle}' content='C'></button>
+			<button on.click='buttonClick_handler' grid.column='4' grid.row='1' style='{resource buttonDefaultStyle}' content='+-'></button>
+			<button on.click='buttonClick_handler' grid.column='5' grid.row='1' style='{resource buttonDefaultStyle}' content='SQRT'></button>
+			
+			<button on.click='buttonClick_handler' grid.row='2' style='{resource buttonDefaultStyle}' content='cos'></button>
+			<button on.click='buttonClick_handler' grid.column='1' grid.row='2' style='{resource buttonDefaultStyle}' content='7'></button>
+			<button on.click='buttonClick_handler' grid.column='2' grid.row='2' style='{resource buttonDefaultStyle}' content='8'></button>
+			<button on.click='buttonClick_handler' grid.column='3' grid.row='2' style='{resource buttonDefaultStyle}' content='9'></button>
+			<button on.click='buttonClick_handler' grid.column='4' grid.row='2' style='{resource buttonDefaultStyle}' content='/'></button>
+			<button on.click='buttonClick_handler' grid.column='5' grid.row='2' style='{resource buttonDefaultStyle}' content='%'></button>
+			
+			<button on.click='buttonClick_handler' grid.row='3' style='{resource buttonDefaultStyle}' content='x^2'></button>
+			<button on.click='buttonClick_handler' grid.column='1' grid.row='3' style='{resource buttonDefaultStyle}' content='4'></button>
+			<button on.click='buttonClick_handler' grid.column='2' grid.row='3' style='{resource buttonDefaultStyle}' content='5'></button>
+			<button on.click='buttonClick_handler' grid.column='3' grid.row='3' style='{resource buttonDefaultStyle}' content='6'></button>
+			<button on.click='buttonClick_handler' grid.column='4' grid.row='3' style='{resource buttonDefaultStyle}' content='*'></button>
+			<button on.click='buttonClick_handler' grid.column='5' grid.row='3' style='{resource buttonDefaultStyle}' content='1/x'></button>
+			
+			<button on.click='buttonClick_handler' grid.row='4' style='{resource buttonDefaultStyle}' content='x^3'></button>
+			<button on.click='buttonClick_handler' grid.column='1' grid.row='4' style='{resource buttonDefaultStyle}' content='1'></button>
+			<button on.click='buttonClick_handler' grid.column='2' grid.row='4' style='{resource buttonDefaultStyle}' content='2'></button>
+			<button on.click='buttonClick_handler' grid.column='3' grid.row='4' style='{resource buttonDefaultStyle}' content='3'></button>
+			<button on.click='buttonClick_handler' grid.column='4' grid.row='4' style='{resource buttonDefaultStyle}' content='-'></button>
+			<button on.click='buttonClick_handler' grid.column='5' grid.row='4' grid.rowspan='2' style='{resource buttonDefaultStyle}' content='='></button>
+			
+			<button on.click='buttonClick_handler' grid.row='5' style='{resource buttonDefaultStyle}' content='pi'></button>
+			<button on.click='buttonClick_handler' grid.column='1' grid.row='5' grid.columnspan='2' style='{resource buttonDefaultStyle}' content='0'></button>
+			<button on.click='buttonClick_handler' grid.column='3' grid.row='5' style='{resource buttonDefaultStyle}' content='.'></button>
+			<button on.click='buttonClick_handler' grid.column='4' grid.row='5' style='{resource buttonDefaultStyle}' content='+'></button>
+		</grid>
+	</script>
+		
+		
+	<!-- 
+	Global resources template.
+	
+	This template holds global resources that elements in other templates 
+	can bind to.  
+	
+	It is important to load this template first, so that other templates 
+	that reference resources within it will find them.
+	-->
+	<script id='resources' type='text/xml'>
+		<resourcecollection>
+		
+		    <lineargradientbrush key="calcBackground" direction="vertical">
+		      <stops>
+		        <gradientstop color="#FEFEFF" />
+		      	<gradientstop color="#CECEFF" />  
+		      </stops>
+		    </lineargradientbrush>
+		    
+		    <lineargradientbrush key="outputBackground" direction="vertical">
+		      <stops>
+		      	<gradientstop color="#DFDFFF" />  
+		        <gradientstop color="#FEFEFF" />
+		      </stops>
+		    </lineargradientbrush>
+		    
+			<styletemplate key='defaultText'>
+				<setters>
+					<setter property='fontFamily' value='Consolas' />
+					<setter property='fontSize' value='16' />
+				</setters>
+			</styletemplate>
+							    
+			<styletemplate key='calcStyle'>
+				<setters>
+					<setter property='background' value='{resource calcBackground}' />
+					<setter property='borderThickness' value='1' />
+					<setter property='cornerRadius' value='5' />
+					<setter property='borderColor' value='Black' />
+					<setter property='hAlign' value='center' />
+					<setter property='vAlign' value='center' />
+					<setter property='shadowX' value='{resource theme_shadow_x}' />
+					<setter property='shadowY' value='{resource theme_shadow_y}' />
+					<setter property='shadowBlur' value='{resource theme_shadow_blur}' />
+				</setters>
+			</styletemplate>		    
+		    
+		    <styletemplate key='calcHeader'>
+		    	<setters>
+		    		<setter property='background' value='{resource calcBackground}' />
+		    		<setter property='cornerRadius' value='5' />
+					<setter property='vAlign' value='stretch' />
+					<setter property='hAlign' value='stretch' />	
+		    	</setters>
+		    </styletemplate>
+		    
+			<styletemplate key='borderSeperator'>
+				<setters>
+					<setter property='borderThickness' value='1' />
+					<setter property='vAlign' value='bottom' />
+					<setter property='hAlign' value='stretch' />
+				</setters>
+			</styletemplate>
+
+			<styletemplate key='borderOutput'>
+				<setters>
+					<setter property='background' value='{resource outputBackground}' />
+					<setter property='height' value='50' />
+					<setter property='hAlign' value='stretch' />
+					<setter property='borderThickness' value='1' />
+					<setter property='borderColor' value='#777777' />
+					<setter property='cornerRadius' value='3' />
+					<setter property='margin' value='5,10' />
+					<setter property='padding' value='5,0' />
+				</setters>
+			</styletemplate>
+
+			<styletemplate key='textblockOutput'>
+				<setters>
+					<setter property='fontSize' value='32' />
+					<setter property='hAlign' value='right' />
+					<setter property='vAlign' value='bottom' />
+					<setter property='fontFamily' value='Consolas' />
+				</setters>
+			</styletemplate>
+			
+			<styletemplate key='textblockSubOutput'>
+				<setters>
+					<setter property='fontSize' value='14' />
+					<setter property='fontFamily' value='Consolas' />
+				</setters>
+			</styletemplate>
+			
+			<styletemplate key='buttonDefaultStyle'>
+				<setters>
+					<setter property='vAlign' value='stretch' />
+					<setter property='hAlign' value='stretch' />
+					<setter property='margin' value='3' />
+				</setters>
+			</styletemplate>		
+		</resourcecollection>
 	</script>
 
     <script type="application/dart" src="web/switchy.dart"></script>

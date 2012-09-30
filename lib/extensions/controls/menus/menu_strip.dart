@@ -21,6 +21,8 @@ class MenuStrip extends Control implements IFrameworkContainer
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = content;
 
+    this.registerEvent('menuitemselected', menuItemSelected);
+
     loaded + (_, __) => _initMenuStripControl();
   }
 

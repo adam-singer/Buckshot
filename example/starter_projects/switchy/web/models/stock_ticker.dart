@@ -18,8 +18,9 @@ class StockTickerModel
       new FrameworkEvent<StockUpdateEventArgs>();
 
   Timer _timer;
+  num _interval = 1000;
 
-  Map<String, num> _tickerSymbols;
+  final Map<String, num> _tickerSymbols = new Map<String, num>();
 
   StockTickerModel(){
     _start();
@@ -31,8 +32,17 @@ class StockTickerModel
    */
   set updateInterval(num interval){
     if (interval < 0) return;
+    _interval = interval;
     _timer.cancel();
-    _timer = new Timer.repeating(interval, _updateTickers);
+    _timer = new Timer.repeating(_interval, _updateTickers);
+  }
+
+  void stop(){
+    _timer.cancel();
+  }
+
+  void start(){
+    _timer = new Timer.repeating(_interval, _updateTickers);
   }
 
   /**
@@ -54,27 +64,27 @@ class StockTickerModel
 
   void _start(){
     // default check for updates every second
-    _timer = new Timer.repeating(1000, _updateTickers);
+    _timer = new Timer.repeating(_interval, _updateTickers);
   }
 
   void _updateTickers(_){
     if (_tickerSymbols.isEmpty()) return;
 
     _tickerSymbols.forEach((symbol, currentPrice){
-      if (!_rng.nextBool()) return; // 50% chance to spawn a symbol update
+      if (!(_rng.nextInt(100) > 50)) return; // 50% chance to spawn a symbol update
 
       // some value within 10% of the current price.
       var variance = (currentPrice * .1) * _rng.nextDouble();
 
       // up or down
-      variance *= _rng.nextBool() ? -1 : 1;
+      variance *= _rng.nextInt(100) > 50 ? -1 : 1;
 
       final newPrice = currentPrice + variance;
 
       _tickerSymbols[symbol] = newPrice;
 
       // fire the event with the new info
-      stockUpdate.invoke(this,
+      stockUpdate.invokeAsync(this,
           new StockUpdateEventArgs(symbol, newPrice, newPrice > currentPrice));
     });
   }

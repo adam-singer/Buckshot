@@ -30,7 +30,6 @@
 #source('src/core/buckshot_object.dart');
 #source('src/core/framework_property_base.dart');
 #source('src/core/attached_framework_property.dart');
-#source('src/core/data_template.dart');
 #source('src/core/framework_container.dart');
 
 #source('src/core/polly/polly.dart');
@@ -45,6 +44,8 @@
 
 #source('src/mvvm/view_model_base.dart');
 #source('src/mvvm/view.dart');
+#source('src/mvvm/data_template.dart');
+
 
 #source('src/binding/binding.dart');
 #source('src/binding/binding_mode.dart');

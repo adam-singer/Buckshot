@@ -24,6 +24,7 @@ class Button extends Control implements IFrameworkContainer
     contentProperty = new FrameworkProperty(this, 'content');
 
     margin = new Thickness.specified(0, 3, 3, 0);
+    zOrder = 0;
   }
 
   Button.register() : super.register();
