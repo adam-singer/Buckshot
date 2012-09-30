@@ -7,8 +7,7 @@
 #import('package:buckshot/buckshot.dart');
 #import('package:dartnet_event_model/events.dart');
 #import('package:dart_utils/web.dart');
-
-#source('canvas_base.dart');
+#import('package:buckshot/extensions/controls/canvas/canvas_base.dart');
 
 /**
  * A 3D canvas to draw to.

@@ -6,8 +6,7 @@
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:dart_utils/web.dart');
-
-#source('canvas_base.dart');
+#import('package:buckshot/extensions/controls/canvas/canvas_base.dart');
 
 /**
  * A 2D Canvas to draw to.

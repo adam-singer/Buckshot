@@ -2,6 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // Apache-style license that can be found in the LICENSE file.
 
+#library('webglcanvas.canvas.controls.buckshot');
+
+#import('dart:html');
+#import('package:buckshot/buckshot.dart');
+#import('package:dartnet_event_model/events.dart');
+#import('package:dart_utils/web.dart');
+
 /**
  * Event for when a frame changes.
  */
@@ -78,7 +85,7 @@ class CanvasBase extends FrameworkElement
     frame = new FrameworkEvent<FrameEventArgs>();
   }
 
-  bool _frameHandler(e) {
+  void _frameHandler(e) {
     if (!frame.hasHandlers) return;
 
     frame.invoke(this, new FrameEventArgs(e));

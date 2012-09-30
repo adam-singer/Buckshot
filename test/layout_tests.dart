@@ -65,34 +65,34 @@ void run()
           measureElement(bLorumIpsum, 11, 11, 280, 280);
 
           //TextBlock
-          measureElement(lblLorumIpsum, 100, 21, 260, 102);
+          measureElement(lblLorumIpsum, 111, 21, 260, 80);
 
           /* Vertical Stretch, Horizontal Alignment */
           //HL_VS (Horizontal Left, Vertical Stretch)
-          measureElement(bHL_VS, 303, 1, 42, 300);
-          measureElement(lblHL_VS, 444.5, 1, 42, 17);
+          measureElement(bHL_VS, 303, 1, 40, 300);
+          measureElement(lblHL_VS, 444.5, 1, 40, 17);
 
           //HC_VS (Horizontal Center, Vertical Stretch)
-          measureElement(bHC_VS, 605, 128, 45, 300);
-          measureElement(lblHC_VS, 746.5, 128, 45, 17);
+          measureElement(bHC_VS, 605, 130, 42, 300);
+          measureElement(lblHC_VS, 746.5, 130, 42, 17);
 
           //HR_VS (Horizontal Right, Vertical Stretch)
-          measureElement(bHR_VS, 907, 257, 44, 300);
-          measureElement(lblHR_VS, 1048.5, 257, 44, 17);
+          measureElement(bHR_VS, 907, 259, 42, 300);
+          measureElement(lblHR_VS, 1048.5, 259, 42, 17);
 
 
           /* Horizontal Stretch, Vertical Alignment */
           //HS_VT (Horizontal Stretch, Vertical Top)
           measureElement(bHS_VT, 1209, 1, 300, 17);
-          measureElement(lblHS_VT, 1209, 129, 44, 17);
+          measureElement(lblHS_VT, 1209, 130.5, 42, 17);
 
           //HS_VC (Horizontal Stretch, Vertical Center)
           measureElement(bHS_VC, 1652.5, 1, 300, 17);
-          measureElement(lblHS_VC, 1652.5, 128, 45, 17);
+          measureElement(lblHS_VC, 1652.5, 130, 43, 17);
 
           //HS_VB (Horizontal Stretch, Vertical Bottom)
           measureElement(bHS_VB, 2096, 1, 300, 17);
-          measureElement(lblHS_VB, 2096, 129, 43, 17);
+          measureElement(lblHS_VB, 2096, 130.5, 41, 17);
 
 
           /* All Alignments, no stretch */
@@ -109,13 +109,13 @@ void run()
           measureElement(bRC, 3162.5, 282, 19, 17);
 
           //right, bottom
-          measureElement(bRB, 3606, 284, 17, 17);
+          measureElement(bRB, 3606, 282, 19, 17);
 
           //center, bottom
           measureElement(bCB, 3908, 142, 18, 17);
 
           //left, bottom
-          measureElement(bLB, 4210, 1, 15, 17);
+          measureElement(bLB, 4210, 1, 17, 17);
 
           //left, center
           measureElement(bLC, 4370.5, 1, 17, 17);
@@ -162,51 +162,51 @@ void run()
         window.requestLayoutFrame(
             expectAsync0((){
               /* root stackpanel */
-              measureElement(spRoot, 10, 10, 372, 541);
+              measureElement(spRoot, 10, 10, 333, 538);
 
               /* "chrome" stackpanel */
-              measureElement(spChrome, 10, 136, 120, 30);
+              measureElement(spChrome, 10, 116.5, 120, 30);
 
               /* dots inside the "chrome" stackpanel */
               //black
-              measureElement(bBlack, 20, 146, 10, 10);
+              measureElement(bBlack, 20, 126.5, 10, 10);
 
               //red
-              measureElement(bRed, 20, 176, 10, 10);
+              measureElement(bRed, 20, 156.5, 10, 10);
 
               //green
-              measureElement(bGreen, 20, 206, 10, 10);
+              measureElement(bGreen, 20, 186.5, 10, 10);
 
               //blue
-              measureElement(bBlue, 20, 236, 10, 10);
+              measureElement(bBlue, 20, 216.5, 10, 10);
 
 
               /* Horizontal aligned elements in a vertical stackpanel */
               //centered
-              measureElement(lblHCenter, 40, 151, 90, 17);
+              measureElement(lblHCenter, 40, 134.5, 84, 17);
 
               //right aligned
-              measureElement(lblRight, 57, 275, 107, 17);
+              measureElement(lblRight, 57, 251, 92, 17);
 
               //left aligned
-              measureElement(lblLeft, 74, 10, 311, 17);
+              measureElement(lblLeft, 72, 10, 275, 17);
 
               /* Circle (centered horizontally) */
-              measureElement(bCircle, 91, 116, 160, 160);
+              measureElement(bCircle, 88, 96.5, 160, 160);
 
               /* Horizontal StackPanel Container */
               //container StackPanel
-              measureElement(spHorizontal, 251, 10, 372, 300);
+              measureElement(spHorizontal, 248, 10, 333, 300);
 
               //now check the vertical alignment of elements within the horizontal StackPanel
               //container StackPanel
-              measureElement(lblTop, 251, 10, 77, 17);
+              measureElement(lblTop, 248, 10, 68, 17);
 
               //container StackPanel
-              measureElement(lblVCenter, 392.5, 87, 137, 17);
+              measureElement(lblVCenter, 390, 78, 128, 17);
 
               //container StackPanel
-              measureElement(lblBottom, 534, 224, 158, 17);
+              measureElement(lblBottom, 532, 206, 137, 17);
 
             })
         );
@@ -282,7 +282,7 @@ void run()
               measureElement(rectCol4, 1, 401, 100, 500);
 
               /* Title */
-              measureElement(lblTitle, 10.5, 195, 111, 31);
+              measureElement(lblTitle, 10.5, 200, 102, 29);
 
               /* Circles */
               measureElement(borderCircle1, 1, 1, 50, 50);
@@ -295,9 +295,9 @@ void run()
               measureElement(lblCT, 51, 216, 19, 17);
               measureElement(lblRT, 51, 383, 18, 17);
               measureElement(lblRC, 167.5, 382, 19, 17);
-              measureElement(lblRB, 284, 384, 17, 17);
+              measureElement(lblRB, 284, 382, 19, 17);
               measureElement(lblCB, 284, 217, 18, 17);
-              measureElement(lblLB, 284, 51, 15, 17);
+              measureElement(lblLB, 284, 51, 17, 17);
               measureElement(lblLC, 167.5, 51, 17, 17);
               measureElement(lblCC, 167.5, 216, 20, 17);
 
