@@ -344,7 +344,7 @@ class Template {
   }
 
 
-  static Future _processProperty(ofElement, ofXMLNode){
+  static Future _processProperty(ofElement, XmlElement ofXMLNode){
     final c = new Completer();
     final String lowered = ofXMLNode.name.toLowerCase();
 
@@ -372,7 +372,10 @@ class Template {
 
         if (testValue != null && testValue is List){
           Futures
-          .wait(ofXMLNode.children.map((se) => toFrameworkObject(se)))
+          // cast to List required because XmlCollection subclasses
+          // Collection<T>
+          .wait(new List.from(ofXMLNode.children.map((se) =>
+              toFrameworkObject(se))))
           .then((results){
             results.forEach((r){
               testValue.add(r);
