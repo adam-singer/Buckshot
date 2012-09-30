@@ -19,7 +19,7 @@ Using a standard MVVM file structure, this project demonstrates:
 * How to wire up a Button click event from template to view model.
 
 ## switchy ##
-switchy builds on starter_project and demonstrates the following concepts:
+Switchy builds on the **starter_project** and demonstrates the following concepts:
 
 * How to use a master View and switch content (content Views).
 * How to use content views with their own view models.

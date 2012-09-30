@@ -16,8 +16,8 @@
 #source('menu_item_selected_event_args.dart');
 
 /**
- * Registers control components to the framework if reflection is not
- * enabled.
+ * Registers [MenuStrip], [Menu], and [MenuItem] controls to the framework if
+ * reflection is not enabled.
  */
 void registerMenuControls(){
   if (reflectionEnabled) return;

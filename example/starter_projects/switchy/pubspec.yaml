@@ -2,4 +2,5 @@ name:  switchy
 description:  A sample application
 dependencies: 
   buckshot: 'any'
+  dartnet_event_model: 'any'
 

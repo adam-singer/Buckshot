@@ -1,4 +1,5 @@
 #import('package:buckshot/buckshot.dart');
+#import('package:dartnet_event_model/events.dart');
 
 // Import control extensions we want to use for this app
 #import('package:buckshot/extensions/controls/menus/menu_lib.dart');
