@@ -1,0 +1,175 @@
+<stack halign='stretch'>
+  <textblock style='{resource headerText}' text='Buckshot supports simple text menus like below:' />
+  <menustrip halign='stretch'>
+    <menu header='File'>
+      <menuitem>
+  	     <icon>
+  	        <border width='20' height='20' background='Orange' />
+  	     </icon>
+  	     <header>
+  	        <textblock style='{resource defaultText}' text='Menu Item 1' />
+  	     </header>
+      </menuitem>
+      <menuitem header='Menu Item 2'>
+  	     <icon>
+           <border width='20' height='20' background='Green' />
+  	     </icon>
+      </menuitem>
+    </menu>
+    <menu header='View'>
+      <menuitem>
+  	     <icon>
+  	        <border width='20' height='20' background='Orange' />
+  	     </icon>
+  	     <header>
+  	        <textblock style='{resource defaultText}' text='Menu Item 1' />
+  	     </header>
+      </menuitem>
+      <menuitem header='Menu Item 2'>
+  	     <icon>
+            <border width='20' height='20' background='Green' />
+  	     </icon>
+    </menuitem>
+    </menu>
+    <menu header='Tools'>
+      <menuitem>
+  	     <icon>
+  	        <border width='20' height='20' background='Orange' />
+  	     </icon>
+  	     <header>
+  	        <textblock style='{resource defaultText}' text='Menu Item 1' />
+  	     </header>
+      </menuitem>
+      <menuitem header='Menu Item 2'>
+  	     <icon>
+            <border width='20' height='20' background='Green' />
+  	     </icon>
+    </menuitem>
+    </menu>
+    <menu header='Help'>
+      <menuitem>
+  	     <icon>
+  	        <border width='20' height='20' background='Orange' />
+  	     </icon>
+  	     <header>
+  	        <textblock style='{resource defaultText}' text='Menu Item 1' />
+  	     </header>
+      </menuitem>
+      <menuitem header='Menu Item 2'>
+  	     <icon>
+            <border width='20' height='20' background='Green' />
+  	     </icon>
+      </menuitem>
+    </menu>
+  </menustrip>
+  
+  <textblock style='{resource headerText}' text='It also supports more complex content menu strips...' />
+  
+  <menustrip halign='stretch'>
+  <menu>
+     <header>
+        <stack>
+           <image alt='demo image' sourceuri='http://www.lucastudios.com/Content/images/Certificate64.png' />
+           <textblock halign='center' fontsize='14' text='Files' />
+        </stack>
+     </header>
+      <menuitem>
+  	     <icon>
+  	        <border width='20' height='20' background='Orange' />
+  	     </icon>
+  	     <header>
+  	        <textblock style='{resource defaultText}' text='Menu Item 1' />
+  	     </header>
+      </menuitem>
+      <menuitem header='Menu Item 2'>
+  	     <icon>
+            <border width='20' height='20' background='Green' />
+  	     </icon>
+      </menuitem>
+  </menu>
+  <menu>
+     <header>
+        <stack>
+           <image alt='demo image' sourceuri='http://www.lucastudios.com/Content/images/ChartGantt64.png' />
+           <textblock halign='center' fontsize='14' text='Data' />
+        </stack>
+     </header>
+      <menuitem>
+  	     <icon>
+  	        <border width='20' height='20' background='Orange' />
+  	     </icon>
+  	     <header>
+  	        <textblock style='{resource defaultText}' text='Menu Item 1' />
+  	     </header>
+      </menuitem>
+      <menuitem header='Menu Item 2'>
+  	     <icon>
+            <border width='20' height='20' background='Green' />
+  	     </icon>
+      </menuitem>
+  </menu>
+  <menu>
+     <header>
+        <stack>
+           <image alt='demo image' sourceuri='http://www.lucastudios.com/Content/images/Connected64.png' />
+           <textblock halign='center' fontsize='14' text='Connection' />
+        </stack>
+     </header>
+      <menuitem>
+  	     <icon>
+  	        <border width='20' height='20' background='Orange' />
+  	     </icon>
+  	     <header>
+  	        <textblock style='{resource defaultText}' text='Menu Item 1' />
+  	     </header>
+      </menuitem>
+      <menuitem header='Menu Item 2'>
+  	     <icon>
+            <border width='20' height='20' background='Green' />
+  	     </icon>
+      </menuitem>
+  </menu>
+  <menu>
+     <header>
+        <stack>
+           <image alt='demo image' sourceuri='http://www.lucastudios.com/Content/images/MailBox64.png' />
+           <textblock halign='center' fontsize='14' text='Messages' />
+        </stack>
+     </header>
+      <menuitem>
+  	     <icon>
+  	        <border width='20' height='20' background='Orange' />
+  	     </icon>
+  	     <header>
+  	        <textblock style='{resource defaultText}' text='Menu Item 1' />
+  	     </header>
+      </menuitem>
+      <menuitem header='Menu Item 2'>
+  	     <icon>
+            <border width='20' height='20' background='Green' />
+  	     </icon>
+      </menuitem>
+  </menu>
+  <menu>
+     <header>
+        <stack>
+           <image alt='demo image' sourceuri='http://www.lucastudios.com/Content/images/WindowTriPaneSearch64.png' />
+           <textblock halign='center' fontsize='14' text='Search' />
+        </stack>
+     </header>
+      <menuitem>
+  	     <icon>
+  	        <border width='20' height='20' background='Orange' />
+  	     </icon>
+  	     <header>
+  	        <textblock style='{resource defaultText}' text='Menu Item 1' />
+  	     </header>
+      </menuitem>
+      <menuitem header='Menu Item 2'>
+  	     <icon>
+            <border width='20' height='20' background='Green' />
+  	     </icon>
+      </menuitem>
+  </menu>
+</menustrip>
+</stack>

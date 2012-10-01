@@ -1,0 +1,20 @@
+<stack>
+   <textblock style='{resource headerText}' text='The Accordion control lets you create collapsible UI.' />
+   <accordion selectionmode='single'>
+      <accordionitem header='Actions'>
+         <youtube width='350' height='300' videoid='C8qwuD2Bz3E' />
+      </accordionitem>
+      <accordionitem header='Event Model'>
+         <youtube width='350' height='300' videoid='eUmVlWxrE9E' />
+      </accordionitem>
+      <accordionitem header='Templates'>
+         <youtube width='350' height='300' videoid='LOacOkmd9FI' />
+      </accordionitem>
+      <accordionitem header='DockPanel'>
+         <youtube width='350' height='300' videoid='aVlRGukZN3k' />
+      </accordionitem>
+      <accordionitem header='TreeView'>
+         <youtube width='350' height='300' videoid='6DWP-E7omJs' />
+      </accordionitem>
+   </accordion>
+</stack>

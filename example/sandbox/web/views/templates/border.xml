@@ -1,0 +1,48 @@
+<stack>
+  <resourcecollection>
+    <styletemplate key='bStyle'>
+      <setters>
+        <setter property='borderThickness' value='1'/>
+        <setter property='borderColor' value='Black'/>
+        <setter property='cornerRadius' value='9'/>
+        <setter property='padding' value='10'/>
+        <setter property='margin' value='10'/>
+      </setters>
+    </styletemplate>
+  </resourcecollection>
+
+  <border style='{resource bStyle}' width='165'>
+    <textblock style='{resource defaultText}' halign='stretch'>
+    Borders provide a visible container around another element.
+    </textblock>
+  </border>
+    <border style='{resource bStyle}' width='165'>
+       <stack halign='stretch'>
+          <textblock style='{resource defaultText}' halign='stretch'>
+            They can also approximate circles.
+          </textblock>
+          <stack orientation='horizontal'>
+             <border background='Red' width='20' height='20' cornerradius='10' />
+             <border background='Orange' width='20' height='20' cornerradius='10' />
+             <border background='Green' width='20' height='20' cornerradius='10' />
+             <border background='Blue' width='20' height='20' cornerradius='10' />
+             <border background='Purple' width='20' height='20' cornerradius='10' />
+          </stack>
+       </stack>
+  </border>
+  <border margin='10' padding='10' borderstyle='dotted' borderthickness='5' bordercolor='SteelBlue' width='165'>
+    <textblock style='{resource defaultText}' halign='stretch'>
+    Borders support different line styles.
+    </textblock>
+  </border>
+
+  <border style='{resource bStyle}' background="Green" width="250" height="250">
+    <border style='{resource bStyle}' background="Blue" halign="stretch" valign="stretch">
+      <border style='{resource bStyle}' background="Orange" halign="stretch" valign="stretch">
+        <border style='{resource bStyle}' background="WhiteSmoke" halign="stretch" valign="stretch">
+           <textblock style='{resource defaultText}' halign="center" valign="center" text="Borders are cool!"/>
+        </border>
+      </border>
+    </border>
+  </border>
+</stack>

@@ -1,0 +1,48 @@
+<stack>
+  <resourcecollection>
+     <styletemplate key='defaultBorder'>
+        <setters>
+         <setter property='width' value='30' />
+         <setter property='height' value='30' />
+         <setter property='margin' value='1' />
+         <setter property='cornerRadius' value='30' />
+        </setters>
+     </styletemplate>
+  </resourcecollection>
+
+  <textblock style='{resource headerText}' text="Vertical Stack" />
+
+  <stack>
+     <border style='{resource defaultBorder}' background="Red" />
+     <border style='{resource defaultBorder}' background="Purple" />
+     <border style='{resource defaultBorder}' background="Orange" />
+  </stack>
+
+  <textblock style='{resource headerText}' text="Horizontal Stack" />
+
+  <stack orientation="horizontal">
+     <border style='{resource defaultBorder}' background="Red" />
+     <border style='{resource defaultBorder}' background="Purple" />
+     <border style='{resource defaultBorder}' background="Orange" />
+  </stack>
+
+  <textblock style='{resource headerText}' text="Cross-axis Alignment" />
+
+  <stack background='LightGreen' width='150'>
+     <border style='{resource defaultBorder}' background="Red" />
+     <border halign='center' style='{resource defaultBorder}' background="Purple" />
+     <border halign='right' style='{resource defaultBorder}' background="Orange" />
+     <border halign='stretch' height='30' cornerradius='30' background="Blue">
+        <textblock foreground='White' valign='center' halign='center' text='Stretch' />
+     </border>
+  </stack>
+
+  <stack margin='0,5' orientation='horizontal' background='LightGreen' height='150'>
+     <border valign='bottom' style='{resource defaultBorder}' background="Red" />
+     <border valign='center' style='{resource defaultBorder}' background="Purple" />
+     <border style='{resource defaultBorder}' background="Orange" />
+     <border valign='stretch' width='55' cornerradius='30' background="Blue">
+        <textblock foreground='White' valign='center' halign='center' text='Stretch' />
+     </border>
+  </stack>
+</stack>

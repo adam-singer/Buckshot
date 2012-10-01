@@ -1,0 +1,57 @@
+<!-- 
+Data Binding Demo
+
+This demo shows how Buckshot properties can be bound to data
+objects in your code.  This demo is fairly basic, but imagine
+that you are dealing with objects such as query returns from
+databases, etc.  It works the same.
+
+Each framework element has a property called "dataContext" and
+if you assign an object to it, that object or it's properties
+can be bound to properties of the element.
+
+When elements declare a data binding (using '{data ...}'), the
+Framework tries to bind to whatever object is assigned 
+to the dataContext of that element.  If dataContext is null, 
+then the framework walks up the visual tree until it finds a 
+dataContext that has some data, and attempts to bind to that.
+-->
+
+
+<stack>
+  <resourcecollection>
+    <!-- 
+    Define a resource template for our borders since they share 
+    common properties. 
+    -->
+    <styletemplate key="borderstyle">
+      <setters>
+        <setter property="width" value="100" />
+        <setter property="height" value="100" />
+        <setter property="margin" value="5" />
+      </setters>
+    </styletemplate>
+  </resourcecollection>
+
+  <textblock style='{resource headerText}' text='Binding to a timer.' />
+  <stack orientation="horizontal">
+    <!-- binding to the 'timeStamp' property of the dataContext object -->
+    <textblock style='{resource defaultText}' text="{data timeStamp}" />
+  </stack>
+
+  <textblock style='{resource headerText}' text='Binding to some color values.' />
+  <stack orientation="horizontal">
+    <!-- these borders are binding to a sub-property of a property, using 
+     Buckshot's dot notation resolver -->
+    <border style="{resource borderstyle}" background="{data color.red}" />
+    <border style="{resource borderstyle}" background="{data color.orange}" />
+    <border style="{resource borderstyle}" background="{data color.blue}" />
+  </stack>
+
+  <textblock style='{resource headerText}' text='Two-Way Binding' />
+  <stack orientation='horizontal'>
+     <textbox placeholder='Type something here...' name='tbFirst' />
+     <textblock text='<-->' />
+     <textbox placeholder='Or here...' text='{element tbFirst.text, mode=twoway}' />
+  </stack>  
+</stack>

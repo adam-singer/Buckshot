@@ -1,0 +1,15 @@
+<stack margin='10'>
+   <textblock halign='center' style='{resource headerText}' text='Popup Control' />
+   <textblock style='{resource defaultText}' text='Popup control will hover over a specific area relative to another element.' />
+   <textblock style='{resource defaultText}' text='It can contain any type of content, like these circles:' />
+   <stack halign='center' orientation='horizontal'>
+     <border background='Red' width='20' height='20' cornerradius='10' />
+     <border background='Orange' width='20' height='20' cornerradius='10' />
+     <border background='Green' width='20' height='20' cornerradius='10' />
+     <border background='Blue' width='20' height='20' cornerradius='10' />
+     <border background='Purple' width='20' height='20' cornerradius='10' />
+   </stack>
+   <textblock style='{resource defaultText}' text='Or this video:' />
+   <youtube halign='center' margin="10" videoid="LOacOkmd9FI" width="300" height="200"></youtube>
+   <textblock style='{resource defaultText}' text='Click in the Popup area to close it.' />
+</stack>

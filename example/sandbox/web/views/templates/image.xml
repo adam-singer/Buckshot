@@ -1,0 +1,4 @@
+<stack orientation='horizontal'>
+  <textblock valign='center' text='Like this logo for Buckshot?' />
+  <image alt="Buckshot Logo Candidate" sourceuri="web/resources/buckshot_logo.png" />
+</stack>

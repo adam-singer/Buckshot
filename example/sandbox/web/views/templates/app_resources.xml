@@ -1,0 +1,90 @@
+<resourcecollection>
+    <lineargradientbrush key="calcBackground" direction="vertical">
+      <stops>
+        <gradientstop color="#FEFEFF" />
+      	<gradientstop color="#CECEFF" />  
+      </stops>
+    </lineargradientbrush>
+    
+    <lineargradientbrush key="outputBackground" direction="vertical">
+      <stops>
+      	<gradientstop color="#DFDFFF" />  
+        <gradientstop color="#FEFEFF" />
+      </stops>
+    </lineargradientbrush>
+    
+	<styletemplate key='defaultText'>
+		<setters>
+			<setter property='fontFamily' value='Consolas' />
+			<setter property='fontSize' value='16' />
+		</setters>
+	</styletemplate>
+					    
+	<styletemplate key='calcStyle'>
+		<setters>
+			<setter property='background' value='{resource calcBackground}' />
+			<setter property='borderThickness' value='1' />
+			<setter property='cornerRadius' value='5' />
+			<setter property='borderColor' value='Black' />
+			<setter property='hAlign' value='center' />
+			<setter property='vAlign' value='center' />
+			<setter property='shadowX' value='{resource theme_shadow_x}' />
+			<setter property='shadowY' value='{resource theme_shadow_y}' />
+			<setter property='shadowBlur' value='{resource theme_shadow_blur}' />
+		</setters>
+	</styletemplate>		    
+    
+    <styletemplate key='calcHeader'>
+    	<setters>
+    		<setter property='background' value='{resource calcBackground}' />
+    		<setter property='cornerRadius' value='5' />
+			<setter property='vAlign' value='stretch' />
+			<setter property='hAlign' value='stretch' />	
+    	</setters>
+    </styletemplate>
+    
+	<styletemplate key='borderSeperator'>
+		<setters>
+			<setter property='borderThickness' value='1' />
+			<setter property='vAlign' value='bottom' />
+			<setter property='hAlign' value='stretch' />
+		</setters>
+	</styletemplate>
+
+	<styletemplate key='borderOutput'>
+		<setters>
+			<setter property='background' value='{resource outputBackground}' />
+			<setter property='height' value='50' />
+			<setter property='hAlign' value='stretch' />
+			<setter property='borderThickness' value='1' />
+			<setter property='borderColor' value='#777777' />
+			<setter property='cornerRadius' value='3' />
+			<setter property='margin' value='5,10' />
+			<setter property='padding' value='5,0' />
+		</setters>
+	</styletemplate>
+
+	<styletemplate key='textblockOutput'>
+		<setters>
+			<setter property='fontSize' value='32' />
+			<setter property='hAlign' value='right' />
+			<setter property='vAlign' value='bottom' />
+			<setter property='fontFamily' value='Consolas' />
+		</setters>
+	</styletemplate>
+	
+	<styletemplate key='textblockSubOutput'>
+		<setters>
+			<setter property='fontSize' value='14' />
+			<setter property='fontFamily' value='Consolas' />
+		</setters>
+	</styletemplate>
+	
+	<styletemplate key='buttonDefaultStyle'>
+		<setters>
+			<setter property='vAlign' value='stretch' />
+			<setter property='hAlign' value='stretch' />
+			<setter property='margin' value='3' />
+		</setters>
+	</styletemplate>
+</resourcecollection>		

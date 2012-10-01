@@ -4,15 +4,13 @@
 
 class Main extends View
 {
-  Main(){
-    Template.deserialize('#main')
-    .then((t){
-      rootVisual = t;
-
+  Main() : super.fromResource('web/views/templates/master.xml')
+  {
+    ready.then((t){
       // Assign the view model to the datacontext so that template
       // bindings will hook up.
-      rootVisual.dataContext = new DemoViewModel.withView(this);
-      
+      t.dataContext = new MasterViewModel.withView(this);
+
     });
   }
 }

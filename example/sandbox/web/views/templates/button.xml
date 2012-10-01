@@ -1,0 +1,9 @@
+<stack>
+  <textblock margin="0,10" text='Buttons can contain text or other elements.' />
+  <button width="80">text button</button>
+  <button margin="10,0,10,0">
+    <border width="150" height="150" background="Green">
+      <textblock foreground="White" halign="center" valign="center" text='button with content' />
+    </border>
+  </button>
+</stack>

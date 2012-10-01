@@ -1,0 +1,11 @@
+<layoutcanvas width="300" height="300" background="WhiteSmoke">
+   <border layoutcanvas.top="40" layoutcanvas.left="40" width="150" height="20" background="Red" />
+
+   <border layoutcanvas.top="30" layoutcanvas.left="80" width="20" height="130" background="Purple" zorder="1" />
+
+   <border layoutcanvas.top="100" layoutcanvas.left="60" width="170" height="30" background="#0077FF" zorder='2' />
+
+   <border layoutcanvas.top="180" layoutcanvas.left="120" width="80" height="80" background="Orange" />
+  
+   <textblock text='Place Stuff Anywhere.' style='{resource defaultText}' layoutcanvas.top='210' layoutcanvas.left='150' />
+</layoutcanvas>

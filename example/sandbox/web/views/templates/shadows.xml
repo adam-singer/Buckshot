@@ -1,0 +1,49 @@
+<stack>
+   <textblock style='{resource headerText}'>Buckshot elements support box shadows.</textblock>
+   <stack margin='10,0,0,0' orientation='horizontal'>
+      <stack>
+         <stack orientation='horizontal'>
+            <textblock minwidth='40' style='{resource defaultText}' text='X:' />
+            <slider name='slRX' min='-20' max='20' value='5' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock minwidth='40' style='{resource defaultText}' text='Y:' />
+            <slider name='slRY' min='-20' max='20' value='5' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock minwidth='40' style='{resource defaultText}' text='Blur:' />
+            <slider name='slBlur' min='0' max='20' value='5' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock minwidth='40' style='{resource defaultText}' text='Size:' />
+            <slider name='slSize' min='0' max='20' value='0' />
+         </stack>
+         <stack orientation='horizontal'>
+            <textblock minwidth='40' style='{resource defaultText}' text='Color:' />
+            <dropdownlist name='ddlColors'>
+               <items>
+                  <dropdownitem name='Black' />
+                  <dropdownitem name='Gray' />
+                  <dropdownitem name='Blue' />
+                  <dropdownitem name='Red' />
+                  <dropdownitem name='Purple' />
+                  <dropdownitem name='Green' />
+               </items>
+            </dropdownlist>
+         </stack>
+      </stack>
+      <border margin='0,0,0,15' bordercolor='SteelBlue' borderthickness='2' width='300' height='300'>
+         <border halign='center' valign='center' 
+            shadowx='{element slRX.value}'
+            shadowy='{element slRY.value}'
+            shadowblur='{element slBlur.value}'
+            shadowsize='{element slSize.value}'
+            shadowcolor='{element ddlColors.selectedItem.name}'
+            background='Orange' 
+            width='75' 
+            height='75'>
+            <image halign='center' valign='center' width='65' sourceuri='web/resources/buckshot_logo.png' alt='Buckshot Logo' />
+         </border>
+      </border> 
+   </stack>
+</stack>

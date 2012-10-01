@@ -1,0 +1,112 @@
+<!--
+ListBox Demo
+
+Three ListBoxes are displayed.  The first is a simple textual ListBox.
+The second and third demonstration customized item templates and orientation
+support.
+
+All of the ListBoxes are binding to collections in a view model, and then
+using client-side element binding to display the selected item from
+each list. 
+ --> 
+<stack>
+
+  <!-- declare resources for common settings -->
+  <resourcecollection>
+    <lineargradientbrush key="rowbg" direction="vertical" fallbackcolor="Orange">
+      <stops>
+        <gradientstop color="Yellow"></gradientstop>
+        <gradientstop color="Orange"></gradientstop>
+      </stops>
+    </lineargradientbrush>
+    <styletemplate key="title">
+      <setters>
+        <setter property="fontSize" value="20" />
+        <setter property="fontFamily" value="arial" />
+        <setter property="margin" value="20,0,0,0" />
+      </setters>
+    </styletemplate>
+    <styletemplate key="rows">
+      <setters>
+        <setter property="margin" value="1,0" />
+        <setter property="padding" value="5" />
+        <setter property="background" value="{resource rowbg}" />
+      </setters>
+    </styletemplate>
+  </resourcecollection>
+
+  <textblock style="{resource title}">Basic ListBox</textblock>
+
+  <stack orientation="horizontal">
+    <listbox name="lbBasic" width="100" datacontext="{data fruit}">
+      <presentationpanel>
+        <stack width="100"></stack>
+      </presentationpanel>
+    </listbox>
+    <stack margin="0,0,0,20">
+      <textblock text="Your Selection:"/>
+      <textblock fontsize="18" foreground="Green" text="{element lbBasic.selectedItem}"/>
+    </stack>
+  </stack>
+  
+  <textblock style="{resource title}">Vertical ListBox (Custom Template)</textblock>
+  
+  <stack orientation="horizontal">
+    <listbox name="lbVertical" datacontext="{data icons}" height="150" width="300">
+      <itemstemplate>
+        <border style="{resource rows}"> 
+          <stack orientation="horizontal">
+            <border width="64" height="64" margin="5,5">
+              <image halign="center" valign="center" sourceuri="{data uri}"></image>
+            </border>
+            <stack width="200">
+              <textblock foreground="Black" fontfamily="arial" text="{data name}"/>
+              <textblock foreground="Black" fontsize="12" text="{data description}"/>
+            </stack>      
+          </stack>
+        </border>
+      </itemstemplate>
+    </listbox>
+  
+      <stack margin="0,0,0,20">
+        <textblock text="Your Selection:"/>
+        <border width="64" height="64">
+          <image sourceuri="{element lbVertical.selectedItem.Uri}"></image>
+        </border>
+      </stack>
+  </stack>
+  <textblock style="{resource title}">Horizontal ListBox</textblock>
+  
+  <stack orientation="horizontal">
+    <listbox name="lbHorizontal" datacontext="{data icons}" width="300" verticalScrollEnabled="false" horizontalScrollEnabled="true">
+      <presentationpanel>
+        <stack orientation="horizontal"></stack>
+      </presentationpanel>
+      <itemstemplate>
+        <border style="{resource rows}" width="150"> 
+          <stack>
+            <border width="150" height="64">
+              <image halign="center" valign="center" sourceuri="{data uri}"></image>
+            </border>
+            <textblock foreground="Black" fontfamily="arial" text="{data name}"/>
+            <textblock foreground="Black" fontsize="12" text="{data description}"/>
+          </stack>
+        </border>
+      </itemstemplate>
+    </listbox>
+  
+    <stack margin="0,0,0,20">
+      <textblock text="Your Selection:"/>
+      <border width="64" height="64">
+        <image sourceuri="{element lbHorizontal.selectedItem.Uri}"></image>
+      </border>
+    </stack>
+  
+  </stack>
+
+  <textblock margin="20,0,0,0">To see the view model that this demo is binding to:</textblock>
+
+  <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
+  
+  <textblock margin="20,0,0,0" fontsize="12">Icons used in this demo are licensed to LUCA Studios LLC and may not be redistributed.</textblock>
+</stack>

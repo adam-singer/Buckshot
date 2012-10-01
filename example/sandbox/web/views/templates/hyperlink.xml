@@ -1,0 +1,9 @@
+<stack >
+  <textblock margin="0,10" text='Hyperlinks can contain text or other elements.' />
+  <hyperlink targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki/">Text Hyperlink</hyperlink>
+  <hyperlink width="170" margin="10,0,0,0" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/wiki/">
+    <border width="150" height="150" background="Green">
+      <textblock foreground="White" halign="center" valign="center" text='Content hyperlink' />
+    </border>
+  </hyperlink>
+</stack>

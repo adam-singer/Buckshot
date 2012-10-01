@@ -20,13 +20,18 @@
 #import('package:buckshot/extensions/controls/accordion/accordion.dart');
 #import('package:buckshot/extensions/controls/menus/menu_lib.dart');
 
-#import('apps/calculator/calculator.dart', prefix:'calc');
 #import('apps/todo/todo.dart', prefix:'todo');
+#import('viewmodels/calculator_viewmodel.dart');
 
-#source('viewmodels/demo_view_model.dart');
+#source('viewmodels/clock_viewmodel.dart');
+#source('viewmodels/master_viewmodel.dart');
 #source('models/demo_model.dart');
 #source('views/main.dart');
 #source('views/error_view.dart');
+#source('views/calculator/calculator.dart');
+#source('views/calculator/extended_calc.dart');
+#source('views/calculator/standard_calc.dart');
+#source('views/clock.dart');
 
 void main() {
   if (!reflectionEnabled){
@@ -43,24 +48,32 @@ void main() {
     registerMenuControls();
   }
 
-  setView(new Main())
+  Template
+    .deserialize('web/views/templates/app_resources.xml')
+    .chain((_) => setView(new Main()))
     .then((t){
-      new Binding(buckshot.windowHeightProperty, (t.parent as Border).heightProperty);
+          new Binding(buckshot.windowHeightProperty,
+              (t.parent as Border).heightProperty);
 
-      (t.parent as Border).background =
-          new SolidColorBrush(new Color.hex(FrameworkResource.retrieveResource('theme_background_dark')));
+        (t.parent as Border).background =
+            new SolidColorBrush(
+                new Color.hex(
+                              FrameworkResource
+                                .retrieveResource('theme_background_dark')));
 
-      (t.parent as Border).verticalScrollEnabled = true;
+        (t.parent as Border).verticalScrollEnabled = true;
 
-      final demo = queryString['demo'];
+        final demo = queryString['demo'];
 
-      if (demo != null){
-        t.dataContext.setTemplate('#${demo}');
-      }else{
-        t.dataContext.setTemplate('#welcome');
-        t.dataContext.setQueryStringTo('welcome');
-      }
+        if (demo != null){
+          t.dataContext.setTemplate('${demo}');
+        }else{
+          t.dataContext.setTemplate('welcome');
+          t.dataContext.setQueryStringTo('welcome');
+        }
     });
+
+
 }
 
 

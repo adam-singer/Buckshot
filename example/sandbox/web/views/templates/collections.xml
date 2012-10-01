@@ -1,0 +1,80 @@
+<stack>
+  <!-- declare resources for common settings -->
+  <resourcecollection>
+    <lineargradientbrush key="rowbg" direction="vertical" fallbackcolor="Orange">
+      <stops>
+        <gradientstop color="#EEEE77"></gradientstop>
+        <gradientstop color="Orange"></gradientstop>
+      </stops>
+    </lineargradientbrush>
+    <styletemplate key="header">
+      <setters>
+        <setter property="margin" value="1" />
+        <setter property="padding" value="5" />
+        <setter property="background" value="DarkGreen" />
+      </setters>
+    </styletemplate>
+    <styletemplate key="rows">
+      <setters>
+        <setter property="margin" value="1,0" />
+        <setter property="padding" value="5" />
+        <setter property="background" value="{resource rowbg}" />
+      </setters>
+    </styletemplate>
+  </resourcecollection>
+
+  <textblock fontsize="20">Binding To Collections</textblock>
+
+  <!-- 
+  Display a title for each column of data.
+  (note the resource binding for border styles)
+  -->
+  <stack orientation="horizontal">
+    <border width="150" style="{resource header}">
+      <textblock foreground="White" text="Title"/>
+    </border>
+    <border width="150" style="{resource header}">
+      <textblock foreground="White" text="Description"/>
+    </border>
+    <border width="310" style="{resource header}">
+      <textblock foreground="White" text="Video"/>
+    </border>
+  </stack>
+
+  <!--
+  CollectionsPresenter is a general-purpose control for rendering
+  a list of content.  Notice how it is binding to the 'videos' list
+  which is exposed by the higher-up data context (the view model).
+  -->
+  <collectionpresenter datacontext="{data videos}">
+    <!-- 
+    The presentationPanel property provides a way to customize
+    the container that the list will render inside of.
+    -->
+    <presentationpanel>
+      <stack></stack>
+    </presentationpanel>
+
+    <!--
+    The itemsTemplate property is where you build up your UI
+    for each "row" of data in the list.
+    Notice how the textblock's are binding to the fields of the 'videos'
+    list.
+    -->
+    <itemstemplate>
+      <stack orientation="horizontal">
+        <border valign='stretch' width="150" style="{resource rows}">
+          <textblock halign='stretch' foreground="Black" text="{data title}"/>
+        </border>
+        <border valign='stretch' width="150" style="{resource rows}">
+          <textblock halign='stretch' foreground="Black" text="{data description}"/>
+        </border>
+        <border width="310" style="{resource rows}">
+          <youtube margin="10" videoid="{data hash}" width="300" height="200"></youtube>
+        </border>
+      </stack>
+    </itemstemplate>
+  </collectionpresenter>
+  <textblock margin="10,0,0,0">To see the view model that this demo is binding to:</textblock>
+  <hyperlink content="View Model Code in Dart" targetname="_blank" navigateto="https://github.com/prujohn/Buckshot/blob/master/demos/tryit/DemoViewModel.dart"></hyperlink>
+</stack>

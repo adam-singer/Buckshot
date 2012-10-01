@@ -1,0 +1,16 @@
+<stack>
+   <!-- Inline -->
+   <textblock style='{resource defaultText}' text="Hello World!" />
+
+   <!-- As text node -->
+   <textblock style='{resource defaultText}'>
+      This text is in a node where
+      line breaks are tolerated.
+   </textblock>
+
+   <!-- From data source ('timeStamp' property in view model) -->
+   <textblock style='{resource defaultText}' text='{data timeStamp}' />
+
+   <!-- Other properties -->
+   <textblock fontsize='48' foreground='Green' fontfamily='courier' text='Buckshot!' />
+</stack>

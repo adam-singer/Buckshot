@@ -1,0 +1,5 @@
+<!-- FunnyOrDie element is part of the media extension library for Buckshot. -->
+<stack>
+    <textblock fontfamily="arial" text='Darth Vader Sells Out' />
+    <funnyordie videoid="1cf04006d2" margin="10" width="400" height="300" />
+</stack>

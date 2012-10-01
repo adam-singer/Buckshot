@@ -4,7 +4,7 @@
 
 class ErrorView extends View
 {
-  ErrorView() : super.fromResource('#error')
+  ErrorView() : super.fromResource('web/views/templates/error.xml')
   {
     ready.then((t){
       rootVisual = t;

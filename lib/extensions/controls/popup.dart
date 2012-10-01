@@ -161,7 +161,7 @@ class Popup extends Control
         converter: const StringToColorConverter());
 
     borderThicknessProperty = new FrameworkProperty(this, 'borderThickness',
-        defaultValue: new Thickness(FrameworkResource.retrieveResource('theme_border_thickness')),
+        defaultValue: FrameworkResource.retrieveResource('theme_border_thickness'),
         converter: const StringToThicknessConverter());
 
     cornerRadiusProperty = new FrameworkProperty(this, 'cornerRadius',

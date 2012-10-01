@@ -9,9 +9,12 @@
  *
  * Properties that need to be bound to must be of type [FrameworkProperty].
  */
-class DemoViewModel extends ViewModelBase
+class MasterViewModel extends ViewModelBase
 {
-  final DemoModel model;
+  final DemoModel model = new DemoModel();
+  final View _calc = new Calculator();
+  final View _todo = new todo.Main();
+
 
   FrameworkProperty timeStampProperty;
   FrameworkProperty videosProperty;
@@ -30,9 +33,7 @@ class DemoViewModel extends ViewModelBase
 
   View _mainView;
 
-  DemoViewModel()
-  :
-    model = new DemoModel()
+  MasterViewModel()
   {
     _initDemoViewModelProperties();
 
@@ -49,9 +50,7 @@ class DemoViewModel extends ViewModelBase
     });
   }
 
-  DemoViewModel.withView(this._mainView)
-  :
-    model = new DemoModel()
+  MasterViewModel.withView(this._mainView)
   {
     _initDemoViewModelProperties();
 
@@ -149,6 +148,8 @@ class DemoViewModel extends ViewModelBase
    * it into the [renderedOutputProperty].
    */
   void setTemplate(String templateText){
+    templateText = templateText.trim();
+
     if (templateText == ''){
       resetUI();
       return;
@@ -159,15 +160,13 @@ class DemoViewModel extends ViewModelBase
       resetUI();
       switch(appName){
         case 'todo':
-          final todoView = new todo.Main();
-          todoView.ready.then((_){
-            setValue(renderedOutputProperty, todoView.rootVisual);
+          _todo.ready.then((_){
+            setValue(renderedOutputProperty, _todo.rootVisual);
           });
           break;
         case 'calc':
-          final calcView = new calc.Main();
-          calcView.ready.then((_){
-            setValue(renderedOutputProperty, calcView.rootVisual);
+          _calc.ready.then((_){
+            setValue(renderedOutputProperty, _calc.rootVisual);
           });
           break;
         default:
@@ -175,23 +174,21 @@ class DemoViewModel extends ViewModelBase
           return;
       }
     }else{
-      if (templateText.startsWith('#')){
-        Template.getTemplate(templateText)
-          .then((t){
-            if (t == null) return;
-            setValue(templateTextProperty, t);
-
-            Template.deserialize(t).then((c){
-              setValue(renderedOutputProperty, c);
-            });
-          });
-
-      }else{
+      if (templateText.startsWith('<')){
         setValue(templateTextProperty, templateText);
 
-        Template.deserialize(templateText).then((c){
-          setValue(renderedOutputProperty, c);
-        });
+        Template
+          .deserialize(templateText)
+          .then((c){
+            setValue(renderedOutputProperty, c);
+          });
+      }else{
+        Template
+          .deserialize('web/views/templates/${templateText}.xml')
+          .then((t){
+            setValue(renderedOutputProperty, t);
+            setValue(templateTextProperty, t.stateBag['__buckshot_template__']);
+          });
       }
     }
   }
@@ -211,7 +208,8 @@ class DemoViewModel extends ViewModelBase
 '''
     );
 
-    final bodyView = new View.fromResource('#modaldialog');
+    final bodyView =
+        new View.fromResource('web/views/templates/modaldialog.xml');
 
     Futures
       .wait([titleView.ready, bodyView.ready])
@@ -237,17 +235,21 @@ class DemoViewModel extends ViewModelBase
   void _showPopupDemo(TreeNode popUpNode){
     if (_mainView == null) return;
 
-    final view = new View.fromResource("#popup");
+    new View
+        .fromResource('web/views/templates/popup.xml')
+        .ready
+        .then((t){
 
-    final p = new Popup
-        .with(view.rootVisual)
-        ..offsetX = 100
-        ..offsetY = -150
-        ..cornerRadius = new Thickness(7)
-        ..borderThickness = new Thickness(3)
-        ..borderColor = new Color.predefined(Colors.SteelBlue)
-        ..show(popUpNode);
-    p.click + (_,__) => p.hide();
+          final p = new Popup
+              .with(t)
+          ..offsetX = 100
+          ..offsetY = -150
+          ..cornerRadius = new Thickness(7)
+          ..borderThickness = new Thickness(3)
+          ..borderColor = new Color.predefined(Colors.SteelBlue)
+          ..show(popUpNode);
+          p.click + (_,__) => p.hide();
+        });
   }
 
   /*
@@ -328,10 +330,7 @@ class DemoViewModel extends ViewModelBase
       setTemplate(value);
     }else{
       setQueryStringTo(value);
-      Template.getTemplate('#${value}')
-        .then((value) {
-          setTemplate(value);
-        });
+      setTemplate(value);
     }
   }
 

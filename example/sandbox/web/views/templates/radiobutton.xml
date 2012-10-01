@@ -1,0 +1,23 @@
+<stack>
+  <textblock margin="0,10" text='Radio Buttons' />
+
+  <stack orientation="horizontal">
+    <radiobutton groupname="1"></radiobutton>
+    <textblock margin="0,0,0,5" text='Option 1' />
+  </stack>
+
+  <stack orientation="horizontal">
+    <radiobutton groupname="1"></radiobutton>
+    <textblock margin="0,0,0,5" text='Option 2' />
+  </stack>
+
+  <stack orientation="horizontal">
+    <radiobutton groupname="1"></radiobutton>
+    <textblock margin="0,0,0,5" text='Option 3' />
+  </stack>
+
+  <stack orientation="horizontal">
+    <radiobutton groupname="1"></radiobutton>
+    <textblock margin="0,0,0,5" text='Option 4' />
+  </stack>
+</stack>

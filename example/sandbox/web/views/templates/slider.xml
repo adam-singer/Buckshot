@@ -1,0 +1,38 @@
+<stack>
+   <resourcecollection>
+      <styletemplate key='borderValue'>
+         <setters>
+           <setter property='margin' value='0,0,0,5' />
+           <setter property='padding' value='2' />
+           <setter property='borderThickness' value='2' />
+           <setter property='borderColor' value='Black'/>
+           <setter property='width' value='40'/>
+           <setter property='background' value='WhiteSmoke' />
+         </setters>
+      </styletemplate>
+   </resourcecollection>
+   
+   <textblock style='{resource headerText}'>1-100, Step 1</textblock>
+   <stack margin='10' orientation="horizontal">
+      <slider valign='center' name="myslider" value="50" />
+      <border style='{resource borderValue}'>
+          <textblock style='{resource defaultText}' text="{element myslider.value}" />
+      </border>
+   </stack>
+
+   <textblock style='{resource headerText}'>1-50, Step .5</textblock>
+   <stack margin='10' orientation="horizontal">      
+      <slider valign='center' name="s2" min="1" max="50" value="25" step='.5' />
+      <border style='{resource borderValue}'>
+           <textblock style='{resource defaultText}' text="{element s2.value}" />
+       </border>    
+    </stack>
+
+   <textblock style='{resource headerText}'>1-200, Step 10</textblock>
+   <stack margin='10' orientation="horizontal">
+      <slider valign='center' name="s3" min="0" max="200" step="10" value="100" />
+      <border style='{resource borderValue}'>
+          <textblock style='{resource defaultText}' text="{element s3.value}" />
+      </border>
+   </stack>
+</stack>

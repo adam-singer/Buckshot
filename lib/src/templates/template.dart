@@ -220,13 +220,22 @@ class Template {
   */
   static Future<FrameworkElement> deserialize(String buckshotTemplate){
     final tt = buckshotTemplate.trim();
+    var rawTemplate;
 
     return _initFramework()
               .chain((_) => Template.getTemplate(tt))
               .chain((template){
-                return Template
-                          .toFrameworkObject(Template.toXmlTree(template));
+                rawTemplate = template;
+                return Template.toFrameworkObject(Template.toXmlTree(template));
+              })
+              .chain((result){
+                if (result == null){
+                  return new Future.immediate(result);
+                }
+                result.stateBag['__buckshot_template__'] = rawTemplate;
+                return new Future.immediate(result);
               });
+
   }
 
   /**

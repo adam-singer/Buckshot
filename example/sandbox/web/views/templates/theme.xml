@@ -1,0 +1,25 @@
+<resourcecollection>
+  <!-- "Theme: Bluesy" -->
+
+  <!-- Default Palette -->
+  <color key='theme_background_light' value='White' />
+  <color key='theme_background_dark' value='WhiteSmoke' />
+  <color key='theme_background_mouse_hover' value='LightGray' />
+  <color key='theme_background_mouse_down' value='DarkGray' />
+
+  <!-- Shadows --> 
+  <color key='theme_shadow_color' value='Black' />
+  <var key='theme_shadow_x' value='2' />
+  <var key='theme_shadow_y' value='2' />
+  <var key='theme_shadow_blur' value='4' />
+
+  <!-- Borders -->
+  <color key='theme_border_color' value='LightGray' />
+  <color key='theme_border_color_dark' value='DarkGray' />
+  <var key='theme_border_thickness' value='1' />
+  <var key='theme_border_padding' value='5' />
+
+  <!-- Text -->
+  <var key='theme_text_font_family' value='Arial' />
+  <color key='theme_text_foreground' value='Black' />
+</resourcecollection>

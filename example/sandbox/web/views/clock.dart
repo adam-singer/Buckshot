@@ -1,0 +1,9 @@
+
+class Clock extends View
+{
+  Clock() : super.fromResource('web/views/templates/clock.xml'){
+    ready.then((t){
+      t.dataContext = new ClockViewModel();
+    });
+  }
+}

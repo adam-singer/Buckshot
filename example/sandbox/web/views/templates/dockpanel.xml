@@ -1,0 +1,71 @@
+<stack>
+   <resourcecollection>
+      <styletemplate key='borderStyle'>
+         <setters>
+            <setter property='borderThickness' value='1' />
+            <setter property='borderColor' value='Black' />
+            <setter property='background' value='WhiteSmoke' />
+         </setters>
+      </styletemplate>
+      <styletemplate key='textStyle'>
+         <setters>
+            <setter property='vAlign' value='center' />
+            <setter property='hAlign' value='center' />
+            <setter property='background' value='WhiteSmoke' />
+         </setters>
+      </styletemplate>
+   </resourcecollection>
+   <textblock style='{resource headerText}' text='DockPanel Snaps Content To Edges' />
+   <dockpanel name='dockpanelDemo' fillLast='false' width='250' height='250' background='Khaki'>
+      <border background='LightGreen' cornerradius='7' padding='3' borderthickness='1' bordercolor='Black' name='btnDock'>
+         <textblock style='{resource defaultText}' halign='center' valign='center' text="{data dockText}" />
+      </border>
+   </dockpanel>
+   <stack orientation='horizontal'>
+      <textblock style='{resource defaultText}' text='Click One:' />
+      <button on.click='dockpanel_click' content='Left'/>
+      <button on.click='dockpanel_click' content='Top'/>
+      <button on.click='dockpanel_click' content='Right'/>
+      <button on.click='dockpanel_click' content='Bottom'/>
+   </stack>
+   
+   <textblock style='{resource headerText}' text='Nested Content In DockPanel' />
+   <dockpanel fillLast='true' width='250' height='250' background='Orange'>
+      <border dockpanel.dock='left' style='{resource borderStyle}'>
+         <textblock text='#1' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='top' style='{resource borderStyle}'>
+         <textblock text='#2' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='right' style='{resource borderStyle}'>
+         <textblock text='#3' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='bottom' style='{resource borderStyle}'>
+         <textblock text='#4' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='left' style='{resource borderStyle}'>
+         <textblock text='#5' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='top' style='{resource borderStyle}'>
+         <textblock text='#6' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='right' style='{resource borderStyle}'>
+         <textblock text='#7' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='bottom' style='{resource borderStyle}'>
+        <textblock text='#8' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='left' style='{resource borderStyle}'>
+         <textblock text='#9' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='top' style='{resource borderStyle}'>
+         <textblock text='#10' style='{resource textStyle}' />
+      </border>
+      <border dockpanel.dock='right' style='{resource borderStyle}'>
+         <textblock text='#11' style='{resource textStyle}' />
+      </border>
+      <border>
+         <textblock style='{resource defaultText}' fontsize='20' valign='center' halign='center' text='Neat!' />
+      </border>
+   </dockpanel>
+</stack>

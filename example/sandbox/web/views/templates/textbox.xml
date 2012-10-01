@@ -1,0 +1,12 @@
+<stack minheight='100'>
+   <textblock style='{resource headerText}'>
+   A TextBox allows you to input some text.
+   </textblock>
+
+   <textbox width='300' margin='0,5' name='tbDemo' placeholder='type something...' />
+
+   <stack orientation='horizontal'>
+      <textblock style='{resource defaultText}' text='You wrote:' />
+      <textblock style='{resource defaultText}' text='{element tbDemo.text}' />
+   </stack>
+</stack>

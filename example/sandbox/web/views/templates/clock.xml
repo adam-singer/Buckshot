@@ -1,0 +1,76 @@
+<border halign='center' valign='center' background='#165284' width='210' height='210' cornerradius='120' padding='10' shadowx='3' shadowy='3' shadowblur='7'>
+  <resourcecollection>
+    <lineargradientbrush key='date_background' direction='vertical'>
+       <stops>
+            <gradientstop color='#bbbbbb' />
+            <gradientstop color='White' percent='20' />
+            <gradientstop color='White' percent='80' />
+            <gradientstop color='#bbbbbb' />
+       </stops>
+    </lineargradientbrush>
+    <styletemplate key='minutehash'>
+       <setters>
+          <setter property='transformOriginY' value='95' />
+          <setter property='transformOriginX' value='4' />
+          <setter property='translateY' value='-85' />
+          <setter property='vAlign' value='center' />
+          <setter property='hAlign' value='center' />
+          <setter property='background' value='LightGray' />
+          <setter property='width' value='8' />
+          <setter property='height' value='20' />
+       </setters>
+    </styletemplate>
+  </resourcecollection>
+  <grid halign='stretch' valign='stretch'>
+    <columndefinitions>
+       <columndefinition width='*' />
+    </columndefinitions>
+    <rowdefinitions>
+       <rowdefinition height='*' />
+    </rowdefinitions>
+
+    <!-- clock face -->
+    <border background='WhiteSmoke' halign='stretch' valign='stretch' cornerradius='110' />
+
+    <!-- date inset -->
+    <border bordercolor='#777777' background='{resource date_background}' valign='center' borderthickness='1' padding='2' margin='0,0,0,135'>
+       <textblock fontsize='12' text='{data dayAndMonth}' />
+    </border>
+
+    <!-- logo -->
+    <stack halign='center' valign='center' margin='90,0,0,0'>
+      <image halign='center' alt='Buckshot Logo' width='25' sourceuri='web/resources/buckshot_logo.png'></image>
+      <textblock text='Buckshot' fontsize='10' />
+    </stack>
+
+    <!-- 5 minute hashes -->
+    <border rotatez='0' style='{resource minutehash}' />
+    <border rotatez='30' style='{resource minutehash}' />
+    <border rotatez='60' style='{resource minutehash}' />
+    <border rotatez='90' style='{resource minutehash}' />
+    <border rotatez='120' style='{resource minutehash}' />
+    <border rotatez='150' style='{resource minutehash}' />
+    <border rotatez='180' style='{resource minutehash}' />
+    <border rotatez='210' style='{resource minutehash}' />
+    <border rotatez='240' style='{resource minutehash}' />
+    <border rotatez='270' style='{resource minutehash}' />
+    <border rotatez='300' style='{resource minutehash}' />
+    <border rotatez='330' style='{resource minutehash}' />
+
+    <!-- hour hand -->
+    <border rotatez='{data hourInDegs}' transformoriginy='70' transformoriginx='5' translatey='-35' background='#165284' halign='center' valign='center' width='10' height='70' />
+
+    <!-- minute hand -->
+    <border rotatez='{data minuteInDegs}' transformoriginy='90' transformoriginx='5' translatey='-45' background='SteelBlue' halign='center' valign='center' width='10' height='90' />
+
+    <!-- knob -->
+    <border background='SteelBlue' halign='center' valign='center' width='20' height='20' cornerradius='10' />
+
+    <!-- second hand -->
+    <border rotatez='{data secondInDegs}' transformoriginy='80' transformoriginx='1' translatey='-40' background='DarkGray' halign='center' valign='center' width='2' height='80' />
+
+    <!-- second hand knob -->
+    <border background='DarkGray' halign='center' valign='center' width='7' height='7' cornerradius='7' />
+
+  </grid>
+</border>
