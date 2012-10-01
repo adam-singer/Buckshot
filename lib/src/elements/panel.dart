@@ -41,10 +41,10 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
 
     children.listChanged + (_, args) => onChildrenChanging(args);
   }
-  
+
   Panel.register() : super.register(),
   children = new ObservableList<FrameworkElement>();
-  
+
   makeMe() => null;
 
   void onChildrenChanging(ListChangedEventArgs args){

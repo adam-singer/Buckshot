@@ -9,6 +9,7 @@ class FrameworkObject extends BuckshotObject
 {
   bool _watchingMeasurement = false;
   bool _watchingPosition = false;
+  bool _firstLoad = true;
   ElementRect _previousMeasurement;
   ElementRect _previousPosition;
   FrameworkObject _parent;
@@ -244,7 +245,13 @@ class FrameworkObject extends BuckshotObject
     }
 
     onLoaded();
+
     loaded.invoke(this, new EventArgs());
+
+    if (_firstLoad){
+      onFirstLoad();
+      _firstLoad = false;
+    }
 
     if (this is! IFrameworkContainer) return;
 
@@ -264,6 +271,7 @@ class FrameworkObject extends BuckshotObject
 
   void onLoaded(){}
   void onUnloaded(){}
+  void onFirstLoad(){}
 
   bool _dataContextUpdated = false;
   void updateDataContext(){

@@ -63,7 +63,8 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   makeMe() => new CollectionPresenter();
 
   void _initCollectionPresenterProperties(){
-    presentationPanelProperty = new FrameworkProperty(this, "presentationPanel", (Panel p){
+    presentationPanelProperty =
+        new FrameworkProperty(this, "presentationPanel", (Panel p){
       if (p.parent != null)
         throw const BuckshotException("Element is already child of another element.");
 
@@ -131,7 +132,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
           '${iterationObject}</textblock>')
           .then((it){
             it.stateBag[SBO] = iterationObject;
-            itemCreated.invoke(this, new ItemCreatedEventArgs(it));
+            itemCreated.invokeAsync(this, new ItemCreatedEventArgs(it));
             presentationPanel.children.add(it);
           });
       });
@@ -143,7 +144,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
         .then((it){
           it.stateBag[SBO] = iterationObject;
           it.dataContext = iterationObject;
-          itemCreated.invoke(this, new ItemCreatedEventArgs(it));
+          itemCreated.invokeAsync(this, new ItemCreatedEventArgs(it));
           presentationPanel.children.add(it);
         });
       });

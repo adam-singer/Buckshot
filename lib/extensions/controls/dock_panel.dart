@@ -28,8 +28,6 @@ class DockPanel extends Panel
     }
 
     _initDockPanelProperties();
-
-    loaded + (_, __) => invalidate();
   }
 
   DockPanel.register() : super.register();
@@ -46,6 +44,8 @@ class DockPanel extends Panel
       invalidate();
     }
   }
+
+  void onFirstLoad() => invalidate();
 
   bool get fillLast => getValue(fillLastProperty);
   set fillLast(bool value) => setValue(fillLastProperty, value);

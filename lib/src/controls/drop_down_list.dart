@@ -44,29 +44,31 @@ class DropDownList extends Control
       _updateDDL();
     };
 
-    void doNotify(){
-      DropDownItem selected;
-      final el = rawElement as SelectElement;
 
-      if (itemsSource != null && !itemsSource.isEmpty()) {
-        selectedItemProperty.value.name = itemsSource[el.selectedIndex];
-        selectedItemProperty.value.value = itemsSource[el.selectedIndex];
-        selected = selectedItemProperty.value;
-      }else if (!items.isEmpty()){
-        selected = items[el.selectedIndex];
-        selectedItemProperty.value.name = selected.name;
-        selectedItemProperty.value.value = selected.value;
-      }
-
-      if (selected != null) selectionChanged.invoke(this, new SelectedItemChangedEventArgs<DropDownItem>(selected));
-    }
-
-    this.loaded + (_, __){
-      _updateDDL();
-      doNotify();
-    };
 
     rawElement.on.change.add((e) => doNotify());
+  }
+
+  void doNotify(){
+    DropDownItem selected;
+    final el = rawElement as SelectElement;
+
+    if (itemsSource != null && !itemsSource.isEmpty()) {
+      selectedItemProperty.value.name = itemsSource[el.selectedIndex];
+      selectedItemProperty.value.value = itemsSource[el.selectedIndex];
+      selected = selectedItemProperty.value;
+    }else if (!items.isEmpty()){
+      selected = items[el.selectedIndex];
+      selectedItemProperty.value.name = selected.name;
+      selectedItemProperty.value.value = selected.value;
+    }
+
+    if (selected != null) selectionChanged.invoke(this, new SelectedItemChangedEventArgs<DropDownItem>(selected));
+  }
+
+  void onLoaded(){
+    _updateDDL();
+    doNotify();
   }
 
   void _updateDDL(){

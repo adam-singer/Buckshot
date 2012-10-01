@@ -5,7 +5,7 @@
 /**
 * Implements a layout container where elements can be arranged explicitly in
 * left/top position within the container area.
-* 
+*
 * Element overlapping, and z-ordering is supported.
 *
 * This class is **not** related to the HTML5 <Canvas> element. */
@@ -19,38 +19,41 @@ class LayoutCanvas extends Panel
   static AttachedFrameworkProperty leftProperty;
 
   EventHandlerReference _ref;
-  
+
   LayoutCanvas(){
     Browser.appendClass(rawElement, "LayoutCanvas");
-    
+
     if (!reflectionEnabled){
-      buckshot.registerAttachedProperty('layoutcanvas.top', 
+      buckshot.registerAttachedProperty('layoutcanvas.top',
           LayoutCanvas.setTop);
-      buckshot.registerAttachedProperty('layoutcanvas.left', 
+      buckshot.registerAttachedProperty('layoutcanvas.left',
           LayoutCanvas.setLeft);
     }
-    
-    loaded + (_, __){
-      _ref = positionChanged + positionChanged_handler;
-      children.forEach((child){
-        LayoutCanvas._setPosition(child);
-      });
-    };
-    
-    unloaded + (_, __){
-      positionChanged - _ref;
-    };
   }
-    
+
   LayoutCanvas.register() : super.register();
   makeMe() => new LayoutCanvas();
-  
+
+  void onFirstLoad(){
+    children.forEach((child){
+      LayoutCanvas._setPosition(child);
+    });
+  }
+
+  void onLoaded(){
+    _ref = positionChanged + positionChanged_handler;
+  }
+
+  void onUnLoaded(){
+    positionChanged - _ref;
+  }
+
   void positionChanged_handler(sender, MeasurementChangedEventArgs args){
     children.forEach((child){
       LayoutCanvas._setPosition(child);
     });
   }
-  
+
   void onChildrenChanging(ListChangedEventArgs args){
       super.onChildrenChanging(args);
 
@@ -100,11 +103,11 @@ class LayoutCanvas extends Panel
     void doMeasurement(ElementRect m){
       final l = LayoutCanvas.getLeft(el);
       final t = LayoutCanvas.getTop(el);
-      
+
       el.rawElement.style.left = '${m.offset.left + l}px';
       el.rawElement.style.top = '${m.offset.top + t}px';
     }
-       
+
     if (mrm != null){
       doMeasurement(mrm);
     }else{
@@ -113,8 +116,8 @@ class LayoutCanvas extends Panel
       });
     }
   }
-  
-  
+
+
   /**
   * Sets the top value of the element relative to a parent LayoutCanvas container */
   static void setTop(FrameworkElement element, value){

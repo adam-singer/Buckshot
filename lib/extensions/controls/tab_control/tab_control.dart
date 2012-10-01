@@ -37,8 +37,6 @@ class TabControl extends Control implements IFrameworkContainer
     _initTabContainerProperties();
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = getValue(tabItemsProperty);
-
-    loaded + _initControl;
   }
 
   TabControl.register() : super.register(),
@@ -98,7 +96,7 @@ class TabControl extends Control implements IFrameworkContainer
 
   }
 
-  void _initControl(sender, args){
+  void onFirstLoad(){
     if (tabItems.isEmpty()) return;
 
     // this is the collection of the visual elements representing each

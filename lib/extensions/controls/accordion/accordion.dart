@@ -28,8 +28,6 @@ class Accordion extends Control implements IFrameworkContainer
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] =
         getValue(accordionItemsProperty);
-
-    loaded + (_, __) => _initControl();
   }
 
   Accordion.register() : super.register(){
@@ -62,15 +60,9 @@ class Accordion extends Control implements IFrameworkContainer
 
   List<FrameworkObject> get accordionItems => getValue(accordionItemsProperty);
 
-  void _initControl(){
-//    accordionItems.forEach((f){
-//      f.loaded + (_, __){
-//        var test = f.resolveDataContext();
-//        print('${test.value}');
-//      };
-//    });
-
+  void onFirstLoad(){
     _invalidate();
+    super.onFirstLoad();
   }
 
   void _invalidate(){

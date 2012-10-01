@@ -17,8 +17,6 @@ class Menu extends Control implements IFrameworkContainer
   FrameworkProperty offsetXProperty;
   FrameworkProperty offsetYProperty;
 
-  bool _isInitialized = false;
-
   final FrameworkEvent<MenuItemSelectedEventArgs> menuItemSelected =
       new FrameworkEvent<MenuItemSelectedEventArgs>();
 
@@ -32,17 +30,13 @@ class Menu extends Control implements IFrameworkContainer
 
     visibility = Visibility.collapsed;
 
-    loaded + (_, __) => _initControl();
-
     registerEvent('menuitemselected', menuItemSelected);
   }
 
   Menu.register() : super.register();
   makeMe() => new Menu();
 
-  void _initControl(){
-    if (_isInitialized) return;
-    _isInitialized = true;
+  void onFirstLoad(){
 
     var mp = getValue(_menuParentProperty);
 

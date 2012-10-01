@@ -29,18 +29,14 @@ class PlusOne extends FrameworkElement
     Browser.appendClass(rawElement, "buckshot_plusone");
 
     _initializePlusOneProperties();
-
-    var ref;
-
-    ref = loaded + (_, __){
-      _inject(_plusOneJS);
-      loaded - ref;
-    };
   }
-  
+
   PlusOne.register() : super.register();
   makeMe() => new PlusOne();
 
+  void onFirstLoad(){
+    _inject(_plusOneJS);
+  }
 
   void _initializePlusOneProperties(){
     annotationProperty = new FrameworkProperty(this, "annotation", (PlusOneAnnotationTypes value){

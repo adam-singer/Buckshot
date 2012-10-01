@@ -35,30 +35,8 @@ class TreeNode extends Control implements IFrameworkContainer
 
   TreeNode.register() : super.register();
   makeMe() => new TreeNode();
-  
+
   void _initControl(){
-    var lastWasEmpty = false;
-    void adjustIndicator(){
-      if (childNodes.isEmpty()){
-        if (lastWasEmpty) return;
-
-        indicator = '';
-
-        setValue(iconProperty, fileIcon);
-
-        lastWasEmpty = true;
-      }else{
-        indicator = childVisibility == Visibility.visible
-            ? TreeView.INDICATOR_EXPANDED
-            : TreeView.INDICATOR_COLLAPSED;
-
-        setValue(iconProperty, folderIcon);
-
-        lastWasEmpty = false;
-      }
-    }
-
-
     // Adjust indicator if children present or not.
     childNodes.listChanged + (__, _) => adjustIndicator();
 
@@ -72,13 +50,35 @@ class TreeNode extends Control implements IFrameworkContainer
 
         adjustIndicator();
       };
-
-    loaded + (_, __){
-      _parentTreeView = Template.findParentByType(this, 'TreeView');
-      adjustIndicator();
-    };
   }
 
+  void onFirstLoad(){
+    _parentTreeView = Template.findParentByType(this, 'TreeView');
+    adjustIndicator();
+  }
+
+  var _lastWasEmpty = false;
+
+  void adjustIndicator(){
+
+    if (childNodes.isEmpty()){
+      if (_lastWasEmpty) return;
+
+      indicator = '';
+
+      setValue(iconProperty, fileIcon);
+
+      _lastWasEmpty = true;
+    }else{
+      indicator = childVisibility == Visibility.visible
+          ? TreeView.INDICATOR_EXPANDED
+              : TreeView.INDICATOR_COLLAPSED;
+
+      setValue(iconProperty, folderIcon);
+
+      _lastWasEmpty = false;
+    }
+  }
 
   void _setMouseStyles(){
     if (_mouseStylesSet) return;

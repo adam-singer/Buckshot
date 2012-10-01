@@ -6,8 +6,6 @@ class MenuStrip extends Control implements IFrameworkContainer
 {
   FrameworkProperty menusProperty;
 
-  bool _isInitialized = false;
-
   final FrameworkEvent<MenuItemSelectedEventArgs> menuItemSelected =
       new FrameworkEvent<MenuItemSelectedEventArgs>();
 
@@ -23,15 +21,12 @@ class MenuStrip extends Control implements IFrameworkContainer
 
     this.registerEvent('menuitemselected', menuItemSelected);
 
-    loaded + (_, __) => _initMenuStripControl();
   }
 
   MenuStrip.register() : super.register();
   makeMe() => new MenuStrip();
 
-  void _initMenuStripControl(){
-    if (_isInitialized) return;
-
+  void onFirstLoad(){
     if (menus.isEmpty()) return;
 
     menus.forEach((Menu m){
@@ -62,8 +57,6 @@ class MenuStrip extends Control implements IFrameworkContainer
         };
       }
     });
-
-    _isInitialized = true;
   }
 
   /**
