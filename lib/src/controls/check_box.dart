@@ -21,27 +21,25 @@ class CheckBox extends Control
   CheckBox()
   : selectionChanged = new FrameworkEvent<EventArgs>()
   {
-    Browser.appendClass(rawElement, "checkbox");
+    Browser.appendClass(rawElement, 'checkbox');
     _initProperties();
     _initEvents();
-    
+
     registerEvent('selectionchanged', selectionChanged);
   }
-  
+
   CheckBox.register() : super.register(),
     selectionChanged = new FrameworkEvent<EventArgs>();
   makeMe() => new CheckBox();
 
   void _initProperties(){
-
-    valueProperty = new FrameworkProperty(this, "value", (String v){
-      rawElement.attributes["value"] = v;
+    valueProperty = new FrameworkProperty(this, 'value', (String v){
+      rawElement.attributes['value'] = v;
     });
 
-    groupNameProperty = new FrameworkProperty(this, "groupName", (String v){
-      rawElement.attributes["name"] = v;
-    }, "default");
-
+    groupNameProperty = new FrameworkProperty(this, 'groupName', (String v){
+      rawElement.attributes['name'] = v;
+    }, 'default');
   }
 
   void _initEvents(){
@@ -60,15 +58,23 @@ class CheckBox extends Control
   /// Sets the [groupNameProperty] value.
   set groupName(String v) => setValue(groupNameProperty, v);
 
+  /// Gets whether the check box is checked.
+  bool get isChecked {
+    InputElement inputElement = rawElement as InputElement;
+
+    return inputElement.checked;
+  }
 
   void createElement(){
     rawElement = new InputElement();
-    rawElement.attributes["type"] = "checkbox";
+    rawElement.attributes['type'] = 'checkbox';
   }
 
   /// Manually sets this checkbox as the selected one of a group.
   void setAsSelected(){
-    rawElement.attributes["checked"] = "true";
+    InputElement inputElement = rawElement as InputElement;
+
+    inputElement.checked = true;
     selectionChanged.invoke(this, new EventArgs());
   }
 }
