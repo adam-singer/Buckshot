@@ -6,7 +6,7 @@
 /**
 * Base class for event-driven [FrameworkElement] actions.
 */
-class ActionBase extends TemplateObject {
+abstract class ActionBase extends TemplateObject {
 
   FrameworkProperty eventProperty;
 

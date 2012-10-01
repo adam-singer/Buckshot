@@ -5,5 +5,5 @@
  */
 class Home extends View
 {
-    Home() : super.fromResource('#home');
+    Home() : super.fromResource('web/views/templates/home.xml');
 }

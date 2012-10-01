@@ -36,16 +36,14 @@ void main() {
     registerMenuControls();
   }
 
-  // setView() renders a View into the web page at a DIV with the id
-  // of 'BuckshotHost'.  You can also specify a different id if you want to.
-
+  // 1. Deserialize the resources template so it's loaded first.
+  // 2. Set the view to the Master View
+  // 3. Create a binding to make the app full-window.
   Template
-    .deserialize('#resources') // ensure our global resources are loaded first
-    .then((_){
-      setView(new Master())
-      .then((viewObject){
+    .deserialize('web/views/templates/resources.xml')   // #1
+    .chain((_) => setView(new Master()))                // #2
+    .then((viewObject){                                 // #3
         bind(buckshot.windowHeightProperty,
             (viewObject.parent as Border).heightProperty);
       });
-    });
 }

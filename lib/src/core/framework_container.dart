@@ -6,7 +6,7 @@
  * Interface contract for elements that act as containers for
  * other elements.
  */
-class IFrameworkContainer{
-  
+abstract class IFrameworkContainer
+{
   abstract get content;
 }

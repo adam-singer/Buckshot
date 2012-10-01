@@ -1,7 +1,7 @@
 class Calculator extends View
 {
 
-  Calculator() : super.fromResource('#calculator_main')
+  Calculator() : super.fromResource('web/views/templates/calculator.xml')
   {
     ready.then((t){
       rootVisual.dataContext = new CalculatorViewModel();

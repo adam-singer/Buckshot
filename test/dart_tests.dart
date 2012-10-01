@@ -39,7 +39,7 @@ run(){
       final o = new Object();
 
       Expect.throws((){
-        Expect.isNotNull(o.runtimeType());
+        Expect.isNotNull(o.runtimeType);
       });
     });
 

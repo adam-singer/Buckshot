@@ -5,7 +5,7 @@
 /**
 * Interface contract for classes registering as presentation format providers.
 */
-class IPresentationFormatProvider
+abstract class IPresentationFormatProvider
 {
   /**
   * Takes an object tree starting at [elementRoot] and attempts to convert it to a serialized string
@@ -16,7 +16,7 @@ class IPresentationFormatProvider
   * Returns true if the given template is detected to be of a compatible format.
   */
   abstract bool isFormat(String template);
-  
+
   /**
    * Returns a normalized Xml Tree from the given template.
    */

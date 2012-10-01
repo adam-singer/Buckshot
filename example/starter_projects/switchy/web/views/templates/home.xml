@@ -1,0 +1,13 @@
+<border halign='stretch' valign='stretch' background='{resource calcBackground}'>
+	<stack maxwidth='500' halign='center' valign='center'>
+	  <textblock halign='center' fontsize='48'>Welcome to Switchy!</textblock>
+	  <textblock fontsize='18' margin='0,10'>
+	  Switchy is a Buckshot demo that illustrates the structure and
+	  handling of a typical full-page content switching MVVM application.
+	  </textblock>
+	  <textblock fontsize='18' margin='0,10'>
+	  Select something from the menu at the top of the browser
+	  window to begin.
+	  </textblock>
+	</stack>	    
+</border>

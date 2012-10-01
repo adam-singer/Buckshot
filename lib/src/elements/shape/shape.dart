@@ -3,7 +3,7 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 /// A base class for primitive shape elements
-class Shape extends FrameworkElement
+abstract class Shape extends FrameworkElement
 {
   SVGElement shapeElement;
   SVGSVGElement _svgWrapper;
@@ -19,7 +19,7 @@ class Shape extends FrameworkElement
     Browser.appendClass(rawElement, "shape");
     _initShapeProperties();
   }
-  
+
   Shape.register() : super.register();
   makeMe() => null;
 
@@ -37,14 +37,14 @@ class Shape extends FrameworkElement
 //    }, 'stroke', converter:const StringToSolidColorBrushConverter());
 
 
-    fillProperty = new AnimatingFrameworkProperty(this, 'fill', 
-        'fill', 
+    fillProperty = new AnimatingFrameworkProperty(this, 'fill',
+        'fill',
         propertyChangedCallback: (Brush value){
           //TODO Animation hooks won't work because shapeElement is not root
           //need to implement some sort of proxy element solution
 
           value.renderBrush(shapeElement);
-        }, 
+        },
         converter:const StringToSolidColorBrushConverter());
 
     _swProperty = new FrameworkProperty(this, '_sw', (v){

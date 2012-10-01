@@ -1,0 +1,126 @@
+ <dockpanel background='#AABBEE' halign='stretch' valign='stretch'>
+     <menustrip on.menuitemselected='menu_selected' dockpanel.dock='top'>
+       <menu tag='home'>
+          <header>
+            <stack margin='0,5,0,5'>
+              <image halign='center' width='25' height='25' alt='house icon' sourceuri='web/resources/house.png' />
+              <textblock halign='center'>Home</textblock>
+            </stack>
+          </header>
+       </menu>
+       <menu>
+          <header>
+            <stack margin='0,5,0,5'>
+              <image halign='center' width='25' height='25' alt='wrench icon' sourceuri='web/resources/wrench.png' />
+              <textblock halign='center'>Tools</textblock>
+            </stack>
+          </header>
+          <!--
+          <menuitem header='Stock Ticker' tag='stock_ticker'>
+            <icon>
+              <image width='25' height='25' alt='chart icon' sourceuri='web/resources/chart_curve.png' />
+            </icon>
+          </menuitem>
+          -->
+          <menuitem header='Calculator' tag='calculator'>
+            <icon>
+              <image width='25' height='25' alt='calculator icon' sourceuri='web/resources/calculator.png' />
+            </icon>
+          </menuitem>
+          <menuitem header='Clock' tag='clock'>
+            <icon>
+              <image width='25' height='25' alt='clock icon' sourceuri='web/resources/time.png' />
+            </icon>
+          </menuitem>
+       </menu>
+       <menu>
+          <header>
+            <stack margin='0,5,0,5'>
+              <image halign='center' width='25' height='25' alt='help icon' sourceuri='web/resources/help.png' />
+              <textblock halign='center'>Info</textblock>
+            </stack>
+          </header>
+          <menuitem header='About Switchy' tag='about'>
+            <icon>
+              <image width='25' height='25' alt='help icon' sourceuri='web/resources/help.png' />
+            </icon>
+          </menuitem>
+       </menu>
+       <menu>
+          <header>
+            <stack margin='0,5,0,5'>
+              <image halign='center' width='30' height='25' alt='buckshot icon' sourceuri='web/resources/buckshot_logo.png' />
+              <textblock halign='center'>Buckshot</textblock>
+            </stack>
+          </header>
+          <menuitem header='Repo on Github' tag='buckshot_repo'>
+          	<icon>
+              <image width='25' height='25' alt='github icon' sourceuri='web/resources/github.png' />
+            </icon>
+          </menuitem>
+          <menuitem header='Discussion Group' tag='buckshot_discuss'>
+          	<icon>
+              <image width='25' height='25' alt='github icon' sourceuri='web/resources/user_comment.png' />
+            </icon>
+          </menuitem>
+          <menuitem header='Sandbox' tag='buckshot_sandbox'>
+          	<icon>
+              <image width='25' height='25' alt='github icon' sourceuri='web/resources/rainbow.png' />
+            </icon>
+          </menuitem>
+          <menuitem header='Blog' tag='buckshot_blog'>
+            <icon>
+              <image width='25' height='25' alt='github icon' sourceuri='web/resources/book_open.png' />
+            </icon>
+          </menuitem>
+          <menuitem header='Videos' tag='buckshot_videos'>
+            <icon>
+              <image width='25' height='25' alt='github icon' sourceuri='web/resources/television.png' />
+            </icon>
+          </menuitem>
+          <menuitem header='Page on G+' tag='buckshot_gplus'>
+          	<icon>
+              <image width='25' height='25' alt='github icon' sourceuri='web/resources/gplus-icon.png' />
+            </icon>
+          </menuitem>
+          <menuitem header='Suggestions' tag='buckshot_suggest'>
+          	<icon>
+              <image width='25' height='25' alt='github icon' sourceuri='web/resources/lightbulb.png' />
+            </icon>
+          </menuitem>
+       </menu>
+     </menustrip>
+     
+     <!-- 
+     This border will contain status information.
+     -->
+     <border 
+     	padding='{resource theme_border_padding}'
+     	background='SteelBlue' 
+     	dockpanel.dock='top'>
+     	<stack orientation='horizontal'>
+     		<textblock foreground='White' text='Status:' margin='0,5,0,0' />
+	     	<!--
+	     	The data binding below will look for a FrameworkProperty with the
+	     	name 'statusMessage' in the view model that is bound to this view.
+	     	-->
+	        <textblock foreground='White' text='{data statusMessage}' />	     	
+     	</stack>
+     </border>
+     
+     <!-- 
+     This border will be our content area.
+     
+     DockPanel will stretch the last element to fill the remaining
+     space by default, so our content border below will stretch automatically.
+     
+     We are going to use default theme values wherever possible.
+     -->
+     <border 
+     	margin='5' 
+     	bordercolor='{resource theme_border_color_dark}' 
+     	background='{resource theme_background_light}'
+     	borderthickness='{resource theme_border_thickness}'
+     	content='{data content}'>
+     </border>
+  </dockpanel>

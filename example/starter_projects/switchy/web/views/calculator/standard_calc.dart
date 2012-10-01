@@ -3,5 +3,6 @@
 */
 class StandardCalc extends View
 {
-  StandardCalc() : super.fromResource('#keypad_default');
+  StandardCalc() :
+    super.fromResource('web/views/templates/calculator_default_keypad.xml');
 }

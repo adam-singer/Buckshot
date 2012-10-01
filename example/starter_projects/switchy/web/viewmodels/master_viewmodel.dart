@@ -60,8 +60,8 @@ class MasterViewModel extends ViewModelBase
   }
 
   showAboutDialog(){
-    var header = new View.fromResource('#about_header');
-    var body = new View.fromResource('#about');
+    var header = new View.fromResource('web/views/templates/about_header.xml');
+    var body = new View.fromResource('web/views/templates/about_body.xml');
 
     var oldStatusMessage = statusMessage;
 

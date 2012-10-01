@@ -1,0 +1,46 @@
+<border style='{resource calcStyle}'>
+	<grid width='{data width}' height='400'>
+		<rowdefinitions>
+			<rowdefinition height='50' />
+			<rowdefinition height='70' />
+			<rowdefinition height='*1' />
+		</rowdefinitions>
+		<border style='{resource calcHeader}'></border>
+		<border style='{resource borderSeperator}'></border>
+		<stackpanel orientation='horizontal' valign='center' margin='0,0,0,2'>
+			<image width='50' alt="Buckshot Logo" sourceuri="web/resources/buckshot_logo.png" />
+			<stackpanel>
+				<textblock style='{resource defaultText}' text='Buckshot' />
+				<textblock style='{resource defaultText}' text='Calculator' />
+			</stackpanel>
+		</stackpanel>
+		<stackpanel orientation='horizontal' valign='center' halign='right' margin='0,5,0,0'>
+			<textblock style='{resource defaultText}' text='Mode:' margin='0,0,0,5' />
+			<dropdownlist on.selectionChanged='selectionChanged_handler'>
+				<items>
+					<dropdownitem name='Standard' value='Standard' />
+					<dropdownitem name='Extended' value='Extended' />
+				</items>
+			</dropdownlist>
+		</stackpanel>
+		<border grid.row='1' style='{resource borderOutput}'>
+			<!-- 
+			In the output grid, we are overlapping several elements,
+			while using alignment to make them appear in different
+			areas of the grid cell.
+			-->
+			<grid halign='stretch' valign='stretch'>
+			   <columndefinitions>
+			      <columndefinition width='*' />
+			   </columndefinitions>
+			   <rowdefinitions>
+			      <rowdefinition height='*' />
+			   </rowdefinitions>
+				<textblock style='{resource textblockSubOutput}' valign='bottom' text='{data memoryMarker}' />
+				<textblock style='{resource textblockSubOutput}' text='{data subOutput}' />
+				<textblock style='{resource textblockOutput}' text='{data output}' />
+			</grid>
+		</border>
+		<border margin='5,5' halign='stretch' valign='stretch' grid.row='2' content='{data keypad}'></border>
+	</grid>
+</border>

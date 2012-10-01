@@ -5,7 +5,7 @@
 /**
 * Base class for all objects participating in the framework.
 */
-class BuckshotObject extends HashableObject
+abstract class BuckshotObject extends HashableObject
 {
   final HashMap<String, Dynamic> stateBag;
   final List<Binding> _bindings;
