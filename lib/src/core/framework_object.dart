@@ -280,91 +280,109 @@ class FrameworkObject extends BuckshotObject
 
     //TODO: Support multiple datacontext updates
 
-    var dc = resolveDataContext();
+    final dcs = resolveAllDataContexts();
 
-    _wireEventBindings(dc);
+    if (dcs.isEmpty()) return;
 
-    if (dc == null) return;
+    _wireEventBindings(dcs);
+
+    final dc = dcs[0];
 
     //dataContext = dc.value;
 
     //binding each property in the lateBindings collection
     //to the data context
-    lateBindings.forEach((FrameworkProperty p, BindingData bd){
-      if (bd.dataContextPath == ""){
-        new Binding(dc, p);
-      }else{
-        if (dc.value is! BuckshotObject)
-          throw new BuckshotException("Datacontext binding attempted to"
-            " resolve properties '${bd.dataContextPath}'"
-            " on non-BuckshotObject type.");
-
-        //TODO keep a reference to these so they can be removed if the
-        // datacontext changes
-
-        if (bd.converter != null){
-          dc.value.resolveProperty(bd.dataContextPath)
-          .then((prop){
-              new Binding(prop,
-                  p, bindingMode:bd.bindingMode, converter:bd.converter);
-          });
+    lateBindings
+      .forEach((FrameworkProperty p, BindingData bd){
+        if (bd.dataContextPath == ""){
+          new Binding(dc, p);
         }else{
-          dc.value.resolveProperty(bd.dataContextPath)
-          .then((prop){
-              new Binding(prop, p, bindingMode:bd.bindingMode);
-          });
-        }
-      }
-    });
-  }
+          if (dc.value is! BuckshotObject)
+            throw new BuckshotException("Datacontext binding attempted to"
+              " resolve properties '${bd.dataContextPath}'"
+              " on non-BuckshotObject type.");
 
-  void _wireEventBindings(dataContextObject){
-    if (_eventBindings.isEmpty()) return;
+          //TODO keep a reference to these so they can be removed if the
+          // datacontext changes
 
-    if (!reflectionEnabled){
-      _eventBindings.forEach((String handler, FrameworkEvent event){
-
-        if (_globalEventHandlers.containsKey(handler.toLowerCase())){
-          // handler found in global registry
-          event.register(_globalEventHandlers[handler.toLowerCase()]);
-        }else{
-          // try to get handler from dataContext registry
-          final dc = dataContextObject.value;
-
-          if (dc != null && dc is BuckshotObject &&
-              dc._eventHandlers.containsKey(handler.toLowerCase())){
-            event.register(dc._eventHandlers[handler.toLowerCase()]);
+          if (bd.converter != null){
+            dc.value.resolveProperty(bd.dataContextPath)
+            .then((prop){
+                new Binding(prop,
+                    p, bindingMode:bd.bindingMode, converter:bd.converter);
+            });
+          }else{
+            dc.value.resolveProperty(bd.dataContextPath)
+            .then((prop){
+                new Binding(prop, p, bindingMode:bd.bindingMode);
+            });
           }
         }
       });
+  }
+
+  void _wireEventBindings(List dataContexts){
+    if (_eventBindings.isEmpty()) return;
+
+    if (!reflectionEnabled){
+      _eventBindings
+        .forEach((String handler, FrameworkEvent event){
+          handler = handler.toLowerCase();
+
+          if (_globalEventHandlers.containsKey(handler)){
+            // handler found in global registry
+            event.register(_globalEventHandlers[handler]);
+          }else{
+            // work through each dataContext and try to find a matching
+            // handler
+
+            for(final dc in dataContexts){
+              final dcv = dc.value;
+              if (dcv != null && dcv is BuckshotObject &&
+                  dcv._eventHandlers.containsKey(handler)){
+                event.register(dcv._eventHandlers[handler]);
+                break;
+              }
+            }
+          }
+        });
 
       return;
     }
 
-    if (dataContextObject == null || dataContextObject.value == null){
+    if (dataContexts.isEmpty()){
+      // global event handler
       final lm = buckshot.mirrorSystem().isolate.rootLibrary;
-      _eventBindings.forEach((String handler, FrameworkEvent event){
-        if (lm.functions.containsKey(handler)){
+      _eventBindings
+        .forEach((String handler, FrameworkEvent event){
+          if (lm.functions.containsKey(handler)){
 
-          //invoke the handler when the event fires
-          event + (sender, args){
-            lm.invoke(handler, [buckshot.reflectMe(sender),
-                                buckshot.reflectMe(args)]);
-          };
-        }
+            //invoke the handler when the event fires
+            event + (sender, args){
+              lm.invoke(handler, [buckshot.reflectMe(sender),
+                                  buckshot.reflectMe(args)]);
+            };
+          }
       });
     }else{
-      final im = buckshot.reflectMe(dataContextObject.value);
+      _eventBindings
+        .forEach((String handler, FrameworkEvent event){
+          for(final dc in dataContexts){
+            if (dc.value == null) continue;
 
-      _eventBindings.forEach((String handler, FrameworkEvent event){
-        if (im.type.methods.containsKey(handler)){
+            final im = buckshot.reflectMe(dc.value);
 
-          //invoke the handler when the event fires
-          event + (sender, args){
-            im.invoke(handler, [buckshot.reflectMe(sender),
-                                buckshot.reflectMe(args)]);
-          };
-        }
+            if (im.type.methods.containsKey(handler)){
+
+              //invoke the handler when the event fires
+              event + (sender, args){
+                im.invoke(handler, [buckshot.reflectMe(sender),
+                                    buckshot.reflectMe(args)]);
+              };
+
+              break;
+            }
+          }
       });
     }
   }
@@ -422,6 +440,18 @@ class FrameworkObject extends BuckshotObject
     if (dataContext != null) return dataContextProperty;
     if (parent == null) return null;
     return parent.resolveDataContext();
+  }
+
+  List<FrameworkProperty> resolveAllDataContexts(){
+    var list = new List<FrameworkProperty>();
+
+    if (dataContext != null) list.add(dataContextProperty);
+
+    if (parent == null) return list;
+
+    list.addAll(parent.resolveAllDataContexts());
+
+    return list;
   }
 
   /// Sets the [nameProperty] value.

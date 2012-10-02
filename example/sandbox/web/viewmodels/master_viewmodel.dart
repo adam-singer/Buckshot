@@ -261,10 +261,7 @@ class MasterViewModel extends ViewModelBase
     registerEventHandler('clearall_handler', clearAll_handler);
     registerEventHandler('demotreeview_selection', demotreeview_selection);
     registerEventHandler('dockpanel_click', dockpanel_click);
-
-    // Registering this one global because content within a CollectionPresenter
-    // template will need to access it.
-    registerGlobalEventHandler('selection_handler', selection_handler);
+    registerEventHandler('selection_handler', selection_handler);
   }
 
   /**
