@@ -69,7 +69,7 @@ class CanvasBase extends FrameworkElement
     FrameworkAnimation.workers.remove(_name);
   }
 
-  String get _name => "canvas_{canvasId}";
+  String get _name => "canvas_${_canvasId}";
 
   void _initCanvasProperties() {
     surfaceWidthProperty = new FrameworkProperty(this, "surfaceWidth", (num v){
