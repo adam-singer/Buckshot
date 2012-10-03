@@ -15,13 +15,11 @@
               <textblock halign='center'>Tools</textblock>
             </stack>
           </header>
-          <!--
           <menuitem header='Stock Ticker' tag='stock_ticker'>
             <icon>
               <image width='25' height='25' alt='chart icon' sourceuri='web/resources/chart_curve.png' />
             </icon>
           </menuitem>
-          -->
           <menuitem header='Calculator' tag='calculator'>
             <icon>
               <image width='25' height='25' alt='calculator icon' sourceuri='web/resources/calculator.png' />
@@ -119,7 +117,7 @@
      <border 
      	margin='5' 
      	bordercolor='{resource theme_border_color_dark}' 
-     	background='{resource theme_background_light}'
+     	background='{resource calcBackground}'
      	borderthickness='{resource theme_border_thickness}'
      	content='{data content}'>
      </border>

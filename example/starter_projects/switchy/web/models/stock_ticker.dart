@@ -32,9 +32,9 @@ class StockTickerModel
    */
   set updateInterval(num interval){
     if (interval < 0) return;
+    stop();
     _interval = interval;
-    _timer.cancel();
-    _timer = new Timer.repeating(_interval, _updateTickers);
+    start();
   }
 
   void stop(){
