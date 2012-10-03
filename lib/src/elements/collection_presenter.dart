@@ -82,6 +82,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
     collectionProperty = new FrameworkProperty(this, 'collection');
   }
 
+
   /// Gets the [presentationPanelProperty] value.
   Panel get presentationPanel => getValue(presentationPanelProperty);
   /// Sets the [presentationPanelProperty] value.
@@ -116,7 +117,10 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
     }
 
     if (values is ObservableList && _eHandler == null){
-      _eHandler = values.listChanged + (_, __) => _updateCollection();
+      _eHandler = values.listChanged + (_, __) {
+        presentationPanel.children.clear();
+        _updateCollection();
+      };
     }
 
     if (values is! Collection)
