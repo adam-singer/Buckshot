@@ -38,7 +38,7 @@ class TextBox extends Control
       });
 
 
-    textProperty = new FrameworkProperty(this, "text", (String value){
+    textProperty = new FrameworkProperty(this, "text", (value){
       _ie.value = '$value';
     },"");
 
