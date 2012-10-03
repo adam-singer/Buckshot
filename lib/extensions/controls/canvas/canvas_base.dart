@@ -85,9 +85,10 @@ class CanvasBase extends FrameworkElement
     frame = new FrameworkEvent<FrameEventArgs>();
   }
 
-  void _frameHandler(e) {
-    if (!frame.hasHandlers) return;
+  bool _frameHandler(e) {
+    if (!frame.hasHandlers) return true;
 
     frame.invoke(this, new FrameEventArgs(e));
+    return true;
   }
 }
