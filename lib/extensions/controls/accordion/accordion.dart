@@ -24,7 +24,7 @@ class Accordion extends Control implements IFrameworkContainer
   {
     Browser.appendClass(rawElement, "Accordion");
 
-    _initializeAccordianProperties();
+    _initializeAccordionProperties();
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] =
         getValue(accordionItemsProperty);
@@ -35,9 +35,9 @@ class Accordion extends Control implements IFrameworkContainer
   }
   makeMe() => new Accordion();
 
-  void _initializeAccordianProperties(){
+  void _initializeAccordionProperties(){
     accordionItemsProperty = new FrameworkProperty(this, 'accordionItems',
-        defaultValue: new List<FrameworkObject>());
+        defaultValue: new ObservableList<FrameworkObject>());
 
     backgroundProperty = new FrameworkProperty(this, 'background',
         defaultValue: new SolidColorBrush(new Color.predefined(Colors.White)),
@@ -61,7 +61,10 @@ class Accordion extends Control implements IFrameworkContainer
   List<FrameworkObject> get accordionItems => getValue(accordionItemsProperty);
 
   void onFirstLoad(){
+
     _invalidate();
+
+
     super.onFirstLoad();
   }
 
