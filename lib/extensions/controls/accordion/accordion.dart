@@ -58,14 +58,18 @@ class Accordion extends Control implements IFrameworkContainer
   set selectionMode(SelectionMode mode) =>
       setValue(selectionModeProperty, mode);
 
-  List<FrameworkObject> get accordionItems => getValue(accordionItemsProperty);
+  ObservableList<FrameworkObject> get accordionItems =>
+      getValue(accordionItemsProperty);
 
   void onFirstLoad(){
 
     _invalidate();
 
+    // Invalidate on any changes to the list after first load.
+    accordionItems.listChanged + (_, __) => _invalidate();
 
     super.onFirstLoad();
+
   }
 
   void _invalidate(){
