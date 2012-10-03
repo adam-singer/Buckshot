@@ -8,38 +8,38 @@ class TextBox extends Control
 {
   FrameworkProperty textProperty, inputTypeProperty, placeholderProperty;
   final FrameworkEvent<TextChangedEventArgs> textChanged;
-  
+
   TextBox() :
   textChanged = new FrameworkEvent<TextChangedEventArgs>()
   {
     Browser.appendClass(rawElement, "textbox");
-    
+
     _initTextBoxProperties();
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
 
     _initEvents();
-    
+
     registerEvent('textchanged', textChanged);
   }
-  
+
   TextBox.register() : super.register(),
    textChanged = new FrameworkEvent<TextChangedEventArgs>();
   makeMe() => new TextBox();
 
   void _initTextBoxProperties(){
     final _ie = rawElement as InputElement;
-    
+
     placeholderProperty = new FrameworkProperty(
       this,
       "placeholder",
       (String value){
-        rawElement.attributes["placeholder"] = value;
+        rawElement.attributes["placeholder"] = '$value';
       });
 
 
     textProperty = new FrameworkProperty(this, "text", (String value){
-      _ie.value = value;
+      _ie.value = '$value';
     },"");
 
     inputTypeProperty = new FrameworkProperty(this, "inputType", (InputTypes value){
