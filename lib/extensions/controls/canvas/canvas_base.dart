@@ -76,7 +76,7 @@ class CanvasBase extends FrameworkElement
       rawElement.attributes["width"] = v.toString();
     }, 640, converter:const StringToNumericConverter());
 
-    surfaceWidthProperty = new FrameworkProperty(this, "surfaceHeight", (num v){
+    surfaceHeightProperty = new FrameworkProperty(this, "surfaceHeight", (num v){
       rawElement.attributes["height"] = v.toString();
     }, 480, converter:const StringToNumericConverter());
   }
