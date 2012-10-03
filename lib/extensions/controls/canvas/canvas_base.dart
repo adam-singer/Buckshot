@@ -81,6 +81,12 @@ class CanvasBase extends FrameworkElement
     }, 480, converter:const StringToNumericConverter());
   }
 
+  num get surfaceWidth => getValue(surfaceWidthProperty);
+  set surfaceWidth(num value) => setValue(surfaceWidthProperty, value);
+
+  num get surfaceHeight => getValue(surfaceHeightProperty);
+  set surfaceHeight(num value) => setValue(surfaceHeightProperty, value);
+
   void _initCanvasEvents() {
     frame = new FrameworkEvent<FrameEventArgs>();
   }
