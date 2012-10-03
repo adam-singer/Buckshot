@@ -3,110 +3,121 @@
 #import('dart:io');
 #import('dart:json');
 #import('package:xml/xml.dart');
+#import('package:html5lib/html5parser.dart', prefix:'html');
 
 #import('package:buckshot/gen/genie.dart');
 
-void generateCode(List<String> files){
+void generateCode(List<String> fileNames){
+
   final out = new File('test.tmp').openOutputStream();
 
+
+  log.write('$fileNames');
+
   out.onError = (e){
-    print('build.dart error! $e');
+    log.write('build.dart error! $e');
+    out.close();
+    log.close();
     exit(1);
   };
 
-  var result = JSON.parse(genCode('Foo', XML.parse(test)));
+  for(final fileNameAndPath in fileNames){
 
-  out.writeString(result.getValues()[0]);
+    final gs = new GeneratorFile(fileNameAndPath);
+
+    final fs = new File(fileNameAndPath);
+
+    if (!fs.existsSync()) continue;
+
+    try{
+      var fileText = fs.readAsTextSync();
+      var result;
+
+      if (fileNameAndPath.endsWith('.html')){
+        result = _generateFromHTML(fs.name, fileText);
+        log.write('html>> ${result}');
+
+      }else if (fileNameAndPath.endsWith('.buckshot')){
+        result = _generateFromXMLTemplate(fs.name, fileText);
+
+        out.writeString('${result.getValues()}');
+      }else{
+        throw new Exception('File type not supported by Buckshot code generator.');
+      }
+
+    } on XmlException catch(xmlE){
+      log.write('<<XML ERROR>> $xmlE');
+    } on Exception catch(e){
+      log.write('<<GENERAL ERROR>> $e');
+    }
+  }
 
   out.close();
+  log.close();
 }
 
-String test =
-'''
-<stack orientation="horizontal" halign="center">
-  <resourcecollection>
-    <color key="buckshotBlue" value="#165284"></color>
-   
-    <styletemplate key="iotext">
-       <setters>
-          <setter property="margin" value="15,0,0,0" />
-          <setter property="fontFamily" value="Arial" />
-          <setter property="fontSize" value="20" />
-       </setters>
-    </styletemplate>
-    <styletemplate key='headerText'>
-       <setters>
-          <setter property='fontSize' value='18' />
-          <setter property='fontFamily' value='Arial' />
-          <setter property='margin' value='15,0,0,0' />
-       </setters>
-    </styletemplate>
-    <styletemplate key='defaultText'>
-       <setters>
-          <setter property='fontSize' value='14' />
-          <setter property='fontFamily' value='Arial' />
-          <setter property='margin' value='0,3' />
-       </setters>
-    </styletemplate>
-  </resourcecollection>
+Map<String, String> _generateFromXMLTemplate(String name, String templateData){
+  return JSON.parse(genCode(name, XML.parse(templateData)));
+}
 
-  <stack minWidth='250'>
-    <textblock style="{resource iotext}" text="Select A Sample"/>
-    <border minHeight='300' halign='stretch' borderthickness='1' bordercolor='SteelBlue' padding='5'>
-      <stack>       
-      <treeview treenodeselected='selection_handler'>
-     <treenode header='App Demos' childvisibility='visible'>
-            <treenode header='Calculator' tag='app.calc' />
-            <treenode header='Simple Todo List' tag='app.todo' />
-       </treenode>
-       <treenode header='Elements' tag=''>
-        <treenode header='TextBlock' tag='textblock' />
-        <treenode header='Stack' tag='stack' />
-        <treenode header='Border' tag='border' />
-        <treenode header='Grid' tag='grid' />
-        <treenode header='RawHtml' tag='rawhtml' />
-        <treenode header='LayoutCanvas' tag='layoutcanvas' />
-       </treenode>
-       <treenode header='Controls' tag=''>
-        <treenode header='TreeView' tag='treeview' />
-        <treenode header='DockPanel' tag='dockpanel' />
-        <treenode header='ListBox' tag='listbox' />
-        <treenode header='DropDownList' tag='dropdownlist' />
-        <treenode header='TextBox' tag='textbox' />
-        <treenode header='Slider' tag='slider' />
-        <treenode header='Button' tag='button' />
-        <treenode header='RadioButton' tag='radiobutton' />
-        <treenode header='CheckBox' tag='checkbox' />
-        <treenode header='Hyperlink' tag='hyperlink' />
-       </treenode>
-       <treenode header='Binding Demos' tag=''>
-        <treenode header='Resource Binding' tag='resources' />
-        <treenode header='Element Binding' tag='elementbinding' />
-        <treenode header='Data Binding' tag='databinding' />
-        <treenode header='Binding To Collections' tag='collections' />
-       </treenode>
-       <treenode header='Media Extensions' tag=''>
-        <treenode header='YouTube' tag='youtube' />
-        <treenode header='Hulu' tag='hulu' />
-        <treenode header='Vimeo' tag='vimeo' />
-        <treenode header='FunnyOrDie' tag='funnyordie' />
-       </treenode>
-      </treeview>  
-      </stack>
-    </border>
-  </stack>
-  <stack margin="0,0,0,10" halign='stretch'>
-    <textblock style="{resource iotext}" text="Output:"/>
-    <border content='{data renderedOutput}' margin="0,0,10,0" minheight='200' 
-    width="680" borderThickness="3" borderColor="{resource buckshotBlue}"
-    cornerradius='4' padding='5'/>
-    <textblock style="{resource iotext}" text="Template:"/>
-    <textarea placeholder="Type something here or select one of the samples to the left." spellcheck="false" 
-      text='{data templateText, mode=twoway}' minwidth='690' maxwidth='690' minheight="200" />
-    <stack orientation="horizontal">
-       <button click='refresh_handler' content="Generate Output"></button>
-       <button click='clearAll_handler' margin="0,0,0,5" content="Clear All"></button>
-    </stack>
-  </stack>
-</stack>
-''';
+Map<String, String> _generateFromHTML(String name, String htmlData){
+  return {'html' : htmlData};
+}
+
+
+/**
+ * Provides utilities and info on a .html or .buckshot file.
+ */
+class GeneratorFile
+{
+  const HTML = 'HTML';
+  const TEMPLATE = 'TEMPLATE';
+
+  final String fileNameAndPath;
+  String fileType;
+  String path;
+  String name;
+  String fileData;
+
+
+  GeneratorFile(this.fileNameAndPath){
+    final fs = new File(fileNameAndPath);
+    if (!fs.existsSync()) return;
+
+    _parseFileType();
+    _parseName();
+    _getFileData();
+  }
+
+  void _getFileData(){
+    final fs = new File(fileNameAndPath);
+    fileData = fs.readAsTextSync();
+  }
+
+  void _parseName(){
+
+    final index = fileNameAndPath.contains(Platform.pathSeparator)
+        ? fileNameAndPath.lastIndexOf(Platform.pathSeparator) + 1
+        : 0;
+
+    final extIndex = fileNameAndPath.indexOf('.', index);
+
+    name = fileNameAndPath.substring(index, extIndex);
+  }
+
+  void _parseFileType(){
+    if (fileNameAndPath.endsWith('.html')){
+      fileType = HTML;
+    }else if (fileNameAndPath.endsWith('.buckshot')){
+      fileType = TEMPLATE;
+    }else{
+      throw new Exception('File extension not supported by Buckshot Generator.'
+          ' Must be .html or .buckshot');
+    }
+  }
+
+  String get nameCamelCase => '';
+
+
+  String toString() => fileNameAndPath;
+}

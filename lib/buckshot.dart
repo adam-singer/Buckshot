@@ -135,7 +135,7 @@
 #source('src/templates/template_object.dart');
 
 //Use this to generate clean dart docs of just the buckshot library
-//main(){}
+main(){}
 
 /**
  * Set this to true in order to use the mirror-based code.

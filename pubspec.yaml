@@ -15,3 +15,4 @@ dependencies:
     git: git://github.com/prujohn/dart_utils.git
   unittest:
     sdk: unittest
+  html5lib: 'any'
