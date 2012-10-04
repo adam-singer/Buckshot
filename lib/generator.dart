@@ -7,10 +7,14 @@
 
 #import('package:buckshot/gen/genie.dart');
 
-void generateCode(List<String> fileNames){
+void generateCode(){
+
+  final fileNames = _getChangedFiles(new Options().arguments);
+  if (fileNames.isEmpty()){
+    return;
+  }
 
   final out = new File('test.tmp').openOutputStream();
-
 
   log.write('$fileNames');
 
@@ -23,26 +27,22 @@ void generateCode(List<String> fileNames){
 
   for(final fileNameAndPath in fileNames){
 
-    final gs = new GeneratorFile(fileNameAndPath);
-
-    final fs = new File(fileNameAndPath);
-
-    if (!fs.existsSync()) continue;
-
     try{
-      var fileText = fs.readAsTextSync();
+      final gs = new GeneratorFile(fileNameAndPath);
+      if (gs.fileData == null){
+        throw const Exception('Could not read file data.');
+      }
+
       var result;
 
-      if (fileNameAndPath.endsWith('.html')){
-        result = _generateFromHTML(fs.name, fileText);
+      if (gs.fileType == GeneratorFile.HTML){
+        result = _generateFromHTML(gs.name, gs.fileData);
         log.write('html>> ${result}');
 
-      }else if (fileNameAndPath.endsWith('.buckshot')){
-        result = _generateFromXMLTemplate(fs.name, fileText);
+      }else if (gs.fileType == GeneratorFile.TEMPLATE){
+        result = _generateFromXMLTemplate(gs.name, gs.fileData);
 
         out.writeString('${result.getValues()}');
-      }else{
-        throw new Exception('File type not supported by Buckshot code generator.');
       }
 
     } on XmlException catch(xmlE){
@@ -55,6 +55,17 @@ void generateCode(List<String> fileNames){
   out.close();
   log.close();
 }
+
+List<String> _getChangedFiles(List<String> rawArgs){
+  return
+    rawArgs
+      .filter((arg) =>
+          arg.startsWith('--changed') &&
+          validTemplateExtensions
+            .some((ext) => arg.endsWith(ext)))
+      .map((arg) => arg.replaceFirst('--changed=', ''));
+}
+
 
 Map<String, String> _generateFromXMLTemplate(String name, String templateData){
   return JSON.parse(genCode(name, XML.parse(templateData)));
@@ -70,8 +81,8 @@ Map<String, String> _generateFromHTML(String name, String htmlData){
  */
 class GeneratorFile
 {
-  const HTML = 'HTML';
-  const TEMPLATE = 'TEMPLATE';
+  static const HTML = 'HTML';
+  static const TEMPLATE = 'TEMPLATE';
 
   final String fileNameAndPath;
   String fileType;
@@ -108,7 +119,8 @@ class GeneratorFile
   void _parseFileType(){
     if (fileNameAndPath.endsWith('.html')){
       fileType = HTML;
-    }else if (fileNameAndPath.endsWith('.buckshot')){
+    }else if (fileNameAndPath.endsWith('.buckshot') ||
+        fileNameAndPath.endsWith('.xml')){
       fileType = TEMPLATE;
     }else{
       throw new Exception('File extension not supported by Buckshot Generator.'

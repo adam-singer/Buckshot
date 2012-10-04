@@ -11,6 +11,12 @@
 Logger log = new Logger();
 
 /**
+ * Contains a list of valid extensions that the generator should
+ * generate code for.
+ */
+List<String> validTemplateExtensions = ['.html', '.buckshot', '.xml'];
+
+/**
  * Seriously Simple Logger.
  */
 class Logger
