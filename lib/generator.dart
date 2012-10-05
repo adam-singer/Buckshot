@@ -1,11 +1,11 @@
-#library('generator_core_buckshotui_org');
+library generator_core_buckshotui_org;
 
-#import('dart:io');
-#import('dart:json');
-#import('package:xml/xml.dart');
-#import('package:html5lib/html5parser.dart', prefix:'html');
+import 'dart:io';
+import 'dart:json';
+import 'package:xml/xml.dart';
+import 'package:html5lib/html5parser.dart' as html;
 
-#import('package:buckshot/gen/genie.dart');
+import 'package:buckshot/gen/genie.dart';
 
 void generateCode(){
 
@@ -13,6 +13,8 @@ void generateCode(){
   if (fileNames.isEmpty()){
     return;
   }
+
+  log.pushContext('generator');
 
   final out = new File('test.tmp').openOutputStream();
 
@@ -29,9 +31,12 @@ void generateCode(){
 
     try{
       final gs = new GeneratorFile(fileNameAndPath);
+
       if (gs.fileData == null){
         throw const Exception('Could not read file data.');
       }
+
+      log.write('Working on "${gs.name}, ${gs.fileType}"');
 
       var result;
 
@@ -53,6 +58,7 @@ void generateCode(){
   }
 
   out.close();
+  log.popContext();
   log.close();
 }
 
@@ -61,8 +67,8 @@ List<String> _getChangedFiles(List<String> rawArgs){
     rawArgs
       .filter((arg) =>
           arg.startsWith('--changed') &&
-          validTemplateExtensions
-            .some((ext) => arg.endsWith(ext)))
+          (validTemplateExtensions.some((ext) => arg.endsWith(ext)) ||
+              arg.endsWith('.html')))
       .map((arg) => arg.replaceFirst('--changed=', ''));
 }
 
@@ -76,60 +82,4 @@ Map<String, String> _generateFromHTML(String name, String htmlData){
 }
 
 
-/**
- * Provides utilities and info on a .html or .buckshot file.
- */
-class GeneratorFile
-{
-  static const HTML = 'HTML';
-  static const TEMPLATE = 'TEMPLATE';
 
-  final String fileNameAndPath;
-  String fileType;
-  String path;
-  String name;
-  String fileData;
-
-
-  GeneratorFile(this.fileNameAndPath){
-    final fs = new File(fileNameAndPath);
-    if (!fs.existsSync()) return;
-
-    _parseFileType();
-    _parseName();
-    _getFileData();
-  }
-
-  void _getFileData(){
-    final fs = new File(fileNameAndPath);
-    fileData = fs.readAsTextSync();
-  }
-
-  void _parseName(){
-
-    final index = fileNameAndPath.contains(Platform.pathSeparator)
-        ? fileNameAndPath.lastIndexOf(Platform.pathSeparator) + 1
-        : 0;
-
-    final extIndex = fileNameAndPath.indexOf('.', index);
-
-    name = fileNameAndPath.substring(index, extIndex);
-  }
-
-  void _parseFileType(){
-    if (fileNameAndPath.endsWith('.html')){
-      fileType = HTML;
-    }else if (fileNameAndPath.endsWith('.buckshot') ||
-        fileNameAndPath.endsWith('.xml')){
-      fileType = TEMPLATE;
-    }else{
-      throw new Exception('File extension not supported by Buckshot Generator.'
-          ' Must be .html or .buckshot');
-    }
-  }
-
-  String get nameCamelCase => '';
-
-
-  String toString() => fileNameAndPath;
-}

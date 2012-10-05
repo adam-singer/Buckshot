@@ -1,4 +1,4 @@
- <dockpanel background='#AABBEE' halign='stretch' valign='stretch'>
+  <dockpanel background='#AABBEE' halign='stretch' valign='stretch'>
      <menustrip on.menuitemselected='menu_selected' dockpanel.dock='top'>
        <menu tag='home'>
           <header>
