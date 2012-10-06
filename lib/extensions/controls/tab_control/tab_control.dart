@@ -77,9 +77,7 @@ class TabControl extends Control implements IFrameworkContainer
     setValue(t.backgroundProperty,
         getValue(tabSelectedBrushProperty));
 
-    setValue(currentContentProperty,
-        getValue(currentTab.contentProperty));
-
+    setValue(currentContentProperty, getValue(currentTab.contentProperty));
   }
 
   void closeTab(TabItem tab){
@@ -109,6 +107,7 @@ class TabControl extends Control implements IFrameworkContainer
     int i = 0;
     pc.forEach((e){
       final ti = tabItems[i++];
+      ti.parent = this;
       ti._visualTemplate = e;
       e.mouseUp + (_, __){
         tabSelected.invokeAsync(this, new TabSelectedEventArgs(ti));
@@ -191,9 +190,14 @@ class TabControl extends Control implements IFrameworkContainer
               </border>
            </itemstemplate>
         </collectionpresenter>
-        <border grid.row='1' halign='stretch' bordercolor='{resource theme_border_color}' borderthickness='{resource theme_border_thickness}' valign='stretch' background='{template background}' padding='{resource theme_border_padding}'>
-            <contentpresenter content='{template currentContent}' />
-        </border>
+        <border name='__content_border__' content='{template currentContent}' 
+                grid.row='1' 
+                halign='stretch' 
+                valign='stretch'
+                bordercolor='{resource theme_border_color}' 
+                borderthickness='{resource theme_border_thickness}' 
+                background='{template background}' 
+                padding='{resource theme_border_padding}' />
      </grid>
   </template>
 </controltemplate>

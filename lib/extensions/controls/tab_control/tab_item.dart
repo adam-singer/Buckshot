@@ -9,45 +9,51 @@ class TabItem extends Control implements IFrameworkContainer
   FrameworkProperty closeEnabledProperty;
   FrameworkProperty closeButtonVisiblityProperty;
   FrameworkProperty contentProperty;
-  
+
   FrameworkElement _visualTemplate;
-  
+
   TabItem(){
-    Browser.appendClass(rawElement, "TabItem"); 
-        
+    Browser.appendClass(rawElement, "TabItem");
+
     _initTabItemProperties();
-    
+
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
   }
-   
+
   TabItem.register() : super.register();
   makeMe() => new TabItem();
-  
+
   get content => getValue(contentProperty);
-  
+
   void _initTabItemProperties(){
     headerProperty = new FrameworkProperty(this, 'header');
-    
+
     iconProperty = new FrameworkProperty(this, 'icon');
-    
-    contentProperty = new FrameworkProperty(this, 'content', 
-        defaultValue: '');
-    
-    closeButtonVisiblityProperty = new FrameworkProperty(this, 
+
+    contentProperty = new FrameworkProperty(this, 'content',
+        propertyChangedCallback:(value){
+          // ensure that the content has a parent assigned so that
+          // .onAddedToDOM() will bind events successfully.
+          if (value is FrameworkElement && value.parent == null){
+            value.parent = this;
+          }
+    });
+
+    closeButtonVisiblityProperty = new FrameworkProperty(this,
         'closeButtonVisibility',
         propertyChangedCallback: (Visibility value){
-          if (value == Visibility.visible 
+          if (value == Visibility.visible
               && getValue(closeEnabledProperty) == false){
             setValue(closeButtonVisiblityProperty, Visibility.collapsed);
           }
         },
         defaultValue: Visibility.collapsed,
         converter: const StringToVisibilityConverter());
-    
+
     closeEnabledProperty = new FrameworkProperty(this, 'closeEnabled',
         propertyChangedCallback: (bool value){
           if (value == false){
-            setValue(closeButtonVisiblityProperty, Visibility.collapsed);          
+            setValue(closeButtonVisiblityProperty, Visibility.collapsed);
           }
         },
         defaultValue: true,

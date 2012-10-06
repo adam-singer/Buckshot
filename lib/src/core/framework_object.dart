@@ -228,12 +228,10 @@ class FrameworkObject extends BuckshotObject
 
     if (!parentElement.isLoaded) return;
 
-    _onAddedToDOM();
+    onAddedToDOM();
   }
 
-  void onAddedToDOM() => _onAddedToDOM();
-
-  void _onAddedToDOM(){
+  void onAddedToDOM(){
     //parent is in the DOM so we should call loaded event and check for children
 
     updateDataContext();
@@ -262,10 +260,10 @@ class FrameworkObject extends BuckshotObject
         .forEach((FrameworkElement child)
           {
             child.parent = this;
-            child._onAddedToDOM();
+            child.onAddedToDOM();
           });
     }else if (containerContent is FrameworkElement){
-      containerContent._onAddedToDOM();
+      containerContent.onAddedToDOM();
     }
   }
 

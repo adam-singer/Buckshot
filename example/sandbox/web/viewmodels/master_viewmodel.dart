@@ -262,6 +262,12 @@ class MasterViewModel extends ViewModelBase
     registerEventHandler('demotreeview_selection', demotreeview_selection);
     registerEventHandler('dockpanel_click', dockpanel_click);
     registerEventHandler('selection_handler', selection_handler);
+    registerEventHandler('debug_click', debug_click);
+  }
+
+
+  void debug_click(sender, args){
+    db('fired click event', sender);
   }
 
   /**

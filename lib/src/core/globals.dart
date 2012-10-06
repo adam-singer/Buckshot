@@ -219,7 +219,7 @@ printTree(startWith, [int indent = 0]){
     return s.toString();
   }
 
-  print('${space(indent)}${startWith}(Parent=${startWith.parent})');
+  print('${space(indent)}${_elementAndName(startWith)}(Parent=${_elementAndName(startWith.parent)})');
 
   if (startWith is IFrameworkContainer){
     if ((startWith as IFrameworkContainer).content is List){
@@ -230,6 +230,12 @@ printTree(startWith, [int indent = 0]){
       printTree(startWith.content, indent + 5);
     }
   }
+}
+
+String _elementAndName(FrameworkObject o){
+  return (o == null || o.name == null || o.name.trim() == '')
+      ? '$o'
+      : '$o[${o.name}]';
 }
 
 

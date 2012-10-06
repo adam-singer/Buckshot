@@ -30,7 +30,7 @@ class Control extends FrameworkElement
     Browser.appendClass(rawElement, "control");
     _initControlProperties();
   }
-  
+
   Control.register() : super.register(),
     _c = new Completer();
   makeMe() => null;
@@ -96,12 +96,12 @@ class Control extends FrameworkElement
     _templateBindingsApplied = true;
 
     _bindTemplateBindings();
-  
+
     finishOnLoaded();
   }
-  
+
   finishOnLoaded(){
-    template._onAddedToDOM();
+    template.onAddedToDOM();
   }
 
   onUnLoaded(){
