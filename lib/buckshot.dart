@@ -14,8 +14,7 @@
 
 #import('package:xml/xml.dart');
 #import('package:dartnet_event_model/events.dart');
-#import('package:dart_utils/web.dart');
-#import('package:dart_utils/shared.dart');
+#import('web/web.dart');
 
 // Uncomment this to run with reflection.
 // Also below, set reflectionEnabled = true.
@@ -31,6 +30,7 @@
 #source('src/core/framework_property_base.dart');
 #source('src/core/attached_framework_property.dart');
 #source('src/core/framework_container.dart');
+#source('src/core/hashable_object.dart');
 
 #source('src/core/polly/polly.dart');
 #source('src/core/polly/flex_model.dart');
@@ -104,6 +104,19 @@
 #source('src/converters/string_to_inputtypes.dart');
 #source('src/converters/string_to_location.dart');
 
+#source('src/enums/visibility.dart');
+#source('src/enums/orientation.dart');
+#source('src/enums/colors.dart');
+#source('src/enums/cursors.dart');
+#source('src/enums/linear_gradient_brush.dart');
+#source('src/enums/radial_gradient_draw_mode.dart');
+#source('src/enums/grid_unit_type.dart');
+#source('src/enums/horizontal_alignment.dart');
+#source('src/enums/vertical_alignment.dart');
+#source('src/enums/transforms.dart');
+#source('src/enums/transition_timing.dart');
+#source('src/enums/dock_location.dart');
+
 #source('src/resources/framework_resource.dart');
 #source('src/resources/resource_collection.dart');
 #source('src/resources/var.dart');
@@ -133,6 +146,16 @@
 #source('src/templates/xml_template_provider.dart');
 #source('src/templates/template.dart');
 #source('src/templates/template_object.dart');
+
+#source('src/converters/i_value_converter.dart');
+#source('src/primitives/thickness.dart');
+#source('src/primitives/tuple.dart');
+
+#source('src/events/buckshot_exception.dart');
+#source('src/events/animation_exception.dart');
+#source('src/events/presentation_provider_exception.dart');
+#source('src/events/framework_property_resolution_exception.dart');
+
 
 //Use this to generate clean dart docs of just the buckshot library
 main(){}

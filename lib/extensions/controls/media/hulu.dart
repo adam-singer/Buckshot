@@ -6,7 +6,7 @@
 
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
-#import('package:dart_utils/web.dart');
+#import('package:buckshot/web/web.dart');
 
 class Hulu extends FrameworkElement
 {
@@ -20,7 +20,7 @@ class Hulu extends FrameworkElement
     _initializeHuluProperties();
 
   }
-  
+
   Hulu.register() : super.register();
   makeMe() => new Hulu();
 

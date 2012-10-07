@@ -6,7 +6,6 @@
 #import('dart:json');
 #import('package:buckshot/buckshot.dart');
 #import('package:xml/xml.dart');
-#import('package:dart_utils/shared.dart');
 #import('yaml/yaml.dart');
 
 /**

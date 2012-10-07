@@ -7,7 +7,7 @@
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:dartnet_event_model/events.dart');
-#import('package:dart_utils/web.dart');
+#import('package:buckshot/web/web.dart');
 
 /**
  * Event for when a frame changes.

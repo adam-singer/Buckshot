@@ -3,7 +3,6 @@
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:unittest/unittest.dart');
-#import('package:dart_utils/shared.dart');
 
 run(){
   group('FrameworkElement', (){
@@ -82,7 +81,7 @@ run(){
       Expect.equals(fp.hAlign, HorizontalAlignment.right, 'horizontalAlignment assignment');
 
       fp.vAlign = VerticalAlignment.bottom;
-      Expect.equals(fp.vAlign, VerticalAlignment.bottom, 'verticalAlignment assignment');  
+      Expect.equals(fp.vAlign, VerticalAlignment.bottom, 'verticalAlignment assignment');
     });
     test('minHeight/maxHeight', (){
       FrameworkElement fp = new FrameworkElement();

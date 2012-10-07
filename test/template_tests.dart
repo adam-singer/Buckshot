@@ -3,7 +3,6 @@
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:unittest/unittest.dart');
-#import('package:dart_utils/shared.dart');
 
 void run(){
 

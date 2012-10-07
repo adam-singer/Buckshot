@@ -3,8 +3,7 @@
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:xml/xml.dart');
-#import('package:dart_utils/web.dart');
-#import('package:dart_utils/shared.dart');
+#import('package:buckshot/web/web.dart');
 #import('package:unittest/unittest.dart');
 
 run(){

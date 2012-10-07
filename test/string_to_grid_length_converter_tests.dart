@@ -3,7 +3,6 @@
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:unittest/unittest.dart');
-#import('package:dart_utils/shared.dart');
 
 
 run(){
@@ -27,7 +26,7 @@ run(){
       GridLength l = c.convert("*.5");
       Expect.equals(.5, l.value);
       Expect.equals(GridUnitType.star, l.gridUnitType);
-      
+
       GridLength l2 = c.convert(".5*");
       Expect.equals(.5, l2.value);
       Expect.equals(GridUnitType.star, l2.gridUnitType);

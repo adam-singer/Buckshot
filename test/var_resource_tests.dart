@@ -3,7 +3,6 @@
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:unittest/unittest.dart');
-#import('package:dart_utils/shared.dart');
 
 Future run(){
   group('Resources', (){
@@ -21,10 +20,10 @@ Future run(){
         Expect.equals("hello world!", FrameworkResource.retrieveResource("test"));
         Expect.equals("#007777", FrameworkResource.retrieveResource("colortest"));
         Expect.equals("150", FrameworkResource.retrieveResource("numtest"));
-        Expect.equals("http://www.lucastudios.com/img/lucaui_logo_candidate2.png", FrameworkResource.retrieveResource("urltest"));        
+        Expect.equals("http://www.lucastudios.com/img/lucaui_logo_candidate2.png", FrameworkResource.retrieveResource("urltest"));
       }));
     });
-    
+
     test('Object values work', (){
       var t = '''
           <resourcecollection>
@@ -33,12 +32,12 @@ Future run(){
           </var>
           </resourcecollection>
           ''';
-      
+
       Template
       .deserialize(t)
       .then(expectAsync1((_){
         final result = FrameworkResource.retrieveResource("contenttest");
-        
+
         Expect.isTrue(result is TextBlock);
       }));
     });

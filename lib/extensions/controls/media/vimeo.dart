@@ -5,7 +5,7 @@
 #library('vimeo.media.controls.buckshotui.org');
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
-#import('package:dart_utils/web.dart');
+#import('package:buckshot/web/web.dart');
 
 class Vimeo extends FrameworkElement
 {
@@ -16,7 +16,7 @@ class Vimeo extends FrameworkElement
 
     _initializeVimeoProperties();
   }
-  
+
   Vimeo.register() : super.register();
   makeMe() => new Vimeo();
 

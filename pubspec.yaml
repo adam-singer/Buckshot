@@ -11,8 +11,6 @@ homepage: http://www.buckshotui.org
 dependencies:
   xml: 'any'
   dartnet_event_model: 'any'
-  dart_utils:
-    git: git://github.com/prujohn/dart_utils.git
+  html5lib: 'any'
   unittest:
     sdk: unittest
-  html5lib: 'any'

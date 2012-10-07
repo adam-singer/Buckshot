@@ -7,7 +7,6 @@
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:dartnet_event_model/events.dart');
-#import('package:dart_utils/shared.dart');
 
 /**
 * Displays a general purpose modal dialog and returns results.

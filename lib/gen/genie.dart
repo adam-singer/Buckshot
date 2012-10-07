@@ -3,7 +3,7 @@ library genie_buckshot_org;
 import 'dart:json';
 import 'package:xml/xml.dart';
 import 'dart:io';
-import 'package:dart_utils/logger.dart';
+import 'package:buckshot/gen/logger.dart';
 
 part 'generator_file.dart';
 part 'gen_option.dart';

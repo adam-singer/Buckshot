@@ -5,7 +5,7 @@
 #library('funnyordie.media.controls.buckshotui.org');
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
-#import('package:dart_utils/web.dart');
+#import('package:buckshot/web/web.dart');
 
 class FunnyOrDie extends FrameworkElement
 {
@@ -19,7 +19,7 @@ class FunnyOrDie extends FrameworkElement
 
   FunnyOrDie.register() : super.register();
   makeMe() => new FunnyOrDie();
-  
+
   void _initializeFunnyOrDieProperties(){
     videoIDProperty = new FrameworkProperty(this, "videoID", (String value){
       rawElement.attributes["src"] = 'http://www.funnyordie.com/embed/${value.toString()}';

@@ -3,21 +3,20 @@
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:unittest/unittest.dart');
-#import('package:dart_utils/shared.dart');
 
 
 Future run(){
   group('Bindings', (){
     TestElement e1;
     TestElement e2;
-    
+
     void resetElements(){
       e1 = new TestElement();
       e2 = new TestElement();
     }
-    
+
     resetElements();
-    
+
     test('Test properties are valid', (){
       Expect.isNotNull(e1._aProperty);
       Expect.isNotNull(e1._bProperty);
@@ -29,7 +28,7 @@ Future run(){
       Expect.equals(getValue(e2._aProperty), e2.defaultA);
       Expect.equals(getValue(e2._bProperty), e2.defaultB);
     });
-    
+
     test('Strict binding null pProperties throws', (){
       Expect.throws(
           ()=> new Binding(e1._aProperty, null, BindingMode.OneWay),
@@ -53,7 +52,7 @@ Future run(){
           (err)=> (err is BuckshotException)
       );
     });
-    
+
     test('Can bind loosely too null', (){
       Binding b = new Binding.loose(null, e1._bProperty, BindingMode.OneWay);
       Expect.isFalse(b.bindingSet);
@@ -61,7 +60,7 @@ Future run(){
       Binding b2 = new Binding.loose(e1._bProperty, null, BindingMode.OneWay);
       Expect.isFalse(b.bindingSet);
     });
-    
+
     test('One-time binding fires only once', (){
       resetElements();
 
@@ -80,7 +79,7 @@ Future run(){
       Expect.notEquals("one time foo", e2.b);
       Expect.notEquals(e1.a, e2.b);
     });
-    
+
     test('One-way binding fires correctly', (){
       resetElements();
 
@@ -101,7 +100,7 @@ Future run(){
       //just to be sure...
       Expect.equals("binding test", e2.b);
     });
-    
+
     test('One-way binding chain succeeds', (){
       resetElements();
       TestElement e3 = new TestElement();
@@ -125,7 +124,7 @@ Future run(){
 
       Expect.equals("chain test", e3.a);
     });
-    
+
     test('One-way binding unregisters', (){
       resetElements();
 
@@ -139,7 +138,7 @@ Future run(){
 
       Expect.isFalse(b.bindingSet);
     });
-    
+
     test('Two-way binding unregisters', (){
       resetElements();
 
@@ -187,7 +186,7 @@ Future run(){
       Expect.equals("overflow test", e2.b);
       Expect.equals("overflow test", e3.a);
     });
-    
+
     test('Two-way binding works both ways', (){
       resetElements();
 
@@ -210,7 +209,7 @@ Future run(){
 
       Expect.equals("bar test", e1.a);
     });
-    
+
     test('Value converter applies to binding', (){
       resetElements();
 
@@ -230,7 +229,7 @@ Future run(){
       Expect.equals("BINDING TEST", e2.b);
     });
   });
-  
+
   return new Future.immediate(true);
 }
 

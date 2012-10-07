@@ -3,9 +3,8 @@
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:unittest/unittest.dart');
-#import('package:dart_utils/shared.dart');
 
-Future run(){ 
+Future run(){
   group('Animation', (){
     test('Set property transition', (){
       Border b = new Border();
@@ -27,7 +26,7 @@ Future run(){
 
       Expect.equals('background 3s ease-in 0s, border 1s linear 0s', Polly.getCSS(b.rawElement, 'transition'));
     });
-    
+
     test('Remove property transition', (){
       Border b = new Border();
 
@@ -47,6 +46,6 @@ Future run(){
       Expect.isNull(Polly.getCSS(b.rawElement, 'transition'));
     });
   });
-  
+
   return new Future.immediate(true);
 }

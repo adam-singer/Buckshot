@@ -3,7 +3,6 @@
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:dartnet_event_model/events.dart');
-#import('package:dart_utils/shared.dart');
 
 /**
  * A popup control that hovers over a given element.
