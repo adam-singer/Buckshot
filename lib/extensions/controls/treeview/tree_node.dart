@@ -9,6 +9,7 @@ class TreeNode extends Control implements IFrameworkContainer
 {
   bool _mouseStylesSet = false;
   TreeView _parentTreeView;
+  TreeNode _parentNode = null;
 
   FrameworkProperty headerProperty;
   FrameworkProperty iconProperty;
@@ -113,6 +114,8 @@ class TreeNode extends Control implements IFrameworkContainer
     childNodesProperty = new FrameworkProperty(this, 'childNodes',
         defaultValue:new ObservableList<TreeNode>());
 
+    childNodes.listChanged + _childrenChanged;
+
     iconProperty = new FrameworkProperty(this, 'icon');
 
     folderIconProperty = new FrameworkProperty(this, 'folderIcon');
@@ -147,6 +150,14 @@ class TreeNode extends Control implements IFrameworkContainer
     _mouseEventStylesProperty = new FrameworkProperty(this, '_mouseEventStyles');
   }
 
+  void _childrenChanged(_, ListChangedEventArgs args){
+    for (final child in args.oldItems){
+      child._parentNode = null;
+    }
+    for (final child in args.newItems){
+      child._parentNode = this;
+    }
+  }
 
   // IFrameworkContainer interface
   get content => template;
@@ -165,6 +176,8 @@ class TreeNode extends Control implements IFrameworkContainer
 
   Visibility get childVisibility => getValue(childVisibilityProperty);
   set childVisibility(Visibility value) => setValue(childVisibilityProperty, value);
+
+  TreeNode get parentNode => _parentNode;
 
   ObservableList<TreeNode> get childNodes => getValue(childNodesProperty);
 
