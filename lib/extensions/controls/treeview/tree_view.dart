@@ -119,8 +119,26 @@ class TreeView extends Panel
       });
   }
 
+  /** Selects a [node] as the active node. */
+  void selectNode(TreeNode node) => _onTreeNodeSelected(node);
+
+  /** Clears the selectged node. */
+  void clearSelectedNode(){
+    if (selectedNode == null) return;
+
+    setValue(selectedNode._mouseEventStylesProperty, mouseLeaveBorderStyle);
+    selectedNode == null;
+  }
+
+
   void _onTreeNodeSelected(TreeNode node){
+
+    if (selectedNode != null){
+      setValue(selectedNode._mouseEventStylesProperty, mouseLeaveBorderStyle);
+    }
+
     selectedNode = node;
+    setValue(selectedNode._mouseEventStylesProperty, mouseUpBorderStyle);
     treeNodeSelected.invoke(this, new TreeNodeSelectedEventArgs(node));
   }
 

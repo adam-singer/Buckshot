@@ -91,19 +91,22 @@ class TreeNode extends Control implements IFrameworkContainer
     }
 
     rowElement.mouseEnter + (_, __){
+      if (_parentTreeView.selectedNode == this) return;
       setValue(_mouseEventStylesProperty, _parentTreeView.mouseEnterBorderStyle);
     };
 
     rowElement.mouseLeave + (_, __){
+      if (_parentTreeView.selectedNode == this) return;
       setValue(_mouseEventStylesProperty, _parentTreeView.mouseLeaveBorderStyle);
     };
 
     rowElement.mouseDown + (_, __){
+      if (_parentTreeView.selectedNode == this) return;
       setValue(_mouseEventStylesProperty, _parentTreeView.mouseDownBorderStyle);
     };
 
     rowElement.mouseUp + (_, __){
-      setValue(_mouseEventStylesProperty, _parentTreeView.mouseUpBorderStyle);
+      if (_parentTreeView.selectedNode == this) return;
       _parentTreeView._onTreeNodeSelected(this);
     };
   }

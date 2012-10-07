@@ -15,6 +15,9 @@ class MasterViewModel extends ViewModelBase
   final View _calc = new Calculator();
   final View _todo = new todo.Main();
 
+  // used to track the tree views and clear them as needed.
+  final List<TreeView> _treeViews = new List<TreeView>();
+  TreeView _currentTreeView;
 
   FrameworkProperty timeStampProperty;
   FrameworkProperty videosProperty;
@@ -321,6 +324,21 @@ class MasterViewModel extends ViewModelBase
    * Handles selection changed events coming from the TreeView.
    */
   void selection_handler(sender, args){
+
+    // since the view is using multiple TreeViews (for now) we have to
+    // track them and clear the active node a of the previous TreeView
+    // when a node is selected in another.
+
+    if (_treeViews.indexOf(sender) == -1){
+        _treeViews.add(sender);
+    }
+
+    if (_currentTreeView != null && sender != _currentTreeView){
+      _currentTreeView.clearSelectedNode();
+    }
+
+    _currentTreeView = sender;
+
     final value = args.node.tag;
 
     if (value == ''){
