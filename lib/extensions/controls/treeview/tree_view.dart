@@ -144,7 +144,7 @@ class TreeView extends Panel
 
   void _initializeTreeViewProperties(){
     selectedNodeProperty = new FrameworkProperty(this, 'selectedNode',
-        defaultValue:new TreeNode());
+        defaultValue:null);
 
     indentProperty = new FrameworkProperty(this, 'indent'
       , (_) => updateLayout(), 10, converter:const StringToNumericConverter());
