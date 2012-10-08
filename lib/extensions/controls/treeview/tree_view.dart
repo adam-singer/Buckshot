@@ -163,7 +163,9 @@ class TreeView extends Panel
       propertyChangedCallback:
         (value){
 
-        String color = borderColor != null ? rawElement.style.borderColor : Colors.White.toString();
+        String color = borderColor != null
+            ? rawElement.style.borderColor
+            : FrameworkResource.retrieveResource('theme_border_color');
 
         //TODO support border hatch styles
 
