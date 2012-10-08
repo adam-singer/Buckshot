@@ -4,11 +4,11 @@
 
 
 class StringToThicknessConverter implements IValueConverter{
-  
+
   const StringToThicknessConverter();
-  
+
   Dynamic convert(Dynamic value, [Dynamic parameter]){
-    if (!(value is String)) return value;
+    if (value is! String) return value;
 
     List<String> svl = value.split(",");
     switch(svl.length){

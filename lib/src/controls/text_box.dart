@@ -6,7 +6,19 @@
 * A basic single line TextBox.  Supports most forms of Html5 textual input type (see [InputTypes]) */
 class TextBox extends Control
 {
-  FrameworkProperty textProperty, inputTypeProperty, placeholderProperty;
+  FrameworkProperty textProperty;
+  FrameworkProperty inputTypeProperty;
+  FrameworkProperty placeholderProperty;
+  FrameworkProperty borderColorProperty;
+  FrameworkProperty backgroundProperty;
+  FrameworkProperty borderThicknessProperty;
+  FrameworkProperty cornerRadiusProperty;
+  FrameworkProperty borderStyleProperty;
+  FrameworkProperty paddingProperty;
+  FrameworkProperty foregroundProperty;
+  FrameworkProperty fontSizeProperty;
+  FrameworkProperty fontFamilyProperty;
+
   final FrameworkEvent<TextChangedEventArgs> textChanged;
 
   TextBox() :
@@ -50,6 +62,112 @@ class TextBox extends Control
         " TextBox.inputType. Use InputTypes.{type} for safe assignment.");
       }
     }, InputTypes.text, converter:const StringToInputTypesConverter());
+
+    backgroundProperty = new AnimatingFrameworkProperty(
+      this,
+      "background",
+      'background',
+      propertyChangedCallback:(Brush value){
+        if (value == null){
+          rawElement.style.background = "None";
+          return;
+        }
+        value.renderBrush(rawElement);
+      },
+      defaultValue: new SolidColorBrush(new Color.hex(FrameworkResource.retrieveResource('theme_textbox_background'))),
+      converter:const StringToSolidColorBrushConverter());
+
+    borderStyleProperty = new FrameworkProperty(this, 'borderStyle',
+        propertyChangedCallback: (BorderStyle value){
+          rawElement.style.borderStyle = '$value';
+        },
+        defaultValue:
+          const StringToBorderStyleConverter()
+                  .convert(FrameworkResource
+                            .retrieveResource('theme_textbox_border_style')),
+        converter: const StringToBorderStyleConverter());
+
+    cornerRadiusProperty = new AnimatingFrameworkProperty(
+      this,
+      "cornerRadius",
+      'border-radius',
+      propertyChangedCallback:(Thickness value){
+        // TODO (John) this is a temprorary fix until value converters are working in
+        // templates...
+        if (value is num){
+          value = new Thickness(value);
+        }
+
+        rawElement.style.borderRadius = '${value.top}px ${value.right}px'
+          ' ${value.bottom}px ${value.left}px';
+      },
+      defaultValue: const StringToThicknessConverter().convert(FrameworkResource
+          .retrieveResource('theme_textbox_corner_radius')),
+      converter:const StringToThicknessConverter());
+
+    borderColorProperty = new AnimatingFrameworkProperty(
+      this,
+      "borderColor",
+      'border',
+      propertyChangedCallback: (Color c){
+        rawElement.style.borderColor = c.toColorString();
+      },
+      defaultValue: new Color.hex(FrameworkResource.retrieveResource('theme_textbox_border_color')),
+      converter:const StringToColorConverter());
+
+
+    borderThicknessProperty = new FrameworkProperty(
+      this,
+      "borderThickness",
+      (value){
+
+        String color = borderColor != null
+            ? rawElement.style.borderColor
+            : new Color.hex(FrameworkResource.retrieveResource('theme_textbox_border_color'));
+
+        rawElement.style.borderTop = '${borderStyle} ${value.top}px $color';
+        rawElement.style.borderRight = '${borderStyle} ${value.right}px $color';
+        rawElement.style.borderLeft = '${borderStyle} ${value.left}px $color';
+        rawElement.style.borderBottom = '${borderStyle} ${value.bottom}px $color';
+
+      },
+      defaultValue: const StringToThicknessConverter().convert(FrameworkResource
+          .retrieveResource('theme_textbox_border_thickness')),
+      converter:const StringToThicknessConverter());
+
+    paddingProperty = new FrameworkProperty(
+        this,
+        "padding",
+        (Thickness value){
+          rawElement.style.padding = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
+          updateLayout();
+        },
+        defaultValue: const StringToThicknessConverter().convert(FrameworkResource
+            .retrieveResource('theme_textbox_padding'))
+        , converter:const StringToThicknessConverter());
+
+    foregroundProperty = new FrameworkProperty(
+        this,
+        "foreground",
+        (Color c){
+          rawElement.style.color = c.toColorString();
+        },
+        defaultValue: new Color.hex(FrameworkResource.retrieveResource('theme_text_foreground')),
+        converter:const StringToColorConverter());
+
+    fontSizeProperty = new FrameworkProperty(
+      this,
+      "fontSize",
+      (value){
+        rawElement.style.fontSize = '${value.toString()}px';
+      });
+
+    fontFamilyProperty = new FrameworkProperty(
+      this,
+      "fontFamily",
+      (value){
+        rawElement.style.fontFamily = value.toString();
+      }, defaultValue:FrameworkResource.retrieveResource('theme_text_font_family'));
   }
 
 
@@ -90,6 +208,47 @@ class TextBox extends Control
 
   set placeholder(String value) => setValue(placeholderProperty, value);
   String get placeholder => getValue(placeholderProperty);
+
+  /// Sets the [cornerRadiusProperty] value.
+  set cornerRadius(int value) => setValue(cornerRadiusProperty, value);
+  /// Gets the [cornerRadiusProperty] value.
+  int get cornerRadius => getValue(cornerRadiusProperty);
+
+  /// Sets the [borderColorProperty] value.
+  set borderColor(Color value) => setValue(borderColorProperty, value);
+  /// Gets the [borderColorProperty] value.
+  Color get borderColor => getValue(borderColorProperty);
+
+  /// Sets the [borderThicknessProperty] value.
+  set borderThickness(Thickness value) => setValue(borderThicknessProperty, value);
+  /// Gets the [borderThicknessProperty] value.
+  Thickness get borderThickness => getValue(borderThicknessProperty);
+
+  set borderStyle(BorderStyle value) => setValue(borderStyleProperty, value);
+  BorderStyle get borderStyle => getValue(borderStyleProperty);
+
+  /// Sets the [backgroundProperty] value.
+  set background(Brush value) => setValue(backgroundProperty, value);
+  /// Gets the [backgroundProperty] value.
+  Brush get background => getValue(backgroundProperty);
+
+  /// Sets the [paddingProperty] value.
+  set padding(Thickness value) => setValue(paddingProperty, value);
+  /// Gets the [paddingProperty] value.
+  Thickness get padding => getValue(paddingProperty);
+
+  /// Sets [fontFamilyProperty] with the given [value]
+  set fontFamily(String value) => setValue(fontFamilyProperty, value);
+  /// Gets the current value of [fontFamilyProperty]
+  String get fontFamily => getValue(fontFamilyProperty);
+
+  /// Sets [fontSizeProperty] with the given [value]
+  set fontSize(num value) => setValue(fontSizeProperty, value);
+  /// Gets the value of [fontSizeProperty]
+  num get fontSize => getValue(fontSizeProperty);
+
+  set foreground(SolidColorBrush value) => setValue(foregroundProperty, value);
+  SolidColorBrush get foreground => getValue(foregroundProperty);
 
 
   void createElement(){

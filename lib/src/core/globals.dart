@@ -285,6 +285,15 @@ String defaultTheme =
   <!-- Text -->
   <var key='theme_text_font_family' value='Arial' />
   <color key='theme_text_foreground' value='Black' />
+
+  <!-- TextBox -->
+  <color key='theme_textbox_background' value='White' />
+  <color key='theme_textbox_border_color' value='Black' />
+  <var key='theme_textbox_border_thickness' value='1' />
+  <var key='theme_textbox_corner_radius' value='0' />
+  <var key='theme_textbox_border_style' value='solid' />
+  <var key='theme_textbox_padding' value='1' />
+
 </resourcecollection>
 ''';
 
