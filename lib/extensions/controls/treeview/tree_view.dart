@@ -65,7 +65,7 @@ class TreeView extends Panel
 
     cursor = Cursors.Arrow;
 
-    background = new SolidColorBrush(new Color.predefined(Colors.White));
+    background = new SolidColorBrush(new Color.hex(FrameworkResource.retrieveResource('theme_background_light')));
 
     registerEvent('treenodeselected', treeNodeSelected);
   }
