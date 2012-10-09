@@ -74,7 +74,7 @@ class TextBox extends Control
         }
         value.renderBrush(rawElement);
       },
-      defaultValue: new SolidColorBrush(new Color.hex(FrameworkResource.retrieveResource('theme_textbox_background'))),
+      defaultValue: new SolidColorBrush(new Color.hex(getResource('theme_textbox_background'))),
       converter:const StringToSolidColorBrushConverter());
 
     borderStyleProperty = new FrameworkProperty(this, 'borderStyle',
@@ -83,8 +83,7 @@ class TextBox extends Control
         },
         defaultValue:
           const StringToBorderStyleConverter()
-                  .convert(FrameworkResource
-                            .retrieveResource('theme_textbox_border_style')),
+                  .convert(getResource('theme_textbox_border_style')),
         converter: const StringToBorderStyleConverter());
 
     cornerRadiusProperty = new AnimatingFrameworkProperty(
@@ -101,8 +100,7 @@ class TextBox extends Control
         rawElement.style.borderRadius = '${value.top}px ${value.right}px'
           ' ${value.bottom}px ${value.left}px';
       },
-      defaultValue: const StringToThicknessConverter().convert(FrameworkResource
-          .retrieveResource('theme_textbox_corner_radius')),
+      defaultValue: const StringToThicknessConverter().convert(getResource('theme_textbox_corner_radius')),
       converter:const StringToThicknessConverter());
 
     borderColorProperty = new AnimatingFrameworkProperty(
@@ -112,7 +110,7 @@ class TextBox extends Control
       propertyChangedCallback: (Color c){
         rawElement.style.borderColor = c.toColorString();
       },
-      defaultValue: new Color.hex(FrameworkResource.retrieveResource('theme_textbox_border_color')),
+      defaultValue: new Color.hex(getResource('theme_textbox_border_color')),
       converter:const StringToColorConverter());
 
 
@@ -123,7 +121,7 @@ class TextBox extends Control
 
         String color = borderColor != null
             ? rawElement.style.borderColor
-            : new Color.hex(FrameworkResource.retrieveResource('theme_textbox_border_color'));
+            : new Color.hex(getResource('theme_textbox_border_color'));
 
         rawElement.style.borderTop = '${borderStyle} ${value.top}px $color';
         rawElement.style.borderRight = '${borderStyle} ${value.right}px $color';
@@ -131,8 +129,7 @@ class TextBox extends Control
         rawElement.style.borderBottom = '${borderStyle} ${value.bottom}px $color';
 
       },
-      defaultValue: const StringToThicknessConverter().convert(FrameworkResource
-          .retrieveResource('theme_textbox_border_thickness')),
+      defaultValue: const StringToThicknessConverter().convert(getResource('theme_textbox_border_thickness')),
       converter:const StringToThicknessConverter());
 
     paddingProperty = new FrameworkProperty(
@@ -142,8 +139,7 @@ class TextBox extends Control
           rawElement.style.padding = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
           updateLayout();
         },
-        defaultValue: const StringToThicknessConverter().convert(FrameworkResource
-            .retrieveResource('theme_textbox_padding'))
+        defaultValue: const StringToThicknessConverter().convert(getResource('theme_textbox_padding'))
         , converter:const StringToThicknessConverter());
 
     foregroundProperty = new FrameworkProperty(
@@ -152,7 +148,7 @@ class TextBox extends Control
         (Color c){
           rawElement.style.color = c.toColorString();
         },
-        defaultValue: new Color.hex(FrameworkResource.retrieveResource('theme_text_foreground')),
+        defaultValue: new Color.hex(getResource('theme_text_foreground')),
         converter:const StringToColorConverter());
 
     fontSizeProperty = new FrameworkProperty(
@@ -167,7 +163,7 @@ class TextBox extends Control
       "fontFamily",
       (value){
         rawElement.style.fontFamily = value.toString();
-      }, defaultValue:FrameworkResource.retrieveResource('theme_text_font_family'));
+      }, defaultValue:getResource('theme_text_font_family'));
   }
 
 

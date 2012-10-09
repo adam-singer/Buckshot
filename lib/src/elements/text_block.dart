@@ -50,7 +50,7 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
       (Color c){
          rawElement.style.color = c.toColorString();
       },
-      defaultValue: new Color.hex(FrameworkResource.retrieveResource('theme_text_foreground')),
+      defaultValue: new Color.hex(getResource('theme_text_foreground')),
       converter:const StringToColorConverter());
 
     textProperty = new FrameworkProperty(
@@ -72,7 +72,7 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
       "fontFamily",
       (value){
         rawElement.style.fontFamily = value.toString();
-      }, defaultValue:FrameworkResource.retrieveResource('theme_text_font_family'));
+      }, defaultValue:getResource('theme_text_font_family'));
   }
 
   /// Sets [fontFamilyProperty] with the given [value]

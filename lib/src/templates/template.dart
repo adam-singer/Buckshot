@@ -556,7 +556,7 @@ class Template {
           throw const PresentationProviderException('Binding'
             ' syntax incorrect.');
 
-        setValue(p, FrameworkResource.retrieveResource(words[1]));
+        setValue(p, getResource(words[1]));
         break;
       case "template":
         if (words.length != 2)
@@ -650,7 +650,7 @@ class Template {
         " a key identifier.");
 
     //add/replace resource at given key
-    FrameworkResource.registerResource(resource);
+    registerResource(resource);
   }
 
   static Future _assignAttributeProperties(BuckshotObject element,

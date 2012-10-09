@@ -39,27 +39,27 @@ class FrameworkAnimation
 {
   static HashMap<String, RequestAnimationFrameCallback> workers;
   static bool _started = false;
-  
+
   static void _startAnimatonLoop(){
     if (_started) {
       throw const BuckshotException('Main animation loop already started.');
     }
-    
+
     workers = new HashMap<String, RequestAnimationFrameCallback>();
-     
+
      window.requestAnimationFrame(_doWork);
   }
- 
-  static bool _doWork(int time){
-    
+
+  static void _doWork(int time){
+
     workers.forEach((_, work) => work(time));
-    
+
     window.requestAnimationFrame(_doWork);
   }
-  
+
   static void playAnimation(String name){
 
-    AnimationResource anim = FrameworkResource._resourceRegistry['$name'];
+    AnimationResource anim = _resourceRegistry['$name'];
 
     if (anim == null) return;
 
@@ -74,7 +74,7 @@ class FrameworkAnimation
   /// Low-level function that clears a CSS3 transition property for a given [AnimatingFrameworkProperty].
   static void clearPropertyTransition(AnimatingFrameworkProperty property){
     final rel = property.sourceObject as FrameworkObject;
-    
+
     String transProp = Polly.getCSS(rel.rawElement, 'transition');
 
     if (transProp == null || !transProp.contains(property.cssPropertyPeer)) return;
@@ -111,7 +111,7 @@ class FrameworkAnimation
   /// Low-level function that sets a CSS3 transition property for a given [AnimatingFrameworkProperty].
   static void setPropertyTransition(AnimatingFrameworkProperty property, PropertyTransition transition){
     final rel = property.sourceObject as FrameworkObject;
-    
+
     String newProp = '${property.cssPropertyPeer} ${transition.durationInSeconds}s ${transition.timing} ${transition.delay}s';
 
     String transProp = Polly.getCSS(rel.rawElement, 'transition');

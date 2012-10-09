@@ -56,9 +56,7 @@ void main() {
 
         (t.parent as Border).background =
             new SolidColorBrush(
-                new Color.hex(
-                              FrameworkResource
-                                .retrieveResource('theme_background_dark')));
+                new Color.hex(getResource('theme_background_dark')));
 
         (t.parent as Border).verticalScrollEnabled = true;
 

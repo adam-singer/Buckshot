@@ -73,7 +73,7 @@ class Control extends FrameworkElement
   }
 
   void _finishApplyVisualTemplate(){
-    var t = FrameworkResource.retrieveResource(this.templateName);
+    var t = getResource(this.templateName);
 
     if (t == null){
       template = this;

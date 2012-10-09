@@ -14,7 +14,7 @@ class Main extends View
 // can be embedded into the Sandbox demo.  Alternatives to this would be to
 // put template into the sandbox html page, or load it from a Uri.
 String _view =
-@'''
+r'''
 <border bordercolor='Black' borderthickness='1' padding='5'>
     <stackpanel>
       <textblock text="TO-DO List" fontsize="24"></textblock>

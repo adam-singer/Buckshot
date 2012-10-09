@@ -151,16 +151,16 @@ class Popup extends Control
   void _initPopupProperties(){
     backgroundProperty = new FrameworkProperty(this, 'background',
         defaultValue: new SolidColorBrush(
-                        new Color.hex(FrameworkResource.retrieveResource('theme_background_dark'))),
+                        new Color.hex(getResource('theme_background_dark'))),
         converter: const StringToSolidColorBrushConverter());
 
     borderColorProperty = new FrameworkProperty(this, 'borderColor',
         defaultValue: new SolidColorBrush(
-                        new Color.hex(FrameworkResource.retrieveResource('theme_border_color'))),
+                        new Color.hex(getResource('theme_border_color'))),
         converter: const StringToColorConverter());
 
     borderThicknessProperty = new FrameworkProperty(this, 'borderThickness',
-        defaultValue: FrameworkResource.retrieveResource('theme_border_thickness'),
+        defaultValue: getResource('theme_border_thickness'),
         converter: const StringToThicknessConverter());
 
     cornerRadiusProperty = new FrameworkProperty(this, 'cornerRadius',

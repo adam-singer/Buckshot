@@ -65,7 +65,7 @@ class TreeView extends Panel
 
     cursor = Cursors.Arrow;
 
-    background = new SolidColorBrush(new Color.hex(FrameworkResource.retrieveResource('theme_background_light')));
+    background = new SolidColorBrush(new Color.hex(getResource('theme_background_light')));
 
     registerEvent('treenodeselected', treeNodeSelected);
   }
@@ -112,10 +112,10 @@ class TreeView extends Panel
 </resourcecollection>
   ''')
       .then((_){
-        mouseEnterBorderStyle = FrameworkResource.retrieveResource('__TreeView_mouse_enter_style_template__');
-        mouseLeaveBorderStyle = FrameworkResource.retrieveResource('__TreeView_mouse_leave_style_template__');
-        mouseDownBorderStyle = FrameworkResource.retrieveResource('__TreeView_mouse_down_style_template__');
-        mouseUpBorderStyle = FrameworkResource.retrieveResource('__TreeView_mouse_up_style_template__');
+        mouseEnterBorderStyle = getResource('__TreeView_mouse_enter_style_template__');
+        mouseLeaveBorderStyle = getResource('__TreeView_mouse_leave_style_template__');
+        mouseDownBorderStyle = getResource('__TreeView_mouse_down_style_template__');
+        mouseUpBorderStyle = getResource('__TreeView_mouse_up_style_template__');
       });
   }
 
@@ -165,7 +165,7 @@ class TreeView extends Panel
 
         String color = borderColor != null
             ? rawElement.style.borderColor
-            : FrameworkResource.retrieveResource('theme_border_color');
+            : getResource('theme_border_color');
 
         //TODO support border hatch styles
 

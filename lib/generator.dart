@@ -3,7 +3,7 @@ library generator_core_buckshotui_org;
 import 'dart:io';
 import 'dart:json';
 import 'package:xml/xml.dart';
-import 'package:html5lib/html5parser.dart' as html;
+import 'package:html5lib/parser.dart' as html;
 
 import 'package:buckshot/gen/genie.dart';
 

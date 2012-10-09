@@ -17,10 +17,10 @@ Future run(){
           ''';
       Template.deserialize(t)
       .then(expectAsync1((_){
-        Expect.equals("hello world!", FrameworkResource.retrieveResource("test"));
-        Expect.equals("#007777", FrameworkResource.retrieveResource("colortest"));
-        Expect.equals("150", FrameworkResource.retrieveResource("numtest"));
-        Expect.equals("http://www.lucastudios.com/img/lucaui_logo_candidate2.png", FrameworkResource.retrieveResource("urltest"));
+        Expect.equals("hello world!", getResource("test"));
+        Expect.equals("#007777", getResource("colortest"));
+        Expect.equals("150", getResource("numtest"));
+        Expect.equals("http://www.lucastudios.com/img/lucaui_logo_candidate2.png", getResource("urltest"));
       }));
     });
 
@@ -36,7 +36,7 @@ Future run(){
       Template
       .deserialize(t)
       .then(expectAsync1((_){
-        final result = FrameworkResource.retrieveResource("contenttest");
+        final result = getResource("contenttest");
 
         Expect.isTrue(result is TextBlock);
       }));

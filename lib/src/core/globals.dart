@@ -99,6 +99,46 @@ Binding bind(FrameworkProperty from, FrameworkProperty to,
   return new Binding(from, to, bindingMode, converter);
 }
 
+
+final HashMap<String, FrameworkResource> _resourceRegistry =
+  new HashMap<String, FrameworkResource>();
+
+/**
+ * Returns a [FrameworkResource] or [String] object with the given name.
+ */
+getResource(String resourceKey){
+  if (_resourceRegistry == null) return null;
+
+  String lowered = resourceKey.trim().toLowerCase();
+
+  if (!_resourceRegistry.containsKey(lowered)) return null;
+
+  var res = _resourceRegistry[lowered];
+
+  // TODO: check the rawData field of the resource to see if it is a template.
+  // Deserialize it if so.
+
+  if (res.stateBag.containsKey(FrameworkResource.RESOURCE_PROPERTY)){
+    // resource property defined so return it's value
+    return getValue(res.stateBag[FrameworkResource.RESOURCE_PROPERTY]);
+  }else{
+    // no resource property defined so just return the resource
+    return res;
+  }
+
+}
+
+/**
+ * Registers a [FrameworkResource] to the framework.
+ *
+ * Will be deprecated when mirror-based reflection is supported on all
+ * platforms.
+ */
+void registerResource(FrameworkResource resource){
+  _resourceRegistry[resource.key.trim().toLowerCase()] = resource;
+}
+
+
 /**
  * Sets the value of a given [FrameworkProperty] to a given [v]. */
 Future setValueAsync(FrameworkProperty property, Dynamic value)
