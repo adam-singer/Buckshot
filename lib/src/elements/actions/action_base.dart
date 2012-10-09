@@ -61,7 +61,6 @@ abstract class ActionBase extends TemplateObject {
     });
   }
 
-  //TODO optimize this once reflection is in place.
   _setEvent(String eventName){
     var ee = eventName.toLowerCase();
 
@@ -71,58 +70,17 @@ abstract class ActionBase extends TemplateObject {
     var _source = getValue(_sourceProperty);
 
     if (_source == null && _source is! FrameworkElement){
-      throw const BuckshotException('action source is null or is not a FrameworkElement');
+      throw const BuckshotException('action source is null or'
+          ' is not a FrameworkElement');
     }
 
-    switch(ee){
-      case 'click':
-        _ref[ee] = _source.click + (_, __) => onEventTrigger();
-        break;
-      case 'mouseenter':
-        _ref[ee] = _source.mouseEnter + (_, __) => onEventTrigger();
-        break;
-      case 'mouseleave':
-        _ref[ee] = _source.mouseLeave + (_, __) => onEventTrigger();
-        break;
-      case 'mousemove':
-        _ref[ee] = _source.mouseMove + (_, __) => onEventTrigger();
-        break;
-      case 'mouseup':
-        _ref[ee] = _source.mouseUp + (_, __) => onEventTrigger();
-        break;
-      case 'mousedown':
-        _ref[ee] = _source.mouseDown + (_, __) => onEventTrigger();
-        break;
-      case 'gotfocus':
-        _ref[ee] = _source.gotFocus + (_, __) => onEventTrigger();
-        break;
-      case 'lostfocus':
-        _ref[ee] = _source.lostFocus + (_, __) => onEventTrigger();
-        break;
-      case 'loaded':
-        _ref[ee] = _source.loaded + (_, __) => onEventTrigger();
-        break;
-      case 'unloaded':
-        _ref[ee] = _source.unloaded + (_,__) => onEventTrigger();
-        break;
-      case 'dragend':
-        _ref[ee] = _source.dragEnd + (_,__) => onEventTrigger();
-        break;
-      case 'dragstart':
-        _ref[ee] = _source.dragStart + (_,__) => onEventTrigger();
-        break;
-      case 'drop':
-        _ref[ee] = _source.drop + (_,__) => onEventTrigger();
-        break;
-      case 'dragover':
-        _ref[ee] = _source.dragOver + (_,__) => onEventTrigger();
-        break;
-      case 'dragenter':
-        _ref[ee] = _source.dragEnter + (_,__) => onEventTrigger();
-        break;
-      case 'dragleave':
-        _ref[ee] = _source.dragLeave + (_,__) => onEventTrigger();
-        break;
+    if (!reflectionEnabled){
+      if (_source._bindableEvents.containsKey(ee)){
+        _ref[ee] = _source._bindableEvents[ee] + (_, __) => onEventTrigger();
+      }
+    }else{
+      // TODO Implement reflection lookup on event bindings.
+      throw const NotImplementedException();
     }
   }
 

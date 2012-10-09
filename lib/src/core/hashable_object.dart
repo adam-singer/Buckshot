@@ -3,15 +3,15 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 /**
-* Base class for any type that needs to be [Hashable]. */
-class HashableObject implements Hashable
+* Override base class for the native hashCode() function, which is
+* currently too slow. */
+class HashableObject
 {
   static int _hashNum = 0;
   final int _assignedHash;
-  
-  HashableObject() : _assignedHash = HashableObject._hashNum++
-  {}
-  
+
+  HashableObject() : _assignedHash = HashableObject._hashNum++;
+
   int hashCode() => _assignedHash;
-  
+
 }

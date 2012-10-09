@@ -143,11 +143,11 @@ class TabControl extends Control implements IFrameworkContainer
         converter: const StringToHorizontalAlignmentConverter());
 
     tabSelectedBrushProperty = new FrameworkProperty(this, 'tabSelectedBrush',
-        defaultValue: new SolidColorBrush(new Color.hex(getResource('theme_background_light'))),
+        defaultValue: new SolidColorBrush(getResource('theme_background_light')),
         converter: const StringToSolidColorBrushConverter());
 
     backgroundProperty = new FrameworkProperty(this, 'background',
-        defaultValue: new SolidColorBrush(new Color.hex(getResource('theme_background_light'))),
+        defaultValue: new SolidColorBrush(getResource('theme_background_light')),
         converter: const StringToSolidColorBrushConverter());
 
   }

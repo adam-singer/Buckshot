@@ -18,7 +18,7 @@ class Color extends FrameworkResource
     _initColorProperties();
 
     //meta data for binding system
-    this.stateBag[FrameworkResource.RESOURCE_PROPERTY] = valueProperty;
+    //this.stateBag[FrameworkResource.RESOURCE_PROPERTY] = valueProperty;
   }
 
   Color.register() : super.register();
@@ -58,20 +58,18 @@ class Color extends FrameworkResource
   set value(String c) => setValue(valueProperty, c);
 
   void _initColorProperties(){
-    valueProperty = new FrameworkProperty(this, "value", (String c){
-
-      if (c == null){
-        return;
-      }
-
-      if (!c.startsWith("#") || c.length != 7){
-        throw new BuckshotException("Invalid color format.  Use '#rrggbb' (given: $c)");
-      }
-    },
-    defaultValue: Colors.White.toString(),
+    valueProperty = new FrameworkProperty(this, "value",
     converter: const StringToColorStringConverter());
   }
 
   /// Returns the string representation of the color.
   String toColorString() => value;
+
+  /**
+   * This is a convenience method that gracefully handles accidental
+   * assignments to properties that are actually of type Brush.
+   */
+  void renderBrush(Element element){
+    element.style.background = "${value}";
+  }
 }

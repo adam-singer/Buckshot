@@ -50,7 +50,7 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
       (Color c){
          rawElement.style.color = c.toColorString();
       },
-      defaultValue: new Color.hex(getResource('theme_text_foreground')),
+      defaultValue: getResource('theme_text_foreground'),
       converter:const StringToColorConverter());
 
     textProperty = new FrameworkProperty(

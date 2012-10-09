@@ -49,19 +49,22 @@ class TextBox extends Control
         rawElement.attributes["placeholder"] = '$value';
       });
 
-
     textProperty = new FrameworkProperty(this, "text", (value){
       _ie.value = '$value';
     },"");
 
-    inputTypeProperty = new FrameworkProperty(this, "inputType", (InputTypes value){
-      if (InputTypes._isValidInputType(value)){
-        rawElement.attributes["type"] = value.toString();
-      }else{
-        throw new BuckshotException("Invalid input '${value}' type passed to"
-        " TextBox.inputType. Use InputTypes.{type} for safe assignment.");
-      }
-    }, InputTypes.text, converter:const StringToInputTypesConverter());
+    inputTypeProperty = new FrameworkProperty(this, "inputType",
+      propertyChangedCallback:
+        (InputTypes value){
+          if (InputTypes._isValidInputType(value)){
+            rawElement.attributes["type"] = value.toString();
+          }else{
+            throw new BuckshotException("Invalid input '${value}' type passed to"
+            " TextBox.inputType. Use InputTypes.{type} for safe assignment.");
+          }
+        },
+      defaultValue: InputTypes.text,
+      converter:const StringToInputTypesConverter());
 
     backgroundProperty = new AnimatingFrameworkProperty(
       this,
@@ -74,7 +77,7 @@ class TextBox extends Control
         }
         value.renderBrush(rawElement);
       },
-      defaultValue: new SolidColorBrush(new Color.hex(getResource('theme_textbox_background'))),
+      defaultValue: getResource('theme_textbox_background'),
       converter:const StringToSolidColorBrushConverter());
 
     borderStyleProperty = new FrameworkProperty(this, 'borderStyle',
@@ -82,8 +85,8 @@ class TextBox extends Control
           rawElement.style.borderStyle = '$value';
         },
         defaultValue:
-          const StringToBorderStyleConverter()
-                  .convert(getResource('theme_textbox_border_style')),
+          getResource('theme_textbox_border_style',
+                      const StringToBorderStyleConverter()),
         converter: const StringToBorderStyleConverter());
 
     cornerRadiusProperty = new AnimatingFrameworkProperty(
@@ -100,7 +103,8 @@ class TextBox extends Control
         rawElement.style.borderRadius = '${value.top}px ${value.right}px'
           ' ${value.bottom}px ${value.left}px';
       },
-      defaultValue: const StringToThicknessConverter().convert(getResource('theme_textbox_corner_radius')),
+      defaultValue: getResource('theme_textbox_corner_radius',
+                                converter: const StringToThicknessConverter()),
       converter:const StringToThicknessConverter());
 
     borderColorProperty = new AnimatingFrameworkProperty(
@@ -110,7 +114,7 @@ class TextBox extends Control
       propertyChangedCallback: (Color c){
         rawElement.style.borderColor = c.toColorString();
       },
-      defaultValue: new Color.hex(getResource('theme_textbox_border_color')),
+      defaultValue: getResource('theme_textbox_border_color'),
       converter:const StringToColorConverter());
 
 
@@ -121,7 +125,7 @@ class TextBox extends Control
 
         String color = borderColor != null
             ? rawElement.style.borderColor
-            : new Color.hex(getResource('theme_textbox_border_color'));
+            : getResource('theme_textbox_border_color').toColorString();
 
         rawElement.style.borderTop = '${borderStyle} ${value.top}px $color';
         rawElement.style.borderRight = '${borderStyle} ${value.right}px $color';
@@ -129,17 +133,20 @@ class TextBox extends Control
         rawElement.style.borderBottom = '${borderStyle} ${value.bottom}px $color';
 
       },
-      defaultValue: const StringToThicknessConverter().convert(getResource('theme_textbox_border_thickness')),
+      defaultValue: getResource('theme_textbox_border_thickness',
+                                converter:const StringToThicknessConverter()),
       converter:const StringToThicknessConverter());
 
     paddingProperty = new FrameworkProperty(
         this,
         "padding",
         (Thickness value){
-          rawElement.style.padding = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
+          rawElement.style.padding = '${value.top}px ${value.right}px'
+            ' ${value.bottom}px ${value.left}px';
           updateLayout();
         },
-        defaultValue: const StringToThicknessConverter().convert(getResource('theme_textbox_padding'))
+        defaultValue: getResource('theme_textbox_padding',
+                                  converter: const StringToThicknessConverter())
         , converter:const StringToThicknessConverter());
 
     foregroundProperty = new FrameworkProperty(
@@ -148,21 +155,21 @@ class TextBox extends Control
         (Color c){
           rawElement.style.color = c.toColorString();
         },
-        defaultValue: new Color.hex(getResource('theme_text_foreground')),
+        defaultValue: getResource('theme_textbox_foreground'),
         converter:const StringToColorConverter());
 
     fontSizeProperty = new FrameworkProperty(
       this,
       "fontSize",
       (value){
-        rawElement.style.fontSize = '${value.toString()}px';
+        rawElement.style.fontSize = '${value}px';
       });
 
     fontFamilyProperty = new FrameworkProperty(
       this,
       "fontFamily",
       (value){
-        rawElement.style.fontFamily = value.toString();
+        rawElement.style.fontFamily = '$value';
       }, defaultValue:getResource('theme_text_font_family'));
   }
 

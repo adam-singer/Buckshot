@@ -10,11 +10,6 @@
 */
 Buckshot buckshot = new Buckshot();
 
-// holds a registry of global event handlers when reflection is not
-// enabled.
-final HashMap<String, EventHandler> _globalEventHandlers =
-new HashMap<String, EventHandler>();
-
 /**
  * Register global event handlers here when reflection is not enabled.  Global
  * handlers are necessary in some cases, such as when content is generated
@@ -100,13 +95,13 @@ Binding bind(FrameworkProperty from, FrameworkProperty to,
 }
 
 
-final HashMap<String, FrameworkResource> _resourceRegistry =
-  new HashMap<String, FrameworkResource>();
-
 /**
- * Returns a [FrameworkResource] or [String] object with the given name.
+ * Returns a resource object with the given [resourceKey].
+ *
+ * If the optional [converter] is supplied, then the value returned is
+ * first passed through converter.convert();
  */
-getResource(String resourceKey){
+getResource(String resourceKey, [IValueConverter converter = null]){
   if (_resourceRegistry == null) return null;
 
   String lowered = resourceKey.trim().toLowerCase();
@@ -120,12 +115,10 @@ getResource(String resourceKey){
 
   if (res.stateBag.containsKey(FrameworkResource.RESOURCE_PROPERTY)){
     // resource property defined so return it's value
-    return getValue(res.stateBag[FrameworkResource.RESOURCE_PROPERTY]);
-  }else{
-    // no resource property defined so just return the resource
-    return res;
+    res = getValue(res.stateBag[FrameworkResource.RESOURCE_PROPERTY]);
   }
 
+  return converter == null ? res : converter.convert(res);
 }
 
 /**
@@ -310,6 +303,10 @@ String defaultTheme =
   <color key='theme_background_mouse_hover' value='LightGray' />
   <color key='theme_background_mouse_down' value='DarkGray' />
 
+  <!-- Default Brushes -->
+  <solidcolorbrush key='theme_light_brush' color='{resource theme_background_light}' />
+  <solidcolorbrush key='theme_dark_brush' color='{resource theme_background_dark}' />
+
   <!-- Shadows --> 
   <color key='theme_shadow_color' value='Black' />
   <var key='theme_shadow_x' value='2' />
@@ -321,14 +318,16 @@ String defaultTheme =
   <color key='theme_border_color_dark' value='DarkGray' />
   <var key='theme_border_thickness' value='1' />
   <var key='theme_border_padding' value='5' />
+  <!-- Note that border does not have a default background brush. -->
 
   <!-- Text -->
   <var key='theme_text_font_family' value='Arial' />
-  <color key='theme_text_foreground' value='Black' />
+  <color key='theme_text_foreground' value='Red' />
 
   <!-- TextBox -->
-  <color key='theme_textbox_background' value='White' />
   <color key='theme_textbox_border_color' value='Black' />
+  <color key='theme_textbox_foreground' value='Black' />
+  <solidcolorbrush key='theme_textbox_background' color='{resource theme_background_light}' />
   <var key='theme_textbox_border_thickness' value='1' />
   <var key='theme_textbox_corner_radius' value='0' />
   <var key='theme_textbox_border_style' value='solid' />
@@ -337,3 +336,11 @@ String defaultTheme =
 </resourcecollection>
 ''';
 
+// Holds a registry of resources.
+final HashMap<String, FrameworkResource> _resourceRegistry =
+new HashMap<String, FrameworkResource>();
+
+// Holds a registry of global event handlers when reflection is not
+// enabled.
+final HashMap<String, EventHandler> _globalEventHandlers =
+new HashMap<String, EventHandler>();

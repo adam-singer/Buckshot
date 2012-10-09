@@ -51,7 +51,7 @@ class Binding extends BuckshotObject
 
     _registerBinding();
   }
-  
+
   /**
    * Instantiates a binding between [fromProperty] and [toProperty],
    * with an optional [bindingMode] and [converter].
@@ -79,7 +79,7 @@ class Binding extends BuckshotObject
   }
 
   makeMe() => null;
-  
+
   _registerBinding()
   {
     bindingSet = true;
@@ -149,8 +149,8 @@ class Binding extends BuckshotObject
       .sourceObject
       ._bindings
       .forEach((binding){
-        setValue(binding._toProperty,
-          binding.converter.convert(getValue(binding._fromProperty)));
+          setValue(binding._toProperty,
+              binding.converter.convert(getValue(binding._fromProperty)));
 
         if (binding.bindingMode == BindingMode.OneTime)
           binding.unregister();

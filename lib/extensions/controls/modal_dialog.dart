@@ -178,8 +178,7 @@ class ModalDialog extends Control
         defaultValue:'undefined');
 
     backgroundProperty = new FrameworkProperty(this, 'background',
-        defaultValue: new SolidColorBrush(
-                        new Color.hex(getResource('theme_background_dark'))),
+        defaultValue: new SolidColorBrush(getResource('theme_background_dark')),
         converter: const StringToSolidColorBrushConverter());
 
     maskColorProperty = new FrameworkProperty(this, 'maskColor',
@@ -191,8 +190,7 @@ class ModalDialog extends Control
         defaultValue: 0.5,
         converter: const StringToNumericConverter());
 
-    borderColorProperty = new FrameworkProperty(this, 'borderColor',
-        defaultValue: new Color.hex(getResource('theme_border_color_dark')),
+    borderColorProperty = new FrameworkProperty(this, 'borderColor',getResource('theme_border_color_dark'),
         converter: const StringToColorConverter());
 
     borderThicknessProperty = new FrameworkProperty(this, 'borderThickness',

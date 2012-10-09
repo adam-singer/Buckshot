@@ -14,287 +14,287 @@ class StringToColorConverter implements IValueConverter{
     //reflection... please get here soon...
     switch(value){
       case "AliceBlue":
-        return new Color.hex(Colors.AliceBlue.toString());
+        return new Color.predefined(Colors.AliceBlue);
       case "AntiqueWhite":
-        return new Color.hex(Colors.AntiqueWhite.toString());
+        return new Color.predefined(Colors.AntiqueWhite);
       case "Aqua":
-        return new Color.hex(Colors.Aqua.toString());
+        return new Color.predefined(Colors.Aqua);
       case "Aquamarine":
-        return new Color.hex(Colors.Aquamarine.toString());
+        return new Color.predefined(Colors.Aquamarine);
       case "Azure":
-        return new Color.hex(Colors.Azure.toString());
+        return new Color.predefined(Colors.Azure);
       case "Beige":
-        return new Color.hex(Colors.Beige.toString());
+        return new Color.predefined(Colors.Beige);
       case "Bisque":
-        return new Color.hex(Colors.Bisque.toString());
+        return new Color.predefined(Colors.Bisque);
       case "Black":
-        return new Color.hex(Colors.Black.toString());
+        return new Color.predefined(Colors.Black);
       case "BlanchedAlmond":
-        return new Color.hex(Colors.BlanchedAlmond.toString());
+        return new Color.predefined(Colors.BlanchedAlmond);
       case "Blue":
-        return new Color.hex(Colors.Blue.toString());
+        return new Color.predefined(Colors.Blue);
       case "BlueViolet":
-        return new Color.hex(Colors.BlueViolet.toString());
+        return new Color.predefined(Colors.BlueViolet);
       case "Brown":
-        return new Color.hex(Colors.Brown.toString());
+        return new Color.predefined(Colors.Brown);
       case "BurlyWood":
-        return new Color.hex(Colors.BurlyWood.toString());
+        return new Color.predefined(Colors.BurlyWood);
       case "CadetBlue":
-        return new Color.hex(Colors.CadetBlue.toString());
+        return new Color.predefined(Colors.CadetBlue);
       case "Chartreuse":
-        return new Color.hex(Colors.Chartreuse.toString());
+        return new Color.predefined(Colors.Chartreuse);
       case "Chocolate":
-        return new Color.hex(Colors.Chocolate.toString());
+        return new Color.predefined(Colors.Chocolate);
       case "Coral":
-        return new Color.hex(Colors.Coral.toString());
+        return new Color.predefined(Colors.Coral);
       case "ConflowerBlue":
-        return new Color.hex(Colors.ConflowerBlue.toString());
+        return new Color.predefined(Colors.ConflowerBlue);
       case "Cornsilk":
-        return new Color.hex(Colors.Cornsilk.toString());
+        return new Color.predefined(Colors.Cornsilk);
       case "Crimson":
-        return new Color.hex(Colors.Crimson.toString());
+        return new Color.predefined(Colors.Crimson);
       case "Cyan":
-        return new Color.hex(Colors.Cyan.toString());
+        return new Color.predefined(Colors.Cyan);
       case "DarkBlue":
-        return new Color.hex(Colors.DarkBlue.toString());
+        return new Color.predefined(Colors.DarkBlue);
       case "DarkCyan":
-        return new Color.hex(Colors.DarkCyan.toString());
+        return new Color.predefined(Colors.DarkCyan);
       case "DarkGoldenrod":
-        return new Color.hex(Colors.DarkGoldenrod.toString());
+        return new Color.predefined(Colors.DarkGoldenrod);
       case "DarkGray":
-        return new Color.hex(Colors.DarkGray.toString());
+        return new Color.predefined(Colors.DarkGray);
       case "DarkGreen":
-        return new Color.hex(Colors.DarkGreen.toString());
+        return new Color.predefined(Colors.DarkGreen);
       case "DarkKhaki":
-        return new Color.hex(Colors.DarkKhaki.toString());
+        return new Color.predefined(Colors.DarkKhaki);
       case "DarkMagenta":
-        return new Color.hex(Colors.DarkMagenta.toString());
+        return new Color.predefined(Colors.DarkMagenta);
       case "DarkOliveGreen":
-        return new Color.hex(Colors.DarkOliveGreen.toString());
+        return new Color.predefined(Colors.DarkOliveGreen);
       case "DarkOrange":
-        return new Color.hex(Colors.DarkOrange.toString());
+        return new Color.predefined(Colors.DarkOrange);
       case "DarkOrchid":
-        return new Color.hex(Colors.DarkOrchid.toString());
+        return new Color.predefined(Colors.DarkOrchid);
       case "DarkRed":
-        return new Color.hex(Colors.DarkRed.toString());
+        return new Color.predefined(Colors.DarkRed);
       case "DarkSalmon":
-        return new Color.hex(Colors.DarkSalmon.toString());
+        return new Color.predefined(Colors.DarkSalmon);
       case "DarkSeaGreen":
-        return new Color.hex(Colors.DarkSeaGreen.toString());
+        return new Color.predefined(Colors.DarkSeaGreen);
       case "DarkSlateBlue":
-        return new Color.hex(Colors.DarkSlateBlue.toString());
+        return new Color.predefined(Colors.DarkSlateBlue);
       case "DarkSlateGray":
-        return new Color.hex(Colors.DarkSlateGray.toString());
+        return new Color.predefined(Colors.DarkSlateGray);
       case "DarkTurquoise":
-        return new Color.hex(Colors.DarkTurquoise.toString());
+        return new Color.predefined(Colors.DarkTurquoise);
       case "DarkViolet":
-        return new Color.hex(Colors.DarkViolet.toString());
+        return new Color.predefined(Colors.DarkViolet);
       case "DeepPink":
-        return new Color.hex(Colors.DeepPink.toString());
+        return new Color.predefined(Colors.DeepPink);
       case "DeepSkyBlue":
-        return new Color.hex(Colors.DeepSkyBlue.toString());
+        return new Color.predefined(Colors.DeepSkyBlue);
       case "DimGray":
-        return new Color.hex(Colors.DimGray.toString());
+        return new Color.predefined(Colors.DimGray);
       case "DodgerBlue":
-        return new Color.hex(Colors.DodgerBlue.toString());
+        return new Color.predefined(Colors.DodgerBlue);
       case "Firebrick":
-        return new Color.hex(Colors.Firebrick.toString());
+        return new Color.predefined(Colors.Firebrick);
       case "FloralWhite":
-        return new Color.hex(Colors.FloralWhite.toString());
+        return new Color.predefined(Colors.FloralWhite);
       case "ForestGreen":
-        return new Color.hex(Colors.ForestGreen.toString());
+        return new Color.predefined(Colors.ForestGreen);
       case "Fuchsia":
-        return new Color.hex(Colors.Fuchsia.toString());
+        return new Color.predefined(Colors.Fuchsia);
       case "Gainsboro":
-        return new Color.hex(Colors.Gainsboro.toString());
+        return new Color.predefined(Colors.Gainsboro);
       case "GhostWhite":
-        return new Color.hex(Colors.GhostWhite.toString());
+        return new Color.predefined(Colors.GhostWhite);
       case "Gold":
-        return new Color.hex(Colors.Gold.toString());
+        return new Color.predefined(Colors.Gold);
       case "Goldenrod":
-        return new Color.hex(Colors.Goldenrod.toString());
+        return new Color.predefined(Colors.Goldenrod);
       case "Gray":
-        return new Color.hex(Colors.Gray.toString());
+        return new Color.predefined(Colors.Gray);
       case "Green":
-        return new Color.hex(Colors.Green.toString());
+        return new Color.predefined(Colors.Green);
       case "GreenYellow":
-        return new Color.hex(Colors.GreenYellow.toString());
+        return new Color.predefined(Colors.GreenYellow);
       case "Honeydew":
-        return new Color.hex(Colors.Honeydew.toString());
+        return new Color.predefined(Colors.Honeydew);
       case "HotPink":
-        return new Color.hex(Colors.HotPink.toString());
+        return new Color.predefined(Colors.HotPink);
       case "IndianRed":
-        return new Color.hex(Colors.IndianRed.toString());
+        return new Color.predefined(Colors.IndianRed);
       case "Indigo":
-        return new Color.hex(Colors.Indigo.toString());
+        return new Color.predefined(Colors.Indigo);
       case "Ivory":
-        return new Color.hex(Colors.Ivory.toString());
+        return new Color.predefined(Colors.Ivory);
       case "Khaki":
-        return new Color.hex(Colors.Khaki.toString());
+        return new Color.predefined(Colors.Khaki);
       case "Lavender":
-        return new Color.hex(Colors.Lavender.toString());
+        return new Color.predefined(Colors.Lavender);
       case "LavenderBlush":
-        return new Color.hex(Colors.LavenderBlush.toString());
+        return new Color.predefined(Colors.LavenderBlush);
       case "LawnGreen":
-        return new Color.hex(Colors.LawnGreen.toString());
+        return new Color.predefined(Colors.LawnGreen);
       case "LemonChiffon":
-        return new Color.hex(Colors.LemonChiffon.toString());
+        return new Color.predefined(Colors.LemonChiffon);
       case "LightBlue":
-        return new Color.hex(Colors.LightBlue.toString());
+        return new Color.predefined(Colors.LightBlue);
       case "LightCoral":
-        return new Color.hex(Colors.LightCoral.toString());
+        return new Color.predefined(Colors.LightCoral);
       case "LightCyan":
-        return new Color.hex(Colors.LightCyan.toString());
+        return new Color.predefined(Colors.LightCyan);
       case "LightGoldenrod":
-        return new Color.hex(Colors.LightGoldenrod.toString());
+        return new Color.predefined(Colors.LightGoldenrod);
       case "LightGray":
-        return new Color.hex(Colors.LightGray.toString());
+        return new Color.predefined(Colors.LightGray);
       case "LightGreen":
-        return new Color.hex(Colors.LightGreen.toString());
+        return new Color.predefined(Colors.LightGreen);
       case "LightPink":
-        return new Color.hex(Colors.LightPink.toString());
+        return new Color.predefined(Colors.LightPink);
       case "LightSalmon":
-        return new Color.hex(Colors.LightSalmon.toString());
+        return new Color.predefined(Colors.LightSalmon);
       case "LightSeaGreen":
-        return new Color.hex(Colors.LightSeaGreen.toString());
+        return new Color.predefined(Colors.LightSeaGreen);
       case "LightSkyBlue":
-        return new Color.hex(Colors.LightSkyBlue.toString());
+        return new Color.predefined(Colors.LightSkyBlue);
       case "LightSlateGray":
-        return new Color.hex(Colors.LightSlateGray.toString());
+        return new Color.predefined(Colors.LightSlateGray);
       case "LightSteelBlue":
-        return new Color.hex(Colors.LightSteelBlue.toString());
+        return new Color.predefined(Colors.LightSteelBlue);
       case "LightYellow":
-        return new Color.hex(Colors.LightYellow.toString());
+        return new Color.predefined(Colors.LightYellow);
       case "Lime":
-        return new Color.hex(Colors.Lime.toString());
+        return new Color.predefined(Colors.Lime);
       case "LimeGreen":
-        return new Color.hex(Colors.LimeGreen.toString());
+        return new Color.predefined(Colors.LimeGreen);
       case "Linen":
-        return new Color.hex(Colors.Linen.toString());
+        return new Color.predefined(Colors.Linen);
       case "Magenta":
-        return new Color.hex(Colors.Magenta.toString());
+        return new Color.predefined(Colors.Magenta);
       case "Maroon":
-        return new Color.hex(Colors.Maroon.toString());
+        return new Color.predefined(Colors.Maroon);
       case "MediumAquamarine":
-        return new Color.hex(Colors.MediumAquamarine.toString());
+        return new Color.predefined(Colors.MediumAquamarine);
       case "MediumBlue":
-        return new Color.hex(Colors.MediumBlue.toString());
+        return new Color.predefined(Colors.MediumBlue);
       case "MediumOrchid":
-        return new Color.hex(Colors.MediumOrchid.toString());
+        return new Color.predefined(Colors.MediumOrchid);
       case "MediumPurple":
-        return new Color.hex(Colors.MediumPurple.toString());
+        return new Color.predefined(Colors.MediumPurple);
       case "MediumSeaGreen":
-        return new Color.hex(Colors.MediumSeaGreen.toString());
+        return new Color.predefined(Colors.MediumSeaGreen);
       case "MediumSlateBlue":
-        return new Color.hex(Colors.MediumSlateBlue.toString());
+        return new Color.predefined(Colors.MediumSlateBlue);
       case "MediumSpringGreen":
-        return new Color.hex(Colors.MediumSpringGreen.toString());
+        return new Color.predefined(Colors.MediumSpringGreen);
       case "MediumTurquoise":
-        return new Color.hex(Colors.MediumTurquoise.toString());
+        return new Color.predefined(Colors.MediumTurquoise);
       case "MediumVioletRed":
-        return new Color.hex(Colors.MediumVioletRed.toString());
+        return new Color.predefined(Colors.MediumVioletRed);
       case "MidnightBlue":
-        return new Color.hex(Colors.MidnightBlue.toString());
+        return new Color.predefined(Colors.MidnightBlue);
       case "MintCream":
-        return new Color.hex(Colors.MintCream.toString());
+        return new Color.predefined(Colors.MintCream);
       case "MistyRose":
-        return new Color.hex(Colors.MistyRose.toString());
+        return new Color.predefined(Colors.MistyRose);
       case "Moccasin":
-        return new Color.hex(Colors.Moccasin.toString());
+        return new Color.predefined(Colors.Moccasin);
       case "NavajoWhite":
-        return new Color.hex(Colors.NavajoWhite.toString());
+        return new Color.predefined(Colors.NavajoWhite);
       case "Navy":
-        return new Color.hex(Colors.Navy.toString());
+        return new Color.predefined(Colors.Navy);
       case "OldLace":
-        return new Color.hex(Colors.OldLace.toString());
+        return new Color.predefined(Colors.OldLace);
       case "Olive":
-        return new Color.hex(Colors.Olive.toString());
+        return new Color.predefined(Colors.Olive);
       case "OliveDrab":
-        return new Color.hex(Colors.OliveDrab.toString());
+        return new Color.predefined(Colors.OliveDrab);
       case "Orange":
-        return new Color.hex(Colors.Orange.toString());
+        return new Color.predefined(Colors.Orange);
       case "OrangeRed":
-        return new Color.hex(Colors.OrangeRed.toString());
+        return new Color.predefined(Colors.OrangeRed);
       case "Orchid":
-        return new Color.hex(Colors.Orchid.toString());
+        return new Color.predefined(Colors.Orchid);
       case "PaleGoldenrod":
-        return new Color.hex(Colors.PaleGoldenrod.toString());
+        return new Color.predefined(Colors.PaleGoldenrod);
       case "PaleGreen":
-        return new Color.hex(Colors.PaleGreen.toString());
+        return new Color.predefined(Colors.PaleGreen);
       case "PaleTurquoise":
-        return new Color.hex(Colors.PaleTurquoise.toString());
+        return new Color.predefined(Colors.PaleTurquoise);
       case "PaleVioletRed":
-        return new Color.hex(Colors.PaleVioletRed.toString());
+        return new Color.predefined(Colors.PaleVioletRed);
       case "PapayaWhip":
-        return new Color.hex(Colors.PapayaWhip.toString());
+        return new Color.predefined(Colors.PapayaWhip);
       case "PeachPuff":
-        return new Color.hex(Colors.PeachPuff.toString());
+        return new Color.predefined(Colors.PeachPuff);
       case "Peru":
-        return new Color.hex(Colors.Peru.toString());
+        return new Color.predefined(Colors.Peru);
       case "Pink":
-        return new Color.hex(Colors.Pink.toString());
+        return new Color.predefined(Colors.Pink);
       case "Plum":
-        return new Color.hex(Colors.Plum.toString());
+        return new Color.predefined(Colors.Plum);
       case "PowderBlue":
-        return new Color.hex(Colors.PowderBlue.toString());
+        return new Color.predefined(Colors.PowderBlue);
       case "Purple":
-        return new Color.hex(Colors.Purple.toString());
+        return new Color.predefined(Colors.Purple);
       case "Red":
-        return new Color.hex(Colors.Red.toString());
+        return new Color.predefined(Colors.Red);
       case "RosyBrown":
-        return new Color.hex(Colors.RosyBrown.toString());
+        return new Color.predefined(Colors.RosyBrown);
       case "RoyalBlue":
-        return new Color.hex(Colors.RoyalBlue.toString());
+        return new Color.predefined(Colors.RoyalBlue);
       case "SaddleBrown":
-        return new Color.hex(Colors.SaddleBrown.toString());
+        return new Color.predefined(Colors.SaddleBrown);
       case "Salmon":
-        return new Color.hex(Colors.Salmon.toString());
+        return new Color.predefined(Colors.Salmon);
       case "SandyBrown":
-        return new Color.hex(Colors.SandyBrown.toString());
+        return new Color.predefined(Colors.SandyBrown);
       case "SeaGreen":
-        return new Color.hex(Colors.SeaGreen.toString());
+        return new Color.predefined(Colors.SeaGreen);
       case "SeaShell":
-        return new Color.hex(Colors.SeaShell.toString());
+        return new Color.predefined(Colors.SeaShell);
       case "Sienna":
-        return new Color.hex(Colors.Sienna.toString());
+        return new Color.predefined(Colors.Sienna);
       case "Silver":
-        return new Color.hex(Colors.Silver.toString());
+        return new Color.predefined(Colors.Silver);
       case "SkyBlue":
-        return new Color.hex(Colors.SkyBlue.toString());
+        return new Color.predefined(Colors.SkyBlue);
       case "SlateBlue":
-        return new Color.hex(Colors.SlateBlue.toString());
+        return new Color.predefined(Colors.SlateBlue);
       case "SlateGray":
-        return new Color.hex(Colors.SlateGray.toString());
+        return new Color.predefined(Colors.SlateGray);
       case "Snow":
-        return new Color.hex(Colors.Snow.toString());
+        return new Color.predefined(Colors.Snow);
       case "SpringGreen":
-        return new Color.hex(Colors.SpringGreen.toString());
+        return new Color.predefined(Colors.SpringGreen);
       case "SteelBlue":
-        return new Color.hex(Colors.SteelBlue.toString());
+        return new Color.predefined(Colors.SteelBlue);
       case "Tan":
-        return new Color.hex(Colors.Tan.toString());
+        return new Color.predefined(Colors.Tan);
       case "Teal":
-        return new Color.hex(Colors.Teal.toString());
+        return new Color.predefined(Colors.Teal);
       case "Thistle":
-        return new Color.hex(Colors.Thistle.toString());
+        return new Color.predefined(Colors.Thistle);
       case "Tomato":
-        return new Color.hex(Colors.Tomato.toString());
+        return new Color.predefined(Colors.Tomato);
       case "Turquoise":
-        return new Color.hex(Colors.Turquoise.toString());
+        return new Color.predefined(Colors.Turquoise);
       case "Violet":
-        return new Color.hex(Colors.Violet.toString());
+        return new Color.predefined(Colors.Violet);
       case "Wheat":
-        return new Color.hex(Colors.Wheat.toString());
+        return new Color.predefined(Colors.Wheat);
       case "White":
-        return new Color.hex(Colors.White.toString());
+        return new Color.predefined(Colors.White);
       case "WhiteSmoke":
-        return new Color.hex(Colors.WhiteSmoke.toString());
+        return new Color.predefined(Colors.WhiteSmoke);
       case "Yellow":
-        return new Color.hex(Colors.Yellow.toString());
+        return new Color.predefined(Colors.Yellow);
       case "YellowGreen":
-        return new Color.hex(Colors.YellowGreen.toString());
+        return new Color.predefined(Colors.YellowGreen);
       default:
-        return value;
+        return new Color.predefined(Colors.Red);
     }
   }
 }

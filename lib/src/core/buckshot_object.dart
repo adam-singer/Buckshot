@@ -7,29 +7,21 @@
 */
 abstract class BuckshotObject extends HashableObject
 {
-  final HashMap<String, Dynamic> stateBag;
-  final List<Binding> _bindings;
-  final Set<FrameworkProperty> _frameworkProperties;
-  final HashMap<String, FrameworkEvent> _bindableEvents;
-  final HashMap<String, EventHandler> _eventHandlers;
+  final HashMap<String, Dynamic> stateBag = new HashMap<String, Dynamic>();
+  final List<Binding> _bindings = new List<Binding>();
+  final Set<FrameworkProperty> _frameworkProperties =
+      new Set<FrameworkProperty>();
+  final HashMap<String, FrameworkEvent> _bindableEvents =
+      new HashMap<String, FrameworkEvent>();
+  final HashMap<String, EventHandler> _eventHandlers =
+      new HashMap<String, EventHandler>();
 
-  BuckshotObject() :
-    _frameworkProperties = new Set<FrameworkProperty>(),
-    stateBag = new HashMap<String, Dynamic>(),
-    _bindings = new List<Binding>(),
-    _bindableEvents = new HashMap<String, FrameworkEvent>(),
-    _eventHandlers = new HashMap<String, EventHandler>();
+  BuckshotObject();
+  BuckshotObject.register();
 
   /// Gets a boolean value indicating whether the given object
   /// is a container or not.
   bool get isContainer => this is IFrameworkContainer;
-
-  BuckshotObject.register() :
-    _frameworkProperties = new Set<FrameworkProperty>(),
-    stateBag = new HashMap<String, Dynamic>(),
-    _bindings = new List<Binding>(),
-    _bindableEvents = new HashMap<String, FrameworkEvent>(),
-    _eventHandlers = new HashMap<String, EventHandler>();
 
   /**
    * Registers an event for later lookup during template event binding
