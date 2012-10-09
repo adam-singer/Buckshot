@@ -5,6 +5,7 @@
 class MenuStrip extends Control implements IFrameworkContainer
 {
   FrameworkProperty menusProperty;
+  FrameworkProperty orientationProperty;
 
   final FrameworkEvent<MenuItemSelectedEventArgs> menuItemSelected =
       new FrameworkEvent<MenuItemSelectedEventArgs>();
@@ -19,7 +20,7 @@ class MenuStrip extends Control implements IFrameworkContainer
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = content;
 
-    this.registerEvent('menuitemselected', menuItemSelected);
+    registerEvent('menuitemselected', menuItemSelected);
 
   }
 
@@ -75,6 +76,10 @@ class MenuStrip extends Control implements IFrameworkContainer
   void _initMenuStripProperties(){
     menusProperty = new FrameworkProperty(this, 'menus',
         defaultValue: new ObservableList<Menu>());
+
+    orientationProperty = new FrameworkProperty(this, 'orientation',
+        defaultValue: Orientation.horizontal,
+        converter: const StringToOrientationConverter());
   }
 
   ObservableList<Menu> get menus => getValue(menusProperty);
@@ -90,16 +95,16 @@ class MenuStrip extends Control implements IFrameworkContainer
     <border cursor='Arrow' background='{resource theme_background_dark}'>
       <collectionpresenter halign='stretch' collection='{template menus}'>
          <presentationpanel>
-            <stackpanel orientation='horizontal'></stackpanel>
+            <stackpanel orientation='{template orientation}'></stackpanel>
          </presentationpanel>
          <itemstemplate>
            <stack>
-              <border padding='{resource theme_border_padding}' background='{resource theme_background_dark}' halign='stretch'>
+              <border padding='{resource theme_border_padding}' background='{resource theme_menu_background_brush}' halign='stretch'>
                 <actions>
-                   <setproperty event='mouseEnter' property='background' value='{resource theme_background_mouse_hover}' />
-                   <setproperty event='mouseLeave' property='background' value='{resource theme_background_dark}' />
-                   <setproperty event='mouseDown' property='background' value='{resource theme_background_mouse_down}' />
-                   <setproperty event='mouseUp' property='background' value='{resource theme_background_hover}' />
+                   <setproperty event='mouseEnter' property='background' value='{resource theme_menu_background_hover_brush}' />
+                   <setproperty event='mouseLeave' property='background' value='{resource theme_menu_background_brush}' />
+                   <setproperty event='mouseDown' property='background' value='{resource theme_menu_background_mouse_down_brush}' />
+                   <setproperty event='mouseUp' property='background' value='{resource theme_menu_background_hover_brush}' />
                 </actions>
                 <contentpresenter content='{data header}' />
               </border>

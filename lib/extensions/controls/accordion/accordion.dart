@@ -152,13 +152,17 @@ class Accordion extends Control implements IFrameworkContainer
    */
   String get headerTemplate =>
 '''
- <border name='__accordion_header__' padding='{resource theme_border_padding}' borderthickness='0,0,1,0' 
-bordercolor='{resource theme_border_color}' background='{resource theme_background_dark}' halign='stretch'>
+ <border name='__accordion_header__' 
+         padding='{resource theme_border_padding}' 
+         borderthickness='{resource theme_accordion_header_border_thickness}' 
+         bordercolor='{resource theme_border_color}' 
+         background='{resource theme_accordion_header_background_brush}' 
+         halign='stretch'>
     <actions>
-      <setproperty event='mouseEnter' property='background' value='{resource theme_background_mouse_hover}' />
-      <setproperty event='mouseLeave' property='background' value='{resource theme_background_dark}' />
-      <setproperty event='mouseDown' property='background' value='{resource theme_background_mouse_down}' />
-      <setproperty event='mouseUp' property='background' value='{resource theme_background_hover}' />
+      <setproperty event='mouseEnter' property='background' value='{resource theme_accordion_background_hover_brush}' />
+      <setproperty event='mouseLeave' property='background' value='{resource theme_accordion_header_background_brush}' />
+      <setproperty event='mouseDown' property='background' value='{resource theme_accordion_background_mouse_down_brush}' />
+      <setproperty event='mouseUp' property='background' value='{resource theme_accordion_background_hover_brush}' />
     </actions>
     <contentpresenter halign='stretch' content='{data header}' />                   
  </border>
@@ -170,8 +174,8 @@ bordercolor='{resource theme_border_color}' background='{resource theme_backgrou
    */
   String get bodyTemplate =>
 '''
- <border name='__accordion_body__' halign='stretch' background='{resource theme_background_light}'>
-   <contentpresenter margin='5' halign='stretch' content='{data body}' />
+ <border name='__accordion_body__' halign='stretch' background='{resource theme_accordion_body_background_brush}'>
+   <contentpresenter halign='stretch' content='{data body}' />
  </border>
 ''';
 

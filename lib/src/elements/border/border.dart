@@ -97,7 +97,8 @@ class Border extends FrameworkElement implements IFrameworkContainer
         rawElement.style.borderRadius = '${value.top}px ${value.right}px'
           ' ${value.bottom}px ${value.left}px';
       },
-      defaultValue: new Thickness(0),
+      defaultValue: getResource('theme_border_corner_radius',
+                                converter: const StringToThicknessConverter()),
       converter:const StringToThicknessConverter());
 
     borderColorProperty = new AnimatingFrameworkProperty(

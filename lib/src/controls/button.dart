@@ -46,14 +46,14 @@ class Button extends Control implements IFrameworkContainer
             zorder='32766'
             minwidth='20'
             minheight='20'
-            background='{resource theme_background_dark}'
-            borderthickness='{resource theme_border_thickness}'
-            bordercolor='{resource theme_border_color_dark}'
+            background='{resource theme_button_background}'
+            borderthickness='{resource theme_button_border_thickness}'
+            bordercolor='{resource theme_button_border_color}'
             padding='{resource theme_border_padding}'
             cursor='Arrow'>
         <actions>
-          <setproperty event='mouseEnter' property='background' value='{resource theme_background_mouse_hover}' />
-          <setproperty event='mouseLeave' property='background' value='{resource theme_background_dark}' />
+          <setproperty event='mouseEnter' property='background' value='{resource theme_button_background_hover}' />
+          <setproperty event='mouseLeave' property='background' value='{resource theme_button_background}' />
           <setproperty event='mouseLeave' property='translateX' value='0' />
           <setproperty event='mouseLeave' property='translateY' value='0' />
           <setproperty event='mouseLeave' property='shadowX' value='{resource theme_shadow_x}' />
