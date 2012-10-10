@@ -25,7 +25,7 @@ class Polly {
   /// List of vendor prefixes.
   static const prefixes = const ['','-webkit-','-moz-','-o-','-ms-'];
 
-  static BrowserInfo _browserInfo;
+  static BrowserInfo _browserInfo = Browser.getBrowserInfo();
 
   //TODO move this into BrowserInfo class?
   static FlexModel _flexModel;
@@ -37,7 +37,7 @@ class Polly {
   static BrowserInfo get browserInfo => _browserInfo;
 
   static void init(){
-    _browserInfo = Browser.getBrowserInfo();
+//    _browserInfo = Browser.getBrowserInfo();
 
     var e = new DivElement();
 
@@ -50,18 +50,24 @@ class Polly {
     e.remove();
   }
 
+  static void setPolyfills(FrameworkElement e){
+    if (_flexModel != FlexModel.Flex){
+      e._polyfills['flexbox'] = new _FlexboxPolyfill.with(e);
+    }
+  }
+
   /**
    * Returns a future containing the mouse coordinates within a give [element]
    * coordinate space.
    */
-  static Future<SafePoint> localMouseCoordinate(Element element, 
+  static Future<SafePoint> localMouseCoordinate(Element element,
       num pageX, num pageY){
     if (browserInfo == null){
       Polly.init();
     }
-    
+
     final c = new Completer();
-    
+
     if (browserInfo.browser != Browser.CHROME){
       element.rect.then((ElementRect r){
         c.complete(new SafePoint(pageX - r.bounding.left,
@@ -73,7 +79,7 @@ class Polly {
           new Point(pageX, pageY));
       c.complete(new SafePoint(wkitPoint.x, wkitPoint.y));
     }
-    
+
     return c.future;
   }
 
@@ -267,14 +273,14 @@ class Polly {
     void flexBoxHandler(){
       //supporting the current flex box spec
       element
-        ._manualAlignmentHandler
-        .enableManualHorizontalAlignment(alignment);
+        ._polyfills['flexbox']
+          .enableManualHorizontalAlignment(alignment);
     }
 
     void noFlexHandler(){
       element
-      ._manualAlignmentHandler
-      .enableManualHorizontalAlignment(alignment);
+        ._polyfills['flexbox']
+          .enableManualHorizontalAlignment(alignment);
     }
 
     switch(_flexModel){
@@ -315,14 +321,14 @@ class Polly {
 
     void flexBoxHandler(){
       element
-      ._manualAlignmentHandler
-      .enableManualVerticalAlignment(alignment);
+      ._polyfills['flexbox']
+        .enableManualVerticalAlignment(alignment);
     }
 
     void noFlexHandler(){
       element
-      ._manualAlignmentHandler
-      .enableManualVerticalAlignment(alignment);
+        ._polyfills['flexbox']
+        .enableManualVerticalAlignment(alignment);
     }
 
     switch(_flexModel){
@@ -495,11 +501,11 @@ class Polly {
       if (element.hAlign != null){
         if (element.hAlign == HorizontalAlignment.stretch){
           element
-            ._manualAlignmentHandler
+            ._polyfills['flexbox']
             .enableManualHorizontalAlignment(HorizontalAlignment.stretch);
         }else{
           //something else besides stretch
-          element._manualAlignmentHandler.disableManualHorizontalAlignment();
+          element._polyfills['flexbox'].disableManualHorizontalAlignment();
 
           setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
             FlexModel.FlexBox);
@@ -513,17 +519,17 @@ class Polly {
     }
 
     void manualFlexHandler(){
-      element.rawElement.style.display = 'inline-block';
+      element.rawElement.style.display = 'table';
 
       if (element.hAlign != null){
           element
-            ._manualAlignmentHandler
+            ._polyfills['flexbox']
             .enableManualHorizontalAlignment(element.hAlign);
       }
 
       if (element.vAlign != null){
           element
-            ._manualAlignmentHandler
+            ._polyfills['flexbox']
             .enableManualVerticalAlignment(element.vAlign);
       }
     }
@@ -557,7 +563,7 @@ class SafePoint
 {
   final num x;
   final num y;
-  
+
   SafePoint(this.x, this.y);
 }
 

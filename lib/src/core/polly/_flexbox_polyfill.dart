@@ -3,14 +3,12 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 //TODO: Handle updates when margin/padding on watched elements is changed.
-//TODO: Explore more passive update triggers than measurementChanged event
 
 /**
- * Support class for [Polly] that tracks an manages manual alignments for a
- * [FrameworkElement] within a parent container.
- *
+ * Flexbox polyfill.  Supports horizontal and vertical alignments within
+ * a parent container, including stretch.
  */
-class _Brutus
+class _FlexboxPolyfill
 {
   EventHandlerReference _eventReference;
   var _preservedWidth;
@@ -23,14 +21,13 @@ class _Brutus
   HorizontalAlignment manualHorizontalAlignment;
   VerticalAlignment manualVerticalAlignment;
 
-  _Brutus.with(this.element);
+  _FlexboxPolyfill.with(this.element);
 
   /**
    * Enables given manual vertical [alignment] of element within it's parent
    * container.
    */
   void enableManualVerticalAlignment(VerticalAlignment alignment){
-
     if (manualVerticalAlignment != null && manualVerticalAlignment == alignment){
       return;
     }
@@ -40,6 +37,8 @@ class _Brutus
     }
 
     if (alignment == VerticalAlignment.top) return;
+
+    db('>>> enabling vertical alignment', element);
 
     manualVerticalAlignment = alignment;
 
@@ -73,6 +72,8 @@ class _Brutus
 
   disableManualVerticalAlignment(){
     if (manualVerticalAlignment == null) return;
+
+    db('>>> disabling vertical alignment', element);
 
     if (manualHorizontalAlignment == null){
       _unsubscribeMeasurementChanged();
@@ -240,9 +241,9 @@ class _Brutus
     num newTop = 0;
     num newLeft = 0;
 
-    final el = element as Dynamic;
-    final elp = element.parent;
-    
+    final el = element as FrameworkElement;
+    final elp = element.parent as FrameworkElement;
+
     void handleHorizontalStretch(){
       final num parentPaddingOffset = elp.hasProperty('padding')
                   ? elp.padding.left +
@@ -250,16 +251,16 @@ class _Brutus
                   : 0;
 
       final num borderRadiusOffset = el.hasProperty('borderThickness')
-              ? el.borderThickness.left +
-                  el.borderThickness.right
+              ? (el as Border).borderThickness.left +
+                  (el as Border).borderThickness.right
               : 0;
 
       final measurementOffset = parentPaddingOffset + borderRadiusOffset;
 
       if (el.hasProperty('padding')){
         final calcWidth = args.newMeasurement.client.width -
-            (el.padding.left +
-                el.padding.right +
+            ((el as Border).padding.left +
+                (el as Border).padding.right +
              element.margin.left +
              element.margin.right +
              measurementOffset);
@@ -311,6 +312,7 @@ class _Brutus
     }
 
     void handleVerticalStretch(){
+      final sh = el.rawElement.style.height;
       final num parentPaddingOffset = (elp.hasProperty('padding'))
           ? elp.padding.top +
               elp.padding.bottom
@@ -324,7 +326,7 @@ class _Brutus
       final measurementOffset = parentPaddingOffset + borderRadiusOffset;
 
       if (el.hasProperty('padding')){
-        final calcHeight = args.newMeasurement.client.height -
+        final calcHeight = args.newMeasurement.bounding.height -
             (el.padding.top +
                 el.padding.bottom +
                 el.margin.top +
@@ -333,13 +335,14 @@ class _Brutus
 
         el.rawElement.style.height = '${calcHeight}px';
       }else{
-        final calcHeight = args.newMeasurement.client.height -
+        final calcHeight = args.newMeasurement.bounding.height -
             (el.margin.top +
                 el.margin.bottom +
              measurementOffset);
 
         el.rawElement.style.height = '${calcHeight}px';
       }
+      db('starting height: $sh, ending height: ${el.rawElement.style.height}, parentHeight: ${args.newMeasurement.bounding.height}', element);
     }
 
     void handleVerticalCenter(ElementRect r){

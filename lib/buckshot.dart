@@ -34,7 +34,7 @@
 
 #source('src/core/polly/polly.dart');
 #source('src/core/polly/flex_model.dart');
-#source('src/core/polly/_brutus.dart');
+#source('src/core/polly/_flexbox_polyfill.dart');
 
 #source('src/events/buckshot_event.dart');
 #source('src/events/measurement_changed_event_args.dart');

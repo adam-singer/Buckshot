@@ -17,7 +17,8 @@ class FrameworkElement extends FrameworkObject
   final HashMap<String, String> _transitionProperties =
       new HashMap<String, String>();
 
-  _Brutus _manualAlignmentHandler;
+  // registered polyfills
+  final HashMap<String, Dynamic> _polyfills = new HashMap<String, Object>();
 
   /// Represents the margin [Thickness] area outside the FrameworkElement boundary.
   FrameworkProperty marginProperty;
@@ -124,7 +125,7 @@ class FrameworkElement extends FrameworkObject
   {
     Browser.appendClass(rawElement, "FrameworkElement");
 
-    _manualAlignmentHandler = new _Brutus.with(this);
+    Polly.setPolyfills(this);
 
     //give a blank style so merging works immediately
     _style = new StyleTemplate();

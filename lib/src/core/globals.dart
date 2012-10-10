@@ -380,7 +380,7 @@ final String defaultTheme =
   <solidcolorbrush key='theme_accordion_body_background_brush' color='{resource theme_debug}' />
 
   <!-- 
-  Menu
+  Menu & MenuStrip
   -->
   <var key='theme_menu_padding' value='{resource theme_border_padding}' />
     <lineargradientbrush key='theme_menu_background_hover_brush' direction='vertical'>
@@ -392,6 +392,12 @@ final String defaultTheme =
   <solidcolorbrush key='theme_menu_background_mouse_down_brush' color='{resource theme_background_mouse_down}' />
   <solidcolorbrush key='theme_menu_background_brush' color='{resource theme_background_dark}' />
 
+  <!--
+  TabControl
+  -->
+  
+  <var key='zoidberg' value='http://www.buckshotui.org/resources/images/zoidberg.jpg' />
+  <var key='buckshot_logo_uri' value='http://www.buckshotui.org/resources/images/buckshot_logo.png' />
 </resourcecollection>
 ''';
 
