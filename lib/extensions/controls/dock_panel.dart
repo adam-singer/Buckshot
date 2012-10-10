@@ -87,8 +87,8 @@ class DockPanel extends Panel
       try{
       _invalidatePolyfill();
       }
-      catch(e){
-        print('>>> ERROR: $e');
+      catch(e, stack){
+        print('>>> ERROR: $e $stack');
       }
       return;
     }
@@ -209,7 +209,9 @@ class DockPanel extends Panel
   _invalidatePolyfill(){
 
     //TODO .removeLast() instead?
-    rawElement.elements.clear();
+//    children.forEach((FrameworkObject child){
+//      child.removeFromLayoutTree();
+//    });
 
     var currentContainer = this;
     var lastLocation = DockLocation.left;
@@ -291,6 +293,9 @@ class DockPanel extends Panel
 
         addDockedChild(newContainer, child, lastLocation);
 
+//        print('....first container');
+//        printTree(newContainer);
+
         newContainer.addToLayoutTree(currentContainer);
 
         Polly.setFlexboxAlignment(newContainer);
@@ -302,6 +307,9 @@ class DockPanel extends Panel
         final newContainer = createContainer(location);
 
         addDockedChild(newContainer, child, location);
+//        print('....new container');
+//        printTree(newContainer);
+
 
         switch(lastLocation){
           case DockLocation.left:
@@ -319,6 +327,10 @@ class DockPanel extends Panel
         }
 
         currentContainer.children.add(newContainer);
+
+//        print('....current container');
+//        printTree(currentContainer);
+
 
         //print('$currentContainer column defs: ${currentContainer.columnDefinitions} ${Grid.getColumn(newContainer)}');
 

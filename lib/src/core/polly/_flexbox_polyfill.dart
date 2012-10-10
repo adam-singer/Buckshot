@@ -313,41 +313,13 @@ class _FlexboxPolyfill
 
     void handleVerticalStretch(){
       final sh = el.rawElement.style.height;
-      final num parentPaddingOffset = (elp.hasProperty('padding'))
-          ? elp.padding.top +
-              elp.padding.bottom
-          : 0;
 
-      final num borderRadiusOffset = elp.hasProperty('borderThickness')
-              ? (elp as Border).borderThickness.top +
-                  (elp as Border).borderThickness.bottom
-              : 0;
+      final offset = _getElementVerticalOffset(el) + _getElementVerticalOffset(elp);
 
-      final num elBorderRadiusOffset = el.hasProperty('borderThickness')
-          ? (el as Border).borderThickness.top +
-              (el as Border).borderThickness.bottom
-              : 0;
+      final calcHeight = args.newMeasurement.bounding.height - offset;
 
-      final measurementOffset = parentPaddingOffset + borderRadiusOffset + elBorderRadiusOffset;
-
-      if (el.hasProperty('padding')){
-        final calcHeight = args.newMeasurement.bounding.height -
-            (el.padding.top +
-                el.padding.bottom +
-                el.margin.top +
-                el.margin.bottom +
-             measurementOffset);
-
-        el.rawElement.style.height = '${calcHeight}px';
-      }else{
-        final calcHeight = args.newMeasurement.bounding.height -
-            (el.margin.top +
-                el.margin.bottom +
-             measurementOffset);
-
-        el.rawElement.style.height = '${calcHeight}px';
-      }
-     // db('starting height: $sh, ending height: ${el.rawElement.style.height}, parentHeight: ${args.newMeasurement.bounding.height}', element);
+      el.rawElement.style.height = '${calcHeight}px';
+     db('starting height: $sh, ending height: ${el.rawElement.style.height}, parentHeight: ${args.newMeasurement.bounding.height}', element);
     }
 
     void handleVerticalCenter(ElementRect r){
@@ -439,5 +411,22 @@ class _FlexboxPolyfill
             ' ${newLeft + _preservedTopMargin.left}px';
       }
     });
+  }
+
+
+  num _getElementVerticalOffset(FrameworkElement el){
+    num offset = 0;
+
+    offset += el.margin.bottom;
+
+    if (el.hasProperty('padding')){
+      offset += el.padding.top + el.padding.bottom;
+    }
+
+    if (el.hasProperty('borderThickness')){
+      offset += el.borderThickness.bottom;
+    }
+
+    return offset;
   }
 }

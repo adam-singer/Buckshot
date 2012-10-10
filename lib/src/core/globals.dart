@@ -258,9 +258,9 @@ printTree(startWith, [int indent = 0]){
     if ((startWith as IFrameworkContainer).content is List){
       (startWith as IFrameworkContainer)
         .content
-        .forEach((e) => printTree(e, indent + 5));
+        .forEach((e) => printTree(e, indent + 3));
     }else{
-      printTree(startWith.content, indent + 5);
+      printTree(startWith.content, indent + 3);
     }
   }
 }

@@ -386,7 +386,9 @@ class FrameworkObject extends BuckshotObject
   }
 
   void removeFromLayoutTree(){
-    this.rawElement.remove();
+    if (rawElement != null){
+      rawElement.remove();
+    }
 
     //db('Removed from Layout Tree', this);
     var p = parent;

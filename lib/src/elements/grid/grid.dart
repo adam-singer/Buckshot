@@ -35,7 +35,7 @@ class Grid extends Panel
 static const String noDirectGridCellExceptionMessage = "GridCell cannot be"
   " added directly to Grid.";
 
-final List<_GridCell> _internalChildren;
+final List<_GridCell> _internalChildren = new List<_GridCell>();
 
 /// Represents a collection of [ColumnDefinition]s.
 FrameworkProperty columnDefinitionsProperty;
@@ -51,8 +51,7 @@ static AttachedFrameworkProperty columnSpanProperty;
 /// Represents the row span of an element within the grid.
 static AttachedFrameworkProperty rowSpanProperty;
 
-Grid() :
-_internalChildren = new List<_GridCell>()
+Grid()
 {
   Browser.appendClass(rawElement, "grid");
 
@@ -86,12 +85,7 @@ _internalChildren = new List<_GridCell>()
   };
 }
 
-void onFirstLoad(){
-  db('first load', this);
-}
-
-Grid.register() : super.register(),
-_internalChildren = new List<_GridCell>();
+Grid.register() : super.register();
 makeMe() => new Grid();
 
 /// Gets the [columnDefinitionsProperty] [ObservableList].
@@ -117,12 +111,13 @@ void _onChildrenChanging(Object _, ListChangedEventArgs args){
 
   args.newItems.forEach((item){
     //create a virtual container for each element
-    _GridCell newGC = new _GridCell();
+    final newGC = new _GridCell();
     newGC.content = item;
 
     _internalChildren.add(newGC);
 
     newGC.addToLayoutTree(this);
+    //item.parent = this;
   });
 
   updateLayout();

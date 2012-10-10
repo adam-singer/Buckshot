@@ -3,7 +3,7 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 //render only, not used for template layout
-class _GridCell extends FrameworkObject
+class _GridCell extends FrameworkObject implements IFrameworkContainer
 {
   EventHandlerReference _ref;
 
@@ -56,10 +56,13 @@ class _GridCell extends FrameworkObject
 
   /// Overridden [FrameworkObject] method for generating the html representation of the border.
   void createElement(){
-    rawElement = new DivElement();
-    rawElement.style.overflow = "hidden";
-    rawElement.style.position = "absolute";
-    rawElement.style.display ='table';
+    rawElement = new DivElement()
+                    ..style.overflow = "hidden"
+                    ..style.position = "absolute"
+ //                   ..style.background = 'Red'
+                    ..style.display ='table';
+
+
     Polly.makeFlexBox(rawElement);
   }
 
@@ -67,6 +70,7 @@ class _GridCell extends FrameworkObject
   void updateLayout(){
     if (content == null) return;
 
+   // db('updating gridcell layout for', content);
     //spoof the parent during the alignment pass
     content.parent = this;
     Polly.setFlexboxAlignment(content);
