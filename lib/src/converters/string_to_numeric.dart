@@ -13,7 +13,7 @@ class StringToNumericConverter implements IValueConverter {
 
     try{
       return parseDouble(value);
-    }on Exception catch(e){
+    } catch(e){
       return value;
     }
   }

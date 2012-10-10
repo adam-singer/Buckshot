@@ -38,7 +38,7 @@ class _FlexboxPolyfill
 
     if (alignment == VerticalAlignment.top) return;
 
-    db('>>> enabling vertical alignment', element);
+    //db('>>> enabling vertical alignment', element);
 
     manualVerticalAlignment = alignment;
 
@@ -73,7 +73,7 @@ class _FlexboxPolyfill
   disableManualVerticalAlignment(){
     if (manualVerticalAlignment == null) return;
 
-    db('>>> disabling vertical alignment', element);
+    //db('>>> disabling vertical alignment', element);
 
     if (manualHorizontalAlignment == null){
       _unsubscribeMeasurementChanged();
@@ -318,12 +318,17 @@ class _FlexboxPolyfill
               elp.padding.bottom
           : 0;
 
-      final num borderRadiusOffset = el.hasProperty('borderThickness')
-              ? el.borderThickness.top +
-                  el.borderThickness.bottom
+      final num borderRadiusOffset = elp.hasProperty('borderThickness')
+              ? (elp as Border).borderThickness.top +
+                  (elp as Border).borderThickness.bottom
               : 0;
 
-      final measurementOffset = parentPaddingOffset + borderRadiusOffset;
+      final num elBorderRadiusOffset = el.hasProperty('borderThickness')
+          ? (el as Border).borderThickness.top +
+              (el as Border).borderThickness.bottom
+              : 0;
+
+      final measurementOffset = parentPaddingOffset + borderRadiusOffset + elBorderRadiusOffset;
 
       if (el.hasProperty('padding')){
         final calcHeight = args.newMeasurement.bounding.height -
@@ -342,7 +347,7 @@ class _FlexboxPolyfill
 
         el.rawElement.style.height = '${calcHeight}px';
       }
-      db('starting height: $sh, ending height: ${el.rawElement.style.height}, parentHeight: ${args.newMeasurement.bounding.height}', element);
+     // db('starting height: $sh, ending height: ${el.rawElement.style.height}, parentHeight: ${args.newMeasurement.bounding.height}', element);
     }
 
     void handleVerticalCenter(ElementRect r){

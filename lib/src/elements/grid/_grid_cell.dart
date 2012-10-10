@@ -10,12 +10,14 @@ class _GridCell extends FrameworkObject
   /// Represents the content inside the border.
   FrameworkProperty contentProperty;
   FrameworkProperty marginProperty;
+  static int _gridCellCount = 0;
 
   _GridCell()
   {
     _initGridCellProperties();
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+    name = 'grid_cell_${_gridCellCount++}';
   }
 
   makeMe() => null;
@@ -57,6 +59,7 @@ class _GridCell extends FrameworkObject
     rawElement = new DivElement();
     rawElement.style.overflow = "hidden";
     rawElement.style.position = "absolute";
+    rawElement.style.display ='table';
     Polly.makeFlexBox(rawElement);
   }
 

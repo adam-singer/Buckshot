@@ -30,6 +30,8 @@ class Polly {
   //TODO move this into BrowserInfo class?
   static FlexModel _flexModel;
 
+  static FlexModel get flexModel => _flexModel;
+
   /**
    * Gets a [BrowserInfo] object representing various data
    * about the current browser context.

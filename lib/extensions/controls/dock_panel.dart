@@ -83,6 +83,16 @@ class DockPanel extends Panel
 
   /** Invalidates the DockPanel layout and causes it to redraw. */
   void invalidate(){
+    if (Polly.flexModel != FlexModel.Flex){
+      try{
+      _invalidatePolyfill();
+      }
+      catch(e){
+        print('>>> ERROR: $e');
+      }
+      return;
+    }
+
     //TODO .removeLast() instead?
     rawElement.elements.clear();
 
@@ -191,6 +201,147 @@ class DockPanel extends Panel
     }
   }
 
+  static int _gridCount = 0;
+  // Used by DockPanel when display:flex is not available.
+  //
+  // The polyfill in this case uses nested Grid 2-column or 2-row elements for
+  // each child.
+  _invalidatePolyfill(){
+
+    //TODO .removeLast() instead?
+    rawElement.elements.clear();
+
+    var currentContainer = this;
+    var lastLocation = DockLocation.left;
+
+    //makes a flexbox container
+    Grid createContainer(DockLocation loc){
+      // set the grid row/column definitions based on position
+
+      final g = new Grid()
+                    ..hAlign = HorizontalAlignment.stretch
+                    ..vAlign = VerticalAlignment.stretch
+                    ..name = 'grid_${_gridCount++}'
+                    ..background = new SolidColorBrush(new Color.predefined(Colors.Yellow));
+
+      switch(loc){
+        case DockLocation.left:
+          g.columnDefinitions.add(new ColumnDefinition.with(new GridLength.auto()));
+          g.columnDefinitions.add(new ColumnDefinition.with(new GridLength.star(1)));
+          g.rowDefinitions.add(new RowDefinition.with(new GridLength.star(1)));
+          return g;
+        case DockLocation.right:
+          g.columnDefinitions.add(new ColumnDefinition.with(new GridLength.star(1)));
+          g.columnDefinitions.add(new ColumnDefinition.with(new GridLength.auto()));
+          g.rowDefinitions.add(new RowDefinition.with(new GridLength.star(1)));
+          return g;
+        case DockLocation.top:
+          g.rowDefinitions.add(new RowDefinition.with(new GridLength.auto()));
+          g.rowDefinitions.add(new RowDefinition.with(new GridLength.star(1)));
+          g.columnDefinitions.add(new ColumnDefinition.with(new GridLength.star(1)));
+          return g;
+        case DockLocation.bottom:
+          g.rowDefinitions.add(new RowDefinition.with(new GridLength.star(1)));
+          g.rowDefinitions.add(new RowDefinition.with(new GridLength.auto()));
+          g.columnDefinitions.add(new ColumnDefinition.with(new GridLength.star(1)));
+          return g;
+      }
+
+    }
+
+    // Adds child to container with correct alignment and ordering.
+    void addDockedChild(Grid container, FrameworkElement child, DockLocation loc){
+      switch(loc){
+        case DockLocation.left:
+          Grid.setColumn(child, 0);
+          Grid.setRow(child, 0);
+          child.hAlign = HorizontalAlignment.left;
+          child.vAlign = VerticalAlignment.stretch;
+          break;
+        case DockLocation.right:
+          Grid.setColumn(child, 1);
+          Grid.setRow(child, 0);
+          child.hAlign = HorizontalAlignment.right;
+          child.vAlign = VerticalAlignment.stretch;
+          break;
+        case DockLocation.top:
+          Grid.setColumn(child, 0);
+          Grid.setRow(child, 0);
+          child.hAlign = HorizontalAlignment.stretch;
+          child.vAlign = VerticalAlignment.top;
+          break;
+        case DockLocation.bottom:
+          Grid.setColumn(child, 0);
+          Grid.setRow(child, 1);
+          child.hAlign = HorizontalAlignment.stretch;
+          child.vAlign = VerticalAlignment.bottom;
+          break;
+      }
+
+      container.children.add(child);
+    }
+
+    children.forEach((child){
+//      child.parent = this;
+
+      if (currentContainer == this){
+        lastLocation = DockPanel.getDock(child);
+
+        final newContainer = createContainer(lastLocation);
+
+        addDockedChild(newContainer, child, lastLocation);
+
+        newContainer.addToLayoutTree(currentContainer);
+
+        Polly.setFlexboxAlignment(newContainer);
+
+        currentContainer = newContainer;
+      }else{
+        final location = DockPanel.getDock(child);
+
+        final newContainer = createContainer(location);
+
+        addDockedChild(newContainer, child, location);
+
+        switch(lastLocation){
+          case DockLocation.left:
+            Grid.setColumn(newContainer, 1);
+            break;
+          case DockLocation.right:
+            Grid.setColumn(newContainer, 0);
+            break;
+          case DockLocation.top:
+            Grid.setRow(newContainer, 1);
+            break;
+          case DockLocation.bottom:
+            Grid.setRow(newContainer, 0);
+            break;
+        }
+
+        currentContainer.children.add(newContainer);
+
+        //print('$currentContainer column defs: ${currentContainer.columnDefinitions} ${Grid.getColumn(newContainer)}');
+
+        lastLocation = location;
+
+        currentContainer = newContainer;
+      }
+    });
+
+    //stretch the last item to fill the remaining space
+//    if (fillLast && !children.isEmpty()){
+//      final child = children.last();
+//      //stretch the last item to fill the remaining space
+//      final p = child.rawElement.parent;
+//
+//      assert(p is Element);
+//
+//      Polly.setCSS(child.rawElement, 'flex', '1 1 auto');
+//
+//      Polly.setCSS(child.rawElement, 'align-self', 'stretch');
+//    }
+  }
+
   /// Overridden [FrameworkObject] method.
   void createElement(){
     rawElement = new DivElement();
@@ -198,89 +349,5 @@ class DockPanel extends Panel
     Polly.makeFlexBox(rawElement);
     Polly.setVerticalFlexBoxAlignment(this, VerticalAlignment.stretch);
     Polly.setHorizontalFlexBoxAlignment(this, HorizontalAlignment.stretch);
-  }
-}
-
-
-
-/*
- * Internal container element for DockPanel cells.
- */
-class _DockPanelCell extends FrameworkElement
-{
-  /// Represents the content inside the border.
-  FrameworkProperty contentProperty;
-  final DockLocation location;
-
-  _DockPanelCell()
-      : location = DockLocation.left
-  {
-    _initDockPanelCellProperties();
-
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
-  }
-
-  _DockPanelCell.withLocation(DockLocation this.location){
-    _initDockPanelCellProperties();
-
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
-  }
-
-  void _initDockPanelCellProperties(){
-    //register the dependency properties
-    contentProperty = new FrameworkProperty(
-      this,
-      "content", (FrameworkElement c)
-      {
-        if (contentProperty.previousValue != null){
-          contentProperty.previousValue.removeFromLayoutTree();
-        }
-
-        if (c != null){
-          setContentDockLocation();
-          c.addToLayoutTree(this);
-        }
-      });
-  }
-
-  void setContentDockLocation(){
-    switch(location){
-      case DockLocation.left:
-        content.hAlign = HorizontalAlignment.left;
-        content.vAlign = VerticalAlignment.stretch;
-        break;
-      case DockLocation.top:
-        content.hAlign = HorizontalAlignment.stretch;
-        content.vAlign = VerticalAlignment.top;
-        break;
-      case DockLocation.right:
-        content.hAlign = HorizontalAlignment.right;
-        content.vAlign = VerticalAlignment.stretch;
-        break;
-      case DockLocation.bottom:
-        content.hAlign = HorizontalAlignment.stretch;
-        content.vAlign = VerticalAlignment.bottom;
-        break;
-    }
-  }
-
-  FrameworkElement get content => getValue(contentProperty);
-  set content(FrameworkElement value) => setValue(contentProperty, value);
-
-  /// Overridden [FrameworkObject] method for generating the html representation of the border.
-  void createElement(){
-    rawElement = new DivElement();
-    rawElement.style.overflow = "hidden";
-    Polly.makeFlexBox(rawElement);
-  }
-
-  /// Overridden [FrameworkObject] method is called when the framework requires elements to recalculate layout.
-  void updateLayout(){
-    if (content == null) return;
-
-    //spoof the parent during the alignment pass
-    content.parent = this;
-    Polly.setFlexboxAlignment(content);
-    content.parent = parent;
   }
 }

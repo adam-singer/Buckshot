@@ -86,6 +86,10 @@ _internalChildren = new List<_GridCell>()
   };
 }
 
+void onFirstLoad(){
+  db('first load', this);
+}
+
 Grid.register() : super.register(),
 _internalChildren = new List<_GridCell>();
 makeMe() => new Grid();
@@ -137,19 +141,25 @@ num _totalLengthOf(List<GridLayoutDefinition> definitions){
 /// Overidden [FrameworkObject] method.
 void updateLayout(){
   if (!isLoaded) return;
-  
+
   _updateMeasurements();
 
   window.requestLayoutFrame((){
-    _updateRowLayout(this.mostRecentMeasurement.bounding.height);
+    _updateRowLayout(mostRecentMeasurement.bounding.height);
 
-    _updateColumnLayout(this.mostRecentMeasurement.bounding.width);
+    _updateColumnLayout(mostRecentMeasurement.bounding.width);
   });
-
 }
 
-void _updateMeasurements(){
+void createElement(){
+  rawElement = new DivElement();
 
+  if (Polly.flexModel != FlexModel.Flex){
+    rawElement.style.display = 'table';
+  }
+}
+
+Future _updateMeasurements(){
   this.updateMeasurement();
 
   _internalChildren
@@ -262,6 +272,7 @@ void _updateColumnLayout(num gridWidth){
 void _updateRowLayout(num gridHeight){
   if (!isLoaded) return;
 
+  //TODO handle with binding
   if (rowDefinitions.length == 0){
     //handle case where no rowDefinitions are set
     //assign all elements to a ghost row that is the same height as the grid
