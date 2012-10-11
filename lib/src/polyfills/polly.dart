@@ -111,10 +111,8 @@ class Polly {
       Polly.init();
     }
 
-    element.style.display = 'flexbox';
     element.style.display = 'flex';
 
-    element.style.display = '${Polly.browserInfo.vendorPrefix}flexbox';
     element.style.display = '${Polly.browserInfo.vendorPrefix}flex';
 
     if (element.style.display == null || !element.style.display.endsWith('x')){
@@ -541,7 +539,7 @@ class Polly {
         flexHandler();
         break;
       case FlexModel.FlexBox:
-        flexBoxHandler();
+        manualFlexHandler();
         break;
       case FlexModel.Manual:
         manualFlexHandler();

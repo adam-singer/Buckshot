@@ -1,10 +1,12 @@
 
 /** Base class for Polyfills */
-abstract class Polyfill
+abstract class Polyfill extends HashableObject
 {
-  /** Begins the polyfill on the given element. */
-  abstract void begin(FrameworkElement element);
+  final FrameworkElement element;
 
-  /** Removes the polyfill on the element given in begin() */
-  abstract void end();
+  /** Constructs a polyfill with the given element. */
+  Polyfill(FrameworkElement this.element);
+
+  /** Requires the polyfill to recalcuate. */
+  abstract void invalidate();
 }

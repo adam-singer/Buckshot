@@ -30,6 +30,9 @@ class Border extends FrameworkElement implements IFrameworkContainer
   AnimatingFrameworkProperty horizontalScrollEnabledProperty;
   AnimatingFrameworkProperty verticalScrollEnabledProperty;
 
+  AligningPanel _polyfill;
+  Function _redraw;
+
   Border()
   {
     Browser.appendClass(rawElement, "border");
@@ -37,6 +40,20 @@ class Border extends FrameworkElement implements IFrameworkContainer
     _initBorderProperties();
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+
+    if (Polly.flexModel != FlexModel.Flex){
+      _polyfill = new AligningPanel(this);
+      _polyfills['alignmentpanel'] = _polyfill;
+
+      _redraw = (FrameworkElement child){
+        _polyfill.invalidate();
+      };
+    }else{
+      _redraw = (FrameworkElement child){
+        Polly.setFlexboxAlignment(child);
+      };
+    }
+
   }
 
   Border.register() : super.register();
@@ -46,7 +63,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
     //register the dependency properties
     contentProperty = new FrameworkProperty(
       this,
-      "content",(c)
+      "content",(FrameworkElement c)
       {
         if (contentProperty.previousValue != null){
           contentProperty.previousValue.removeFromLayoutTree();
@@ -200,7 +217,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
   /// Overridden [FrameworkObject] method for generating the html representation of the border.
   void createElement(){
     rawElement = new DivElement();
-    rawElement.style.overflow = "hidden";
+    rawElement.style.overflow = 'hidden';
     Polly.makeFlexBox(rawElement);
   }
 
@@ -211,6 +228,8 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
     if (content == null) return;
 
-    Polly.setFlexboxAlignment(content);
+    assert(_redraw != null);
+
+    _redraw(content);
   }
 }
