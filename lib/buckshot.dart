@@ -5,156 +5,158 @@
 /// ## Try Buckshot Online ##
 /// <http://www.buckshotui.org/sandbox>
 
-#library('core.buckshotui.org');
+library core_buckshotui_org;
 
-#import('dart:html');
-#import('dart:json');
-#import('dart:isolate');
-#import('dart:math');
+import 'dart:html';
+import 'dart:json';
+import 'dart:isolate';
+import 'dart:math';
 
-#import('package:xml/xml.dart');
-#import('package:dartnet_event_model/events.dart');
-#import('web/web.dart');
+import 'package:xml/xml.dart';
+import 'package:dartnet_event_model/events.dart';
+import 'web/web.dart';
 
 // Uncomment this to run with reflection.
 // Also below, set reflectionEnabled = true.
-// #import('dart:mirrors');
+// import 'dart:mirrors';
 
-#source('src/core/globals.dart');
-#source('src/core/buckshot_system.dart');
-#source('src/core/framework_object.dart');
-#source('src/core/framework_property.dart');
-#source('src/core/observable_list.dart');
-#source('src/core/framework_element.dart');
-#source('src/core/buckshot_object.dart');
-#source('src/core/framework_property_base.dart');
-#source('src/core/attached_framework_property.dart');
-#source('src/core/framework_container.dart');
-#source('src/core/hashable_object.dart');
+part 'src/core/globals.dart';
+part 'src/core/buckshot_system.dart';
+part 'src/core/framework_object.dart';
+part 'src/core/framework_property.dart';
+part 'src/core/observable_list.dart';
+part 'src/core/framework_element.dart';
+part 'src/core/buckshot_object.dart';
+part 'src/core/framework_property_base.dart';
+part 'src/core/attached_framework_property.dart';
+part 'src/core/framework_container.dart';
+part 'src/core/hashable_object.dart';
 
-#source('src/core/polly/polly.dart');
-#source('src/core/polly/flex_model.dart');
-#source('src/core/polly/_flexbox_polyfill.dart');
+part 'src/polyfills/polly.dart';
+part 'src/polyfills/flex_model.dart';
+part 'src/polyfills/_flexbox_polyfill.dart';
+part 'src/polyfills/aligning_panel.dart';
+part 'src/polyfills/polyfill.dart';
 
-#source('src/events/buckshot_event.dart');
-#source('src/events/measurement_changed_event_args.dart');
-#source('src/events/attached_property_changed_event_args.dart');
-#source('src/events/property_changed_event_args.dart');
-#source('src/events/drag_event_args.dart');
+part 'src/events/buckshot_event.dart';
+part 'src/events/measurement_changed_event_args.dart';
+part 'src/events/attached_property_changed_event_args.dart';
+part 'src/events/property_changed_event_args.dart';
+part 'src/events/drag_event_args.dart';
 
-#source('src/mvvm/view_model_base.dart');
-#source('src/mvvm/view.dart');
-#source('src/mvvm/data_template.dart');
+part 'src/mvvm/view_model_base.dart';
+part 'src/mvvm/view.dart';
+part 'src/mvvm/data_template.dart';
 
 
-#source('src/binding/binding.dart');
-#source('src/binding/binding_mode.dart');
-#source('src/binding/binding_data.dart');
+part 'src/binding/binding.dart';
+part 'src/binding/binding_mode.dart';
+part 'src/binding/binding_data.dart';
 
-#source('src/elements/panel.dart');
-#source('src/elements/stack_panel.dart');
-#source('src/elements/text_block.dart');
-#source('src/elements/border/border.dart');
-#source('src/elements/border/border_style.dart');
-#source('src/elements/border/string_to_border_style.dart');
-#source('src/elements/layout_canvas.dart');
-#source('src/elements/image.dart');
-#source('src/elements/raw_html.dart');
-#source('src/elements/grid/grid.dart');
-#source('src/elements/grid/row_definition.dart');
-#source('src/elements/grid/column_definition.dart');
-#source('src/elements/grid/_grid_cell.dart');
-#source('src/elements/grid/grid_layout_definition.dart');
-#source('src/elements/grid/grid_length.dart');
-#source('src/elements/collection_presenter.dart');
-#source('src/elements/content_presenter.dart');
-//#source('elements/DockPanel.dart');
+part 'src/elements/panel.dart';
+part 'src/elements/stack_panel.dart';
+part 'src/elements/text_block.dart';
+part 'src/elements/border/border.dart';
+part 'src/elements/border/border_style.dart';
+part 'src/elements/border/string_to_border_style.dart';
+part 'src/elements/layout_canvas.dart';
+part 'src/elements/image.dart';
+part 'src/elements/raw_html.dart';
+part 'src/elements/grid/grid.dart';
+part 'src/elements/grid/row_definition.dart';
+part 'src/elements/grid/column_definition.dart';
+part 'src/elements/grid/_grid_cell.dart';
+part 'src/elements/grid/grid_layout_definition.dart';
+part 'src/elements/grid/grid_length.dart';
+part 'src/elements/collection_presenter.dart';
+part 'src/elements/content_presenter.dart';
+//part 'elements/DockPanel.dart';
 
-#source('src/elements/actions/action_base.dart');
-#source('src/elements/actions/play_animation.dart');
-#source('src/elements/actions/set_property.dart');
-#source('src/elements/actions/toggle_property.dart');
+part 'src/elements/actions/action_base.dart';
+part 'src/elements/actions/play_animation.dart';
+part 'src/elements/actions/set_property.dart';
+part 'src/elements/actions/toggle_property.dart';
 
-#source('src/controls/text_box.dart');
-#source('src/controls/control/control.dart');
-#source('src/controls/control/control_template.dart');
-#source('src/controls/radio_button.dart');
-#source('src/controls/radio_button_group.dart');
-#source('src/controls/button.dart');
-#source('src/controls/check_box.dart');
-#source('src/controls/text_area.dart');
-#source('src/controls/slider.dart');
-#source('src/controls/hyperlink.dart');
-#source('src/controls/drop_down_list.dart');
+part 'src/controls/text_box.dart';
+part 'src/controls/control/control.dart';
+part 'src/controls/control/control_template.dart';
+part 'src/controls/radio_button.dart';
+part 'src/controls/radio_button_group.dart';
+part 'src/controls/button.dart';
+part 'src/controls/check_box.dart';
+part 'src/controls/text_area.dart';
+part 'src/controls/slider.dart';
+part 'src/controls/hyperlink.dart';
+part 'src/controls/drop_down_list.dart';
 
-#source('src/converters/string_to_numeric.dart');
-#source('src/converters/string_to_thickness.dart');
-#source('src/converters/string_to_boolean.dart');
-#source('src/converters/string_to_gridlength.dart');
-#source('src/converters/string_to_gridunittype.dart');
-#source('src/converters/string_to_horizontalalignment.dart');
-#source('src/converters/string_to_orientation.dart');
-#source('src/converters/string_to_verticalalignment.dart');
-#source('src/converters/string_to_color.dart');
-#source('src/converters/string_to_color_string.dart');
-#source('src/converters/string_to_solidcolorbrush.dart');
-#source('src/converters/string_to_radialgradientdrawmode.dart');
-#source('src/converters/string_to_frameworkelement.dart');
-#source('src/converters/string_to_visibility.dart');
-#source('src/converters/string_to_inputtypes.dart');
-#source('src/converters/string_to_location.dart');
+part 'src/converters/string_to_numeric.dart';
+part 'src/converters/string_to_thickness.dart';
+part 'src/converters/string_to_boolean.dart';
+part 'src/converters/string_to_gridlength.dart';
+part 'src/converters/string_to_gridunittype.dart';
+part 'src/converters/string_to_horizontalalignment.dart';
+part 'src/converters/string_to_orientation.dart';
+part 'src/converters/string_to_verticalalignment.dart';
+part 'src/converters/string_to_color.dart';
+part 'src/converters/string_to_color_string.dart';
+part 'src/converters/string_to_solidcolorbrush.dart';
+part 'src/converters/string_to_radialgradientdrawmode.dart';
+part 'src/converters/string_to_frameworkelement.dart';
+part 'src/converters/string_to_visibility.dart';
+part 'src/converters/string_to_inputtypes.dart';
+part 'src/converters/string_to_location.dart';
 
-#source('src/enums/visibility.dart');
-#source('src/enums/orientation.dart');
-#source('src/enums/colors.dart');
-#source('src/enums/cursors.dart');
-#source('src/enums/linear_gradient_brush.dart');
-#source('src/enums/radial_gradient_draw_mode.dart');
-#source('src/enums/grid_unit_type.dart');
-#source('src/enums/horizontal_alignment.dart');
-#source('src/enums/vertical_alignment.dart');
-#source('src/enums/transforms.dart');
-#source('src/enums/transition_timing.dart');
-#source('src/enums/dock_location.dart');
+part 'src/enums/visibility.dart';
+part 'src/enums/orientation.dart';
+part 'src/enums/colors.dart';
+part 'src/enums/cursors.dart';
+part 'src/enums/linear_gradient_brush.dart';
+part 'src/enums/radial_gradient_draw_mode.dart';
+part 'src/enums/grid_unit_type.dart';
+part 'src/enums/horizontal_alignment.dart';
+part 'src/enums/vertical_alignment.dart';
+part 'src/enums/transforms.dart';
+part 'src/enums/transition_timing.dart';
+part 'src/enums/dock_location.dart';
 
-#source('src/resources/framework_resource.dart');
-#source('src/resources/resource_collection.dart');
-#source('src/resources/var.dart');
-#source('src/resources/color.dart');
-#source('src/resources/brush.dart');
-#source('src/resources/solid_color_brush.dart');
-#source('src/resources/linear_gradient_brush.dart');
-#source('src/resources/radial_gradient_brush.dart');
-#source('src/resources/setter.dart');
-#source('src/resources/style_template.dart');
-#source('src/resources/gradient_stop.dart');
+part 'src/resources/framework_resource.dart';
+part 'src/resources/resource_collection.dart';
+part 'src/resources/var.dart';
+part 'src/resources/color.dart';
+part 'src/resources/brush.dart';
+part 'src/resources/solid_color_brush.dart';
+part 'src/resources/linear_gradient_brush.dart';
+part 'src/resources/radial_gradient_brush.dart';
+part 'src/resources/setter.dart';
+part 'src/resources/style_template.dart';
+part 'src/resources/gradient_stop.dart';
 
-#source('src/animation/framework_animation.dart');
-#source('src/animation/animation_resource.dart');
-#source('src/animation/animation_key_frame.dart');
-#source('src/animation/animation_state.dart');
-#source('src/animation/_css_compiler.dart');
+part 'src/animation/framework_animation.dart';
+part 'src/animation/animation_resource.dart';
+part 'src/animation/animation_key_frame.dart';
+part 'src/animation/animation_state.dart';
+part 'src/animation/_css_compiler.dart';
 
-#source('src/elements/shape/shape.dart');
-#source('src/elements/shape/ellipse.dart');
-#source('src/elements/shape/rectangle.dart');
-//#source('elements/shape/Line.dart');
-//#source('elements/shape/PolyLine.dart');
-//#source('elements/shape/Polygon.dart');
+part 'src/elements/shape/shape.dart';
+part 'src/elements/shape/ellipse.dart';
+part 'src/elements/shape/rectangle.dart';
+//part 'elements/shape/Line.dart';
+//part 'elements/shape/PolyLine.dart';
+//part 'elements/shape/Polygon.dart';
 
-#source('src/templates/presentation_format_provider.dart');
-#source('src/templates/xml_template_provider.dart');
-#source('src/templates/template.dart');
-#source('src/templates/template_object.dart');
+part 'src/templates/presentation_format_provider.dart';
+part 'src/templates/xml_template_provider.dart';
+part 'src/templates/template.dart';
+part 'src/templates/template_object.dart';
 
-#source('src/converters/i_value_converter.dart');
-#source('src/primitives/thickness.dart');
-#source('src/primitives/tuple.dart');
+part 'src/converters/i_value_converter.dart';
+part 'src/primitives/thickness.dart';
+part 'src/primitives/tuple.dart';
 
-#source('src/events/buckshot_exception.dart');
-#source('src/events/animation_exception.dart');
-#source('src/events/presentation_provider_exception.dart');
-#source('src/events/framework_property_resolution_exception.dart');
+part 'src/events/buckshot_exception.dart';
+part 'src/events/animation_exception.dart';
+part 'src/events/presentation_provider_exception.dart';
+part 'src/events/framework_property_resolution_exception.dart';
 
 
 //Use this to generate clean dart docs of just the buckshot library
