@@ -1,7 +1,7 @@
 <dockpanel halign='stretch' valign='stretch'>
   <resourcecollection>
     <color key="buckshot_blue" value="#165284"></color>
-   
+
     <styletemplate key="iotext">
        <setters>
           <setter property="margin" value="15,0,0,0" />
@@ -28,17 +28,17 @@
 		       <image width='35' sourceuri='web/resources/buckshot_logo.png' alt='Buckshot Logo' />
 		       </hyperlink>
 	       <textblock margin='0,0,0,5' valign='center' foreground='White' text='Buckshot Sandbox' />
-	       <textblock margin='0,0,0,5' valign='bottom' foreground='White' fontsize='10' text='alpha' />
+	       <textblock margin='0,0,0,5' valign='center' foreground='White' fontsize='10' text='alpha' />
 	    </stack>
   </border>
 
   <stack margin='5' dockpanel.dock='left' minWidth='250'>
     <textblock maxwidth='250' text="Select a sample below, or create your own in the text area."/>
-    <border shadowx='{resource theme_shadow_x}' 
-            shadowy='{resource theme_shadow_y}' 
-            shadowblur='{resource theme_shadow_blur}' 
-            valign='stretch' 
-            halign='stretch' 
+    <border shadowx='{resource theme_shadow_x}'
+            shadowy='{resource theme_shadow_y}'
+            shadowblur='{resource theme_shadow_blur}'
+            valign='stretch'
+            halign='stretch'
             background='{resource theme_background_light}' borderthickness='{resource theme_border_thickness}' bordercolor='{resource theme_border_color}' margin='0,5,10,0'>
      	<accordion selectionmode='single' halign='stretch'>
      	   <accordionitem>
@@ -67,7 +67,7 @@
 			     	<treenode header='LayoutCanvas' tag='layoutcanvas' />
 			     	<treenode header='3D Transformations' tag='transforms' />
 			        <treenode header='Shadows' tag='shadows' />
-	  	        </treeview>  
+	  	        </treeview>
      	     </body>
      	   </accordionitem>
      	   <accordionitem>
@@ -91,7 +91,7 @@
 			     	<treenode header='RadioButton' tag='radiobutton' />
 			     	<treenode header='CheckBox' tag='checkbox' />
 			     	<treenode header='Hyperlink' tag='hyperlink' />
-	  	        </treeview>  
+	  	        </treeview>
      	     </body>
      	   </accordionitem>
      	   <accordionitem>
@@ -104,7 +104,7 @@
 			     	<treenode header='Element Binding' tag='elementbinding' />
 			     	<treenode header='Data Binding' tag='databinding' />
 			     	<treenode header='Binding To Collections' tag='collections' />
-	  	        </treeview>  
+	  	        </treeview>
      	     </body>
      	   </accordionitem>
      	   <accordionitem>
@@ -117,29 +117,30 @@
 			     	<treenode header='Hulu' tag='hulu' />
 			     	<treenode header='Vimeo' tag='vimeo' />
 			     	<treenode header='FunnyOrDie' tag='funnyordie' />
-	  	        </treeview>  
+	  	        </treeview>
      	     </body>
-     	   </accordionitem>   
+     	   </accordionitem>
      	</accordion>
     </border>
-	<plusone annotation='inline' width='200' size='medium' dockpanel.dock='right'></plusone>
+		<plusone annotation='inline' width='200' size='medium' dockpanel.dock='right'></plusone>
   </stack>
+
   <dockpanel dockpanel.dock='left' filllast='true'>
-  	<border 
+  	<border
   		shadowcolor='Gray' shadowx='2' shadowy='2' shadowblur='3'
-  		dockpanel.dock='top' padding='5' background='White' content='{data renderedOutput}' 
-  		margin="5" minheight='200' maxheight='600' 
+  		dockpanel.dock='top' padding='5' background='White' content='{data renderedOutput}'
+  		margin="5" minheight='200' maxheight='600'
     	borderThickness="1" verticalscrollenabled='true' borderColor="LightGray" />
-         
+
     <stack dockpanel.dock='top' margin='0,0,0,5' orientation="horizontal">
        <button on.click='refresh_handler' content="Generate Output"></button>
        <button on.click='clearAll_handler' content="Clear All"></button>
     </stack>
-    
+
     <textarea dockpanel.dock='bottom' minwidth='650' minheight='300' margin='0,10,0,5'
-	    placeholder="Type something here or select one of the samples to the left." 
-	    spellcheck="false" 
+	    placeholder="Type something here or select one of the samples to the left."
+	    spellcheck="false"
 	  	text='{data templateText, mode=twoway}' />
-    
+
   </dockpanel>
 </dockpanel>

@@ -295,31 +295,41 @@ class _FlexboxPolyfill
     }
 
     void handleHorizontalRight(ElementRect r){
-      final num parentPaddingOffset = elp.hasProperty('padding')
-          ? elp.padding.left +
-              elp.padding.right
-          : 0;
+      if (element.parent.rawElement.attributes.containsKey('data-buckshot-flexbox')
+          && element.parent.rawElement.attributes['data-buckshot-flexbox'] == 'Multi'){
+        // Ignore setting cross axis right on multi element flexboxes for now...
+        return;
+      }
 
-      final num borderRadiusOffset = el.hasProperty('borderThickness')
-              ? el.borderThickness.left +
-                  el.borderThickness.right
-              : 0;
+      num offset = 0;
 
-      final measurementOffset = parentPaddingOffset + borderRadiusOffset;
+      offset += el.margin.right + el.margin.left;
+
+      if (el.hasProperty('borderThickness')){
+        offset += el.borderThickness.left + el.borderThickness.right;
+      }
+
+      if (elp.hasProperty('padding')){
+        offset += elp.padding.right;
+      }
+
+      if (elp.hasProperty('borderThickness')){
+        offset += elp.borderThickness.left + elp.borderThickness.right;
+      }
 
       newLeft = args.newMeasurement.client.width -
-          (r.client.width + measurementOffset);
+          (r.client.width + offset);
     }
 
     void handleVerticalStretch(){
       final sh = el.rawElement.style.height;
 
-      final offset = _getElementVerticalOffset(el) + _getElementVerticalOffset(elp);
+      final offset = _getElementVerticalOffset(el);
 
       final calcHeight = args.newMeasurement.bounding.height - offset;
 
       el.rawElement.style.height = '${calcHeight}px';
-     db('starting height: $sh, ending height: ${el.rawElement.style.height}, parentHeight: ${args.newMeasurement.bounding.height}', element);
+     //db('starting height: $sh, ending height: ${el.rawElement.style.height}, parentHeight: ${args.newMeasurement.bounding.height}, parent: $elp[${elp.name}]', element);
     }
 
     void handleVerticalCenter(ElementRect r){
@@ -343,20 +353,30 @@ class _FlexboxPolyfill
     }
 
     void handleVerticalBottom(ElementRect r){
-      final num parentPaddingOffset = (elp.hasProperty('padding'))
-          ? elp.padding.top +
-              elp.padding.bottom
-          : 0;
+      if (element.parent.rawElement.attributes.containsKey('data-buckshot-flexbox')
+          && element.parent.rawElement.attributes['data-buckshot-flexbox'] == 'Multi'){
+        // Ignore setting cross axis bottom on multi element flexboxes for now...
+        return;
+      }
 
-      final num borderRadiusOffset = el.hasProperty('borderThickness')
-              ? el.borderThickness.top +
-                  el.borderThickness.bottom
-              : 0;
+      num offset = 0;
 
-      final measurementOffset = parentPaddingOffset + borderRadiusOffset;
+      offset += el.margin.bottom;
 
-      newTop = args.newMeasurement.client.height -
-          (r.client.height + measurementOffset);
+      if (el.hasProperty('borderThickness')){
+        offset += el.borderThickness.bottom + el.borderThickness.top;
+      }
+
+      if (elp.hasProperty('padding')){
+        offset += elp.padding.top;
+      }
+
+      if (elp.hasProperty('borderThickness')){
+        offset += elp.borderThickness.bottom + elp.borderThickness.top;
+      }
+
+      newTop = args.newMeasurement.bounding.height -
+          (r.bounding.height + offset);
     }
 
     el
@@ -403,7 +423,7 @@ class _FlexboxPolyfill
             ' ${_preservedLeftMargin.right}px'
             ' ${_preservedLeftMargin.bottom}px'
             ' ${newLeft + _preservedLeftMargin.left}px';
-      }else if (_preservedTopMargin != null){
+     }else if (_preservedTopMargin != null){
         el.rawElement.style.margin =
             '${newTop + _preservedTopMargin.top}px'
             ' ${_preservedTopMargin.right}px'
@@ -413,18 +433,53 @@ class _FlexboxPolyfill
     });
   }
 
+  num _getElementHorizontalOffset(FrameworkElement el){
+    final parent = el.parent;
 
-  num _getElementVerticalOffset(FrameworkElement el){
     num offset = 0;
 
-    offset += el.margin.bottom;
+    offset += el.margin.left + el.margin.right;
+
+    if (el.hasProperty('padding')){
+      offset += el.padding.left + el.padding.right;
+    }
+
+    if (el.hasProperty('borderThickness')){
+      offset += el.borderThickness.left + el.borderThickness.right;
+    }
+
+    if (parent.hasProperty('padding')){
+      offset += parent.padding.left + parent.padding.right;
+    }
+
+    if (parent.hasProperty('borderThickness')){
+      offset += parent.borderThickness.left + parent.borderThickness.right;
+    }
+
+    return offset;
+  }
+
+  num _getElementVerticalOffset(FrameworkElement el){
+    final parent = el.parent;
+
+    num offset = 0;
+
+    offset += el.margin.bottom + el.margin.top;
 
     if (el.hasProperty('padding')){
       offset += el.padding.top + el.padding.bottom;
     }
 
     if (el.hasProperty('borderThickness')){
-      offset += el.borderThickness.bottom;
+      offset += el.borderThickness.bottom + el.borderThickness.top;
+    }
+
+    if (parent.hasProperty('padding')){
+      offset += parent.padding.top + parent.padding.bottom;
+    }
+
+    if (parent.hasProperty('borderThickness')){
+      offset += parent.borderThickness.bottom + parent.borderThickness.top;
     }
 
     return offset;

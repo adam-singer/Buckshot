@@ -7,18 +7,17 @@
 
 
 main(){
-  final view = new MainView();
-  
-  setView(view)
-     .then((_){
+
+  setView(new MainView())
+     .then((rootVisual){
        // Since we want the app to take up the entire browser window,
        // we'll setup some manual bindings to the implicit Border
        // that our view is contained within.
 
-       new Binding(buckshot.windowWidthProperty, 
-           (view.rootVisual.parent as Border).widthProperty);
-       
-       new Binding(buckshot.windowHeightProperty, 
-           (view.rootVisual.parent as Border).heightProperty);
+       bind(buckshot.windowWidthProperty,
+           (rootVisual.parent as Border).widthProperty);
+
+       bind(buckshot.windowHeightProperty,
+           (rootVisual.parent as Border).heightProperty);
      });
 }

@@ -45,5 +45,7 @@ void main() {
     .then((viewObject){                                 // #3
         bind(buckshot.windowHeightProperty,
             (viewObject.parent as Border).heightProperty);
+        bind(buckshot.windowWidthProperty,
+            (viewObject.parent as Border).widthProperty);
       });
 }
