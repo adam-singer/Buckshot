@@ -14,6 +14,7 @@ import 'dart:math';
 
 import 'package:xml/xml.dart';
 import 'package:dartnet_event_model/events.dart';
+import 'package:logging/logging.dart';
 import 'web/web.dart';
 
 // Uncomment this to run with reflection.

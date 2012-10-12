@@ -52,12 +52,6 @@ class Polly {
     e.remove();
   }
 
-  static void setPolyfills(FrameworkElement e){
-    if (_flexModel != FlexModel.Flex){
-      e._polyfills['flexbox'] = new _FlexboxPolyfill.with(e);
-    }
-  }
-
   /**
    * Returns a future containing the mouse coordinates within a give [element]
    * coordinate space.

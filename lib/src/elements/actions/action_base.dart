@@ -80,7 +80,7 @@ abstract class ActionBase extends TemplateObject {
       }
     }else{
       // TODO Implement reflection lookup on event bindings.
-      throw const NotImplementedException();
+      throw const NotImplementedException('Needs mirror-based impl');
     }
   }
 

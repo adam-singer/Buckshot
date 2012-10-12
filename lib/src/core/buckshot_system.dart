@@ -34,33 +34,32 @@ class Buckshot extends FrameworkObject
   /// Pass the ID of the element in the DOM where buckshot will render content.
   Buckshot([String buckshotRootID = _defaultRootID])
   {
+    hierarchicalLoggingEnabled = true;
+
     //initialize Polly's statics
     Polly.init();
-
-    if (!Polly.browserOK){
-      print('Buckshot Warning: Browser may not be compatible with Buckshot'
-          ' framework.');
-    }
 
     _initCSS();
 
     _initializeBuckshotProperties();
 
-    if (!reflectionEnabled){
-      _registerCoreElements();
-    }
+    if (reflectionEnabled) return;
+
+    _registerCoreElements();
   }
 
   void registerElement(BuckshotObject o){
     assert(!reflectionEnabled);
 
     _objectRegistry['${o.toString().toLowerCase()}'] = o.makeMe;
+    _log.info('Element (${o}) registered to framework.');
   }
 
   void registerAttachedProperty(String property, setterFunction){
     assert(!reflectionEnabled);
 
     _objectRegistry[property] = setterFunction;
+    _log.info('Attached property (${property}) registered to framework.');
   }
 
   void _registerCoreElements(){
@@ -115,9 +114,11 @@ class Buckshot extends FrameworkObject
 
     _buckshotCSS = document.head.query('#__BuckshotCSS__');
 
-    if (_buckshotCSS == null)
-      throw const BuckshotException('Unable to initialize'
-        ' Buckshot StyleSheet.');
+    assert(_buckshotCSS != null);
+
+    if (_buckshotCSS == null){
+      _log.warning('Unable to initialize Buckshot StyleSheet.');
+    }
   }
 
   void _initializeBuckshotProperties(){
@@ -149,7 +150,7 @@ class Buckshot extends FrameworkObject
 
   // Wrappers to prevent propagation of static warnings elsewhere.
   reflectMe(object) => reflect(object);
-  mirrorSystem() => currentMirrorSystem();
+  get mirrorSystem() => currentMirrorSystem();
 
   /**
    * Returns the InterfaceMirror of a given [name] by searching through all
@@ -167,13 +168,13 @@ class Buckshot extends FrameworkObject
       return _objectRegistry[lowerName]();
     }else{
       if (_mirrorCache.containsKey(lowerName)){
-        //print('[Miriam] Returning cached mirror of "$lowerName"');
+        _log.fine('Returning cached object ($lowerName) from mirrorCache.');
         return _mirrorCache[lowerName];
       }
 
       var result;
 
-      currentMirrorSystem()
+      mirrorSystem
       .libraries
       .forEach((String lName, libMirror){
         libMirror

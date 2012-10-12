@@ -125,8 +125,6 @@ class FrameworkElement extends FrameworkObject
   {
     Browser.appendClass(rawElement, "FrameworkElement");
 
-    Polly.setPolyfills(this);
-
     //give a blank style so merging works immediately
     _style = new StyleTemplate();
 

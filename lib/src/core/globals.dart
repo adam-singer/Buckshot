@@ -2,6 +2,7 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
+
 /**
 * Represents the globally available instance of Buckshot.
 *
@@ -57,6 +58,8 @@ Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
             b.isLoaded = true;
             el.elements.add(b.rawElement);
             b.content = t;
+            _log.fine('View ($t) set to DOM at ($elementID)');
+
             return new Future.immediate(t);
           });
 }
@@ -64,8 +67,29 @@ Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
 bool _frameworkInitialized = false;
 
 Future _initFramework(){
+
   if (_frameworkInitialized) return new Future.immediate(true);
   _frameworkInitialized = true;
+
+  hierarchicalLoggingEnabled = true;
+
+  _log.on.record.add((LogRecord record){
+    final event = '[${record.loggerName} - ${record.level} - ${record.sequenceNumber}] ${record.message}';
+    _logEvents.add(event);
+    print(event);
+  });
+
+  // Initializes the system object.
+  buckshot.name = '__sys__';
+
+  if (!Polly.browserOK){
+    _log.warning('Buckshot Warning: Browser may not be compatible with Buckshot'
+    ' framework.');
+  }
+
+  _log.config(reflectionEnabled
+                ? 'Reflection enabled.'
+                : 'Reflection disabled.');
 
   return Template
            .deserialize(defaultTheme)
@@ -73,6 +97,7 @@ Future _initFramework(){
              if (!FrameworkAnimation._started){
                FrameworkAnimation._startAnimatonLoop();
              }
+             _log.info('Framework initialized.');
              return new Future.immediate(true);
            });
 
@@ -186,11 +211,12 @@ void setValue(FrameworkProperty property, Dynamic value)
      value = property.stringToValueConverter.convert(value);
    }
 
-   //TODO this isn't working well on some complex objects
    if (property.value === value) return;
 
     property.previousValue = property.value;
     property.value = value;
+
+    _setPropertyLog.finest('(${property.sourceObject}) property (${property.propertyName}) to ($value)');
 
     // 3 different activities take place when a FrameworkProperty value changes,
     // in this order of precedence:
@@ -216,27 +242,28 @@ void setValue(FrameworkProperty property, Dynamic value)
 /**
  * Gets the current value of a given [FrameworkProperty] object.
  */
-getValue(FrameworkProperty property) =>
-    (property == null) ? null : property.value;
+getValue(FrameworkProperty property){
+  assert(property != null);
 
-/**
-* Executes a javascript alert "break point" with optional [breakInfo]. */
-br([breakInfo]){
-  window.alert("Debug Break: ${breakInfo != null ? breakInfo.toString() : ''}");
+  if (property != null){
+    _getPropertyLog.finest('(${property.sourceObject}) property (${property.propertyName}) value (${property.value})');
+  }else{
+    _getPropertyLog.warning('Attempted getValue() on null property.');
+  }
+  return (property == null) ? null : property.value;
 }
 
 /**
-* Prints output to stout with optional FrameworkElement [element] info. */
+ * Writes a log [message] at Level.WARNING with optional FrameworkElement
+ * [element] info.
+ */
 db(String message, [FrameworkObject element]){
   if (element == null){
-    print(message);
+    _log.warning(message);
     return;
   }
-  if (reflectionEnabled){
-    print("[${buckshot.reflectMe(element).type.simpleName}(${element.name})] $message");
-  }else{
-    print("[${element}(${element.name})] $message");
-  }
+
+  _log.warning("($element) $message");
 }
 
 /**
@@ -252,7 +279,7 @@ printTree(startWith, [int indent = 0]){
     return s.toString();
   }
 
-  print('${space(indent)}${_elementAndName(startWith)}(Parent=${_elementAndName(startWith.parent)})');
+  _log.warning('${space(indent)}${_elementAndName(startWith)}(Parent=${_elementAndName(startWith.parent)})');
 
   if (startWith is IFrameworkContainer){
     if ((startWith as IFrameworkContainer).content is List){
@@ -409,3 +436,14 @@ new HashMap<String, FrameworkResource>();
 // enabled.
 final HashMap<String, EventHandler> _globalEventHandlers =
 new HashMap<String, EventHandler>();
+
+// Logging
+var _log = new Logger('buckshot')..level = Level.WARNING;
+
+// setting some logs at the top level to prevent excessive new-ups.
+var _propertyLog = new Logger('buckshot.properties')..level = Level.WARNING;
+var _getPropertyLog = new Logger('buckshot.properties.get')..level = Level.WARNING;
+var _setPropertyLog = new Logger('buckshot.properties.set')..level = Level.WARNING;
+var _resourceLog = new Logger('buckshot.resources')..level = Level.WARNING;
+var _bindingLog = new Logger('buckshot.binding')..level = Level.WARNING;
+var _logEvents = new ObservableList<String>();

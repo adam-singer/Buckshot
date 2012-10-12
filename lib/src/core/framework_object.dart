@@ -486,4 +486,9 @@ class FrameworkObject extends BuckshotObject
   /// visual layout.
   void updateLayout(){}
 
+  String toString(){
+    if (nameProperty == null || nameProperty.value == null) return super.toString();
+    return '${super.toString()}[${nameProperty.value}]';
+  }
+
 }
