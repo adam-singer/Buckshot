@@ -39,13 +39,11 @@ void main() {
   // 1. Deserialize the resources template so it's loaded first.
   // 2. Set the view to the Master View
   // 3. Create a binding to make the app full-window.
+  // 4. Bind the root container to the dimensions of the window.
   Template
     .deserialize('web/views/templates/resources.xml')   // #1
     .chain((_) => setView(new Master()))                // #2
     .then((viewObject){                                 // #3
-        bind(buckshot.windowHeightProperty,
-            (viewObject.parent as Border).heightProperty);
-        bind(buckshot.windowWidthProperty,
-            (viewObject.parent as Border).widthProperty);
-      });
+      bindToWindowDimensions(viewObject.parent);        // #4
+    });
 }

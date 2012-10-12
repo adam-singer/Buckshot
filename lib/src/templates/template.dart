@@ -282,7 +282,7 @@ class Template {
       }
     }
 
-    final objectOrMirror = buckshot.getObjectByName(lowerTagName);
+    final objectOrMirror = getObjectByName(lowerTagName);
 //    final interfaceMirrorOf = Miriam.context.getObjectByName(lowerTagName);
 
     if (objectOrMirror == null){

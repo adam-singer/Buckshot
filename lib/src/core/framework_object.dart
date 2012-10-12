@@ -350,7 +350,7 @@ class FrameworkObject extends BuckshotObject
 
     if (dataContexts.isEmpty()){
       // global event handler
-      final lm = buckshot.mirrorSystem().isolate.rootLibrary;
+      final lm = buckshot.mirrorSystem.isolate.rootLibrary;
       _eventBindings
         .forEach((String handler, FrameworkEvent event){
           if (lm.functions.containsKey(handler)){

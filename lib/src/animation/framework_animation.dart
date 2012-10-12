@@ -67,8 +67,8 @@ class FrameworkAnimation
       _CssCompiler.compileAnimation(anim);
     }
 
-    buckshot._buckshotCSS.innerHTML = '';
-    buckshot._buckshotCSS.innerHTML = anim._cachedAnimation;
+    _buckshotCSS.innerHTML = '';
+    _buckshotCSS.innerHTML = anim._cachedAnimation;
   }
 
   /// Low-level function that clears a CSS3 transition property for a given [AnimatingFrameworkProperty].

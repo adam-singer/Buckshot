@@ -28,7 +28,7 @@
  */
 class FrameworkProperty extends FrameworkPropertyBase
 {
-  Dynamic _value;
+  var _value;
 
   /**
    * Represents the stored value of the FrameworkProperty.
@@ -36,8 +36,8 @@ class FrameworkProperty extends FrameworkPropertyBase
    * Generally, this should not be access directly, but through:
    *     getValue({propertyName});
    */
-  Dynamic get value => _value;
-  set value(Dynamic v) {
+  get value => _value;
+  set value(v) {
     if (readOnly){
       throw const BuckshotException('Attempted to write to a read-only property.');
     }
@@ -70,7 +70,7 @@ class FrameworkProperty extends FrameworkPropertyBase
     if (!reflectionEnabled && sourceObject != null){
       sourceObject._frameworkProperties.add(this);
     }
-    
+
     // If the value is provided, then call it's propertyChanged function to set the value on the property.
     if (defaultValue !== null){
       value = defaultValue;

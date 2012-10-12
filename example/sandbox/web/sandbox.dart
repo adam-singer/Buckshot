@@ -51,11 +51,8 @@ void main() {
     .deserialize('web/views/templates/app_resources.xml')
     .chain((_) => setView(new Main()))
     .then((t){
-         bind(buckshot.windowHeightProperty,
-             (t.parent as Border).heightProperty);
 
-         bind(buckshot.windowWidthProperty,
-             (t.parent as Border).widthProperty);
+        bindToWindowDimensions(t.parent);
 
         (t.parent as Border).background =
             new SolidColorBrush(getResource('theme_background_dark'));

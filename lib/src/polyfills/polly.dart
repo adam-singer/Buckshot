@@ -551,7 +551,7 @@ class Polly {
     print('${Polly.browserInfo}');
     print('Vendor Prefix: ${Polly.browserInfo.vendorPrefix}');
     print('Box Model Type: ${Polly._flexModel}');
-    print('window width/height: ${buckshot.windowWidth} ${buckshot.windowHeight}');
+    print('window width/height: ${windowWidth} ${windowHeight}');
     print('');
   }
 }

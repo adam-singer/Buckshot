@@ -41,7 +41,7 @@ class _CssCompiler
       k.states.forEach((AnimationState s){
         if (!animHash.containsKey(s.target)){
           animHash[s.target] = new _CssAnimationObject();
-          final cm = buckshot.getObjectByName(s.target);
+          final cm = getObjectByName(s.target);
           cm
           .newInstance('',[])
           .then((newElementMirror){

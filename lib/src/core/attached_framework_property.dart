@@ -36,9 +36,9 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
    */
   static void invokeSetPropertyFunction(String classPropertyPair, element, value){
     final split = classPropertyPair.split('.');
-    final classMirror = buckshot.getObjectByName(split[0]);
+    final classMirror = getObjectByName(split[0]);
     final propLower = split[1].toLowerCase();
-    
+
     var setterMethodName;
 
     classMirror
@@ -62,7 +62,7 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
     // This may break in the future when the mirror API wraps the arguements
     // automatically in mirrors.
     // See: http://goo.gl/8Rs7q
-    classMirror.invoke(setterMethodName, 
+    classMirror.invoke(setterMethodName,
         [buckshot.reflectMe(element), buckshot.reflectMe(value)]);
   }
 

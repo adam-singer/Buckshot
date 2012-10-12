@@ -14,10 +14,6 @@ main(){
        // we'll setup some manual bindings to the implicit Border
        // that our view is contained within.
 
-       bind(buckshot.windowWidthProperty,
-           (rootVisual.parent as Border).widthProperty);
-
-       bind(buckshot.windowHeightProperty,
-           (rootVisual.parent as Border).heightProperty);
+       bindToWindowDimensions(rootVisual.parent);
      });
 }

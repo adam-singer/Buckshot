@@ -216,10 +216,9 @@ class ModalDialog extends Control
   Future<DialogButtonType> show(){
     log('showing', this);
     _dialogCompleter = new Completer<DialogButtonType>();
-    //inject into DOM
 
-    b1 = new Binding(buckshot.windowWidthProperty, cvRoot.widthProperty);
-    b2 = new Binding(buckshot.windowHeightProperty, cvRoot.heightProperty);
+    b1 = new Binding(windowWidthProperty, cvRoot.widthProperty);
+    b2 = new Binding(windowHeightProperty, cvRoot.heightProperty);
 
     document.body.elements.add(cvRoot.rawElement);
 

@@ -2,8 +2,10 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-/// ## Try Buckshot Online ##
-/// <http://www.buckshotui.org/sandbox>
+/**
+ *  ## Try Buckshot Online ##
+ * <http://www.buckshotui.org/sandbox>
+ */
 
 library core_buckshotui_org;
 
@@ -22,8 +24,7 @@ import 'web/web.dart';
 // Also below, set reflectionEnabled = true.
 // import 'dart:mirrors';
 
-part 'src/core/globals.dart';
-part 'src/core/buckshot_system.dart';
+part 'src/core/system.dart';
 part 'src/core/framework_object.dart';
 part 'src/core/framework_property.dart';
 part 'src/core/observable_list.dart';
@@ -35,6 +36,7 @@ part 'src/core/framework_container.dart';
 part 'src/core/hashable_object.dart';
 part 'src/core/theme.dart';
 part 'src/core/debug.dart';
+part 'src/core/_buckshot.dart';
 
 part 'src/polyfills/polly.dart';
 part 'src/polyfills/flex_model.dart';
