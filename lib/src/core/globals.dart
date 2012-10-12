@@ -319,9 +319,9 @@ final String defaultTheme =
   Shadows 
   --> 
   <color key='theme_shadow_color' value='Black' />
-  <var key='theme_shadow_x' value='2' />
-  <var key='theme_shadow_y' value='2' />
-  <var key='theme_shadow_blur' value='4' />
+  <var key='theme_shadow_x' value='0' />
+  <var key='theme_shadow_y' value='0' />
+  <var key='theme_shadow_blur' value='0' />
 
   <!-- 
   Border 

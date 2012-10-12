@@ -120,6 +120,27 @@ class AligningPanel extends Polyfill
 
     offset += _currentChild.margin.bottom + _currentChild.margin.top;
 
+    /****** This section is experimental for the Button control *******/
+    final tE = _currentChild is Control ? _currentChild.template : _currentChild;
+
+    final sy = getValue(tE.shadowYProperty);
+
+    if (sy != null){
+      offset += (sy.abs() * 2);
+    }
+
+    final ty = getValue(tE.translateYProperty);
+
+    if (ty != null){
+      offset += (ty.abs() * 2);
+    }
+
+    final by = getValue(tE.shadowBlurProperty);
+    if (by != null){
+      offset += (by.abs() * 2);
+    }
+    /*******************************************************************/
+
     if (_currentChild.hasProperty('padding')){
       offset += _currentChild.padding.top + _currentChild.padding.bottom;
     }
@@ -192,6 +213,27 @@ class AligningPanel extends Polyfill
     final elementRect = element.mostRecentMeasurement;
 
     num offset = 0;
+
+    /****** This section is experimental for the Button control *******/
+    final tE = _currentChild is Control ? _currentChild.template : _currentChild;
+
+    final sx = getValue(tE.shadowXProperty);
+
+    if (sx != null){
+      offset += (sx.abs() * 2);
+    }
+
+    final tx = getValue(tE.translateXProperty);
+
+    if (tx != null){
+      offset += (tx.abs() * 2);
+    }
+
+    final bx = getValue(tE.shadowBlurProperty);
+    if (bx != null){
+      offset += (bx.abs() * 2);
+    }
+    /*******************************************************************/
 
     offset += _currentChild.margin.left + _currentChild.margin.right;
 
@@ -298,10 +340,10 @@ class AligningPanel extends Polyfill
 
   void _clearVerticalMargins(FrameworkElement nextElement){
     return;
-    if (!nextElement._polyfills.containsKey('alignmentpanel')) return;
+    if (!nextElement._polyfills.containsKey('layout')) return;
 
     //print('${element._polyfills['alignmentpanel']._childMargin}');
-    nextElement.margin = element._polyfills['alignmentpanel']._childMargin;
+    nextElement.margin = element._polyfills['layout']._childMargin;
 
     if (nextElement.content == null) return;
     _clearVerticalMargins(nextElement.content);
@@ -311,7 +353,7 @@ class AligningPanel extends Polyfill
   // the parent container is shrinking.
   // (firefox)
   void _clearVerticalHeights(FrameworkElement nextElement){
-    if (!nextElement._polyfills.containsKey('alignmentpanel')) return;
+    if (!nextElement._polyfills.containsKey('layout')) return;
 
     //db('...clearing verticle', element);
     nextElement.rawElement.style.height = 'auto';
@@ -319,9 +361,13 @@ class AligningPanel extends Polyfill
     if (nextElement.content == null) return;
 
     if (nextElement.content.vAlign == VerticalAlignment.bottom){
-      final m = nextElement._polyfills['alignmentpanel']._childMargin;
+      final m = nextElement._polyfills['layout']._childMargin;
 
       nextElement.content.rawElement.style.margin = '${m.top}px ${m.right}px ${m.bottom}px ${m.left}px';
+    }
+
+    if (nextElement.content.vAlign == VerticalAlignment.stretch){
+      nextElement.content.rawElement.style.height = '0px';
     }
 
     _clearVerticalHeights(nextElement.content);
@@ -332,16 +378,20 @@ class AligningPanel extends Polyfill
   // the parent container is shrinking.
   // (firefox)
   void _clearHorizontalWidths(FrameworkElement nextElement){
-    if (!nextElement._polyfills.containsKey('alignmentpanel')) return;
+    if (!nextElement._polyfills.containsKey('layout')) return;
 
     //db('...clearing verticle', element);
     nextElement.rawElement.style.width = 'auto';
     if (nextElement.content == null) return;
 
     if (nextElement.content.hAlign == HorizontalAlignment.right){
-      final m = nextElement._polyfills['alignmentpanel']._childMargin;
+      final m = nextElement._polyfills['layout']._childMargin;
 
       nextElement.content.rawElement.style.margin = '${m.top}px ${m.right}px ${m.bottom}px ${m.left}px';
+    }
+
+    if (nextElement.content.hAlign == HorizontalAlignment.stretch){
+      nextElement.content.rawElement.style.width = '0px';
     }
 
     _clearHorizontalWidths(nextElement.content);

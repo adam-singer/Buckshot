@@ -43,7 +43,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
     if (Polly.flexModel != FlexModel.Flex){
       _polyfill = new AligningPanel(this);
-      _polyfills['alignmentpanel'] = _polyfill;
+      _polyfills['layout'] = _polyfill;
 
       _redraw = (FrameworkElement child){
         _polyfill.invalidate();
