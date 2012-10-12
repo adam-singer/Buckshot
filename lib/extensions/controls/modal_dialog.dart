@@ -191,7 +191,7 @@ class ModalDialog extends Control
         converter: const StringToNumericConverter());
 
     borderColorProperty = new FrameworkProperty(this, 'borderColor',
-        getResource('theme_border_color_dark'),
+        defaultValue: getResource('theme_border_color_dark'),
         converter: const StringToColorConverter());
 
     borderThicknessProperty = new FrameworkProperty(this, 'borderThickness',
