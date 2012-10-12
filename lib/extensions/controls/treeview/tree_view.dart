@@ -71,7 +71,7 @@ class TreeView extends Panel
   }
 
   TreeView.register() : super.register(){
-    buckshot.registerElement(new TreeNode.register());
+    registerElement(new TreeNode.register());
   }
   makeMe() => new TreeView();
 

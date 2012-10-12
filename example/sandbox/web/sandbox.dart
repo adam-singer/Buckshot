@@ -34,16 +34,16 @@
 
 void main() {
   if (!reflectionEnabled){
-    buckshot.registerElement(new TreeView.register());
-    buckshot.registerElement(new YouTube.register());
-    buckshot.registerElement(new Hulu.register());
-    buckshot.registerElement(new Vimeo.register());
-    buckshot.registerElement(new FunnyOrDie.register());
-    buckshot.registerElement(new ListBox.register());
-    buckshot.registerElement(new PlusOne.register());
-    buckshot.registerElement(new DockPanel.register());
-    buckshot.registerElement(new TabControl.register());
-    buckshot.registerElement(new Accordion.register());
+    registerElement(new TreeView.register());
+    registerElement(new YouTube.register());
+    registerElement(new Hulu.register());
+    registerElement(new Vimeo.register());
+    registerElement(new FunnyOrDie.register());
+    registerElement(new ListBox.register());
+    registerElement(new PlusOne.register());
+    registerElement(new DockPanel.register());
+    registerElement(new TabControl.register());
+    registerElement(new Accordion.register());
     registerMenuControls();
   }
 

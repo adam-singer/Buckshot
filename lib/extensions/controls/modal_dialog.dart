@@ -202,18 +202,16 @@ class ModalDialog extends Control
         converter: const StringToThicknessConverter());
 
     cvRoot = Template.findByName('cvRoot', template);
-//    bDialog = Template.findByName('bDialog', template);
-    //bMask = Template.findByName('bMask', template);
 
     // Override the underlying DOM element on this canvas so that it
     // is absolutely positioned int the window at 0,0
     cvRoot.rawElement.style.position = 'absolute';
     cvRoot.rawElement.style.top = '0px';
     cvRoot.rawElement.style.left = '0px';
-
   }
 
   Future<DialogButtonType> show(){
+    log('showing', this);
     _dialogCompleter = new Completer<DialogButtonType>();
     //inject into DOM
 

@@ -101,7 +101,7 @@ class FrameworkObject extends BuckshotObject
         }
 
         if (value != null){
-          buckshot.namedElements[value] = this;
+          namedElements[value] = this;
           if (rawElement != null) rawElement.attributes["ID"] = value;
         }
 
@@ -278,7 +278,7 @@ class FrameworkObject extends BuckshotObject
 
     //TODO: Support multiple datacontext updates
 
-    final dcs = resolveAllDataContexts();
+    final dcs = _resolveAllDataContexts();
 
     if (dcs.isEmpty()) return;
 
@@ -442,14 +442,14 @@ class FrameworkObject extends BuckshotObject
     return parent.resolveDataContext();
   }
 
-  List<FrameworkProperty> resolveAllDataContexts(){
+  List<FrameworkProperty> _resolveAllDataContexts(){
     var list = new List<FrameworkProperty>();
 
     if (dataContext != null) list.add(dataContextProperty);
 
     if (parent == null) return list;
 
-    list.addAll(parent.resolveAllDataContexts());
+    list.addAll(parent._resolveAllDataContexts());
 
     return list;
   }
@@ -469,6 +469,14 @@ class FrameworkObject extends BuckshotObject
   /// Gets the [dataContextProperty] value.
   get dataContext => getValue(dataContextProperty);
 
+  /**
+   * Override to apply a construct a custom visual template and assign
+   * to [rawElement].
+   *
+   * This is an advanced operation and should not be used unless the
+   * the implementor knows what they are doing. This function is typically
+   * used by the [Control] class to construct control templates at runtime.
+   */
   void applyVisualTemplate() {
     //the base method just calls CreateElement
     //sub-classes (like Control) will use this to apply
@@ -476,8 +484,10 @@ class FrameworkObject extends BuckshotObject
     createElement();
   }
 
-  /// Called by the framework to allow an element to construct it's
-  /// HTML representation and assign to [component].
+  /**
+   *  Called by the framework to allow an element to construct it's
+   *  HTML representation and assign to [rawElement].
+   */
   void createElement(){
     rawElement = new DivElement();
   }
@@ -486,8 +496,15 @@ class FrameworkObject extends BuckshotObject
   /// visual layout.
   void updateLayout(){}
 
+  /**
+   * Returns the base type of the FrameworkObject in a String.  If the name
+   * property of the object is set, then it is included as well.
+   */
   String toString(){
-    if (nameProperty == null || nameProperty.value == null) return super.toString();
+    if (nameProperty == null || nameProperty.value == null){
+      return super.toString();
+    }
+
     return '${super.toString()}[${nameProperty.value}]';
   }
 

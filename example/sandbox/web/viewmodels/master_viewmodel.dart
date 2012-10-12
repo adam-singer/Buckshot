@@ -217,6 +217,7 @@ class MasterViewModel extends ViewModelBase
     Futures
       .wait([titleView.ready, bodyView.ready])
       .chain((results){
+        log('$results');
         final md = new ModalDialog
           .with(results[0], results[1], ModalDialog.OkCancel);
 
@@ -270,7 +271,7 @@ class MasterViewModel extends ViewModelBase
 
 
   void debug_click(sender, args){
-    db('fired click event', sender);
+    log('fired click event', sender);
   }
 
   /**
@@ -362,8 +363,8 @@ class MasterViewModel extends ViewModelBase
 
   void dockpanel_click(sender, args){
       String text = "Docked ";
-      final dp = buckshot.namedElements['dockpanelDemo'];
-      final b = buckshot.namedElements['btnDock'];
+      final dp = namedElements['dockpanelDemo'];
+      final b = namedElements['btnDock'];
       if (dp == null || b == null) return;
 
       switch(sender.content){

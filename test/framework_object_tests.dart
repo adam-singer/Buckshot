@@ -6,13 +6,13 @@
 run(){
   group('FrameworkObject', (){
     // Tests that assignment to the name property of a FrameworkObject
-    // properly registers it with buckshot.namedElements
+    // properly registers it with namedElements
     test('name registration', (){
       var b = new Border();
       b.name = "hello";
-      
-      Expect.isTrue(buckshot.namedElements.containsKey("hello"));
+
+      Expect.isTrue(namedElements.containsKey("hello"));
     });
-    
+
   });
 }

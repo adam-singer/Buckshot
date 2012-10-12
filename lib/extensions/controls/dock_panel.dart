@@ -2,12 +2,14 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-#library('dockpanel.controls.buckshotui.org');
+library dockpanel_controls_buckshotui_org;
 
-#import('dart:html');
-#import('package:buckshot/buckshot.dart');
-#import('package:dartnet_event_model/events.dart');
-#import('package:buckshot/web/web.dart');
+import 'dart:html';
+import 'package:buckshot/buckshot.dart';
+import 'package:dartnet_event_model/events.dart';
+import 'package:buckshot/web/web.dart';
+import 'package:logging/logging.dart';
+
 /**
  * A panel element that supports docking of child elements within it.
  */
@@ -22,7 +24,7 @@ class DockPanel extends Panel
     Browser.appendClass(rawElement, "DockPanel");
 
     if (!reflectionEnabled){
-      buckshot.registerAttachedProperty('dockpanel.dock', DockPanel.setDock);
+      registerAttachedProperty('dockpanel.dock', DockPanel.setDock);
     }
 
     _initDockPanelProperties();
@@ -88,7 +90,7 @@ class DockPanel extends Panel
       _invalidatePolyfill();
       }
       catch(e, stack){
-        print('>>> ERROR: $e $stack');
+        logSevere('>>> ERROR: $e $stack', this);
       }
       return;
     }

@@ -29,32 +29,32 @@ void run()
 
       window.setTimeout(expectAsync0((){
 
-        buckshot.namedElements.getValues().forEach((v)=> v.updateMeasurement());
+        namedElements.getValues().forEach((v)=> v.updateMeasurement());
 
         //references
-        final bLorumIpsum = buckshot.namedElements['bLorumIpsum'];
-        final lblLorumIpsum = buckshot.namedElements['lblLorumIpsum'];
-        final bHL_VS = buckshot.namedElements['bHL_VS'];
-        final bHC_VS = buckshot.namedElements['bHC_VS'];
-        final bHR_VS = buckshot.namedElements['bHR_VS'];
-        final lblHL_VS = buckshot.namedElements['lblHL_VS'];
-        final lblHC_VS = buckshot.namedElements['lblHC_VS'];
-        final lblHR_VS = buckshot.namedElements['lblHR_VS'];
-        final bHS_VT = buckshot.namedElements['bHS_VT'];
-        final bHS_VC = buckshot.namedElements['bHS_VC'];
-        final bHS_VB = buckshot.namedElements['bHS_VB'];
-        final lblHS_VT = buckshot.namedElements['lblHS_VT'];
-        final lblHS_VC = buckshot.namedElements['lblHS_VC'];
-        final lblHS_VB = buckshot.namedElements['lblHS_VB'];
-        final bLT = buckshot.namedElements['bLT'];
-        final bCT = buckshot.namedElements['bCT'];
-        final bRT = buckshot.namedElements['bRT'];
-        final bRC = buckshot.namedElements['bRC'];
-        final bRB = buckshot.namedElements['bRB'];
-        final bCB = buckshot.namedElements['bCB'];
-        final bLB = buckshot.namedElements['bLB'];
-        final bLC = buckshot.namedElements['bLC'];
-        final bCC = buckshot.namedElements['bCC'];
+        final bLorumIpsum = namedElements['bLorumIpsum'];
+        final lblLorumIpsum = namedElements['lblLorumIpsum'];
+        final bHL_VS = namedElements['bHL_VS'];
+        final bHC_VS = namedElements['bHC_VS'];
+        final bHR_VS = namedElements['bHR_VS'];
+        final lblHL_VS = namedElements['lblHL_VS'];
+        final lblHC_VS = namedElements['lblHC_VS'];
+        final lblHR_VS = namedElements['lblHR_VS'];
+        final bHS_VT = namedElements['bHS_VT'];
+        final bHS_VC = namedElements['bHS_VC'];
+        final bHS_VB = namedElements['bHS_VB'];
+        final lblHS_VT = namedElements['lblHS_VT'];
+        final lblHS_VC = namedElements['lblHS_VC'];
+        final lblHS_VB = namedElements['lblHS_VB'];
+        final bLT = namedElements['bLT'];
+        final bCT = namedElements['bCT'];
+        final bRT = namedElements['bRT'];
+        final bRC = namedElements['bRC'];
+        final bRB = namedElements['bRB'];
+        final bCB = namedElements['bCB'];
+        final bLB = namedElements['bLB'];
+        final bLC = namedElements['bLC'];
+        final bCC = namedElements['bCC'];
 
         if (usePause) pause();
 
@@ -139,23 +139,23 @@ void run()
 
       window.setTimeout(expectAsync0((){
 
-        buckshot.namedElements.getValues().forEach((v)=> v.updateMeasurement());
+        namedElements.getValues().forEach((v)=> v.updateMeasurement());
 
         //references
-        final spRoot = buckshot.namedElements['rootPanel'];
-        final spChrome = buckshot.namedElements['chromePanel'];
-        final bBlack = buckshot.namedElements['bBlack'];
-        final bRed = buckshot.namedElements['bRed'];
-        final bGreen = buckshot.namedElements['bGreen'];
-        final bBlue = buckshot.namedElements['bBlue'];
-        final lblHCenter = buckshot.namedElements['lblHCenter'];
-        final lblRight = buckshot.namedElements['lblRight'];
-        final lblLeft = buckshot.namedElements['lblLong'];
-        final bCircle = buckshot.namedElements['bCircle'];
-        final spHorizontal = buckshot.namedElements['spVerticalAlignment'];
-        final lblTop = buckshot.namedElements['lblTop'];
-        final lblVCenter = buckshot.namedElements['lblVCenter'];
-        final lblBottom = buckshot.namedElements['lblBottom'];
+        final spRoot = namedElements['rootPanel'];
+        final spChrome = namedElements['chromePanel'];
+        final bBlack = namedElements['bBlack'];
+        final bRed = namedElements['bRed'];
+        final bGreen = namedElements['bGreen'];
+        final bBlue = namedElements['bBlue'];
+        final lblHCenter = namedElements['lblHCenter'];
+        final lblRight = namedElements['lblRight'];
+        final lblLeft = namedElements['lblLong'];
+        final bCircle = namedElements['bCircle'];
+        final spHorizontal = namedElements['spVerticalAlignment'];
+        final lblTop = namedElements['lblTop'];
+        final lblVCenter = namedElements['lblVCenter'];
+        final lblBottom = namedElements['lblBottom'];
 
         if (usePause) pause();
 
@@ -228,34 +228,34 @@ void run()
       // otherwise some measurements will still be 0. Especially in JS.
       window.setTimeout(expectAsync0((){
 
-        buckshot.namedElements.getValues().forEach((v)=> v.updateMeasurement());
+        namedElements.getValues().forEach((v)=> v.updateMeasurement());
 
         //references
-        final borderRoot = buckshot.namedElements['borderContainer'];
-        final gridTest = buckshot.namedElements['gridTest'];
-        final rectRow0 = buckshot.namedElements['rectRow0'];
-        final rectRow1 = buckshot.namedElements['rectRow1'];
-        final rectRow2 = buckshot.namedElements['rectRow2'];
-        final rectRow3 = buckshot.namedElements['rectRow3'];
-        final rectCol0 = buckshot.namedElements['rectCol0'];
-        final rectCol1 = buckshot.namedElements['rectCol1'];
-        final rectCol2 = buckshot.namedElements['rectCol2'];
-        final rectCol3 = buckshot.namedElements['rectCol3'];
-        final rectCol4 = buckshot.namedElements['rectCol4'];
-        final lblTitle = buckshot.namedElements['lblTitle'];
-        final borderCircle1 = buckshot.namedElements['borderCircle1'];
-        final borderCircle2 = buckshot.namedElements['borderCircle2'];
-        final borderCircle3 = buckshot.namedElements['borderCircle3'];
-        final borderCircle4 = buckshot.namedElements['borderCircle4'];
-        final lblLT = buckshot.namedElements['lblLT'];
-        final lblCT = buckshot.namedElements['lblCT'];
-        final lblRT = buckshot.namedElements['lblRT'];
-        final lblRC = buckshot.namedElements['lblRC'];
-        final lblRB = buckshot.namedElements['lblRB'];
-        final lblCB = buckshot.namedElements['lblCB'];
-        final lblLB = buckshot.namedElements['lblLB'];
-        final lblLC = buckshot.namedElements['lblLC'];
-        final lblCC = buckshot.namedElements['lblCC'];
+        final borderRoot = namedElements['borderContainer'];
+        final gridTest = namedElements['gridTest'];
+        final rectRow0 = namedElements['rectRow0'];
+        final rectRow1 = namedElements['rectRow1'];
+        final rectRow2 = namedElements['rectRow2'];
+        final rectRow3 = namedElements['rectRow3'];
+        final rectCol0 = namedElements['rectCol0'];
+        final rectCol1 = namedElements['rectCol1'];
+        final rectCol2 = namedElements['rectCol2'];
+        final rectCol3 = namedElements['rectCol3'];
+        final rectCol4 = namedElements['rectCol4'];
+        final lblTitle = namedElements['lblTitle'];
+        final borderCircle1 = namedElements['borderCircle1'];
+        final borderCircle2 = namedElements['borderCircle2'];
+        final borderCircle3 = namedElements['borderCircle3'];
+        final borderCircle4 = namedElements['borderCircle4'];
+        final lblLT = namedElements['lblLT'];
+        final lblCT = namedElements['lblCT'];
+        final lblRT = namedElements['lblRT'];
+        final lblRC = namedElements['lblRC'];
+        final lblRB = namedElements['lblRB'];
+        final lblCB = namedElements['lblCB'];
+        final lblLB = namedElements['lblLB'];
+        final lblLC = namedElements['lblLC'];
+        final lblCC = namedElements['lblCC'];
 
         if (usePause) pause();
 

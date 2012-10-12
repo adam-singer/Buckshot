@@ -15,7 +15,7 @@ class SetProperty extends ActionBase
   SetProperty(){
     _initSetPropertyActionProperties();
   }
-  
+
   SetProperty.register() : super.register();
   makeMe() => new SetProperty();
 
@@ -38,9 +38,9 @@ class SetProperty extends ActionBase
 
     //TODO throw?
     if (property == null || value == null) return;
-    
-    var el = target != null 
-        ? buckshot.namedElements[target] 
+
+    var el = target != null
+        ? namedElements[target]
         : getValue(_sourceProperty);
 
     if (el == null) return; //TODO throw?

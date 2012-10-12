@@ -96,8 +96,8 @@ class Template {
    * [FrameworkElement] and returns the first named Element matching
    * the given name.
    *
-   * ## Instead use:
-   *     Buckshot.namedElements[elementName];
+   * ## For most cases, consider using: ##
+   *     namedElements[elementName];
    */
   static FrameworkElement findByName(String name,
                                      FrameworkElement startingWith){
@@ -440,9 +440,8 @@ class Template {
               ofElement,
               ofXMLNode.text.trim());
       }else{
-        if (buckshot._objectRegistry.containsKey(ofXMLNode.name.toLowerCase())){
-          buckshot
-          ._objectRegistry
+        if (_objectRegistry.containsKey(ofXMLNode.name.toLowerCase())){
+          _objectRegistry
           [ofXMLNode.name.toLowerCase()](ofElement, ofXMLNode.text.trim());
         }
       }
@@ -597,21 +596,19 @@ class Template {
           var ne = words[1].substring(0, words[1].indexOf('.'));
           var prop = words[1].substring(words[1].indexOf('.') + 1);
 
-          if (!buckshot.namedElements.containsKey(ne))
+          if (!namedElements.containsKey(ne))
             throw new PresentationProviderException("Named element '${ne}'"
             " not found.");
 
           Binding b;
 
-          buckshot
-            .namedElements[ne]
+            namedElements[ne]
             .resolveProperty(prop)
             .then((property){
               if (property != null){
                 new Binding(property, p, bindingMode:mode);
               }else{
-                buckshot
-                .namedElements[ne]
+                namedElements[ne]
                 .resolveFirstProperty(prop)
                 .then((firstProperty){
                   firstProperty.propertyChanging + (_, __) {
@@ -619,8 +616,7 @@ class Template {
                     //unregister previous binding if one already exists.
                     if (b != null) b.unregister();
 
-                    buckshot
-                    .namedElements[ne]
+                    namedElements[ne]
                     .resolveProperty(prop)
                     .then((lateProperty){
                       b = new Binding(lateProperty, p, bindingMode:mode);
@@ -680,8 +676,8 @@ class Template {
               AttachedFrameworkProperty
                 .invokeSetPropertyFunction(k, element, v);
             }else{
-              if (buckshot._objectRegistry.containsKey(k.toLowerCase())){
-                buckshot._objectRegistry[k.toLowerCase()](element, v);
+              if (_objectRegistry.containsKey(k.toLowerCase())){
+                _objectRegistry[k.toLowerCase()](element, v);
               }
             }
           }

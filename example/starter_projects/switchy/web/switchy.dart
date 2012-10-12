@@ -29,7 +29,7 @@ void main() {
 
     // IMPORTANT: When registering controls, be sure to call the .register()
     // constructor, NOT the default constructor.
-    buckshot.registerElement(new DockPanel.register());
+    registerElement(new DockPanel.register());
 
     // menu_lib has a convenience function to register controls since
     // there are several components used in menus.

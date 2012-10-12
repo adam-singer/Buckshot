@@ -2,6 +2,119 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
+const String _defaultRootID = "#BuckshotHost";
+
+final Map<String, Dynamic> _mirrorCache = new Map<String, Dynamic>();
+
+/// Central registry of named [FrameworkObject] elements.
+final HashMap<String, FrameworkObject> namedElements =
+    new HashMap<String, FrameworkObject>();
+
+final HashMap<String, Function> _objectRegistry =
+    new HashMap<String, Dynamic>();
+
+void registerElement(BuckshotObject o){
+  hierarchicalLoggingEnabled = true;
+  if (reflectionEnabled) return;
+
+  _objectRegistry['${o.toString().toLowerCase()}'] = o.makeMe;
+  _log.info('Element (${o}) registered to framework.');
+}
+
+void registerAttachedProperty(String property, setterFunction){
+  hierarchicalLoggingEnabled = true;
+  if (reflectionEnabled) return;
+
+  _objectRegistry[property] = setterFunction;
+  _log.info('Attached property (${property}) registered to framework.');
+}
+
+void _registerCoreElements(){
+  registerElement(new Ellipse.register());
+  registerElement(new Rectangle.register());
+  registerElement(new StackPanel.register());
+  registerElement(new Stack.register());
+  registerElement(new LayoutCanvas.register());
+  registerElement(new Grid.register());
+  registerElement(new Border.register());
+  registerElement(new ContentPresenter.register());
+  registerElement(new TextArea.register());
+  registerElement(new TextBlock.register());
+  registerElement(new CheckBox.register());
+  registerElement(new RadioButton.register());
+  registerElement(new Hyperlink.register());
+  registerElement(new Image.register());
+  registerElement(new RawHtml.register());
+  registerElement(new ColumnDefinition.register());
+  registerElement(new RowDefinition.register());
+  registerElement(new DropDownItem.register());
+  registerElement(new CollectionPresenter.register());
+
+  //resources
+  registerElement(new ResourceCollection.register());
+  registerElement(new Color.register());
+  registerElement(new LinearGradientBrush.register());
+  registerElement(new GradientStop.register());
+  registerElement(new SolidColorBrush.register());
+  registerElement(new RadialGradientBrush.register());
+  registerElement(new Setter.register());
+  registerElement(new StyleTemplate.register());
+  registerElement(new Var.register());
+  registerElement(new ControlTemplate.register());
+  registerElement(new AnimationResource.register());
+  registerElement(new AnimationKeyFrame.register());
+  registerElement(new AnimationState.register());
+
+  //actions
+  registerElement(new SetProperty.register());
+  registerElement(new ToggleProperty.register());
+
+  registerElement(new TextBox.register());
+  registerElement(new Slider.register());
+  registerElement(new Button.register());
+  registerElement(new DropDownList.register());
+}
+
+bool _frameworkInitialized = false;
+
+Future _initFramework(){
+
+  if (_frameworkInitialized) return new Future.immediate(true);
+  _frameworkInitialized = true;
+
+  hierarchicalLoggingEnabled = true;
+
+  _log.on.record.add((LogRecord record){
+    final event = '[${record.loggerName} - ${record.level} - ${record.sequenceNumber}] ${record.message}';
+    _logEvents.add(event);
+    print(event);
+  });
+
+  // Initializes the system object.
+  buckshot.name = '__sys__';
+
+  if (!Polly.browserOK){
+    _log.warning('Buckshot Warning: Browser may not be compatible with Buckshot'
+    ' framework.');
+  }
+
+  _log.config(reflectionEnabled
+                ? 'Reflection enabled.'
+                : 'Reflection disabled.');
+
+  return Template
+           .deserialize(defaultTheme)
+           .chain((_){
+             if (!FrameworkAnimation._started){
+               FrameworkAnimation._startAnimatonLoop();
+             }
+             _log.info('Framework initialized.');
+             return new Future.immediate(true);
+           });
+
+}
+
+
 /**
 * A general utility service for the Buckshot framework.
 *
@@ -11,16 +124,7 @@
 */
 class Buckshot extends FrameworkObject
 {
-  static const String _defaultRootID = "#BuckshotHost";
 
-  final Map<String, Dynamic> _mirrorCache = new Map<String, Dynamic>();
-
-  /// Central registry of named [FrameworkObject] elements.
-  final HashMap<String, FrameworkObject> namedElements =
-      new HashMap<String, FrameworkObject>();
-
-  final HashMap<String, Function> _objectRegistry =
-      new HashMap<String, Dynamic>();
 
   StyleElement _buckshotCSS;
 
@@ -48,64 +152,20 @@ class Buckshot extends FrameworkObject
     _registerCoreElements();
   }
 
-  void registerElement(BuckshotObject o){
-    assert(!reflectionEnabled);
+
+  /** Deprecated.  Use top-level registerElement() instead. */
+  @deprecated void registerElement(BuckshotObject o){
+    if (reflectionEnabled) return;
 
     _objectRegistry['${o.toString().toLowerCase()}'] = o.makeMe;
     _log.info('Element (${o}) registered to framework.');
   }
 
-  void registerAttachedProperty(String property, setterFunction){
-    assert(!reflectionEnabled);
+  @deprecated void registerAttachedProperty(String property, setterFunction){
+    if (reflectionEnabled) return;
 
     _objectRegistry[property] = setterFunction;
     _log.info('Attached property (${property}) registered to framework.');
-  }
-
-  void _registerCoreElements(){
-    registerElement(new Ellipse.register());
-    registerElement(new Rectangle.register());
-    registerElement(new StackPanel.register());
-    registerElement(new Stack.register());
-    registerElement(new LayoutCanvas.register());
-    registerElement(new Grid.register());
-    registerElement(new Border.register());
-    registerElement(new ContentPresenter.register());
-    registerElement(new TextArea.register());
-    registerElement(new TextBlock.register());
-    registerElement(new CheckBox.register());
-    registerElement(new RadioButton.register());
-    registerElement(new Hyperlink.register());
-    registerElement(new Image.register());
-    registerElement(new RawHtml.register());
-    registerElement(new ColumnDefinition.register());
-    registerElement(new RowDefinition.register());
-    registerElement(new DropDownItem.register());
-    registerElement(new CollectionPresenter.register());
-
-    //resources
-    registerElement(new ResourceCollection.register());
-    registerElement(new Color.register());
-    registerElement(new LinearGradientBrush.register());
-    registerElement(new GradientStop.register());
-    registerElement(new SolidColorBrush.register());
-    registerElement(new RadialGradientBrush.register());
-    registerElement(new Setter.register());
-    registerElement(new StyleTemplate.register());
-    registerElement(new Var.register());
-    registerElement(new ControlTemplate.register());
-    registerElement(new AnimationResource.register());
-    registerElement(new AnimationKeyFrame.register());
-    registerElement(new AnimationState.register());
-
-    //actions
-    registerElement(new SetProperty.register());
-    registerElement(new ToggleProperty.register());
-
-    registerElement(new TextBox.register());
-    registerElement(new Slider.register());
-    registerElement(new Button.register());
-    registerElement(new DropDownList.register());
   }
 
   void _initCSS(){
@@ -188,7 +248,7 @@ class Buckshot extends FrameworkObject
 
       if (result != null){
         //cache result;
-        //print('[Miriam] caching mirror "$lowerName"');
+        _log.fine('Caching mirror object ($lowerName)');
         _mirrorCache[lowerName] = result;
       }
 

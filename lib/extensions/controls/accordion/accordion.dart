@@ -30,7 +30,7 @@ class Accordion extends Control implements IFrameworkContainer
   }
 
   Accordion.register() : super.register(){
-    buckshot.registerElement(new AccordionItem.register());
+    registerElement(new AccordionItem.register());
   }
   makeMe() => new Accordion();
 

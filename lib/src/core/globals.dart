@@ -64,44 +64,7 @@ Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
           });
 }
 
-bool _frameworkInitialized = false;
 
-Future _initFramework(){
-
-  if (_frameworkInitialized) return new Future.immediate(true);
-  _frameworkInitialized = true;
-
-  hierarchicalLoggingEnabled = true;
-
-  _log.on.record.add((LogRecord record){
-    final event = '[${record.loggerName} - ${record.level} - ${record.sequenceNumber}] ${record.message}';
-    _logEvents.add(event);
-    print(event);
-  });
-
-  // Initializes the system object.
-  buckshot.name = '__sys__';
-
-  if (!Polly.browserOK){
-    _log.warning('Buckshot Warning: Browser may not be compatible with Buckshot'
-    ' framework.');
-  }
-
-  _log.config(reflectionEnabled
-                ? 'Reflection enabled.'
-                : 'Reflection disabled.');
-
-  return Template
-           .deserialize(defaultTheme)
-           .chain((_){
-             if (!FrameworkAnimation._started){
-               FrameworkAnimation._startAnimatonLoop();
-             }
-             _log.info('Framework initialized.');
-             return new Future.immediate(true);
-           });
-
-}
 
 
 /**
@@ -253,45 +216,6 @@ getValue(FrameworkProperty property){
   return (property == null) ? null : property.value;
 }
 
-/**
- * Writes a log [message] at Level.WARNING with optional FrameworkElement
- * [element] info.
- */
-db(String message, [FrameworkObject element]){
-  if (element == null){
-    _log.warning(message);
-    return;
-  }
-
-  _log.warning("($element) $message");
-}
-
-/**
- * Debug function that pretty prints an element tree. */
-printTree(startWith, [int indent = 0]){
-  if (startWith == null || startWith is! FrameworkElement) return;
-
-  String space(int n){
-    var s = new StringBuffer();
-    for(int i = 0; i < n; i++){
-      s.add(' ');
-    }
-    return s.toString();
-  }
-
-  _log.warning('${space(indent)}${_elementAndName(startWith)}(Parent=${_elementAndName(startWith.parent)})');
-
-  if (startWith is IFrameworkContainer){
-    if ((startWith as IFrameworkContainer).content is List){
-      (startWith as IFrameworkContainer)
-        .content
-        .forEach((e) => printTree(e, indent + 3));
-    }else{
-      printTree(startWith.content, indent + 3);
-    }
-  }
-}
-
 String _elementAndName(FrameworkObject o){
   return (o == null || o.name == null || o.name.trim() == '')
       ? '$o'
@@ -313,121 +237,6 @@ Future _functionToFuture(Function f){
   return c.future;
 }
 
-/**
- * A [ResourceCollection] template representing default property settings
- * for Buckshot controls.
- *
- * Buckshot will use this theme template if no other is found.
- */
-final String defaultTheme =
-'''
-<resourcecollection>
-  <!-- 
-  "Theme: 50 Shades of Grrr" 
-  -->
-
-  <color key='theme_debug' value='Orange' />
-
-  <!-- 
-  Default Palette 
-  -->
-  <color key='theme_background_light' value='White' />
-  <color key='theme_background_dark' value='WhiteSmoke' />
-  <color key='theme_background_mouse_hover' value='LightGray' />
-  <color key='theme_background_mouse_down' value='DarkGray' />
-
-  <!-- 
-  Default Brushes 
-  -->
-  <solidcolorbrush key='theme_light_brush' color='{resource theme_background_light}' />
-  <solidcolorbrush key='theme_dark_brush' color='{resource theme_background_dark}' />
-
-  <!-- 
-  Shadows 
-  --> 
-  <color key='theme_shadow_color' value='Black' />
-  <var key='theme_shadow_x' value='0' />
-  <var key='theme_shadow_y' value='0' />
-  <var key='theme_shadow_blur' value='0' />
-
-  <!-- 
-  Border 
-  -->
-  <color key='theme_border_color' value='LightGray' />
-  <color key='theme_border_color_dark' value='DarkGray' />
-  <var key='theme_border_thickness' value='1' />
-  <var key='theme_border_padding' value='5' />
-  <var key='theme_border_corner_radius' value='0' />
-  <!-- Note that border does not have a default background brush. -->
-
-  <!-- 
-  Text 
-  -->
-  <var key='theme_text_font_family' value='Arial' />
-  <color key='theme_text_foreground' value='Black' />
-
-  <!-- 
-  TextBox 
-  -->
-  <color key='theme_textbox_border_color' value='Black' />
-  <color key='theme_textbox_foreground' value='Black' />
-  <solidcolorbrush key='theme_textbox_background' color='{resource theme_background_light}' />
-  <var key='theme_textbox_border_thickness' value='1' />
-  <var key='theme_textbox_corner_radius' value='0' />
-  <var key='theme_textbox_border_style' value='solid' />
-  <var key='theme_textbox_padding' value='1' />
-
-  <!-- 
-  Button 
-  -->
-  <color key='theme_button_border_color' value='LightGray' />
-  <solidcolorbrush key='theme_button_background' color='{resource theme_background_dark}' />
-  <lineargradientbrush key='theme_button_background_hover' direction='vertical'>
-    <stops>
-       <gradientstop color='{resource theme_background_dark}' />
-       <gradientstop color='{resource theme_background_mouse_hover}' />
-    </stops>
-  </lineargradientbrush>
-  <var key='theme_button_border_thickness' value='{resource theme_border_thickness}' />
-  <var key='theme_button_padding' value='{resource theme_border_padding}' />
-
-  <!-- 
-  Accordion
-  -->
-  <var key='theme_accordion_header_padding' value='{resource theme_border_padding}' />
-  <var key='theme_accordion_header_border_thickness' value='0,0,1,0' />
-  <lineargradientbrush key='theme_accordion_background_hover_brush' direction='vertical'>
-    <stops>
-       <gradientstop color='{resource theme_background_dark}' />
-       <gradientstop color='{resource theme_background_mouse_hover}' />
-    </stops>
-  </lineargradientbrush>
-  <solidcolorbrush key='theme_accordion_background_mouse_down_brush' color='{resource theme_background_mouse_down}' />
-  <solidcolorbrush key='theme_accordion_header_background_brush' color='{resource theme_background_dark}' />
-  <solidcolorbrush key='theme_accordion_body_background_brush' color='{resource theme_debug}' />
-
-  <!-- 
-  Menu & MenuStrip
-  -->
-  <var key='theme_menu_padding' value='{resource theme_border_padding}' />
-    <lineargradientbrush key='theme_menu_background_hover_brush' direction='vertical'>
-    <stops>
-       <gradientstop color='{resource theme_background_dark}' />
-       <gradientstop color='{resource theme_background_mouse_hover}' />
-    </stops>
-  </lineargradientbrush>
-  <solidcolorbrush key='theme_menu_background_mouse_down_brush' color='{resource theme_background_mouse_down}' />
-  <solidcolorbrush key='theme_menu_background_brush' color='{resource theme_background_dark}' />
-
-  <!--
-  TabControl
-  -->
-  
-  <var key='zoidberg' value='http://www.buckshotui.org/resources/images/zoidberg.jpg' />
-  <var key='buckshot_logo_uri' value='http://www.buckshotui.org/resources/images/buckshot_logo.png' />
-</resourcecollection>
-''';
-
 // Holds a registry of resources.
 final HashMap<String, FrameworkResource> _resourceRegistry =
 new HashMap<String, FrameworkResource>();
@@ -437,13 +246,5 @@ new HashMap<String, FrameworkResource>();
 final HashMap<String, EventHandler> _globalEventHandlers =
 new HashMap<String, EventHandler>();
 
-// Logging
-var _log = new Logger('buckshot')..level = Level.WARNING;
 
-// setting some logs at the top level to prevent excessive new-ups.
-var _propertyLog = new Logger('buckshot.properties')..level = Level.WARNING;
-var _getPropertyLog = new Logger('buckshot.properties.get')..level = Level.WARNING;
-var _setPropertyLog = new Logger('buckshot.properties.set')..level = Level.WARNING;
-var _resourceLog = new Logger('buckshot.resources')..level = Level.WARNING;
-var _bindingLog = new Logger('buckshot.binding')..level = Level.WARNING;
-var _logEvents = new ObservableList<String>();
+

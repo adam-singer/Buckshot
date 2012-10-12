@@ -21,8 +21,8 @@
 void registerMenuControls(){
   if (reflectionEnabled) return;
 
-  buckshot.registerElement(new Menu.register());
-  buckshot.registerElement(new MenuItem.register());
-  buckshot.registerElement(new MenuStrip.register());
+  registerElement(new Menu.register());
+  registerElement(new MenuItem.register());
+  registerElement(new MenuStrip.register());
 }
 

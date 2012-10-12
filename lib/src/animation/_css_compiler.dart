@@ -69,7 +69,7 @@ class _CssCompiler
 
         //set the value to the proxy element, then read back it's css output
         if (prop.propertyName == 'fill'){
-          db('${prop.propertyName} ... ${s.value}');
+          log('${prop.propertyName} ... ${s.value}');
         }
 
         setValue(prop, s.value);

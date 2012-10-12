@@ -15,6 +15,7 @@ import 'dart:math';
 import 'package:xml/xml.dart';
 import 'package:dartnet_event_model/events.dart';
 import 'package:logging/logging.dart';
+import 'package:meta/meta.dart';
 import 'web/web.dart';
 
 // Uncomment this to run with reflection.
@@ -32,6 +33,8 @@ part 'src/core/framework_property_base.dart';
 part 'src/core/attached_framework_property.dart';
 part 'src/core/framework_container.dart';
 part 'src/core/hashable_object.dart';
+part 'src/core/theme.dart';
+part 'src/core/debug.dart';
 
 part 'src/polyfills/polly.dart';
 part 'src/polyfills/flex_model.dart';

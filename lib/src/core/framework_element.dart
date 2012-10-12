@@ -961,12 +961,4 @@ class FrameworkElement extends FrameworkObject
     registerEvent('mouseup', mouseUp);
     registerEvent('mousemove', mouseMove);
   }
-
-  /// Overridden [FrameworkObject] method.
-  void createElement(){
-    rawElement = new DivElement();
-  }
-
-  /// Overridden [FrameworkObject] method.
-  updateLayout(){}
 }

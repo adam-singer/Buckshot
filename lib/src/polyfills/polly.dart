@@ -41,6 +41,8 @@ class Polly {
   static void init(){
 //    _browserInfo = Browser.getBrowserInfo();
 
+    _polyfillLog.info('Initialized Polly.');
+
     var e = new DivElement();
 
     document.body.elements.add(e);
@@ -441,7 +443,7 @@ class Polly {
     }
 
     void noFlexHandler(){
-      db('horizontal called noFlexHandler()', element);
+      log('horizontal called noFlexHandler()', element);
      // throw const NotImplementedException('Flex box model not yet supported.');
     }
 
@@ -468,6 +470,7 @@ class Polly {
    * element.
    */
   static void setFlexboxAlignment(FrameworkElement element){
+    _polyfillLog.fine('Setting flexalignment for ($element)');
 
     void flexHandler(){
       // browser supports the latest draft flexbox spec

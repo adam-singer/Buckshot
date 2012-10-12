@@ -17,7 +17,7 @@ class ToggleProperty extends ActionBase
   ToggleProperty(){
     _initTogglePropertyActionProperties();
   }
-  
+
   ToggleProperty.register() : super.register();
   makeMe() => new ToggleProperty();
 
@@ -46,8 +46,8 @@ class ToggleProperty extends ActionBase
     if (property == null
         || firstValue == null || secondValue == null) return;
 
-    var el = target != null 
-        ? buckshot.namedElements[target] 
+    var el = target != null
+        ? namedElements[target]
         : getValue(_sourceProperty);
 
     if (el == null) return; //TODO throw?

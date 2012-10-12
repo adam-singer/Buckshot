@@ -56,10 +56,10 @@ Grid()
   Browser.appendClass(rawElement, "grid");
 
   if (!reflectionEnabled){
-    buckshot.registerAttachedProperty('grid.column', Grid.setColumn);
-    buckshot.registerAttachedProperty('grid.row', Grid.setRow);
-    buckshot.registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
-    buckshot.registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
+    registerAttachedProperty('grid.column', Grid.setColumn);
+    registerAttachedProperty('grid.row', Grid.setRow);
+    registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
+    registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
   }
   columnDefinitionsProperty = new FrameworkProperty(this,
       "columnDefinitions",
@@ -117,7 +117,6 @@ void _onChildrenChanging(Object _, ListChangedEventArgs args){
     _internalChildren.add(newGC);
 
     newGC.addToLayoutTree(this);
-    //item.parent = this;
   });
 
   updateLayout();
@@ -146,15 +145,15 @@ void updateLayout(){
   });
 }
 
-void createElement(){
-  rawElement = new DivElement();
+//void createElement(){
+//  rawElement = new DivElement();
+//
+//  if (Polly.flexModel != FlexModel.Flex){
+//    rawElement.style.display = 'table';
+//  }
+//}
 
-  if (Polly.flexModel != FlexModel.Flex){
-    rawElement.style.display = 'table';
-  }
-}
-
-Future _updateMeasurements(){
+void _updateMeasurements(){
   this.updateMeasurement();
 
   _internalChildren

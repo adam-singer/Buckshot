@@ -286,12 +286,14 @@ abstract class BuckshotObject extends HashableObject
     currentObject.getPropertyByName(propertyChain[0]).then((prop){
       // couldn't resolve current property name to a property
       if (prop == null){
-        print('>>> property resolution failed. obj: ${currentObject} chain: ${propertyChain}');
+        _propertyLog.warning('>>> property resolution failed. obj:'
+            ' ${currentObject} chain: ${propertyChain}');
         c.complete(null);
       }else{
         // More properties in the chain, but cannot resolve further.
         if (prop.value is! BuckshotObject && propertyChain.length > 1){
-          print('>>> property resolution failed. obj: ${currentObject} value: ${prop.value} chain: ${propertyChain}');
+          _propertyLog.warning('>>> property resolution failed. obj:'
+              ' ${currentObject} value: ${prop.value} chain: ${propertyChain}');
           c.complete(null);
         }else{
           // return the property if there are no further names to resolve or

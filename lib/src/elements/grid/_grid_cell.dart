@@ -3,7 +3,7 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 //render only, not used for template layout
-class _GridCell extends FrameworkObject implements IFrameworkContainer
+class _GridCell extends FrameworkObject
 {
   EventHandlerReference _ref;
 

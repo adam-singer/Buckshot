@@ -8,12 +8,10 @@ class StringToSolidColorBrushConverter implements IValueConverter
 
   Dynamic convert(Dynamic value, [Dynamic parameter]){
 
-    if (value is Color){
-      print('>>> color!');
-    }
-
     if (value is! String) {
-      throw const Exception('not a string');
+      new Logger('buckshot.StringToSolidColorBrushConverter')
+        .warning('Expected ($value) to be type String');
+      return value;
     }
 
     if (value.startsWith("#")){

@@ -98,7 +98,7 @@ abstract class ActionBase extends TemplateObject {
 
       _target = source;
     }else{
-      var el = buckshot.namedElements[targetName];
+      var el = namedElements[targetName];
 
       if (el == null)
         throw const BuckshotException('action Target was not found.');
