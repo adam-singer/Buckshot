@@ -99,20 +99,13 @@ class Polly {
 
   /**
    * Converts and element into a flexbox container. */
-  static void makeFlexBox(Element element,
-                        [ManualFlexType singleOrMulti = ManualFlexType.Single]){
-
-    //TODO: handle this initialization better
-    if (browserInfo == null){
-      Polly.init();
-    }
-
+  static void makeFlexBox(Element element){
     element.style.display = 'flex';
-
     element.style.display = '${Polly.browserInfo.vendorPrefix}flex';
 
     if (element.style.display == null || !element.style.display.endsWith('x')){
-      ManualFlexType.setManualFlexType(element, singleOrMulti);
+      // mark the element as manual
+      element.attributes['data-buckshot-flexbox'] = 'manual';
     }
   }
 
@@ -190,47 +183,6 @@ class Polly {
     return (result != null) ? result : null;
   }
 
-  /**
-   * Updates an element to the correct manual orientation. */
-  static void setManualMultiStackOrientation(
-                                     FrameworkElement element,
-                                     Orientation orientation)
-  {
-    if (orientation == Orientation.vertical){
-      //remove wrappers if present
-      element.rawElement.style.display = 'table';
-    }else{
-      //add wrappers if not already present
-      element.rawElement.style.display = 'inline-table';
-
-      //TODO:
-      // Replace underlying UI with a Grid element with all child measurements set
-      // to 'auto'.  This will effect a horizontal stackpanel, with the ability
-      // to support cross-axis alignments.
-    }
-  }
-
-  /**
-   * Sets the flex [Orientation] of a flex box container. */
-  static void setFlexBoxOrientation(FrameworkObject element,
-                                    Orientation orientation){
-
-    if (_flexModel == FlexModel.Manual){
-      element.rawElement.attributes['data-buckshot-flexbox-orientation'] =
-        orientation == Orientation.vertical ? 'vertical' : 'horizontal';
-
-      //TODO: clear any previous manual tracks in Brutus...
-      if (element is IFrameworkContainer && (element as IFrameworkContainer).content is Collection){
-        element
-          .content
-          .forEach((e) => setManualMultiStackOrientation(e, orientation));
-      }
-    }else{
-      element.rawElement.style.flexFlow =
-      orientation == Orientation.vertical ? 'column' : 'row';
-    }
-  }
-
 
   /**
    * Gets the flex [Orientation] of a flex box. */
@@ -245,49 +197,20 @@ class Polly {
   static void setItemHorizontalCrossAxisAlignment(FrameworkElement element,
                         HorizontalAlignment alignment){
 
-    void flexHandler(){
-      //supporting the latest draft flex box spec
+    Polly.setCSS(element.rawElement, 'flex', 'none');
 
-      Polly.setCSS(element.rawElement, 'flex', 'none');
-
-      switch(alignment){
-        case HorizontalAlignment.left:
-          setCSS(element.rawElement, 'align-self', 'flex-start');
-          break;
-        case HorizontalAlignment.right:
-          setCSS(element.rawElement, 'align-self', 'flex-end');
-          break;
-        case HorizontalAlignment.center:
-          setCSS(element.rawElement, 'align-self', 'center');
-          break;
-        case HorizontalAlignment.stretch:
-          setCSS(element.rawElement, 'align-self', 'stretch');
-          break;
-      }
-    }
-
-    void flexBoxHandler(){
-      //supporting the current flex box spec
-      element
-        ._polyfills['flexbox']
-          .enableManualHorizontalAlignment(alignment);
-    }
-
-    void noFlexHandler(){
-      element
-        ._polyfills['flexbox']
-          .enableManualHorizontalAlignment(alignment);
-    }
-
-    switch(_flexModel){
-      case FlexModel.Flex:
-        flexHandler();
+    switch(alignment){
+      case HorizontalAlignment.left:
+        setCSS(element.rawElement, 'align-self', 'flex-start');
         break;
-      case FlexModel.FlexBox:
-        flexBoxHandler();
+      case HorizontalAlignment.right:
+        setCSS(element.rawElement, 'align-self', 'flex-end');
         break;
-      default:
-        noFlexHandler();
+      case HorizontalAlignment.center:
+        setCSS(element.rawElement, 'align-self', 'center');
+        break;
+      case HorizontalAlignment.stretch:
+        setCSS(element.rawElement, 'align-self', 'stretch');
         break;
     }
   }
@@ -297,47 +220,20 @@ class Polly {
                                                 VerticalAlignment alignment,
                                                 [FlexModel flexModel]){
 
-    void flexHandler(){
-      Polly.setCSS(element.rawElement, 'flex', 'none');
-      switch(alignment){
-        case VerticalAlignment.top:
-          setCSS(element.rawElement, 'align-self', 'flex-start');
-          break;
-        case VerticalAlignment.bottom:
-          setCSS(element.rawElement, 'align-self', 'flex-end');
-          break;
-        case VerticalAlignment.center:
-          setCSS(element.rawElement, 'align-self', 'center');
-          break;
-        case VerticalAlignment.stretch:
-          setCSS(element.rawElement, 'align-self', 'stretch');
-          break;
-        }
-    }
-
-    void flexBoxHandler(){
-      element
-      ._polyfills['flexbox']
-        .enableManualVerticalAlignment(alignment);
-    }
-
-    void noFlexHandler(){
-      element
-        ._polyfills['flexbox']
-        .enableManualVerticalAlignment(alignment);
-    }
-
-    switch(_flexModel){
-      case FlexModel.Flex:
-        flexHandler();
+    Polly.setCSS(element.rawElement, 'flex', 'none');
+    switch(alignment){
+      case VerticalAlignment.top:
+        setCSS(element.rawElement, 'align-self', 'flex-start');
         break;
-      case FlexModel.FlexBox:
-        flexBoxHandler();
+      case VerticalAlignment.bottom:
+        setCSS(element.rawElement, 'align-self', 'flex-end');
         break;
-      default:
-        noFlexHandler();
+      case VerticalAlignment.center:
+        setCSS(element.rawElement, 'align-self', 'center');
         break;
-
+      case VerticalAlignment.stretch:
+        setCSS(element.rawElement, 'align-self', 'stretch');
+        break;
     }
   }
 
@@ -383,7 +279,7 @@ class Polly {
     }
 
     void noFlexHandler(){
-      print('called noFlexHandler()');
+      _polyfillLog.fine('setHorizontalFlexBoxAlignment called noFlexHandler()');
      // throw const NotImplementedException('Flex box model not yet supported.');
     }
 
@@ -443,8 +339,7 @@ class Polly {
     }
 
     void noFlexHandler(){
-      log('horizontal called noFlexHandler()', element);
-     // throw const NotImplementedException('Flex box model not yet supported.');
+      _polyfillLog.fine('setVerticalFlexBoxAlignment called noFlexHandler()');
     }
 
     switch(_flexModel){
@@ -470,77 +365,22 @@ class Polly {
    * element.
    */
   static void setFlexboxAlignment(FrameworkElement element){
-    _polyfillLog.fine('Setting flexalignment for ($element)');
+    _polyfillLog.fine('Setting flex alignment for ($element)');
 
-    void flexHandler(){
-      // browser supports the latest draft flexbox spec
+    if (element.hAlign != null){
+      Polly.setCSS(element.rawElement, 'flex', 'none');
 
-      if (element.hAlign != null){
-        Polly.setCSS(element.rawElement, 'flex', 'none');
-
-        if(element.hAlign == HorizontalAlignment.stretch){
-          Polly.setCSS(element.rawElement, 'flex', '1 1 auto');
-        }
-
-        setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
-          FlexModel.Flex);
+      if(element.hAlign == HorizontalAlignment.stretch){
+        Polly.setCSS(element.rawElement, 'flex', '1 1 auto');
       }
 
-      if (element.vAlign != null){
-        setVerticalFlexBoxAlignment(element.parent, element.vAlign,
-          FlexModel.Flex);
-      }
+      setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
+        FlexModel.Flex);
     }
 
-    void flexBoxHandler(){
-      //browser supports the current flexbox spec
-
-      if (element.hAlign != null){
-        if (element.hAlign == HorizontalAlignment.stretch){
-          element
-            ._polyfills['flexbox']
-            .enableManualHorizontalAlignment(HorizontalAlignment.stretch);
-        }else{
-          //something else besides stretch
-          element._polyfills['flexbox'].disableManualHorizontalAlignment();
-
-          setHorizontalFlexBoxAlignment(element.parent, element.hAlign,
-            FlexModel.FlexBox);
-        }
-      }
-
-      if (element.vAlign != null){
-        setVerticalFlexBoxAlignment(element.parent, element.vAlign,
-          FlexModel.FlexBox);
-      }
-    }
-
-    void manualFlexHandler(){
-      element.rawElement.style.display = 'table';
-
-      if (element.hAlign != null){
-          element
-            ._polyfills['flexbox']
-            .enableManualHorizontalAlignment(element.hAlign);
-      }
-
-      if (element.vAlign != null){
-          element
-            ._polyfills['flexbox']
-            .enableManualVerticalAlignment(element.vAlign);
-      }
-    }
-
-    switch(_flexModel){
-      case FlexModel.Flex:
-        flexHandler();
-        break;
-      case FlexModel.FlexBox:
-        manualFlexHandler();
-        break;
-      case FlexModel.Manual:
-        manualFlexHandler();
-        break;
+    if (element.vAlign != null){
+      setVerticalFlexBoxAlignment(element.parent, element.vAlign,
+        FlexModel.Flex);
     }
   }
 
@@ -556,6 +396,9 @@ class Polly {
   }
 }
 
+/**
+ * Holds an x,y point.  SafePoint is here because Point is in use by webkit.
+ */
 class SafePoint
 {
   final num x;
@@ -563,6 +406,3 @@ class SafePoint
 
   SafePoint(this.x, this.y);
 }
-
-
-

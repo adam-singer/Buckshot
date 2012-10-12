@@ -8,7 +8,7 @@
 class Stack extends StackPanel {
   Stack() : super();
   Stack.register() : super.register();
-  makeMe() => new StackPanel();
+  @override makeMe() => new StackPanel();
 }
 
 /**
@@ -17,27 +17,60 @@ class StackPanel extends Panel
 {
   FrameworkProperty orientationProperty;
 
+  StackPolyfill _polyfill;
+  Function _redraw;
+
+
   StackPanel()
   {
     Browser.appendClass(rawElement, "stackpanel");
 
+    if (Polly.flexModel != FlexModel.Flex){
+      _polyfill = new StackPolyfill(this);
+      _polyfills['layout'] = _polyfill;
+
+      _redraw = (){
+        _polyfill.invalidate();
+      };
+    }else{
+      _redraw = (){
+        if (orientation == Orientation.vertical){
+          children.forEach((FrameworkElement child){
+            Polly.setItemHorizontalCrossAxisAlignment(child, child.hAlign);
+          });
+        }else{
+          children.forEach((child){
+            Polly.setItemVerticalCrossAxisAlignment(child, child.vAlign);
+          });
+        }
+      };
+    }
+
     initStackPanelProperties();
   }
-  
+
   StackPanel.register() : super.register();
-  makeMe() => new StackPanel();
+  @override makeMe() => new StackPanel();
 
   void initStackPanelProperties(){
     orientationProperty = new FrameworkProperty(
       this,
       "orientation",
-      (Orientation value){
-        Polly.setFlexBoxOrientation(this, value);
-      },
-      Orientation.vertical, converter:const StringToOrientationConverter());
+      propertyChangedCallback:
+        (Orientation value){
+
+          if (_polyfill != null){
+            _polyfill.orientation = value;
+          }else{
+            rawElement.style.flexFlow =
+                (value == Orientation.vertical) ? 'column' : 'row';
+          }
+        },
+      defaultValue: Orientation.vertical,
+      converter:const StringToOrientationConverter());
   }
 
-  void onChildrenChanging(ListChangedEventArgs args){
+  @override void onChildrenChanging(ListChangedEventArgs args){
     super.onChildrenChanging(args);
 
     if (!args.oldItems.isEmpty()){
@@ -48,21 +81,19 @@ class StackPanel extends Panel
 
     if (!args.newItems.isEmpty()){
       args.newItems.forEach((FrameworkElement element){
-
         element.addToLayoutTree(this);
-        if (Polly._flexModel == FlexModel.Manual){
-          Polly.setManualMultiStackOrientation(element, orientation);
-        }
       });
+
+      updateLayout();
     }
   }
 
   set orientation(Orientation value) => setValue(orientationProperty, value);
   Orientation get orientation => getValue(orientationProperty);
 
-  void createElement(){
+  @override void createElement(){
     rawElement = new DivElement();
-    Polly.makeFlexBox(rawElement, ManualFlexType.Multi);
+    Polly.makeFlexBox(rawElement);
     //rawElement.style.flexFlow = 'column';
     rawElement.style.overflow = 'hidden';
 
@@ -70,16 +101,10 @@ class StackPanel extends Panel
     Polly.setHorizontalFlexBoxAlignment(this, HorizontalAlignment.left);
   }
 
-  void updateLayout(){
+  @override void updateLayout(){
     // set alignment of children along the cross access
-    if (orientation == Orientation.vertical){
-      children.forEach((FrameworkElement child){
-        Polly.setItemHorizontalCrossAxisAlignment(child, child.hAlign);
-      });
-    }else{
-      children.forEach((child){
-        Polly.setItemVerticalCrossAxisAlignment(child, child.vAlign);
-      });
-    }
+    if (!isLoaded) return;
+    _log.fine('updateLayout ($this)');
+    _redraw();
   }
 }

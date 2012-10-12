@@ -1,3 +1,6 @@
+// Copyright (c) 2012, John Evans
+// https://github.com/prujohn/Buckshot
+// See LICENSE file for Apache 2.0 licensing information.
 
 /**
  * Polyfill for a flexbox containing a single child element which can
@@ -38,7 +41,7 @@ class AligningPanel extends Polyfill
     invalidate();
   }
 
-  void invalidate(){
+  @override void invalidate(){
     num newTop = 0;
     num newLeft = 0;
     final container = element as IFrameworkContainer;

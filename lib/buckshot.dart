@@ -43,6 +43,7 @@ part 'src/polyfills/flex_model.dart';
 part 'src/polyfills/_flexbox_polyfill.dart';
 part 'src/polyfills/aligning_panel.dart';
 part 'src/polyfills/polyfill.dart';
+part 'src/polyfills/stack_polyfill.dart';
 
 part 'src/events/buckshot_event.dart';
 part 'src/events/measurement_changed_event_args.dart';

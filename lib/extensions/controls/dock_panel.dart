@@ -107,8 +107,13 @@ class DockPanel extends Panel
 
       Polly.makeFlexBox(c.rawElement);
 
-      Polly.setFlexBoxOrientation(c, (loc == DockLocation.left
-          || loc == DockLocation.right) ? Orientation.horizontal : Orientation.vertical);
+//      Polly.setFlexBoxOrientation(c, (loc == DockLocation.left
+//          || loc == DockLocation.right) ? Orientation.horizontal : Orientation.vertical);
+
+      c.rawElement.style.flexFlow =
+        (loc == DockLocation.left || loc == DockLocation.right)
+          ? 'row'
+          : 'column';
 
       //set the orientation
 //      Polly.setCSS(c, 'flex-direction', (loc == DockLocation.left

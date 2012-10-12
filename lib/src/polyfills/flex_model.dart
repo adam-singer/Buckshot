@@ -32,12 +32,6 @@ class ManualFlexType
     return ManualFlexType.None;
   }
 
-  static void setManualFlexType(Element element, ManualFlexType type){
-    if (type == ManualFlexType.None) return;
-
-    element.attributes['data-buckshot-flexbox'] = type.toString();
-  }
-
   String toString() => _str;
 }
 
