@@ -178,7 +178,7 @@ class ModalDialog extends Control
         defaultValue:'undefined');
 
     backgroundProperty = new FrameworkProperty(this, 'background',
-        defaultValue: new SolidColorBrush(getResource('theme_background_dark')),
+        defaultValue: getResource('theme_dark_brush'),
         converter: const StringToSolidColorBrushConverter());
 
     maskColorProperty = new FrameworkProperty(this, 'maskColor',
@@ -190,15 +190,18 @@ class ModalDialog extends Control
         defaultValue: 0.5,
         converter: const StringToNumericConverter());
 
-    borderColorProperty = new FrameworkProperty(this, 'borderColor',getResource('theme_border_color_dark'),
+    borderColorProperty = new FrameworkProperty(this, 'borderColor',
+        getResource('theme_border_color_dark'),
         converter: const StringToColorConverter());
 
     borderThicknessProperty = new FrameworkProperty(this, 'borderThickness',
-        defaultValue: getResource('theme_border_thickness'),
+        defaultValue: getResource('theme_border_thickness',
+                                  const StringToThicknessConverter()),
         converter: const StringToThicknessConverter());
 
     cornerRadiusProperty = new FrameworkProperty(this, 'cornerRadius',
-        defaultValue: new Thickness(0),
+        defaultValue: getResource('theme_border_corner_radius',
+            const StringToThicknessConverter()),
         converter: const StringToThicknessConverter());
 
     cvRoot = Template.findByName('cvRoot', template);
