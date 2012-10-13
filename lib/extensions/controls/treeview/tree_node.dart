@@ -188,22 +188,22 @@ class TreeNode extends Control implements IFrameworkContainer
     return
     '''<controltemplate controlType="${this.templateName}">
           <template>
-            <stackpanel>
-              <stackpanel orientation='horizontal'>
+            <stack>
+              <stack orientation='horizontal'>
                 <contentpresenter name='__tree_node_indicator__' margin='2' minwidth='15' content='{template indicator}' />
                 <border padding='0,5,0,0' borderThickness='1' cornerRadius='4' style='{template _mouseEventStyles}' name='__tree_node_header__'>
-                  <stackpanel orientation='horizontal'>
+                  <stack orientation='horizontal'>
                     <contentpresenter valign='center' margin='2' minwidth='20' content='{template icon}' />
                     <contentpresenter valign='center' content='{template header}' />
-                  </stackpanel>
+                  </stack>
                 </border>
-              </stackpanel>
+              </stack>
               <collectionpresenter visibility='{template childVisibility}' datacontext='{template childNodes}'>
                 <itemstemplate>
                   <contentpresenter margin='0,0,0,20' content='{data}' />
                 </itemstemplate>
               </collectionpresenter>
-            </stackpanel>
+            </stack>
           </template>
         </controltemplate>
     ''';

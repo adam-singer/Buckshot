@@ -50,7 +50,7 @@ void run(){
 
       Template.deserialize(t)
       .then(expectAsync1((result){
-        Expect.isTrue(result is StackPanel);
+        Expect.isTrue(result is Stack);
         Expect.equals(7, result.children.length);
 
         Expect.isTrue(result.children[0] is Grid, "Grid");

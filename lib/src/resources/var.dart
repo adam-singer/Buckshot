@@ -14,10 +14,10 @@
 *
 *         <!-- objects (templates, if you will) -->
 *         <var key="contentresource">
-*             <stackpanel>
+*             <stack>
 *                <textblock text="line 1"></textblock>
 *                <textblock text="line 2"></textblock>
-*             </stackpanel>
+*             </stack>
 *         </var>
 *     </resourcecollection>
 *
@@ -44,7 +44,7 @@ class Var extends FrameworkResource implements IFrameworkContainer
     stateBag[FrameworkResource.RESOURCE_PROPERTY] = valueProperty;
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = valueProperty;
   }
-  
+
   Var.register() : super.register();
   makeMe() => new Var();
 

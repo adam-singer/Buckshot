@@ -40,7 +40,7 @@ class MenuStrip extends Control implements IFrameworkContainer
 
       if (m.header != null){
         // gets the border surrounding the menu header content
-        final b = (m.parent.parent as StackPanel).children[0] as Border;
+        final b = (m.parent.parent as Stack).children[0] as Border;
 
         b.click + (_, __){
           if (m.visibility == Visibility.visible){
@@ -95,7 +95,7 @@ class MenuStrip extends Control implements IFrameworkContainer
     <border cursor='Arrow' background='{resource theme_background_dark}'>
       <collectionpresenter halign='stretch' collection='{template menus}'>
          <presentationpanel>
-            <stackpanel orientation='{template orientation}'></stackpanel>
+            <stack orientation='{template orientation}'></stack>
          </presentationpanel>
          <itemstemplate>
            <stack>

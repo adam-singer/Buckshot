@@ -37,7 +37,6 @@ void registerAttachedProperty(String property, setterFunction){
 void _registerCoreElements(){
   registerElement(new Ellipse.register());
   registerElement(new Rectangle.register());
-  registerElement(new StackPanel.register());
   registerElement(new Stack.register());
   registerElement(new LayoutCanvas.register());
   registerElement(new Grid.register());

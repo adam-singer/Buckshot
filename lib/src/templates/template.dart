@@ -26,16 +26,16 @@
 *
 * ### XML Example ###
 *     <border padding='5' background='Orange'>
-*        <stackpanel halign='center' valign='center'>
+*        <stack halign='center' valign='center'>
 *          <textblock text='hello' />
 *          <textblock text='world' />
-*        </stackpanel>
+*        </stack>
 *     </border>
 *
 * ### JSON Example ###
 *     ["border",
 *        [{"background" : "Orange", "padding" : "10"},
-*          ["stackpanel",
+*          ["stack",
 *            [{"valign" : "center", "halign" : "center"},
 *              ["textblock",
 *                [{"text" : "hello"}]
@@ -50,7 +50,7 @@
 * ### YAML Example ###
 *     - border
 *     - - {background: Orange, padding: 10}
-*       - - stackpanel
+*       - - stack
 *         - - {halign: center, valign: center}
 *           - - textblock
 *             - - text: hello

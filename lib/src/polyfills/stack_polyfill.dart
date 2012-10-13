@@ -29,5 +29,7 @@ class StackPolyfill extends Polyfill
             ? 'table'
             : 'inline-table';
       });
+
+    invalidate();
   }
 }

@@ -74,7 +74,7 @@ class Polly {
     }else{
       final wkitPoint = document.window
           .webkitConvertPointFromPageToNode(element,
-          new Point(pageX, pageY));
+            new Point(pageX, pageY));
       c.complete(new SafePoint(wkitPoint.x, wkitPoint.y));
     }
 
@@ -162,7 +162,7 @@ class Polly {
    * Returns true if property was successfully applied. */
   static bool setCSS(Element e, String property, String value){
 
-    e.style.setProperty('${property}', value);
+    e.style.setProperty('${property}', value, 'important');
     e.style.setProperty('${Polly.browserInfo.vendorPrefix}${property}', value);
 
     return getCSS(e, property) != null;
@@ -171,6 +171,7 @@ class Polly {
 
   /**
    * Gets a value from a given property.
+   *
    * Supports all common browser prefixes. */
   static String getCSS(Element e, String property){
 
@@ -178,7 +179,8 @@ class Polly {
 
     if (result != null) return result;
 
-    result = e.style.getPropertyValue('${Polly.browserInfo.vendorPrefix}${property}');
+    result = e.style
+        .getPropertyValue('${Polly.browserInfo.vendorPrefix}${property}');
 
     return (result != null) ? result : null;
   }
@@ -280,7 +282,6 @@ class Polly {
 
     void noFlexHandler(){
       _polyfillLog.fine('setHorizontalFlexBoxAlignment called noFlexHandler()');
-     // throw const NotImplementedException('Flex box model not yet supported.');
     }
 
     switch(_flexModel){

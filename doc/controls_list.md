@@ -17,7 +17,7 @@ Control is new and will likely have significant usability or stability issues.
 # Stable Band #
 ## Border ##
 
-## StackPanel, Stack ##
+## Stack ##
 
 ## Grid ##
 

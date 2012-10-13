@@ -9,7 +9,7 @@
 * ## See Also
 * * [Grid]
 * * [LayoutCanvas]
-* * [StackPanel]
+* * [Stack]
 * * [TreeView]
 */
 class Panel extends FrameworkElement implements IFrameworkContainer {

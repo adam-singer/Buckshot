@@ -22,11 +22,11 @@ class TreeView extends Panel
   static const String FILE_DEFAULT_TEMPLATE =
       '''
 <border width='16' height='16' cornerradius='2' borderthickness='1' bordercolor='{resource theme_border_color_dark}' background='{resource theme_background_dark}'>
-  <stackpanel halign='stretch' valign='center'>
+  <stack halign='stretch' valign='center'>
     <border margin='2,1' borderthickness='1' bordercolor='LightGray' halign='stretch' />
     <border margin='3,1' borderthickness='1' bordercolor='LightGray' halign='stretch' />
     <border margin='2,1' borderthickness='1' bordercolor='LightGray' halign='stretch' />
-  </stackpanel>
+  </stack>
 </border>
 ''';
 

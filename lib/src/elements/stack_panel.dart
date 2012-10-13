@@ -3,17 +3,8 @@
 // See LICENSE file for Apache 2.0 licensing information.
 
 /**
- * Alias element for [StackPanel].  Provides a shortened name in templates.
- */
-class Stack extends StackPanel {
-  Stack() : super();
-  Stack.register() : super.register();
-  @override makeMe() => new StackPanel();
-}
-
-/**
 * Provides a container that stacks child elements vertically or horizontally. */
-class StackPanel extends Panel
+class Stack extends Panel
 {
   FrameworkProperty orientationProperty;
 
@@ -21,13 +12,13 @@ class StackPanel extends Panel
   Function _redraw;
 
 
-  StackPanel()
+  Stack()
   {
-    Browser.appendClass(rawElement, "stackpanel");
+    Browser.appendClass(rawElement, "Stack");
 
     if (Polly.flexModel != FlexModel.Flex){
       _polyfill = new StackPolyfill(this);
-      _polyfills['layout'] = _polyfill;
+      _polyfills['stack'] = _polyfill;
 
       _redraw = (){
         _polyfill.invalidate();
@@ -46,13 +37,13 @@ class StackPanel extends Panel
       };
     }
 
-    initStackPanelProperties();
+    initStackProperties();
   }
 
-  StackPanel.register() : super.register();
-  @override makeMe() => new StackPanel();
+  Stack.register() : super.register();
+  @override makeMe() => new Stack();
 
-  void initStackPanelProperties(){
+  void initStackProperties(){
     orientationProperty = new FrameworkProperty(
       this,
       "orientation",

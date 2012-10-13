@@ -283,10 +283,10 @@ class ModalDialog extends Control
             borderthickness='{template borderThickness}' 
             bordercolor='{template borderColor}' 
             background='{template background}'>
-      <stackpanel minwidth='200' maxwidth='500'>
+      <stack minwidth='200' maxwidth='500'>
         <contentpresenter content='{template title}' halign='center' />
         <contentpresenter halign='center' content='{template body}' />
-        <stackpanel name='spButtonContainer' halign='right' orientation='horizontal'>
+        <stack name='spButtonContainer' halign='right' orientation='horizontal'>
           <button content='Ok' />
           <button content='Cancel' />
           <button content='Yes' />
@@ -294,8 +294,8 @@ class ModalDialog extends Control
           <button content='Back' />
           <button content='Next' />
           <button content='Finished' />
-        </stackpanel>
-      </stackpanel>
+        </stack>
+      </stack>
     </border>
   </grid>
 </controltemplate>

@@ -10,12 +10,12 @@
 *
 *     <collectionpresenter datacontext="{data someCollection}">
 *         <!--
-*              presentationpanel defaults to stackpanel
+*              presentationpanel defaults to Stack
 *              so doesn't need to be declared unless you
 *              want to change or customize
 *         -->
 *         <presentationpanel>
-*             <stackpanel></stackpanel>
+*             <stack></stack>
 *         </presentationpanel>
 *         <!--
 *             itemstemplate declares the output that will be
@@ -75,7 +75,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
 
       p.addToLayoutTree(this);
 
-    }, new StackPanel());
+    }, new Stack());
 
     itemsTemplateProperty = new FrameworkProperty(this, "itemsTemplate");
 
