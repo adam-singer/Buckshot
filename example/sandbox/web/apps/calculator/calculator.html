@@ -13,13 +13,13 @@
 		   <p>Loading...</p>
 	   </div>
 	</div>
-		
-	<!-- 
-	Buckshot Templates 
-	-->
-	
+
 	<!--
-	This is the main template (in YAML) of the application and provides 
+	Buckshot Templates
+	-->
+
+	<!--
+	This is the main template (in YAML) of the application and provides
 	the layout for all of the calculator components.
 	-->
 	<script id='main' type='text/yaml'>
@@ -40,16 +40,16 @@
         - - style: '{resource calcHeader}'
         - border
         - - style: '{resource calcBorderSeperator}'
-        - stackpanel
+        - stack
         - - {orientation: horizontal, valign: center, margin: '0,0,0,2'}
           - - image
             - - {width: 50, alt: 'Buckshot Logo', sourceuri: 'resources/buckshot_logo.png'}
-            - stackpanel
+            - stack
             - - - textblock
                 - - {style: '{resource defaultText}', text: Buckshot}
                 - textblock
                 - - {style: '{resource defaultText}', text: Calculator}
-        - stackpanel
+        - stack
         - - {orientation: horizontal, valign: center, halign: right, margin: '0,5,0,0'}
           - - textblock
             - - {style: '{resource defaultText}', text: 'Mode:', margin: '0,5,0,0'}
@@ -74,11 +74,11 @@
         - - {margin: '5,5', halign: stretch, valign: stretch, grid.row: 2, content: '{data keypad}'}
 	</script>
 
-	<!-- 
+	<!--
 	This template is an xml duplicate of the YAML template above.  It isn't
 	use by the application, but is provided here for comparison
 	-->
-	
+
 	<script id='main2' type='text/xml'>
 		<border style='{resource calcStyle}'>
 			<grid width='{data width}' height='400'>
@@ -89,14 +89,14 @@
 				</rowdefinitions>
 				<border style='{resource calcHeader}'></border>
 				<border style='{resource calcBorderSeperator}'></border>
-				<stackpanel orientation='horizontal' valign='center' margin='0,0,0,2'>
+				<stack orientation='horizontal' valign='center' margin='0,0,0,2'>
 	    			<image width='50' alt="Buckshot Logo" sourceuri="resources/buckshot_logo.png" />
-					<stackpanel>
+					<stack>
 						<textblock style='{resource defaultText}' text='Buckshot' />
 						<textblock style='{resource defaultText}' text='Calculator' />
-					</stackpanel>
-				</stackpanel>
-				<stackpanel orientation='horizontal' valign='center' halign='right' margin='0,5,0,0'>
+					</stack>
+				</stack>
+				<stack orientation='horizontal' valign='center' halign='right' margin='0,5,0,0'>
 					<textblock style='{resource defaultText}' text='Mode:' margin='0,0,0,5' />
 					<dropdownlist on.selectionChanged='selectionChanged_handler'>
 						<items>
@@ -104,9 +104,9 @@
 							<dropdownitem name='Extended' value='Extended' />
 						</items>
 					</dropdownlist>
-				</stackpanel>
+				</stack>
 				<border grid.row='1' style='{resource calcBorderOutput}'>
-					<!-- 
+					<!--
 					In the output grid, we are overlapping several elements,
 					while using alignment to make them appear in different
 					areas of the grid cell.
@@ -127,9 +127,9 @@
 			</grid>
 		</border>
 	</script>
-	
-	
-	<!-- 
+
+
+	<!--
 	This template represents the default keypad layout of the calculator.
 	-->
 	<script id='keypad_default' type='text/xml'>
@@ -154,38 +154,38 @@
 			<button on.click='buttonClick_handler' grid.column='2' style='{resource calcButtonDefaultStyle}' content='MS'></button>
 			<button on.click='buttonClick_handler' grid.column='3' style='{resource calcButtonDefaultStyle}' content='M+'></button>
 			<button on.click='buttonClick_handler' grid.column='4' style='{resource calcButtonDefaultStyle}' content='M-'></button>
-			
+
 			<button on.click='buttonClick_handler' grid.row='1' style='{resource calcButtonDefaultStyle}' content='<--'></button>
 			<button on.click='buttonClick_handler' grid.column='1' grid.row='1' style='{resource calcButtonDefaultStyle}' content='CE'></button>
 			<button on.click='buttonClick_handler' grid.column='2' grid.row='1' style='{resource calcButtonDefaultStyle}' content='C'></button>
 			<button on.click='buttonClick_handler' grid.column='3' grid.row='1' style='{resource calcButtonDefaultStyle}' content='+-'></button>
 			<button on.click='buttonClick_handler' grid.column='4' grid.row='1' style='{resource calcButtonDefaultStyle}' content='SQRT'></button>
-			
+
 			<button on.click='buttonClick_handler' grid.row='2' style='{resource calcButtonDefaultStyle}' content='7'></button>
 			<button on.click='buttonClick_handler' grid.column='1' grid.row='2' style='{resource calcButtonDefaultStyle}' content='8'></button>
 			<button on.click='buttonClick_handler' grid.column='2' grid.row='2' style='{resource calcButtonDefaultStyle}' content='9'></button>
 			<button on.click='buttonClick_handler' grid.column='3' grid.row='2' style='{resource calcButtonDefaultStyle}' content='/'></button>
 			<button on.click='buttonClick_handler' grid.column='4' grid.row='2' style='{resource calcButtonDefaultStyle}' content='%'></button>
-			
+
 			<button on.click='buttonClick_handler' grid.row='3' style='{resource calcButtonDefaultStyle}' content='4'></button>
 			<button on.click='buttonClick_handler'  grid.column='1' grid.row='3' style='{resource calcButtonDefaultStyle}' content='5'></button>
 			<button on.click='buttonClick_handler' grid.column='2' grid.row='3' style='{resource calcButtonDefaultStyle}' content='6'></button>
 			<button on.click='buttonClick_handler' grid.column='3' grid.row='3' style='{resource calcButtonDefaultStyle}' content='*'></button>
 			<button on.click='buttonClick_handler' grid.column='4' grid.row='3' style='{resource calcButtonDefaultStyle}' content='1/x'></button>
-			
+
 			<button on.click='buttonClick_handler' grid.row='4' style='{resource calcButtonDefaultStyle}' content='1'></button>
 			<button on.click='buttonClick_handler' grid.column='1' grid.row='4' style='{resource calcButtonDefaultStyle}' content='2'></button>
 			<button on.click='buttonClick_handler' grid.column='2' grid.row='4' style='{resource calcButtonDefaultStyle}' content='3'></button>
 			<button on.click='buttonClick_handler' grid.column='3' grid.row='4' style='{resource calcButtonDefaultStyle}' content='-'></button>
 			<button on.click='buttonClick_handler' grid.column='4' grid.row='4' grid.rowspan='2' style='{resource calcButtonDefaultStyle}' content='='></button>
-			
+
 			<button on.click='buttonClick_handler' grid.row='5' grid.columnspan='2' style='{resource calcButtonDefaultStyle}' content='0'></button>
 			<button on.click='buttonClick_handler' grid.column='2' grid.row='5' style='{resource calcButtonDefaultStyle}' content='.'></button>
 			<button on.click='buttonClick_handler' grid.column='3' grid.row='5' style='{resource calcButtonDefaultStyle}' content='+'></button>
 		</grid>
 	</script>
-	
-	<!-- 
+
+	<!--
 	This template represents the extended keypad layout of the calcualtor.
 	-->
 	<script id='keypad_extended' type='text/xml'>
@@ -206,80 +206,80 @@
 				<columndefinition width='*1' />
 				<columndefinition width='*1' />
 			</columndefinitions>
-			
+
 			<button on.click='buttonClick_handler' grid.column='1' style='{resource calcButtonDefaultStyle}' content='MC'></button>
 			<button on.click='buttonClick_handler' grid.column='2' style='{resource calcButtonDefaultStyle}' content='MR'></button>
 			<button on.click='buttonClick_handler' grid.column='3' style='{resource calcButtonDefaultStyle}' content='MS'></button>
 			<button on.click='buttonClick_handler' grid.column='4' style='{resource calcButtonDefaultStyle}' content='M+'></button>
 			<button on.click='buttonClick_handler' grid.column='5' style='{resource calcButtonDefaultStyle}' content='M-'></button>
-			
+
 			<button on.click='buttonClick_handler' grid.row='1' style='{resource calcButtonDefaultStyle}' content='sin'></button>
 			<button on.click='buttonClick_handler' grid.column='1' grid.row='1' style='{resource calcButtonDefaultStyle}' content='<--'></button>
 			<button on.click='buttonClick_handler' grid.column='2' grid.row='1' style='{resource calcButtonDefaultStyle}' content='CE'></button>
 			<button on.click='buttonClick_handler' grid.column='3' grid.row='1' style='{resource calcButtonDefaultStyle}' content='C'></button>
 			<button on.click='buttonClick_handler' grid.column='4' grid.row='1' style='{resource calcButtonDefaultStyle}' content='+-'></button>
 			<button on.click='buttonClick_handler' grid.column='5' grid.row='1' style='{resource calcButtonDefaultStyle}' content='SQRT'></button>
-			
+
 			<button on.click='buttonClick_handler' grid.row='2' style='{resource calcButtonDefaultStyle}' content='cos'></button>
 			<button on.click='buttonClick_handler' grid.column='1' grid.row='2' style='{resource calcButtonDefaultStyle}' content='7'></button>
 			<button on.click='buttonClick_handler' grid.column='2' grid.row='2' style='{resource calcButtonDefaultStyle}' content='8'></button>
 			<button on.click='buttonClick_handler' grid.column='3' grid.row='2' style='{resource calcButtonDefaultStyle}' content='9'></button>
 			<button on.click='buttonClick_handler' grid.column='4' grid.row='2' style='{resource calcButtonDefaultStyle}' content='/'></button>
 			<button on.click='buttonClick_handler' grid.column='5' grid.row='2' style='{resource calcButtonDefaultStyle}' content='%'></button>
-			
+
 			<button on.click='buttonClick_handler' grid.row='3' style='{resource calcButtonDefaultStyle}' content='x^2'></button>
 			<button on.click='buttonClick_handler' grid.column='1' grid.row='3' style='{resource calcButtonDefaultStyle}' content='4'></button>
 			<button on.click='buttonClick_handler' grid.column='2' grid.row='3' style='{resource calcButtonDefaultStyle}' content='5'></button>
 			<button on.click='buttonClick_handler' grid.column='3' grid.row='3' style='{resource calcButtonDefaultStyle}' content='6'></button>
 			<button on.click='buttonClick_handler' grid.column='4' grid.row='3' style='{resource calcButtonDefaultStyle}' content='*'></button>
 			<button on.click='buttonClick_handler' grid.column='5' grid.row='3' style='{resource calcButtonDefaultStyle}' content='1/x'></button>
-			
+
 			<button on.click='buttonClick_handler' grid.row='4' style='{resource calcButtonDefaultStyle}' content='x^3'></button>
 			<button on.click='buttonClick_handler' grid.column='1' grid.row='4' style='{resource calcButtonDefaultStyle}' content='1'></button>
 			<button on.click='buttonClick_handler' grid.column='2' grid.row='4' style='{resource calcButtonDefaultStyle}' content='2'></button>
 			<button on.click='buttonClick_handler' grid.column='3' grid.row='4' style='{resource calcButtonDefaultStyle}' content='3'></button>
 			<button on.click='buttonClick_handler' grid.column='4' grid.row='4' style='{resource calcButtonDefaultStyle}' content='-'></button>
 			<button on.click='buttonClick_handler' grid.column='5' grid.row='4' grid.rowspan='2' style='{resource calcButtonDefaultStyle}' content='='></button>
-			
+
 			<button on.click='buttonClick_handler' grid.row='5' style='{resource calcButtonDefaultStyle}' content='pi'></button>
 			<button on.click='buttonClick_handler' grid.column='1' grid.row='5' grid.columnspan='2' style='{resource calcButtonDefaultStyle}' content='0'></button>
 			<button on.click='buttonClick_handler' grid.column='3' grid.row='5' style='{resource calcButtonDefaultStyle}' content='.'></button>
 			<button on.click='buttonClick_handler' grid.column='4' grid.row='5' style='{resource calcButtonDefaultStyle}' content='+'></button>
 		</grid>
 	</script>
-		
-		
-	<!-- 
-	This template holds global resources that elements in other templates 
-	can bind to.  
-	
-	It is important to load this template first, so that other templates 
+
+
+	<!--
+	This template holds global resources that elements in other templates
+	can bind to.
+
+	It is important to load this template first, so that other templates
 	that reference resources within it will find them.
 	-->
 	<script id='resources' type='text/xml'>
 		<resourcecollection>
-		
+
 		    <lineargradientbrush key="calcBackground" direction="vertical">
 		      <stops>
 		        <gradientstop color="#FEFEFF" />
-		      	<gradientstop color="#CECEFF" />  
+		      	<gradientstop color="#CECEFF" />
 		      </stops>
 		    </lineargradientbrush>
-		    
+
 		    <lineargradientbrush key="calcOutputBackground" direction="vertical">
 		      <stops>
-		      	<gradientstop color="#DFDFFF" />  
+		      	<gradientstop color="#DFDFFF" />
 		        <gradientstop color="#FEFEFF" />
 		      </stops>
 		    </lineargradientbrush>
-		    
+
 			<styletemplate key='defaultText'>
 				<setters>
 					<setter property='fontFamily' value='Consolas' />
 					<setter property='fontSize' value='16' />
 				</setters>
 			</styletemplate>
-							    
+
 			<styletemplate key='calcStyle'>
 				<setters>
 					<setter property='background' value='{resource calcBackground}' />
@@ -287,17 +287,17 @@
 					<setter property='cornerRadius' value='5' />
 					<setter property='borderColor' value='Black' />
 				</setters>
-			</styletemplate>		    
-		    
+			</styletemplate>
+
 		    <styletemplate key='calcHeader'>
 		    	<setters>
 		    		<setter property='background' value='{resource calcBackground}' />
 		    		<setter property='cornerRadius' value='5' />
 					<setter property='vAlign' value='stretch' />
-					<setter property='hAlign' value='stretch' />	
+					<setter property='hAlign' value='stretch' />
 		    	</setters>
 		    </styletemplate>
-		    
+
 			<styletemplate key='calcBorderSeperator'>
 				<setters>
 					<setter property='borderThickness' value='1' />
@@ -327,25 +327,25 @@
 					<setter property='fontFamily' value='Consolas' />
 				</setters>
 			</styletemplate>
-			
+
 			<styletemplate key='calcTextblockSubOutput'>
 				<setters>
 					<setter property='fontSize' value='14' />
 					<setter property='fontFamily' value='Consolas' />
 				</setters>
 			</styletemplate>
-			
+
 			<styletemplate key='calcButtonDefaultStyle'>
 				<setters>
 					<setter property='vAlign' value='stretch' />
 					<setter property='hAlign' value='stretch' />
 					<setter property='margin' value='3' />
 				</setters>
-			</styletemplate>		
+			</styletemplate>
 		</resourcecollection>
 	</script>
-	
-			
+
+
 	<!-- Dart Script and Bootstrap -->
     <script type="application/dart" src="calculator.dart"></script>
     <script src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script>

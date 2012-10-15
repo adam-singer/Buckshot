@@ -8,7 +8,7 @@
  * Flexbox polyfill.  Supports horizontal and vertical alignments within
  * a parent container, including stretch.
  */
-class _FlexboxPolyfill
+@deprecated class _FlexboxPolyfill
 {
   EventHandlerReference _eventReference;
   var _preservedWidth;
@@ -21,13 +21,15 @@ class _FlexboxPolyfill
   HorizontalAlignment manualHorizontalAlignment;
   VerticalAlignment manualVerticalAlignment;
 
-  _FlexboxPolyfill.with(this.element);
+  _FlexboxPolyfill.with(this.element){
+    throw const NotImplementedException('No longer used');
+  }
 
   /**
    * Enables given manual vertical [alignment] of element within it's parent
    * container.
    */
-  void enableManualVerticalAlignment(VerticalAlignment alignment){
+  @deprecated void enableManualVerticalAlignment(VerticalAlignment alignment){
     if (manualVerticalAlignment != null && manualVerticalAlignment == alignment){
       return;
     }
@@ -42,16 +44,16 @@ class _FlexboxPolyfill
 
     manualVerticalAlignment = alignment;
 
-    void handleVerticalStretch(){
+    @deprecated void handleVerticalStretch(){
       //save the width value for later restoral
       _preservedHeight = element.rawElement.style.height;
     }
 
-    void handleVerticalCenter(){
+    @deprecated void handleVerticalCenter(){
       _preservedTopMargin = element.margin;
     }
 
-    void handleVerticalBottom(){
+    @deprecated void handleVerticalBottom(){
       _preservedTopMargin = element.margin;
     }
 
@@ -79,20 +81,20 @@ class _FlexboxPolyfill
       _unsubscribeMeasurementChanged();
     }
 
-    void handleVerticalStretch(){
+    @deprecated void handleVerticalStretch(){
 
       element.rawElement.style.height = _preservedHeight;
 
       _preservedHeight = null;
     }
 
-    void handleVerticalCenter(){
+    @deprecated void handleVerticalCenter(){
       element.margin = _preservedTopMargin;
 
       _preservedTopMargin = null;
     }
 
-    void handleVerticalBottom(){
+    @deprecated void handleVerticalBottom(){
       element.margin = _preservedTopMargin;
 
       _preservedTopMargin = null;
@@ -119,7 +121,7 @@ class _FlexboxPolyfill
    * Enables given manual horizontal [alignment] of element within it's parent
    * container.
    */
-  void enableManualHorizontalAlignment(HorizontalAlignment alignment){
+  @deprecated void enableManualHorizontalAlignment(HorizontalAlignment alignment){
 
     if (manualHorizontalAlignment != null &&
         manualHorizontalAlignment == alignment){
@@ -136,16 +138,16 @@ class _FlexboxPolyfill
 
     manualHorizontalAlignment = alignment;
 
-    void handleHorizontalStretch(){
+    @deprecated void handleHorizontalStretch(){
       //save the width value for later restoral
       _preservedWidth = element.rawElement.style.width;
     }
 
-    void handleHorizontalCenter(){
+    @deprecated void handleHorizontalCenter(){
       _preservedLeftMargin = element.margin;
     }
 
-    void handleHorizontalRight(){
+    @deprecated void handleHorizontalRight(){
       _preservedLeftMargin = element.margin;
     }
 
@@ -164,7 +166,7 @@ class _FlexboxPolyfill
     _subscribeMeasurementChanged();
   }
 
-  void disableManualHorizontalAlignment(){
+  @deprecated void disableManualHorizontalAlignment(){
 
     if (manualHorizontalAlignment == null) return;
 
@@ -173,7 +175,7 @@ class _FlexboxPolyfill
     }
 
 
-    void handleHorizontalStretch(){
+    @deprecated void handleHorizontalStretch(){
 
       element.rawElement.style.width = _preservedWidth;
 
@@ -181,14 +183,14 @@ class _FlexboxPolyfill
     }
 
 
-    void handleHorizontalCenter(){
+    @deprecated void handleHorizontalCenter(){
       element.margin = _preservedLeftMargin;
 
       _preservedLeftMargin = null;
     }
 
 
-    void handleHorizontalRight(){
+    @deprecated void handleHorizontalRight(){
       element.margin = _preservedLeftMargin;
 
       _preservedLeftMargin = null;
@@ -212,13 +214,13 @@ class _FlexboxPolyfill
   }
 
 
-  void clearAllManualAlignments(){
+  @deprecated void clearAllManualAlignments(){
     disableManualHorizontalAlignment();
     disableManualVerticalAlignment();
   }
 
 
-  void _subscribeMeasurementChanged(){
+  @deprecated void _subscribeMeasurementChanged(){
     if (_eventReference != null) return;
 
     //assign event handler reference to statebag
@@ -228,7 +230,7 @@ class _FlexboxPolyfill
   }
 
 
-  void _unsubscribeMeasurementChanged(){
+  @deprecated void _unsubscribeMeasurementChanged(){
     if (_eventReference == null) return;
 
     element.parent.measurementChanged - _eventReference;
@@ -237,14 +239,14 @@ class _FlexboxPolyfill
   }
 
 
-  void _sizeChangedEventHandler(_, MeasurementChangedEventArgs args){
+  @deprecated void _sizeChangedEventHandler(_, MeasurementChangedEventArgs args){
     num newTop = 0;
     num newLeft = 0;
 
     final el = element as FrameworkElement;
     final elp = element.parent as FrameworkElement;
 
-    void handleHorizontalStretch(){
+    @deprecated void handleHorizontalStretch(){
       final num parentPaddingOffset = elp.hasProperty('padding')
                   ? elp.padding.left +
                       elp.padding.right
@@ -276,7 +278,7 @@ class _FlexboxPolyfill
       }
     }
 
-    void handleHorizontalCenter(ElementRect r){
+    @deprecated void handleHorizontalCenter(ElementRect r){
       final num parentPaddingOffset = elp.hasProperty('padding')
           ? elp.padding.left +
               elp.padding.right
@@ -294,7 +296,7 @@ class _FlexboxPolyfill
           ((r.bounding.width + measurementOffset) / 2));
     }
 
-    void handleHorizontalRight(ElementRect r){
+    @deprecated void handleHorizontalRight(ElementRect r){
       if (element.parent.rawElement.attributes.containsKey('data-buckshot-flexbox')
           && element.parent.rawElement.attributes['data-buckshot-flexbox'] == 'Multi'){
         // Ignore setting cross axis right on multi element flexboxes for now...
@@ -321,7 +323,7 @@ class _FlexboxPolyfill
           (r.client.width + offset);
     }
 
-    void handleVerticalStretch(){
+    @deprecated void handleVerticalStretch(){
       final sh = el.rawElement.style.height;
 
       final offset = _getElementVerticalOffset(el);
@@ -332,7 +334,7 @@ class _FlexboxPolyfill
      //db('starting height: $sh, ending height: ${el.rawElement.style.height}, parentHeight: ${args.newMeasurement.bounding.height}, parent: $elp[${elp.name}]', element);
     }
 
-    void handleVerticalCenter(ElementRect r){
+    @deprecated void handleVerticalCenter(ElementRect r){
 
       final num parentPaddingOffset = (elp.hasProperty('padding'))
                 ? elp.padding.top +
@@ -352,7 +354,7 @@ class _FlexboxPolyfill
      // db('*** vertical center parent height:${args.newMeasurement.client.height}, element height: ${r.client.height}, $position', element);
     }
 
-    void handleVerticalBottom(ElementRect r){
+    @deprecated void handleVerticalBottom(ElementRect r){
       if (element.parent.rawElement.attributes.containsKey('data-buckshot-flexbox')
           && element.parent.rawElement.attributes['data-buckshot-flexbox'] == 'Multi'){
         // Ignore setting cross axis bottom on multi element flexboxes for now...

@@ -37,7 +37,7 @@ void run(){
 
     test('core elements', (){
       String t = '''
-          <StackPanel>
+          <Stack>
           <Grid></Grid>
           <Border></Border>
           <Button></Button>
@@ -45,7 +45,7 @@ void run(){
           <TextBox></TextBox>
           <Slider></Slider>
           <LayoutCanvas></LayoutCanvas>
-          </StackPanel>
+          </Stack>
           ''';
 
       Template.deserialize(t)
@@ -71,7 +71,7 @@ void run(){
       }));
     });
     test('enum properties', (){
-      String t = '<StackPanel orientation="horizontal" valign="center"></StackPanel>';
+      String t = '<Stack orientation="horizontal" valign="center"></Stack>';
 
       Template
       .deserialize(t)
@@ -82,13 +82,13 @@ void run(){
     });
     test('attached properties', (){
       String t = '''
-          <StackPanel Grid.column="3"
+          <Stack Grid.column="3"
           Grid.ROW="4"
           LayoutCanvas.Top="5"
           LayoutCanvas.left="6"
           Grid.columnSpaN="7"
           Grid.rowSpan="8">
-          </StackPanel>
+          </Stack>
           ''';
 
       Template
@@ -136,14 +136,14 @@ void run(){
 //          (err) => (err is PresentationProviderException));
 //    });
 //    test('text node in list container throws', (){
-//      String t = "<StackPanel>hello world</StackPanel>";
+//      String t = "<Stack>hello world</Stack>";
 //
 //      Expect.throws(
 //          ()=> Template.deserialize(t),
 //          (err) => (err is PresentationProviderException));
 //    });
     test('simple property node assigns correctly', (){
-      String t = "<StackPanel><width>40</width></StackPanel>";
+      String t = "<Stack><width>40</width></Stack>";
 
       Template
       .deserialize(t)
@@ -152,15 +152,15 @@ void run(){
       }));
     });
     test('enum property node assigns correctly', (){
-      String t = "<StackPanel><orientation>horizontal</orientation></StackPanel>";
+      String t = "<Stack><orientation>horizontal</orientation></Stack>";
 
       Template.deserialize(t)
       .then(expectAsync1((result){
-        Expect.equals(Orientation.horizontal, (result as StackPanel).orientation);
+        Expect.equals(Orientation.horizontal, (result as Stack).orientation);
       }));
     });
     test('attached property node assigns correctly', (){
-      final t = "<StackPanel><grid.column>2</grid.column></StackPanel>";
+      final t = "<Stack><grid.column>2</grid.column></Stack>";
       Template
       .deserialize(t)
       .then(expectAsync1((result){

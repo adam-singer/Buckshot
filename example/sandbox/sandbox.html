@@ -4,16 +4,19 @@
     <meta charset="utf-8">
     <title>Buckshot UI - Sandbox</title>
   </head>
-  <body style='padding:0px;margin:0px'>
+  <body style='padding:0px;margin:0px'
+        data-buckshot-theme='web/resources/theme_default.xml'
+        data-buckshot-resources='web/resources/app_resources.xml'>
+
   <div id="BuckshotHost"></div>
+
   <script type="application/dart" src="web/sandbox.dart"></script>
-        
   <script src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script>
   <script type="text/javascript">
 	var _gaq = _gaq || [];
 	_gaq.push(['_setAccount', 'UA-33780650-1']);
 	_gaq.push(['_trackPageview']);
-	
+
 	(function () {
 	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';

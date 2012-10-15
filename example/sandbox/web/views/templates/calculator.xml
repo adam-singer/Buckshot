@@ -7,14 +7,14 @@
 		</rowdefinitions>
 		<border style='{resource calcHeader}'></border>
 		<border style='{resource borderSeperator}'></border>
-		<stackpanel orientation='horizontal' valign='center' margin='0,0,0,2'>
+		<Stack orientation='horizontal' valign='center' margin='0,0,0,2'>
 			<image width='50' alt="Buckshot Logo" sourceuri="web/resources/buckshot_logo.png" />
-			<stackpanel>
+			<Stack>
 				<textblock style='{resource defaultText}' text='Buckshot' />
 				<textblock style='{resource defaultText}' text='Calculator' />
-			</stackpanel>
-		</stackpanel>
-		<stackpanel orientation='horizontal' valign='center' halign='right' margin='0,5,0,0'>
+			</Stack>
+		</Stack>
+		<Stack orientation='horizontal' valign='center' halign='right' margin='0,5,0,0'>
 			<textblock style='{resource defaultText}' text='Mode:' margin='0,0,0,5' />
 			<dropdownlist on.selectionChanged='selectionChanged_handler'>
 				<items>
@@ -22,9 +22,9 @@
 					<dropdownitem name='Extended' value='Extended' />
 				</items>
 			</dropdownlist>
-		</stackpanel>
+		</Stack>
 		<border grid.row='1' style='{resource borderOutput}'>
-			<!-- 
+			<!--
 			In the output grid, we are overlapping several elements,
 			while using alignment to make them appear in different
 			areas of the grid cell.

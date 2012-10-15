@@ -5,10 +5,10 @@
     <title>Buckshot Tests</title>
   </head>
   <body style='margin:0px;padding:0px'>
-	<div id="BuckshotHost"></div>	
-		
+	<div id="BuckshotHost"></div>
+
 	<!-- Buckshot Templates -->
-	
+
 	<script id='dockPanelTest' type='application/xml'>
 		<dockpanel fillLast='false' width='500' height='500' background='Orange'>
 			<resourcecollection>
@@ -60,11 +60,11 @@
 				<border dockpanel.dock='right' style='{resource borderStyle}'>
 					<textblock text='#11' style='{resource textStyle}' />
 				</border>
-				
+
 		</dockpanel>
 	</script>
-	
-	
+
+
 	<script id='horizontalTest' type='application/xml'>
 		<grid height='500' background='Orange'>
 			<columndefinitions>
@@ -77,7 +77,7 @@
 		    <textblock grid.column='2' name='lblBottom' valign='bottom' text='bottom bottom bottom' />
 		</grid>
 	</script>
-	
+
 	<script id='gridTest' type='application/xml'>
 		<border name='borderContainer' width='500' height='500' bordercolor='Black' borderthickness='1'>
 	      <resourcecollection>
@@ -110,15 +110,15 @@
 		    <rectangle name='rectRow1' grid.row='1' grid.columnspan='5' valign='stretch' halign='stretch' opacity='.2' fill='Gray'></rectangle>
 		    <rectangle name='rectRow2' grid.row='2' grid.columnspan='5' valign='stretch' halign='stretch' opacity='.3' fill='Gray'></rectangle>
 		    <rectangle name='rectRow3' grid.row='3' grid.columnspan='5' valign='stretch' halign='stretch' opacity='.4' fill='Gray'></rectangle>
-		  
+
 		    <rectangle name='rectCol0' grid.rowspan='4' valign='stretch' halign='stretch' opacity='.1' fill='Gray'></rectangle>
 		    <rectangle name='rectCol1' grid.column='1' grid.rowspan='4' valign='stretch' halign='stretch' opacity='.2' fill='Gray'></rectangle>
 		    <rectangle name='rectCol2' grid.column='2' grid.rowspan='4' valign='stretch' halign='stretch' opacity='.3' fill='Gray'></rectangle>
 		    <rectangle name='rectCol3' grid.column='3' grid.rowspan='4' valign='stretch' halign='stretch' opacity='.4' fill='Gray'></rectangle>
 		    <rectangle name='rectCol4' grid.column='4' grid.rowspan='4' valign='stretch' halign='stretch' opacity='.5' fill='Gray'></rectangle>
-		  
+
 		    <textblock name='lblTitle' valign='center' halign='center' grid.columnspan='5' text='Grid Test' fontsize='25'/>
-		  
+
 		  <!-- circles -->
 		    <border name='borderCircle1' style='{resource borderCircle}' >
 		      <textblock halign='center' valign='center' text='CC' />
@@ -132,7 +132,7 @@
 		    <border name='borderCircle4' grid.row='3' valign='bottom' style='{resource borderCircle}' >
 		      <textblock halign='center' valign='center' text='CC' />
 		    </border>
-		  
+
 		  <!-- spanning rectangle with overlapping aligned elements in the same space -->
 		    <rectangle name='rectOverlap' grid.columnspan='3' grid.rowspan='2' grid.row='1' grid.column='1' fill='Green' halign='stretch' valign='stretch'>
 		    </rectangle>
@@ -148,30 +148,30 @@
 		  </grid>
 		</border>
 	</script>
-	
-	<script id='stackPanelTest' type='application/xml'>
-		<stackpanel name='rootPanel' background='Orange' margin='10'>
-		  <stackpanel name='chromePanel' orientation='horizontal' halign='center' background='Yellow'>
+
+	<script id='StackTest' type='application/xml'>
+		<Stack name='rootPanel' background='Orange' margin='10'>
+		  <Stack name='chromePanel' orientation='horizontal' halign='center' background='Yellow'>
 		    <border name='bBlack' margin='10' background='Black' width='10' height='10'></border>
 		    <border name='bRed' margin='10' background='Red' width='10' height='10'></border>
 		    <border name='bGreen' margin='10' background='Green' width='10' height='10'></border>
 		    <border name='bBlue' margin='10' background='Blue' width='10' height='10'></border>
-		  </stackpanel>
-		
+		  </Stack>
+
 		  <textblock name='lblHCenter' halign='center'>center center</textblock>
 		  <textblock name='lblRight' halign='right'>right right right</textblock>
 		  <textblock name='lblLong'>long long long long long long long long long</textblock>
 		  <border name='bCircle' halign='center' borderthickness='5' bordercolor='Purple' width='150' height='150' background='Yellow' cornerradius='150'></border>
-		  <stackpanel name='spVerticalAlignment' height='300' halign='stretch' background='LightGray' orientation='horizontal'>
+		  <Stack name='spVerticalAlignment' height='300' halign='stretch' background='LightGray' orientation='horizontal'>
 		    <textblock name='lblTop' valign='top'>top top top</textblock>
 		    <textblock name='lblVCenter' valign='center'>center center center</textblock>
 		    <textblock name='lblBottom' valign='bottom'>bottom bottom bottom</textblock>
-		  </stackpanel>
-		</stackpanel>
+		  </Stack>
+		</Stack>
 	</script>
-	
+
 	<script id='borderTest' type='application/xml'>
-		<stackpanel>
+		<Stack>
 		  <resourcecollection>
 		  	<styletemplate key='backgroundBorder'>
 		  		<setters>
@@ -185,12 +185,12 @@
 		  <border style='{resource backgroundBorder}'>
 		    <border name='bLorumIpsum' margin='10' padding='10' background='Black' halign='stretch' valign='stretch'>
 		      <textblock name='lblLorumIpsum' halign='stretch' valign='center' foreground='White'>
-              This box should be stretched horizontally and 
+              This box should be stretched horizontally and
 		      vertically within the Orange Border. The text should be centered vertically inside the padded black Border.
 		       a b c d e f g h i j k l m n o p q r s t u v w x y z</textblock>
 		    </border>
 		  </border>
-		
+
 		  <border style='{resource backgroundBorder}' >
 		    <border name='bHL_VS' background='Black' halign='left' valign='stretch'>
 		      <textblock name='lblHL_VS' halign='center' valign='center' foreground='White'>HL-VS</textblock>
@@ -206,7 +206,7 @@
 		      <textblock name='lblHR_VS' halign='center' valign='center' foreground='White'>HR-VS</textblock>
 		    </border>
 		  </border>
-		  
+
 		  <border style='{resource backgroundBorder}'>
 		    <border name='bHS_VT' background='Black' halign='stretch' valign='top'>
 		      <textblock name='lblHS_VT' halign='center' valign='center' foreground='White'>HS-VT</textblock>
@@ -222,7 +222,7 @@
 		      <textblock name='lblHS_VB' halign='center' valign='center' foreground='White'>HS-VB</textblock>
 		    </border>
 		  </border>
-		
+
 		  <border style='{resource backgroundBorder}'>
 		    <border name='bLT' background='Black' halign='left' valign='top'>
 		      <textblock halign='center' valign='center' foreground='White'>LT</textblock>
@@ -268,7 +268,7 @@
 		      <textblock halign='center' valign='center' foreground='White'>CC</textblock>
 		    </border>
 		  </border>
-		</stackpanel>
+		</Stack>
 	</script>
     <script type="application/dart" src="tests.dart"></script>
     <script src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script>

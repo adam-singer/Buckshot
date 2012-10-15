@@ -16,20 +16,20 @@ class Main extends View
 String _view =
 r'''
 <border bordercolor='Black' borderthickness='1' padding='5'>
-    <stackpanel>
+    <Stack>
       <textblock text="TO-DO List" fontsize="24"></textblock>
     
       <textblock text="Enter TO-DO Item And Click Submit" fontsize="18" margin="0,5"></textblock>
       
-      <stackpanel orientation="horizontal">
+      <Stack orientation="horizontal">
         <textblock>Task:</textblock>
         <textbox placeholder="Enter Task Here" text="{data taskName, mode=twoway}" width="200" margin="0,0,0,10"></textbox>
-      </stackpanel>
+      </Stack>
       
-      <stackpanel orientation="horizontal">
+      <Stack orientation="horizontal">
         <textblock>Due Date:</textblock>
         <textbox placeholder="MM/DD/YY" text="{data dueDate, mode=twoway}" width="75" margin="0,0,0,10"></textbox>
-      </stackpanel>
+      </Stack>
       
       <button on.click='onSubmit_handler' content="Add Task" width="75" margin="5,0,0,0"></button>
       
@@ -38,21 +38,21 @@ r'''
       <textblock text="Tasks:" margin="10,0,0,0"></textblock>
       
       <border bordercolor="Black" borderthickness="1" padding="5" background="#667788">
-        <stackpanel>
-          <stackpanel orientation="horizontal">
+        <Stack>
+          <Stack orientation="horizontal">
             <textblock foreground="White" width="85" margin="5,0" text="Due Date"></textblock>
             <textblock foreground="White" width="200" margin="5,0" text="Task"></textblock>
-          </stackpanel>
+          </Stack>
           <collectionpresenter datacontext="{data items}">
             <itemstemplate>
-              <stackpanel orientation="horizontal" margin="2,0,0,0">
+              <Stack orientation="horizontal" margin="2,0,0,0">
                 <textblock background="#334455" foreground="White" width="85" margin="5,0" text="{data date}"></textblock>
                 <textblock background="#334455" foreground="White" width="200" margin="5,0" text="{data task}"></textblock>
-              </stackpanel>
+              </Stack>
             </itemstemplate>
           </collectionpresenter>
-        </stackpanel>
+        </Stack>
       </border>
-    </stackpanel>
+    </Stack>
 </border>
 ''';

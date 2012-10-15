@@ -16,14 +16,7 @@ class Stack extends Panel
   {
     Browser.appendClass(rawElement, "Stack");
 
-    if (Polly.flexModel != FlexModel.Flex){
-      _polyfill = new StackPolyfill(this);
-      _polyfills['stack'] = _polyfill;
-
-      _redraw = (){
-        _polyfill.invalidate();
-      };
-    }else{
+    if (Polly.supportsFlexModel){
       _redraw = (){
         if (orientation == Orientation.vertical){
           children.forEach((FrameworkElement child){
@@ -34,6 +27,13 @@ class Stack extends Panel
             Polly.setItemVerticalCrossAxisAlignment(child, child.vAlign);
           });
         }
+      };
+    }else{
+      _polyfill = new StackPolyfill(this);
+      _polyfills['stack'] = _polyfill;
+
+      _redraw = (){
+        _polyfill.invalidate();
       };
     }
 

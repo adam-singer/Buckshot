@@ -39,7 +39,7 @@
   <border style='{resource bStyle}' background="Green" width="250" height="250">
     <border style='{resource bStyle}' background="Blue" halign="stretch" valign="stretch">
       <border style='{resource bStyle}' background="Orange" halign="stretch" valign="stretch">
-        <border style='{resource bStyle}' background="WhiteSmoke" halign="stretch" valign="stretch">
+        <border style='{resource bStyle}' background="Gray" halign="stretch" valign="stretch">
            <textblock style='{resource defaultText}' halign="center" valign="center" text="Borders are cool!"/>
         </border>
       </border>

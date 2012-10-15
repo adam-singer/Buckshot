@@ -131,8 +131,8 @@ void run()
 
     // Take measurements of reference layout to make sure they exactly match
     // expected results.
-    test('StackPanel Layout', (){
-      setView(new StackPanelDebug())
+    test('Stack Layout', (){
+      setView(new StackDebug())
       .then(expectAsync1((_){
 
       }));
@@ -161,13 +161,13 @@ void run()
 
         window.requestLayoutFrame(
             expectAsync0((){
-              /* root stackpanel */
+              /* root Stack */
               measureElement(spRoot, 10, 10, 333, 538);
 
-              /* "chrome" stackpanel */
+              /* "chrome" Stack */
               measureElement(spChrome, 10, 116.5, 120, 30);
 
-              /* dots inside the "chrome" stackpanel */
+              /* dots inside the "chrome" Stack */
               //black
               measureElement(bBlack, 20, 126.5, 10, 10);
 
@@ -181,7 +181,7 @@ void run()
               measureElement(bBlue, 20, 216.5, 10, 10);
 
 
-              /* Horizontal aligned elements in a vertical stackpanel */
+              /* Horizontal aligned elements in a vertical Stack */
               //centered
               measureElement(lblHCenter, 40, 134.5, 84, 17);
 
@@ -194,18 +194,18 @@ void run()
               /* Circle (centered horizontally) */
               measureElement(bCircle, 88, 96.5, 160, 160);
 
-              /* Horizontal StackPanel Container */
-              //container StackPanel
+              /* Horizontal Stack Container */
+              //container Stack
               measureElement(spHorizontal, 248, 10, 333, 300);
 
-              //now check the vertical alignment of elements within the horizontal StackPanel
-              //container StackPanel
+              //now check the vertical alignment of elements within the horizontal Stack
+              //container Stack
               measureElement(lblTop, 248, 10, 68, 17);
 
-              //container StackPanel
+              //container Stack
               measureElement(lblVCenter, 390, 78, 128, 17);
 
-              //container StackPanel
+              //container Stack
               measureElement(lblBottom, 532, 206, 137, 17);
 
             })
@@ -319,9 +319,9 @@ class BorderDebug extends View {
 }
 
 
-class StackPanelDebug extends View {
+class StackDebug extends View {
 
-  StackPanelDebug() : super.fromResource('#stackPanelTest');
+  StackDebug() : super.fromResource('#StackTest');
 
 }
 

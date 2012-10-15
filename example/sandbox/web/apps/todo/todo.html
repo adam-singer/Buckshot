@@ -6,60 +6,60 @@
 	<div id="BuckshotHost">
 
 		<div style="width:250px;text-align:center;padding:5px;border:solid 1px black;background:whitesmoke;font-family:arial">
-	
+
 			<h3>Buckshot Framework (alpha)</h3>
-		
+
 			<img width="100" height="80" src="http://www.lucastudios.com/img/lucaui_logo_candidate2.png" alt="Buckshot Framework Logo"></img>
-		
+
 			<p>Loading...</p>
-	
+
 		</div>
 	</div>
 
 	<script id='view' type='text/xml'>
-		<stackpanel margin="5">
+		<Stack margin="5">
 		  <textblock text="TO-DO List" fontsize="24"></textblock>
-		
+
 		  <textblock text="Enter TO-DO Item And Click Submit" fontsize="18" margin="0,5"></textblock>
-		  
-		  <stackpanel orientation="horizontal">
+
+		  <Stack orientation="horizontal">
 		    <textblock>Task:</textblock>
 		    <textbox placeholder="Enter Task Here" text="{data taskName, mode=twoway}" width="200" margin="0,0,0,10"></textbox>
-		  </stackpanel>
-		  
-		  <stackpanel orientation="horizontal">
+		  </Stack>
+
+		  <Stack orientation="horizontal">
 		    <textblock>Due Date:</textblock>
 		    <textbox placeholder="MM/DD/YY" text="{data dueDate, mode=twoway}" width="75" margin="0,0,0,10"></textbox>
-		  </stackpanel>
-		  
+		  </Stack>
+
 		  <button on.click='onSubmit_handler' content="Add Task" width="75" margin="5,0,0,0"></button>
-		  
+
 		  <textblock margin='5,0,0,0' foreground="{data statusColor}" text="{data statusText, mode=twoway}"></textblock>
-		  
+
 		  <textblock text="Tasks:" margin="10,0,0,0"></textblock>
-		  
+
 		  <border bordercolor="Black" borderthickness="1" padding="5" background="#667788">
-		    <stackpanel>
-		      <stackpanel orientation="horizontal">
+		    <Stack>
+		      <Stack orientation="horizontal">
 		        <textblock foreground="White" width="85" margin="5,0" text="Due Date"></textblock>
 		        <textblock foreground="White" width="200" margin="5,0" text="Task"></textblock>
-		      </stackpanel>
+		      </Stack>
 		      <collectionpresenter datacontext="{data items}">
 		        <itemstemplate>
-		          <stackpanel orientation="horizontal" margin="2,0,0,0">
+		          <Stack orientation="horizontal" margin="2,0,0,0">
 		            <textblock background="#334455" foreground="White" width="85" margin="5,0" text="{data date}"></textblock>
 		            <textblock background="#334455" foreground="White" width="200" margin="5,0" text="{data task}"></textblock>
-		          </stackpanel>
+		          </Stack>
 		        </itemstemplate>
 		      </collectionpresenter>
-		    </stackpanel>
+		    </Stack>
 		  </border>
-		</stackpanel>
+		</Stack>
 	</script>
-	
+
     <script type="application/dart" src="todo.dart"></script>
-    
+
     <script src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script>
-    
+
   </body>
 </html>

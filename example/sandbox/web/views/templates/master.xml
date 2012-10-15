@@ -128,16 +128,16 @@
   <dockpanel dockpanel.dock='left' filllast='true'>
   	<border
   		shadowcolor='Gray' shadowx='2' shadowy='2' shadowblur='3'
-  		dockpanel.dock='top' padding='5' background='White' content='{data renderedOutput}'
+  		dockpanel.dock='top' padding='5' background='{resource theme_light_brush}' content='{data renderedOutput}'
   		margin="5" minheight='200' maxheight='600'
-    	borderThickness="1" verticalscrollenabled='true' borderColor="LightGray" />
+    	borderThickness="1" verticalscrollenabled='true' borderColor="{resource theme_border_color}" />
 
     <stack dockpanel.dock='top' margin='0,0,0,5' orientation="horizontal">
        <button on.click='refresh_handler' content="Generate Output"></button>
        <button on.click='clearAll_handler' content="Clear All"></button>
     </stack>
 
-    <textarea dockpanel.dock='bottom' minwidth='650' minheight='300' margin='0,10,0,5'
+    <textarea fontsize='18' dockpanel.dock='bottom' minwidth='650' minheight='300' margin='0,10,0,5'
 	    placeholder="Type something here or select one of the samples to the left."
 	    spellcheck="false"
 	  	text='{data templateText, mode=twoway}' />

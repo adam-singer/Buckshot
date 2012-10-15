@@ -110,6 +110,10 @@ class Browser
         }
 
         return getMajor(ua.substring(s, e));
+      case IE:
+        final s = ua.indexOf('MSIE') + 5;
+        var e = ua.indexOf(';', s);
+        return getMajor(ua.substring(s, e));
     }
 
     return 0;

@@ -47,11 +47,9 @@ void main() {
     registerMenuControls();
   }
 
-  Template
-    .deserialize('web/views/templates/app_resources.xml')
-    .chain((_) => setView(new Main()))
-    .then((t){
 
+  setView(new Main())
+    .then((t){
         bindToWindowDimensions(t.parent);
 
         (t.parent as Border).background =

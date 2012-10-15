@@ -13,7 +13,7 @@ class Main extends View
 // Setting the template in text in addition to the HTML file so that the app
 // can be embedded into the Sandbox demo.  Alternatives to this would be to
 // put template into the sandbox html page, or load it from a Uri.
-String _main = 
+String _main =
 @'''
 <stack>
     <resourcecollection>
@@ -112,14 +112,14 @@ String _main =
         </rowdefinitions>
         <border style='{resource calcHeader}'></border>
         <border style='{resource borderSeperator}'></border>
-        <stackpanel orientation='horizontal' valign='center' margin='0,0,0,2'>
+        <stack orientation='horizontal' valign='center' margin='0,0,0,2'>
             <image width='50' alt="Buckshot Logo" sourceuri="apps/calculator/resources/buckshot_logo.png" />
-          <stackpanel>
+          <stack>
             <textblock style='{resource calcDefaultText}' text='Buckshot' />
             <textblock style='{resource calcDefaultText}' text='Calculator' />
-          </stackpanel>
-        </stackpanel>
-        <stackpanel orientation='horizontal' valign='center' halign='right' margin='0,5,0,0'>
+          </stack>
+        </stack>
+        <stack orientation='horizontal' valign='center' halign='right' margin='0,5,0,0'>
           <textblock style='{resource calcDefaultText}' text='Mode:' margin='0,0,0,5' />
           <dropdownlist on.selectionChanged='selectionChanged_handler'>
             <items>
@@ -127,7 +127,7 @@ String _main =
               <dropdownitem name='Extended' value='Extended' />
             </items>
           </dropdownlist>
-        </stackpanel>
+        </stack>
         <border grid.row='1' style='{resource borderOutput}'>
           <!-- 
           In the output grid, we are overlapping several elements,

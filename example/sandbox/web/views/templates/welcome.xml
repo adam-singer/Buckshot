@@ -1,10 +1,10 @@
 <stack halign='center'>
-  <border halign='center' borderthickness='3' bordercolor='SteelBlue' margin='35' padding='10' shadowx='3' shadowy='3' shadowblur='4' shadowcolor='Gray' rotatez='-5'>
+  <border background='{resource theme_dark_brush}' halign='center' borderthickness='3' bordercolor='SteelBlue' margin='35' padding='10' shadowx='3' shadowy='3' shadowblur='4' shadowcolor='Gray' rotatez='-5'>
     <stack>
       <textblock fontsize='36' text='Welcome To The Buckshot Sandbox!' />
     </stack>
   </border>
-  <border background='WhiteSmoke' halign='center' borderthickness='3' bordercolor='SteelBlue' margin='15' padding='10' shadowx='3' shadowy='3' shadowblur='4' shadowcolor='Gray'>
+  <border background='{resource theme_dark_brush}' halign='center' borderthickness='3' bordercolor='SteelBlue' margin='15' padding='10' shadowx='3' shadowy='3' shadowblur='4' shadowcolor='Gray'>
     <stack>
       <textblock style='{resource headerText}' text='Select a demo from the left or create your own down below.' />
       <image halign='center' alt='buckshot logo' sourceuri='web/resources/buckshot_logo.png' />

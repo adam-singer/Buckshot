@@ -85,7 +85,7 @@ class DockPanel extends Panel
 
   /** Invalidates the DockPanel layout and causes it to redraw. */
   void invalidate(){
-    if (Polly.flexModel != FlexModel.Flex){
+    if (!Polly.supportsFlexModel){
       try{
       _invalidatePolyfill();
       }

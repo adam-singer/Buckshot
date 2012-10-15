@@ -82,19 +82,19 @@ void _registerCoreElements(){
 bool _frameworkInitialized = false;
 
 Future _initFramework(){
-
   if (_frameworkInitialized) return new Future.immediate(true);
   _frameworkInitialized = true;
 
   hierarchicalLoggingEnabled = true;
 
   _log.on.record.add((LogRecord record){
-    final event = '[${record.loggerName} - ${record.level} - ${record.sequenceNumber}] ${record.message}';
+    final event = '[${record.loggerName} - ${record.level}'
+      ' - ${record.sequenceNumber}] ${record.message}';
     _logEvents.add(event);
     print(event);
   });
 
-  // Initializes the system object.
+  // Initializes the system object name.
   buckshot.name = '__sys__';
 
   if (!Polly.browserOK){
@@ -106,17 +106,14 @@ Future _initFramework(){
                 ? 'Reflection enabled.'
                 : 'Reflection disabled.');
 
-  Polly.init();
-
   _initCSS();
 
   if (!reflectionEnabled){
     _registerCoreElements();
   }
 
+  //any elements bound to these properties will also get updated...
   window.on.resize.add((e){
-
-    //any elements bound to these properties will also get updated...
     if (window.innerWidth != windowWidth){
       setValue(windowWidthProperty, window.innerWidth);
     }
@@ -126,17 +123,49 @@ Future _initFramework(){
     }
   });
 
+
+
+  return _loadTheme()
+    .chain((_) => _loadResources())
+    .chain((_){
+      if (!FrameworkAnimation._started){
+        FrameworkAnimation._startAnimatonLoop();
+      }
+
+      _log.info('Framework initialized.');
+      return new Future.immediate(true);
+    });
+}
+
+bool _themeLoaded = false;
+Future _loadTheme(){
+
+  if (_themeLoaded) return new Future.immediate(false);
+  _themeLoaded = true;
+
+  if (document.body.attributes.containsKey('data-buckshot-theme')){
+    _log.info('loading custom theme (${document.body.attributes['data-buckshot-theme']})');
+    return Template.deserialize(document.body.attributes['data-buckshot-theme']);
+  }else{
+    _log.info('loading default theme');
+    return Template.deserialize(defaultTheme);
+  }
+}
+
+bool _resourcesLoaded = false;
+Future _loadResources(){
+  if (_resourcesLoaded) return new Future.immediate(false);
+  _resourcesLoaded = true;
+
+  if (!document.body.attributes.containsKey('data-buckshot-resources')){
+    return new Future.immediate(false);
+  }
+
+  _log.info('loading app resources'
+      ' (${document.body.attributes['data-buckshot-resources']})');
+
   return Template
-           .deserialize(defaultTheme)
-           .chain((_){
-             if (!FrameworkAnimation._started){
-               FrameworkAnimation._startAnimatonLoop();
-             }
-
-             _log.info('Framework initialized.');
-             return new Future.immediate(true);
-           });
-
+      .deserialize(document.body.attributes['data-buckshot-resources']);
 }
 
 StyleElement _buckshotCSS;
@@ -144,14 +173,14 @@ void _initCSS(){
   document.head.elements.add(
       new Element.html('<style id="__BuckshotCSS__"></style>'));
 
-    _buckshotCSS = document.head.query('#__BuckshotCSS__');
+  _buckshotCSS = document.head.query('#__BuckshotCSS__');
 
-    assert(_buckshotCSS != null);
+  assert(_buckshotCSS != null);
 
-    if (_buckshotCSS == null){
-      _log.warning('Unable to initialize Buckshot StyleSheet.');
-    }
+  if (_buckshotCSS == null){
+    _log.warning('Unable to initialize Buckshot StyleSheet.');
   }
+}
 
 
 /**
@@ -268,25 +297,25 @@ void registerGlobalEventHandler(String handlerName, EventHandler handler){
  */
 Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
 {
+  final el = query('#${elementID}');
+
+  if (el == null){
+    throw new BuckshotException('Could not find DOM element with '
+        'ID of "${elementID}"');
+  }
+
   return _initFramework()
-          .chain((_) => view.ready)
-          .chain((t){
-            final el = query('#${elementID}');
+    .chain((_) => view.ready)
+    .chain((rootVisual){
+      final b = new Border();
+      el.elements.clear();
+      b.isLoaded = true;
+      el.elements.add(b.rawElement);
+      b.content = rootVisual;
+      _log.fine('View ($rootVisual) set to DOM at ($elementID)');
 
-            if (el == null){
-              throw new BuckshotException('Could not find DOM element with '
-                  'ID of "${elementID}"');
-            }
-
-            final b = new Border();
-            el.elements.clear();
-            b.isLoaded = true;
-            el.elements.add(b.rawElement);
-            b.content = t;
-            _log.fine('View ($t) set to DOM at ($elementID)');
-
-            return new Future.immediate(t);
-          });
+      return new Future.immediate(rootVisual);
+    });
 }
 
 

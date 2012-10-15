@@ -41,19 +41,18 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
 
-    if (Polly.flexModel != FlexModel.Flex){
+    if (Polly.supportsFlexModel){
+      _redraw = (FrameworkElement child){
+        Polly.setFlexboxAlignment(child);
+      };
+    }else{
       _polyfill = new AligningPanel(this);
       _polyfills['layout'] = _polyfill;
 
       _redraw = (FrameworkElement child){
         _polyfill.invalidate();
       };
-    }else{
-      _redraw = (FrameworkElement child){
-        Polly.setFlexboxAlignment(child);
-      };
     }
-
   }
 
   Border.register() : super.register();

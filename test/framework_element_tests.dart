@@ -161,7 +161,7 @@ run(){
     });
     test('null parent returns null dataContext', (){
       var b = new Border();
-      var sp = new StackPanel();
+      var sp = new Stack();
       b.content = sp;
 
       var dc = sp.resolveDataContext();
@@ -180,7 +180,7 @@ run(){
       var b3 = new Border();
       var b4 = new Border();
       var b5 = new Border();
-      var sp = new StackPanel();
+      var sp = new Stack();
       b1.content = b2;
       b2.content = b3;
       b3.content = b4;
