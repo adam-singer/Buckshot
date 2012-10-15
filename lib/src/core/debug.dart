@@ -23,13 +23,14 @@ var _logEvents = new ObservableList<String>();
  * Writes a [Logger] [message] at Level.WARNING with optional FrameworkElement
  * [element] info.
  */
-void log(String message, [FrameworkObject element]){
+void log(String message,
+         {FrameworkObject element: null, Level logLevel : Level.WARNING}){
   if (element == null){
-    _log.warning(message);
+    _log.log(logLevel, message);
     return;
   }
 
-  new Logger('buckshot.${element}').warning("($element) $message");
+  new Logger('buckshot.${element}')..log(logLevel, "($element) $message");
 }
 
 /**

@@ -7,6 +7,7 @@
 #import('dart:html');
 #import('package:buckshot/buckshot.dart');
 #import('package:dartnet_event_model/events.dart');
+#import('package:logging/logging.dart');
 
 /**
 * Displays a general purpose modal dialog and returns results.
@@ -214,7 +215,7 @@ class ModalDialog extends Control
   }
 
   Future<DialogButtonType> show(){
-    log('showing', this);
+    log('Showing ModalDialog', logLevel : Level.FINE);
     _dialogCompleter = new Completer<DialogButtonType>();
 
     b1 = new Binding(windowWidthProperty, cvRoot.widthProperty);

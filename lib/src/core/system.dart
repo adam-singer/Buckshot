@@ -18,6 +18,12 @@ final HashMap<String, FrameworkObject> namedElements =
 final HashMap<String, Function> _objectRegistry =
     new HashMap<String, Dynamic>();
 
+/**
+ * Registers an object to the framework.
+ *
+ * This function is only used when reflection is not supported. It will be
+ * removed once reflection is supported on all Dart platforms.
+ */
 void registerElement(BuckshotObject o){
   hierarchicalLoggingEnabled = true;
   if (reflectionEnabled) return;
@@ -26,6 +32,13 @@ void registerElement(BuckshotObject o){
   _log.info('Element (${o}) registered to framework.');
 }
 
+
+/**
+ * Registers an attached property [setterFunction] to the framework.
+ *
+ * This function is only used when reflection is not supported. It will be
+ * removed once reflection is supported on all Dart platforms.
+ */
 void registerAttachedProperty(String property, setterFunction){
   hierarchicalLoggingEnabled = true;
   if (reflectionEnabled) return;
@@ -53,6 +66,10 @@ void _registerCoreElements(){
   registerElement(new RowDefinition.register());
   registerElement(new DropDownItem.register());
   registerElement(new CollectionPresenter.register());
+  registerElement(new TextBox.register());
+  registerElement(new Slider.register());
+  registerElement(new Button.register());
+  registerElement(new DropDownList.register());
 
   //resources
   registerElement(new ResourceCollection.register());
@@ -72,11 +89,6 @@ void _registerCoreElements(){
   //actions
   registerElement(new SetProperty.register());
   registerElement(new ToggleProperty.register());
-
-  registerElement(new TextBox.register());
-  registerElement(new Slider.register());
-  registerElement(new Button.register());
-  registerElement(new DropDownList.register());
 }
 
 bool _frameworkInitialized = false;
@@ -239,7 +251,6 @@ void bindToWindowDimensions(FrameworkElement element){
   bind(windowWidthProperty, element.widthProperty);
 }
 
-
 /**
  * Bindable window width property.
  *
@@ -247,7 +258,8 @@ void bindToWindowDimensions(FrameworkElement element){
  * bindToWindowDimensions() function instead.
  */
 FrameworkProperty windowWidthProperty = new FrameworkProperty(
-    buckshot, "windowWidth", defaultValue:window.innerWidth);
+    buckshot, "windowWidth", defaultValue:window.innerWidth)
+    ..readOnly = true;
 
 /**
  * Bindable window height property.
@@ -256,7 +268,8 @@ FrameworkProperty windowWidthProperty = new FrameworkProperty(
  * bindToWindowDimensions() function instead.
  */
 FrameworkProperty windowHeightProperty = new FrameworkProperty(
-    buckshot, "windowHeight", defaultValue:window.innerHeight);
+    buckshot, "windowHeight", defaultValue:window.innerHeight)
+    ..readOnly = true;
 
 
 /// Gets the innerWidth of the window
@@ -424,6 +437,12 @@ Future setValueAsync(FrameworkProperty property, Dynamic value)
  */
 void setValue(FrameworkProperty property, Dynamic value)
 {
+   if (property.readOnly){
+     _setPropertyLog.warning('Attempted write to read-only'
+         ' property (${property.propertyName})');
+     return;
+   }
+
    if (property.stringToValueConverter != null && value is String){
      value = property.stringToValueConverter.convert(value);
    }
@@ -433,7 +452,9 @@ void setValue(FrameworkProperty property, Dynamic value)
     property.previousValue = property.value;
     property.value = value;
 
-    _setPropertyLog.finest('(${property.sourceObject}) property (${property.propertyName}) to ($value)');
+    _setPropertyLog
+      .finest('(${property.sourceObject}) property'
+      ' (${property.propertyName}) to ($value)');
 
     // 3 different activities take place when a FrameworkProperty value changes,
     // in this order of precedence:
@@ -451,7 +472,7 @@ void setValue(FrameworkProperty property, Dynamic value)
 
     // 3) event
     if (property.propertyChanging.hasHandlers)
-      property.propertyChanging.invoke(property.sourceObject,
+      property.propertyChanging.invokeAsync(property.sourceObject,
         new PropertyChangingEventArgs(property.previousValue, value));
 
 }
