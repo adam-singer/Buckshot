@@ -55,13 +55,13 @@
  */
 class Popup extends Control
 {
-  FrameworkProperty offsetXProperty;
-  FrameworkProperty offsetYProperty;
-  FrameworkProperty backgroundProperty;
-  FrameworkProperty borderColorProperty;
-  FrameworkProperty borderThicknessProperty;
-  FrameworkProperty cornerRadiusProperty;
-  FrameworkProperty contentProperty;
+  FrameworkProperty<num> offsetX;
+  FrameworkProperty<num> offsetY;
+  FrameworkProperty<Brush> background;
+  FrameworkProperty<Color> borderColor;
+  FrameworkProperty<Thickness> borderThickness;
+  FrameworkProperty<Thickness> cornerRadius;
+  FrameworkProperty<FrameworkElement> content;
 
   FrameworkElement _target;
   EventHandlerReference _ref;
@@ -74,7 +74,7 @@ class Popup extends Control
 
   Popup.with(FrameworkElement popupContent){
     _initPopupProperties();
-    content = popupContent;
+    content.value = popupContent;
   }
 
   Popup.register() : super.register();
@@ -84,8 +84,8 @@ class Popup extends Control
     if (_currentPopup != null) _currentPopup.hide();
 
     if (target == null || !target.isLoaded){
-      rawElement.style.left = '${offsetX}px';
-      rawElement.style.top = '${offsetY}px';
+      rawElement.style.left = '${offsetX.value}px';
+      rawElement.style.top = '${offsetY.value}px';
       document.body.elements.add(rawElement);
 
       // manually trigger loaded state since we aren't adding this
@@ -98,8 +98,8 @@ class Popup extends Control
       target
         .updateMeasurementAsync
         .then((ElementRect r){
-          rawElement.style.left = '${offsetX + r.bounding.left}px';
-          rawElement.style.top = '${offsetY + r.bounding.top}px';
+          rawElement.style.left = '${offsetX.value + r.bounding.left}px';
+          rawElement.style.top = '${offsetY.value + r.bounding.top}px';
           document.body.elements.add(rawElement);
 
           // manually trigger loaded state since we aren't adding this
@@ -117,69 +117,38 @@ class Popup extends Control
     _currentPopup = null;
   }
 
-  /// Gets the [contentProperty] value.
-  get content => getValue(contentProperty);
-  /// Sets the [contentProperty] value;
-  set content(v) => setValue(contentProperty, v);
-
-  /// Sets the [backgroundProperty] value.
-  set background(Brush value) => setValue(backgroundProperty, value);
-  /// Gets the [backgroundProperty] value.
-  Brush get background => getValue(backgroundProperty);
-
-  /// Sets the [cornerRadiusProperty] value.
-  set cornerRadius(Thickness value) => setValue(cornerRadiusProperty, value);
-  /// Gets the [cornerRadiusProperty] value.
-  Thickness get cornerRadius => getValue(cornerRadiusProperty);
-
-  /// Sets the [borderColorProperty] value.
-  set borderColor(Color value) => setValue(borderColorProperty, value);
-  /// Gets the [borderColorProperty] value.
-  Color get borderColor => getValue(borderColorProperty);
-
-  /// Sets the [borderThicknessProperty] value.
-  set borderThickness(Thickness value) => setValue(borderThicknessProperty, value);
-  /// Gets the [borderThicknessProperty] value.
-  Thickness get borderThickness => getValue(borderThicknessProperty);
-
-  set offsetX(num value) => setValue(offsetXProperty, value);
-  num get offsetX => getValue(offsetXProperty);
-
-  set offsetY(num value) => setValue(offsetYProperty, value);
-  num get offsetY => getValue(offsetYProperty);
-
   void _initPopupProperties(){
-    backgroundProperty = new FrameworkProperty(this, 'background',
+    background = new FrameworkProperty(this, 'background',
         defaultValue: new SolidColorBrush(getResource('theme_background_dark')),
         converter: const StringToSolidColorBrushConverter());
 
-    borderColorProperty = new FrameworkProperty(this, 'borderColor',
+    borderColor = new FrameworkProperty(this, 'borderColor',
         defaultValue: new SolidColorBrush(getResource('theme_border_color')),
         converter: const StringToColorConverter());
 
-    borderThicknessProperty = new FrameworkProperty(this, 'borderThickness',
+    borderThickness = new FrameworkProperty(this, 'borderThickness',
         defaultValue: getResource('theme_border_thickness',
                                  converter: const StringToThicknessConverter()),
         converter: const StringToThicknessConverter());
 
-    cornerRadiusProperty = new FrameworkProperty(this, 'cornerRadius',
+    cornerRadius= new FrameworkProperty(this, 'cornerRadius',
         defaultValue: getResource('theme_border_corner_radius',
                                  converter: const StringToThicknessConverter()),
         converter: const StringToThicknessConverter());
 
-    contentProperty = new FrameworkProperty(this, 'content');
+    content = new FrameworkProperty(this, 'content');
 
-    offsetXProperty = new FrameworkProperty(this, 'offsetX',
+    offsetX = new FrameworkProperty(this, 'offsetX',
         defaultValue: 0,
         converter: const StringToNumericConverter());
 
-    offsetYProperty = new FrameworkProperty(this, 'offsetY',
+    offsetY = new FrameworkProperty(this, 'offsetY',
         defaultValue: 0,
         converter: const StringToNumericConverter());
 
     // Override the underlying DOM element so that it
     // is absolutely positioned int the window at 0,0
-    cursor = Cursors.Arrow;
+    cursor.value = Cursors.Arrow;
     rawElement.style.position = 'absolute';
     rawElement.style.top = '0px';
     rawElement.style.left = '0px';

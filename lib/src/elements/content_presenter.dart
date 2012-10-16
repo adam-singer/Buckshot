@@ -10,13 +10,13 @@
 class ContentPresenter extends FrameworkElement implements IFrameworkContainer
 {
   /// Represents the content inside the border.
-  FrameworkProperty contentProperty;
+  FrameworkProperty<Dynamic> content;
 
   ContentPresenter()
   {
     Browser.appendClass(rawElement, "ContentPresenter");
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = content;
 
     _initContentPresenterProperties();
 
@@ -28,7 +28,7 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
   FrameworkElement currentContent;
 
   void _initContentPresenterProperties(){
-    contentProperty = new FrameworkProperty(
+    content = new FrameworkProperty(
       this,
       "content",
       (value){
@@ -36,18 +36,11 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
           currentContent.removeFromLayoutTree();
         }
 
-        //if the content is previously a textblock and the value is a String then just
-        //replace the text property with the new string
-//        if (content is TextBlock && value is String){
-//          (content as TextBlock).text = value;
-//          return;
-//        }
-
         //accomodate strings by converting them silently to TextBlock
         if (value is String){
             var tempStr = value;
             value = new TextBlock();
-            (value as TextBlock).text = tempStr;
+            (value as TextBlock).text.value = tempStr;
         }
 
         currentContent = value;
@@ -56,7 +49,5 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
   }
 
   /// Gets the [contentProperty] value.
-  get content => getValue(contentProperty);
-  /// Sets the [contentProperty] value.
-  set content(value) => setValue(contentProperty, value);
+  get containerContent => content.value;
 }

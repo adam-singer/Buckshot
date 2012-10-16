@@ -4,32 +4,23 @@
 
 class AnimationState extends TemplateObject
 {
-  FrameworkProperty targetProperty;
-  FrameworkProperty propertyProperty;
-  FrameworkProperty valueProperty;
+  FrameworkProperty<String> target;
+  FrameworkProperty<String> property;
+  FrameworkProperty<Dynamic> value;
 
   AnimationState(){
     _initAnimationStateProperties();
   }
-  
+
   AnimationState.register() : super.register();
   makeMe() => new AnimationState();
 
   _initAnimationStateProperties(){
 
-    targetProperty = new FrameworkProperty(this, 'target');
+    target = new FrameworkProperty(this, 'target');
 
-    propertyProperty = new FrameworkProperty(this, 'property');
+    property = new FrameworkProperty(this, 'property');
 
-    valueProperty = new FrameworkProperty(this, 'value');
+    value = new FrameworkProperty(this, 'value');
   }
-
-  String get target => getValue(targetProperty);
-  set target(String v) => setValue(targetProperty, v);
-
-  String get property => getValue(propertyProperty);
-  set property(String v) => setValue(propertyProperty, v);
-
-  Dynamic get value => getValue(valueProperty);
-  set value(Dynamic v) => setValue(valueProperty, v);
 }

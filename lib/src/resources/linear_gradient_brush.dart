@@ -27,7 +27,7 @@ class LinearGradientBrush extends Brush
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = stopsProperty;
   }
-  
+
   LinearGradientBrush.register() : super.register();
   makeMe() => new LinearGradientBrush();
 
@@ -68,7 +68,7 @@ class LinearGradientBrush extends Brush
 
     //create the string of stop colors
     stops.forEach((GradientStop stop){
-      colorString.add(stop.color.toColorString());
+      colorString.add(stop.color.value.toColorString());
 
       if (stop.percent != -1)
         colorString.add(" ${stop.percent}%");

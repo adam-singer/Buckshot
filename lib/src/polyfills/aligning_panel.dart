@@ -46,14 +46,14 @@ class AligningPanel extends Polyfill
     num newLeft = 0;
     final container = element as IFrameworkContainer;
     if (!element.isLoaded) return;
-    if (container.content == null) return;
+    if (container.containerContent == null) return;
 
-    if (container.content == null){
+    if (container.containerContent == null){
       _clearChildSettings();
       return;
     }
 
-    final child = container.content as FrameworkElement;
+    final child = container.containerContent as FrameworkElement;
 
     if (child != _currentChild){
       _initChild(child);
@@ -73,7 +73,7 @@ class AligningPanel extends Polyfill
       .updateMeasurementAsync
       .then((ElementRect childRect){
 
-        switch(_currentChild.vAlign){
+        switch(_currentChild.vAlign.value){
           case VerticalAlignment.stretch:
             _handleVerticalStretch(childRect);
             break;
@@ -85,7 +85,7 @@ class AligningPanel extends Polyfill
             break;
         }
 
-        switch(_currentChild.hAlign){
+        switch(_currentChild.hAlign.value){
           case HorizontalAlignment.stretch:
             _handleHorizontalStretch(childRect);
             break;
@@ -121,43 +121,43 @@ class AligningPanel extends Polyfill
 
     num offset = 0;
 
-    offset += _currentChild.margin.bottom + _currentChild.margin.top;
+    offset += _currentChild.margin.value.bottom + _currentChild.margin.value.top;
 
     /****** This section is experimental for the Button control *******/
-    final tE = _currentChild is Control ? _currentChild.template : _currentChild;
+    final tE = _currentChild is Control ? (_currentChild as Control).template : _currentChild;
 
-    final sy = getValue(tE.shadowYProperty);
+    final sy = tE.shadowY.value;
 
     if (sy != null){
       offset += (sy.abs() * 2);
     }
 
-    final ty = getValue(tE.translateYProperty);
+    final ty = tE.translateY.value;
 
     if (ty != null){
       offset += (ty.abs() * 2);
     }
 
-    final by = getValue(tE.shadowBlurProperty);
+    final by = tE.shadowBlur.value;
     if (by != null){
       offset += (by.abs() * 2);
     }
     /*******************************************************************/
 
     if (_currentChild.hasProperty('padding')){
-      offset += _currentChild.padding.top + _currentChild.padding.bottom;
+      offset += _currentChild.padding.value.top + _currentChild.padding.value.bottom;
     }
 
     if (_currentChild.hasProperty('borderThickness')){
-      offset += _currentChild.borderThickness.bottom + _currentChild.borderThickness.top;
+      offset += _currentChild.borderThickness.value.bottom + _currentChild.borderThickness.value.top;
     }
 
     if (element.hasProperty('padding')){
-      offset += element.padding.top + element.padding.bottom;
+      offset += element.padding.value.top + element.padding.value.bottom;
     }
 
     if (element.hasProperty('borderThickness')){
-      offset += element.borderThickness.bottom + element.borderThickness.top;
+      offset += element.borderThickness.value.bottom + element.borderThickness.value.top;
     }
 
     final calcHeight = elementRect.bounding.height - offset;
@@ -178,11 +178,11 @@ class AligningPanel extends Polyfill
     num offset = 0;
 
     if (element.hasProperty('padding')){
-      offset += element.padding.top + element.padding.bottom;
+      offset += element.padding.value.top + element.padding.value.bottom;
     }
 
     if (_currentChild.hasProperty('borderThickness')){
-      offset += _currentChild.borderThickness.top + _currentChild.borderThickness.bottom;
+      offset += _currentChild.borderThickness.value.top + _currentChild.borderThickness.value.bottom;
     }
 
     return ((elementRect.client.height / 2) -
@@ -197,15 +197,15 @@ class AligningPanel extends Polyfill
     offset += _currentChild.margin.bottom;
 
     if (_currentChild.hasProperty('borderThickness')){
-      offset += _currentChild.borderThickness.bottom + _currentChild.borderThickness.top;
+      offset += _currentChild.borderThickness.value.bottom + _currentChild.borderThickness.value.top;
     }
 
     if (element.hasProperty('padding')){
-      offset += element.padding.top;
+      offset += element.padding.value.top;
     }
 
     if (element.hasProperty('borderThickness')){
-      offset += element.borderThickness.bottom + element.borderThickness.top;
+      offset += element.borderThickness.value.bottom + element.borderThickness.value.top;
     }
 
     return elementRect.bounding.height - (childRect.bounding.height + offset);
@@ -220,40 +220,40 @@ class AligningPanel extends Polyfill
     /****** This section is experimental for the Button control *******/
     final tE = _currentChild is Control ? _currentChild.template : _currentChild;
 
-    final sx = getValue(tE.shadowXProperty);
+    final sx = tE.shadowX.value;
 
     if (sx != null){
       offset += (sx.abs() * 2);
     }
 
-    final tx = getValue(tE.translateXProperty);
+    final tx = tE.translateX.value;
 
     if (tx != null){
       offset += (tx.abs() * 2);
     }
 
-    final bx = getValue(tE.shadowBlurProperty);
+    final bx = tE.shadowBlur.value;
     if (bx != null){
       offset += (bx.abs() * 2);
     }
     /*******************************************************************/
 
-    offset += _currentChild.margin.left + _currentChild.margin.right;
+    offset += _currentChild.margin.value.left + _currentChild.margin.value.right;
 
     if (_currentChild.hasProperty('padding')){
-      offset += _currentChild.padding.left + _currentChild.padding.right;
+      offset += _currentChild.padding.value.left + _currentChild.padding.value.right;
     }
 
     if (_currentChild.hasProperty('borderThickness')){
-      offset += _currentChild.borderThickness.left + _currentChild.borderThickness.right;
+      offset += _currentChild.borderThickness.value.left + _currentChild.borderThickness.value.right;
     }
 
     if (element.hasProperty('padding')){
-      offset += element.padding.left + element.padding.right;
+      offset += element.padding.value.left + element.padding.value.right;
     }
 
     if (element.hasProperty('borderThickness')){
-      offset += element.borderThickness.left + element.borderThickness.right;
+      offset += element.borderThickness.value.left + element.borderThickness.value.right;
     }
 
     if (_previousWidth == null || elementRect.bounding.width < _previousWidth.bounding.width){
@@ -273,11 +273,11 @@ class AligningPanel extends Polyfill
     num offset = 0;
 
     if (element.hasProperty('padding')){
-      offset += element.padding.left + element.padding.right;
+      offset += element.padding.value.left + element.padding.value.right;
     }
 
     if (_currentChild.hasProperty('borderThickness')){
-      offset += _currentChild.borderThickness.left + _currentChild.borderThickness.right;
+      offset += _currentChild.borderThickness.value.left + _currentChild.borderThickness.value.right;
     }
 
     return ((elementRect.client.width / 2) -
@@ -290,18 +290,18 @@ class AligningPanel extends Polyfill
 
     num offset = 0;
 
-    offset += _currentChild.margin.right;
+    offset += _currentChild.margin.value.right;
 
     if (_currentChild.hasProperty('borderThickness')){
-      offset += _currentChild.borderThickness.right + _currentChild.borderThickness.left;
+      offset += _currentChild.borderThickness.value.right + _currentChild.borderThickness.value.left;
     }
 
     if (element.hasProperty('padding')){
-      offset += element.padding.left;
+      offset += element.padding.value.left;
     }
 
     if (element.hasProperty('borderThickness')){
-      offset += element.borderThickness.right + element.borderThickness.left;
+      offset += element.borderThickness.value.right + element.borderThickness.value.left;
     }
 
     return elementRect.bounding.width - (childRect.bounding.width + offset);
@@ -323,9 +323,9 @@ class AligningPanel extends Polyfill
   }
 
   void _restoreChildSettings(FrameworkElement childElement){
-    childElement.width = _childWidth;
-    childElement.height = _childHeight;
-    childElement.margin = _childMargin;
+    childElement.width.value = _childWidth;
+    childElement.height.value = _childHeight;
+    childElement.margin.value = _childMargin;
   }
 
   void _clearChildSettings(){
@@ -335,9 +335,9 @@ class AligningPanel extends Polyfill
   }
 
   void _captureChildSettings(FrameworkElement childElement){
-    _childWidth = childElement.width;
-    _childHeight = childElement.height;
-    _childMargin = childElement.margin;
+    _childWidth = childElement.width.value;
+    _childHeight = childElement.height.value;
+    _childMargin = childElement.margin.value;
   }
 
 
@@ -348,8 +348,8 @@ class AligningPanel extends Polyfill
     //print('${element._polyfills['alignmentpanel']._childMargin}');
     nextElement.margin = element._polyfills['layout']._childMargin;
 
-    if (nextElement.content == null) return;
-    _clearVerticalMargins(nextElement.content);
+    if (nextElement.content.value == null) return;
+    _clearVerticalMargins(nextElement.content.value);
   }
 
   // Clears descendent alignmentpanels height so layout pass can work when
@@ -369,7 +369,7 @@ class AligningPanel extends Polyfill
       nextElement.content.rawElement.style.margin = '${m.top}px ${m.right}px ${m.bottom}px ${m.left}px';
     }
 
-    if (nextElement.content.vAlign == VerticalAlignment.stretch){
+    if (nextElement.content.vAlign.value == VerticalAlignment.stretch){
       nextElement.content.rawElement.style.height = '0px';
     }
 
@@ -393,7 +393,7 @@ class AligningPanel extends Polyfill
       nextElement.content.rawElement.style.margin = '${m.top}px ${m.right}px ${m.bottom}px ${m.left}px';
     }
 
-    if (nextElement.content.hAlign == HorizontalAlignment.stretch){
+    if (nextElement.content.hAlign.value == HorizontalAlignment.stretch){
       nextElement.content.rawElement.style.width = '0px';
     }
 

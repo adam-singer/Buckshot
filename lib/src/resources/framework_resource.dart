@@ -31,7 +31,7 @@ class FrameworkResource extends FrameworkObject
 {
   /// An application-wide unique identifier for the resource.
   /// Required.
-  FrameworkProperty keyProperty;
+  FrameworkProperty key;
 
   /// A meta-data tag that is used to identify the default resource
   /// property of a FrameworkResource.
@@ -48,13 +48,8 @@ class FrameworkResource extends FrameworkObject
   makeMe() => null;
 
   void _initFrameworkResourceProperties(){
-    keyProperty = new FrameworkProperty(this, "key", defaultValue:"");
+    key = new FrameworkProperty(this, "key", defaultValue:"");
   }
 
   String rawData;
-
-  /// Sets the [keyProperty] value.
-  set key(String v) => setValue(keyProperty, v);
-  /// Gets the [keyProperty] value.
-  String get key => getValue(keyProperty);
 }

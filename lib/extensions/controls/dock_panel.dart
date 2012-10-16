@@ -17,7 +17,7 @@ class DockPanel extends Panel
 {
   static AttachedFrameworkProperty dockProperty;
 
-  FrameworkProperty fillLastProperty;
+  FrameworkProperty<bool> fillLast;
 
   DockPanel()
   {
@@ -35,7 +35,7 @@ class DockPanel extends Panel
 
   void _initDockPanelProperties(){
 
-    fillLastProperty = new FrameworkProperty(this, 'fillLast', defaultValue: true,
+    fillLast = new FrameworkProperty(this, 'fillLast', defaultValue: true,
       converter:const StringToBooleanConverter());
   }
 
@@ -46,9 +46,6 @@ class DockPanel extends Panel
   }
 
   void onFirstLoad() => invalidate();
-
-  bool get fillLast => getValue(fillLastProperty);
-  set fillLast(bool value) => setValue(fillLastProperty, value);
 
   /**
   * Sets given [DockLocation] value to the Dockpanel.dockProperty
@@ -195,7 +192,7 @@ class DockPanel extends Panel
     });
 
     //stretch the last item to fill the remaining space
-    if (fillLast && !children.isEmpty()){
+    if (fillLast.value && !children.isEmpty()){
       final child = children.last();
       //stretch the last item to fill the remaining space
       final p = child.rawElement.parent;
@@ -228,10 +225,10 @@ class DockPanel extends Panel
       // set the grid row/column definitions based on position
 
       final g = new Grid()
-                    ..hAlign = HorizontalAlignment.stretch
-                    ..vAlign = VerticalAlignment.stretch
-                    ..name = 'grid_${_gridCount++}'
-                    ..background = new SolidColorBrush(new Color.predefined(Colors.Yellow));
+                    ..hAlign.value = HorizontalAlignment.stretch
+                    ..vAlign.value = VerticalAlignment.stretch
+                    ..name.value = 'grid_${_gridCount++}'
+                    ..background.value = new SolidColorBrush(new Color.predefined(Colors.Yellow));
 
       switch(loc){
         case DockLocation.left:
@@ -264,26 +261,26 @@ class DockPanel extends Panel
         case DockLocation.left:
           Grid.setColumn(child, 0);
           Grid.setRow(child, 0);
-          child.hAlign = HorizontalAlignment.left;
-          child.vAlign = VerticalAlignment.stretch;
+          child.hAlign.value = HorizontalAlignment.left;
+          child.vAlign.value = VerticalAlignment.stretch;
           break;
         case DockLocation.right:
           Grid.setColumn(child, 1);
           Grid.setRow(child, 0);
-          child.hAlign = HorizontalAlignment.right;
-          child.vAlign = VerticalAlignment.stretch;
+          child.hAlign.value = HorizontalAlignment.right;
+          child.vAlign.value = VerticalAlignment.stretch;
           break;
         case DockLocation.top:
           Grid.setColumn(child, 0);
           Grid.setRow(child, 0);
-          child.hAlign = HorizontalAlignment.stretch;
-          child.vAlign = VerticalAlignment.top;
+          child.hAlign.value = HorizontalAlignment.stretch;
+          child.vAlign.value = VerticalAlignment.top;
           break;
         case DockLocation.bottom:
           Grid.setColumn(child, 0);
           Grid.setRow(child, 1);
-          child.hAlign = HorizontalAlignment.stretch;
-          child.vAlign = VerticalAlignment.bottom;
+          child.hAlign.value = HorizontalAlignment.stretch;
+          child.vAlign.value = VerticalAlignment.bottom;
           break;
       }
 

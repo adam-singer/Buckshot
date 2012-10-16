@@ -9,7 +9,7 @@
 
 class YouTube extends FrameworkElement
 {
-  FrameworkProperty videoIDProperty;
+  FrameworkProperty<String> videoID;
 
   YouTube(){
     Browser.appendClass(rawElement, "youtube");
@@ -22,14 +22,10 @@ class YouTube extends FrameworkElement
 
 
   void _initializeYouTubeProperties(){
-    videoIDProperty = new FrameworkProperty(this, "videoID", (String value){
+    videoID = new FrameworkProperty(this, "videoID", (String value){
       rawElement.attributes["src"] = 'http://www.youtube.com/embed/${value.toString()}?wmode=transparent';
     });
   }
-
-  String get videoID => getValue(videoIDProperty);
-  set videoID(String value) => setValue(videoIDProperty, value);
-
 
   void createElement(){
     rawElement = new Element.tag("iframe");

@@ -8,12 +8,12 @@ abstract class Shape extends FrameworkElement
   SVGElement shapeElement;
   SVGSVGElement _svgWrapper;
 
-  AnimatingFrameworkProperty fillProperty;
-  AnimatingFrameworkProperty strokeProperty;
-  AnimatingFrameworkProperty strokeWidthProperty;
+  AnimatingFrameworkProperty<Brush> fill;
+  AnimatingFrameworkProperty<Color> stroke;
+  AnimatingFrameworkProperty<num> strokeWidth;
 
-  FrameworkProperty _swProperty;
-  FrameworkProperty _shProperty;
+  FrameworkProperty<num> _swProperty;
+  FrameworkProperty<num> _shProperty;
 
   Shape(){
     Browser.appendClass(rawElement, "shape");
@@ -37,7 +37,7 @@ abstract class Shape extends FrameworkElement
 //    }, 'stroke', converter:const StringToSolidColorBrushConverter());
 
 
-    fillProperty = new AnimatingFrameworkProperty(this, 'fill',
+    fill = new AnimatingFrameworkProperty(this, 'fill',
         'fill',
         propertyChangedCallback: (Brush value){
           //TODO Animation hooks won't work because shapeElement is not root
@@ -59,12 +59,9 @@ abstract class Shape extends FrameworkElement
       _svgWrapper.attributes['height'] = '$v';
     });
 
-    new Binding(widthProperty, _swProperty);
-    new Binding(heightProperty, _shProperty);
+    bind(width, _swProperty);
+    bind(height, _shProperty);
   }
-
-  Brush get fill => getValue(fillProperty);
-  set fill(Brush v) => setValue(fillProperty, v);
 
   abstract String get shapeTag;
 

@@ -19,7 +19,7 @@ run(){
 
       //iterate through all the available types
       for(InputTypes s in InputTypes.validInputTypes){
-        t.inputType = s;
+        t.inputType.value = s;
       }
     });
   });

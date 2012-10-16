@@ -6,21 +6,19 @@
 /**
 * Base class for event-driven [FrameworkElement] actions.
 */
-abstract class ActionBase extends TemplateObject {
+abstract class ActionBase extends TemplateObject
+{
 
-  FrameworkProperty eventProperty;
+  FrameworkProperty<String> event;
 
   /// A [String] representing the name of the target element to be operated
   /// on by the action.
-  FrameworkProperty targetNameProperty;
-  FrameworkProperty _sourceProperty;
+  FrameworkProperty<String> targetName;
+  FrameworkProperty<FrameworkElement> _source;
+
   FrameworkElement _target;
-
-  FrameworkElement get source => getValue(_sourceProperty);
+  FrameworkElement get source => _source.value;
   FrameworkElement get targetElement => _target;
-
-  String get targetName => getValue(targetNameProperty);
-  set targetName(String v) => setValue(targetNameProperty, v);
 
   final HashMap <String, EventHandlerReference> _ref;
 
@@ -37,13 +35,13 @@ abstract class ActionBase extends TemplateObject {
 
   void _initActionBaseProperties(){
 
-    targetNameProperty = new FrameworkProperty(this, 'targetName');
+    targetName = new FrameworkProperty(this, 'targetName');
 
-    _sourceProperty = new FrameworkProperty(this, '_source');
+    _source = new FrameworkProperty(this, '_source');
 
-    eventProperty = new FrameworkProperty(this, 'event', (String e){
+    event = new FrameworkProperty(this, 'event', (String e){
 
-      var src = getValue(_sourceProperty);
+      var src = _source.value;
 
       // set the event against the source element if it is available,
       // otherwise we wait until the source is available and set the
@@ -52,12 +50,11 @@ abstract class ActionBase extends TemplateObject {
         _setEvent(e);
       }else{
         var ref;
-        ref = _sourceProperty.propertyChanging + (_, PropertyChangingEventArgs args) {
+        ref = _source.propertyChanging + (_, PropertyChangingEventArgs args) {
           _setEvent(e);
-          _sourceProperty.propertyChanging - ref;
+          _source.propertyChanging - ref;
         };
       }
-
     });
   }
 
@@ -67,7 +64,7 @@ abstract class ActionBase extends TemplateObject {
     //only allow one registration per event
     if (_ref.containsKey(ee)) return;
 
-    var _source = getValue(_sourceProperty);
+    var _source = _source.value;
 
     if (_source == null && _source is! FrameworkElement){
       throw const BuckshotException('action source is null or'
@@ -89,16 +86,16 @@ abstract class ActionBase extends TemplateObject {
   /// Helper method used to set the target for the given action.
   /// Should
   void resolveTarget(){
-    var tgt = getValue(targetNameProperty);
+    var tgt = targetName.value;
     if (tgt == null){
-      if (source.name != null)
+      if (source.name.value != null)
       {
-        setValue(targetNameProperty, source.name);
+        targetName.value = source.name.value;
       }
 
       _target = source;
     }else{
-      var el = namedElements[targetName];
+      var el = namedElements[targetName.value];
 
       if (el == null)
         throw const BuckshotException('action Target was not found.');

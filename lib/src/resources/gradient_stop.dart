@@ -12,37 +12,30 @@
 class GradientStop extends TemplateObject
 {
   /// Represents the [Color] value of the GradientStop.
-  FrameworkProperty colorProperty;
+  FrameworkProperty<Color> color;
   /// Represents the offset percentage of the GradientStop.
-  FrameworkProperty percentProperty;
+  FrameworkProperty<num> percent;
 
   GradientStop(){
     _initGradientStopProperties();
   }
-  
+
   GradientStop.register() : super.register();
   makeMe() => new GradientStop();
 
   /// Constructs a GradientStop with a given [Color] and optional offset %.
   GradientStop.with(Color stopColor, [num stopPercent = -1]){
     _initGradientStopProperties();
-    color = stopColor;
-    percent = stopPercent;
+    color.value = stopColor;
+    percent.value = stopPercent;
   }
 
-  /// Sets the [colorProperty] value.
-  set color(Color value) => setValue(colorProperty, value);
-  /// Gets the [colorProperty] value.
-  Color get color => getValue(colorProperty);
-
-  /// Sets the [percentProperty] value.
-  set percent(num value) => setValue(percentProperty, value);
-  /// Gets the [percentProperty] value.
-  num get percent => getValue(percentProperty);
-
   void _initGradientStopProperties(){
-    colorProperty = new FrameworkProperty(this, "color", converter:const StringToColorConverter());
+    color = new FrameworkProperty(this, "color",
+        converter:const StringToColorConverter());
 
-    percentProperty = new FrameworkProperty(this, "percent", defaultValue:-1, converter:const StringToNumericConverter());
+    percent = new FrameworkProperty(this, "percent",
+        defaultValue: -1,
+        converter:const StringToNumericConverter());
   }
 }

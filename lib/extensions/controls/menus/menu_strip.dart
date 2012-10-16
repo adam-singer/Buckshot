@@ -4,8 +4,8 @@
 
 class MenuStrip extends Control implements IFrameworkContainer
 {
-  FrameworkProperty menusProperty;
-  FrameworkProperty orientationProperty;
+  FrameworkProperty<ObservableList<Menu>> menus;
+  FrameworkProperty<Orientation> orientation;
 
   final FrameworkEvent<MenuItemSelectedEventArgs> menuItemSelected =
       new FrameworkEvent<MenuItemSelectedEventArgs>();
@@ -18,7 +18,7 @@ class MenuStrip extends Control implements IFrameworkContainer
 
     _initMenuStripProperties();
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = content;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = menus.value;
 
     registerEvent('menuitemselected', menuItemSelected);
 
@@ -28,10 +28,10 @@ class MenuStrip extends Control implements IFrameworkContainer
   makeMe() => new MenuStrip();
 
   void onFirstLoad(){
-    if (menus.isEmpty()) return;
+    if (menus.value.isEmpty()) return;
 
-    menus.forEach((Menu m){
-      if (!m.menuItems.isEmpty()){
+    menus.value.forEach((Menu m){
+      if (!m.menuItems.value.isEmpty()){
         m.menuItemSelected + (sender, MenuItemSelectedEventArgs args){
           //just bubble the event
           menuItemSelected.invoke(sender, args);
@@ -43,12 +43,12 @@ class MenuStrip extends Control implements IFrameworkContainer
         final b = (m.parent.parent as Stack).children[0] as Border;
 
         b.click + (_, __){
-          if (m.visibility == Visibility.visible){
+          if (m.visibility.value == Visibility.visible){
             m.hide();
             return;
           }
           hideAllMenus();
-          if (m.menuItems.isEmpty()){
+          if (m.menuItems.value.isEmpty()){
               // item-less menu, so just send the menu in the sender of the
               // event..
               menuItemSelected.invoke(m, new MenuItemSelectedEventArgs(null));
@@ -64,27 +64,25 @@ class MenuStrip extends Control implements IFrameworkContainer
    * Hides any currently open menus attached to the MenuStrip.
    */
   void hideAllMenus(){
-    if (menus.isEmpty()) return;
+    if (menus.value.isEmpty()) return;
 
-    menus.forEach((Menu m){
-      if (!m.menuItems.isEmpty()){
+    menus.value.forEach((Menu m){
+      if (!m.menuItems.value.isEmpty()){
         m.hide();
       }
     });
   }
 
   void _initMenuStripProperties(){
-    menusProperty = new FrameworkProperty(this, 'menus',
+    menus = new FrameworkProperty(this, 'menus',
         defaultValue: new ObservableList<Menu>());
 
-    orientationProperty = new FrameworkProperty(this, 'orientation',
+    orientation = new FrameworkProperty(this, 'orientation',
         defaultValue: Orientation.horizontal,
         converter: const StringToOrientationConverter());
   }
 
-  ObservableList<Menu> get menus => getValue(menusProperty);
-
-  get content => getValue(menusProperty);
+  get containerContent => menus.value;
 
 
   String get defaultControlTemplate {

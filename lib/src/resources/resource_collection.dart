@@ -14,12 +14,12 @@ class ResourceCollection extends FrameworkResource implements IFrameworkContaine
 
     resources.listChanged + _onListChanging;
   }
-  
+
   ResourceCollection.register() : super.register(),
     resources = new ObservableList<FrameworkResource>();
   makeMe() => new ResourceCollection();
 
-  get content => resources;
+  get containerContent => resources;
 
   void _onListChanging(Object _, ListChangedEventArgs args){
 

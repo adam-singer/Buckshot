@@ -22,19 +22,19 @@ class CalculatorViewModel extends ViewModelBase
   final ICalculator model;
 
   /// Represents the keypad view of the calculator (standard or extended).
-  FrameworkProperty keypadProperty;
+  FrameworkProperty<FrameworkElement> keypad;
 
   /// Represents the primary output text of the calculator.
-  FrameworkProperty outputProperty;
+  FrameworkProperty<String> output;
 
   /// Represents the sub-output text of the calculator.
-  FrameworkProperty subOutputProperty;
+  FrameworkProperty<String> subOutput;
 
   /// Represents the marker indicating whether the calculator is holding a
   /// value in memory.
-  FrameworkProperty memoryMarkerProperty;
+  FrameworkProperty<String> memoryMarker;
 
-  FrameworkProperty widthProperty;
+  FrameworkProperty<num> width;
 
   /* End Singleton */
 
@@ -56,18 +56,18 @@ class CalculatorViewModel extends ViewModelBase
 
     // Initialize the framework properties with default values.
 
-    keypadProperty = new FrameworkProperty(this, 'keypad',
+    keypad = new FrameworkProperty(this, 'keypad',
         defaultValue:standardCalc.rootVisual);
 
-    outputProperty = new FrameworkProperty(this, 'output', defaultValue:'0');
+    output = new FrameworkProperty(this, 'output', defaultValue:'0');
 
-    subOutputProperty = new FrameworkProperty(this, 'subOutput',
+    subOutput = new FrameworkProperty(this, 'subOutput',
         defaultValue:'');
 
-    memoryMarkerProperty = new FrameworkProperty(this, 'memoryMarker',
+    memoryMarker = new FrameworkProperty(this, 'memoryMarker',
         defaultValue:'');
 
-    widthProperty = new FrameworkProperty(this, 'width',
+    width= new FrameworkProperty(this, 'width',
         defaultValue:300);
 
     registerEventHandler('buttonclick_handler', buttonClick_handler);
@@ -79,7 +79,7 @@ class CalculatorViewModel extends ViewModelBase
   * output update.
   */
   void updateOutput(_, OutputChangedEventArgs args){
-    output = args.output;
+    output.value = args.output;
   }
 
   /**
@@ -87,7 +87,7 @@ class CalculatorViewModel extends ViewModelBase
   * sub-output update.
   */
   void updateSubOutput(_, OutputChangedEventArgs args){
-    subOutput = args.output;
+    subOutput.value = args.output;
   }
 
   /**
@@ -95,7 +95,7 @@ class CalculatorViewModel extends ViewModelBase
   * memory marker update.
   */
   void updateMemoryMarker(_, OutputChangedEventArgs args){
-    memoryMarker = args.output;
+    memoryMarker.value = args.output;
   }
 
   /**
@@ -113,16 +113,16 @@ class CalculatorViewModel extends ViewModelBase
   void setMode(String mode){
     switch(mode){
       case 'Standard':
-        keypad = standardCalc.rootVisual;
-        width = 300;
+        keypad.value = standardCalc.rootVisual;
+        width.value = 300;
         break;
       case 'Extended':
-        keypad = extendedCalc.rootVisual;
-        width = 330;
+        keypad.value = extendedCalc.rootVisual;
+        width.value = 330;
         break;
       default:
-        keypad = standardCalc.rootVisual;
-        width = 300;
+        keypad.value = standardCalc.rootVisual;
+        width.value = 300;
         break;
     }
   }
@@ -131,7 +131,7 @@ class CalculatorViewModel extends ViewModelBase
    * Event handler that handles button clicks coming from the calculator.
    */
   void buttonClick_handler(Button sender, _){
-    input(sender.content);
+    input(sender.content.value);
   }
 
   /**
@@ -141,37 +141,4 @@ class CalculatorViewModel extends ViewModelBase
   void selectionChanged_handler(sender, args){
     setMode(args.selectedItem.value);
   }
-
-  /*
-  * The getters and setters below are for convenience and readability,
-  * but not necessarily required.  By convention, it is recommended that
-  * any defined FrameworkProperty should have a getter/setter pair as below.
-  */
-
-  num get width => getValue(widthProperty);
-  set width(num value) => setValue(widthProperty, value);
-
-  /// Gets the [String] value of the [outputProperty] [FrameworkProperty].
-  String get output => getValue(outputProperty);
-  /// Sets the [String] value for the [outputProperty] [FrameworkProperty].
-  set output(String value) => setValue(outputProperty, value);
-
-  /// Gets the [String] value of the [subOutputProperty] [FrameworkProperty].
-  String get subOutput => getValue(subOutputProperty);
-  /// Sets the [String] value for the [subOutputProperty] [FrameworkProperty].
-  set subOutput(String value) => setValue(subOutputProperty, value);
-
-  /// Gets the [String] value of the [memoryMarkerProperty] [FrameworkProperty].
-  String get memoryMarker => getValue(memoryMarkerProperty);
-  /// Sets the [String] value for the [memoryMarkerProperty]
-  /// [FrameworkProperty].
-  set memoryMarker(String value) => setValue(memoryMarkerProperty, value);
-
-  /// Gets the [FrameworkElement] value of the [keypadProperty]
-  /// [FrameworkProperty].
-  FrameworkElement get keypad => getValue(keypadProperty);
-  /// Sets the [FrameworkElement] value for the [keypadProperty]
-  /// [FrameworkProperty].
-  set keypad(FrameworkElement value) => setValue(keypadProperty, value);
-
 }

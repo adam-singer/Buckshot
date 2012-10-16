@@ -5,9 +5,9 @@
 class DemoModel {
   // This list of data is build statically using data templates, but image how easy it would be
   // to query some data source and build up a list just like this...
-  List videoList;
-  List iconList;
-  final List fruitList = const ["apple","pear","grape","orange","tomato"];
+  List<DataTemplate> videoList;
+  List<DataTemplate> iconList;
+  final List<String> fruitList = const ["apple","pear","grape","orange","tomato"];
   final SomeColors colorClass;
 
   DemoModel()
@@ -40,7 +40,7 @@ class SomeColors extends BuckshotObject
   FrameworkProperty redProperty, orangeProperty, blueProperty;
 
   makeMe() => null;
-  
+
   SomeColors(){
     redProperty = new FrameworkProperty(this, "red", defaultValue:"Red");
     orangeProperty = new FrameworkProperty(this, "orange", defaultValue:"Orange");

@@ -45,7 +45,7 @@ class FrameworkElement extends FrameworkObject
   /// Represents the [VerticalAlignment] of this FrameworkElement inside another element.
   FrameworkProperty<VerticalAlignment> vAlign;
   /// Represents the html z order of this FrameworkElement in relation to other elements.
-  FrameworkProperty<num> zOrder;
+  FrameworkProperty<int> zOrder;
   /// Represents the actual adjusted width of the FrameworkElement.
   FrameworkProperty<num> actualWidth;
   /// Represents the actual adjusted height of the FrameworkElement.
@@ -254,7 +254,7 @@ class FrameworkElement extends FrameworkObject
 
             //assign this element as the source to any new actions
             args.newItems.forEach((ActionBase action){
-              action._sourceProperty.value = this;
+              action._source.value = this;
             });
         };
     }, new ObservableList<ActionBase>());

@@ -61,7 +61,7 @@ class ViewModel extends ViewModelBase
 
     widthProperty = new FrameworkProperty(this, 'width',
         defaultValue:300);
-    
+
     registerEventHandler('buttonclick_handler', buttonClick_handler);
     registerEventHandler('selectionchanged_handler', selectionChanged_handler);
   }
@@ -123,7 +123,7 @@ class ViewModel extends ViewModelBase
    * Event handler that handles button clicks coming from the calculator.
    */
   void buttonClick_handler(Button sender, _){
-    input(sender.content);
+    input(sender.content.value);
   }
 
   /**

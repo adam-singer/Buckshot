@@ -12,23 +12,25 @@
 * * [Stack]
 * * [TreeView]
 */
-class Panel extends FrameworkElement implements IFrameworkContainer {
+class Panel extends FrameworkElement implements IFrameworkContainer
+{
   /// An observable list of the child elements associated with the panel.
-  final ObservableList<FrameworkElement> children;
+  final ObservableList<FrameworkElement> children =
+      new ObservableList<FrameworkElement>();
+
   static const String childHasParentExceptionMessage
   = "Element is already child of another element.";
 
   /// Represents the background [Color] value of the panel.
-  FrameworkProperty backgroundProperty;
+  FrameworkProperty<Brush> background;
 
   Panel()
-  : children = new ObservableList<FrameworkElement>()
   {
     Browser.appendClass(rawElement, "Panel");
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = children;
 
-    backgroundProperty = new FrameworkProperty(
+    background = new FrameworkProperty(
       this,
       "background",
       (Brush value){
@@ -42,9 +44,7 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
     children.listChanged + (_, args) => onChildrenChanging(args);
   }
 
-  Panel.register() : super.register(),
-  children = new ObservableList<FrameworkElement>();
-
+  Panel.register() : super.register();
   makeMe() => null;
 
   void onChildrenChanging(ListChangedEventArgs args){
@@ -61,12 +61,7 @@ class Panel extends FrameworkElement implements IFrameworkContainer {
   }
 
   // IFrameworkContainer interface
-  get content => children;
-
-  /// Sets the [backgroundProperty] value.
-  set background(Brush value) => setValue(backgroundProperty, value);
-  /// Gets the [backgroundProperty] value.
-  Brush get background => getValue(backgroundProperty);
+  get containerContent => children;
 
   /// Overridden [FrameworkObject] method.
   void createElement(){

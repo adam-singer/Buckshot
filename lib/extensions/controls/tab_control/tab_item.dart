@@ -4,11 +4,11 @@
 
 class TabItem extends Control implements IFrameworkContainer
 {
-  FrameworkProperty headerProperty;
-  FrameworkProperty iconProperty;
-  FrameworkProperty closeEnabledProperty;
-  FrameworkProperty closeButtonVisiblityProperty;
-  FrameworkProperty contentProperty;
+  FrameworkProperty<FrameworkElement> header;
+  FrameworkProperty<FrameworkElement> icon;
+  FrameworkProperty<bool> closeEnabled;
+  FrameworkProperty<Visibility> closeButtonVisiblity;
+  FrameworkProperty<FrameworkElement> content;
 
   FrameworkElement _visualTemplate;
 
@@ -17,20 +17,20 @@ class TabItem extends Control implements IFrameworkContainer
 
     _initTabItemProperties();
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = content;
   }
 
   TabItem.register() : super.register();
   makeMe() => new TabItem();
 
-  get content => getValue(contentProperty);
+  get containerContent => content.value;
 
   void _initTabItemProperties(){
-    headerProperty = new FrameworkProperty(this, 'header');
+    header = new FrameworkProperty(this, 'header');
 
-    iconProperty = new FrameworkProperty(this, 'icon');
+    icon = new FrameworkProperty(this, 'icon');
 
-    contentProperty = new FrameworkProperty(this, 'content',
+    content = new FrameworkProperty(this, 'content',
         propertyChangedCallback:(value){
           // ensure that the content has a parent assigned so that
           // .onAddedToDOM() will bind events successfully.
@@ -39,21 +39,21 @@ class TabItem extends Control implements IFrameworkContainer
           }
     });
 
-    closeButtonVisiblityProperty = new FrameworkProperty(this,
+    closeButtonVisiblity = new FrameworkProperty(this,
         'closeButtonVisibility',
         propertyChangedCallback: (Visibility value){
           if (value == Visibility.visible
-              && getValue(closeEnabledProperty) == false){
-            setValue(closeButtonVisiblityProperty, Visibility.collapsed);
+              && closeEnabled.value == false){
+            closeButtonVisiblity.value = Visibility.collapsed;
           }
         },
         defaultValue: Visibility.collapsed,
         converter: const StringToVisibilityConverter());
 
-    closeEnabledProperty = new FrameworkProperty(this, 'closeEnabled',
+    closeEnabled = new FrameworkProperty(this, 'closeEnabled',
         propertyChangedCallback: (bool value){
           if (value == false){
-            setValue(closeButtonVisiblityProperty, Visibility.collapsed);
+            closeButtonVisiblity.value = Visibility.collapsed;
           }
         },
         defaultValue: true,

@@ -6,7 +6,7 @@
 * A base class for control-type elements (buttons, etc). */
 class Control extends FrameworkElement
 {
-  FrameworkProperty isEnabledProperty;
+  FrameworkProperty<bool> isEnabled;
 
   FrameworkElement template;
 
@@ -36,8 +36,7 @@ class Control extends FrameworkElement
   makeMe() => null;
 
   void _initControlProperties(){
-
-    isEnabledProperty = new FrameworkProperty(this, "isEnabled", (bool value){
+    isEnabled = new FrameworkProperty(this, "isEnabled", (bool value){
       if (value){
         if (rawElement.attributes.containsKey('disabled'))
           rawElement.attributes.remove('disabled');
@@ -45,11 +44,7 @@ class Control extends FrameworkElement
         rawElement.attributes['disabled'] = 'disabled';
       }
     }, true, converter:const StringToBooleanConverter());
-
   }
-
-  bool get isEnabled => getValue(isEnabledProperty);
-  set isEnabled(bool value) => setValue(isEnabledProperty, value);
 
   void applyVisualTemplate(){
     if (_visualTemplateApplied)
@@ -73,7 +68,7 @@ class Control extends FrameworkElement
   }
 
   void _finishApplyVisualTemplate(){
-    var t = getResource(this.templateName);
+    var t = getResource(this.templateName) as ControlTemplate;
 
     if (t == null){
       template = this;
@@ -83,7 +78,7 @@ class Control extends FrameworkElement
 
     _templateApplied = true;
 
-    template = t.template;
+    template = t.template.value;
 
     rawElement = template.rawElement;
     template.parent = this;

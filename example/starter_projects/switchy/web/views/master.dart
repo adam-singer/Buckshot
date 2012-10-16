@@ -6,7 +6,7 @@ class Master extends View
 {
   Master() : super.fromResource('web/views/templates/master.xml'){
     ready.then((t){
-      t.dataContext = new MasterViewModel();
+      t.dataContext.value = new MasterViewModel();
     });
   }
 }

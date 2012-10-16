@@ -8,10 +8,10 @@
 */
 class DropDownList extends Control
 {
-  FrameworkProperty itemsProperty;
-  FrameworkProperty itemsSourceProperty;
-  FrameworkProperty selectedItemProperty;
-  FrameworkProperty selectedIndexProperty; //TODO implement this property
+  FrameworkProperty<ObservableList<DropDownItem>> items;
+  FrameworkProperty<List<String>> itemsSource;
+  FrameworkProperty<DropDownItem> selectedItem;
+  FrameworkProperty<num> selectedIndex; //TODO implement this property
 
   FrameworkEvent<SelectedItemChangedEventArgs<DropDownItem>> selectionChanged =
       new FrameworkEvent<SelectedItemChangedEventArgs<DropDownItem>>();
@@ -28,18 +28,18 @@ class DropDownList extends Control
   makeMe() => new DropDownList();
 
   void _initDropDownListProperties(){
-    itemsProperty = new FrameworkProperty(this, "items",
+    items = new FrameworkProperty(this, "items",
         defaultValue:new ObservableList<DropDownItem>());
 
-    itemsSourceProperty = new FrameworkProperty(this, "itemsSource",
+    itemsSource = new FrameworkProperty(this, "itemsSource",
         (List<String> v){
           _updateDDL();
         });
 
-    selectedItemProperty = new FrameworkProperty(this, "selectedItem",
+    selectedItem = new FrameworkProperty(this, "selectedItem",
         defaultValue:new DropDownItem());
 
-    items.listChanged + (_, __) {
+    items.value.listChanged + (_, __) {
       if (!isLoaded) return;
       _updateDDL();
     };
@@ -53,17 +53,21 @@ class DropDownList extends Control
     DropDownItem selected;
     final el = rawElement as SelectElement;
 
-    if (itemsSource != null && !itemsSource.isEmpty()) {
-      selectedItemProperty.value.name = itemsSource[el.selectedIndex];
-      selectedItemProperty.value.value = itemsSource[el.selectedIndex];
-      selected = selectedItemProperty.value;
-    }else if (!items.isEmpty()){
-      selected = items[el.selectedIndex];
-      selectedItemProperty.value.name = selected.name;
-      selectedItemProperty.value.value = selected.value;
+    if (itemsSource.value != null && !itemsSource.value.isEmpty()) {
+      selectedItem.value.name.value = itemsSource.value[el.selectedIndex];
+      selectedItem.value.item.value = itemsSource.value[el.selectedIndex];
+      selected = selectedItem.value.item.value;
+    }else if (!items.value.isEmpty()){
+      selected = items.value[el.selectedIndex];
+      selectedItem.value.name.value = selected.name.value;
+      selectedItem.value.item.value = selected.item.value;
     }
 
-    if (selected != null) selectionChanged.invoke(this, new SelectedItemChangedEventArgs<DropDownItem>(selected));
+    if (selected != null){
+      selectionChanged
+      .invokeAsync(this,
+          new SelectedItemChangedEventArgs<DropDownItem>(selected));
+    }
   }
 
   void onLoaded(){
@@ -75,7 +79,7 @@ class DropDownList extends Control
     rawElement.elements.clear();
 
     if (itemsSource != null){
-      itemsSource.forEach((i){
+      itemsSource.value.forEach((i){
         var option = new OptionElement();
         option.attributes['value'] = '$i';
         option.text = '$i';
@@ -83,21 +87,15 @@ class DropDownList extends Control
       });
 
     }else{
-      items.forEach((DropDownItem i){
+      items.value.forEach((DropDownItem i){
         var option = new OptionElement();
-        option.attributes['value'] = i.value;
-        option.text = i.name;
+        option.attributes['value'] = i.item.value;
+        option.text = i.name.value;
 
         rawElement.elements.add(option);
       });
     }
   }
-
-  DropDownItem get selectedItem => getValue(selectedItemProperty);
-
-  List<String> get itemsSource => getValue(itemsSourceProperty);
-
-  ObservableList<DropDownItem> get items => getValue(itemsProperty);
 
   /// Overridden [FrameworkObject] method for generating the html representation of the DDL.
   void createElement(){
@@ -108,8 +106,8 @@ class DropDownList extends Control
 
 class DropDownItem extends TemplateObject
 {
-  FrameworkProperty nameProperty;
-  FrameworkProperty valueProperty;
+  FrameworkProperty<String> name;
+  FrameworkProperty<Dynamic> item;
 
   DropDownItem(){
     _initDropDownListItemProperties();
@@ -119,14 +117,8 @@ class DropDownItem extends TemplateObject
   makeMe() => new DropDownItem();
 
   void _initDropDownListItemProperties(){
-    nameProperty = new FrameworkProperty(this, "name", (String v){}, '');
+    name = new FrameworkProperty(this, "name", (String v){}, '');
 
-    valueProperty = new FrameworkProperty(this, "value", (Dynamic v){}, null);
+    item = new FrameworkProperty(this, "value", (Dynamic v){}, null);
   }
-
-  String get name => getValue(nameProperty);
-  set name(String v) => setValue(nameProperty, v);
-
-  Dynamic get value => getValue(valueProperty);
-  set value(Dynamic v) => setValue(valueProperty, v);
 }

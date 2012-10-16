@@ -7,47 +7,47 @@
  */
 class Ellipse extends Shape{
 
-  FrameworkProperty _cxProperty;
-  FrameworkProperty _cyProperty;
-  FrameworkProperty _rxProperty;
-  FrameworkProperty _ryProperty;
+  FrameworkProperty<num> _cx;
+  FrameworkProperty<num> _cy;
+  FrameworkProperty<num> _rx;
+  FrameworkProperty<num> _ry;
 
   Ellipse(){
     Browser.appendClass(rawElement, "ellipse");
     _initEllipseProperties();
   }
-  
+
   Ellipse.register() : super.register();
   makeMe() => new Ellipse();
 
   void _initEllipseProperties(){
-    _cxProperty = new FrameworkProperty(this, '_cx', (v){
+    _cx = new FrameworkProperty(this, '_cx', (v){
       if (v is! num) return;
 
       var result = v / 2;
-      shapeElement.attributes['cx'] = '$result';
-      setValue(_rxProperty, result);
+      shapeElement.attributes['cx'] = '${result}';
+      _rx.value = result;
 
     });
 
-    _cyProperty = new FrameworkProperty(this, '_cy', (v){
+    _cy = new FrameworkProperty(this, '_cy', (v){
       if (v is! num) return;
 
       var result = v / 2;
-      shapeElement.attributes['cy'] = '$result';
-      setValue(_ryProperty, result);
+      shapeElement.attributes['cy'] = '${result}';
+      _ry.value = result;
 
     });
 
-    _rxProperty = new FrameworkProperty(this, '_rx', (v){
-      shapeElement.attributes['rx'] = '${v - getValue(strokeWidthProperty) / 2}';
+    _rx = new FrameworkProperty(this, '_rx', (v){
+      shapeElement.attributes['rx'] = '${v - strokeWidth.value / 2}';
     });
-    _ryProperty = new FrameworkProperty(this, '_ry', (v){
-      shapeElement.attributes['ry'] = '${v - getValue(strokeWidthProperty) / 2}';
+    _ry = new FrameworkProperty(this, '_ry', (v){
+      shapeElement.attributes['ry'] = '${v - strokeWidth.value / 2}';
     });
 
-    new Binding(widthProperty, _cxProperty);
-    new Binding(heightProperty, _cyProperty);
+    bind(width, _cx);
+    bind(height, _cy);
   }
 
   String get shapeTag => 'ellipse';

@@ -11,11 +11,11 @@
 class GridLength extends FrameworkObject{
 
   /// Represents the [GridUnitType] of the GridLength.
-  FrameworkProperty gridUnitTypeProperty;
+  FrameworkProperty<GridUnitType> gridUnitType;
   /// Represents the value of the GridLength.
   /// The context of the value changes based on the [GridUnitType] of
   /// the [gridUnitTypeProperty].
-  FrameworkProperty valueProperty;
+  FrameworkProperty<num> length;
 
   //default length is auto
   GridLength(){
@@ -23,12 +23,12 @@ class GridLength extends FrameworkObject{
   }
 
   makeMe() => null;
-  
+
   /// Constructs a GridLength as a [GridUnitType] star type.
   GridLength.star(num v){
     _initGridUnitTypeProperties();
-    gridUnitType = GridUnitType.star;
-    value = v;
+    gridUnitType.value = GridUnitType.star;
+    length.value = v;
   }
 
   /// Constructs a GridLength as a [GridUnitType] auto type.
@@ -39,25 +39,15 @@ class GridLength extends FrameworkObject{
   /// Constructs a GridLength as a [GridUnitType] pixel type.
   GridLength.pixel(num v){
     _initGridUnitTypeProperties();
-    gridUnitType = GridUnitType.pixel;
-    value = v;
+    gridUnitType.value = GridUnitType.pixel;
+    length.value = v;
   }
 
-  /// Gets the [gridUnitTypeProperty] value.
-  GridUnitType get gridUnitType => getValue(gridUnitTypeProperty);
-  /// Sets the [gridUnitTypeProperty] value.
-  set gridUnitType(GridUnitType v) => setValue(gridUnitTypeProperty, v);
-
-  /// Gets the [valueProperty] value.
-  num get value => getValue(valueProperty);
-  /// Sets the [valueProperty] value.
-  set value(num v) => setValue(valueProperty, v);
-
   void _initGridUnitTypeProperties(){
-    gridUnitTypeProperty = new FrameworkProperty(this,
+    gridUnitType = new FrameworkProperty(this,
         "gridUnitType",
         defaultValue:GridUnitType.auto);
 
-    valueProperty = new FrameworkProperty(this, "value", defaultValue:-1);
+    length = new FrameworkProperty(this, "value", defaultValue: -1);
   }
 }

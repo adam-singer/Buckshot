@@ -6,22 +6,22 @@ class AnimationResource extends FrameworkResource
 {
   String _cachedAnimation;
 
-  FrameworkProperty keyFramesProperty;
+  FrameworkProperty<List<AnimationKeyFrame>> keyFrames;
 
   //TODO add support for other CSS3 animation properties: easing, iteration, direction
 
   AnimationResource(){
     _initAnimationResourceProperties();
 
-    this.stateBag[FrameworkObject.CONTAINER_CONTEXT] = keyFramesProperty;
+    this.stateBag[FrameworkObject.CONTAINER_CONTEXT] = keyFrames;
   }
-  
+
   AnimationResource.register() : super.register();
   makeMe() => new AnimationResource();
 
   _initAnimationResourceProperties(){
 
-    keyFramesProperty = new FrameworkProperty(this, 'keyFrames', (_){
+    keyFrames = new FrameworkProperty(this, 'keyFrames', (_){
       _invalidate();
     }, new List<AnimationKeyFrame>());
 
@@ -31,7 +31,4 @@ class AnimationResource extends FrameworkResource
     _cachedAnimation = null;
     _CssCompiler.compileAnimation(this);
   }
-
-  List<AnimationKeyFrame> get keyFrames => getValue(keyFramesProperty);
-  set keyFrames(List<AnimationKeyFrame> v) => setValue(keyFramesProperty, v);
 }

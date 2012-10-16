@@ -12,7 +12,7 @@ class Hulu extends FrameworkElement
 {
   Element embed;
   Element param1;
-  FrameworkProperty videoIDProperty;
+  FrameworkProperty<String> videoID;
 
   Hulu(){
     Browser.appendClass(rawElement, "hulu");
@@ -25,14 +25,11 @@ class Hulu extends FrameworkElement
   makeMe() => new Hulu();
 
   void _initializeHuluProperties(){
-    videoIDProperty = new FrameworkProperty(this, "videoID", (String value){
+    videoID = new FrameworkProperty(this, "videoID", (String value){
       param1.attributes["src"] = 'http://www.hulu.com/embed/${value.toString()}';
       embed.attributes["src"] = 'http://www.hulu.com/embed/${value.toString()}';
     });
   }
-
-  String get videoID => getValue(videoIDProperty);
-  set videoID(String value) => setValue(videoIDProperty, value);
 
   void calculateWidth(value){
     super.calculateWidth(value);

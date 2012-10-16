@@ -6,8 +6,8 @@
 class MenuItem extends Control
 {
 
-  FrameworkProperty iconProperty;
-  FrameworkProperty headerProperty;
+  FrameworkProperty<FrameworkElement> icon;
+  FrameworkProperty<FrameworkElement> header;
 
   MenuItem()
   {
@@ -21,13 +21,10 @@ class MenuItem extends Control
 
   void _initMenuItemProperties()
   {
-    iconProperty = new FrameworkProperty(this, 'icon');
+    icon = new FrameworkProperty(this, 'icon');
 
-    headerProperty = new FrameworkProperty(this, 'header');
+    header = new FrameworkProperty(this, 'header');
   }
-
-  get header => getValue(headerProperty);
-  set header(value) => setValue(headerProperty, value);
 
   String get defaultControlTemplate {
     return

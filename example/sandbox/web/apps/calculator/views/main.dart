@@ -4,7 +4,7 @@ class Main extends View
   Main() : super.fromTemplate(_main)
   {
     ready.then((t){
-      rootVisual.dataContext = new ViewModel();
+      rootVisual.dataContext.value = new ViewModel();
     });
   }
 }

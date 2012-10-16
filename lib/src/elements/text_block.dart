@@ -8,13 +8,11 @@
 */
 class TextBlock extends FrameworkElement implements IFrameworkContainer
 {
-  FrameworkProperty
-    backgroundProperty,
-    foregroundProperty,
-    paddingProperty,
-    textProperty,
-    fontSizeProperty,
-    fontFamilyProperty;
+  FrameworkProperty<Brush> background;
+  FrameworkProperty<Color> foreground;
+  FrameworkProperty<String> text;
+  FrameworkProperty<num> fontSize;
+  FrameworkProperty<String> fontFamily;
 
   TextBlock()
   {
@@ -22,18 +20,18 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
 
     _initTextBlockProperties();
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = text;
 
   }
 
   TextBlock.register() : super.register();
   makeMe() => new TextBlock();
 
-  get content => getValue(textProperty);
+  get containerContent => text.value;
 
   void _initTextBlockProperties(){
 
-    backgroundProperty = new FrameworkProperty(
+    background = new FrameworkProperty(
       this,
       "background",
       (Brush value){
@@ -44,7 +42,7 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
         value.renderBrush(rawElement);
       }, converter:const StringToSolidColorBrushConverter());
 
-    foregroundProperty = new FrameworkProperty(
+    foreground = new FrameworkProperty(
       this,
       "foreground",
       (Color c){
@@ -53,46 +51,27 @@ class TextBlock extends FrameworkElement implements IFrameworkContainer
       defaultValue: getResource('theme_text_foreground'),
       converter:const StringToColorConverter());
 
-    textProperty = new FrameworkProperty(
+    text = new FrameworkProperty(
       this,
       "text",
-      (value){
+      (String value){
         rawElement.text = "$value";
       });
 
-    fontSizeProperty = new FrameworkProperty(
+    fontSize = new FrameworkProperty(
       this,
       "fontSize",
       (value){
         rawElement.style.fontSize = '${value.toString()}px';
       });
 
-    fontFamilyProperty = new FrameworkProperty(
+    fontFamily = new FrameworkProperty(
       this,
       "fontFamily",
       (value){
         rawElement.style.fontFamily = value.toString();
       }, defaultValue:getResource('theme_text_font_family'));
   }
-
-  /// Sets [fontFamilyProperty] with the given [value]
-  set fontFamily(String value) => setValue(fontFamilyProperty, value);
-  /// Gets the current value of [fontFamilyProperty]
-  String get fontFamily => getValue(fontFamilyProperty);
-
-  /// Sets [fontSizeProperty] with the given [value]
-  set fontSize(num value) => setValue(fontSizeProperty, value);
-  /// Gets the value of [fontSizeProperty]
-  num get fontSize => getValue(fontSizeProperty);
-
-  set foreground(SolidColorBrush value) => setValue(foregroundProperty, value);
-  SolidColorBrush get foreground => getValue(foregroundProperty);
-
-  set background(Brush value) => setValue(backgroundProperty, value);
-  Brush get background => getValue(backgroundProperty);
-
-  set text(String value) => setValue(textProperty, value);
-  String get text => getValue(textProperty);
 
   void createElement(){
     rawElement = new ParagraphElement();

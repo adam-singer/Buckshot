@@ -57,14 +57,14 @@
 */
 class ModalDialog extends Control
 {
-  FrameworkProperty backgroundProperty;
-  FrameworkProperty borderColorProperty;
-  FrameworkProperty borderThicknessProperty;
-  FrameworkProperty cornerRadiusProperty;
-  FrameworkProperty maskColorProperty;
-  FrameworkProperty maskOpacityProperty;
-  FrameworkProperty titleProperty;
-  FrameworkProperty bodyProperty;
+  FrameworkProperty<Brush> background;
+  FrameworkProperty<Color> borderColor;
+  FrameworkProperty<Thickness> borderThickness;
+  FrameworkProperty<Thickness> cornerRadius;
+  FrameworkProperty<Brush> maskBrush;
+  FrameworkProperty<num> maskOpacity;
+  FrameworkProperty<String> title;
+  FrameworkProperty<String> body;
   Binding b1, b2;
   Border bDialog;
   Border bMask;
@@ -139,7 +139,7 @@ class ModalDialog extends Control
     this.rawElement.remove();
     onUnloaded();
 
-    _dialogCompleter.complete(DialogButtonType.fromString(b.content));
+    _dialogCompleter.complete(DialogButtonType.fromString(b.content.value));
   }
 
   // modalDialog needs to override this in order to work property.
@@ -156,7 +156,7 @@ class ModalDialog extends Control
         Template.findByName('spButtonContainer', template) as Panel;
 
     for (final Button b in buttonsContainer.children){
-      if (buttons.some((tb) => tb.toString() == b.content.toLowerCase())){
+      if (buttons.some((tb) => tb.toString() == b.content.value.toLowerCase())){
         b.visibility.value = Visibility.visible;
         b.tag.value = b.click + buttonClick_handler;
       }else{
@@ -172,35 +172,35 @@ class ModalDialog extends Control
 
 
   void _initModalDialogProperties(){
-    titleProperty = new FrameworkProperty(this, 'title',
+    title = new FrameworkProperty(this, 'title',
         defaultValue:'undefined');
 
-    bodyProperty = new FrameworkProperty(this, 'body',
+    body = new FrameworkProperty(this, 'body',
         defaultValue:'undefined');
 
-    backgroundProperty = new FrameworkProperty(this, 'background',
+    background = new FrameworkProperty(this, 'background',
         defaultValue: getResource('theme_dark_brush'),
         converter: const StringToSolidColorBrushConverter());
 
-    maskColorProperty = new FrameworkProperty(this, 'maskColor',
+    maskBrush = new FrameworkProperty(this, 'maskColor',
         defaultValue: new SolidColorBrush(
                         new Color.predefined(Colors.Gray)),
         converter: const StringToSolidColorBrushConverter());
 
-    maskOpacityProperty = new FrameworkProperty(this, 'maskOpacity',
+    maskOpacity = new FrameworkProperty(this, 'maskOpacity',
         defaultValue: 0.5,
         converter: const StringToNumericConverter());
 
-    borderColorProperty = new FrameworkProperty(this, 'borderColor',
+    borderColor = new FrameworkProperty(this, 'borderColor',
         defaultValue: getResource('theme_border_color_dark'),
         converter: const StringToColorConverter());
 
-    borderThicknessProperty = new FrameworkProperty(this, 'borderThickness',
+    borderThickness = new FrameworkProperty(this, 'borderThickness',
         defaultValue: getResource('theme_border_thickness',
                                   const StringToThicknessConverter()),
         converter: const StringToThicknessConverter());
 
-    cornerRadiusProperty = new FrameworkProperty(this, 'cornerRadius',
+    cornerRadius = new FrameworkProperty(this, 'cornerRadius',
         defaultValue: getResource('theme_border_corner_radius',
             const StringToThicknessConverter()),
         converter: const StringToThicknessConverter());
@@ -218,8 +218,8 @@ class ModalDialog extends Control
     log('Showing ModalDialog', logLevel : Level.FINE);
     _dialogCompleter = new Completer<DialogButtonType>();
 
-    b1 = new Binding(windowWidthProperty, cvRoot.width);
-    b2 = new Binding(windowHeightProperty, cvRoot.height);
+    b1 = bind(windowWidth, cvRoot.width);
+    b2 = bind(windowHeight, cvRoot.height);
 
     document.body.elements.add(cvRoot.rawElement);
 
@@ -231,39 +231,6 @@ class ModalDialog extends Control
 
     return _dialogCompleter.future;
   }
-
-  get body => getValue(bodyProperty);
-  set body(v) => setValue(bodyProperty, v);
-
-  get title => getValue(titleProperty);
-  set title(v) => setValue(titleProperty, v);
-
-  Brush get maskColor => getValue(maskColorProperty);
-  set maskColor(Brush value) => setValue(maskColorProperty, value);
-
-  num get maskOpacity => getValue(maskOpacityProperty);
-  set maskOpacity(num value) => setValue(maskOpacityProperty, value);
-
-  /// Sets the [backgroundProperty] value.
-  set background(Brush value) => setValue(backgroundProperty, value);
-  /// Gets the [backgroundProperty] value.
-  Brush get background => getValue(backgroundProperty);
-
-  /// Sets the [cornerRadiusProperty] value.
-  set cornerRadius(Thickness value) => setValue(cornerRadiusProperty, value);
-  /// Gets the [cornerRadiusProperty] value.
-  Thickness get cornerRadius => getValue(cornerRadiusProperty);
-
-  /// Sets the [borderColorProperty] value.
-  set borderColor(SolidColorBrush value) => setValue(borderColorProperty, value);
-  /// Gets the [borderColorProperty] value.
-  SolidColorBrush get borderColor => getValue(borderColorProperty);
-
-  /// Sets the [borderThicknessProperty] value.
-  set borderThickness(Thickness value) => setValue(borderThicknessProperty, value);
-  /// Gets the [borderThicknessProperty] value.
-  Thickness get borderThickness => getValue(borderThicknessProperty);
-
 
   String get defaultControlTemplate {
     return

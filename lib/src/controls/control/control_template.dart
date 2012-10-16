@@ -8,8 +8,8 @@
 */
 class ControlTemplate extends FrameworkResource implements IFrameworkContainer
 {
-  FrameworkProperty controlTypeProperty;
-  FrameworkProperty templateProperty;
+  FrameworkProperty<String> controlType;
+  FrameworkProperty<FrameworkElement> template;
 
   ControlTemplate(){
     _initializeControlTemplateProperties();
@@ -17,28 +17,22 @@ class ControlTemplate extends FrameworkResource implements IFrameworkContainer
     //redirect the resource finder to the template property
     //otherwise the ControlTemplate itself would be retrieved as the resource
     //this.stateBag[FrameworkResource.RESOURCE_PROPERTY] = templateProperty;
-    this.stateBag[FrameworkObject.CONTAINER_CONTEXT] = templateProperty;
+    this.stateBag[FrameworkObject.CONTAINER_CONTEXT] = template;
 
   }
-  
+
   ControlTemplate.register() : super.register();
   makeMe() => new ControlTemplate();
 
-  get content => getValue(templateProperty);
+  get containerContent => template.value;
 
   void _initializeControlTemplateProperties(){
-    controlTypeProperty = new FrameworkProperty(this, "controlType",
+    controlType = new FrameworkProperty(this, "controlType",
         defaultValue:"");
 
-    templateProperty = new FrameworkProperty(this, "template");
+    template = new FrameworkProperty(this, "template");
 
     //key is not needed, so just shadow copy whatever the controlType is.
-    new Binding(this.controlTypeProperty, this.keyProperty);
+    bind(controlType, key);
   }
-
-  String get controlType => getValue(controlTypeProperty);
-  set controlType(String value) => setValue(controlTypeProperty, value);
-
-  FrameworkElement get template => getValue(templateProperty);
-  set template(FrameworkElement value) => setValue(templateProperty, value);
 }

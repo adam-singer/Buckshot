@@ -22,7 +22,7 @@ class FrameworkObject extends BuckshotObject
 
   /// Represents the data context assigned to the FrameworkElement.
   /// Declarative xml binding can be used to bind to data context.
-  FrameworkProperty<Object> dataContext;
+  FrameworkProperty<Dynamic> dataContext;
 
   /// Represents a map of [Binding]s that will be bound just before
   /// the element renders to the DOM.
@@ -253,7 +253,7 @@ class FrameworkObject extends BuckshotObject
 
     if (this is! IFrameworkContainer) return;
 
-    final containerContent = (this as IFrameworkContainer).content;
+    final containerContent = (this as IFrameworkContainer).containerContent;
 
     if (containerContent is Collection){
       containerContent
@@ -412,10 +412,10 @@ class FrameworkObject extends BuckshotObject
 
     final cc = this as IFrameworkContainer;
 
-    if (cc.content is List){
-      cc.content.forEach((FrameworkElement child) => child._onRemoveFromDOM());
-    }else if (cc.content is FrameworkElement){
-      cc.content._onRemoveFromDOM();
+    if (cc.containerContent is List){
+      cc.containerContent.forEach((FrameworkElement child) => child._onRemoveFromDOM());
+    }else if (cc.containerContent is FrameworkElement){
+      cc.containerContent._onRemoveFromDOM();
     }
   }
 

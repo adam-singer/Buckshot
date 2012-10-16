@@ -16,20 +16,20 @@
 */
 class ListBox extends Control implements IFrameworkContainer
 {
-  FrameworkProperty horizontalScrollEnabledProperty;
-  FrameworkProperty verticalScrollEnabledProperty;
-  FrameworkProperty selectedItemProperty;
+  FrameworkProperty<bool> horizontalScrollEnabled;
+  FrameworkProperty<bool> verticalScrollEnabled;
+  FrameworkProperty<Dynamic> selectedItem;
   /// Represents the [Panel] element which will contain the generated UI for
   /// each element of the collection.
-  FrameworkProperty presentationPanelProperty;
+  FrameworkProperty<Panel> presentationPanel;
 
   /// Represents the UI that will display for each item in the collection.
-  FrameworkProperty itemsTemplateProperty;
+  FrameworkProperty<String> itemsTemplate;
 
-  FrameworkProperty borderColorProperty;
-  FrameworkProperty borderThicknessProperty;
-  FrameworkProperty highlightColorProperty;
-  FrameworkProperty selectColorProperty;
+  FrameworkProperty<Color> borderColor;
+  FrameworkProperty<Thickness> borderThickness;
+  FrameworkProperty<Brush> highlightBrush;
+  FrameworkProperty<Brush> selectBrush;
 
   CollectionPresenter _presenter;
   Border _border;
@@ -88,9 +88,9 @@ class ListBox extends Control implements IFrameworkContainer
 
     item.click + (_, __) {
 
-      _selectedIndex = _presenter.presentationPanel.children.indexOf(item);
+      _selectedIndex = _presenter.presentationPanel.value.children.indexOf(item);
 
-      setValue(selectedItemProperty, item.stateBag[CollectionPresenter.SBO]);
+      selectedItem.value = item.stateBag[CollectionPresenter.SBO];
 
       selectionChanged.invoke(this, new SelectedItemChangedEventArgs(item.stateBag[CollectionPresenter.SBO]));
 
@@ -105,13 +105,13 @@ class ListBox extends Control implements IFrameworkContainer
     item.mouseUp + (_, __) => onItemMouseUp(item);
   }
 
-  get content => template;
+  get containerContent => template;
 
   /// Override this method to implement your own mouse over behavior for items in
   /// the ListBox.
   void onItemMouseDown(item){
     if (item.hasProperty("background")){
-      item.background = getValue(selectColorProperty);
+      item.background.value = selectBrush.value;
     }
   }
 
@@ -119,7 +119,7 @@ class ListBox extends Control implements IFrameworkContainer
   /// the ListBox.
   void onItemMouseUp(item){
     if (item.hasProperty("background")){
-      item.background = getValue(highlightColorProperty);
+      item.background.value = highlightBrush.value;
     }
   }
 
@@ -127,8 +127,8 @@ class ListBox extends Control implements IFrameworkContainer
   /// the ListBox.
   void onItemMouseEnter(item){
     if (item.hasProperty("background")){
-      item.stateBag["__lb_item_bg_brush__"] = item.background;
-      item.background = getValue(highlightColorProperty);
+      item.stateBag["__lb_item_bg_brush__"] = item.background.value;
+      item.background.value = highlightBrush.value;
     }
   }
 
@@ -136,54 +136,54 @@ class ListBox extends Control implements IFrameworkContainer
   /// the ListBox.
   void onItemMouseLeave(item){
     if (item.stateBag.containsKey("__lb_item_bg_brush__")){
-      item.background = item.stateBag["__lb_item_bg_brush__"];
+      item.background.value = item.stateBag["__lb_item_bg_brush__"];
     }
   }
 
 
   void _initListBoxProperties(){
 
-    highlightColorProperty = new FrameworkProperty(this, "highlightColor", (_){
+    highlightBrush = new FrameworkProperty(this, "highlightColor", (_){
     }, new SolidColorBrush(new Color.predefined(Colors.PowderBlue)),
     converter:const StringToSolidColorBrushConverter());
 
-    selectColorProperty = new FrameworkProperty(this, "selectColor", (_){
+    selectBrush = new FrameworkProperty(this, "selectColor", (_){
     }, new SolidColorBrush(new Color.predefined(Colors.SkyBlue)),
     converter:const StringToSolidColorBrushConverter());
 
-    borderColorProperty = new FrameworkProperty(
+    borderColor = new FrameworkProperty(
         this,
         'borderColor',
         propertyChangedCallback: (Color c){
           if (_border == null) return;
-          _border.borderColor = c;
+          _border.borderColor.value = c;
         },
         defaultValue: new Color.predefined(Colors.Black),
         converter:const StringToColorConverter());
 
 
-    borderThicknessProperty = new FrameworkProperty(this, "borderThickness", (v){
+    borderThickness= new FrameworkProperty(this, "borderThickness", (v){
     }, new Thickness(1), converter:const StringToThicknessConverter());
 
-    selectedItemProperty = new FrameworkProperty(this, "selectedItem", (_){});
+    selectedItem = new FrameworkProperty(this, "selectedItem", (_){});
 
-    presentationPanelProperty = new FrameworkProperty(this, "presentationPanel",
+    presentationPanel = new FrameworkProperty(this, "presentationPanel",
     (Panel p){
       if (_presenter == null) return;
-      _presenter.presentationPanel = p;
+      _presenter.presentationPanel.value = p;
     });
 
-    itemsTemplateProperty = new FrameworkProperty(this, "itemsTemplate", (value){
+    itemsTemplate = new FrameworkProperty(this, "itemsTemplate", (value){
       if (_presenter == null) return;
-      _presenter.itemsTemplate = value;
+      _presenter.itemsTemplate.value = value;
     });
 
-    horizontalScrollEnabledProperty = new FrameworkProperty(this,
+    horizontalScrollEnabled = new FrameworkProperty(this,
         "horizontalScrollEnabled",
         defaultValue:false,
         converter:const StringToBooleanConverter());
 
-    verticalScrollEnabledProperty = new FrameworkProperty(this,
+    verticalScrollEnabled = new FrameworkProperty(this,
         "verticalScrollEnabled",
         defaultValue:true,
         converter:const StringToBooleanConverter());

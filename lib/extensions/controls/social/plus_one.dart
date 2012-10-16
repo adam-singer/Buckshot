@@ -22,7 +22,8 @@ class PlusOne extends FrameworkElement
 })();
 ''';
 
-  FrameworkProperty annotationProperty, sizeProperty;
+  FrameworkProperty<PlusOneAnnotationTypes> annotation;
+  FrameworkProperty<PlusOneButtonSizes> size;
 
   PlusOne(){
     Browser.appendClass(rawElement, "buckshot_plusone");
@@ -38,22 +39,19 @@ class PlusOne extends FrameworkElement
   }
 
   void _initializePlusOneProperties(){
-    annotationProperty = new FrameworkProperty(this, "annotation", (PlusOneAnnotationTypes value){
+    annotation = new FrameworkProperty(this, "annotation", (PlusOneAnnotationTypes value){
       rawElement.attributes["annotation"] = value.toString();
     },
     defaultValue:PlusOneAnnotationTypes.none,
     converter:const StringToPlusOneAnnotationTypeConverter());
 
-    sizeProperty = new FrameworkProperty(this, "size",
+    size = new FrameworkProperty(this, "size",
     (PlusOneButtonSizes value){
       rawElement.attributes["size"] = value.toString();
     },
     defaultValue:PlusOneButtonSizes.standard,
     converter:const StringToPlusOneButtonSizeConverter());
   }
-
-  PlusOneAnnotationTypes get annotation => getValue(annotationProperty);
-  PlusOneButtonSizes get size => getValue(sizeProperty);
 
   /**
   * Injects javascript into the DOM, and optionally removes it after the script has run. */

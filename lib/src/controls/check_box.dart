@@ -11,15 +11,14 @@
 class CheckBox extends Control
 {
   /// Represents the value of the checkbox.
-  FrameworkProperty valueProperty;
+  FrameworkProperty<String> value;
   /// Represents the groupName of the checkbox.
-  FrameworkProperty groupNameProperty;
+  FrameworkProperty<String> groupName;
 
   /// Event which fires whenever a selection change occurs on this checkbox.
-  final FrameworkEvent selectionChanged;
+  final FrameworkEvent selectionChanged = new FrameworkEvent<EventArgs>();
 
   CheckBox()
-  : selectionChanged = new FrameworkEvent<EventArgs>()
   {
     Browser.appendClass(rawElement, 'checkbox');
     _initProperties();
@@ -28,16 +27,15 @@ class CheckBox extends Control
     registerEvent('selectionchanged', selectionChanged);
   }
 
-  CheckBox.register() : super.register(),
-    selectionChanged = new FrameworkEvent<EventArgs>();
+  CheckBox.register() : super.register();
   makeMe() => new CheckBox();
 
   void _initProperties(){
-    valueProperty = new FrameworkProperty(this, 'value', (String v){
+    value = new FrameworkProperty(this, 'value', (String v){
       rawElement.attributes['value'] = v;
     });
 
-    groupNameProperty = new FrameworkProperty(this, 'groupName', (String v){
+    groupName = new FrameworkProperty(this, 'groupName', (String v){
       rawElement.attributes['name'] = v;
     }, 'default');
   }
@@ -47,16 +45,6 @@ class CheckBox extends Control
       selectionChanged.invoke(this, new EventArgs());
     };
   }
-
-  /// Gets the [valueProperty] value.
-  String get value => getValue(valueProperty);
-  /// Sets the [valueProperty] value.
-  set value(String v) => setValue(valueProperty, v);
-
-  /// Gets the [groupNameProperty] value.
-  String get groupName => getValue(groupNameProperty);
-  /// Sets the [groupNameProperty] value.
-  set groupName(String v) => setValue(groupNameProperty, v);
 
   /// Gets whether the check box is checked.
   bool get isChecked {

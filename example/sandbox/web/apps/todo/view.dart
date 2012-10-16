@@ -5,7 +5,7 @@ class Main extends View
   {
       ready.then((t){
         // bind the view model
-        rootVisual.dataContext = new ViewModel();
+        rootVisual.dataContext.value = new ViewModel();
       });
   }
 }

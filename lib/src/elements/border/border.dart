@@ -6,29 +6,29 @@
 * A container element that holds a single child and provides visual border properties. */
 class Border extends FrameworkElement implements IFrameworkContainer
 {
-  /// Represents the [Color] of the border background.
-  AnimatingFrameworkProperty backgroundProperty;
+  /// Represents the [Brush] of the border background.
+  AnimatingFrameworkProperty<Brush> background;
 
   /// Represents the [Thickness] of space between the border frame and the content.
-  FrameworkProperty paddingProperty;
+  FrameworkProperty<Thickness> padding;
 
   /// Represents the rounding value of the border frame corners.
-  AnimatingFrameworkProperty cornerRadiusProperty;
+  AnimatingFrameworkProperty<Thickness> cornerRadius;
 
   /// Represents the [Color] of the border frame.
-  AnimatingFrameworkProperty borderColorProperty;
+  AnimatingFrameworkProperty<Color> borderColor;
 
   /// Represents the [Thickness] of the border frame.
-  FrameworkProperty borderThicknessProperty;
+  FrameworkProperty<Thickness> borderThickness;
 
   /// Represents the style of the border frame.
-  FrameworkProperty borderStyleProperty;
+  FrameworkProperty<BorderStyle> borderStyle;
 
   /// Represents the content inside the border.
-  FrameworkProperty contentProperty;
+  FrameworkProperty<FrameworkElement> content;
 
-  AnimatingFrameworkProperty horizontalScrollEnabledProperty;
-  AnimatingFrameworkProperty verticalScrollEnabledProperty;
+  AnimatingFrameworkProperty<bool> horizontalScrollEnabled;
+  AnimatingFrameworkProperty<bool> verticalScrollEnabled;
 
   AligningPanel _polyfill;
   Function _redraw;
@@ -39,7 +39,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
     _initBorderProperties();
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = content;
 
     if (Polly.supportsFlexModel){
       _redraw = (FrameworkElement child){
@@ -60,18 +60,18 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
   void _initBorderProperties(){
     //register the dependency properties
-    contentProperty = new FrameworkProperty(
+    content = new FrameworkProperty(
       this,
-      "content",(FrameworkElement c)
+      "content", (FrameworkElement c)
       {
-        if (contentProperty.previousValue != null){
-          contentProperty.previousValue.removeFromLayoutTree();
+        if (content.previousValue != null){
+          content.previousValue.removeFromLayoutTree();
         }
         if (c != null) c.addToLayoutTree(this);
 
       });
 
-    backgroundProperty = new AnimatingFrameworkProperty(
+    background = new AnimatingFrameworkProperty(
       this,
       "background",
       'background',
@@ -84,14 +84,14 @@ class Border extends FrameworkElement implements IFrameworkContainer
       },
       converter:const StringToSolidColorBrushConverter());
 
-    borderStyleProperty = new FrameworkProperty(this, 'borderStyle',
+    borderStyle= new FrameworkProperty(this, 'borderStyle',
         propertyChangedCallback: (BorderStyle value){
           rawElement.style.borderStyle = '$value';
         },
         defaultValue: BorderStyle.solid,
         converter: const StringToBorderStyleConverter());
 
-    paddingProperty = new FrameworkProperty(
+    padding = new FrameworkProperty(
       this,
       "padding",
       (Thickness value){
@@ -99,7 +99,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
         updateLayout();
       }, new Thickness(0), converter:const StringToThicknessConverter());
 
-    cornerRadiusProperty = new AnimatingFrameworkProperty(
+    cornerRadius = new AnimatingFrameworkProperty(
       this,
       "cornerRadius",
       'border-radius',
@@ -117,7 +117,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
                                 converter: const StringToThicknessConverter()),
       converter:const StringToThicknessConverter());
 
-    borderColorProperty = new AnimatingFrameworkProperty(
+    borderColor = new AnimatingFrameworkProperty(
       this,
       "borderColor",
       'border',
@@ -128,7 +128,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
       converter:const StringToColorConverter());
 
 
-    borderThicknessProperty = new FrameworkProperty(
+    borderThickness = new FrameworkProperty(
       this,
       "borderThickness",
       (value){
@@ -142,7 +142,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
 
       }, new Thickness(0), converter:const StringToThicknessConverter());
 
-    horizontalScrollEnabledProperty = new AnimatingFrameworkProperty(this,
+    horizontalScrollEnabled = new AnimatingFrameworkProperty(this,
         "horizontalScrollEnabled",
         'overflow',
         defaultValue: false,
@@ -151,7 +151,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
         },
         converter:const StringToBooleanConverter());
 
-    verticalScrollEnabledProperty = new AnimatingFrameworkProperty(this,
+    verticalScrollEnabled = new AnimatingFrameworkProperty(this,
         "verticalScrollEnabled",
         'overflow',
         propertyChangedCallback:(bool value){
@@ -177,41 +177,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
     }
   }
 
-  set verticalScrollEnabled(bool value) => setValue(verticalScrollEnabledProperty, value);
-
-
-  set borderStyle(BorderStyle value) => setValue(borderStyleProperty, value);
-  BorderStyle get borderStyle => getValue(borderStyleProperty);
-
-  /// Sets the [backgroundProperty] value.
-  set background(Brush value) => setValue(backgroundProperty, value);
-  /// Gets the [backgroundProperty] value.
-  Brush get background => getValue(backgroundProperty);
-
-  /// Sets the [paddingProperty] value.
-  set padding(Thickness value) => setValue(paddingProperty, value);
-  /// Gets the [paddingProperty] value.
-  Thickness get padding => getValue(paddingProperty);
-
-  /// Sets the [cornerRadiusProperty] value.
-  set cornerRadius(int value) => setValue(cornerRadiusProperty, value);
-  /// Gets the [cornerRadiusProperty] value.
-  int get cornerRadius => getValue(cornerRadiusProperty);
-
-  /// Sets the [borderColorProperty] value.
-  set borderColor(Color value) => setValue(borderColorProperty, value);
-  /// Gets the [borderColorProperty] value.
-  Color get borderColor => getValue(borderColorProperty);
-
-  /// Sets the [borderThicknessProperty] value.
-  set borderThickness(Thickness value) => setValue(borderThicknessProperty, value);
-  /// Gets the [borderThicknessProperty] value.
-  Thickness get borderThickness => getValue(borderThicknessProperty);
-
-  /// Gets the [contentProperty] value.
-  FrameworkElement get content => getValue(contentProperty);
-  /// Sets the [contentProperty] value.
-  set content(FrameworkElement value) => setValue(contentProperty, value);
+  get containerContent => content.value;
 
   /// Overridden [FrameworkObject] method for generating the html representation of the border.
   void createElement(){

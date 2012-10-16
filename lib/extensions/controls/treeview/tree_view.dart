@@ -45,11 +45,10 @@ class TreeView extends Panel
   StyleTemplate mouseDownBorderStyle;
   StyleTemplate mouseUpBorderStyle;
 
-  FrameworkProperty indentProperty;
-  FrameworkProperty openArrowProperty;
-  FrameworkProperty borderThicknessProperty;
-  FrameworkProperty borderColorProperty;
-  FrameworkProperty selectedNodeProperty;
+  FrameworkProperty<num> indent;
+  FrameworkProperty<Thickness> borderThickness;
+  FrameworkProperty<Color> borderColor;
+  FrameworkProperty<TreeNode> selectedNode;
 
   /// Event which fires when a node is selected in the TreeView.
   final FrameworkEvent<TreeNodeSelectedEventArgs> treeNodeSelected =
@@ -63,9 +62,9 @@ class TreeView extends Panel
 
     initStyleTemplates();
 
-    cursor = Cursors.Arrow;
+    cursor.value = Cursors.Arrow;
 
-    background = new SolidColorBrush(getResource('theme_background_light'));
+    background.value = new SolidColorBrush(getResource('theme_background_light'));
 
     registerEvent('treenodeselected', treeNodeSelected);
   }
@@ -126,44 +125,44 @@ class TreeView extends Panel
   void clearSelectedNode(){
     if (selectedNode == null) return;
 
-    setValue(selectedNode._mouseEventStylesProperty, mouseLeaveBorderStyle);
-    selectedNode == null;
+    selectedNode.value._mouseEventStyles.value = mouseLeaveBorderStyle;
+    selectedNode.value == null;
   }
 
 
   void _onTreeNodeSelected(TreeNode node){
 
-    if (selectedNode != null){
-      setValue(selectedNode._mouseEventStylesProperty, mouseLeaveBorderStyle);
+    if (selectedNode.value != null){
+      selectedNode.value._mouseEventStyles.value = mouseLeaveBorderStyle;
     }
 
-    selectedNode = node;
-    setValue(selectedNode._mouseEventStylesProperty, mouseUpBorderStyle);
+    selectedNode.value = node;
+    selectedNode.value._mouseEventStyles.value = mouseUpBorderStyle;
     treeNodeSelected.invoke(this, new TreeNodeSelectedEventArgs(node));
   }
 
   void _initializeTreeViewProperties(){
-    selectedNodeProperty = new FrameworkProperty(this, 'selectedNode');
+    selectedNode = new FrameworkProperty(this, 'selectedNode');
 
-    indentProperty = new FrameworkProperty(this, 'indent'
+    indent = new FrameworkProperty(this, 'indent'
       , (_) => updateLayout(), 10, converter:const StringToNumericConverter());
 
-    borderColorProperty = new AnimatingFrameworkProperty(
+    borderColor = new AnimatingFrameworkProperty(
       this,
       "borderColor",
       'border',
-      propertyChangedCallback: (value){
-        rawElement.style.borderColor = value.color.toColorString();
+      propertyChangedCallback: (Color value){
+        rawElement.style.borderColor = value.toString();
       },
-      converter:const StringToSolidColorBrushConverter());
+      converter:const StringToColorConverter());
 
-    borderThicknessProperty = new FrameworkProperty(
+    borderThickness = new FrameworkProperty(
       this,
       "borderThickness",
       propertyChangedCallback:
         (value){
 
-        String color = borderColor != null
+        String color = borderColor.value != null
             ? rawElement.style.borderColor
             : getResource('theme_border_color');
 
@@ -197,31 +196,12 @@ class TreeView extends Panel
     });
   }
 
-  // FrameworkProperty getters/setters
-  TreeNode get selectedNode => getValue(selectedNodeProperty);
-  set selectedNode(TreeNode node) => setValue(selectedNodeProperty, node);
-
-  num get indent => getValue(indentProperty);
-  set indent(num value) => setValue(indentProperty, value);
-
-  /// Sets the [borderColorProperty] value.
-  set borderColor(SolidColorBrush value) => setValue(borderColorProperty, value);
-  /// Gets the [borderColorProperty] value.
-  SolidColorBrush get borderColor => getValue(borderColorProperty);
-
-  /// Sets the [borderThicknessProperty] value.
-  set borderThickness(Thickness value) => setValue(borderThicknessProperty, value);
-  /// Gets the [borderThicknessProperty] value.
-  Thickness get borderThickness => getValue(borderThicknessProperty);
-
-
   void createElement(){
     rawElement = new DivElement();
     rawElement.style.overflowX = "auto";
     rawElement.style.overflowY = "auto";
   }
 }
-
 
 class TreeNodeSelectedEventArgs extends EventArgs{
   final TreeNode node;

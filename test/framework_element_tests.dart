@@ -38,131 +38,131 @@ run(){
 
       //make sure property get/set is working correctly
       //(the underlying dependency property system actually)
-      fp.width = 30;
-      Expect.equals(fp.width, 30, 'width assignment');
+      fp.width.value = 30;
+      Expect.equals(fp.width.value, 30, 'width assignment');
 
-      fp.height = 40;
-      Expect.equals(fp.height, 40, 'height assignment');
+      fp.height.value = 40;
+      Expect.equals(fp.height.value, 40, 'height assignment');
 
-      fp.maxWidth = 100;
-      Expect.equals(fp.maxWidth, 100, 'maxWidth assignment');
+      fp.maxWidth.value = 100;
+      Expect.equals(fp.maxWidth.value, 100, 'maxWidth assignment');
 
-      fp.minWidth = 0;
-      Expect.equals(fp.minWidth, 0, 'maxHeight assignment');
+      fp.minWidth.value = 0;
+      Expect.equals(fp.minWidth.value, 0, 'maxHeight assignment');
 
-      fp.maxHeight = 100;
-      Expect.equals(fp.maxHeight, 100, 'maxHeight assignment');
+      fp.maxHeight.value = 100;
+      Expect.equals(fp.maxHeight.value, 100, 'maxHeight assignment');
 
-      fp.minHeight = 0;
-      Expect.equals(fp.minHeight, 0, 'maxWidth assignment');
+      fp.minHeight.value = 0;
+      Expect.equals(fp.minHeight.value, 0, 'maxWidth assignment');
 
-      fp.opacity = .5;
-      Expect.equals(fp.opacity, .5, 'opacity assignment');
+      fp.opacity.value = .5;
+      Expect.equals(fp.opacity.value, .5, 'opacity assignment');
 
-      fp.visibility = Visibility.collapsed;
-      Expect.equals(fp.visibility, Visibility.collapsed, 'visibility assignment');
+      fp.visibility.value = Visibility.collapsed;
+      Expect.equals(fp.visibility.value, Visibility.collapsed, 'visibility assignment');
 
-      fp.margin = new Thickness.specified(1,2,3,4);
-      Expect.equals(fp.margin.toString(), new Thickness.specified(1,2,3,4).toString(), 'margin assignment');
+      fp.margin.value = new Thickness.specified(1,2,3,4);
+      Expect.equals(fp.margin.value.toString(), new Thickness.specified(1,2,3,4).toString(), 'margin assignment');
 
-      fp.cursor = Cursors.Crosshair;
-      Expect.equals(fp.cursor, Cursors.Crosshair, 'cursor assignment');
+      fp.cursor.value = Cursors.Crosshair;
+      Expect.equals(fp.cursor.value, Cursors.Crosshair, 'cursor assignment');
 
-      fp.tag = "hello world";
-      Expect.equals(fp.tag, "hello world", 'tag assignment');
+      fp.tag.value = "hello world";
+      Expect.equals(fp.tag.value, "hello world", 'tag assignment');
 
-      fp.dataContext = "data context";
-      Expect.equals(fp.dataContext, "data context", 'data context assignment');
+      fp.dataContext.value = "data context";
+      Expect.equals(fp.dataContext.value, "data context", 'data context assignment');
 
-      fp.name = "control name";
+      fp.name.value = "control name";
       Expect.equals(fp.name, "control name", 'name assignment');
 
-      fp.hAlign = HorizontalAlignment.right;
+      fp.hAlign.value = HorizontalAlignment.right;
       Expect.equals(fp.hAlign, HorizontalAlignment.right, 'horizontalAlignment assignment');
 
-      fp.vAlign = VerticalAlignment.bottom;
-      Expect.equals(fp.vAlign, VerticalAlignment.bottom, 'verticalAlignment assignment');
+      fp.vAlign.value = VerticalAlignment.bottom;
+      Expect.equals(fp.vAlign.value, VerticalAlignment.bottom, 'verticalAlignment assignment');
     });
     test('minHeight/maxHeight', (){
       FrameworkElement fp = new FrameworkElement();
 
       Expect.isNotNull(fp);
 
-      fp.height = 10;
-      fp.width = 10;
-      fp.minHeight = 10;
-      fp.maxHeight = 100;
+      fp.height.value = 10;
+      fp.width.value = 10;
+      fp.minHeight.value = 10;
+      fp.maxHeight.value = 100;
 
-      fp.height = -5;
-      Expect.equals(fp.minHeight, fp.height);
+      fp.height.value = -5;
+      Expect.equals(fp.minHeight.value, fp.height.value);
 
-      fp.height = 105;
-      Expect.equals(fp.maxHeight, fp.height);
+      fp.height.value = 105;
+      Expect.equals(fp.maxHeight.value, fp.height.value);
 
       //now go the other way, making sure that height is adjusted if
       //max/min heights make it invalid
 
-      fp.maxHeight = 75;
+      fp.maxHeight.value = 75;
       //Expect.equals(fp.maxHeight, fp.height);
 
-      fp.height = 15;
+      fp.height.value = 15;
 
-      fp.minHeight = 25;
+      fp.minHeight.value = 25;
       //Expect.equals(fp.minHeight, fp.height);
 
       //check min/max overlap
-      fp.minHeight = 80;
+      fp.minHeight.value = 80;
       //Expect.equals(75, fp.minHeight);
 
-      fp.minHeight = 25;
-      fp.maxHeight = 10;
+      fp.minHeight.value = 25;
+      fp.maxHeight.value = 10;
 
       //Expect.equals(25, fp.maxHeight);
     });
     test('minWidth/maxWidth', (){
       FrameworkElement fp = new FrameworkElement();
 
-      fp.minWidth = 10;
-      fp.maxWidth = 100;
+      fp.minWidth.value = 10;
+      fp.maxWidth.value = 100;
 
-      fp.width = -5;
+      fp.width.value = -5;
       Expect.equals(10, fp.width);
 
-      fp.width = 105;
+      fp.width.value = 105;
       Expect.equals(100, fp.width);
 
       //now go the other way, making sure that width is adjusted if
       //max/min widths make it invalid
 
-      fp.maxWidth = 75;
+      fp.maxWidth.value = 75;
       //Expect.equals(75, fp.width);
 
-      fp.width = 15;
+      fp.width.value = 15;
 
-      fp.minWidth = 25;
+      fp.minWidth.value = 25;
       //Expect.equals(25, fp.width);
 
       //check min/max overlap
-      fp.minWidth = 80;
+      fp.minWidth.value = 80;
       //Expect.equals(75, fp.minWidth);
 
-      fp.minWidth = 25;
-      fp.maxWidth = 10;
+      fp.minWidth.value = 25;
+      fp.maxWidth.value = 10;
 
       //Expect.equals(25, fp.maxWidth);
     });
     test('resolves to dataContext', (){
       var b = new Border();
-      b.dataContext = "hello world";
+      b.dataContext.value = "hello world";
 
       var dc = b.resolveDataContext();
 
-      Expect.equals(b.dataContextProperty, dc);
+      Expect.equals(b.dataContext, dc);
     });
     test('null parent returns null dataContext', (){
       var b = new Border();
       var sp = new Stack();
-      b.content = sp;
+      b.content.value = sp;
 
       var dc = sp.resolveDataContext();
 
@@ -181,12 +181,12 @@ run(){
       var b4 = new Border();
       var b5 = new Border();
       var sp = new Stack();
-      b1.content = b2;
-      b2.content = b3;
-      b3.content = b4;
-      b4.content = b5;
-      b5.content = sp;
-      b1.dataContext = "hello world";
+      b1.content.value = b2;
+      b2.content.value = b3;
+      b3.content.value = b4;
+      b4.content.value = b5;
+      b5.content.value = sp;
+      b1.dataContext.value = "hello world";
 
       var dc = sp.resolveDataContext();
 

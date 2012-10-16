@@ -1,8 +1,8 @@
 
 class MasterViewModel extends ViewModelBase
 {
-  FrameworkProperty statusMessageProperty;
-  FrameworkProperty contentProperty;
+  FrameworkProperty statusMessage;
+  FrameworkProperty content;
 
   final View _calc = new Calculator();
   final View _home = new Home();
@@ -18,10 +18,10 @@ class MasterViewModel extends ViewModelBase
   }
 
   void _initMasterViewModelProperties(){
-    statusMessageProperty = new FrameworkProperty(this, 'statusMessage',
+    statusMessage = new FrameworkProperty(this, 'statusMessage',
         defaultValue: 'Home view selected.');
 
-    contentProperty = new FrameworkProperty(this, 'content');
+    content = new FrameworkProperty(this, 'content');
   }
 
   String _viewNameFromInstanceOf(View view){
@@ -30,15 +30,11 @@ class MasterViewModel extends ViewModelBase
 
   void setContent(View contentView){
     contentView.ready.then((t){
-      statusMessage = '${_viewNameFromInstanceOf(contentView)} view selected.';
-      setValue(contentProperty, t);
+      statusMessage.value = '${_viewNameFromInstanceOf(contentView)} view selected.';
+      content.value = t;
 
     });
   }
-
-  set statusMessage(String statusMessage) =>
-      setValue(statusMessageProperty, statusMessage);
-  String get statusMessage => getValue(statusMessageProperty);
 
   /**
    * Displays a status [message] and then returns to the previous message
@@ -49,13 +45,13 @@ class MasterViewModel extends ViewModelBase
   void setTemporaryMessage(String message, {num timeInMs : 4000}){
     //TODO add queuing for overlapping messages
 
-    final oldStatusMessage = statusMessage;
+    final oldStatusMessage = statusMessage.value;
 
     void resetMessage(_){
-      statusMessage = oldStatusMessage;
+      statusMessage.value = oldStatusMessage;
     }
 
-    statusMessage = message;
+    statusMessage.value = message;
     new Timer(timeInMs, resetMessage);
   }
 
@@ -63,9 +59,9 @@ class MasterViewModel extends ViewModelBase
     var header = new View.fromResource('web/views/templates/about_header.xml');
     var body = new View.fromResource('web/views/templates/about_body.xml');
 
-    var oldStatusMessage = statusMessage;
+    var oldStatusMessage = statusMessage.value;
 
-    statusMessage = "Displaying 'About Switchy' dialog.";
+    statusMessage.value = "Displaying 'About Switchy' dialog.";
 
     Futures
       .wait([header.ready, body.ready])
@@ -75,7 +71,7 @@ class MasterViewModel extends ViewModelBase
         return md.show();
       })
       .then((_){
-        statusMessage = oldStatusMessage;
+        statusMessage.value = oldStatusMessage;
       });
   }
 
@@ -94,7 +90,7 @@ class MasterViewModel extends ViewModelBase
     final selection =
         args.selectedMenuItem == null ? sender : args.selectedMenuItem;
 
-    final tag = selection.tag;
+    final tag = selection.tag.value;
 
     if (tag == null) return;
 

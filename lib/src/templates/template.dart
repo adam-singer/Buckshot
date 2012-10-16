@@ -117,7 +117,7 @@ class Template {
         if (result != null) return result;
       }
     }else if (cc is FrameworkProperty){
-      final obj = getValue(cc);
+      final obj = cc.value;
       if (obj == null || !(obj is FrameworkElement)) return null;
       return findByName(name, obj);
     }else{
@@ -373,11 +373,11 @@ class Template {
         }
         // defer parsing of the template xml, the template
         // iterator should handle later.
-        setValue(p, ofXMLNode.children[0].toString());
+        p.value = ofXMLNode.children[0].toString();
         c.complete(true);
       }else{
 
-        var testValue = getValue(p);
+        var testValue = p.value;
 
         if (testValue != null && testValue is List){
           Futures
@@ -402,12 +402,12 @@ class Template {
 
           if (ofXMLNode.children.isEmpty()){
             //assume text assignment
-            setValue(p, ofXMLNode.text.trim());
+            p.value = ofXMLNode.text.trim();
             c.complete(true);
           }else{
             if (ofXMLNode.children.every((n) => n is XmlText)){
               // text assignment to property
-              setValue(p, ofXMLNode.text.trim());
+              p.value = ofXMLNode.text.trim();
               c.complete(true);
             }else if (ofXMLNode.children.length == 1 &&
                 ofXMLNode.children[0] is! XmlText){
@@ -416,7 +416,7 @@ class Template {
 
               toFrameworkObject(ofXMLNode.children[0])
                 .then((ne){
-                  setValue(p, ne);
+                  p.value = ne;
                   c.complete(true);
               });
             }
@@ -471,7 +471,7 @@ class Template {
           // single child (previous child will be overwritten
           // if multiple are provided)
           //TODO throw on multiple child element nodes
-          setValue(cc, childElement);
+          cc.value = childElement;
         }
         c.complete(true);
       });
@@ -491,7 +491,7 @@ class Template {
       if (cc is List) throw const PresentationProviderException("Expected"
       " container context to be property.  Found list.");
 
-      setValue(cc, ofXMLNode.text.trim());
+      cc.value = ofXMLNode.text.trim();
     }
   }
 
@@ -541,7 +541,7 @@ class Template {
                 && converterSplit[1].startsWith('{resource ')
                 && converterSplit[1].endsWith('}')){
               _resolveBinding(placeholder, converterSplit[1]);
-              var testValueConverter = getValue(placeholder);
+              var testValueConverter = placeholder.value;
               if (testValueConverter is IValueConverter)
                 vc = testValueConverter;
             } //TODO: else throw?
@@ -555,7 +555,7 @@ class Template {
           throw const PresentationProviderException('Binding'
             ' syntax incorrect.');
 
-        setValue(p, getResource(words[1]));
+        p.value = getResource(words[1]);
         break;
       case "template":
         if (words.length != 2)
@@ -641,7 +641,7 @@ class Template {
     //TODO: maybe support merged resource collections in the future...
     if (resource is ResourceCollection) return;
 
-    if (resource.key.isEmpty())
+    if (resource.key.value.isEmpty())
       throw const PresentationProviderException("Resource is missing"
         " a key identifier.");
 
@@ -685,7 +685,7 @@ class Template {
           // property
           final f = element.resolveProperty(k.toLowerCase());
           fList.add(f);
-          f.then((p){
+          f.then((FrameworkProperty p){
               if (p == null) return;
 
               if (v.trim().startsWith("{")){
@@ -694,7 +694,7 @@ class Template {
               }else{
                 //value or enum (enums converted at property level
                 //via FrameworkProperty.stringToValueConverter [if assigned])
-                setValue(p, v);
+                p.value = v;
             }
           });
         }

@@ -9,7 +9,7 @@ class Main extends View
     ready.then((t){
       // Assign the view model to the datacontext so that template
       // bindings will hook up.
-      t.dataContext = new MasterViewModel.withView(this);
+      t.dataContext.value = new MasterViewModel.withView(this);
 
     });
   }

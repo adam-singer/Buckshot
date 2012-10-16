@@ -375,7 +375,7 @@ getResource(String resourceKey, [IValueConverter converter = null]){
  * platforms.
  */
 void registerResource(FrameworkResource resource){
-  _resourceRegistry[resource.key.trim().toLowerCase()] = resource;
+  _resourceRegistry[resource.key.value.trim().toLowerCase()] = resource;
 }
 
 

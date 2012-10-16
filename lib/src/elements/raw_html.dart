@@ -21,7 +21,7 @@
 class RawHtml extends FrameworkElement
 {
   /// A framework property representing the raw html string.
-  FrameworkProperty htmlStringProperty;
+  FrameworkProperty<String> htmlString;
 
   RawHtml()
   {
@@ -29,22 +29,19 @@ class RawHtml extends FrameworkElement
 
     _initRawHtmlProperties();
   }
-  
+
   RawHtml.register() : super.register();
   makeMe() => new RawHtml();
 
   void _initRawHtmlProperties(){
 
-    htmlStringProperty = new FrameworkProperty(
+    htmlString = new FrameworkProperty(
       this,
       "htmlString",
       (String value){
         rawElement.innerHTML = value.toString();
       });
   }
-
-  String get htmlString => getValue(htmlStringProperty);
-  set htmlString(String value) => setValue(htmlStringProperty, value);
 
   void createElement(){
     rawElement = new DivElement();

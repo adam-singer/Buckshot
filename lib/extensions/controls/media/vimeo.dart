@@ -9,7 +9,7 @@
 
 class Vimeo extends FrameworkElement
 {
-  FrameworkProperty videoIDProperty;
+  FrameworkProperty<String> videoID;
 
   Vimeo(){
     Browser.appendClass(rawElement, "vimeo");
@@ -21,14 +21,10 @@ class Vimeo extends FrameworkElement
   makeMe() => new Vimeo();
 
   void _initializeVimeoProperties(){
-    videoIDProperty = new FrameworkProperty(this, "videoID", (String value){
+    videoID= new FrameworkProperty(this, "videoID", (String value){
       rawElement.attributes["src"] = 'http://player.vimeo.com/video/${value.toString()}';
     });
   }
-
-  String get videoID => getValue(videoIDProperty);
-  set videoID(String value) => setValue(videoIDProperty, value);
-
 
   void createElement(){
     rawElement = new Element.tag("iframe");

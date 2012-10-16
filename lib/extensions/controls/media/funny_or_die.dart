@@ -9,7 +9,7 @@
 
 class FunnyOrDie extends FrameworkElement
 {
-  FrameworkProperty videoIDProperty;
+  FrameworkProperty<String> videoID;
 
   FunnyOrDie(){
     Browser.appendClass(rawElement, "funnyordie");
@@ -21,14 +21,10 @@ class FunnyOrDie extends FrameworkElement
   makeMe() => new FunnyOrDie();
 
   void _initializeFunnyOrDieProperties(){
-    videoIDProperty = new FrameworkProperty(this, "videoID", (String value){
+    videoID = new FrameworkProperty(this, "videoID", (String value){
       rawElement.attributes["src"] = 'http://www.funnyordie.com/embed/${value.toString()}';
     });
   }
-
-  String get videoID => getValue(videoIDProperty);
-  set videoID(String value) => setValue(videoIDProperty, value);
-
 
   void createElement(){
     rawElement = new Element.tag("iframe");

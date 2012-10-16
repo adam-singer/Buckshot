@@ -52,18 +52,20 @@ void main() {
     .then((t){
         bindToWindowDimensions(t.parent);
 
-        (t.parent as Border).background =
+        (t.parent as Border).background.value =
             new SolidColorBrush(getResource('theme_background_dark'));
 
-        (t.parent as Border).verticalScrollEnabled = true;
+        (t.parent as Border).verticalScrollEnabled.value = true;
 
         final demo = queryString['demo'];
 
+
+
         if (demo != null){
-          t.dataContext.setTemplate('${demo}');
+          t.dataContext.value.setTemplate('${demo}');
         }else{
-          t.dataContext.setTemplate('welcome');
-          t.dataContext.setQueryStringTo('welcome');
+          t.dataContext.value.setTemplate('welcome');
+          t.dataContext.value.setQueryStringTo('welcome');
         }
     });
 

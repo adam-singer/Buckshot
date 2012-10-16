@@ -21,39 +21,33 @@
 * * [GridLength]
 */
 class RowDefinition extends GridLayoutDefinition{
-  final FrameworkEvent _rowDefinitionChanged;
+  final FrameworkEvent _rowDefinitionChanged = new FrameworkEvent();
 
   /// Represents the [GridLength] height of the row.
-  FrameworkProperty heightProperty;
+  FrameworkProperty<GridLength> height;
 
-  RowDefinition() : _rowDefinitionChanged = new FrameworkEvent()
+  RowDefinition()
   {
     _initRowDefinitionProperties();
   }
-  
-  RowDefinition.register() : super.register(),
-  _rowDefinitionChanged = new FrameworkEvent();
+
+  RowDefinition.register() : super.register();
   makeMe() => new RowDefinition();
 
   /// Constructs a row definition with a given [GridLength] value.
-  RowDefinition.with(GridLength value) : _rowDefinitionChanged = new FrameworkEvent()
+  RowDefinition.with(GridLength value)
   {
     _initRowDefinitionProperties();
-    height = value;
+    height.value = value;
   }
 
   void _initRowDefinitionProperties(){
-    heightProperty = new FrameworkProperty(this, "height", (GridLength v){
-      if (v.value < minLength) v.value = minLength;
-      if (v.value  > maxLength) v.value = maxLength;
+    height = new FrameworkProperty(this, "height", (GridLength v){
+      if (v.length.value < minLength) v.length.value = minLength;
+      if (v.length.value  > maxLength) v.length.value = maxLength;
 
       _value = v;
       _rowDefinitionChanged.invoke(this, new EventArgs());
     }, new GridLength(), converter:const StringToGridLengthConverter());
   }
-
-  /// Sets the [heightProperty] value.
-  set height(GridLength v) => setValue(heightProperty, v);
-  /// Gets the [heightProperty] value.
-  GridLength get height => getValue(heightProperty);
 }

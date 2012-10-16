@@ -29,10 +29,7 @@ class FrameworkProperty<T> extends FrameworkPropertyBase
   T _value;
 
   /**
-   * Represents the stored value of the FrameworkProperty.
-   *
-   * Generally, this should not be access directly, but through:
-   *     getValue({propertyName});
+   * Sets the stored value of the FrameworkProperty.
    */
    set value(T newValue){
      if (stringToValueConverter != null && newValue is String){
@@ -57,8 +54,10 @@ class FrameworkProperty<T> extends FrameworkPropertyBase
 
    }
 
+  /** Gets the stored value of the FrameworkProperty. */
   T get value() => _value;
 
+  /** Gets the previous value of the FrameworkProperty. */
   T previousValue;
 
   /// Constructs a FrameworkProperty and initializes it to the framework.

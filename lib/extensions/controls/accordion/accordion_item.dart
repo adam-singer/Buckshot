@@ -1,8 +1,8 @@
 
 class AccordionItem extends Control implements IFrameworkContainer
 {
-  FrameworkProperty headerProperty;
-  FrameworkProperty bodyProperty;
+  FrameworkProperty<FrameworkElement> header;
+  FrameworkProperty<FrameworkElement> body;
 
   AccordionItem()
   {
@@ -10,23 +10,16 @@ class AccordionItem extends Control implements IFrameworkContainer
 
     _initAccordionItemProperties();
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = bodyProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = body;
   }
 
   AccordionItem.register() : super.register();
   makeMe() => new AccordionItem();
 
-  get content => getValue(bodyProperty);
+  get containerContent => body.value;
 
   void _initAccordionItemProperties(){
-    headerProperty = new FrameworkProperty(this, 'header');
-    bodyProperty = new FrameworkProperty(this, 'body');
+    header = new FrameworkProperty(this, 'header');
+    body = new FrameworkProperty(this, 'body');
   }
-
-  get header => getValue(headerProperty);
-  set header(value) => setValue(headerProperty, value);
-
-  get body => getValue(bodyProperty);
-  set body(value) => setValue(bodyProperty, value);
-
 }

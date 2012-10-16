@@ -22,39 +22,33 @@
 * * [GridLength]
 */
 class ColumnDefinition extends GridLayoutDefinition{
-  final FrameworkEvent _columnDefinitionChanged;
+  final FrameworkEvent _columnDefinitionChanged = new FrameworkEvent();
 
   /// Represents the [GridLength] width of the column.
-  FrameworkProperty widthProperty;
+  FrameworkProperty<GridLength> width;
 
-  ColumnDefinition() : _columnDefinitionChanged = new FrameworkEvent()
+  ColumnDefinition()
   {
     _initColumnDefinitionProperties();
   }
 
-  ColumnDefinition.register() : super.register(),
-    _columnDefinitionChanged = new FrameworkEvent();
+  ColumnDefinition.register() : super.register();
   makeMe() => new ColumnDefinition();
-  
+
   /// Constructs a column definition with a given [GridLength] value.
-  ColumnDefinition.with(GridLength value) : _columnDefinitionChanged = new FrameworkEvent()
+  ColumnDefinition.with(GridLength value)
   {
     _initColumnDefinitionProperties();
-    width = value;
+    width.value = value;
   }
 
   void _initColumnDefinitionProperties(){
-    widthProperty = new FrameworkProperty(this, "width", (GridLength v){
-      if (v.value < minLength) v.value = minLength;
-      if (v.value  > maxLength) v.value = maxLength;
+    width = new FrameworkProperty(this, "width", (GridLength v){
+      if (v.length.value < minLength) v.length.value = minLength;
+      if (v.length.value > maxLength) v.length.value = maxLength;
 
       _value = v;
       _columnDefinitionChanged.invoke(this, new EventArgs());
     }, new GridLength(), converter:const StringToGridLengthConverter());
   }
-
-  /// Sets the [widthProperty] value.
-  set width(GridLength v) => setValue(widthProperty, v);
-  /// Gets the [widthProperty] value.
-  GridLength get width => getValue(widthProperty);
 }

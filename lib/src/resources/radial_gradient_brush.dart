@@ -24,7 +24,7 @@ class RadialGradientBrush extends Brush {
     if (fallback != null) fallbackColor = fallback;
     if (mode != null) drawMode = mode;
   }
-  
+
   RadialGradientBrush.register() : super.register();
   makeMe() => new RadialGradientBrush();
 
@@ -65,7 +65,7 @@ class RadialGradientBrush extends Brush {
 
     //create the string of stop colors
     stops.forEach((GradientStop stop){
-      colorString.add(stop.color.toColorString());
+      colorString.add(stop.color.value.toColorString());
 
       if (stop.percent != -1)
         colorString.add(" ${stop.percent}%");

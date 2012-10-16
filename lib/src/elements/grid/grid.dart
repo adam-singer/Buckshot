@@ -38,9 +38,9 @@ static const String noDirectGridCellExceptionMessage = "GridCell cannot be"
 final List<_GridCell> _internalChildren = new List<_GridCell>();
 
 /// Represents a collection of [ColumnDefinition]s.
-FrameworkProperty columnDefinitionsProperty;
+FrameworkProperty<ObservableList<ColumnDefinition>> columnDefinitions;
 /// Represents a collection of [RowDefinitions]s.
-FrameworkProperty rowDefinitionsProperty;
+FrameworkProperty<ObservableList<RowDefinition>> rowDefinitions;
 
 /// Represents the column assignment of an element within the grid.
 static AttachedFrameworkProperty columnProperty;
@@ -61,24 +61,27 @@ Grid()
     registerAttachedProperty('grid.columnspan', Grid.setColumnSpan);
     registerAttachedProperty('grid.rowspan', Grid.setRowSpan);
   }
-  columnDefinitionsProperty = new FrameworkProperty(this,
+  columnDefinitions = new FrameworkProperty(this,
       "columnDefinitions",
       (ObservableList<ColumnDefinition> list){
-        _updateColumnLayout(actualWidth);
+        _updateColumnLayout(actualWidth.value);
       },
       new ObservableList<ColumnDefinition>());
 
-  rowDefinitionsProperty = new FrameworkProperty(this,
+  rowDefinitions = new FrameworkProperty(this,
       "rowDefinitions",
       (ObservableList<RowDefinition> list){
-        _updateRowLayout(actualHeight);
+        _updateRowLayout(actualHeight.value);
       },
       new ObservableList<RowDefinition>());
 
   children.listChanged + _onChildrenChanging;
 
-  columnDefinitions.listChanged + (_,__) => _updateColumnLayout(actualWidth);
-  rowDefinitions.listChanged + (_,__) => _updateRowLayout(actualHeight);
+  columnDefinitions.value.listChanged + (_,__) =>
+      _updateColumnLayout(actualWidth.value);
+
+  rowDefinitions.value.listChanged + (_,__) =>
+      _updateRowLayout(actualHeight.value);
 
   measurementChanged + (_, MeasurementChangedEventArgs args){
     window.requestAnimationFrame((__) => updateLayout());
@@ -87,12 +90,6 @@ Grid()
 
 Grid.register() : super.register();
 makeMe() => new Grid();
-
-/// Gets the [columnDefinitionsProperty] [ObservableList].
-ObservableList<ColumnDefinition> get columnDefinitions => getValue(columnDefinitionsProperty);
-
-/// Gets the [rowDefinitionsProperty] [ObservableList].
-ObservableList<RowDefinition> get rowDefinitions => getValue(rowDefinitionsProperty);
 
 void _onChildrenChanging(Object _, ListChangedEventArgs args){
 
@@ -158,7 +155,7 @@ void _updateMeasurements(){
 
   _internalChildren
     .forEach((child){
-      child.content.updateMeasurement();
+      child.content.value.updateMeasurement();
     });
 }
 
@@ -166,12 +163,12 @@ void _updateMeasurements(){
 void _updateColumnLayout(num gridWidth){
   if (!isLoaded) return;
 
-  if (columnDefinitions.length == 0){
+  if (columnDefinitions.value.length == 0){
     //handle case where no columnDefinitions are set
     //assign all elements to a ghost column that is the same width as the grid
 
-    _internalChildren.forEach((child){
-      child.margin = new Thickness.specified(child.margin.top, 0, 0, 0);
+    _internalChildren.forEach((_GridCell child){
+      child.margin.value = new Thickness.specified(child.margin.value.top, 0, 0, 0);
       child.rawElement.style.width = '${gridWidth}px';
     //  db('width: ${child.rawElement.style.width}', this);
     });
@@ -184,17 +181,17 @@ void _updateColumnLayout(num gridWidth){
     ColumnDefinition lastStar = null;
 
     //initialize values for column types
-    columnDefinitions.forEach((ColumnDefinition c){
-      if (c.width.gridUnitType == GridUnitType.pixel){
-        c._adjustedLength = c.width.value;
+    columnDefinitions.value.forEach((ColumnDefinition c){
+      if (c.width.value.gridUnitType.value == GridUnitType.pixel){
+        c._adjustedLength = c.width.value.length.value;
         //summing the total pixels used by fixed column values
-        totalPixelValue += c.width.value;
+        totalPixelValue += c.width.value.length.value;
       }
-      else if (c.width.gridUnitType == GridUnitType.star){
-        totalStarValue += c.width.value; //generating a denominator for later actual width calculation
+      else if (c.width.value.gridUnitType.value == GridUnitType.star){
+        totalStarValue += c.width.value.length.value; //generating a denominator for later actual width calculation
         lastStar = c;
       }
-      else if (c.width.gridUnitType == GridUnitType.auto){
+      else if (c.width.value.gridUnitType.value == GridUnitType.auto){
         num widestAuto = 0;
 
         //measure the largest child for the current column
@@ -202,12 +199,14 @@ void _updateColumnLayout(num gridWidth){
           .filter((child){
             //children that span outside the column are excluded
             return
-                Grid.getColumn(child.content) == columnDefinitions.indexOf(c, 0)
-                && Grid.getColumnSpan(child.content) < 2;
+                Grid.getColumn(child.content.value) ==
+                columnDefinitions.value.indexOf(c, 0) &&
+                Grid.getColumnSpan(child.content.value) < 2;
           })
           .forEach((_GridCell child){
-            num childWidth = child.content.mostRecentMeasurement.bounding.width;
-            num mOffset = child.content.margin.left + child.content.margin.right;
+            num childWidth = child.content.value.mostRecentMeasurement.bounding.width;
+            num mOffset = child.content.value.margin.value.left +
+                child.content.value.margin.value.right;
             if (childWidth + mOffset > widestAuto)
               widestAuto = childWidth + mOffset;
           });
@@ -222,41 +221,45 @@ void _updateColumnLayout(num gridWidth){
     //now determine the offsets for each column
     num ii = 0;
     num totalStarLength = 0;
-    columnDefinitions.forEach((ColumnDefinition c){
+    columnDefinitions.value.forEach((ColumnDefinition c){
 
       // if star type calculate adjusted length
-      if (c.width.gridUnitType == GridUnitType.star){
+      if (c.width.value.gridUnitType == GridUnitType.star){
         if (c === lastStar){
           c._adjustedLength = (availColWidth - totalStarLength);
         }
         else{
-          c._adjustedLength = ((availColWidth * (c.width.value / totalStarValue)).round());
+          c._adjustedLength = ((availColWidth * (c.width.value.length.value / totalStarValue)).round());
           totalStarLength += c._adjustedLength;
         }
       }
 
       //calculate the offset for each column
       num id = ii - 1;
-      c._adjustedOffset = ii == 0 ? 0 : columnDefinitions[id]._adjustedOffset + columnDefinitions[id]._adjustedLength;
+      c._adjustedOffset = ii == 0
+          ? 0
+          : columnDefinitions.value[id]._adjustedOffset +
+            columnDefinitions.value[id]._adjustedLength;
 
       ii++;
     });
 
     //set child wrappers to column offsets
     _internalChildren.forEach((child){
-      num colIndex = Grid.getColumn(child.content).toInt();
+      num colIndex = Grid.getColumn(child.content.value).toInt();
 
-      num childColumnSpan = Grid.getColumnSpan(child.content).toInt();
+      num childColumnSpan = Grid.getColumnSpan(child.content.value).toInt();
 
       //child.rawElement.style.left = '${columnDefinitions[colIndex]._adjustedOffset}px';
-      child.margin = new Thickness.specified(child.margin.top, 0, 0, columnDefinitions[colIndex]._adjustedOffset);
+      child.margin.value =
+          new Thickness.specified(child.margin.value.top, 0, 0, columnDefinitions.value[colIndex]._adjustedOffset);
 
       if (childColumnSpan > 1){
-        if (childColumnSpan > columnDefinitions.length - colIndex)
-          childColumnSpan = columnDefinitions.length - colIndex;
-        child.rawElement.style.width = '${_totalLengthOf(columnDefinitions.getRange(colIndex, childColumnSpan))}px';
+        if (childColumnSpan > columnDefinitions.value.length - colIndex)
+          childColumnSpan = columnDefinitions.value.length - colIndex;
+        child.rawElement.style.width = '${_totalLengthOf(columnDefinitions.value.getRange(colIndex, childColumnSpan))}px';
       }else{
-        child.rawElement.style.width = '${columnDefinitions[colIndex]._adjustedLength}px';
+        child.rawElement.style.width = '${columnDefinitions.value[colIndex]._adjustedLength}px';
       }
       child.updateLayout();
     });
@@ -267,12 +270,12 @@ void _updateRowLayout(num gridHeight){
   if (!isLoaded) return;
 
   //TODO handle with binding
-  if (rowDefinitions.length == 0){
+  if (rowDefinitions.value.length == 0){
     //handle case where no rowDefinitions are set
     //assign all elements to a ghost row that is the same height as the grid
 
     _internalChildren.forEach((child){
-      child.margin = new Thickness.specified(0, 0, 0, child.margin.left);
+      child.margin.value = new Thickness.specified(0, 0, 0, child.margin.value.left);
       child.rawElement.style.height = '${gridHeight}px';
      // db('height: ${child.rawElement.style.height}', this);
     });
@@ -285,28 +288,29 @@ void _updateRowLayout(num gridHeight){
   RowDefinition lastStar = null;
 
   //initialize values for rows
-  rowDefinitions.forEach((RowDefinition c){
-    if (c.height.gridUnitType == GridUnitType.pixel){
-      c._adjustedLength = c.height.value;
-      totalPixelValue += c.height.value;
+  rowDefinitions.value.forEach((RowDefinition c){
+    if (c.height.value.gridUnitType.value == GridUnitType.pixel){
+      c._adjustedLength = c.height.value.length.value;
+      totalPixelValue += c.height.value.length.value;
     }
-    else if (c.height.gridUnitType == GridUnitType.star){
-      totalStarValue += c.height.value;
+    else if (c.height.value.gridUnitType.value == GridUnitType.star){
+      totalStarValue += c.height.value.length.value;
       lastStar = c;
     }
-    else if (c.height.gridUnitType == GridUnitType.auto){
+    else if (c.height.value.gridUnitType.value == GridUnitType.auto){
       num widestAuto = 0;
 
       //measure the largest child for the current column
       _internalChildren
         .filter((_GridCell child){
           //children that span outside the row are excluded
-          return Grid.getRow(child.content) == rowDefinitions.indexOf(c, 0)
-                && Grid.getRowSpan(child.content) < 2;
+          return Grid.getRow(child.content.value) == rowDefinitions.value.indexOf(c, 0)
+                && Grid.getRowSpan(child.content.value) < 2;
         })
         .forEach((_GridCell child){
-          num childHeight = child.content.mostRecentMeasurement.bounding.height;
-          num mOffset = child.content.margin.top + child.content.margin.bottom;
+          num childHeight = child.content.value.mostRecentMeasurement.bounding.height;
+          num mOffset = child.content.value.margin.value.top +
+              child.content.value.margin.value.bottom;
           if (childHeight + mOffset > widestAuto)
             widestAuto = childHeight + mOffset;
         });
@@ -319,38 +323,42 @@ void _updateRowLayout(num gridHeight){
   num availRowHeight = gridHeight - totalPixelValue;
   num ii = 0;
   num totalStarLength = 0;
-  rowDefinitions.forEach((RowDefinition c){
+  rowDefinitions.value.forEach((RowDefinition c){
 
-    if (c.height.gridUnitType == GridUnitType.star){
+    if (c.height.value.gridUnitType == GridUnitType.star){
       if (c === lastStar){
         c._adjustedLength = (availRowHeight - totalStarLength);
       }else{
-        c._adjustedLength = ((availRowHeight * (c.height.value / totalStarValue)).round());
+        c._adjustedLength = ((availRowHeight * (c.height.value.length.value / totalStarValue)).round());
         totalStarLength += c._adjustedLength;
       }
     }
 
     //calculate the offset
     num id = ii - 1;
-    c._adjustedOffset = ii == 0 ? 0 : (rowDefinitions[id]._adjustedOffset + rowDefinitions[id]._adjustedLength);
+    c._adjustedOffset = ii == 0
+        ? 0
+        : (rowDefinitions.value[id]._adjustedOffset +
+            rowDefinitions.value[id]._adjustedLength);
     ii++;
   });
 
   //assign child wrappers to row offsets
   _internalChildren.forEach((_GridCell child){
-    num rowIndex = Grid.getRow(child.content).toInt();
-    num childRowSpan = Grid.getRowSpan(child.content).toInt();
+    num rowIndex = Grid.getRow(child.content.value).toInt();
+    num childRowSpan = Grid.getRowSpan(child.content.value).toInt();
 
     //child.rawElement.style.top = '${rowDefinitions[rowIndex]._adjustedOffset}px';
-    child.margin = new Thickness.specified(rowDefinitions[rowIndex]._adjustedOffset, 0, 0, child.margin.left);
+    child.margin.value =
+        new Thickness.specified(rowDefinitions.value[rowIndex]._adjustedOffset, 0, 0, child.margin.value.left);
 
     if (childRowSpan > 1){
-      if (childRowSpan > rowDefinitions.length - rowIndex)
-        childRowSpan = rowDefinitions.length - rowIndex;
+      if (childRowSpan > rowDefinitions.value.length - rowIndex)
+        childRowSpan = rowDefinitions.value.length - rowIndex;
 
-      child.rawElement.style.height = '${_totalLengthOf(rowDefinitions.getRange(rowIndex, childRowSpan))}px';
+      child.rawElement.style.height = '${_totalLengthOf(rowDefinitions.value.getRange(rowIndex, childRowSpan))}px';
     }else{
-      child.rawElement.style.height = '${rowDefinitions[rowIndex]._adjustedLength}px';
+      child.rawElement.style.height = '${rowDefinitions.value[rowIndex]._adjustedLength}px';
     }
 
     child.updateLayout();

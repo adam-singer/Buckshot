@@ -8,51 +8,41 @@ class _GridCell extends FrameworkObject
   EventHandlerReference _ref;
 
   /// Represents the content inside the border.
-  FrameworkProperty contentProperty;
-  FrameworkProperty marginProperty;
+  FrameworkProperty<FrameworkElement> content;
+  FrameworkProperty<Thickness> margin;
   static int _gridCellCount = 0;
 
   _GridCell()
   {
     _initGridCellProperties();
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
-    name = 'grid_cell_${_gridCellCount++}';
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = content;
+    name.value = 'grid_cell_${_gridCellCount++}';
   }
 
   makeMe() => null;
 
   void _initGridCellProperties(){
     //register the dependency properties
-    contentProperty = new FrameworkProperty(
+    content = new FrameworkProperty(
       this,
       "content",(c)
       {
-        if (contentProperty.previousValue != null){
-          contentProperty.previousValue.removeFromLayoutTree();
+        if (content.previousValue != null){
+          content.previousValue.removeFromLayoutTree();
         }
         if (c != null){
           c.addToLayoutTree(this);
         }
       });
 
-    marginProperty = new FrameworkProperty(
+    margin = new FrameworkProperty(
       this,
       "margin",
       (value){
         rawElement.style.margin = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
       }, new Thickness(0), converter:const StringToThicknessConverter());
   }
-
-  /// Gets the [contentProperty] value.
-  FrameworkElement get content => getValue(contentProperty);
-  /// Sets the [contentProperty] value.
-  set content(FrameworkElement value) => setValue(contentProperty, value);
-  /// Sets the [marginProperty] value.
-  set margin(Thickness value) => setValue(marginProperty, value);
-  /// Gets the [marginProperty] value.
-  Thickness get margin => getValue(marginProperty);
-
 
   /// Overridden [FrameworkObject] method for generating the html representation of the border.
   void createElement(){
@@ -72,8 +62,8 @@ class _GridCell extends FrameworkObject
 
    // db('updating gridcell layout for', content);
     //spoof the parent during the alignment pass
-    content.parent = this;
-    Polly.setFlexboxAlignment(content);
-    content.parent = parent;
+    content.value.parent = this;
+    Polly.setFlexboxAlignment(content.value);
+    content.value.parent = parent;
   }
 }

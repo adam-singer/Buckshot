@@ -55,7 +55,7 @@ class DataTemplate extends BuckshotObject
   }
 
   makeMe() => null;
-  
+
   /**
    * Returns a [FrameworkProperty] matching the given [propertyName], if match
    * is found.
@@ -82,11 +82,11 @@ class DataTemplate extends BuckshotObject
 
   /** Sets [propertyName] to the given [value] in the DataTemplate. */
   void setV(String propertyName, Dynamic value) {
-      setValue(_properties[propertyName], value);
+      _properties[propertyName].value = value;
   }
 
   /** Gets the value from [propertyName] in the DataTemplate.*/
-  Dynamic getV(String propertyName) => getValue(_properties[propertyName]);
+  Dynamic getV(String propertyName) => _properties[propertyName].value;
 
   /**
    * Adds a new [FrameworkProperty] to the DataTemplate with optional default

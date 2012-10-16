@@ -6,54 +6,53 @@
 * A basic single line TextBox.  Supports most forms of Html5 textual input type (see [InputTypes]) */
 class TextBox extends Control
 {
-  FrameworkProperty textProperty;
-  FrameworkProperty inputTypeProperty;
-  FrameworkProperty placeholderProperty;
-  FrameworkProperty borderColorProperty;
-  FrameworkProperty backgroundProperty;
-  FrameworkProperty borderThicknessProperty;
-  FrameworkProperty cornerRadiusProperty;
-  FrameworkProperty borderStyleProperty;
-  FrameworkProperty paddingProperty;
-  FrameworkProperty foregroundProperty;
-  FrameworkProperty fontSizeProperty;
-  FrameworkProperty fontFamilyProperty;
+  FrameworkProperty<String> text;
+  FrameworkProperty<InputTypes> inputType;
+  FrameworkProperty<String> placeholder;
+  FrameworkProperty<Color> borderColor;
+  FrameworkProperty<Brush> background;
+  FrameworkProperty<Thickness> borderThickness;
+  FrameworkProperty<Thickness> cornerRadius;
+  FrameworkProperty<BorderStyle> borderStyle;
+  FrameworkProperty<num> padding;
+  FrameworkProperty<Color> foreground;
+  FrameworkProperty<num> fontSize;
+  FrameworkProperty<String> fontFamily;
 
-  final FrameworkEvent<TextChangedEventArgs> textChanged;
+  final FrameworkEvent<TextChangedEventArgs> textChanged =
+      new FrameworkEvent<TextChangedEventArgs>();
 
-  TextBox() :
-  textChanged = new FrameworkEvent<TextChangedEventArgs>()
+  TextBox()
   {
     Browser.appendClass(rawElement, "textbox");
 
     _initTextBoxProperties();
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = textProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = text;
 
     _initEvents();
 
     registerEvent('textchanged', textChanged);
   }
 
-  TextBox.register() : super.register(),
-   textChanged = new FrameworkEvent<TextChangedEventArgs>();
+  TextBox.register() : super.register();
   makeMe() => new TextBox();
 
   void _initTextBoxProperties(){
     final _ie = rawElement as InputElement;
 
-    placeholderProperty = new FrameworkProperty(
+    placeholder = new FrameworkProperty(
       this,
       "placeholder",
       (String value){
         rawElement.attributes["placeholder"] = '$value';
       });
 
-    textProperty = new FrameworkProperty(this, "text", (value){
+    text = new FrameworkProperty(this, "text", (value){
       _ie.value = '$value';
     },"");
 
-    inputTypeProperty = new FrameworkProperty(this, "inputType",
+    inputType = new FrameworkProperty(this, "inputType",
       propertyChangedCallback:
         (InputTypes value){
           if (InputTypes._isValidInputType(value)){
@@ -66,7 +65,7 @@ class TextBox extends Control
       defaultValue: InputTypes.text,
       converter:const StringToInputTypesConverter());
 
-    backgroundProperty = new AnimatingFrameworkProperty(
+    background = new AnimatingFrameworkProperty(
       this,
       "background",
       'background',
@@ -80,7 +79,7 @@ class TextBox extends Control
       defaultValue: getResource('theme_textbox_background'),
       converter:const StringToSolidColorBrushConverter());
 
-    borderStyleProperty = new FrameworkProperty(this, 'borderStyle',
+    borderStyle = new FrameworkProperty(this, 'borderStyle',
         propertyChangedCallback: (BorderStyle value){
           rawElement.style.borderStyle = '$value';
         },
@@ -89,7 +88,7 @@ class TextBox extends Control
                       const StringToBorderStyleConverter()),
         converter: const StringToBorderStyleConverter());
 
-    cornerRadiusProperty = new AnimatingFrameworkProperty(
+    cornerRadius= new AnimatingFrameworkProperty(
       this,
       "cornerRadius",
       'border-radius',
@@ -107,7 +106,7 @@ class TextBox extends Control
                                 converter: const StringToThicknessConverter()),
       converter:const StringToThicknessConverter());
 
-    borderColorProperty = new AnimatingFrameworkProperty(
+    borderColor = new AnimatingFrameworkProperty(
       this,
       "borderColor",
       'border',
@@ -118,7 +117,7 @@ class TextBox extends Control
       converter:const StringToColorConverter());
 
 
-    borderThicknessProperty = new FrameworkProperty(
+    borderThickness = new FrameworkProperty(
       this,
       "borderThickness",
       (value){
@@ -137,7 +136,7 @@ class TextBox extends Control
                                 converter:const StringToThicknessConverter()),
       converter:const StringToThicknessConverter());
 
-    paddingProperty = new FrameworkProperty(
+    padding = new FrameworkProperty(
         this,
         "padding",
         (Thickness value){
@@ -149,7 +148,7 @@ class TextBox extends Control
                                   converter: const StringToThicknessConverter())
         , converter:const StringToThicknessConverter());
 
-    foregroundProperty = new FrameworkProperty(
+    foreground = new FrameworkProperty(
         this,
         "foreground",
         (Color c){
@@ -158,14 +157,14 @@ class TextBox extends Control
         defaultValue: getResource('theme_textbox_foreground'),
         converter:const StringToColorConverter());
 
-    fontSizeProperty = new FrameworkProperty(
+    fontSize = new FrameworkProperty(
       this,
       "fontSize",
       (value){
         rawElement.style.fontSize = '${value}px';
       });
 
-    fontFamilyProperty = new FrameworkProperty(
+    fontFamily = new FrameworkProperty(
       this,
       "fontFamily",
       (value){
@@ -177,82 +176,30 @@ class TextBox extends Control
   void _initEvents(){
     final _ie = rawElement as InputElement;
     _ie.on.keyUp.add((e){
-      if (text == _ie.value) return; //no change from previous keystroke
+      if (text.value == _ie.value) return; //no change from previous keystroke
 
-      String oldValue = text;
-      text = _ie.value;
+      String oldValue = text.value;
+      text.value = _ie.value;
 
       if (!textChanged.hasHandlers) return;
-      textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));
+      textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text.value));
 
       if (e.cancelable) e.cancelBubble = true;
     });
 
     _ie.on.change.add((e){
-      if (text == _ie.value) return; //no change from previous keystroke
+      if (text.value == _ie.value) return; //no change from previous keystroke
 
-      String oldValue = text;
-      text = _ie.value;
+      String oldValue = text.value;
+      text.value = _ie.value;
 
       if (!textChanged.hasHandlers) return;
-      textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text));
+      textChanged.invoke(this, new TextChangedEventArgs.with(oldValue, text.value));
 
       if (e.cancelable) e.cancelBubble = true;
     });
 
   }
-
-  //framework property exposure
-  String get text => getValue(textProperty);
-  set text(String value) => setValue(textProperty, value);
-
-  InputTypes get inputType => getValue(inputTypeProperty);
-  set inputType(InputTypes value) => setValue(inputTypeProperty, value);
-
-  set placeholder(String value) => setValue(placeholderProperty, value);
-  String get placeholder => getValue(placeholderProperty);
-
-  /// Sets the [cornerRadiusProperty] value.
-  set cornerRadius(int value) => setValue(cornerRadiusProperty, value);
-  /// Gets the [cornerRadiusProperty] value.
-  int get cornerRadius => getValue(cornerRadiusProperty);
-
-  /// Sets the [borderColorProperty] value.
-  set borderColor(Color value) => setValue(borderColorProperty, value);
-  /// Gets the [borderColorProperty] value.
-  Color get borderColor => getValue(borderColorProperty);
-
-  /// Sets the [borderThicknessProperty] value.
-  set borderThickness(Thickness value) => setValue(borderThicknessProperty, value);
-  /// Gets the [borderThicknessProperty] value.
-  Thickness get borderThickness => getValue(borderThicknessProperty);
-
-  set borderStyle(BorderStyle value) => setValue(borderStyleProperty, value);
-  BorderStyle get borderStyle => getValue(borderStyleProperty);
-
-  /// Sets the [backgroundProperty] value.
-  set background(Brush value) => setValue(backgroundProperty, value);
-  /// Gets the [backgroundProperty] value.
-  Brush get background => getValue(backgroundProperty);
-
-  /// Sets the [paddingProperty] value.
-  set padding(Thickness value) => setValue(paddingProperty, value);
-  /// Gets the [paddingProperty] value.
-  Thickness get padding => getValue(paddingProperty);
-
-  /// Sets [fontFamilyProperty] with the given [value]
-  set fontFamily(String value) => setValue(fontFamilyProperty, value);
-  /// Gets the current value of [fontFamilyProperty]
-  String get fontFamily => getValue(fontFamilyProperty);
-
-  /// Sets [fontSizeProperty] with the given [value]
-  set fontSize(num value) => setValue(fontSizeProperty, value);
-  /// Gets the value of [fontSizeProperty]
-  num get fontSize => getValue(fontSizeProperty);
-
-  set foreground(SolidColorBrush value) => setValue(foregroundProperty, value);
-  SolidColorBrush get foreground => getValue(foregroundProperty);
-
 
   void createElement(){
     rawElement = new InputElement();
@@ -276,7 +223,19 @@ class InputTypes{
   static const url = const InputTypes("url");
   static const week = const InputTypes("week");
 
-  static const List<InputTypes> validInputTypes = const <InputTypes>[password, email, date, datetime, month, search, telephone, text, time, url, week];
+  static const List<InputTypes> validInputTypes =
+      const <InputTypes>[
+                         password,
+                         email,
+                         date,
+                         datetime,
+                         month,
+                         search,
+                         telephone,
+                         text,
+                         time,
+                         url,
+                         week];
 
   static bool _isValidInputType(InputTypes candidate){
     return validInputTypes.indexOf(candidate, 0) > -1;

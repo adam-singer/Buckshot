@@ -8,7 +8,7 @@
 class Button extends Control implements IFrameworkContainer
 {
   /// Represents the content inside the button.
-  FrameworkProperty contentProperty;
+  FrameworkProperty<Dynamic> content;
 
   Button()
   {
@@ -16,24 +16,21 @@ class Button extends Control implements IFrameworkContainer
 
     _initButtonProperties();
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = contentProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = content;
   }
 
   void _initButtonProperties(){
     // Initialize FrameworkProperty declarations.
-    contentProperty = new FrameworkProperty(this, 'content');
+    content = new FrameworkProperty(this, 'content');
 
-    margin = new Thickness.specified(0, 3, 3, 0);
-    zOrder = 0;
+    margin.value = new Thickness.specified(0, 3, 3, 0);
+    zOrder.value = 0;
   }
 
   Button.register() : super.register();
   makeMe() => new Button();
 
-  /// Gets the [contentProperty] value.
-  Dynamic get content => getValue(contentProperty);
-  /// Sets the [contentProperty] value.
-  set content(Dynamic value) => setValue(contentProperty, value);
+  get containerContent => content.value;
 
   String get defaultControlTemplate {
     return

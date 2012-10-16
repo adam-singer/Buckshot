@@ -7,10 +7,10 @@
 */
 class ToggleProperty extends ActionBase
 {
-  FrameworkProperty targetProperty;
-  FrameworkProperty propertyProperty;
-  FrameworkProperty firstValueProperty;
-  FrameworkProperty secondValueProperty;
+  FrameworkProperty<String> target;
+  FrameworkProperty<String> property;
+  FrameworkProperty<String> firstValue;
+  FrameworkProperty<String> secondValue;
 
   Dynamic _currentValue;
 
@@ -22,50 +22,41 @@ class ToggleProperty extends ActionBase
   makeMe() => new ToggleProperty();
 
   void _initTogglePropertyActionProperties(){
-    targetProperty = new FrameworkProperty(this, 'target');
-    propertyProperty = new FrameworkProperty(this, 'property');
-    firstValueProperty = new FrameworkProperty(this, 'firstValue');
-    secondValueProperty = new FrameworkProperty(this, 'secondValue');
+    target = new FrameworkProperty(this, 'target');
+    property = new FrameworkProperty(this, 'property');
+    firstValue = new FrameworkProperty(this, 'firstValue');
+    secondValue = new FrameworkProperty(this, 'secondValue');
   }
-
-  String get target => getValue(targetProperty);
-  set target(String v) => setValue(targetProperty, v);
-
-  String get property => getValue(propertyProperty);
-  set property(String v) => setValue(propertyProperty, v);
-
-  Dynamic get firstValue => getValue(firstValueProperty);
-  set firstValue(Dynamic v) => setValue(firstValueProperty, v);
-
-  Dynamic get secondValue => getValue(secondValueProperty);
-  set secondValue(Dynamic v) => setValue(secondValueProperty, v);
 
   void onEventTrigger(){
 
     //TODO throw?
-    if (property == null
-        || firstValue == null || secondValue == null) return;
+    if (property.value == null ||
+        firstValue.value == null ||
+        secondValue.value == null) return;
 
-    var el = target != null
-        ? namedElements[target]
-        : getValue(_sourceProperty);
+    var el = target.value != null
+        ? namedElements[target.value]
+        : _source.value;
 
     if (el == null) return; //TODO throw?
 
     el
-      .getPropertyByName(property)
+      .getPropertyByName(property.value)
       .then((prop){
         if (prop == null) return;
 
         if (_currentValue == null){
-          _currentValue = secondValue;
-          setValue(prop, secondValue);
+          _currentValue = secondValue.value;
+          prop.value = secondValue.value;
           return;
         }
 
-        _currentValue = (_currentValue == firstValue) ? secondValue : firstValue;
+        _currentValue = (_currentValue == firstValue.value)
+                          ? secondValue.value
+                          : firstValue.value;
 
-        setValue(prop, _currentValue);
+        prop.value = _currentValue;
       });
   }
 }

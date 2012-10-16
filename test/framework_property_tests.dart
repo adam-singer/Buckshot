@@ -8,7 +8,8 @@ run(){
   group('FrameworkProperty', (){
     test('resolve 1st level property"', (){
       Border b = new Border();
-      b.background = new SolidColorBrush(new Color.predefined(Colors.Red));
+      b.background.value =
+          new SolidColorBrush(new Color.predefined(Colors.Red));
 
       b.resolveProperty("background")
       .then(expectAsync1((result){
@@ -20,13 +21,13 @@ run(){
       final b2 = new Border();
       final b3 = new Border();
       final b4 = new Border();
-      b1.content = b2;
-      b2.content = b3;
-      b3.content = b4;
+      b1.content.value = b2;
+      b2.content.value = b3;
+      b3.content.value = b4;
 
       //set some properties
-      b3.width = 45;
-      b4.height = 26;
+      b3.width.value = 45;
+      b4.height.value = 26;
 
       //get the background from the deepest nested border
       b1.resolveProperty("content.content.content.height")
@@ -50,7 +51,8 @@ run(){
     });
     test('resolve returns null on orphan properties', (){
       Border b = new Border();
-      b.background = new SolidColorBrush(new Color.predefined(Colors.Red));
+      b.background.value =
+          new SolidColorBrush(new Color.predefined(Colors.Red));
 
       b.resolveProperty("background.foo")
       .then(expectAsync1((result){
@@ -59,7 +61,8 @@ run(){
     });
     test('resolve is case in-sensitive', (){
       Border b = new Border();
-      b.background = new SolidColorBrush(new Color.predefined(Colors.Red));
+      b.background.value =
+          new SolidColorBrush(new Color.predefined(Colors.Red));
 
       b.resolveProperty("BaCkGrOuNd")
       .then(expectAsync1((result){

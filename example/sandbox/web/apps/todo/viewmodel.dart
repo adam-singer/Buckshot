@@ -2,11 +2,11 @@
 /// ViewModelBase allows the class to implement [FrameworkProperty]s
 class ViewModel extends ViewModelBase
 {
-  FrameworkProperty dueDateProperty;
-  FrameworkProperty taskNameProperty;
-  FrameworkProperty statusTextProperty;
-  FrameworkProperty statusColorProperty;
-  FrameworkProperty itemsProperty;
+  FrameworkProperty<String> dueDate;
+  FrameworkProperty<String> taskName;
+  FrameworkProperty<String> statusText;
+  FrameworkProperty<Color> statusColor;
+  FrameworkProperty<ObservableList<DataTemplate>> items;
 
   final Color bad = new Color.predefined(Colors.Red);
   final Color good = new Color.predefined(Colors.Green);
@@ -14,55 +14,41 @@ class ViewModel extends ViewModelBase
   ViewModel()
   {
 
-    taskNameProperty = new FrameworkProperty(this, "taskName", defaultValue:"");
+    taskName = new FrameworkProperty(this, "taskName", defaultValue:"");
 
-    dueDateProperty = new FrameworkProperty(this, "dueDate", defaultValue:"");
+    dueDate = new FrameworkProperty(this, "dueDate", defaultValue:"");
 
-    statusTextProperty = new FrameworkProperty(this, "statusText", defaultValue:"");
+    statusText = new FrameworkProperty(this, "statusText", defaultValue:"");
 
-    statusColorProperty = new FrameworkProperty(this, "statusColor", defaultValue:good);
+    statusColor = new FrameworkProperty(this, "statusColor", defaultValue:good);
 
-    itemsProperty = new FrameworkProperty(this, "items", defaultValue:new ObservableList());
+    items = new FrameworkProperty(this, "items",
+        defaultValue:new ObservableList<DataTemplate>());
 
     registerEventHandler('onsubmit_handler', onSubmit_handler);
   }
 
   void addNewEntry(){
-    if (taskName.isEmpty() || dueDate.isEmpty()){
-      statusColor = bad;
-      statusText = "Please make sure Task and Due Date are filled in.";
+    if (taskName.value.isEmpty() || dueDate.value.isEmpty()){
+      statusColor.value = bad;
+      statusText.value = "Please make sure Task and Due Date are filled in.";
     }else{
-      statusColor = good;
-      statusText = "Task Added.";
+      statusColor.value = good;
+      statusText.value = "Task Added.";
 
       //using a DataTemplate so the view can bind to the list by referening the
       //property names in the map.
       // This saves the task of having to create a dedicated class
-      items.add(new DataTemplate.fromMap({"date" : dueDate, "task" : taskName}));
+      items.value.add(
+          new DataTemplate
+          .fromMap({"date" : dueDate.value, "task" : taskName.value}));
 
-      taskName = "";
-      dueDate = "";
+      taskName.value = "";
+      dueDate.value = "";
     }
   }
 
   void onSubmit_handler(sender, args){
     addNewEntry();
   }
-
-  //convenience getters/setters for our properties.
-
-  ObservableList get items => getValue(itemsProperty);
-
-  String get taskName => getValue(taskNameProperty);
-  set taskName(String value) => setValue(taskNameProperty, value);
-
-  String get dueDate => getValue(dueDateProperty);
-  set dueDate(String value) => setValue(dueDateProperty, value);
-
-  String get statusText => getValue(statusTextProperty);
-  set statusText(String value) => setValue(statusTextProperty, value);
-
-  Color get statusColor => getValue(statusColorProperty);
-  set statusColor(Color value) => setValue(statusColorProperty, value);
-
 }

@@ -4,30 +4,24 @@
 
 class PlayAnimation extends ActionBase {
 
-  FrameworkProperty animationProperty;
-  FrameworkProperty actionProperty;
+  FrameworkProperty animation;
+  FrameworkProperty action;
 
   PlayAnimation(){
     _initAnimationActionProperties();
   }
-  
+
   PlayAnimation.register() : super.register();
   makeMe() => new PlayAnimation();
 
   void _initAnimationActionProperties(){
-    animationProperty = new FrameworkProperty(this, 'animation');
-    actionProperty = new FrameworkProperty(this, 'action');
+    animation = new FrameworkProperty(this, 'animation');
+    action= new FrameworkProperty(this, 'action');
   }
 
-  String get animation => getValue(animationProperty);
-  set animation(String value) => setValue(animationProperty, value);
-
-  String get action => getValue(actionProperty);
-  set action(String value) => setValue(actionProperty, value);
-
   void onEventTrigger(){
-    if (animation == null || action == null) return;
+    if (animation.value == null || action.value == null) return;
 
-    FrameworkAnimation.playAnimation(animation);
+    FrameworkAnimation.playAnimation(animation.value);
   }
 }

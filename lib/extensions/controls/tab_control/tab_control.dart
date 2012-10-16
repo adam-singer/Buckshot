@@ -14,38 +14,36 @@
 
 class TabControl extends Control implements IFrameworkContainer
 {
-  FrameworkProperty currentContentProperty;
-  FrameworkProperty tabItemsProperty;
-  FrameworkProperty tabAlignmentProperty;
-  FrameworkProperty tabBackgroundProperty;
-  FrameworkProperty tabSelectedBrushProperty;
-  FrameworkProperty backgroundProperty;
+  FrameworkProperty<FrameworkElement> currentContent;
+  FrameworkProperty<ObservableList<TabItem>> tabItems;
+  FrameworkProperty<HorizontalAlignment> tabAlignment;
+  FrameworkProperty<Brush> tabBackground;
+  FrameworkProperty<Brush> tabSelectedBrush;
+  FrameworkProperty<Brush> background;
 
-  final FrameworkEvent<TabSelectedEventArgs> tabSelected;
-  final FrameworkEvent<TabSelectedEventArgs> tabClosing;
+  final FrameworkEvent<TabSelectedEventArgs> tabSelected =
+      new FrameworkEvent<TabSelectedEventArgs>();
+  final FrameworkEvent<TabSelectedEventArgs> tabClosing =
+      new FrameworkEvent<TabSelectedEventArgs>();
 
   TabItem currentTab;
   Brush _tabBackground;
 
-  TabControl() :
-    tabSelected = new FrameworkEvent<TabSelectedEventArgs>(),
-    tabClosing = new FrameworkEvent<TabSelectedEventArgs>()
+  TabControl()
   {
     Browser.appendClass(rawElement, "TabControl");
 
     _initTabContainerProperties();
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = getValue(tabItemsProperty);
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = tabItems.value;
   }
 
-  TabControl.register() : super.register(),
-    tabSelected = new FrameworkEvent<TabSelectedEventArgs>(),
-    tabClosing = new FrameworkEvent<TabSelectedEventArgs>(){
+  TabControl.register() : super.register(){
     registerElement(new TabItem.register());
   }
   makeMe() => new TabControl();
 
-  get content => getValue(tabItemsProperty);
+  get containerContent => tabItems.value;
 
   void switchToTab(TabItem tab){
     if (currentTab == tab) return;
@@ -54,58 +52,58 @@ class TabControl extends Control implements IFrameworkContainer
       final b = currentTab._visualTemplate as Border;
 
       //remove active markings on this tab.
-      setValue(currentTab.closeButtonVisiblityProperty, Visibility.collapsed);
+      currentTab.closeButtonVisiblity.value = Visibility.collapsed;
 
-      b.background = _tabBackground;
+      b.background.value = _tabBackground;
 
-      b.borderThickness = new Thickness.specified(1, 1, 0, 1);
+      b.borderThickness.value = new Thickness.specified(1, 1, 0, 1);
     }
 
     currentTab = tab;
 
-    final t = currentTab._visualTemplate;
+    final t = currentTab._visualTemplate as Panel;
       //set active markings on the tab.
 
-    _tabBackground = getValue(t.backgroundProperty);
+    _tabBackground = t.background.value;
 
-    setValue(currentTab.closeButtonVisiblityProperty, Visibility.visible);
+    currentTab.closeButtonVisiblity.value = Visibility.visible;
 
-    (currentTab._visualTemplate as Border).borderThickness =
+    (currentTab._visualTemplate as Border).borderThickness.value =
         new Thickness.specified(2, 2, 0, 2);
 
-    setValue(t.backgroundProperty,
-        getValue(tabSelectedBrushProperty));
+    t.background.value = tabSelectedBrush.value;
 
-    setValue(currentContentProperty, getValue(currentTab.contentProperty));
+    currentContent.value = currentTab.content.value;
   }
 
   void closeTab(TabItem tab){
     //TODO add handling for last tab closed.
-    if (tabItems.length == 1) return;
+    if (tabItems.value.length == 1) return;
 
     tab._visualTemplate.rawElement.remove();
 
-    tabItems.removeRange(tabItems.indexOf(tab), 1);
+    tabItems.value.removeRange(tabItems.value.indexOf(tab), 1);
 
     currentTab = null;
 
-    switchToTab(tabItems[0]);
+    switchToTab(tabItems.value[0]);
 
   }
 
   void onFirstLoad(){
-    if (tabItems.isEmpty()) return;
+    if (tabItems.value.isEmpty()) return;
 
     // this is the collection of the visual elements representing each
     // tab
     final pc = (Template.findByName('__tc_presenter__', template)
                            as CollectionPresenter)
                         .presentationPanel
+                        .value
                         .children;
 
     int i = 0;
     pc.forEach((e){
-      final ti = tabItems[i++];
+      final ti = tabItems.value[i++] as TabItem;
       ti.parent = this;
       ti._visualTemplate = e;
       e.mouseUp + (_, __){
@@ -128,32 +126,29 @@ class TabControl extends Control implements IFrameworkContainer
       closeTab(args.tab);
     };
 
-    switchToTab(tabItems[0]);
+    switchToTab(tabItems.value[0]);
 
   }
 
   void _initTabContainerProperties(){
-    currentContentProperty = new FrameworkProperty(this, 'currentContent');
+    currentContent = new FrameworkProperty(this, 'currentContent');
 
-    tabItemsProperty = new FrameworkProperty(this, 'tabItems',
+    tabItems= new FrameworkProperty(this, 'tabItems',
         defaultValue: new List<FrameworkObject>());
 
-    tabAlignmentProperty = new FrameworkProperty(this, 'tabAlignment',
+    tabAlignment = new FrameworkProperty(this, 'tabAlignment',
         defaultValue: HorizontalAlignment.left,
         converter: const StringToHorizontalAlignmentConverter());
 
-    tabSelectedBrushProperty = new FrameworkProperty(this, 'tabSelectedBrush',
+    tabSelectedBrush = new FrameworkProperty(this, 'tabSelectedBrush',
         defaultValue: new SolidColorBrush(getResource('theme_background_light')),
         converter: const StringToSolidColorBrushConverter());
 
-    backgroundProperty = new FrameworkProperty(this, 'background',
+    background = new FrameworkProperty(this, 'background',
         defaultValue: new SolidColorBrush(getResource('theme_background_light')),
         converter: const StringToSolidColorBrushConverter());
 
   }
-
-  List<FrameworkObject> get tabItems => getValue(tabItemsProperty);
-
 
   String get defaultControlTemplate {
     return

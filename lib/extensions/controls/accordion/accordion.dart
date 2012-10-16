@@ -13,9 +13,9 @@
 
 class Accordion extends Control implements IFrameworkContainer
 {
-  FrameworkProperty accordionItemsProperty;
-  FrameworkProperty backgroundProperty;
-  FrameworkProperty selectionModeProperty;
+  FrameworkProperty<ObservableList<AccordionItem>> accordionItems;
+  FrameworkProperty<Brush> background;
+  FrameworkProperty<SelectionMode> selectionMode;
 
   var _currentSelected;
 
@@ -25,8 +25,7 @@ class Accordion extends Control implements IFrameworkContainer
 
     _initializeAccordionProperties();
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] =
-        getValue(accordionItemsProperty);
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = accordionItems.value;
   }
 
   Accordion.register() : super.register(){
@@ -35,14 +34,14 @@ class Accordion extends Control implements IFrameworkContainer
   makeMe() => new Accordion();
 
   void _initializeAccordionProperties(){
-    accordionItemsProperty = new FrameworkProperty(this, 'accordionItems',
+    accordionItems = new FrameworkProperty(this, 'accordionItems',
         defaultValue: new ObservableList<FrameworkObject>());
 
-    backgroundProperty = new FrameworkProperty(this, 'background',
+    background = new FrameworkProperty(this, 'background',
         defaultValue: new SolidColorBrush(new Color.predefined(Colors.White)),
         converter: const StringToSolidColorBrushConverter());
 
-    selectionModeProperty = new FrameworkProperty(this, 'selectionMode',
+    selectionMode = new FrameworkProperty(this, 'selectionMode',
         propertyChangedCallback: (_){
           if (!isLoaded) return;
           _invalidate();
@@ -51,38 +50,32 @@ class Accordion extends Control implements IFrameworkContainer
         converter: const StringToSelectionModeConverter());
   }
 
-  get content => getValue(accordionItemsProperty);
-
-  SelectionMode get selectionMode => getValue(selectionModeProperty);
-  set selectionMode(SelectionMode mode) =>
-      setValue(selectionModeProperty, mode);
-
-  ObservableList<FrameworkObject> get accordionItems =>
-      getValue(accordionItemsProperty);
+  get containerContent => accordionItems.value;
 
   void onFirstLoad(){
 
     _invalidate();
 
     // Invalidate on any changes to the list after first load.
-    accordionItems.listChanged + (_, __) => _invalidate();
+    accordionItems.value.listChanged + (_, __) => _invalidate();
 
     super.onFirstLoad();
 
   }
 
   void _invalidate(){
-    if (accordionItems.isEmpty()) return;
+    if (accordionItems.value.isEmpty()) return;
 
     final pc = (Template.findByName('__ac_presenter__', template)
         as CollectionPresenter)
         .presentationPanel
+        .value
         .children;
 
     int i = 0;
 
     pc.forEach((e){
-      final ai = accordionItems[i++];
+      final ai = accordionItems.value[i++];
 
       final header = Template.findByName('__accordion_header__', e);
       final body = Template.findByName('__accordion_body__', e);
@@ -93,12 +86,13 @@ class Accordion extends Control implements IFrameworkContainer
       // any user hooked events.
       header.click.handlers.clear();
 
-      if (selectionMode == SelectionMode.multi || accordionItems.length == 1){
+      if (selectionMode == SelectionMode.multi ||
+          accordionItems.value.length == 1){
         body.visibility = ai.visibility;
 
         header.click + (_, __){
-          body.visibility = (body.visibility == null
-              || body.visibility == Visibility.visible )
+          body.visibility.value = (body.visibility.value == null
+              || body.visibility.value == Visibility.visible )
               ? Visibility.collapsed
                   : Visibility.visible;
         };
@@ -106,12 +100,12 @@ class Accordion extends Control implements IFrameworkContainer
         // first item visible if nothing selected
         if (_currentSelected == null && pc.indexOf(e) == 0){
           _currentSelected = header;
-          body.visibility = Visibility.visible;
+          body.visibility.value = Visibility.visible;
         }else{
           if (header == _currentSelected){
-            body.visibility = Visibility.visible;
+            body.visibility.value = Visibility.visible;
           }else{
-            body.visibility = Visibility.collapsed;
+            body.visibility.value = Visibility.collapsed;
           }
         }
 

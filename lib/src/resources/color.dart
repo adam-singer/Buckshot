@@ -12,7 +12,7 @@
 class Color extends FrameworkResource
 {
   /// Represents the value of the color.
-  FrameworkProperty valueProperty;
+  FrameworkProperty<String> value;
 
   Color(){
     _initColorProperties();
@@ -28,13 +28,14 @@ class Color extends FrameworkResource
   /// components of the color (0-255)
   Color.fromRGB(num r, num g, num b){
     _initColorProperties();
-    value = "#${r.toRadixString(16)}${g.toRadixString(16)}${b.toRadixString(16)}";
+    value.value =
+        "#${r.toRadixString(16)}${g.toRadixString(16)}${b.toRadixString(16)}";
   }
 
   /// Allows construction of the color from a pre-defined color from the [Colors] enumeration.
   Color.predefined(Colors predefinedColor){
     _initColorProperties();
-    value = predefinedColor.toString();
+    value.value = predefinedColor.toString();
   }
 
   /// Allows construction of a color from an RGB [String].
@@ -42,34 +43,29 @@ class Color extends FrameworkResource
   /// "#RRGGBB" with each color component representing a hexidecimal of 0-255.
   Color.hex(String hex){
     _initColorProperties();
-    value = hex;
+    value.value = hex;
   }
 
   /// Gets the R (red) component of the RGB color.
-  num get R => parseInt('0x${value.substring(1,3)}');
+  num get R => parseInt('0x${value.value.substring(1,3)}');
   /// Gets the G (green) component of the RGB color.
-  num get G => parseInt('0x${value.substring(3,5)}');
+  num get G => parseInt('0x${value.value.substring(3,5)}');
   /// Gets the B (blue) compoonent of the RGB color.
-  num get B => parseInt('0x${value.substring(5,7)}');
-
-  /// Gets the [valueProperty] value.
-  String get value => getValue(valueProperty);
-  /// Sets the [valueProperty] value.
-  set value(String c) => setValue(valueProperty, c);
+  num get B => parseInt('0x${value.value.substring(5,7)}');
 
   void _initColorProperties(){
-    valueProperty = new FrameworkProperty(this, "value",
+    value = new FrameworkProperty(this, "value",
     converter: const StringToColorStringConverter());
   }
 
   /// Returns the string representation of the color.
-  String toColorString() => value;
+  String toColorString() => value.value;
 
   /**
    * This is a convenience method that gracefully handles accidental
    * assignments to properties that are actually of type Brush.
    */
   void renderBrush(Element element){
-    element.style.background = "${value}";
+    element.style.background = "${value.value}";
   }
 }

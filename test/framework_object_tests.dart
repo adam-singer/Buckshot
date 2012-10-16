@@ -9,7 +9,7 @@ run(){
     // properly registers it with namedElements
     test('name registration', (){
       var b = new Border();
-      b.name = "hello";
+      b.name.value = "hello";
 
       Expect.isTrue(namedElements.containsKey("hello"));
     });

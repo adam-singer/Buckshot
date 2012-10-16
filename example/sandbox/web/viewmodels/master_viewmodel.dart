@@ -19,20 +19,20 @@ class MasterViewModel extends ViewModelBase
   final List<TreeView> _treeViews = new List<TreeView>();
   TreeView _currentTreeView;
 
-  FrameworkProperty timeStampProperty;
-  FrameworkProperty videosProperty;
-  FrameworkProperty colorProperty;
-  FrameworkProperty fruitProperty;
-  FrameworkProperty iconsProperty;
-  FrameworkProperty renderedOutputProperty;
-  FrameworkProperty templateTextProperty;
-  FrameworkProperty errorMessageProperty;
-  FrameworkProperty demoTreeNodeSelectedProperty;
-  FrameworkProperty dockTextProperty;
-  FrameworkProperty secondInDegsProperty;
-  FrameworkProperty minuteInDegsProperty;
-  FrameworkProperty hourInDegsProperty;
-  FrameworkProperty dayAndMonthProperty;
+  FrameworkProperty<String> timeStamp;
+  FrameworkProperty<List<DataTemplate>> videos;
+  FrameworkProperty<SomeColors> color;
+  FrameworkProperty<List<DataTemplate>> fruit;
+  FrameworkProperty<List<DataTemplate>> icons;
+  FrameworkProperty<FrameworkElement> renderedOutput;
+  FrameworkProperty<String> templateText;
+  FrameworkProperty<String> errorMessage;
+  FrameworkProperty<TreeNode> demoTreeNodeSelected;
+  FrameworkProperty<String> dockText;
+  FrameworkProperty<num> secondInDegrees;
+  FrameworkProperty<num> minuteInDegrees;
+  FrameworkProperty<num> hourInDegrees;
+  FrameworkProperty<String> dayAndMonth;
 
   View _mainView;
 
@@ -48,7 +48,7 @@ class MasterViewModel extends ViewModelBase
       final demo = queryString['demo'];
 
       if (demo != null){
-        _mainView.rootVisual.dataContext.setTemplate('#${demo}');
+        _mainView.rootVisual.dataContext.value.setTemplate('#${demo}');
       }
     });
   }
@@ -65,7 +65,7 @@ class MasterViewModel extends ViewModelBase
       final demo = queryString['demo'];
 
       if (demo != null){
-        _mainView.rootVisual.dataContext.setTemplate('#${demo}');
+        _mainView.rootVisual.dataContext.value.setTemplate('#${demo}');
       }
     });
   }
@@ -76,15 +76,15 @@ class MasterViewModel extends ViewModelBase
 
       _updateDate(d);
 
-      setValue(timeStampProperty, d.toString());
+      timeStamp.value = d.toString();
 
-      setValue(secondInDegsProperty, d.second * 6);
+      secondInDegrees.value = d.second * 6;
 
-      setValue(minuteInDegsProperty, (d.minute * 6) + (d.second / 10));
+      minuteInDegrees.value = (d.minute * 6) + (d.second / 10);
 
       final hour = d.hour % 24 > 0 ? d.hour - 12 : d.hour;
 
-      setValue(hourInDegsProperty, (hour * 30) + (d.minute / 2));
+      hourInDegrees.value = (hour * 30) + (d.minute / 2);
     }, 1000);
 
   }
@@ -93,52 +93,52 @@ class MasterViewModel extends ViewModelBase
     final months = const ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
                           'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    setValue(dayAndMonthProperty, "${d.day} ${months[d.month]}");
+    dayAndMonth.value = "${d.day} ${months[d.month]}";
   }
 
 
   // Initialize the properties that we want to expose for template binding.
   void _initDemoViewModelProperties(){
-    timeStampProperty = new FrameworkProperty(this, "timeStamp",
+    timeStamp = new FrameworkProperty(this, "timeStamp",
         defaultValue:new Date.now().toString());
 
-    iconsProperty = new FrameworkProperty(this, "icons",
+    icons = new FrameworkProperty(this, "icons",
         defaultValue:model.iconList);
 
-    videosProperty = new FrameworkProperty(this, "videos",
+    videos = new FrameworkProperty(this, "videos",
         defaultValue:model.videoList);
 
-    fruitProperty = new FrameworkProperty(this, "fruit",
+    fruit = new FrameworkProperty(this, "fruit",
         defaultValue:model.fruitList);
 
     // Since colorProperty is itself a BuckshotObject, the framework will
     // allow dot-notation resolution to any properties within that object as
     // well. ex. "color.red" or "color.orange"
-    colorProperty = new FrameworkProperty(this, "color",
+    color = new FrameworkProperty(this, "color",
         defaultValue:model.colorClass);
 
-    renderedOutputProperty = new FrameworkProperty(this, 'renderedOutput');
+    renderedOutput = new FrameworkProperty(this, 'renderedOutput');
 
-    templateTextProperty = new FrameworkProperty(this, 'templateText');
+    templateText = new FrameworkProperty(this, 'templateText');
 
-    errorMessageProperty = new FrameworkProperty(this, 'errorMessage');
+    errorMessage = new FrameworkProperty(this, 'errorMessage');
 
-    demoTreeNodeSelectedProperty = new FrameworkProperty(this,
+    demoTreeNodeSelected = new FrameworkProperty(this,
         'demoTreeNodeSelected', defaultValue: '');
 
-    dockTextProperty = new FrameworkProperty(this, 'dockText',
+    dockText = new FrameworkProperty(this, 'dockText',
         defaultValue: 'Docked left.');
 
-    secondInDegsProperty = new FrameworkProperty(this, 'secondInDegs',
+    secondInDegrees = new FrameworkProperty(this, 'secondInDegs',
         defaultValue: 0);
 
-    hourInDegsProperty = new FrameworkProperty(this, 'hourInDegs',
+    hourInDegrees = new FrameworkProperty(this, 'hourInDegs',
         defaultValue: 0);
 
-    minuteInDegsProperty = new FrameworkProperty(this, 'minuteInDegs',
+    minuteInDegrees = new FrameworkProperty(this, 'minuteInDegs',
         defaultValue: 0);
 
-    dayAndMonthProperty = new FrameworkProperty(this, 'dayAndMonth',
+    dayAndMonth = new FrameworkProperty(this, 'dayAndMonth',
         defaultValue: '');
   }
 
@@ -150,26 +150,26 @@ class MasterViewModel extends ViewModelBase
    * Sets the given [templateText] to the [templateTextProperty] and renders
    * it into the [renderedOutputProperty].
    */
-  void setTemplate(String templateText){
-    templateText = templateText.trim();
+  void setTemplate(String text){
+    text = text.trim();
 
-    if (templateText == ''){
+    if (text == ''){
       resetUI();
       return;
     }
 
-    if (templateText.startsWith('app.')){
-      final appName = templateText.split('.')[1];
+    if (text.startsWith('app.')){
+      final appName = text.split('.')[1];
       resetUI();
       switch(appName){
         case 'todo':
           _todo.ready.then((_){
-            setValue(renderedOutputProperty, _todo.rootVisual);
+            renderedOutput.value = _todo.rootVisual;
           });
           break;
         case 'calc':
           _calc.ready.then((_){
-            setValue(renderedOutputProperty, _calc.rootVisual);
+            renderedOutput.value = _calc.rootVisual;
           });
           break;
         default:
@@ -177,20 +177,20 @@ class MasterViewModel extends ViewModelBase
           return;
       }
     }else{
-      if (templateText.startsWith('<')){
-        setValue(templateTextProperty, templateText);
+      if (text.startsWith('<')){
+        templateText.value = text;
 
         Template
-          .deserialize(templateText)
+          .deserialize(text)
           .then((c){
-            setValue(renderedOutputProperty, c);
+            renderedOutput.value = c;
           });
       }else{
         Template
-          .deserialize('web/views/templates/${templateText}.xml')
+          .deserialize('web/views/templates/${text}.xml')
           .then((t){
-            setValue(renderedOutputProperty, t);
-            setValue(templateTextProperty, t.stateBag['__buckshot_template__']);
+            renderedOutput.value = t;
+            templateText.value = t.stateBag['__buckshot_template__'];
           });
       }
     }
@@ -200,8 +200,8 @@ class MasterViewModel extends ViewModelBase
    * Resets the UI properties to default states. */
   void resetUI(){
     //TODO: reset dropdown lists
-    setValue(templateTextProperty, '');
-    setValue(renderedOutputProperty, null);
+    templateText.value = '';
+    renderedOutput.value = null;
   }
 
   void _showModalDialogDemo(){
@@ -228,8 +228,7 @@ class MasterViewModel extends ViewModelBase
           .with('Dialog Results',
             'You clicked the "$dbt" button on the previous dialog.',
               ModalDialog.Ok)
-          ..maskColor = new SolidColorBrush(
-              new Color.predefined(Colors.Green));
+          ..maskBrush.value = new SolidColorBrush.fromPredefined(Colors.Green);
 
         return md.show();
       });
@@ -246,11 +245,11 @@ class MasterViewModel extends ViewModelBase
 
           final p = new Popup
               .with(t)
-          ..offsetX = 100
-          ..offsetY = -150
-          ..cornerRadius = new Thickness(7)
-          ..borderThickness = new Thickness(3)
-          ..borderColor = new Color.predefined(Colors.SteelBlue)
+          ..offsetX.value = 100
+          ..offsetY.value = -150
+          ..cornerRadius.value = new Thickness(7)
+          ..borderThickness.value = new Thickness(3)
+          ..borderColor.value = new Color.predefined(Colors.SteelBlue)
           ..show(popUpNode);
           p.click + (_,__) => p.hide();
         });
@@ -285,15 +284,15 @@ class MasterViewModel extends ViewModelBase
       var errorView = new ErrorView();
 
       errorView.ready.then((_){
-        setValue(renderedOutputProperty, errorView.rootVisual);
-        setValue(errorMessageProperty, error);
+        renderedOutput.value = errorView.rootVisual;
+        errorMessage.value = error;
       });
     }
 
     String error = '';
 
     try{
-      setTemplate(getValue(templateTextProperty).trim());
+      setTemplate(templateText.value.trim());
     }on AnimationException catch(ae){
       error = "An error occurred while attempting to process an"
         " animation resource: ${ae}";
@@ -358,7 +357,7 @@ class MasterViewModel extends ViewModelBase
 
   void demotreeview_selection(sender, args)
   {
-    setValue(demoTreeNodeSelectedProperty, args.node.header);
+    demoTreeNodeSelected.value = args.node.header;
   }
 
   void dockpanel_click(sender, args){
@@ -370,19 +369,19 @@ class MasterViewModel extends ViewModelBase
       switch(sender.content){
         case 'Left':
           DockPanel.setDock(b, DockLocation.left);
-          setValue(dockTextProperty, '$text left.');
+          dockText.value = '$text left.';
           break;
         case 'Top':
           DockPanel.setDock(b, DockLocation.top);
-          setValue(dockTextProperty, '$text top.');
+          dockText.value = '$text top.';
           break;
         case 'Right':
           DockPanel.setDock(b, DockLocation.right);
-          setValue(dockTextProperty, '$text right.');
+          dockText.value = '$text right.';
           break;
         case 'Bottom':
           DockPanel.setDock(b, DockLocation.bottom);
-          setValue(dockTextProperty, '$text bottom.');
+          dockText.value = '$text bottom.';
           break;
         default:
           print('boo!');

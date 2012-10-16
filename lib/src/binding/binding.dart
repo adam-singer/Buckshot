@@ -149,8 +149,8 @@ class Binding extends BuckshotObject
       .sourceObject
       ._bindings
       .forEach((binding){
-          setValue(binding._toProperty,
-              binding.converter.convert(getValue(binding._fromProperty)));
+          binding._toProperty.value =
+              binding.converter.convert(binding._fromProperty.value);
 
         if (binding.bindingMode == BindingMode.OneTime)
           binding.unregister();

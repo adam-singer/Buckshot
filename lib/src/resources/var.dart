@@ -35,25 +35,22 @@
 */
 class Var extends FrameworkResource implements IFrameworkContainer
 {
-  FrameworkProperty valueProperty;
+  FrameworkProperty<Dynamic> value;
 
   Var(){
     _initVarProperties();
 
     //meta data for binding system
-    stateBag[FrameworkResource.RESOURCE_PROPERTY] = valueProperty;
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = valueProperty;
+    stateBag[FrameworkResource.RESOURCE_PROPERTY] = value;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = value;
   }
 
   Var.register() : super.register();
   makeMe() => new Var();
 
-  get content => value;
+  get containerContent => value.value;
 
   void _initVarProperties(){
-    valueProperty = new FrameworkProperty(this, "value", defaultValue:null);
+    value = new FrameworkProperty(this, "value");
   }
-
-  Dynamic get value => getValue(valueProperty);
-  set value(Dynamic c) => setValue(valueProperty, c);
 }

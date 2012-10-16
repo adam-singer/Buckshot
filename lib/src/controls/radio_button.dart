@@ -7,15 +7,14 @@
 class RadioButton extends Control
 {
   /// Represents the value of the radio button.
-  FrameworkProperty valueProperty;
+  FrameworkProperty<String> value;
   /// Represents the groupName of the radio button.
-  FrameworkProperty groupNameProperty;
+  FrameworkProperty<String> groupName;
 
   /// Event which fires whenever a selection change occurs on this radio button.
-  final FrameworkEvent selectionChanged;
+  final FrameworkEvent selectionChanged = new FrameworkEvent<EventArgs>();
 
   RadioButton()
-  : selectionChanged = new FrameworkEvent<EventArgs>()
   {
     Browser.appendClass(rawElement, 'radiobutton');
     _initProperties();
@@ -24,16 +23,15 @@ class RadioButton extends Control
     registerEvent('selectionchanged', selectionChanged);
   }
 
-  RadioButton.register() : super.register(),
-    selectionChanged = new FrameworkEvent<EventArgs>();
+  RadioButton.register() : super.register();
   makeMe() => new RadioButton();
 
   void _initProperties(){
-    valueProperty = new FrameworkProperty(this, 'value', (String v){
+    value = new FrameworkProperty(this, 'value', (String v){
       rawElement.attributes['value'] = v;
     });
 
-    groupNameProperty = new FrameworkProperty(this, 'groupName', (String v){
+    groupName = new FrameworkProperty(this, 'groupName', (String v){
       rawElement.attributes['name'] =  v;
     }, 'default');
   }
@@ -43,16 +41,6 @@ class RadioButton extends Control
       selectionChanged.invoke(this, new EventArgs());
     };
   }
-
-  /// Gets the [valueProperty] value.
-  String get value => getValue(valueProperty);
-  /// Sets the [valueProperty] value.
-  set value(String v) => setValue(valueProperty, v);
-
-  /// Gets the [groupNameProperty] value.
-  String get groupName => getValue(groupNameProperty);
-  /// Sets the [groupNameProperty] value.
-  set groupName(String v) => setValue(groupNameProperty, v);
 
   /// Gets whether the check box is checked.
   bool get isChecked {

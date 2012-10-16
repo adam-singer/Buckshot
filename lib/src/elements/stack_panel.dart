@@ -6,7 +6,7 @@
 * Provides a container that stacks child elements vertically or horizontally. */
 class Stack extends Panel
 {
-  FrameworkProperty orientationProperty;
+  FrameworkProperty<Orientation> orientation;
 
   StackPolyfill _polyfill;
   Function _redraw;
@@ -18,13 +18,13 @@ class Stack extends Panel
 
     if (Polly.supportsFlexModel){
       _redraw = (){
-        if (orientation == Orientation.vertical){
+        if (orientation.value == Orientation.vertical){
           children.forEach((FrameworkElement child){
-            Polly.setItemHorizontalCrossAxisAlignment(child, child.hAlign);
+            Polly.setItemHorizontalCrossAxisAlignment(child, child.hAlign.value);
           });
         }else{
-          children.forEach((child){
-            Polly.setItemVerticalCrossAxisAlignment(child, child.vAlign);
+          children.forEach((FrameworkElement child){
+            Polly.setItemVerticalCrossAxisAlignment(child, child.vAlign.value);
           });
         }
       };
@@ -44,7 +44,7 @@ class Stack extends Panel
   @override makeMe() => new Stack();
 
   void initStackProperties(){
-    orientationProperty = new FrameworkProperty(
+    orientation = new FrameworkProperty(
       this,
       "orientation",
       propertyChangedCallback:
@@ -78,9 +78,6 @@ class Stack extends Panel
       updateLayout();
     }
   }
-
-  set orientation(Orientation value) => setValue(orientationProperty, value);
-  Orientation get orientation => getValue(orientationProperty);
 
   @override void createElement(){
     rawElement = new DivElement();

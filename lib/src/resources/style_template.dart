@@ -20,7 +20,7 @@ class StyleTemplate extends FrameworkResource
       setters.listChanged + _onSettersCollectionChanging;
 
     }
-  
+
   StyleTemplate.register() : super.register(),
     _registeredElements = new HashSet<FrameworkElement>(),
     _setters = new HashMap<String, Setter>();
@@ -46,7 +46,7 @@ class StyleTemplate extends FrameworkResource
 
       //copy the style setters
       style._setters.forEach((_, Setter s){
-        setProperty(s.property, s.value);
+        setProperty(s.property.value, s.value);
       });
     }
   }
@@ -77,8 +77,8 @@ class StyleTemplate extends FrameworkResource
 
   void _onSettersCollectionChanging(Object _, ListChangedEventArgs args){
     args.oldItems.forEach((Setter item){
-      if (_setters.containsKey(item.property))
-        _setters.remove(item.property);
+      if (_setters.containsKey(item.property.value))
+        _setters.remove(item.property.value);
     });
 
 
@@ -128,17 +128,17 @@ class StyleTemplate extends FrameworkResource
   }
 
   void _bindSetterToElement(Setter setter, FrameworkElement element){
-    
+
     if (reflectionEnabled){
       final instanceMirror = buckshot.reflectMe(element);
-  
+
       //TODO handle with lookup instead of try/catch
-      if (!element.hasProperty(setter.property.toLowerCase())) return;
-  
+      if (!element.hasProperty(setter.property.value.toLowerCase())) return;
+
       instanceMirror
-        .getField('${setter.property}Property')
+        .getField('${setter.property}')
         .then((p){
-          final b = new Binding(setter.valueProperty, p.reflectee);
+          final b = bind(setter.value, p.reflectee);
           p.reflectee
             .sourceObject
             .stateBag["$stateBagPrefix${setter.property}__"] = b;
@@ -147,9 +147,9 @@ class StyleTemplate extends FrameworkResource
     element._frameworkProperties
     .filter((FrameworkProperty p) => p.propertyName == setter.property)
     .forEach((FrameworkProperty p) {
-      final b = new Binding(setter.valueProperty, p);
+      final b = bind(setter.value, p);
       p.sourceObject.stateBag["$stateBagPrefix${setter.property}__"] = b;
-    });      
+    });
     }
   }
 }

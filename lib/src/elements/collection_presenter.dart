@@ -37,13 +37,13 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
 
   /// Represents the [Panel] element which will contain the generated UI for
   /// each element of the collection.
-  FrameworkProperty presentationPanelProperty;
+  FrameworkProperty<Panel> presentationPanel;
 
   /// Represents the UI that will display for each item in the collection.
-  FrameworkProperty itemsTemplateProperty;
+  FrameworkProperty<String> itemsTemplate;
 
   /** Represents the collection to be used by the CollectionPresenter */
-  FrameworkProperty collectionProperty;
+  FrameworkProperty<Collection> collection;
 
 
   final FrameworkEvent<ItemCreatedEventArgs> itemCreated;
@@ -63,7 +63,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   makeMe() => new CollectionPresenter();
 
   void _initCollectionPresenterProperties(){
-    presentationPanelProperty =
+    presentationPanel =
         new FrameworkProperty(this, "presentationPanel", (Panel p){
       if (p.parent != null)
         throw const BuckshotException("Element is already child of another element.");
@@ -77,48 +77,37 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
 
     }, new Stack());
 
-    itemsTemplateProperty = new FrameworkProperty(this, "itemsTemplate");
+    itemsTemplate = new FrameworkProperty(this, "itemsTemplate");
 
-    collectionProperty = new FrameworkProperty(this, 'collection');
+    collection = new FrameworkProperty(this, 'collection');
   }
 
-
-  /// Gets the [presentationPanelProperty] value.
-  Panel get presentationPanel => getValue(presentationPanelProperty);
-  /// Sets the [presentationPanelProperty] value.
-  set presentationPanel(Panel value) => setValue(presentationPanelProperty, value);
-
   //IFrameworkContainer interface
-  get content => presentationPanel;
-
-  /// Gets the [itemsTemplateProperty] value.
-  String get itemsTemplate => getValue(itemsTemplateProperty);
-  /// Sets the [itemsTemplateProperty] value.
-  set itemsTemplate(String value) => setValue(itemsTemplateProperty, value);
+  get containerContent => presentationPanel;
 
   void invalidate() => _updateCollection();
 
   void _updateCollection(){
 
-    var values = getValue(collectionProperty);
+    var values = collection.value;
 
     if (values == null){
       // fall back to dataContext as Collection source
       final dc = resolveDataContext();
 
-      if (dc == null && presentationPanel.isLoaded){
-        presentationPanel.children.clear();
+      if (dc == null && presentationPanel.value.isLoaded){
+        presentationPanel.value.children.clear();
         return;
       } else if (dc == null){
           return;
       }
 
-      values = getValue(dc);
+      values = dc.value;
     }
 
     if (values is ObservableList && _eHandler == null){
       _eHandler = values.listChanged + (_, __) {
-        presentationPanel.children.clear();
+        presentationPanel.value.children.clear();
         _updateCollection();
       };
     }
@@ -127,7 +116,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       throw const BuckshotException("Expected dataContext object"
         " to be of type Collection.");
 
-    presentationPanel.rawElement.elements.clear();
+    presentationPanel.value.rawElement.elements.clear();
 
     if (itemsTemplate == null){
       //no template, then just call toString on the object.
@@ -137,19 +126,19 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
           .then((it){
             it.stateBag[SBO] = iterationObject;
             itemCreated.invokeAsync(this, new ItemCreatedEventArgs(it));
-            presentationPanel.children.add(it);
+            presentationPanel.value.children.add(it);
           });
       });
     }else{
       //if template, then bind the object to the template datacontext
       values.forEach((iterationObject){
         Template
-        .deserialize(itemsTemplate)
+        .deserialize(itemsTemplate.value)
         .then((it){
           it.stateBag[SBO] = iterationObject;
           it.dataContext = iterationObject;
           itemCreated.invokeAsync(this, new ItemCreatedEventArgs(it));
-          presentationPanel.children.add(it);
+          presentationPanel.value.children.add(it);
         });
       });
     }

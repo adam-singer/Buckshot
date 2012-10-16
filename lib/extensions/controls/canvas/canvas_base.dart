@@ -36,9 +36,10 @@ class CanvasBase extends FrameworkElement
   int _canvasId;
 
   /// The width of the canvas surface
-  FrameworkProperty surfaceWidthProperty;
+  FrameworkProperty<num> surfaceWidth;
   /// The height of the canvas surface
-  FrameworkProperty surfaceHeightProperty;
+  FrameworkProperty<num> surfaceHeight;
+
   /// An event triggered on a change of frame
   FrameworkEvent<FrameEventArgs> frame;
 
@@ -72,20 +73,14 @@ class CanvasBase extends FrameworkElement
   String get _name => "canvas_${_canvasId}";
 
   void _initCanvasProperties() {
-    surfaceWidthProperty = new FrameworkProperty(this, "surfaceWidth", (num v){
-      rawElement.attributes["width"] = v.toString();
+    surfaceWidth = new FrameworkProperty(this, "surfaceWidth", (num v){
+      rawElement.attributes["width"] = '$v';
     }, 640, converter:const StringToNumericConverter());
 
-    surfaceHeightProperty = new FrameworkProperty(this, "surfaceHeight", (num v){
-      rawElement.attributes["height"] = v.toString();
+    surfaceHeight = new FrameworkProperty(this, "surfaceHeight", (num v){
+      rawElement.attributes["height"] = '$v';
     }, 480, converter:const StringToNumericConverter());
   }
-
-  num get surfaceWidth => getValue(surfaceWidthProperty);
-  set surfaceWidth(num value) => setValue(surfaceWidthProperty, value);
-
-  num get surfaceHeight => getValue(surfaceHeightProperty);
-  set surfaceHeight(num value) => setValue(surfaceHeightProperty, value);
 
   void _initCanvasEvents() {
     frame = new FrameworkEvent<FrameEventArgs>();

@@ -7,9 +7,9 @@
 */
 class SetProperty extends ActionBase
 {
-  FrameworkProperty targetProperty;
-  FrameworkProperty propertyProperty;
-  FrameworkProperty valueProperty;
+  FrameworkProperty target;
+  FrameworkProperty property;
+  FrameworkProperty value;
 
 
   SetProperty(){
@@ -20,37 +20,28 @@ class SetProperty extends ActionBase
   makeMe() => new SetProperty();
 
   void _initSetPropertyActionProperties(){
-    targetProperty = new FrameworkProperty(this, 'target');
-    propertyProperty = new FrameworkProperty(this, 'property');
-    valueProperty = new FrameworkProperty(this, 'value');
+    target = new FrameworkProperty(this, 'target');
+    property = new FrameworkProperty(this, 'property');
+    value = new FrameworkProperty(this, 'value');
   }
-
-  String get target => getValue(targetProperty);
-  set target(String v) => setValue(targetProperty, v);
-
-  String get property => getValue(propertyProperty);
-  set property(String v) => setValue(propertyProperty, v);
-
-  Dynamic get value => getValue(valueProperty);
-  set value(Dynamic v) => setValue(valueProperty, v);
 
   void onEventTrigger(){
 
     //TODO throw?
-    if (property == null || value == null) return;
+    if (property.value == null || value.value == null) return;
 
-    var el = target != null
-        ? namedElements[target]
-        : getValue(_sourceProperty);
+    var el = target.value != null
+        ? namedElements[target.value]
+        : _source.value;
 
     if (el == null) return; //TODO throw?
 
     el
-      .getPropertyByName(property)
+      .getPropertyByName(property.value)
       .then((prop){
         if (prop == null) return;
 
-        setValue(prop, value);
+        prop.value = value;
       });
   }
 }

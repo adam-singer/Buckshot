@@ -64,9 +64,9 @@ void printTree(startWith, [int indent = 0]){
         '(Parent=${startWith.parent})');
 
   if (startWith is IFrameworkContainer){
-    if ((startWith as IFrameworkContainer).content is List){
+    if ((startWith as IFrameworkContainer).containerContent is List){
       (startWith as IFrameworkContainer)
-        .content
+        .containerContent
         .forEach((e) => printTree(e, indent + 3));
     }else{
       printTree(startWith.content, indent + 3);

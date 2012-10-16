@@ -10,12 +10,12 @@
  */
 class Menu extends Control implements IFrameworkContainer
 {
-  FrameworkProperty menuItemsProperty;
-  FrameworkProperty parentNameProperty;
-  FrameworkProperty headerProperty;
-  FrameworkProperty _menuParentProperty;
-  FrameworkProperty offsetXProperty;
-  FrameworkProperty offsetYProperty;
+  FrameworkProperty<ObservableList<MenuItem>> menuItems;
+  FrameworkProperty<String> parentName;
+  FrameworkProperty<Dynamic> header;
+  FrameworkProperty<FrameworkElement> _menuParent;
+  FrameworkProperty<num> offsetX;
+  FrameworkProperty<num> offsetY;
 
   final FrameworkEvent<MenuItemSelectedEventArgs> menuItemSelected =
       new FrameworkEvent<MenuItemSelectedEventArgs>();
@@ -26,9 +26,9 @@ class Menu extends Control implements IFrameworkContainer
 
     _initMenuProperties();
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = content;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = menuItems.value;
 
-    visibility = Visibility.collapsed;
+    visibility.value = Visibility.collapsed;
 
     registerEvent('menuitemselected', menuItemSelected);
   }
@@ -38,29 +38,29 @@ class Menu extends Control implements IFrameworkContainer
 
   void onFirstLoad(){
 
-    var mp = getValue(_menuParentProperty);
+    var mp = _menuParent.value;
 
     if (mp == null){
-      setValue(_menuParentProperty, parent);
+      _menuParent.value = parent;
     }
 
     _setPosition().then((_){
-      if (menuItems.isEmpty()) return;
+      if (menuItems.value.isEmpty()) return;
 
-      menuItems.forEach((MenuItem item){
+      menuItems.value.forEach((MenuItem item){
         item.click + (_, __){
           menuItemSelected.invoke(this, new MenuItemSelectedEventArgs(item));
           hide();
         };
       });
 
-      if (visibility == Visibility.visible){
+      if (visibility.value == Visibility.visible){
         show();
       }
     });
 
     document.body.on.click.add((e){
-      if (visibility == Visibility.visible){
+      if (visibility.value == Visibility.visible){
         hide();
 
         if (parent is MenuStrip){
@@ -74,61 +74,50 @@ class Menu extends Control implements IFrameworkContainer
   Future show(){
    return _setPosition()
              .chain((_){
-              visibility = Visibility.visible;
+              visibility.value = Visibility.visible;
               return new Future.immediate(true);
             });
   }
 
   void hide(){
-    visibility = Visibility.collapsed;
+    visibility.value = Visibility.collapsed;
   }
 
   Future _setPosition(){
-    var mp = getValue(_menuParentProperty);
+    var mp = _menuParent.value;
     if (mp == null) new Future.immediate(null);
 
     return mp
      .updateMeasurementAsync
      .chain((ElementRect r){
-      rawElement.style.left = '${offsetX + r.bounding.left}px';
-      rawElement.style.top = '${offsetY + r.bounding.top}px';
+      rawElement.style.left = '${offsetX.value + r.bounding.left}px';
+      rawElement.style.top = '${offsetY.value + r.bounding.top}px';
       return new Future.immediate(r);
     });
   }
 
   void _initMenuProperties(){
-    menuItemsProperty = new FrameworkProperty(this, 'menuItems',
+    menuItems = new FrameworkProperty(this, 'menuItems',
         defaultValue: new ObservableList<MenuItem>());
 
-    _menuParentProperty = new FrameworkProperty(this, '_menuParent');
+    _menuParent = new FrameworkProperty(this, '_menuParent');
 
-    offsetXProperty = new FrameworkProperty(this, 'offsetX',
+    offsetX = new FrameworkProperty(this, 'offsetX',
         defaultValue: 0,
         converter: const StringToNumericConverter());
 
-    offsetYProperty = new FrameworkProperty(this, 'offsetY',
+    offsetY = new FrameworkProperty(this, 'offsetY',
         defaultValue: 0,
         converter: const StringToNumericConverter());
 
-    headerProperty = new FrameworkProperty(this, 'header');
+    header = new FrameworkProperty(this, 'header');
 
     rawElement.style.position = 'absolute';
     rawElement.style.top = '0px';
     rawElement.style.left = '0px';
   }
 
-  get content => getValue(menuItemsProperty);
-
-  ObservableList<MenuItem> get menuItems => getValue(menuItemsProperty);
-
-  set offsetX(num value) => setValue(offsetXProperty, value);
-  num get offsetX => getValue(offsetXProperty);
-
-  set offsetY(num value) => setValue(offsetYProperty, value);
-  num get offsetY => getValue(offsetYProperty);
-
-  set header(value) => setValue(headerProperty, value);
-  get header => getValue(headerProperty);
+  get containerContent => menuItems.value;
 
   String get defaultControlTemplate {
     return

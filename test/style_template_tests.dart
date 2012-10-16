@@ -30,74 +30,74 @@ run(){
       st.setProperty("background", new SolidColorBrush(new Color.predefined(Colors.Red)));
 
       var b = new Border();
-      b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
-      Expect.equals(Colors.Blue.toString(), (b.background as SolidColorBrush).color.toColorString());
+      b.background.value = new SolidColorBrush(new Color.predefined(Colors.Blue));
+      Expect.equals(Colors.Blue.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
 
-      b.style = st;
-      Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
+      b.style.value = st;
+      Expect.equals(Colors.Red.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
     });
     test('Value change binds to property', (){
       StyleTemplate st = new StyleTemplate();
       st.setProperty("background", new SolidColorBrush(new Color.predefined(Colors.Red)));
 
       var b = new Border();
-      b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
-      Expect.equals(Colors.Blue.toString(), (b.background as SolidColorBrush).color.toColorString());
+      b.background.value = new SolidColorBrush(new Color.predefined(Colors.Blue));
+      Expect.equals(Colors.Blue.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
 
-      b.style = st;
-      Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
+      b.style.value = st;
+      Expect.equals(Colors.Red.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
 
       st.setProperty("background", new SolidColorBrush(new Color.predefined(Colors.Aqua)));
-      Expect.equals(Colors.Aqua.toString(), (b.background as SolidColorBrush).color.toColorString());
+      Expect.equals(Colors.Aqua.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
     });
     test('null to Element non-null style', (){
       StyleTemplate st = new StyleTemplate();
       st.setProperty("background", new SolidColorBrush(new Color.predefined(Colors.Red)));
 
       var b = new Border();
-      b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
-      Expect.equals(Colors.Blue.toString(), (b.background as SolidColorBrush).color.toColorString());
+      b.background.value = new SolidColorBrush(new Color.predefined(Colors.Blue));
+      Expect.equals(Colors.Blue.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
 
       int statebagCount = b.stateBag.length;
 
-      b.style = st;
-      Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
+      b.style.value = st;
+      Expect.equals(Colors.Red.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
       Expect.equals(statebagCount + 1, b.stateBag.length);
       Expect.isTrue(st.registeredElements.some((e) => e == b));
       Binding bi = b.stateBag['${st.stateBagPrefix}background__'];
 
-      b.style = null;
+      b.style.value = null;
       Expect.equals(statebagCount, b.stateBag.length);
       Expect.isFalse(st.registeredElements.some((e) => e == b));
       Expect.isFalse(bi.bindingSet);
 
       //style is actually reset to a blank style
-      Expect.isNotNull(b.style);
+      Expect.isNotNull(b.style.value);
 
     });
     test('replace Style', (){
       StyleTemplate st = new StyleTemplate();
-      st.setProperty("background", new SolidColorBrush(new Color.predefined(Colors.Red)));
+      st.setProperty("background", new SolidColorBrush.fromPredefined(Colors.Red));
 
       StyleTemplate st2 = new StyleTemplate();
       st2.setProperty("background", new SolidColorBrush(new Color.predefined(Colors.Green)));
 
       var b = new Border();
-      b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
-      Expect.equals(Colors.Blue.toString(), (b.background as SolidColorBrush).color.toColorString());
+      b.background.value = new SolidColorBrush(new Color.predefined(Colors.Blue));
+      Expect.equals(Colors.Blue.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
 
       int statebagCount = b.stateBag.length;
 
-      b.style = st;
-      Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
+      b.style.value = st;
+      Expect.equals(Colors.Red.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
       Expect.equals(statebagCount + 1, b.stateBag.length);
       Expect.isTrue(st.registeredElements.some((e) => e == b));
       Binding bi = b.stateBag['${st.stateBagPrefix}background__'];
 
-      b.style = st2;
+      b.style.value = st2;
       Expect.isFalse(st.registeredElements.some((e) => e == b));
       Expect.isTrue(st2.registeredElements.some((e) => e == b));
-      Expect.equals(Colors.Green.toString(), (b.background as SolidColorBrush).color.toColorString());
+      Expect.equals(Colors.Green.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
       Expect.isFalse(bi.bindingSet);
     });
     test('.mergeWith no fail on null list', (){
@@ -116,13 +116,13 @@ run(){
       st2.setProperty("background", new SolidColorBrush(new Color.predefined(Colors.Green)));
 
       var b = new Border();
-      b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
+      b.background.value = new SolidColorBrush(new Color.predefined(Colors.Blue));
 
-      b.style = st;
-      Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
+      b.style.value = st;
+      Expect.equals(Colors.Red.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
 
-      b.style.mergeWith([st2]);
-      Expect.equals(Colors.Green.toString(), (b.background as SolidColorBrush).color.toColorString());
+      b.style.value.mergeWith([st2]);
+      Expect.equals(Colors.Green.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
     });
     test('.mergeWith new property succeeds', (){
       StyleTemplate st = new StyleTemplate();
@@ -132,14 +132,14 @@ run(){
       st2.setProperty("opacity", .5);
 
       var b = new Border();
-      b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
+      b.background.value = new SolidColorBrush(new Color.predefined(Colors.Blue));
 
-      b.style = st;
+      b.style.value = st;
       Expect.isNull(b.opacity);
 
-      b.style.mergeWith([st2]);
+      b.style.value.mergeWith([st2]);
       Expect.equals(.5, b.opacity);
-      Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
+      Expect.equals(Colors.Red.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
     });
     test('.mergeWith multiple styles succeeds', (){
       StyleTemplate st = new StyleTemplate();
@@ -152,15 +152,15 @@ run(){
       st3.setProperty("background", new SolidColorBrush(new Color.predefined(Colors.Yellow)));
 
       var b = new Border();
-      b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
+      b.background.value = new SolidColorBrush(new Color.predefined(Colors.Blue));
 
-      b.style = st;
-      Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
+      b.style.value = st;
+      Expect.equals(Colors.Red.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
 
       //yellow should win
       //st and null should be ignored
-      b.style.mergeWith([st2, st, null, st3]);
-      Expect.equals(Colors.Yellow.toString(), (b.background as SolidColorBrush).color.toColorString());
+      b.style.value.mergeWith([st2, st, null, st3]);
+      Expect.equals(Colors.Yellow.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
     });
     test('.mergeWith to new Element style', (){
       StyleTemplate st = new StyleTemplate();
@@ -173,11 +173,11 @@ run(){
       st3.setProperty("background", new SolidColorBrush(new Color.predefined(Colors.Yellow)));
 
       var b = new Border();
-      b.background = new SolidColorBrush(new Color.predefined(Colors.Blue));
+      b.background.value = new SolidColorBrush(new Color.predefined(Colors.Blue));
 
       //red should win
-      b.style.mergeWith([st2, st3, null, st]);
-      Expect.equals(Colors.Red.toString(), (b.background as SolidColorBrush).color.toColorString());
+      b.style.value.mergeWith([st2, st3, null, st]);
+      Expect.equals(Colors.Red.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
     });
     test('is BuckshotObject', (){
       StyleTemplate st = new StyleTemplate();

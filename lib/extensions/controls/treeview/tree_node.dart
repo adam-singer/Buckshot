@@ -11,15 +11,14 @@ class TreeNode extends Control implements IFrameworkContainer
   TreeView _parentTreeView;
   TreeNode _parentNode = null;
 
-  FrameworkProperty headerProperty;
-  FrameworkProperty iconProperty;
-  FrameworkProperty folderIconProperty;
-  FrameworkProperty fileIconProperty;
-  FrameworkProperty childNodesProperty;
-  FrameworkProperty indicatorProperty;
-  FrameworkProperty childVisibilityProperty;
-
-  FrameworkProperty _mouseEventStylesProperty;
+  FrameworkProperty<Dynamic> header;
+  FrameworkProperty<FrameworkElement> icon;
+  FrameworkProperty<FrameworkElement> folderIcon;
+  FrameworkProperty<FrameworkElement> fileIcon;
+  FrameworkProperty<ObservableList<TreeNode>> childNodes;
+  FrameworkProperty<Dynamic> indicator;
+  FrameworkProperty<Visibility> childVisibility;
+  FrameworkProperty<StyleTemplate> _mouseEventStyles;
 
   TreeNode()
   {
@@ -39,13 +38,13 @@ class TreeNode extends Control implements IFrameworkContainer
 
   void _initControl(){
     // Adjust indicator if children present or not.
-    childNodes.listChanged + (__, _) => adjustIndicator();
+    childNodes.value.listChanged + (__, _) => adjustIndicator();
 
     // Toggle visibility of child nodes when clicked.
     Template
       .findByName('__tree_node_indicator__', template)
       .click + (_, __){
-        childVisibility = childVisibility == Visibility.visible
+        childVisibility.value = childVisibility.value == Visibility.visible
             ? Visibility.collapsed
             : Visibility.visible;
 
@@ -62,20 +61,20 @@ class TreeNode extends Control implements IFrameworkContainer
 
   void adjustIndicator(){
 
-    if (childNodes.isEmpty()){
+    if (childNodes.value.isEmpty()){
       if (_lastWasEmpty) return;
 
-      indicator = '';
+      indicator.value = '';
 
-      setValue(iconProperty, fileIcon);
+      icon.value = fileIcon.value;
 
       _lastWasEmpty = true;
     }else{
-      indicator = childVisibility == Visibility.visible
+      indicator.value = childVisibility.value == Visibility.visible
           ? TreeView.INDICATOR_EXPANDED
               : TreeView.INDICATOR_COLLAPSED;
 
-      setValue(iconProperty, folderIcon);
+      icon.value = folderIcon.value;
 
       _lastWasEmpty = false;
     }
@@ -87,22 +86,23 @@ class TreeNode extends Control implements IFrameworkContainer
 
     final rowElement = Template.findByName('__tree_node_header__', template);
     if (rowElement is! Border) {
-      throw const BuckshotException('Expected TreeNode row element to be of type Border.');
+      throw const BuckshotException('Expected TreeNode row element to'
+          ' be of type Border.');
     }
 
     rowElement.mouseEnter + (_, __){
       if (_parentTreeView.selectedNode == this) return;
-      setValue(_mouseEventStylesProperty, _parentTreeView.mouseEnterBorderStyle);
+      _mouseEventStyles.value = _parentTreeView.mouseEnterBorderStyle;
     };
 
     rowElement.mouseLeave + (_, __){
       if (_parentTreeView.selectedNode == this) return;
-      setValue(_mouseEventStylesProperty, _parentTreeView.mouseLeaveBorderStyle);
+      _mouseEventStyles.value = _parentTreeView.mouseLeaveBorderStyle;
     };
 
     rowElement.mouseDown + (_, __){
       if (_parentTreeView.selectedNode == this) return;
-      setValue(_mouseEventStylesProperty, _parentTreeView.mouseDownBorderStyle);
+      _mouseEventStyles.value = _parentTreeView.mouseDownBorderStyle;
     };
 
     rowElement.mouseUp + (_, __){
@@ -114,17 +114,16 @@ class TreeNode extends Control implements IFrameworkContainer
 
   void _initializeTreeNodeProperties(){
 
-    childNodesProperty = new FrameworkProperty(this, 'childNodes',
+    childNodes = new FrameworkProperty(this, 'childNodes',
         defaultValue:new ObservableList<TreeNode>());
 
-    childNodes.listChanged + _childrenChanged;
+    childNodes.value.listChanged + _childrenChanged;
 
-    iconProperty = new FrameworkProperty(this, 'icon');
+    icon = new FrameworkProperty(this, 'icon');
 
-    folderIconProperty = new FrameworkProperty(this, 'folderIcon');
+    folderIcon= new FrameworkProperty(this, 'folderIcon');
 
-    fileIconProperty = new FrameworkProperty(this, 'fileIcon',
-        defaultValue:Template.deserialize(TreeView.FILE_DEFAULT_TEMPLATE));
+    fileIcon = new FrameworkProperty(this, 'fileIcon');
 
 
     Futures
@@ -134,23 +133,23 @@ class TreeNode extends Control implements IFrameworkContainer
        Template.deserialize(TreeView.FILE_DEFAULT_TEMPLATE)
        ]
       ).then((results){
-        setValue(folderIconProperty, results[0]);
-        setValue(fileIconProperty, results[1]);
+        folderIcon.value = results[0];
+        fileIcon.value = results[1];
       });
 
-    indicatorProperty = new FrameworkProperty(this, 'indicator',
+    indicator = new FrameworkProperty(this, 'indicator',
         defaultValue:TreeView.INDICATOR_COLLAPSED);
 
-    headerProperty = new FrameworkProperty(this, 'header', defaultValue:'');
+    header = new FrameworkProperty(this, 'header', defaultValue:'');
 
-    childVisibilityProperty = new FrameworkProperty(
+    childVisibility = new FrameworkProperty(
       this,
       'childVisibility',
       (_){},
       Visibility.collapsed,
       converter:const StringToVisibilityConverter());
 
-    _mouseEventStylesProperty = new FrameworkProperty(this, '_mouseEventStyles');
+    _mouseEventStyles = new FrameworkProperty(this, '_mouseEventStyles');
   }
 
   void _childrenChanged(_, ListChangedEventArgs args){
@@ -163,26 +162,9 @@ class TreeNode extends Control implements IFrameworkContainer
   }
 
   // IFrameworkContainer interface
-  get content => template;
-
-  get header => getValue(headerProperty);
-  set header(value) => setValue(headerProperty, value);
-
-  get indicator => getValue(indicatorProperty);
-  set indicator(value) => setValue(indicatorProperty, value);
-
-  FrameworkElement get folderIcon => getValue(folderIconProperty);
-  set folderIcon(FrameworkElement value) => setValue(folderIconProperty, value);
-
-  FrameworkElement get fileIcon => getValue(fileIconProperty);
-  set fileIcon(FrameworkElement value) => setValue(fileIconProperty, value);
-
-  Visibility get childVisibility => getValue(childVisibilityProperty);
-  set childVisibility(Visibility value) => setValue(childVisibilityProperty, value);
+  get containerContent => template;
 
   TreeNode get parentNode => _parentNode;
-
-  ObservableList<TreeNode> get childNodes => getValue(childNodesProperty);
 
   String get defaultControlTemplate {
     return
