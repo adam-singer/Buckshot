@@ -14,7 +14,7 @@ class StackPolyfill extends Polyfill
 
   @override void invalidate(){
 
-    log('invalidate stack polyfill', element);
+    log('invalidate stack polyfill', element:element, logLevel: Level.INFO);
   }
 
   /**

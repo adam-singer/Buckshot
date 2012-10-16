@@ -305,11 +305,11 @@ class Polly {
         Polly.setCSS(element.rawElement, 'flex', '1 1 auto');
       }
 
-      setHorizontalFlexBoxAlignment(element.parent, element.hAlign);
+      setHorizontalFlexBoxAlignment(element.parent, element.hAlign.value);
     }
 
     if (element.vAlign != null){
-      setVerticalFlexBoxAlignment(element.parent, element.vAlign);
+      setVerticalFlexBoxAlignment(element.parent, element.vAlign.value);
     }
   }
 

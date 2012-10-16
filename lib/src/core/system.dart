@@ -107,7 +107,7 @@ Future _initFramework(){
   });
 
   // Initializes the system object name.
-  buckshot.name = '__sys__';
+  buckshot.name.value = '__sys__';
 
   if (!Polly.browserOK){
     _log.warning('Buckshot Warning: Browser may not be compatible with Buckshot'
@@ -127,11 +127,11 @@ Future _initFramework(){
   //any elements bound to these properties will also get updated...
   window.on.resize.add((e){
     if (window.innerWidth != windowWidth){
-      setValue(windowWidthProperty, window.innerWidth);
+      windowWidth.value = window.innerWidth;
     }
 
     if (window.innerHeight != windowHeight){
-      setValue(windowHeightProperty, window.innerHeight);
+      windowHeight.value = window.innerHeight;
     }
   });
 
@@ -247,8 +247,8 @@ getObjectByName(String name){
  * Currently only supports desktop browsers.
  */
 void bindToWindowDimensions(FrameworkElement element){
-  bind(windowHeightProperty, element.heightProperty);
-  bind(windowWidthProperty, element.widthProperty);
+  bind(windowHeight, element.height);
+  bind(windowWidth, element.width);
 }
 
 /**
@@ -257,9 +257,8 @@ void bindToWindowDimensions(FrameworkElement element){
  * Typically you will not need to bind to this directly.  Use the
  * bindToWindowDimensions() function instead.
  */
-FrameworkProperty windowWidthProperty = new FrameworkProperty(
-    buckshot, "windowWidth", defaultValue:window.innerWidth)
-    ..readOnly = true;
+FrameworkProperty windowWidth = new FrameworkProperty(
+    buckshot, "windowWidth", defaultValue:window.innerWidth);
 
 /**
  * Bindable window height property.
@@ -267,16 +266,9 @@ FrameworkProperty windowWidthProperty = new FrameworkProperty(
  * Typically you will not need to bind to this directly.  Use the
  * bindToWindowDimensions() function instead.
  */
-FrameworkProperty windowHeightProperty = new FrameworkProperty(
-    buckshot, "windowHeight", defaultValue:window.innerHeight)
-    ..readOnly = true;
+FrameworkProperty windowHeight = new FrameworkProperty(
+    buckshot, "windowHeight", defaultValue:window.innerHeight);
 
-
-/// Gets the innerWidth of the window
-num get windowWidth => getValue(windowWidthProperty);
-
-/// Gets the innerHeight of the window
-num get windowHeight => getValue(windowHeightProperty);
 
 /**
  * Register global event handlers here when reflection is not enabled.  Global
@@ -370,7 +362,7 @@ getResource(String resourceKey, [IValueConverter converter = null]){
 
   if (res.stateBag.containsKey(FrameworkResource.RESOURCE_PROPERTY)){
     // resource property defined so return it's value
-    res = getValue(res.stateBag[FrameworkResource.RESOURCE_PROPERTY]);
+    res = res.stateBag[FrameworkResource.RESOURCE_PROPERTY].value;
   }
 
   return converter == null ? res : converter.convert(res);
@@ -434,69 +426,23 @@ Future setValueAsync(FrameworkProperty property, Dynamic value)
 
 /**
  * Sets the value of a given [FrameworkProperty] [property] to a given [value].
+ *
+ * This function is deprecated. Assign to property.value directly.
  */
-void setValue(FrameworkProperty property, Dynamic value)
-{
-   if (property.readOnly){
-     _setPropertyLog.warning('Attempted write to read-only'
-         ' property (${property.propertyName})');
-     return;
-   }
-
-   if (property.stringToValueConverter != null && value is String){
-     value = property.stringToValueConverter.convert(value);
-   }
-
-   if (property.value === value) return;
-
-    property.previousValue = property.value;
-    property.value = value;
-
-    _setPropertyLog
-      .finest('(${property.sourceObject}) property'
-      ' (${property.propertyName}) to ($value)');
-
-    // 3 different activities take place when a FrameworkProperty value changes,
-    // in this order of precedence:
-    //    1) callback - lets the FrameworkProperty do any work it wants to do
-    //    2) bindings - fires any bindings associated with the FrameworkProperty
-    //    3) event - notifies any subscribers that the FrameworkProperty
-    //       value changed
-
-    // 1) callback
-    Function f = property.propertyChangedCallback;
-    f(value);
-
-    // 2) bindings
-    Binding._executeBindingsFor(property);
-
-    // 3) event
-    if (property.propertyChanging.hasHandlers)
-      property.propertyChanging.invokeAsync(property.sourceObject,
-        new PropertyChangingEventArgs(property.previousValue, value));
-
+@deprecated void setValue(FrameworkProperty property, Dynamic value){
+  property.value = value;
 }
 
 /**
  * Gets the current value of a given [FrameworkProperty] object.
+ *
+ * This function is deprecated.  Use property.value getter to get the latest
+ * value.
  */
-getValue(FrameworkProperty property){
+@deprecated getValue(FrameworkProperty property){
   assert(property != null);
-
-  if (property != null){
-    _getPropertyLog.finest('(${property.sourceObject}) property (${property.propertyName}) value (${property.value})');
-  }else{
-    _getPropertyLog.warning('Attempted getValue() on null property.');
-  }
-  return (property == null) ? null : property.value;
+  return property.value;
 }
-
-String _elementAndName(FrameworkObject o){
-  return (o == null || o.name == null || o.name.trim() == '')
-      ? '$o'
-      : '$o[${o.name}]';
-}
-
 
 Future _functionToFuture(Function f){
   Completer c = new Completer();

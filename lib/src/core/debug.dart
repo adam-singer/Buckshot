@@ -60,8 +60,8 @@ void printTree(startWith, [int indent = 0]){
     return s.toString();
   }
 
-  print('${space(indent)}${_elementAndName(startWith)}'
-        '(Parent=${_elementAndName(startWith.parent)})');
+  print('${space(indent)}${startWith}'
+        '(Parent=${startWith.parent})');
 
   if (startWith is IFrameworkContainer){
     if ((startWith as IFrameworkContainer).content is List){

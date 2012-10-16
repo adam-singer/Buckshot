@@ -21,66 +21,66 @@ class FrameworkElement extends FrameworkObject
   final HashMap<String, Dynamic> _polyfills = new HashMap<String, Object>();
 
   /// Represents the margin [Thickness] area outside the FrameworkElement boundary.
-  FrameworkProperty marginProperty;
+  FrameworkProperty<Thickness> margin;
   /// Represents the width of the FrameworkElement.
-  FrameworkProperty widthProperty;
+  FrameworkProperty<num> width;
   /// Represents the height of the FrameworkElement.
-  FrameworkProperty heightProperty;
+  FrameworkProperty<num> height;
   /// Represents the HTML 'ID' property of the FrameworkElement.
-  FrameworkProperty htmlIDProperty;
+  FrameworkProperty<String> htmlID;
   /// Represents the maximum width property of the FrameworkElement.
-  FrameworkProperty maxWidthProperty;
+  FrameworkProperty<num> maxWidth;
   /// Represents the minimum height property of the FrameworkElement.
-  FrameworkProperty minWidthProperty;
+  FrameworkProperty<num> minWidth;
   /// Represents the maximum height property of the FrameworkElement.
-  FrameworkProperty maxHeightProperty;
+  FrameworkProperty<num> maxHeight;
   /// Represents the minimum height proeprty of the FrameworkElement.
-  FrameworkProperty minHeightProperty;
+  FrameworkProperty<num> minHeight;
   /// Represents the shape the cursor will take when passing over the FrameworkElement.
-  FrameworkProperty cursorProperty;
+  FrameworkProperty<Cursors> cursor;
   /// Represents a general use [Object] property of the FrameworkElement.
-  FrameworkProperty tagProperty;
+  FrameworkProperty<Object> tag;
   /// Represents the horizontal alignment of this FrameworkElement inside another element.
-  FrameworkProperty hAlignProperty;
+  FrameworkProperty<HorizontalAlignment> hAlign;
   /// Represents the [VerticalAlignment] of this FrameworkElement inside another element.
-  FrameworkProperty vAlignProperty;
+  FrameworkProperty<VerticalAlignment> vAlign;
   /// Represents the html z order of this FrameworkElement in relation to other elements.
-  FrameworkProperty zOrderProperty;
+  FrameworkProperty<num> zOrder;
   /// Represents the actual adjusted width of the FrameworkElement.
-  FrameworkProperty actualWidthProperty;
+  FrameworkProperty<num> actualWidth;
   /// Represents the actual adjusted height of the FrameworkElement.
-  FrameworkProperty actualHeightProperty;
+  FrameworkProperty<num> actualHeight;
   /// Represents the opacity value [Double] of the FrameworkElement.
-  AnimatingFrameworkProperty opacityProperty;
+  AnimatingFrameworkProperty<num> opacity;
   /// Represents the [Visibility] property of the FrameworkElement.
-  AnimatingFrameworkProperty visibilityProperty;
+  AnimatingFrameworkProperty<Visibility> visibility;
   /// Represents the [StyleTemplate] value that is currently applied to the FrameworkElement.
-  FrameworkProperty styleProperty;
+  FrameworkProperty<StyleTemplate> style;
   /// Represents whether an element is draggable
-  FrameworkProperty draggableProperty;
+  FrameworkProperty<bool> draggable;
 
-  FrameworkProperty shadowXProperty;
-  FrameworkProperty shadowYProperty;
-  FrameworkProperty shadowBlurProperty;
-  FrameworkProperty shadowSizeProperty;
-  FrameworkProperty shadowColorProperty;
-  FrameworkProperty shadowInsetProperty;
+  FrameworkProperty<num> shadowX;
+  FrameworkProperty<num> shadowY;
+  FrameworkProperty<num> shadowBlur;
+  FrameworkProperty<num> shadowSize;
+  FrameworkProperty<Color> shadowColor;
+  FrameworkProperty<String> shadowInset;
 
-  AnimatingFrameworkProperty translateXProperty;
-  AnimatingFrameworkProperty translateYProperty;
-  AnimatingFrameworkProperty translateZProperty;
-  AnimatingFrameworkProperty scaleXProperty;
-  AnimatingFrameworkProperty scaleYProperty;
-  AnimatingFrameworkProperty scaleZProperty;
-  AnimatingFrameworkProperty rotateXProperty;
-  AnimatingFrameworkProperty rotateYProperty;
-  AnimatingFrameworkProperty rotateZProperty;
-  FrameworkProperty transformOriginXProperty;
-  FrameworkProperty transformOriginYProperty;
-  FrameworkProperty transformOriginZProperty;
-  FrameworkProperty perspectiveProperty;
+  AnimatingFrameworkProperty<num> translateX;
+  AnimatingFrameworkProperty<num> translateY;
+  AnimatingFrameworkProperty<num> translateZ;
+  AnimatingFrameworkProperty<num> scaleX;
+  AnimatingFrameworkProperty<num> scaleY;
+  AnimatingFrameworkProperty<num> scaleZ;
+  AnimatingFrameworkProperty<num> rotateX;
+  AnimatingFrameworkProperty<num> rotateY;
+  AnimatingFrameworkProperty<num> rotateZ;
+  FrameworkProperty<num> transformOriginX;
+  FrameworkProperty<num> transformOriginY;
+  FrameworkProperty<num> transformOriginZ;
+  FrameworkProperty<num> perspective;
 
-  FrameworkProperty actionsProperty;
+  FrameworkProperty<ObservableList<ActionBase>> actions;
 
   //events
   /// Fires when the DOM gives the FrameworkElement focus.
@@ -146,15 +146,15 @@ class FrameworkElement extends FrameworkObject
 
   static void _doTransform(FrameworkElement e){
 
-    var tx = getValue(e.translateXProperty);
-    var ty = getValue(e.translateYProperty);
-    var tz = getValue(e.translateZProperty);
-    var sx = getValue(e.scaleXProperty);
-    var sy = getValue(e.scaleYProperty);
-    var sz = getValue(e.scaleZProperty);
-    var rx = getValue(e.rotateXProperty);
-    var ry = getValue(e.rotateYProperty);
-    var rz = getValue(e.rotateZProperty);
+    var tx = e.translateX.value;
+    var ty = e.translateY.value;
+    var tz = e.translateZ.value;
+    var sx = e.scaleX.value;
+    var sy = e.scaleY.value;
+    var sz = e.scaleZ.value;
+    var rx = e.rotateX.value;
+    var ry = e.rotateY.value;
+    var rz = e.rotateZ.value;
 
     // set to identity if null
     if (tx == null) tx = 0;
@@ -176,12 +176,12 @@ class FrameworkElement extends FrameworkObject
   }
 
   static void _drawShadow(FrameworkElement e){
-    var sx = getValue(e.shadowXProperty);
-    var sy = getValue(e.shadowYProperty);
-    var b = getValue(e.shadowBlurProperty);
-    var s = getValue(e.shadowSizeProperty);
-    var c = getValue(e.shadowColorProperty);
-    var inset = getValue(e.shadowInsetProperty);
+    var sx = e.shadowX.value;
+    var sy = e.shadowY.value;
+    var b = e.shadowBlur.value;
+    var s = e.shadowSize.value;
+    var c = e.shadowColor.value;
+    var inset = e.shadowInset.value;
 
     // set nulls
     sx = (sx == null) ? '' : '${sx}px';
@@ -189,7 +189,7 @@ class FrameworkElement extends FrameworkObject
     b = (b == null) ? '' : '${b}px';
     s = (s == null) ? '' : '${s}px';
     if (c != null){
-      c = c.color.toColorString();
+      c = '${c.value}';
     }else{
       c = new Color.predefined(Colors.Black).toColorString();
     }
@@ -202,9 +202,9 @@ class FrameworkElement extends FrameworkObject
   }
 
   static void _setTransformOrigin(FrameworkElement e){
-    var tx = getValue(e.transformOriginXProperty);
-    var ty = getValue(e.transformOriginYProperty);
-    var tz = getValue(e.transformOriginZProperty);
+    var tx = e.transformOriginX.value;
+    var ty = e.transformOriginY.value;
+    var tz = e.transformOriginZ.value;
 
     if (tx == null) tx = 0;
     if (ty == null) ty = 0;
@@ -216,33 +216,33 @@ class FrameworkElement extends FrameworkObject
 
   void _initFrameworkProperties(){
 
-    shadowXProperty = new FrameworkProperty(this, 'shadowX',
+    shadowX = new FrameworkProperty(this, 'shadowX',
         propertyChangedCallback: (_) => _drawShadow(this),
         converter:const StringToNumericConverter());
 
-    shadowYProperty = new FrameworkProperty(this, 'shadowY',
+    shadowY = new FrameworkProperty(this, 'shadowY',
         propertyChangedCallback: (_) => _drawShadow(this),
         converter:const StringToNumericConverter());
 
-    shadowBlurProperty = new FrameworkProperty(this, 'shadowBlur',
+    shadowBlur = new FrameworkProperty(this, 'shadowBlur',
         propertyChangedCallback: (_) => _drawShadow(this),
         converter:const StringToNumericConverter());
 
-    shadowSizeProperty = new FrameworkProperty(this, 'shadowSize',
+    shadowSize = new FrameworkProperty(this, 'shadowSize',
         propertyChangedCallback: (_) => _drawShadow(this),
         converter:const StringToNumericConverter());
 
-    shadowColorProperty = new FrameworkProperty(this, 'shadowColor',
+    shadowColor = new FrameworkProperty(this, 'shadowColor',
         propertyChangedCallback: (_) => _drawShadow(this),
-        converter:const StringToSolidColorBrushConverter());
+        converter:const StringToColorConverter());
 
-    shadowInsetProperty = new FrameworkProperty(this, 'shadowInset',
+    shadowInset = new FrameworkProperty(this, 'shadowInset',
         propertyChangedCallback: (_) => _drawShadow(this),
         converter:const StringToBooleanConverter());
 
-    actionsProperty = new FrameworkProperty(this, 'actions',
+    actions = new FrameworkProperty(this, 'actions',
         (ObservableList<ActionBase> aList){
-          if (actionsProperty != null){
+          if (actions != null){
             throw const BuckshotException('FrameworkElement.actionsProperty'
                 ' collection can only be assigned once.');
           }
@@ -254,7 +254,7 @@ class FrameworkElement extends FrameworkObject
 
             //assign this element as the source to any new actions
             args.newItems.forEach((ActionBase action){
-              setValue(action._sourceProperty, this);
+              action._sourceProperty.value = this;
             });
         };
     }, new ObservableList<ActionBase>());
@@ -262,78 +262,78 @@ class FrameworkElement extends FrameworkObject
 
     //TODO: propogate this property in elements that use virtual containers
 
-    perspectiveProperty = new FrameworkProperty(this, "perspective", (num value){
+    perspective = new FrameworkProperty(this, "perspective", (num value){
       Polly.setCSS(rawElement, 'perspective', '$value');
     },converter:const StringToNumericConverter());
 
-    translateXProperty = new AnimatingFrameworkProperty(this, "translateX",
+    translateX = new AnimatingFrameworkProperty(this, "translateX",
       'transform',
       propertyChangedCallback:(num value) => _doTransform(this),
       converter:const StringToNumericConverter());
 
-    translateYProperty = new AnimatingFrameworkProperty(this, "translateY",
-      'transform',
-      propertyChangedCallback:(num value) => _doTransform(this),
-      converter:const StringToNumericConverter());
-
-
-    translateZProperty = new AnimatingFrameworkProperty(this, "translateZ",
+    translateY = new AnimatingFrameworkProperty(this, "translateY",
       'transform',
       propertyChangedCallback:(num value) => _doTransform(this),
       converter:const StringToNumericConverter());
 
 
-    scaleXProperty = new AnimatingFrameworkProperty(this, "scaleX",
+    translateZ = new AnimatingFrameworkProperty(this, "translateZ",
       'transform',
       propertyChangedCallback:(num value) => _doTransform(this),
       converter:const StringToNumericConverter());
 
 
-    scaleYProperty = new AnimatingFrameworkProperty(this, "scaleY",
+    scaleX = new AnimatingFrameworkProperty(this, "scaleX",
+      'transform',
+      propertyChangedCallback:(num value) => _doTransform(this),
+      converter:const StringToNumericConverter());
+
+
+    scaleY = new AnimatingFrameworkProperty(this, "scaleY",
         'transform',
         propertyChangedCallback:(num value) => _doTransform(this),
         converter:const StringToNumericConverter());
 
 
-    scaleZProperty = new AnimatingFrameworkProperty(this, "scaleZ",
+    scaleZ = new AnimatingFrameworkProperty(this, "scaleZ",
         'transform',
         propertyChangedCallback:(num value) => _doTransform(this),
         converter:const StringToNumericConverter());
 
-    rotateXProperty = new AnimatingFrameworkProperty(this, "rotateX",
-        'transform',
-        propertyChangedCallback:(num value) => _doTransform(this),
-        converter:const StringToNumericConverter());
-
-
-    rotateYProperty = new AnimatingFrameworkProperty(this, "rotateY",
+    rotateX = new AnimatingFrameworkProperty(this, "rotateX",
         'transform',
         propertyChangedCallback:(num value) => _doTransform(this),
         converter:const StringToNumericConverter());
 
 
-    rotateZProperty = new AnimatingFrameworkProperty(this, "rotateZ",
+    rotateY = new AnimatingFrameworkProperty(this, "rotateY",
         'transform',
         propertyChangedCallback:(num value) => _doTransform(this),
         converter:const StringToNumericConverter());
 
 
-    transformOriginXProperty = new FrameworkProperty(this, "transformOriginX",
+    rotateZ = new AnimatingFrameworkProperty(this, "rotateZ",
+        'transform',
+        propertyChangedCallback:(num value) => _doTransform(this),
+        converter:const StringToNumericConverter());
+
+
+    transformOriginX = new FrameworkProperty(this, "transformOriginX",
       (num value){
         _setTransformOrigin(this);
     }, converter:const StringToNumericConverter());
 
-    transformOriginYProperty = new FrameworkProperty(this, "transformOriginY",
+    transformOriginY = new FrameworkProperty(this, "transformOriginY",
       (num value){
         _setTransformOrigin(this);
     }, converter:const StringToNumericConverter());
 
-    transformOriginZProperty = new FrameworkProperty(this, "transformOriginZ",
+    transformOriginZ = new FrameworkProperty(this, "transformOriginZ",
       (num value){
         _setTransformOrigin(this);
     }, converter:const StringToNumericConverter());
 
-    opacityProperty = new AnimatingFrameworkProperty(
+    opacity = new AnimatingFrameworkProperty(
       this,
       "opacity",
       'opacity',
@@ -345,7 +345,7 @@ class FrameworkElement extends FrameworkObject
       },
       converter:const StringToNumericConverter());
 
-    visibilityProperty = new AnimatingFrameworkProperty(
+    visibility = new AnimatingFrameworkProperty(
       this,
       "visibility",
       'visibility',
@@ -366,14 +366,14 @@ class FrameworkElement extends FrameworkObject
       },
       converter:const StringToVisibilityConverter());
 
-    zOrderProperty = new FrameworkProperty(
+    zOrder = new FrameworkProperty(
       this,
       "zOrder",
       (num value){
         rawElement.style.zIndex = value.toInt().toString(); //, null);
       }, converter:const StringToNumericConverter());
 
-    marginProperty = new FrameworkProperty(
+    margin = new FrameworkProperty(
       this,
       "margin",
       (Thickness value){
@@ -381,67 +381,67 @@ class FrameworkElement extends FrameworkObject
         if (parent != null) parent.updateLayout();
       }, new Thickness(0), converter:const StringToThicknessConverter());
 
-    actualWidthProperty = new FrameworkProperty(
+    actualWidth = new FrameworkProperty(
       this,
       "actualWidth",
       (num _){});
 
-    actualHeightProperty = new FrameworkProperty(
+    actualHeight = new FrameworkProperty(
       this,
       "actualHeight",
       (num _){});
 
-    widthProperty = new FrameworkProperty(
+    width = new FrameworkProperty(
       this,
       "width",
       (Dynamic value) => calculateWidth(value), "auto", converter:const StringToNumericConverter());
 
-    heightProperty = new FrameworkProperty(
+    height = new FrameworkProperty(
       this,
       "height",
       (Dynamic value) => calculateHeight(value), "auto", converter:const StringToNumericConverter());
 
-    minHeightProperty = new FrameworkProperty(
+    minHeight = new FrameworkProperty(
       this,
       "minHeight",
       (value){
         rawElement.style.minHeight = '${value}px';
       }, converter:const StringToNumericConverter());
 
-    maxHeightProperty = new FrameworkProperty(
+    maxHeight = new FrameworkProperty(
       this,
       "maxHeight",
       (value){
         rawElement.style.maxHeight = '${value}px';
       }, converter:const StringToNumericConverter());
 
-    minWidthProperty = new FrameworkProperty(
+    minWidth = new FrameworkProperty(
       this,
       "minWidth",
       (value){
         rawElement.style.minWidth = '${value}px';
       }, converter:const StringToNumericConverter());
 
-    maxWidthProperty = new FrameworkProperty(
+    maxWidth = new FrameworkProperty(
       this,
       "maxWidth",
       (value){
         rawElement.style.maxWidth = '${value}px';
       }, converter:const StringToNumericConverter());
 
-    cursorProperty = new FrameworkProperty(
+    cursor = new FrameworkProperty(
       this,
       "cursor",
       (Cursors value){
         rawElement.style.cursor = '$value';
       }, converter:const StringToCursorConverter());
 
-    tagProperty = new FrameworkProperty(
+    tag = new FrameworkProperty(
       this,
       "tag",
       (value){});
 
-    hAlignProperty = new FrameworkProperty(
+    hAlign = new FrameworkProperty(
       this,
       "hAlign",
       (HorizontalAlignment value){
@@ -451,7 +451,7 @@ class FrameworkElement extends FrameworkObject
       },
       HorizontalAlignment.left, converter:const StringToHorizontalAlignmentConverter());
 
-    vAlignProperty = new FrameworkProperty(
+    vAlign = new FrameworkProperty(
       this,
       "vAlign",
       (VerticalAlignment value){
@@ -461,16 +461,16 @@ class FrameworkElement extends FrameworkObject
       },
       VerticalAlignment.top, converter:const StringToVerticalAlignmentConverter());
 
-    styleProperty = new FrameworkProperty(
+    style = new FrameworkProperty(
       this,
       "style",
       (StyleTemplate value){
         if (value == null){
           //setting non-null style to null
           _style._unregisterElement(this);
-          styleProperty.previousValue = _style;
+          style.previousValue = _style;
           _style = new StyleTemplate();
-          styleProperty.value = _style;
+          style.value = _style;
         }else{
           //replacing style with style
           if (_style != null) _style._unregisterElement(this);
@@ -479,7 +479,7 @@ class FrameworkElement extends FrameworkObject
         }
       }, new StyleTemplate());
 
-    draggableProperty = new FrameworkProperty(
+    draggable = new FrameworkProperty(
       this,
       "draggable",
       (bool value) {
@@ -488,101 +488,6 @@ class FrameworkElement extends FrameworkObject
       false,
       converter:const StringToBooleanConverter());
   }
-
-  /**
-  Properties
-  */
-
-  /// Gets the [styleProperty] value.
-  StyleTemplate get style => getValue(styleProperty);
-  /// Sets the [styleProperty] value.
-  set style(StyleTemplate value) => setValue(styleProperty, value);
-
-  /// Gets the inner width of the element less any bordering offsets (margin, padding, borderThickness)
-  num get actualWidth => getValue(actualWidthProperty);
-
-  /// Gets the inner height of the element less any bordering offsets (margin, padding, borderThickness)
-  num get actualHeight => getValue(actualHeightProperty);
-
-  /// Sets the [htmlIDProperty] value.
-  set htmlID(String value) => setValue(htmlIDProperty, value);
-  /// Gets the [htmlIDProperty] value.
-  String get htmlID => getValue(htmlIDProperty);
-
-  /// Sets the [opacityProperty] value.
-  set opacity(double value) => setValue(opacityProperty, value);
-  /// Gets the [opacityProperty] value.
-  double get opacity => getValue(opacityProperty);
-
-  /// Sets the [visibilityProperty] value.
-  set visibility(Visibility value) => setValue(visibilityProperty, value);
-  /// Gets the [visibilityProperty] value.
-  Visibility get visibility => getValue(visibilityProperty);
-
-  /// Sets the [zOrderProperty] value.
-  set zOrder(num value) => setValue(zOrderProperty, value);
-  /// Gets the [zOrderProperty] value.
-  num get zOrder => getValue(zOrderProperty);
-
-  /// Sets the [tagProperty] value.
-  set tag(Dynamic value) => setValue(tagProperty, value);
-  /// Gets the [tagProperty] value.
-  Dynamic get tag => getValue(tagProperty);
-
-  /// Sets the [marginProperty] value.
-  set margin(Thickness value) => setValue(marginProperty, value);
-  /// Gets the [marginProperty] value.
-  Thickness get margin => getValue(marginProperty);
-
-  /// Sets the [widthProperty] value.
-  set width(Dynamic value) => setValue(widthProperty, value);
-  /// Gets the [widthProperty] value.
-  Dynamic get width => getValue(widthProperty);
-
-  /// Sets the [heightProperty] value.
-  set height(Dynamic value) => setValue(heightProperty, value);
-  /// Gets the [heightProperty] value.
-  Dynamic get height => getValue(heightProperty);
-
-  /// Sets the [minWidthProperty] value.
-  set minWidth(num value) => setValue(minWidthProperty, value);
-  /// Gets the [minWidthProperty] value.
-  num get minWidth => getValue(minWidthProperty);
-
-  /// Sets the [maxWidthProperty] value.
-  set maxWidth(num value) => setValue(maxWidthProperty, value);
-  /// Gets the [maxWidthProperty] value.
-  num get maxWidth => getValue(maxWidthProperty);
-
-  /// Sets the [minHeightProperty] value.
-  set minHeight(num value) => setValue(minHeightProperty, value);
-  /// Gets the [minHeightProperty] value.
-  num get minHeight => getValue(minHeightProperty);
-
-  /// Sets the [maxHeightProperty] value.
-  set maxHeight(num value) => setValue(maxHeightProperty, value);
-  /// Gets the [maxHeightProperty] value.
-  num get maxHeight => getValue(maxHeightProperty);
-
-  /// Sets the [cursorProperty] value.
-  set cursor(Cursors value) => setValue(cursorProperty, value);
-  /// Gets the [cursorProperty] value.
-  Cursors get cursor => getValue(cursorProperty);
-
-  /// Sets the [verticalAlignmentProperty] value.
-  set vAlign(VerticalAlignment value) => setValue(vAlignProperty, value);
-  /// Gets the [verticalAlignmentProperty] value.
-  VerticalAlignment get vAlign => getValue(vAlignProperty);
-
-  /// Sets the [horizontalAlignmentProperty] value.
-  set hAlign(HorizontalAlignment value) => setValue(hAlignProperty, value);
-  /// Gets the [horizontalAlignmentProperty] value.
-  HorizontalAlignment get hAlign => getValue(hAlignProperty);
-
-  /// Sets the [draggableProperty] value.
-  set draggable(bool value) => setValue(draggableProperty, value);
-  /// Gets the [draggableProperty] value.
-  bool get draggable => getValue(draggableProperty);
 
   /// ** Internal Use Only **
   void calculateWidth(value){
@@ -657,8 +562,8 @@ class FrameworkElement extends FrameworkObject
    Completer c = new Completer();
 
    rawElement.rect.then((ElementRect r){
-    setValue(actualWidthProperty, r.bounding.width);
-    setValue(actualHeightProperty, r.bounding.height);
+    actualWidth.value = r.bounding.width;
+    actualHeight.value = r.bounding.height;
     this.mostRecentMeasurement = r;
     c.complete(r);
    });

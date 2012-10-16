@@ -4,31 +4,29 @@
 
 
 /**
- * Represents property of an element that participates in the framework [Binding] model.
+ * Represents property of an element that participates in the framework
+ * [Binding] model.
  *
- * ## Usage
- * ### Declare a FrameworkProperty as a field:
- *     FrameworkProperty myProperty; //always use 'Property' suffix by convention
+ * ## Usage ##
+ * ### Declare a FrameworkProperty as a field ###
+ *     FrameworkProperty<num> foo;
  *
- * ### Initialize a FrameworkProperty (usually in constructor):
- *     myProperty = new FrameworkProperty(this, "my", (num v){}, 123);
+ * ### Initialize a FrameworkProperty (usually in constructor) ###
+ *     foo = new FrameworkProperty(this, "foo",
+ *             defaultValue: 123
+ *             converter: const StringToNumericConverter());
  *     // Provide a string converter if the property type is not a String.
- *     // This provides better compatibility with Lucaxml parsing.
- *     myProperty.stringToValueConverter = const StringToNumericConverter();
+ *     // This provides better compatibility with Template parsing.
  *
- * ### Provide public getter/setter for convenient in-code access.
- *     String get my() => getValue(myProperty);
- *     set my(num value) => setValue(myProperty, value);
- *
- * ### Lucaxml usage:
+ * ### Template usage ###
  *     <MyElement my="42"></MyElement>
  *
- * ## See Also
+ * ## See Also ##
  * * [AttachedFrameworkProperty]
  */
-class FrameworkProperty extends FrameworkPropertyBase
+class FrameworkProperty<T> extends FrameworkPropertyBase
 {
-  var _value;
+  T _value;
 
   /**
    * Represents the stored value of the FrameworkProperty.
@@ -36,16 +34,32 @@ class FrameworkProperty extends FrameworkPropertyBase
    * Generally, this should not be access directly, but through:
    *     getValue({propertyName});
    */
-  get value => _value;
-  set value(v) {
-    if (readOnly){
-      throw const BuckshotException('Attempted to write to a read-only property.');
-    }
-    _value = v;
-  }
-  Dynamic previousValue;
+   set value(T newValue){
+     if (stringToValueConverter != null && newValue is String){
+       newValue = stringToValueConverter.convert(newValue);
+     }
 
-  bool readOnly = false;
+     if (newValue == _value) return;
+
+     previousValue = _value;
+     _value = newValue;
+
+     // 1) callback
+     propertyChangedCallback(value);
+
+     // 2) bindings
+     Binding._executeBindingsFor(this);
+
+     // 3) event
+     if (propertyChanging.hasHandlers)
+       propertyChanging.invokeAsync(sourceObject,
+           new PropertyChangingEventArgs(previousValue, value));
+
+   }
+
+  T get value() => _value;
+
+  T previousValue;
 
   /// Constructs a FrameworkProperty and initializes it to the framework.
   ///
@@ -58,7 +72,7 @@ class FrameworkProperty extends FrameworkPropertyBase
       BuckshotObject sourceObject,
       String propertyName,
       [Function propertyChangedCallback,
-      defaultValue = null,
+      T defaultValue = null,
       converter = null])
   : super(
       sourceObject,
@@ -81,10 +95,11 @@ class FrameworkProperty extends FrameworkPropertyBase
 }
 
 /// A [FrameworkProperty] that supports participation in transition/animation features.
-class AnimatingFrameworkProperty extends FrameworkProperty{
+class AnimatingFrameworkProperty<T> extends FrameworkProperty<T>
+{
   final String cssPropertyPeer;
 
-  AnimatingFrameworkProperty(FrameworkElement sourceObject, String propertyName, String this.cssPropertyPeer, [Function propertyChangedCallback, defaultValue = null, converter = null])
+  AnimatingFrameworkProperty(FrameworkElement sourceObject, String propertyName, String this.cssPropertyPeer, [Function propertyChangedCallback, T defaultValue = null, converter = null])
   : super(sourceObject, propertyName, propertyChangedCallback, defaultValue:defaultValue, converter:converter)
   {
     if (sourceObject is! FrameworkElement) throw const BuckshotException('AnimatingFrameworkProperty can only be used with elements that derive from FrameworkElement.');

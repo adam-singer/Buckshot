@@ -157,13 +157,13 @@ class ModalDialog extends Control
 
     for (final Button b in buttonsContainer.children){
       if (buttons.some((tb) => tb.toString() == b.content.toLowerCase())){
-        b.visibility = Visibility.visible;
-        b.tag = b.click + buttonClick_handler;
+        b.visibility.value = Visibility.visible;
+        b.tag.value = b.click + buttonClick_handler;
       }else{
-        b.visibility = Visibility.collapsed;
-        if (b.tag != null){
-          b.click - (b.tag as EventHandlerReference);
-          b.tag = null;
+        b.visibility.value = Visibility.collapsed;
+        if (b.tag.value != null){
+          b.click - (b.tag.value as EventHandlerReference);
+          b.tag.value = null;
         }
       }
     }
@@ -218,8 +218,8 @@ class ModalDialog extends Control
     log('Showing ModalDialog', logLevel : Level.FINE);
     _dialogCompleter = new Completer<DialogButtonType>();
 
-    b1 = new Binding(windowWidthProperty, cvRoot.widthProperty);
-    b2 = new Binding(windowHeightProperty, cvRoot.heightProperty);
+    b1 = new Binding(windowWidthProperty, cvRoot.width);
+    b2 = new Binding(windowHeightProperty, cvRoot.height);
 
     document.body.elements.add(cvRoot.rawElement);
 

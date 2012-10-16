@@ -15,9 +15,14 @@ class FrameworkObject extends BuckshotObject
   FrameworkObject _parent;
   bool isLoaded = false;
 
+  /// Represents a name identifier for the element.
+  /// Assigning a name to an element
+  /// allows it to be found and bound to by other elements.
+  FrameworkProperty<String> name;
+
   /// Represents the data context assigned to the FrameworkElement.
   /// Declarative xml binding can be used to bind to data context.
-  FrameworkProperty dataContextProperty;
+  FrameworkProperty<Object> dataContext;
 
   /// Represents a map of [Binding]s that will be bound just before
   /// the element renders to the DOM.
@@ -57,11 +62,6 @@ class FrameworkObject extends BuckshotObject
           attachedPropertyChanged =
           new FrameworkEvent<AttachedPropertyChangedEventArgs>();
 
-  /// Represents a name identifier for the element.
-  /// Assigning a name to an element
-  /// allows it to be found and bound to by other elements.
-  FrameworkProperty nameProperty;
-
   FrameworkObject() {
       applyVisualTemplate();
 
@@ -89,14 +89,14 @@ class FrameworkObject extends BuckshotObject
   makeMe() => null;
 
   void _initFrameworkObjectProperties(){
-    nameProperty = new FrameworkProperty(
+    name = new FrameworkProperty(
       this,
       "name",
       (String value){
 
-        if (nameProperty.previousValue != null){
+        if (name.previousValue != null){
           throw new BuckshotException('Attempted to assign name "${value}"'
-          ' to element that already has a name "${nameProperty.previousValue}"'
+          ' to element that already has a name "${name.previousValue}"'
           ' assigned.');
         }
 
@@ -107,7 +107,7 @@ class FrameworkObject extends BuckshotObject
 
       });
 
-    dataContextProperty = new FrameworkProperty(this, "dataContext");
+    dataContext = new FrameworkProperty(this, "dataContext");
   }
 
   void _startWatchMeasurement(){
@@ -437,7 +437,7 @@ class FrameworkObject extends BuckshotObject
   ///
   /// Returns null if no non-null [dataContext] can be found.
   FrameworkProperty resolveDataContext(){
-    if (dataContext != null) return dataContextProperty;
+    if (dataContext != null) return dataContext;
     if (parent == null) return null;
     return parent.resolveDataContext();
   }
@@ -445,7 +445,7 @@ class FrameworkObject extends BuckshotObject
   List<FrameworkProperty> _resolveAllDataContexts(){
     var list = new List<FrameworkProperty>();
 
-    if (dataContext != null) list.add(dataContextProperty);
+    if (dataContext != null) list.add(dataContext);
 
     if (parent == null) return list;
 
@@ -454,20 +454,10 @@ class FrameworkObject extends BuckshotObject
     return list;
   }
 
-  /// Sets the [nameProperty] value.
-  set name(String value) => setValue(nameProperty, value);
-  /// Gets the [nameProperty] value.
-  String get name => getValue(nameProperty);
-
   /// Sets the parent FrameworkElement.
   set parent(FrameworkObject value) => _parent = value;
   /// Gets the parent FrameworkElement.
   FrameworkObject get parent => _parent;
-
-  /// Sets the [dataContextProperty] value.
-  set dataContext(value) => setValue(dataContextProperty, value);
-  /// Gets the [dataContextProperty] value.
-  get dataContext => getValue(dataContextProperty);
 
   /**
    * Override to apply a construct a custom visual template and assign
@@ -501,11 +491,11 @@ class FrameworkObject extends BuckshotObject
    * property of the object is set, then it is included as well.
    */
   String toString(){
-    if (nameProperty == null || nameProperty.value == null){
+    if (name == null || name.value == null){
       return super.toString();
     }
 
-    return '${super.toString()}[${nameProperty.value}]';
+    return '${super.toString()}[${name.value}]';
   }
 
 }
