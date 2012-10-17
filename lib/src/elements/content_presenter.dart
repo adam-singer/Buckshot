@@ -38,9 +38,7 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
 
         //accomodate strings by converting them silently to TextBlock
         if (value is String){
-            var tempStr = value;
-            value = new TextBlock();
-            (value as TextBlock).text.value = tempStr;
+            value = new TextBlock()..text.value = value;
         }
 
         currentContent = value;

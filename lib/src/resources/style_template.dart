@@ -9,7 +9,7 @@ class StyleTemplate extends FrameworkResource
   final Set<FrameworkElement> _registeredElements;
   final HashMap<String, Setter> _setters;
   final String stateBagPrefix = "__StyleBinding__";
-  FrameworkProperty settersProperty;
+  FrameworkProperty<ObservableList<Setter>> setters;
 
   StyleTemplate()
   : _registeredElements = new HashSet<FrameworkElement>(),
@@ -17,7 +17,7 @@ class StyleTemplate extends FrameworkResource
     {
       _initStyleTemplateProperties();
 
-      setters.listChanged + _onSettersCollectionChanging;
+      setters.value.listChanged + _onSettersCollectionChanging;
 
     }
 
@@ -25,11 +25,6 @@ class StyleTemplate extends FrameworkResource
     _registeredElements = new HashSet<FrameworkElement>(),
     _setters = new HashMap<String, Setter>();
   makeMe() => new StyleTemplate();
-
-  /** Gets the [Setter] [ObservableList] from [settersProperty]. */
-  ObservableList<Setter> get setters => getValue(settersProperty);
-  /** Setst he [Setter] [ObsersableList] from [settersProperty]. */
-  set setters(ObservableList<Setter> value) => setValue(settersProperty, value);
 
   /** Returns a [Collection] of [FrameworkElement]'s registered to the StyleTemplate */
   Collection<FrameworkElement> get registeredElements => _registeredElements;
@@ -70,7 +65,7 @@ class StyleTemplate extends FrameworkResource
       _setters[property].value = newValue;
     }else{
       _setters[property] = new Setter.with(property, newValue);
-      setters.add(_setters[property]);
+      setters.value.add(_setters[property]);
       _registerNewSetterBindings(_setters[property]);
     }
   }
@@ -96,7 +91,7 @@ class StyleTemplate extends FrameworkResource
   }
 
   void _initStyleTemplateProperties(){
-    settersProperty = new FrameworkProperty(this, "setters",
+    setters = new FrameworkProperty(this, "setters",
         defaultValue:new ObservableList<Setter>());
   }
 

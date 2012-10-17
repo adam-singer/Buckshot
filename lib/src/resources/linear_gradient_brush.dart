@@ -12,49 +12,34 @@
 class LinearGradientBrush extends Brush
 {
   /// Represents the [List<GradientStop>] collection of stops.
-  FrameworkProperty stopsProperty;
+  FrameworkProperty<List<GradientStop>> stops;
   /// Represents the [LinearGradientDirection] of the LinearGradientBrush.
-  FrameworkProperty directionProperty;
+  FrameworkProperty<LinearGradientDirection> direction;
   /// Represents the fall back [Color] to use if gradients aren't supported.
-  FrameworkProperty fallbackColorProperty;
+  FrameworkProperty<Color> fallbackColor;
 
   LinearGradientBrush([LinearGradientDirection dir, Color fallback])
   {
     _initLinearGradientBrushProperties();
 
-    if (dir != null) direction = dir;//LinearGradientDirection.horizontal;
-    if (fallback != null) fallbackColor = fallback;// = new Color.predefined(Colors.White);
+    if (dir != null) direction.value = dir;//LinearGradientDirection.horizontal;
+    if (fallback != null) fallbackColor.value = fallback;// = new Color.predefined(Colors.White);
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = stopsProperty;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = stops;
   }
 
   LinearGradientBrush.register() : super.register();
   makeMe() => new LinearGradientBrush();
 
-  /// Sets the [stopsProperty] value.
-  set stops(List<GradientStop> value) => setValue(stopsProperty, value);
-  /// Gets the [stopsProperty] value.
-  List<GradientStop> get stops => getValue(stopsProperty);
-
-  /// Sets the [directionProperty] value.
-  set direction(LinearGradientDirection value) => setValue(directionProperty, value);
-  /// Gets the [directionProperty] value.
-  LinearGradientDirection get direction => getValue(directionProperty);
-
-  /// Sets the [fallbackColorProperty] value.
-  set fallbackColor(Color value) => setValue(fallbackColorProperty, value);
-  /// Gets the [fallbackColorProperty] value.
-  Color get fallbackColor => getValue(fallbackColorProperty);
-
   void _initLinearGradientBrushProperties(){
-    stopsProperty = new FrameworkProperty(this, "stops",
+    stops = new FrameworkProperty(this, "stops",
         defaultValue:new List<GradientStop>());
 
-    directionProperty = new FrameworkProperty(this, "direction",
+    direction = new FrameworkProperty(this, "direction",
         defaultValue:LinearGradientDirection.horizontal,
         converter:const StringToLinearGradientDirectionConverter());
 
-    fallbackColorProperty = new FrameworkProperty(this, "fallbackColor",
+    fallbackColor = new FrameworkProperty(this, "fallbackColor",
         defaultValue:new Color.predefined(Colors.White),
         converter:const StringToColorConverter());
   }
@@ -62,23 +47,22 @@ class LinearGradientBrush extends Brush
   /// Overridden [Brush] method.
   void renderBrush(Element element){
     //set the fallback
-    element.style.background = fallbackColor.toColorString();
+    element.style.background = fallbackColor.value.toColorString();
 
     final colorString = new StringBuffer();
 
     //create the string of stop colors
-    stops.forEach((GradientStop stop){
+    stops.value.forEach((GradientStop stop){
       colorString.add(stop.color.value.toColorString());
 
       if (stop.percent != -1)
         colorString.add(" ${stop.percent}%");
 
-      if (stop != stops.last())
+      if (stop != stops.value.last())
         colorString.add(", ");
     });
 
     //set the background for all browser types
-
     element.style.background = "-webkit-linear-gradient(${direction.toString()}, ${colorString})";
     element.style.background = "-moz-linear-gradient(${direction.toString()}, ${colorString})";
     element.style.background = "-ms-linear-gradient(${direction.toString()}, ${colorString})";

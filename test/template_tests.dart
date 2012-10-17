@@ -12,14 +12,16 @@ void run(){
 
       Template
       .deserialize("<button on.click='click_handler' content='click me' />")
-      .then(expectAsync1((t){
-        t.dataContext = vm;
+      .then(expectAsync1((Button t){
+        Expect.isTrue(t is Button, 't is button');
+
+        t.dataContext.value = vm;
         setView(new View.from(t));
 
         // fire the click event
-        (t as Button).click.invoke(t, null);
+        t.click.invoke(t, null);
 
-        Expect.equals(42, getValue(vm.testProperty));
+        Expect.equals(42, vm.testProperty.value);
       }));
     });
 //    test('registry lookup not found throws', (){
@@ -67,7 +69,7 @@ void run(){
       String t = '<TextBlock text="$testString"></TextBlock>';
       Template.deserialize(t)
       .then(expectAsync1((result){
-        Expect.equals(testString, (result as TextBlock).text);
+        Expect.equals(testString, (result as TextBlock).text.value);
       }));
     });
     test('enum properties', (){
@@ -76,8 +78,8 @@ void run(){
       Template
       .deserialize(t)
       .then(expectAsync1((result){
-        Expect.equals(Orientation.horizontal, result.orientation);
-        Expect.equals(VerticalAlignment.center, result.vAlign);
+        Expect.equals(Orientation.horizontal, result.orientation.value);
+        Expect.equals(VerticalAlignment.center, result.vAlign.value);
       }));
     });
     test('attached properties', (){
@@ -148,7 +150,7 @@ void run(){
       Template
       .deserialize(t)
       .then(expectAsync1((result){
-        Expect.equals(40, result.width);
+        Expect.equals(40, result.width.value);
       }));
     });
     test('enum property node assigns correctly', (){
@@ -156,7 +158,7 @@ void run(){
 
       Template.deserialize(t)
       .then(expectAsync1((result){
-        Expect.equals(Orientation.horizontal, (result as Stack).orientation);
+        Expect.equals(Orientation.horizontal, (result as Stack).orientation.value);
       }));
     });
     test('attached property node assigns correctly', (){
@@ -185,7 +187,7 @@ class TestViewModel extends ViewModelBase
   }
 
   void click_handler(sender, args){
-    setValue(testProperty, 42);
+    testProperty.value = 42;
   }
 }
 

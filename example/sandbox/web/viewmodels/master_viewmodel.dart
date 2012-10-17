@@ -270,7 +270,7 @@ class MasterViewModel extends ViewModelBase
 
 
   void debug_click(sender, args){
-    log('fired click event', sender);
+    log('fired click event', element:sender);
   }
 
   /**

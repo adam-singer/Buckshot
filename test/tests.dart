@@ -29,12 +29,12 @@ void main() {
 
   useHtmlEnhancedConfiguration();
 
-  layout.run();
-  dart.run();
+//  layout.run();
+//  dart.run();
   binding.run();
   border.run();
   polly.run();
-  animation.run();
+//  animation.run();
   frameworkelement.run();
   template.run();
   frameworkobject.run();
@@ -44,6 +44,6 @@ void main() {
   panel.run();
   radiobuttongroup.run();
   styletemplates.run();
-  stringtogridlength.run();
-  varresource.run();
+//  stringtogridlength.run();
+//  varresource.run();
 }

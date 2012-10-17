@@ -312,11 +312,11 @@ Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
   return _initFramework()
     .chain((_) => view.ready)
     .chain((rootVisual){
-      final b = new Border();
       el.elements.clear();
-      b.isLoaded = true;
+      final b = new Border()
+        ..isLoaded = true;
       el.elements.add(b.rawElement);
-      b.content = rootVisual;
+      b.content.value = rootVisual;
       _log.fine('View ($rootVisual) set to DOM at ($elementID)');
 
       return new Future.immediate(rootVisual);

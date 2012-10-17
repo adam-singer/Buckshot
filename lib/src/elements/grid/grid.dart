@@ -109,7 +109,7 @@ void _onChildrenChanging(Object _, ListChangedEventArgs args){
   args.newItems.forEach((item){
     //create a virtual container for each element
     final newGC = new _GridCell();
-    newGC.content = item;
+    newGC.content.value = item;
 
     _internalChildren.add(newGC);
 

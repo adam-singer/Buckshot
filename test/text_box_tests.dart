@@ -10,7 +10,7 @@ run(){
       TextBox t = new TextBox();
 
       Expect.throws(
-          ()=> t.inputType = null,
+          ()=> t.inputType.value = null,
           (e) => (e is BuckshotException)
       );
     });

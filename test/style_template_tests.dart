@@ -9,11 +9,11 @@ run(){
     test('New setter property', (){
       StyleTemplate st = new StyleTemplate();
 
-      Expect.equals(0, st.setters.length);
+      Expect.equals(0, st.setters.value.length);
 
       st.setProperty("background", new SolidColorBrush(new Color.predefined(Colors.Red)));
 
-      Expect.equals(1, st.setters.length);
+      Expect.equals(1, st.setters.value.length);
       Expect.isNotNull(st.getProperty('background'));
     });
     test('Existing setter property', (){

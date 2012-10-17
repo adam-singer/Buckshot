@@ -381,25 +381,23 @@ class FrameworkElement extends FrameworkObject
         if (parent != null) parent.updateLayout();
       }, new Thickness(0), converter:const StringToThicknessConverter());
 
-    actualWidth = new FrameworkProperty(
-      this,
-      "actualWidth",
-      (num _){});
+    actualWidth = new FrameworkProperty(this, "actualWidth");
 
-    actualHeight = new FrameworkProperty(
-      this,
-      "actualHeight",
-      (num _){});
+    actualHeight = new FrameworkProperty(this, "actualHeight");
 
     width = new FrameworkProperty(
       this,
       "width",
-      (Dynamic value) => calculateWidth(value), "auto", converter:const StringToNumericConverter());
+      (Dynamic value) => calculateWidth(value),
+      defaultValue:"auto",
+      converter:const StringToNumericConverter());
 
     height = new FrameworkProperty(
       this,
       "height",
-      (Dynamic value) => calculateHeight(value), "auto", converter:const StringToNumericConverter());
+      (Dynamic value) => calculateHeight(value),
+      defaultValue:"auto",
+      converter:const StringToNumericConverter());
 
     minHeight = new FrameworkProperty(
       this,
@@ -503,12 +501,12 @@ class FrameworkElement extends FrameworkObject
       return;
     }
 
-    if (minWidth != null && value < minWidth){
-      width = minWidth;
+    if (minWidth.value != null && value < minWidth.value){
+      width.value = minWidth.value;
     }
 
-    if (maxWidth != null && value > maxWidth){
-      width = maxWidth;
+    if (maxWidth.value != null && value > maxWidth.value){
+      width.value = maxWidth.value;
     }
 
     rawElement.style.width = '${value}px';
@@ -537,12 +535,12 @@ class FrameworkElement extends FrameworkObject
       return;
     }
 
-    if (minHeight != null && value < minHeight){
-      height = minHeight;
+    if (minHeight.value != null && value < minHeight.value){
+      height.value = minHeight.value;
     }
 
-    if (maxHeight != null && value > maxHeight){
-      height =  maxHeight;
+    if (maxHeight.value != null && value > maxHeight.value){
+      height.value =  maxHeight.value;
     }
 
    rawElement.style.height = '${value}px'; //, null);

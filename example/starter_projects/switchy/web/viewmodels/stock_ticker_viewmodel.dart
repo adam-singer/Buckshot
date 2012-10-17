@@ -12,19 +12,19 @@ class StockTickerViewModel extends ViewModelBase
    * stock symbol to begin watching.  A view can use two-way binding to
    * this property to send input back from the user.
    */
-  FrameworkProperty tickerInputProperty;
+  FrameworkProperty<String> tickerInput;
 
   /**
    * Holds an ObservableList<DataTemplate>, representing the current
    * listing of stock ticker results.
    */
-  FrameworkProperty tickerOutputProperty;
+  FrameworkProperty<ObservableList<DataTemplate>> tickerOutput;
 
   /**
    * Holds an ObservableList<String> of symbols being watched by the ticker
    * application.
    */
-  FrameworkProperty watchListProperty;
+  FrameworkProperty<ObservableList<String>> watchList;
 
   /**
    * Holds a reference to the view that is using this view model instance.
@@ -48,24 +48,14 @@ class StockTickerViewModel extends ViewModelBase
   }
 
   void _initStockTickerViewModelProperties(){
-    tickerInputProperty = new FrameworkProperty(this, 'tickerInput');
+    tickerInput = new FrameworkProperty(this, 'tickerInput');
 
-    tickerOutputProperty = new FrameworkProperty(this, 'tickerOutput',
+    tickerOutput = new FrameworkProperty(this, 'tickerOutput',
         defaultValue: new ObservableList<DataTemplate>());
 
-    watchListProperty = new FrameworkProperty(this, 'watchList',
+    watchList = new FrameworkProperty(this, 'watchList',
         defaultValue: new ObservableList<String>());
   }
-
-  // Property getters/setters
-
-  ObservableList<DataTemplate> get tickerOutput =>
-    getValue(tickerOutputProperty);
-
-  ObservableList<String> get watchList => getValue(watchListProperty);
-
-  set tickerInput(String symbol) => setValue(tickerInputProperty, symbol);
-  String get tickerInput => getValue(tickerInputProperty);
 
   // Event Handlers
 
@@ -77,8 +67,8 @@ class StockTickerViewModel extends ViewModelBase
     /*
      * We are going to constrain the list length to 13 elements.
      */
-    if (tickerOutput.length == 13){
-      tickerOutput.remove(tickerOutput[0]);
+    if (tickerOutput.value.length == 13){
+      tickerOutput.value.remove(tickerOutput.value[0]);
     }
 
     /*
@@ -93,7 +83,7 @@ class StockTickerViewModel extends ViewModelBase
      * See the stock_ticker.xml template for an example of how this binding
      * works.
      */
-    tickerOutput.add(
+    tickerOutput.value.add(
         new DataTemplate.fromMap(
             {
               'datetime' : '${args.timeStamp.hour}:'
@@ -111,13 +101,13 @@ class StockTickerViewModel extends ViewModelBase
    */
   void watch_ticker_click(sender, args){
     // Send the symbol to the model.
-    _model.watchSymbol(tickerInput);
+    _model.watchSymbol(tickerInput.value);
 
     // Add it to our watch list collection, which a view can bind to
     // to display the list of watched stock symbols.
-    watchList.add(tickerInput.toUpperCase());
+    watchList.value.add(tickerInput.value.toUpperCase());
 
-    tickerInput = '';
+    tickerInput.value = '';
   }
 }
 

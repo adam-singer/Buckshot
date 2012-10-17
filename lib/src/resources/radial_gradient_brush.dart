@@ -10,67 +10,51 @@
 */
 class RadialGradientBrush extends Brush {
   /// Represents the [List<GradientStop>] of stops.
-  FrameworkProperty stopsProperty;
+  FrameworkProperty<List<GradientStop>> stops;
   /// Represents the [RadialGradientDrawMode] value for the RadialGradientBrush.
-  FrameworkProperty drawModeProperty;
+  FrameworkProperty<RadialGradientDrawMode> drawMode;
   /// Represents the fallback [Color] to use if the browser does not support
   /// gradients.
-  FrameworkProperty fallbackColorProperty;
+  FrameworkProperty<Color> fallbackColor;
 
   RadialGradientBrush([RadialGradientDrawMode mode, Color fallback])
   {
     _initRadialGradientProperties();
 
-    if (fallback != null) fallbackColor = fallback;
-    if (mode != null) drawMode = mode;
+    if (fallback != null) fallbackColor.value = fallback;
+    if (mode != null) drawMode.value = mode;
   }
 
   RadialGradientBrush.register() : super.register();
   makeMe() => new RadialGradientBrush();
 
-  /// Sets the [stopsProperty] value.
-  set stops(List<GradientStop> value) => setValue(stopsProperty, value);
-  /// Gets the [stopsProperty] value.
-  List<GradientStop> get stops => getValue(stopsProperty);
-
-  /// Sets the [drawModeProperty] value.
-  set drawMode(RadialGradientDrawMode value) => setValue(drawModeProperty, value);
-  /// Gets the [drawModeProperty] value.
-  RadialGradientDrawMode get drawMode => getValue(drawModeProperty);
-
-  /// Sets the [fallbackColorProperty] value.
-  set fallbackColor(Color value) => setValue(fallbackColorProperty, value);
-  /// Gets the [fallbackColorProperty] value.
-  Color get fallbackColor => getValue(fallbackColorProperty);
-
-
   void _initRadialGradientProperties(){
-    stopsProperty = new FrameworkProperty(this, "stops",
+    stops = new FrameworkProperty(this, "stops",
         defaultValue:new List<GradientStop>());
 
-    drawModeProperty = new FrameworkProperty(this, "drawMode",
+    drawMode = new FrameworkProperty(this, "drawMode",
         defaultValue:RadialGradientDrawMode.contain,
         converter:const StringToRadialGradientDrawModeConverter());
 
-    fallbackColorProperty = new FrameworkProperty(this, "fallbackColor",
+    fallbackColor = new FrameworkProperty(this, "fallbackColor",
         defaultValue:new Color.predefined(Colors.White));
   }
 
   /// Overridden [Brush] method.
   void renderBrush(Element element){
     //set the fallback
-    element.style.background = fallbackColor.toColorString();
+    element.style.background = fallbackColor.value.toColorString();
 
     final colorString = new StringBuffer();
 
     //create the string of stop colors
-    stops.forEach((GradientStop stop){
+    stops.value.forEach((GradientStop stop){
       colorString.add(stop.color.value.toColorString());
 
       if (stop.percent != -1)
         colorString.add(" ${stop.percent}%");
 
-      if (stop != stops.last())
+      if (stop != stops.value.last())
         colorString.add(", ");
     });
 

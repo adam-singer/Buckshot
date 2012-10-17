@@ -191,10 +191,10 @@ class Border extends FrameworkElement implements IFrameworkContainer
   void updateLayout(){
     if (!isLoaded) return;
 
-    if (content == null) return;
+    if (content.value == null) return;
 
     assert(_redraw != null);
 
-    _redraw(content);
+    _redraw(content.value);
   }
 }

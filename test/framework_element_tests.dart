@@ -9,32 +9,32 @@ run(){
     test('properties get/set', (){
       FrameworkElement fp = new FrameworkElement();
 
-      Expect.isNotNull(fp);
+      Expect.isNotNull(fp, 'framework element not null');
 
       //check that the default component in initialized properly
-      Expect.isNotNull(fp.rawElement);
-      Expect.equals(fp.rawElement.tagName, "DIV");
+      Expect.isNotNull(fp.rawElement, 'raw element not null');
+      Expect.equals(fp.rawElement.tagName, "DIV", 'tag name = DIV');
 
       //check default values
       //these checks may seem trivial but we are also validating
       //the underlying dependency property model for these properties
-      Expect.equals('auto', fp.width, 'width default');
-      Expect.equals('auto', fp.height, 'height default');
-      Expect.isNull(fp.actualWidth, 'actual width default');
-      Expect.isNull(fp.actualHeight, 'actual height default');
-      Expect.isNull(fp.maxWidth, 'maxWidth default');
-      Expect.isNull(fp.maxHeight, 'maxHeight default');
-      Expect.isNull(fp.minWidth, 'minWidth default');
-      Expect.isNull(fp.minHeight, 'minHeight default');
-      Expect.isNull(fp.opacity, 'opacity default');
-      Expect.isNull(fp.visibility, 'visibility default');
-      Expect.equals(fp.margin.toString(), new Thickness(0).toString(), 'margin default');
-      Expect.isNull(fp.cursor, 'cursor default');
-      Expect.isNull(fp.tag, 'tag default');
-      Expect.isNull(fp.dataContext, 'dataContext default');
-      Expect.equals(fp.name, null, 'name default');
-      Expect.equals(fp.hAlign, HorizontalAlignment.left, 'horizontalAlignment default');
-      Expect.equals(fp.vAlign, VerticalAlignment.top, 'verticalAlignment default');
+      Expect.equals('auto', fp.width.value, 'width default');
+      Expect.equals('auto', fp.height.value, 'height default');
+      Expect.isNull(fp.actualWidth.value, 'actual width default');
+      Expect.isNull(fp.actualHeight.value, 'actual height default');
+      Expect.isNull(fp.maxWidth.value, 'maxWidth default');
+      Expect.isNull(fp.maxHeight.value, 'maxHeight default');
+      Expect.isNull(fp.minWidth.value, 'minWidth default');
+      Expect.isNull(fp.minHeight.value, 'minHeight default');
+      Expect.isNull(fp.opacity.value, 'opacity default');
+      Expect.isNull(fp.visibility.value, 'visibility default');
+      Expect.equals(fp.margin.value.toString(), new Thickness(0).toString(), 'margin default');
+      Expect.isNull(fp.cursor.value, 'cursor default');
+      Expect.isNull(fp.tag.value, 'tag default');
+      Expect.isNull(fp.dataContext.value, 'dataContext default');
+      Expect.equals(fp.name.value, null, 'name default');
+      Expect.equals(fp.hAlign.value, HorizontalAlignment.left, 'horizontalAlignment default');
+      Expect.equals(fp.vAlign.value, VerticalAlignment.top, 'verticalAlignment default');
 
       //make sure property get/set is working correctly
       //(the underlying dependency property system actually)
@@ -75,10 +75,10 @@ run(){
       Expect.equals(fp.dataContext.value, "data context", 'data context assignment');
 
       fp.name.value = "control name";
-      Expect.equals(fp.name, "control name", 'name assignment');
+      Expect.equals(fp.name.value, "control name", 'name assignment');
 
       fp.hAlign.value = HorizontalAlignment.right;
-      Expect.equals(fp.hAlign, HorizontalAlignment.right, 'horizontalAlignment assignment');
+      Expect.equals(fp.hAlign.value, HorizontalAlignment.right, 'horizontalAlignment assignment');
 
       fp.vAlign.value = VerticalAlignment.bottom;
       Expect.equals(fp.vAlign.value, VerticalAlignment.bottom, 'verticalAlignment assignment');
@@ -86,7 +86,7 @@ run(){
     test('minHeight/maxHeight', (){
       FrameworkElement fp = new FrameworkElement();
 
-      Expect.isNotNull(fp);
+      Expect.isNotNull(fp, 'framework element not null');
 
       fp.height.value = 10;
       fp.width.value = 10;
@@ -94,6 +94,7 @@ run(){
       fp.maxHeight.value = 100;
 
       fp.height.value = -5;
+
       Expect.equals(fp.minHeight.value, fp.height.value);
 
       fp.height.value = 105;
@@ -126,10 +127,10 @@ run(){
       fp.maxWidth.value = 100;
 
       fp.width.value = -5;
-      Expect.equals(10, fp.width);
+      Expect.equals(10, fp.width.value);
 
       fp.width.value = 105;
-      Expect.equals(100, fp.width);
+      Expect.equals(100, fp.width.value);
 
       //now go the other way, making sure that width is adjusted if
       //max/min widths make it invalid
@@ -157,7 +158,7 @@ run(){
 
       var dc = b.resolveDataContext();
 
-      Expect.equals(b.dataContext, dc);
+      Expect.equals(b.dataContext.value, dc.value);
     });
     test('null parent returns null dataContext', (){
       var b = new Border();

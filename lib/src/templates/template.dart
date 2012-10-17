@@ -467,11 +467,13 @@ class Template {
         if (cc is List){
           //list content
           cc.add(childElement);
-        }else{
+        }else if (cc is FrameworkProperty){
           // single child (previous child will be overwritten
           // if multiple are provided)
           //TODO throw on multiple child element nodes
           cc.value = childElement;
+        }else{
+          throw const BuckshotException('container context type is invalid.');
         }
         c.complete(true);
       });

@@ -69,7 +69,7 @@ void printTree(startWith, [int indent = 0]){
         .containerContent
         .forEach((e) => printTree(e, indent + 3));
     }else{
-      printTree(startWith.content, indent + 3);
+      printTree(startWith.content.value, indent + 3);
     }
   }
 }

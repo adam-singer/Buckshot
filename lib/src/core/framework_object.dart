@@ -321,7 +321,6 @@ class FrameworkObject extends BuckshotObject
 
   void _wireEventBindings(List dataContexts){
     if (_eventBindings.isEmpty()) return;
-
     if (!reflectionEnabled){
       _eventBindings
         .forEach((String handler, FrameworkEvent event){
@@ -437,7 +436,7 @@ class FrameworkObject extends BuckshotObject
   ///
   /// Returns null if no non-null [dataContext] can be found.
   FrameworkProperty resolveDataContext(){
-    if (dataContext != null) return dataContext;
+    if (dataContext.value != null) return dataContext;
     if (parent == null) return null;
     return parent.resolveDataContext();
   }
@@ -445,7 +444,7 @@ class FrameworkObject extends BuckshotObject
   List<FrameworkProperty> _resolveAllDataContexts(){
     var list = new List<FrameworkProperty>();
 
-    if (dataContext != null) list.add(dataContext);
+    if (dataContext.value != null) list.add(dataContext);
 
     if (parent == null) return list;
 
