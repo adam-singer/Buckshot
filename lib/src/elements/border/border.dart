@@ -124,7 +124,7 @@ class Border extends FrameworkElement implements IFrameworkContainer
       propertyChangedCallback: (Color c){
         rawElement.style.borderColor = c.toColorString();
       },
-      defaultValue: new Color.predefined(Colors.White),
+      defaultValue: new Color.predefined(Colors.Red),
       converter:const StringToColorConverter());
 
 
@@ -133,12 +133,12 @@ class Border extends FrameworkElement implements IFrameworkContainer
       "borderThickness",
       (value){
 
-        String color = borderColor != null ? rawElement.style.borderColor : Colors.White.toString();
+        String color = borderColor.value != null ? rawElement.style.borderColor : Colors.White.toString();
 
-        rawElement.style.borderTop = '${borderStyle} ${value.top}px $color';
-        rawElement.style.borderRight = '${borderStyle} ${value.right}px $color';
-        rawElement.style.borderLeft = '${borderStyle} ${value.left}px $color';
-        rawElement.style.borderBottom = '${borderStyle} ${value.bottom}px $color';
+        rawElement.style.borderTop = '${borderStyle.value} ${value.top}px $color';
+        rawElement.style.borderRight = '${borderStyle.value} ${value.right}px $color';
+        rawElement.style.borderLeft = '${borderStyle.value} ${value.left}px $color';
+        rawElement.style.borderBottom = '${borderStyle.value} ${value.bottom}px $color';
 
       }, new Thickness(0), converter:const StringToThicknessConverter());
 

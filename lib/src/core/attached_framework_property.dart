@@ -74,7 +74,7 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
                                AttachedFrameworkProperty property,
                                value)
   {
-    final aDepInfo = _attachedProperties[property];
+    HashMap<FrameworkObject, Dynamic> aDepInfo = _attachedProperties[property];
 
     //no need to invoke if nothing has changed
     if (aDepInfo[element] == value) return;

@@ -11,7 +11,7 @@ run(){
 
       Expect.equals(0, st.setters.value.length);
 
-      st.setProperty("background", new SolidColorBrush(new Color.predefined(Colors.Red)));
+      st.setProperty("background", new SolidColorBrush.fromPredefined(Colors.Red));
 
       Expect.equals(1, st.setters.value.length);
       Expect.isNotNull(st.getProperty('background'));
@@ -66,6 +66,7 @@ run(){
       Expect.isTrue(st.registeredElements.some((e) => e == b));
       Binding bi = b.stateBag['${st.stateBagPrefix}background__'];
 
+      log('$bi');
       b.style.value = null;
       Expect.equals(statebagCount, b.stateBag.length);
       Expect.isFalse(st.registeredElements.some((e) => e == b));
@@ -135,10 +136,10 @@ run(){
       b.background.value = new SolidColorBrush(new Color.predefined(Colors.Blue));
 
       b.style.value = st;
-      Expect.isNull(b.opacity);
+      Expect.isNull(b.opacity.value);
 
       b.style.value.mergeWith([st2]);
-      Expect.equals(.5, b.opacity);
+      Expect.equals(.5, b.opacity.value);
       Expect.equals(Colors.Red.toString(), (b.background.value as SolidColorBrush).color.value.toColorString());
     });
     test('.mergeWith multiple styles succeeds', (){

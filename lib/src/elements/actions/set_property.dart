@@ -41,7 +41,7 @@ class SetProperty extends ActionBase
       .then((prop){
         if (prop == null) return;
 
-        prop.value = value;
+        prop.value = value.value;
       });
   }
 }

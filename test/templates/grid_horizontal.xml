@@ -1,0 +1,10 @@
+<grid height='500' background='Orange'>
+	<columndefinitions>
+		<columndefinition width='auto' />
+		<columndefinition width='auto' />
+		<columndefinition width='auto' />
+	</columndefinitions>
+    <textblock name='lblTop' valign='top' text='top top top' />
+    <textblock grid.column='1' name='lblVCenter' valign='center' text='center center center' />
+    <textblock grid.column='2' name='lblBottom' valign='bottom' text='bottom bottom bottom' />
+</grid>

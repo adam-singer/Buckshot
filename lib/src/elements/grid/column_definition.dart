@@ -47,7 +47,7 @@ class ColumnDefinition extends GridLayoutDefinition{
       if (v.length.value < minLength) v.length.value = minLength;
       if (v.length.value > maxLength) v.length.value = maxLength;
 
-      _value = v;
+      _gridLength = v;
       _columnDefinitionChanged.invoke(this, new EventArgs());
     }, new GridLength(), converter:const StringToGridLengthConverter());
   }

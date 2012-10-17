@@ -26,7 +26,6 @@ class Setter extends TemplateObject
 
   void _initStyleSetterProperties(){
     value = new FrameworkProperty(this, "value");
-
     property = new FrameworkProperty(this, "property");
   }
 }

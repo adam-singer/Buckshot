@@ -84,7 +84,9 @@ Grid()
       _updateRowLayout(actualHeight.value);
 
   measurementChanged + (_, MeasurementChangedEventArgs args){
-    window.requestAnimationFrame((__) => updateLayout());
+    window.requestAnimationFrame((__) {
+      updateLayout();
+    });
   };
 }
 
@@ -142,14 +144,6 @@ void updateLayout(){
   });
 }
 
-//void createElement(){
-//  rawElement = new DivElement();
-//
-//  if (Polly.flexModel != FlexModel.Flex){
-//    rawElement.style.display = 'table';
-//  }
-//}
-
 void _updateMeasurements(){
   this.updateMeasurement();
 
@@ -168,7 +162,8 @@ void _updateColumnLayout(num gridWidth){
     //assign all elements to a ghost column that is the same width as the grid
 
     _internalChildren.forEach((_GridCell child){
-      child.margin.value = new Thickness.specified(child.margin.value.top, 0, 0, 0);
+      child.margin.value =
+          new Thickness.specified(child.margin.value.top, 0, 0, 0);
       child.rawElement.style.width = '${gridWidth}px';
     //  db('width: ${child.rawElement.style.width}', this);
     });
@@ -224,7 +219,7 @@ void _updateColumnLayout(num gridWidth){
     columnDefinitions.value.forEach((ColumnDefinition c){
 
       // if star type calculate adjusted length
-      if (c.width.value.gridUnitType == GridUnitType.star){
+      if (c.width.value.gridUnitType.value == GridUnitType.star){
         if (c === lastStar){
           c._adjustedLength = (availColWidth - totalStarLength);
         }
@@ -325,7 +320,7 @@ void _updateRowLayout(num gridHeight){
   num totalStarLength = 0;
   rowDefinitions.value.forEach((RowDefinition c){
 
-    if (c.height.value.gridUnitType == GridUnitType.star){
+    if (c.height.value.gridUnitType.value == GridUnitType.star){
       if (c === lastStar){
         c._adjustedLength = (availRowHeight - totalStarLength);
       }else{

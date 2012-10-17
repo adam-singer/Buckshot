@@ -1,0 +1,18 @@
+<Stack name='rootPanel' background='Orange' margin='10'>
+  <Stack name='chromePanel' orientation='horizontal' halign='center' background='Yellow'>
+    <border name='bBlack' margin='10' background='Black' width='10' height='10'></border>
+    <border name='bRed' margin='10' background='Red' width='10' height='10'></border>
+    <border name='bGreen' margin='10' background='Green' width='10' height='10'></border>
+    <border name='bBlue' margin='10' background='Blue' width='10' height='10'></border>
+  </Stack>
+
+  <textblock name='lblHCenter' halign='center'>center center</textblock>
+  <textblock name='lblRight' halign='right'>right right right</textblock>
+  <textblock name='lblLong'>long long long long long long long long long</textblock>
+  <border name='bCircle' halign='center' borderthickness='5' bordercolor='Purple' width='150' height='150' background='Yellow' cornerradius='150'></border>
+  <Stack name='spVerticalAlignment' height='300' halign='stretch' background='LightGray' orientation='horizontal'>
+    <textblock name='lblTop' valign='top'>top top top</textblock>
+    <textblock name='lblVCenter' valign='center'>center center center</textblock>
+    <textblock name='lblBottom' valign='bottom'>bottom bottom bottom</textblock>
+  </Stack>
+</Stack>

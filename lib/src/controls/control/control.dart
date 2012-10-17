@@ -117,10 +117,10 @@ class Control extends FrameworkElement
 
       if (element is! IFrameworkContainer) return;
 
-      if (element.content is List){
-        element.content.forEach((FrameworkElement child) => _getAllTemplateBindings(list, child));
-      }else if (element.content is FrameworkElement){
-        _getAllTemplateBindings(list, element.content);
+      if (element.containerContent is List){
+        element.containerContent.forEach((FrameworkElement child) => _getAllTemplateBindings(list, child));
+      }else if (element.containerContent is FrameworkElement){
+        _getAllTemplateBindings(list, element.containerContent);
       }
     }
 
@@ -143,6 +143,4 @@ class Control extends FrameworkElement
 
   /// Gets a standardized name for assignment to the [ControlTemplate] 'controlType' property.
   String get templateName => 'template_${hashCode()}';
-
-  int _templatePriority() => 100;
 }

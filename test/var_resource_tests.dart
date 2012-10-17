@@ -5,7 +5,7 @@
 #import('package:unittest/unittest.dart');
 
 Future run(){
-  group('Resources', (){
+  group('Var Resource', (){
     test('String values work', (){
       var t = '''
           <resourcecollection>

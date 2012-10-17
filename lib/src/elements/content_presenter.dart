@@ -35,7 +35,6 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
         if (currentContent != null){
           currentContent.removeFromLayoutTree();
         }
-
         //accomodate strings by converting them silently to TextBlock
         if (value is String){
             value = new TextBlock()..text.value = value;

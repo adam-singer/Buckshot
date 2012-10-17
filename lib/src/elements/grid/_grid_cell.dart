@@ -23,23 +23,22 @@ class _GridCell extends FrameworkObject
   makeMe() => null;
 
   void _initGridCellProperties(){
-    //register the dependency properties
     content = new FrameworkProperty(
       this,
-      "content",(c)
+      "content", (FrameworkElement newContent)
       {
         if (content.previousValue != null){
           content.previousValue.removeFromLayoutTree();
         }
-        if (c != null){
-          c.addToLayoutTree(this);
+        if (newContent != null){
+          newContent.addToLayoutTree(this);
         }
       });
 
     margin = new FrameworkProperty(
       this,
       "margin",
-      (value){
+      (Thickness value){
         rawElement.style.margin = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
       }, new Thickness(0), converter:const StringToThicknessConverter());
   }
@@ -49,7 +48,7 @@ class _GridCell extends FrameworkObject
     rawElement = new DivElement()
                     ..style.overflow = "hidden"
                     ..style.position = "absolute"
- //                   ..style.background = 'Red'
+//                    ..style.background = 'Red'
                     ..style.display ='table';
 
 
@@ -58,7 +57,7 @@ class _GridCell extends FrameworkObject
 
   /// Overridden [FrameworkObject] method is called when the framework requires elements to recalculate layout.
   void updateLayout(){
-    if (content == null) return;
+    if (content.value == null) return;
 
    // db('updating gridcell layout for', content);
     //spoof the parent during the alignment pass

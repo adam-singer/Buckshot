@@ -16,42 +16,7 @@
 	This is the main template for the application.
 	-->
 	<script id='main' type='application/xml'>
-	  <border halign='center' valign='center' borderthickness='3' bordercolor='SteelBlue'
-	  	 	  cornerradius='9' background='WhiteSmoke' padding='5'>
 
-	    <stack halign='center' valign='stretch' maxwidth='400'>
-
-	        <!--
-	        Referencing an png file from a relative path in the project.
-	        -->
-	        <image margin='5' sourceuri='web/resources/buckshot_logo.png' height='50' />
-
-			<!--
-			Data binding the 'text' property to a 'message' object in the view model
-			-->
-			<textblock margin='5' fontsize='24' fontfamily='Arial' halign='center' text='{data message}' />
-
-			<stack halign='center' margin='5' orientation='horizontal'>
-
-			    <!--
-			    Setting the binding mode to 'twoway' so user input will write back to
-			    the 'entry' object in the view model.
-			    -->
-				<textbox valign='center' placeholder='Enter something here...' text='{data entry, mode=twoway}' />
-
-			    <!--
-			    Declaring a handler for the 'click' event.
-			    The handler will be wired up in the view model.
-			    -->
-				<button margin='3' on.click='click_handler' content='Submit' />
-			</stack>
-
-			<!--
-			Data binding the 'text' property to a 'result' object in the view model.
-			-->
-			<textblock halign='center' margin='5' fontsize='14' fontfamily='Arial' text='{data result}' />
-		</stack>
-	  </border>
 	</script>
 
     <!-- Dart Bootstrap -->

@@ -298,10 +298,10 @@ class Polly {
   static void setFlexboxAlignment(FrameworkElement element){
     _polyfillLog.fine('Setting flex alignment for ($element)');
 
-    if (element.hAlign != null){
+    if (element.hAlign.value != null){
       Polly.setCSS(element.rawElement, 'flex', 'none');
 
-      if(element.hAlign == HorizontalAlignment.stretch){
+      if(element.hAlign.value == HorizontalAlignment.stretch){
         Polly.setCSS(element.rawElement, 'flex', '1 1 auto');
       }
 

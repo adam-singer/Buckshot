@@ -19,7 +19,7 @@ void run()
   // Setting to true will cause the unit test run to pause after each layout
   // is drawn to allow for visual inspection.  Clicking in the browser window
   // will cause the test to proceed.
-  final bool usePause = false;
+  final bool usePause = true;
 
   group('Layout', (){
     // Take measurements of reference layout to make sure they match
@@ -55,8 +55,6 @@ void run()
         final bLB = namedElements['bLB'];
         final bLC = namedElements['bLC'];
         final bCC = namedElements['bCC'];
-
-        if (usePause) pause();
 
         window.requestLayoutFrame(expectAsync0((){
 
@@ -157,8 +155,6 @@ void run()
         final lblVCenter = namedElements['lblVCenter'];
         final lblBottom = namedElements['lblBottom'];
 
-        if (usePause) pause();
-
         window.requestLayoutFrame(
             expectAsync0((){
               /* root Stack */
@@ -257,8 +253,6 @@ void run()
         final lblLC = namedElements['lblLC'];
         final lblCC = namedElements['lblCC'];
 
-        if (usePause) pause();
-
         window.requestLayoutFrame(
 
             expectAsync0((){
@@ -300,12 +294,8 @@ void run()
               measureElement(lblLB, 284, 51, 17, 17);
               measureElement(lblLC, 167.5, 51, 17, 17);
               measureElement(lblCC, 167.5, 216, 20, 17);
-
-
             })
         );
-
-
       }), layoutAllowance);
     });
   });
@@ -313,41 +303,26 @@ void run()
 
 
 class BorderDebug extends View {
-
-  BorderDebug() : super.fromResource('#borderTest');
-
+  BorderDebug() : super.fromResource('templates/border.xml');
 }
 
-
 class StackDebug extends View {
-
-  StackDebug() : super.fromResource('#StackTest');
-
+  StackDebug() : super.fromResource('templates/stack.xml');
 }
 
 class GridDebug extends View
 {
-
-  GridDebug() : super.fromResource('#gridTest');
-
+  GridDebug() : super.fromResource('templates/grid.xml');
 }
 
 /// Tests the given measurements against the bounding measurements of a given element.
 void measureElement(FrameworkElement element, num top, num left, num width, num height){
 //  dumpMeasurements(element);
-//  Expect.approxEquals(top, element.mostRecentMeasurement.bounding.top, tolerance:1.5, reason:'${element.name} top');
-  Expect.approxEquals(top, element.mostRecentMeasurement.bounding.top, measurementTolerance, '${element.name} top');
-  Expect.approxEquals(left, element.mostRecentMeasurement.bounding.left, measurementTolerance, '${element.name} left');
-  Expect.approxEquals(width, element.mostRecentMeasurement.bounding.width, measurementTolerance, '${element.name} Width');
-  Expect.approxEquals(height, element.mostRecentMeasurement.bounding.height, measurementTolerance, '${element.name} Height');
-}
-
-/// Adds a manual pause that only proceeds after clicking the browser.
-void pause() {
-
-  document.body.on.click.add(expectAsync1((e){
-    Expect.isTrue(true);
-  }));
+//  Expect.approxEquals(top, element.mostRecentMeasurement.bounding.top, tolerance:1.5, reason:'${element.name.value} top');
+  Expect.approxEquals(top, element.mostRecentMeasurement.bounding.top, measurementTolerance, '${element.name.value} top');
+  Expect.approxEquals(left, element.mostRecentMeasurement.bounding.left, measurementTolerance, '${element.name.value} left');
+  Expect.approxEquals(width, element.mostRecentMeasurement.bounding.width, measurementTolerance, '${element.name.value} Width');
+  Expect.approxEquals(height, element.mostRecentMeasurement.bounding.height, measurementTolerance, '${element.name.value} Height');
 }
 
 /// Performs a stdio dump of [FrameworkElement] measurement.

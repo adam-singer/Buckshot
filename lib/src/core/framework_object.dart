@@ -286,13 +286,16 @@ class FrameworkObject extends BuckshotObject
 
     final dc = dcs[0];
 
-    //dataContext = dc.value;
+    _wireLateBindings(dc);
+  }
 
+  void _wireLateBindings(dc){
     //binding each property in the lateBindings collection
     //to the data context
     lateBindings
       .forEach((FrameworkProperty p, BindingData bd){
         if (bd.dataContextPath == ""){
+          log('late binding $dc to $p', element:this);
           new Binding(dc, p);
         }else{
           if (dc.value is! BuckshotObject)
@@ -302,7 +305,6 @@ class FrameworkObject extends BuckshotObject
 
           //TODO keep a reference to these so they can be removed if the
           // datacontext changes
-
           if (bd.converter != null){
             dc.value.resolveProperty(bd.dataContextPath)
             .then((prop){

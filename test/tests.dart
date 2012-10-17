@@ -29,7 +29,7 @@ void main() {
 
   useHtmlEnhancedConfiguration();
 
-//  layout.run();
+  layout.run();
 //  dart.run();
   binding.run();
   border.run();
@@ -44,6 +44,6 @@ void main() {
   panel.run();
   radiobuttongroup.run();
   styletemplates.run();
-//  stringtogridlength.run();
-//  varresource.run();
+  stringtogridlength.run();
+  varresource.run();
 }

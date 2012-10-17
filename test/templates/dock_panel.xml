@@ -1,0 +1,51 @@
+<dockpanel fillLast='false' width='500' height='500' background='Orange'>
+	<resourcecollection>
+		<styletemplate key='borderStyle'>
+			<setters>
+				<setter property='borderThickness' value='1' />
+				<setter property='borderColor' value='Black' />
+				<setter property='background' value='WhiteSmoke' />
+			</setters>
+		</styletemplate>
+		<styletemplate key='textStyle'>
+			<setters>
+				<setter property='vAlign' value='center' />
+				<setter property='hAlign' value='center' />
+				<setter property='background' value='WhiteSmoke' />
+			</setters>
+		</styletemplate>
+	</resourcecollection>
+		<border dockpanel.dock='left' style='{resource borderStyle}'>
+			<textblock text='#1' style='{resource textStyle}' />
+		</border>
+		<border dockpanel.dock='top' style='{resource borderStyle}'>
+			<textblock text='#2' style='{resource textStyle}' />
+		</border>
+		<border dockpanel.dock='right' style='{resource borderStyle}'>
+			<textblock text='#3' style='{resource textStyle}' />
+		</border>
+		<border dockpanel.dock='bottom' style='{resource borderStyle}'>
+			<textblock text='#4' style='{resource textStyle}' />
+		</border>
+		<border dockpanel.dock='left' style='{resource borderStyle}'>
+			<textblock text='#5' style='{resource textStyle}' />
+		</border>
+		<border dockpanel.dock='top' style='{resource borderStyle}'>
+			<textblock text='#6' style='{resource textStyle}' />
+		</border>
+		<border dockpanel.dock='right' style='{resource borderStyle}'>
+			<textblock text='#7' style='{resource textStyle}' />
+		</border>
+		<border dockpanel.dock='bottom' style='{resource borderStyle}'>
+			<textblock text='#8' style='{resource textStyle}' />
+		</border>
+		<border dockpanel.dock='left' style='{resource borderStyle}'>
+			<textblock text='#9' style='{resource textStyle}' />
+		</border>
+		<border dockpanel.dock='top' style='{resource borderStyle}'>
+			<textblock text='#10' style='{resource textStyle}' />
+		</border>
+		<border dockpanel.dock='right' style='{resource borderStyle}'>
+			<textblock text='#11' style='{resource textStyle}' />
+		</border>
+	</dockpanel>

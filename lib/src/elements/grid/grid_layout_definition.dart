@@ -8,19 +8,19 @@
 * * [ColumnDefinition]
 * * [RowDefinition]
 */
-class GridLayoutDefinition extends TemplateObject{
+class GridLayoutDefinition extends TemplateObject
+{
 
   num _adjustedLengthInternal = 0;
   Node _htmlNode;
 
-  GridLength _value;
+  GridLength _gridLength;
   num _adjustedOffset = 0;
 
-  
   GridLayoutDefinition();
   GridLayoutDefinition.register() : super.register();
   makeMe() => null;
-  
+
   set _adjustedLength(num value){
     if (value < minLength) value = minLength;
     if (value > maxLength) value = maxLength;

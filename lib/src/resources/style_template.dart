@@ -6,24 +6,19 @@
 // Default implementation for StyleTemplate interface.
 class StyleTemplate extends FrameworkResource
 {
-  final Set<FrameworkElement> _registeredElements;
-  final HashMap<String, Setter> _setters;
+  final Set<FrameworkElement> _registeredElements = new HashSet<FrameworkElement>();
+  final HashMap<String, Setter> _setters = new HashMap<String, Setter>();
   final String stateBagPrefix = "__StyleBinding__";
   FrameworkProperty<ObservableList<Setter>> setters;
 
   StyleTemplate()
-  : _registeredElements = new HashSet<FrameworkElement>(),
-    _setters = new HashMap<String, Setter>()
     {
       _initStyleTemplateProperties();
 
       setters.value.listChanged + _onSettersCollectionChanging;
-
     }
 
-  StyleTemplate.register() : super.register(),
-    _registeredElements = new HashSet<FrameworkElement>(),
-    _setters = new HashMap<String, Setter>();
+  StyleTemplate.register() : super.register();
   makeMe() => new StyleTemplate();
 
   /** Returns a [Collection] of [FrameworkElement]'s registered to the StyleTemplate */
@@ -41,7 +36,7 @@ class StyleTemplate extends FrameworkResource
 
       //copy the style setters
       style._setters.forEach((_, Setter s){
-        setProperty(s.property.value, s.value);
+        setProperty(s.property.value, s.value.value);
       });
     }
   }
@@ -51,7 +46,7 @@ class StyleTemplate extends FrameworkResource
    * Returns a property value from a given [property] name. Null if property doesn't exist. */
   getProperty(String property){
     if (_setters.containsKey(property)){
-      return _setters[property].value;
+      return _setters[property].value.value;
     }else{
       return null;
     }
@@ -62,7 +57,7 @@ class StyleTemplate extends FrameworkResource
   * Unknown properties are ignored. */
   void setProperty(String property, Dynamic newValue){
     if (_setters.containsKey(property)){
-      _setters[property].value = newValue;
+      _setters[property].value.value = newValue;
     }else{
       _setters[property] = new Setter.with(property, newValue);
       setters.value.add(_setters[property]);
@@ -78,7 +73,7 @@ class StyleTemplate extends FrameworkResource
 
 
     args.newItems.forEach((item){
-      setProperty(item.property, item.value);
+      setProperty(item.property.value, item.value.value);
     });
 
   }
@@ -133,18 +128,20 @@ class StyleTemplate extends FrameworkResource
       instanceMirror
         .getField('${setter.property}')
         .then((p){
-          final b = bind(setter.value, p.reflectee);
+          final b = new Binding(setter.value, p.reflectee);
           p.reflectee
             .sourceObject
             .stateBag["$stateBagPrefix${setter.property}__"] = b;
         });
     }else{
-    element._frameworkProperties
-    .filter((FrameworkProperty p) => p.propertyName == setter.property)
-    .forEach((FrameworkProperty p) {
-      final b = bind(setter.value, p);
-      p.sourceObject.stateBag["$stateBagPrefix${setter.property}__"] = b;
-    });
+      element
+        ._frameworkProperties
+        .filter((FrameworkProperty p) =>
+            p.propertyName == setter.property.value)
+        .forEach((FrameworkProperty p) {
+          p.sourceObject.stateBag["$stateBagPrefix${setter.property.value}__"] =
+              new Binding(setter.value, p);
+        });
     }
   }
 }
