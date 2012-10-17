@@ -32,7 +32,6 @@ class MasterViewModel extends ViewModelBase
     contentView.ready.then((t){
       statusMessage.value = '${_viewNameFromInstanceOf(contentView)} view selected.';
       content.value = t;
-
     });
   }
 

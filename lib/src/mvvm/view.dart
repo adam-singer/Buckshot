@@ -22,13 +22,10 @@ class View
   /// Gets the visual root of the view.
   FrameworkElement get rootVisual => _rootElement;
   set rootVisual(FrameworkElement element) {
+    assert(element != null && element is FrameworkElement);
+
     if (_rootElement != null){
       throw const BuckshotException('View already initialized.');
-    }
-
-    if (element == null){
-      throw const BuckshotException('Expected a FrameworkElement'
-          ' that is not null.');
     }
 
     _rootElement = element;

@@ -63,10 +63,13 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
   makeMe() => new CollectionPresenter();
 
   void _initCollectionPresenterProperties(){
+
     presentationPanel =
         new FrameworkProperty(this, "presentationPanel", (Panel p){
-      if (p.parent != null)
-        throw const BuckshotException("Element is already child of another element.");
+      if (p.parent != null){
+        throw const BuckshotException('(CollectionPresenter)'
+            ' Element is already child of another element.');
+      }
 
       if (!rawElement.elements.isEmpty())
          rawElement.elements[0].remove();

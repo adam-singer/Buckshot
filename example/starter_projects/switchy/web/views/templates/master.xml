@@ -88,13 +88,13 @@
           </menuitem>
        </menu>
      </menustrip>
-     
-     <!-- 
+
+     <!--
      This border will contain status information.
      -->
-     <border 
+     <border
      	padding='{resource theme_border_padding}'
-     	background='SteelBlue' 
+     	background='SteelBlue'
      	dockpanel.dock='top'>
      	<stack orientation='horizontal'>
      		<textblock foreground='White' text='Status:' margin='0,5,0,0' />
@@ -102,21 +102,21 @@
 	     	The data binding below will look for a FrameworkProperty with the
 	     	name 'statusMessage' in the view model that is bound to this view.
 	     	-->
-	        <textblock foreground='White' text='{data statusMessage}' />	     	
+	        <textblock foreground='White' text='{data statusMessage}' />
      	</stack>
      </border>
-     
-     <!-- 
+
+     <!--
      This border will be our content area.
-     
+
      DockPanel will stretch the last element to fill the remaining
      space by default, so our content border below will stretch automatically.
-     
+
      We are going to use default theme values wherever possible.
      -->
-     <border 
-     	margin='5' 
-     	bordercolor='{resource theme_border_color_dark}' 
+     <border
+     	margin='5'
+     	bordercolor='{resource theme_border_color_dark}'
      	background='{resource calcBackground}'
      	borderthickness='{resource theme_border_thickness}'
      	content='{data content}'>

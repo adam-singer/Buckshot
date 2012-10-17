@@ -376,10 +376,9 @@ class Template {
         p.value = ofXMLNode.children[0].toString();
         c.complete(true);
       }else{
+        final propertyValue = p.value;
 
-        var testValue = p.value;
-
-        if (testValue != null && testValue is List){
+        if (propertyValue != null && propertyValue is List){
           Futures
           // cast to List required because XmlCollection subclasses
           // Collection<T>
@@ -387,7 +386,7 @@ class Template {
               toFrameworkObject(se))))
           .then((results){
             results.forEach((r){
-              testValue.add(r);
+              propertyValue.add(r);
             });
             c.complete(true);
           });

@@ -60,13 +60,9 @@ class FrameworkProperty<T> extends FrameworkPropertyBase
   /** Gets the previous value of the FrameworkProperty. */
   T previousValue;
 
-  /// Constructs a FrameworkProperty and initializes it to the framework.
-  ///
-  /// ### Parameters
-  /// * [BuckshotObject] sourceObject - the object the property belongs to.
-  /// * [String] propertyName - the friendly public name for the property.
-  /// * [Function] propertyChangedCallback - called by the framework when the property value changes.
-  /// * [Dynamic] value - optional default value assigned to the property at initialization.
+  /**
+   *  Declares a FrameworkProperty and initializes it to the framework.
+   */
   FrameworkProperty(
       BuckshotObject sourceObject,
       String propertyName,
@@ -84,12 +80,8 @@ class FrameworkProperty<T> extends FrameworkPropertyBase
       sourceObject._frameworkProperties.add(this);
     }
 
-    // If the value is provided, then call it's propertyChanged function to set the value on the property.
-    if (defaultValue !== null){
-      value = defaultValue;
-      if (propertyChangedCallback != null) propertyChangedCallback(value);
-      propertyChanging.invoke(this, new PropertyChangingEventArgs(null, value));
-    }
+    if (defaultValue == null) return;
+    value = defaultValue;
   }
 }
 
