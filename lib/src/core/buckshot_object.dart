@@ -33,6 +33,11 @@ abstract class BuckshotObject extends HashableObject
     _bindableEvents[name.toLowerCase()] = event;
   }
 
+  /**
+   * Registers an event handler to the framework.
+   *
+   * This will go away once Dart supports reflection on all platforms.
+   */
   void registerEventHandler(String name, EventHandler func){
     if (reflectionEnabled) return;
     _eventHandlers[name.toLowerCase()] = func;

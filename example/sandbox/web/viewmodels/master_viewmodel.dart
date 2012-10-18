@@ -11,6 +11,9 @@
  */
 class MasterViewModel extends ViewModelBase
 {
+  const months = const ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+                        'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
   final DemoModel model = new DemoModel();
   final View _calc = new Calculator();
   final View _todo = new todo.Main();
@@ -65,7 +68,7 @@ class MasterViewModel extends ViewModelBase
       final demo = queryString['demo'];
 
       if (demo != null){
-        _mainView.rootVisual.dataContext.value.setTemplate('#${demo}');
+        setTemplate('#${demo}');
       }
     });
   }
@@ -90,9 +93,6 @@ class MasterViewModel extends ViewModelBase
   }
 
   void _updateDate(Date d){
-    final months = const ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
-                          'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
     dayAndMonth.value = "${d.day} ${months[d.month]}";
   }
 
