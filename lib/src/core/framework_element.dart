@@ -492,7 +492,7 @@ class FrameworkElement extends FrameworkObject
     if (value == "auto"){
       rawElement.style.width = "auto"; //, null);
       this.updateMeasurementAsync.then((_){
-        if (this is IFrameworkContainer){
+        if (this is FrameworkContainer){
           updateLayout();
         }else{
           if (parent != null) parent.updateLayout();
@@ -512,7 +512,7 @@ class FrameworkElement extends FrameworkObject
     rawElement.style.width = '${value}px';
 
     this.updateMeasurementAsync.then((_){
-      if (this is IFrameworkContainer){
+      if (this is FrameworkContainer){
         updateLayout();
       }else{
         if (parent != null) parent.updateLayout();
@@ -526,7 +526,7 @@ class FrameworkElement extends FrameworkObject
     if (value == "auto"){
       rawElement.style.height = "auto";//, null);
       this.updateMeasurementAsync.then((_){
-        if (this is IFrameworkContainer){
+        if (this is FrameworkContainer){
           updateLayout();
         }else{
           if (parent != null) parent.updateLayout();
@@ -546,7 +546,7 @@ class FrameworkElement extends FrameworkObject
    rawElement.style.height = '${value}px'; //, null);
 
    this.updateMeasurementAsync.then((_){
-     if (this is IFrameworkContainer){
+     if (this is FrameworkContainer){
        updateLayout();
      }else{
        if (parent != null) parent.updateLayout();

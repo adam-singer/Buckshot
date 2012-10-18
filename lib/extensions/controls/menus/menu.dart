@@ -8,7 +8,7 @@
  * The [headerProperty] will not be visible unless the [Menu] is
  * associated with a [MenuStrip].
  */
-class Menu extends Control implements IFrameworkContainer
+class Menu extends Control implements FrameworkContainer
 {
   FrameworkProperty<ObservableList<MenuItem>> menuItems;
   FrameworkProperty<String> parentName;
@@ -37,7 +37,6 @@ class Menu extends Control implements IFrameworkContainer
   makeMe() => new Menu();
 
   void onFirstLoad(){
-
     var mp = _menuParent.value;
 
     if (mp == null){
@@ -135,7 +134,7 @@ class Menu extends Control implements IFrameworkContainer
             cursor='Arrow'>
       <collectionpresenter halign='stretch' collection='{template menuItems}'>
          <itemstemplate>
-           <border padding='{resource theme_menu_padding}' background='{resource theme_background_dark}' halign='stretch'>
+           <border padding='{resource theme_menu_padding}' background='{resource theme_dark_brush}' halign='stretch'>
               <actions>
                 <setproperty event='mouseEnter' property='background' value='{resource theme_menu_background_hover_brush}' />
                 <setproperty event='mouseLeave' property='background' value='{resource theme_menu_background_brush}' />

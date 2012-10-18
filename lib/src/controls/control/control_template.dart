@@ -6,7 +6,7 @@
 * A [FrameworkResource] which represents the initial visual representation of
 * a [Control].
 */
-class ControlTemplate extends FrameworkResource implements IFrameworkContainer
+class ControlTemplate extends FrameworkResource implements FrameworkContainer
 {
   FrameworkProperty<String> controlType;
   FrameworkProperty<FrameworkElement> template;

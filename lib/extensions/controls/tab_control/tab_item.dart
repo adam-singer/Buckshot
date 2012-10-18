@@ -2,13 +2,13 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-class TabItem extends Control implements IFrameworkContainer
+class TabItem extends Control implements FrameworkContainer
 {
   FrameworkProperty<FrameworkElement> header;
   FrameworkProperty<FrameworkElement> icon;
   FrameworkProperty<bool> closeEnabled;
-  FrameworkProperty<Visibility> closeButtonVisiblity;
-  FrameworkProperty<FrameworkElement> content;
+  FrameworkProperty<Visibility> _closeButtonVisiblity;
+  FrameworkProperty<Dynamic> content;
 
   FrameworkElement _visualTemplate;
 
@@ -39,12 +39,12 @@ class TabItem extends Control implements IFrameworkContainer
           }
     });
 
-    closeButtonVisiblity = new FrameworkProperty(this,
+    _closeButtonVisiblity = new FrameworkProperty(this,
         'closeButtonVisibility',
         propertyChangedCallback: (Visibility value){
           if (value == Visibility.visible
               && closeEnabled.value == false){
-            closeButtonVisiblity.value = Visibility.collapsed;
+            _closeButtonVisiblity.value = Visibility.collapsed;
           }
         },
         defaultValue: Visibility.collapsed,
@@ -53,7 +53,7 @@ class TabItem extends Control implements IFrameworkContainer
     closeEnabled = new FrameworkProperty(this, 'closeEnabled',
         propertyChangedCallback: (bool value){
           if (value == false){
-            closeButtonVisiblity.value = Visibility.collapsed;
+            _closeButtonVisiblity.value = Visibility.collapsed;
           }
         },
         defaultValue: true,

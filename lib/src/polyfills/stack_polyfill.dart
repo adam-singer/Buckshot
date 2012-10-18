@@ -21,7 +21,7 @@ class StackPolyfill extends Polyfill
    * Sets the orientation of the stack panel.
    */
   set orientation(Orientation orientation){
-    (element as IFrameworkContainer)
+    (element as FrameworkContainer)
       .content
       .forEach((e){
         e.rawElement.style.display =

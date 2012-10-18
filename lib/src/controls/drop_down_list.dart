@@ -78,7 +78,7 @@ class DropDownList extends Control
   void _updateDDL(){
     rawElement.elements.clear();
 
-    if (itemsSource != null){
+    if (itemsSource.value != null){
       itemsSource.value.forEach((i){
         var option = new OptionElement();
         option.attributes['value'] = '$i';

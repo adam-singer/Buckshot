@@ -12,9 +12,9 @@
 #source('tab_item.dart');
 #source('tab_selected_event_args.dart');
 
-class TabControl extends Control implements IFrameworkContainer
+class TabControl extends Control implements FrameworkContainer
 {
-  FrameworkProperty<FrameworkElement> currentContent;
+  FrameworkProperty<Dynamic> currentContent;
   FrameworkProperty<ObservableList<TabItem>> tabItems;
   FrameworkProperty<HorizontalAlignment> tabAlignment;
   FrameworkProperty<Brush> tabBackground;
@@ -48,12 +48,13 @@ class TabControl extends Control implements IFrameworkContainer
   void switchToTab(TabItem tab){
     if (currentTab == tab) return;
 
+    assert(tab._visualTemplate != null);
+
     if (currentTab != null){
       final b = currentTab._visualTemplate as Border;
 
       //remove active markings on this tab.
-      currentTab.closeButtonVisiblity.value = Visibility.collapsed;
-
+      currentTab._closeButtonVisiblity.value = Visibility.collapsed;
       b.background.value = _tabBackground;
 
       b.borderThickness.value = new Thickness.specified(1, 1, 0, 1);
@@ -61,19 +62,22 @@ class TabControl extends Control implements IFrameworkContainer
 
     currentTab = tab;
 
-    final t = currentTab._visualTemplate as Panel;
+    final t = currentTab._visualTemplate as Border;
       //set active markings on the tab.
 
     _tabBackground = t.background.value;
 
-    currentTab.closeButtonVisiblity.value = Visibility.visible;
+    currentTab._closeButtonVisiblity.value = Visibility.visible;
 
     (currentTab._visualTemplate as Border).borderThickness.value =
         new Thickness.specified(2, 2, 0, 2);
 
     t.background.value = tabSelectedBrush.value;
 
-    currentContent.value = currentTab.content.value;
+    currentContent.value =
+        currentTab.content.value is String
+          ? (new TextBlock()..text.value = currentTab.content.value)
+          : currentTab.content.value;
   }
 
   void closeTab(TabItem tab){
@@ -162,10 +166,10 @@ class TabControl extends Control implements IFrameworkContainer
         </rowdefinitions>
         <collectionpresenter name='__tc_presenter__' halign='{template tabAlignment}' collection='{template tabItems}'>
            <presentationpanel>
-              <stack orientation='horizontal' />
+              <stack name='polo' orientation='horizontal' />
            </presentationpanel>
            <itemstemplate>
-              <border valign='stretch' cursor='Arrow' background='{resource theme_background_dark}' margin='0,1,0,0' borderthickness='1,1,0,1' bordercolor='{resource theme_border_color}' padding='2'>
+              <border name='tab_border' valign='stretch' cursor='Arrow' background='{resource theme_dark_brush}' margin='0,1,0,0' borderthickness='1,1,0,1' bordercolor='{resource theme_border_color}' padding='2'>
                  <stack orientation='horizontal'>
                     <contentpresenter content='{data icon}' margin='0,2,0,0' />
                     <contentpresenter content='{data header}' margin='0,3,0,0' />
@@ -184,7 +188,8 @@ class TabControl extends Control implements IFrameworkContainer
               </border>
            </itemstemplate>
         </collectionpresenter>
-        <border name='__content_border__' content='{template currentContent}' 
+        <border name='__content_border__' 
+                content='{template currentContent}' 
                 grid.row='1' 
                 halign='stretch' 
                 valign='stretch'

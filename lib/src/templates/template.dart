@@ -61,7 +61,8 @@
 class Template {
 
   //TODO make providers discoverable via reflection instead of pre-registered.
-  final List<IPresentationFormatProvider> providers = [new XmlTemplateProvider()];
+  final List<IPresentationFormatProvider> providers =
+      [new XmlTemplateProvider()];
 
   static const int _UNKNOWN = -1;
   static const int _HTML_ELEMENT = 0;
@@ -102,7 +103,7 @@ class Template {
   static FrameworkElement findByName(String name,
                                      FrameworkElement startingWith){
 
-    if (startingWith.name != null && startingWith.name == name){
+    if (startingWith.name.value != null && startingWith.name.value == name){
       return startingWith;
     }
 
@@ -575,13 +576,12 @@ class Template {
         switch(words.length){
           case 1:
             //dataContext directly
-            so.lateBindings[p] =
-                new BindingData("", null, mode);
+            so.lateBindings[p] = new BindingData("", null, mode);
             break;
           case 2:
             //dataContext object via property resolution
-            so.lateBindings[p] =
-                new BindingData(words[1], null, mode);
+            //log('setting up late binding for property ${p.propertyName} with string ${words[1]}', element: so);
+            so.lateBindings[p] = new BindingData(words[1], null, mode);
             break;
           default:
             throw const PresentationProviderException('Binding'

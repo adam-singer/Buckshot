@@ -11,7 +11,7 @@
 
 #source('accordion_item.dart');
 
-class Accordion extends Control implements IFrameworkContainer
+class Accordion extends Control implements FrameworkContainer
 {
   FrameworkProperty<ObservableList<AccordionItem>> accordionItems;
   FrameworkProperty<Brush> background;

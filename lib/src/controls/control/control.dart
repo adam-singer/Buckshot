@@ -10,51 +10,37 @@ class Control extends FrameworkElement
 
   FrameworkElement template;
 
-  Future templateApplied;
-  final Completer _c;
-
   String get defaultControlTemplate => '';
 
   bool _visualTemplateApplied = false;    // flags if visual template applied
   bool _templateApplied = false;          // flags if a template was used during applyVisualTemplate();
   bool _templateBindingsApplied = false;  // flags if template bindings have been applied
 
-//  final HashMap<FrameworkProperty, String> _allTemplateBindings;
-
   Control()
-      :
-        _c = new Completer()
-//  : _allTemplateBindings = new HashMap<FrameworkProperty, String>()
   {
-    templateApplied = _c.future;
     Browser.appendClass(rawElement, "control");
     _initControlProperties();
   }
 
-  Control.register() : super.register(),
-    _c = new Completer();
+  Control.register() : super.register();
   makeMe() => null;
 
   void _initControlProperties(){
-    isEnabled = new FrameworkProperty(this, "isEnabled", (bool value){
-      if (value){
-        if (rawElement.attributes.containsKey('disabled'))
-          rawElement.attributes.remove('disabled');
-      }else{
-        rawElement.attributes['disabled'] = 'disabled';
-      }
-    }, true, converter:const StringToBooleanConverter());
+    isEnabled = new FrameworkProperty(this, "isEnabled",
+      propertyChangedCallback: (bool value){
+        if (value){
+          if (rawElement.attributes.containsKey('disabled'))
+            rawElement.attributes.remove('disabled');
+        }else{
+          rawElement.attributes['disabled'] = 'disabled';
+        }
+      },
+      defaultValue: true,
+      converter: const StringToBooleanConverter());
   }
 
   void applyVisualTemplate(){
-    if (_visualTemplateApplied)
-      throw const BuckshotException('Attempted to apply visual template more than once.');
-
-    if (templateApplied == null){
-      templateApplied = _c.future;
-    }
-
-    assert(templateApplied != null);
+    assert(!_visualTemplateApplied && !_templateApplied);
 
     _visualTemplateApplied = true;
 
@@ -68,7 +54,7 @@ class Control extends FrameworkElement
   }
 
   void _finishApplyVisualTemplate(){
-    var t = getResource(this.templateName) as ControlTemplate;
+    var t = getResource(templateName) as ControlTemplate;
 
     if (t == null){
       template = this;
@@ -80,9 +66,10 @@ class Control extends FrameworkElement
 
     template = t.template.value;
 
+    //log('control template applied: $template', element: this);
+
     rawElement = template.rawElement;
     template.parent = this;
-    _c.complete(true);
   }
 
   onLoaded(){
@@ -96,6 +83,7 @@ class Control extends FrameworkElement
   }
 
   finishOnLoaded(){
+    //log('adding to DOM: $template', element: this);
     template.onAddedToDOM();
   }
 
@@ -107,23 +95,6 @@ class Control extends FrameworkElement
   }
 
   void _bindTemplateBindings(){
-    void _getAllTemplateBindings(HashMap<FrameworkProperty, String> list, FrameworkElement element){
-
-      element
-        ._templateBindings
-        .forEach((k, v){
-          list[k] = v;
-        });
-
-      if (element is! IFrameworkContainer) return;
-
-      if (element.containerContent is List){
-        element.containerContent.forEach((FrameworkElement child) => _getAllTemplateBindings(list, child));
-      }else if (element.containerContent is FrameworkElement){
-        _getAllTemplateBindings(list, element.containerContent);
-      }
-    }
-
     var tb = new HashMap<FrameworkProperty, String>();
 
     _getAllTemplateBindings(tb, template);
@@ -131,14 +102,30 @@ class Control extends FrameworkElement
     tb.forEach((FrameworkProperty k, String v){
       getPropertyByName(v)
         .then((prop){
-          if (prop == null){
-            throw const BuckshotException('Attempted binding to null property in'
-                ' Control.');
-          }
-
+          assert(prop != null);
           new Binding(prop, k);
         });
     });
+  }
+
+  void _getAllTemplateBindings(bindingMap, element){
+
+    element
+      ._templateBindings
+      .forEach((k, v){
+        bindingMap[k] = v;
+      });
+
+    if (element is! FrameworkContainer) return;
+
+    if (element.containerContent is List){
+      element
+        .containerContent
+        .forEach((FrameworkElement child) =>
+            _getAllTemplateBindings(bindingMap, child));
+    }else if (element.containerContent is FrameworkElement){
+      _getAllTemplateBindings(bindingMap, element.containerContent);
+    }
   }
 
   /// Gets a standardized name for assignment to the [ControlTemplate] 'controlType' property.

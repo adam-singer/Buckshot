@@ -5,7 +5,7 @@
 /**
 * An element that renders a browser link.
 */
-class Hyperlink extends Control implements IFrameworkContainer
+class Hyperlink extends Control implements FrameworkContainer
 {
   Dynamic _content;
 

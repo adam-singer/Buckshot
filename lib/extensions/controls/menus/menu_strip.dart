@@ -2,7 +2,7 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-class MenuStrip extends Control implements IFrameworkContainer
+class MenuStrip extends Control implements FrameworkContainer
 {
   FrameworkProperty<ObservableList<Menu>> menus;
   FrameworkProperty<Orientation> orientation;
@@ -90,7 +90,7 @@ class MenuStrip extends Control implements IFrameworkContainer
 '''
 <controltemplate controlType='${this.templateName}'>
   <template>
-    <border cursor='Arrow' background='{resource theme_background_dark}'>
+    <border cursor='Arrow' background='{resource theme_menu_background_brush}'>
       <collectionpresenter halign='stretch' collection='{template menus}'>
          <presentationpanel>
             <stack orientation='{template orientation}'></stack>

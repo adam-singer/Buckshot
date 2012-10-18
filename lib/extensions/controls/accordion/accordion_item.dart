@@ -1,5 +1,5 @@
 
-class AccordionItem extends Control implements IFrameworkContainer
+class AccordionItem extends Control implements FrameworkContainer
 {
   FrameworkProperty<FrameworkElement> header;
   FrameworkProperty<FrameworkElement> body;

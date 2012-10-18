@@ -131,6 +131,6 @@ class ViewModel extends ViewModelBase
    * mode selector on the calculator.
    */
   void selectionChanged_handler(sender, args){
-    setMode(args.selectedItem.value);
+    setMode(args.selectedItem.item);
   }
 }

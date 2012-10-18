@@ -4,7 +4,7 @@
 
 /**
 * A container element that holds a single child and provides visual border properties. */
-class Border extends FrameworkElement implements IFrameworkContainer
+class Border extends FrameworkElement implements FrameworkContainer
 {
   /// Represents the [Brush] of the border background.
   AnimatingFrameworkProperty<Brush> background;

@@ -63,13 +63,13 @@ void printTree(startWith, [int indent = 0]){
   print('${space(indent)}${startWith}'
         '(Parent=${startWith.parent})');
 
-  if (startWith is IFrameworkContainer){
-    if ((startWith as IFrameworkContainer).containerContent is List){
-      (startWith as IFrameworkContainer)
+  if (startWith is FrameworkContainer){
+    if ((startWith as FrameworkContainer).containerContent is List){
+      (startWith as FrameworkContainer)
         .containerContent
         .forEach((e) => printTree(e, indent + 3));
     }else{
-      printTree(startWith.content.value, indent + 3);
+      printTree(startWith.containerContent, indent + 3);
     }
   }
 }

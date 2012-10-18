@@ -27,10 +27,11 @@
 *         <itemstemplate>
 *     </collectionpresenter>
 *
-* ## Try It Yourself
-* Select the "Collections" example on the Buckshot Sandbox: [Try Buckshot](http://www.lucastudios.com/trybuckshot)
+* ## Try It Yourself ##
+* Select the "Collections" example on the Buckshot Sandbox:
+* [Sandbox](http://www.buckshotui.org/sandbox/?demo=collections)
 */
-class CollectionPresenter extends FrameworkElement implements IFrameworkContainer
+class CollectionPresenter extends FrameworkElement implements FrameworkContainer
 {
   static const String SBO = '__CollectionPresenterData__';
   var _eHandler;
@@ -66,18 +67,14 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
 
     presentationPanel =
         new FrameworkProperty(this, "presentationPanel", (Panel p){
-      if (p.parent != null){
-        throw const BuckshotException('(CollectionPresenter)'
-            ' Element is already child of another element.');
-      }
+      assert(p != null);
+      assert(p.parent == null);
 
       if (!rawElement.elements.isEmpty())
          rawElement.elements[0].remove();
 
-      p.loaded + (_,__) => _updateCollection();
-
       p.addToLayoutTree(this);
-
+      assert(p.parent == this);
     }, new Stack());
 
     itemsTemplate = new FrameworkProperty(this, "itemsTemplate");
@@ -85,13 +82,16 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
     collection = new FrameworkProperty(this, 'collection');
   }
 
+  @override onFirstLoad(){
+    _updateCollection();
+  }
+
   //IFrameworkContainer interface
-  get containerContent => presentationPanel;
+  get containerContent => presentationPanel.value;
 
   void invalidate() => _updateCollection();
 
   void _updateCollection(){
-
     var values = collection.value;
 
     if (values == null){
@@ -108,6 +108,7 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       values = dc.value;
     }
 
+
     if (values is ObservableList && _eHandler == null){
       _eHandler = values.listChanged + (_, __) {
         presentationPanel.value.children.clear();
@@ -115,31 +116,32 @@ class CollectionPresenter extends FrameworkElement implements IFrameworkContaine
       };
     }
 
-    if (values is! Collection)
+    if (values is! Collection){
       throw const BuckshotException("Expected dataContext object"
         " to be of type Collection.");
+    }
 
     presentationPanel.value.rawElement.elements.clear();
 
-    if (itemsTemplate == null){
+    if (itemsTemplate.value == null){
       //no template, then just call toString on the object.
       values.forEach((iterationObject){
-        Template.deserialize('<textblock halign="stretch">'
-          '${iterationObject}</textblock>')
-          .then((it){
-            it.stateBag[SBO] = iterationObject;
-            itemCreated.invokeAsync(this, new ItemCreatedEventArgs(it));
-            presentationPanel.value.children.add(it);
-          });
+        final it = new TextBlock()
+                        ..hAlign.value = HorizontalAlignment.stretch
+                        ..text.value = '$iterationObject'
+                        ..stateBag[SBO] = iterationObject;
+
+        itemCreated.invokeAsync(this, new ItemCreatedEventArgs(it));
+        presentationPanel.value.children.add(it);
       });
     }else{
       //if template, then bind the object to the template datacontext
       values.forEach((iterationObject){
         Template
         .deserialize(itemsTemplate.value)
-        .then((it){
-          it.stateBag[SBO] = iterationObject;
-          it.dataContext = iterationObject;
+        .then((FrameworkElement it){
+          it..stateBag[SBO] = iterationObject
+            ..dataContext.value = iterationObject;
           itemCreated.invokeAsync(this, new ItemCreatedEventArgs(it));
           presentationPanel.value.children.add(it);
         });

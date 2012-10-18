@@ -188,7 +188,6 @@ class DockPanel extends Panel
           lastLocation = loc;
         }
       }
-
     });
 
     //stretch the last item to fill the remaining space

@@ -4,7 +4,7 @@
 
 /**
 * Contains a group of [FrameworkResource]s.  */
-class ResourceCollection extends FrameworkResource implements IFrameworkContainer
+class ResourceCollection extends FrameworkResource implements FrameworkContainer
 {
   final ObservableList<FrameworkResource> resources;
 

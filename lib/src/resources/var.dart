@@ -33,7 +33,7 @@
 * * [LinearGradientBrush]
 * * [RadialGradientBrush]
 */
-class Var extends FrameworkResource implements IFrameworkContainer
+class Var extends FrameworkResource implements FrameworkContainer
 {
   FrameworkProperty<Dynamic> value;
 

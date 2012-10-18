@@ -14,7 +14,7 @@
 /**
 * A control that provides a scrollable list of selectable items.
 */
-class ListBox extends Control implements IFrameworkContainer
+class ListBox extends Control implements FrameworkContainer
 {
   FrameworkProperty<bool> horizontalScrollEnabled;
   FrameworkProperty<bool> verticalScrollEnabled;
@@ -26,8 +26,6 @@ class ListBox extends Control implements IFrameworkContainer
   /// Represents the UI that will display for each item in the collection.
   FrameworkProperty<String> itemsTemplate;
 
-  FrameworkProperty<Color> borderColor;
-  FrameworkProperty<Thickness> borderThickness;
   FrameworkProperty<Brush> highlightBrush;
   FrameworkProperty<Brush> selectBrush;
 
@@ -47,14 +45,11 @@ class ListBox extends Control implements IFrameworkContainer
 
     _initListBoxProperties();
 
-    //applyVisualTemplate() is called before the constructor
-    //so we expect template to be assigned
-
     _presenter = Template.findByName("__buckshot_listbox_presenter__", template);
     _border = Template.findByName("__buckshot_listbox_border__", template);
 
-    if (_presenter == null)
-      throw const BuckshotException('element not found in control template');
+    assert(_presenter != null);
+    assert(_border != null);
 
     _presenter.itemCreated + _OnItemCreated;
 
@@ -68,8 +63,9 @@ class ListBox extends Control implements IFrameworkContainer
     return
     '''<controltemplate controlType="${this.templateName}">
           <template>
-            <border bordercolor="{template borderColor}" 
-                    borderthickness="{template borderThickness}" 
+            <border bordercolor="{resource theme_border_color}"
+                    background='{resource theme_light_brush}'
+                    borderthickness="{resource theme_border_thickness}" 
                     horizontalScrollEnabled="{template horizontalScrollEnabled}" 
                     verticalScrollEnabled="{template verticalScrollEnabled}"
                     name="__buckshot_listbox_border__"
@@ -84,6 +80,8 @@ class ListBox extends Control implements IFrameworkContainer
   }
 
   void _OnItemCreated(sender, ItemCreatedEventArgs args){
+    log('item created', element:this);
+
     FrameworkElement item = args.itemCreated;
 
     item.click + (_, __) {
@@ -150,20 +148,6 @@ class ListBox extends Control implements IFrameworkContainer
     selectBrush = new FrameworkProperty(this, "selectColor", (_){
     }, new SolidColorBrush(new Color.predefined(Colors.SkyBlue)),
     converter:const StringToSolidColorBrushConverter());
-
-    borderColor = new FrameworkProperty(
-        this,
-        'borderColor',
-        propertyChangedCallback: (Color c){
-          if (_border == null) return;
-          _border.borderColor.value = c;
-        },
-        defaultValue: new Color.predefined(Colors.Black),
-        converter:const StringToColorConverter());
-
-
-    borderThickness= new FrameworkProperty(this, "borderThickness", (v){
-    }, new Thickness(1), converter:const StringToThicknessConverter());
 
     selectedItem = new FrameworkProperty(this, "selectedItem", (_){});
 

@@ -12,8 +12,10 @@ class FrameworkObject extends BuckshotObject
   bool _firstLoad = true;
   ElementRect _previousMeasurement;
   ElementRect _previousPosition;
-  FrameworkObject _parent;
   bool isLoaded = false;
+
+  /** Parent object of this object. */
+  FrameworkObject parent;
 
   /// Represents a name identifier for the element.
   /// Assigning a name to an element
@@ -251,9 +253,9 @@ class FrameworkObject extends BuckshotObject
       _firstLoad = false;
     }
 
-    if (this is! IFrameworkContainer) return;
+    if (this is! FrameworkContainer) return;
 
-    final containerContent = (this as IFrameworkContainer).containerContent;
+    final containerContent = (this as FrameworkContainer).containerContent;
 
     if (containerContent is Collection){
       containerContent
@@ -276,6 +278,7 @@ class FrameworkObject extends BuckshotObject
     if (_dataContextUpdated) return;
     _dataContextUpdated = true;
 
+    log('updating data context', element: this, logLevel: Level.FINE);
     //TODO: Support multiple datacontext updates
 
     final dcs = _resolveAllDataContexts();
@@ -286,16 +289,19 @@ class FrameworkObject extends BuckshotObject
 
     final dc = dcs[0];
 
+    if (lateBindings.isEmpty()) return;
     _wireLateBindings(dc);
   }
 
   void _wireLateBindings(dc){
+    //log('wiring late bindings', element: this);
     //binding each property in the lateBindings collection
     //to the data context
     lateBindings
       .forEach((FrameworkProperty p, BindingData bd){
+        //log('working on ${p.propertyName}', element: this);
         if (bd.dataContextPath == ""){
-          log('late binding $dc to $p', element:this);
+          //log('late binding $dc to $p', element:this);
           new Binding(dc, p);
         }else{
           if (dc.value is! BuckshotObject)
@@ -409,9 +415,9 @@ class FrameworkObject extends BuckshotObject
 
     //db('Removed from DOM', this);
 
-    if (this is! IFrameworkContainer) return;
+    if (this is! FrameworkContainer) return;
 
-    final cc = this as IFrameworkContainer;
+    final cc = this as FrameworkContainer;
 
     if (cc.containerContent is List){
       cc.containerContent.forEach((FrameworkElement child) => child._onRemoveFromDOM());
@@ -454,11 +460,6 @@ class FrameworkObject extends BuckshotObject
 
     return list;
   }
-
-  /// Sets the parent FrameworkElement.
-  set parent(FrameworkObject value) => _parent = value;
-  /// Gets the parent FrameworkElement.
-  FrameworkObject get parent => _parent;
 
   /**
    * Override to apply a construct a custom visual template and assign

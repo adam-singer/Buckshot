@@ -5,7 +5,7 @@
 /**
  * Represents a node in a [TreeView] structure.
  */
-class TreeNode extends Control implements IFrameworkContainer
+class TreeNode extends Control implements FrameworkContainer
 {
   bool _mouseStylesSet = false;
   TreeView _parentTreeView;

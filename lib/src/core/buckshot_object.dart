@@ -21,7 +21,7 @@ abstract class BuckshotObject extends HashableObject
 
   /// Gets a boolean value indicating whether the given object
   /// is a container or not.
-  bool get isContainer => this is IFrameworkContainer;
+  bool get isContainer => this is FrameworkContainer;
 
   /**
    * Registers an event for later lookup during template event binding
@@ -123,20 +123,20 @@ abstract class BuckshotObject extends HashableObject
         classMirror){
       final c = new Completer();
 
-      var name = '';
+      var eventName = '';
 
       classMirror
       .variables
       .getKeys()
       .some((k){
         if (eventNameLowered == k.toLowerCase()){
-          name = k;
+          eventName = k;
           return true;
         }
         return false;
       });
 
-      if (name == ''){
+      if (eventName == ''){
         if (classMirror.superclass.simpleName != 'BuckshotObject')
   //          && classMirror.superclass.simpleName != 'Object')
         {
@@ -148,7 +148,7 @@ abstract class BuckshotObject extends HashableObject
 
       }else{
         buckshot.reflectMe(this)
-          .getField(name)
+          .getField(eventName)
           .then((im){
             c.complete(im.reflectee);
           });

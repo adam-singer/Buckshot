@@ -7,7 +7,7 @@
  * ContentPresenter is typically used as a placeholder element within a
  * template, where actual content may vary.
  */
-class ContentPresenter extends FrameworkElement implements IFrameworkContainer
+class ContentPresenter extends FrameworkElement implements FrameworkContainer
 {
   /// Represents the content inside the border.
   FrameworkProperty<Dynamic> content;
@@ -32,6 +32,7 @@ class ContentPresenter extends FrameworkElement implements IFrameworkContainer
       this,
       "content",
       (value){
+        //log('setting content presenter content to: $value', element:this);
         if (currentContent != null){
           currentContent.removeFromLayoutTree();
         }

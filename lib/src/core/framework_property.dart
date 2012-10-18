@@ -36,21 +36,22 @@ class FrameworkProperty<T> extends FrameworkPropertyBase
        newValue = stringToValueConverter.convert(newValue);
      }
 
+     // don't rebind if the value is the same.
      if (newValue == _value) return;
 
      previousValue = _value;
      _value = newValue;
 
      // 1) callback
-     propertyChangedCallback(value);
+     propertyChangedCallback(_value);
 
      // 2) bindings
      Binding._executeBindingsFor(this);
 
      // 3) event
-     if (propertyChanging.hasHandlers)
-       propertyChanging.invokeAsync(sourceObject,
-           new PropertyChangingEventArgs(previousValue, value));
+     propertyChanging
+     .invokeAsync(sourceObject,
+         new PropertyChangingEventArgs(previousValue, _value));
 
    }
 

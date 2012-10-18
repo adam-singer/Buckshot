@@ -12,7 +12,7 @@
 * * [Stack]
 * * [TreeView]
 */
-class Panel extends FrameworkElement implements IFrameworkContainer
+class Panel extends FrameworkElement implements FrameworkContainer
 {
   /// An observable list of the child elements associated with the panel.
   final ObservableList<FrameworkElement> children =
@@ -53,9 +53,7 @@ class Panel extends FrameworkElement implements IFrameworkContainer
     });
 
     args.newItems.forEach((item){
-      if (item.parent != null){
-        throw const BuckshotException(childHasParentExceptionMessage);
-      }
+      assert(item.parent == null);
       item.parent = this;
     });
   }

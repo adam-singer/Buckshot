@@ -6,7 +6,7 @@
 /**
 * An element that renders some [text].
 */
-class TextBlock extends FrameworkElement implements IFrameworkContainer
+class TextBlock extends FrameworkElement implements FrameworkContainer
 {
   FrameworkProperty<Brush> background;
   FrameworkProperty<Color> foreground;

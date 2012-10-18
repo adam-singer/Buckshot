@@ -318,7 +318,6 @@ Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
       el.elements.add(b.rawElement);
       b.content.value = rootVisual;
       _log.fine('View ($rootVisual) set to DOM at ($elementID)');
-
       return new Future.immediate(rootVisual);
     });
 }
@@ -376,52 +375,6 @@ getResource(String resourceKey, [IValueConverter converter = null]){
  */
 void registerResource(FrameworkResource resource){
   _resourceRegistry[resource.key.value.trim().toLowerCase()] = resource;
-}
-
-
-/**
- * Sets the value of a given [FrameworkProperty] to a given [v]. */
-Future setValueAsync(FrameworkProperty property, Dynamic value)
-{
-  Completer c = new Completer();
-
-   doIt(foo){
-
-     if (property.stringToValueConverter != null && value is String){
-       value = property.stringToValueConverter.convert(value);
-     }
-
-
-     if (property.value == value) return;
-
-      property.previousValue = property.value;
-      property.value = value;
-
-      // 3 different activities take place when a FrameworkProperty value changes,
-      // in this order of precedence:
-      //    1) callback - lets the FrameworkProperty do any work it wants to do
-      //    2) bindings - fires any bindings associated with the FrameworkProperty
-      //    3) event - notifies any subscribers that the FrameworkProperty
-      //       value changed
-
-      // 1) callback
-      Function f = property.propertyChangedCallback;
-      f(value);
-
-      // 2) bindings
-      Binding._executeBindingsFor(property);
-
-      // 3) event
-      if (property.propertyChanging.hasHandlers)
-        property.propertyChanging.invoke(property.sourceObject,
-          new PropertyChangingEventArgs(property.previousValue, value));
-
-      c.complete(null);
-   }
-
-   window.requestAnimationFrame(doIt);
-
-   return c.future;
 }
 
 /**

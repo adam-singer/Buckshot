@@ -18,7 +18,7 @@ class AligningPanel extends Polyfill
 
   AligningPanel(FrameworkElement panelElement) : super(panelElement)
   {
-    if (element is! IFrameworkContainer){
+    if (element is! FrameworkContainer){
       throw const BuckshotException('Element must implement IFramworkContainer'
           ' in order to work with this polyfill.');
     }
@@ -44,7 +44,7 @@ class AligningPanel extends Polyfill
   @override void invalidate(){
     num newTop = 0;
     num newLeft = 0;
-    final container = element as IFrameworkContainer;
+    final container = element as FrameworkContainer;
     if (!element.isLoaded) return;
     if (container.containerContent == null) return;
 

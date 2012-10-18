@@ -5,7 +5,7 @@
 /**
 * A button control element.
 */
-class Button extends Control implements IFrameworkContainer
+class Button extends Control implements FrameworkContainer
 {
   /// Represents the content inside the button.
   FrameworkProperty<Dynamic> content;
