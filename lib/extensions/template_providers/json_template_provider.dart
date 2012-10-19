@@ -80,6 +80,6 @@ class JSONTemplateProvider implements IPresentationFormatProvider
   bool isFormat(String template) => template.startsWith('[');
 
   void _err(String str){
-    throw new PresentationProviderException('$str');
+    throw new TemplateException('$str');
   }
 }

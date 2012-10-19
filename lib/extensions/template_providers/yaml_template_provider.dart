@@ -82,6 +82,6 @@ class YAMLTemplateProvider implements IPresentationFormatProvider
       !template.startsWith('<') && !template.startsWith('[');
 
   void _err(String str){
-    throw new PresentationProviderException('$str');
+    throw new TemplateException('$str');
   }
 }
