@@ -168,7 +168,6 @@ class TreeView extends Panel
             : '${getResource('theme_background_light')}';
 
         //TODO support border hatch styles
-        log('$color');
         rawElement.style.borderTop = 'solid ${value.top}px $color';
         rawElement.style.borderRight = 'solid ${value.right}px $color';
         rawElement.style.borderLeft = 'solid ${value.left}px $color';
