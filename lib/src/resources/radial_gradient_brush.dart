@@ -51,18 +51,18 @@ class RadialGradientBrush extends Brush {
     stops.value.forEach((GradientStop stop){
       colorString.add(stop.color.value.toColorString());
 
-      if (stop.percent != -1)
-        colorString.add(" ${stop.percent}%");
+      if (stop.percent.value != -1)
+        colorString.add(" ${stop.percent.value}%");
 
       if (stop != stops.value.last())
         colorString.add(", ");
     });
 
     //set the background for all browser types
-    element.style.background = "-webkit-radial-gradient(50% 50%, ${drawMode.toString()}, ${colorString})";
-    element.style.background = "-moz-radial-gradient(50% 50%, ${drawMode.toString()}, ${colorString})";
-    element.style.background = "-ms-radial-gradient(50% 50%, ${drawMode.toString()}, ${colorString})";
-    element.style.background = "-o-radial-gradient(50% 50%, ${drawMode.toString()}, ${colorString})";
-    element.style.background = "radial-gradient(50% 50%, ${drawMode.toString()}, ${colorString})";
+    element.style.background = "-webkit-radial-gradient(50% 50%, ${drawMode.value}, ${colorString})";
+    element.style.background = "-moz-radial-gradient(50% 50%, ${drawMode.value}, ${colorString})";
+    element.style.background = "-ms-radial-gradient(50% 50%, ${drawMode.value}, ${colorString})";
+    element.style.background = "-o-radial-gradient(50% 50%, ${drawMode.value}, ${colorString})";
+    element.style.background = "radial-gradient(50% 50%, ${drawMode.value}, ${colorString})";
   }
 }

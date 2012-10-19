@@ -106,7 +106,7 @@ final String defaultTheme =
   </lineargradientbrush>
   <solidcolorbrush key='theme_accordion_background_mouse_down_brush' color='{resource theme_background_mouse_down}' />
   <solidcolorbrush key='theme_accordion_header_background_brush' color='{resource theme_background_dark}' />
-  <solidcolorbrush key='theme_accordion_body_background_brush' color='{resource theme_debug}' />
+  <solidcolorbrush key='theme_accordion_body_background_brush' color='{resource theme_background_light}' />
 
   <!-- 
   Menu & MenuStrip

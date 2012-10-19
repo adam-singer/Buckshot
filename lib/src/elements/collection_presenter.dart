@@ -94,6 +94,8 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
   void _updateCollection(){
     var values = collection.value;
 
+ //   log('values from collection property ${collection.value}');
+
     if (values == null){
       // fall back to dataContext as Collection source
       final dc = resolveDataContext();
@@ -106,6 +108,7 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
       }
 
       values = dc.value;
+    //  log('datacontext propertyName: ${dc.propertyName}, value: ${dc.value}', element: this);
     }
 
 
@@ -117,6 +120,7 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
     }
 
     if (values is! Collection){
+  //    log('*** values collection: $values', element: this);
       throw const BuckshotException("Expected dataContext object"
         " to be of type Collection.");
     }

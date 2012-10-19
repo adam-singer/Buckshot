@@ -19,6 +19,8 @@ var _bindingLog = new Logger('buckshot.binding')..level = Level.WARNING;
 var _polyfillLog = new Logger('buckshot.polyfill')..level = Level.INFO;
 var _logEvents = new ObservableList<String>();
 
+final _traceProperty = [];
+
 /**
  * Writes a [Logger] [message] at Level.WARNING with optional FrameworkElement
  * [element] info.

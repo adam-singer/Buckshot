@@ -2,6 +2,8 @@
   <resourcecollection>
     <color key="buckshot_blue" value="#165284"></color>
 
+    <solidcolorbrush key='header_background_brush' color='{resource buckshot_blue}' />
+
     <styletemplate key="iotext">
        <setters>
           <setter property="margin" value="15,0,0,0" />
@@ -22,7 +24,7 @@
     </styletemplate>
   </resourcecollection>
 
-  <border padding='5' dockpanel.dock='top' background='{resource buckshot_blue}'>
+  <border padding='5' dockpanel.dock='top' background='{resource header_background_brush}'>
 	    <stack orientation='horizontal'>
 	       <hyperlink valign='center' navigateto='http://www.buckshotui.org/'>
 		       <image width='35' sourceuri='web/resources/buckshot_logo.png' alt='Buckshot Logo' />
@@ -39,7 +41,7 @@
             shadowblur='{resource theme_shadow_blur}'
             valign='stretch'
             halign='stretch'
-            background='{resource theme_background_light}' borderthickness='{resource theme_border_thickness}' bordercolor='{resource theme_border_color}' margin='0,5,10,0'>
+            background='{resource theme_light_brush}' borderthickness='{resource theme_border_thickness}' bordercolor='{resource theme_border_color}' margin='0,5,10,0'>
      	<accordion selectionmode='single' halign='stretch'>
      	   <accordionitem>
      	     <header>

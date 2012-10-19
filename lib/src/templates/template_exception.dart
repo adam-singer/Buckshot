@@ -8,11 +8,11 @@
 * ## See Also
 * * [BuckshotTemplateProvider]
 */
-class PresentationProviderException implements Exception
+class TemplateException implements Exception
 {
   final String _msg;
-  
-  const PresentationProviderException(this._msg);
-  
-  String toString() => _msg === null ? 'PresentationProviderException' : 'PresentationProviderException: $_msg';
+
+  const TemplateException(this._msg);
+
+  String toString() => _msg === null ? 'TemplateException' : 'TemplateException: $_msg';
 }

@@ -84,7 +84,7 @@ class Template {
         return findParentByType(element.parent, type);
       }
     }else{
-      if (element.parent.toString() != type){
+      if (element.parent.runtimeType.toString() != type){
         return findParentByType(element.parent, type);
       }
     }
@@ -284,10 +284,9 @@ class Template {
     }
 
     final objectOrMirror = getObjectByName(lowerTagName);
-//    final interfaceMirrorOf = Miriam.context.getObjectByName(lowerTagName);
 
     if (objectOrMirror == null){
-      throw new PresentationProviderException('Element "${xmlElement.name}"'
+      throw new TemplateException('Element "${xmlElement.name}"'
       ' not found.');
     }
 
@@ -359,17 +358,16 @@ class Template {
     final String lowered = ofXMLNode.name.toLowerCase();
 
     //property node
-
     ofElement.getPropertyByName(lowered)
     .then((p){
-      if (p == null) throw new PresentationProviderException("Property node"
+      if (p == null) throw new TemplateException("Property node"
           " name '${lowered}' is not a valid"
           " property of ${ofElement.type}.");
 
       if (lowered == "itemstemplate"){
         //accomodation for controls that use itemstemplates...
         if (ofXMLNode.children.length != 1){
-          throw const PresentationProviderException('ItemsTemplate'
+          throw const TemplateException('ItemsTemplate'
           ' can only have a single child.');
         }
         // defer parsing of the template xml, the template
@@ -450,7 +448,7 @@ class Template {
       //element or resource
 
       if (!ofElement.isContainer)
-        throw const PresentationProviderException("Attempted to add"
+        throw const TemplateException("Attempted to add"
         " element to another element which is not a container.");
 
       final cc = ofElement.stateBag[FrameworkObject.CONTAINER_CONTEXT];
@@ -485,12 +483,12 @@ class Template {
   static void _processTextNode(ofElement, ofXMLNode){
     if (ofXMLNode.text.trim() != ""){
       if (!ofElement.isContainer)
-        throw const PresentationProviderException("Text node found in element"
+        throw const TemplateException("Text node found in element"
         " which does not have a container context defined.");
 
       var cc = ofElement.stateBag[FrameworkObject.CONTAINER_CONTEXT];
 
-      if (cc is List) throw const PresentationProviderException("Expected"
+      if (cc is List) throw const TemplateException("Expected"
       " container context to be property.  Found list.");
 
       cc.value = ofXMLNode.text.trim();
@@ -499,7 +497,7 @@ class Template {
 
   static void _resolveBinding(FrameworkProperty p, String binding){
     if (!binding.startsWith("{") || !binding.endsWith("}"))
-      throw const PresentationProviderException('Binding must begin with'
+      throw const TemplateException('Binding must begin with'
         ' "{" and end with "}"');
 
     FrameworkProperty placeholder =
@@ -554,21 +552,21 @@ class Template {
     switch(words[0]){
       case "resource":
         if (words.length != 2)
-          throw const PresentationProviderException('Binding'
+          throw const TemplateException('Binding'
             ' syntax incorrect.');
 
         p.value = getResource(words[1]);
         break;
       case "template":
-        if (words.length != 2)
-          throw const BuckshotException('{template} binding malformed.');
-
+        if (words.length != 2){
+          throw const TemplateException('{template} binding malformed.');
+        }
+        //log('setting template binding: ${words[1]}', element: p.sourceObject);
         (p.sourceObject as FrameworkElement)._templateBindings[p] = words[1];
-
         break;
       case "data":
         if (p.sourceObject is! FrameworkElement){
-          throw const PresentationProviderException('{data...} binding only'
+          throw const TemplateException('{data...} binding only'
             ' supported on types that derive from FrameworkElement.');
         }
 
@@ -584,13 +582,13 @@ class Template {
             so.lateBindings[p] = new BindingData(words[1], null, mode);
             break;
           default:
-            throw const PresentationProviderException('Binding'
+            throw const TemplateException('Binding'
               ' syntax incorrect.');
         }
         break;
       case "element":
         if (words.length != 2)
-          throw const PresentationProviderException('Binding'
+          throw const TemplateException('Binding'
             ' syntax incorrect.');
 
         if (words[1].contains(".")){
@@ -598,7 +596,7 @@ class Template {
           var prop = words[1].substring(words[1].indexOf('.') + 1);
 
           if (!namedElements.containsKey(ne))
-            throw new PresentationProviderException("Named element '${ne}'"
+            throw new TemplateException("Named element '${ne}'"
             " not found.");
 
           Binding b;
@@ -627,13 +625,13 @@ class Template {
               }
             });
         }else{
-          throw const PresentationProviderException("Element binding requires"
+          throw const TemplateException("Element binding requires"
             " a minimum named element/property"
             " pairing (usage '{element name.property}')");
         }
         break;
       default:
-        throw const PresentationProviderException('Binding syntax incorrect.');
+        throw const TemplateException('Binding syntax incorrect.');
     }
   }
 
@@ -643,7 +641,7 @@ class Template {
     if (resource is ResourceCollection) return;
 
     if (resource.key.value.isEmpty())
-      throw const PresentationProviderException("Resource is missing"
+      throw const TemplateException("Resource is missing"
         " a key identifier.");
 
     //add/replace resource at given key
@@ -687,15 +685,15 @@ class Template {
           final f = element.resolveProperty(k.toLowerCase());
           fList.add(f);
           f.then((FrameworkProperty p){
-              if (p == null) return;
+            if (p == null) return;
 
-              if (v.trim().startsWith("{")){
-                //binding or resource
-                _resolveBinding(p, v.trim());
-              }else{
-                //value or enum (enums converted at property level
-                //via FrameworkProperty.stringToValueConverter [if assigned])
-                p.value = v;
+            if (v.trim().startsWith("{")){
+              //binding or resource
+              _resolveBinding(p, v.trim());
+            }else{
+              //value or enum (enums converted at property level
+              //via FrameworkProperty.stringToValueConverter [if assigned])
+              p.value = v;
             }
           });
         }

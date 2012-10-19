@@ -86,9 +86,11 @@ class Hyperlink extends Control implements FrameworkContainer
     foreground = new FrameworkProperty(
       this,
       "foreground",
-      (value){
-        rawElement.style.color = value.color.toColorString();
-      }, new SolidColorBrush(new Color.predefined(Colors.Black)), converter:const StringToSolidColorBrushConverter());
+      (Color value){
+        rawElement.style.color = '$value';
+      },
+      defaultValue: getResource('theme_text_foreground'),
+      converter:const StringToColorConverter());
 
     fontSize = new FrameworkProperty(
       this,

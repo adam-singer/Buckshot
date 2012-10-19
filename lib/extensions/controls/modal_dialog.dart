@@ -63,11 +63,10 @@ class ModalDialog extends Control
   FrameworkProperty<Thickness> cornerRadius;
   FrameworkProperty<Brush> maskBrush;
   FrameworkProperty<num> maskOpacity;
-  FrameworkProperty<String> title;
-  FrameworkProperty<String> body;
+  FrameworkProperty<Dynamic> title;
+  FrameworkProperty<Dynamic> body;
   Binding b1, b2;
   Border bDialog;
-  Border bMask;
   Grid cvRoot;
 
   static const List<DialogButtonType> Ok =
@@ -122,8 +121,8 @@ class ModalDialog extends Control
   {
     _initModalDialogProperties();
     _initButtons(buttons);
-    title = titleContent;
-    body = bodyContent;
+    title.value = titleContent;
+    body.value = bodyContent;
 
   }
 
@@ -169,8 +168,6 @@ class ModalDialog extends Control
     }
   }
 
-
-
   void _initModalDialogProperties(){
     title = new FrameworkProperty(this, 'title',
         defaultValue:'undefined');
@@ -182,9 +179,8 @@ class ModalDialog extends Control
         defaultValue: getResource('theme_dark_brush'),
         converter: const StringToSolidColorBrushConverter());
 
-    maskBrush = new FrameworkProperty(this, 'maskColor',
-        defaultValue: new SolidColorBrush(
-                        new Color.predefined(Colors.Gray)),
+    maskBrush = new FrameworkProperty(this, 'maskBrush',
+        defaultValue: new SolidColorBrush.fromPredefined(Colors.Gray),
         converter: const StringToSolidColorBrushConverter());
 
     maskOpacity = new FrameworkProperty(this, 'maskOpacity',
@@ -215,7 +211,7 @@ class ModalDialog extends Control
   }
 
   Future<DialogButtonType> show(){
-    log('Showing ModalDialog', logLevel : Level.FINE);
+    log('Showing ModalDialog', logLevel : Level.WARNING);
     _dialogCompleter = new Completer<DialogButtonType>();
 
     b1 = bind(windowWidth, cvRoot.width);
@@ -237,17 +233,16 @@ class ModalDialog extends Control
         '''
 <controltemplate controlType='${this.templateName}'>
   <grid name='cvRoot' zorder='32766'>
-    <border halign='stretch' 
-            valign='stretch' 
-            name='bMask' 
-            background='{template maskColor}' 
+    <border halign='stretch'
+            valign='stretch'
+            background='{template maskBrush}'
             opacity='{template maskOpacity}' />
-    <border shadowx='3' 
-            shadowy='3' 
-            shadowblur='6' 
-            minwidth='200' 
-            halign='center' valign='center' padding='5' 
-            cornerRadius='{template cornerRadius}' 
+    <border shadowx='3'
+            shadowy='3'
+            shadowblur='6'
+            minwidth='200'
+            halign='center' valign='center' padding='5'
+            cornerRadius='{template cornerRadius}'
             borderthickness='{template borderThickness}' 
             bordercolor='{template borderColor}' 
             background='{template background}'>

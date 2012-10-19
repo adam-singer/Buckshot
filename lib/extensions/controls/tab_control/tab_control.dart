@@ -76,7 +76,7 @@ class TabControl extends Control implements FrameworkContainer
 
     currentContent.value =
         currentTab.content.value is String
-          ? (new TextBlock()..text.value = currentTab.content.value)
+          ? (new TextBlock()..text.value = '${currentTab.content.value}')
           : currentTab.content.value;
   }
 
@@ -137,8 +137,8 @@ class TabControl extends Control implements FrameworkContainer
   void _initTabContainerProperties(){
     currentContent = new FrameworkProperty(this, 'currentContent');
 
-    tabItems= new FrameworkProperty(this, 'tabItems',
-        defaultValue: new List<FrameworkObject>());
+    tabItems = new FrameworkProperty(this, 'tabItems',
+        defaultValue: new ObservableList<TabItem>());
 
     tabAlignment = new FrameworkProperty(this, 'tabAlignment',
         defaultValue: HorizontalAlignment.left,

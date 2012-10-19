@@ -64,7 +64,7 @@ class TreeView extends Panel
 
     cursor.value = Cursors.Arrow;
 
-    background.value = new SolidColorBrush(getResource('theme_background_light'));
+    background.value = getResource('theme_light_brush');
 
     registerEvent('treenodeselected', treeNodeSelected);
   }
@@ -152,8 +152,9 @@ class TreeView extends Panel
       "borderColor",
       'border',
       propertyChangedCallback: (Color value){
-        rawElement.style.borderColor = value.toString();
+        rawElement.style.borderColor = '$value';
       },
+      defaultValue: getResource('theme_background_light'),
       converter:const StringToColorConverter());
 
     borderThickness = new FrameworkProperty(
@@ -164,10 +165,10 @@ class TreeView extends Panel
 
         String color = borderColor.value != null
             ? rawElement.style.borderColor
-            : getResource('theme_border_color');
+            : '${getResource('theme_background_light')}';
 
         //TODO support border hatch styles
-
+        log('$color');
         rawElement.style.borderTop = 'solid ${value.top}px $color';
         rawElement.style.borderRight = 'solid ${value.right}px $color';
         rawElement.style.borderLeft = 'solid ${value.left}px $color';
@@ -186,10 +187,10 @@ class TreeView extends Panel
       element.removeFromLayoutTree();
     });
 
-
     args.newItems.forEach((FrameworkElement element){
       if (element is! TreeNode){
-        throw const BuckshotException('TreeView children must be of type TreeNode');
+        throw const
+        BuckshotException('TreeView children must be of type TreeNode');
       }
       element._parentTreeView = this;
       element.addToLayoutTree(this);

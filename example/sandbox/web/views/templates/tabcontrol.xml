@@ -1,6 +1,6 @@
 <stack>
    <textblock style='{resource headerText}' text='TabControl allows you to group content into tabs.' />
-   <tabcontrol margin='10,0,0,0' background='{resource theme_background_dark}' width='600' height='340'>
+   <tabcontrol margin='10,0,0,0' background='{resource theme_dark_brush}' width='600' height='340'>
       <tabitem header='Actions' closeenabled='false'>
          <youtube width='350' height='300' videoid='C8qwuD2Bz3E' />
       </tabitem>

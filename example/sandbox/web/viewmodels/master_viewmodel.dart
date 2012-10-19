@@ -296,7 +296,7 @@ class MasterViewModel extends ViewModelBase
     }on AnimationException catch(ae){
       error = "An error occurred while attempting to process an"
         " animation resource: ${ae}";
-    }on PresentationProviderException catch(pe){
+    }on TemplateException catch(pe){
       error = "We were unable to parse your input into content for"
         " display: ${pe}";
     }on FrameworkPropertyResolutionException catch(pre){
@@ -309,7 +309,12 @@ class MasterViewModel extends ViewModelBase
       error = "A general exception occured while attempting to"
         " render the content.  Please bear with us as we (and Dart) are"
         " still in the early stages of development.  Thanks! ${e}";
-    }finally{
+    }catch(e){
+      error = "A general exception occured while attempting to"
+          " render the content.  Please bear with us as we (and Dart) are"
+          " still in the early stages of development.  Thanks! ${e}";
+    }
+    finally{
       if (error == '') return;
       doError(error);
     }
@@ -339,7 +344,7 @@ class MasterViewModel extends ViewModelBase
 
     _currentTreeView = sender;
 
-    final value = args.node.tag;
+    final value = args.node.tag.value;
 
     if (value == ''){
       resetUI();
@@ -364,9 +369,10 @@ class MasterViewModel extends ViewModelBase
       String text = "Docked ";
       final dp = namedElements['dockpanelDemo'];
       final b = namedElements['btnDock'];
-      if (dp == null || b == null) return;
+      assert(dp != null);
+      assert(b != null);
 
-      switch(sender.content){
+      switch(sender.content.value){
         case 'Left':
           DockPanel.setDock(b, DockLocation.left);
           dockText.value = '$text left.';
@@ -384,7 +390,7 @@ class MasterViewModel extends ViewModelBase
           dockText.value = '$text bottom.';
           break;
         default:
-          print('boo!');
+          log('Unable to parse dock panel direction', element: sender);
           break;
       }
 

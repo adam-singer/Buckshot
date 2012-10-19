@@ -1,8 +1,8 @@
 
 class MasterViewModel extends ViewModelBase
 {
-  FrameworkProperty statusMessage;
-  FrameworkProperty content;
+  FrameworkProperty<String> statusMessage;
+  FrameworkProperty<FrameworkElement> content;
 
   final View _calc = new Calculator();
   final View _home = new Home();
@@ -57,7 +57,6 @@ class MasterViewModel extends ViewModelBase
   showAboutDialog(){
     var header = new View.fromResource('web/views/templates/about_header.xml');
     var body = new View.fromResource('web/views/templates/about_body.xml');
-
     var oldStatusMessage = statusMessage.value;
 
     statusMessage.value = "Displaying 'About Switchy' dialog.";

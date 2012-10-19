@@ -196,7 +196,7 @@ void _initCSS(){
 
 
 /**
- * Returns the InterfaceMirror of a given [name] by searching through all
+ * Returns the object of a given [name] by searching through all
  * available in-scope libraries.
 *
  * Case insensitive.

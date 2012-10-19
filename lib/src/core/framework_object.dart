@@ -278,12 +278,14 @@ class FrameworkObject extends BuckshotObject
     if (_dataContextUpdated) return;
     _dataContextUpdated = true;
 
-    log('updating data context', element: this, logLevel: Level.FINE);
+    //log('updating data context', element: this, logLevel: Level.WARNING);
     //TODO: Support multiple datacontext updates
 
     final dcs = _resolveAllDataContexts();
 
     if (dcs.isEmpty()) return;
+
+    //log('data contexts: ${dcs}', element: this);
 
     _wireEventBindings(dcs);
 
@@ -499,5 +501,4 @@ class FrameworkObject extends BuckshotObject
 
     return '${super.toString()}[${name.value}]';
   }
-
 }

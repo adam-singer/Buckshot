@@ -99,9 +99,12 @@ class Control extends FrameworkElement
 
     _getAllTemplateBindings(tb, template);
 
+//    log('*** template bindings: $tb', element:this);
+
     tb.forEach((FrameworkProperty k, String v){
       getPropertyByName(v)
         .then((prop){
+         //log('setting template binding from $prop to $k', element: this);
           assert(prop != null);
           new Binding(prop, k);
         });

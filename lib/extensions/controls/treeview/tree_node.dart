@@ -26,7 +26,7 @@ class TreeNode extends Control implements FrameworkContainer
 
     _initializeTreeNodeProperties();
 
-    stateBag[FrameworkObject.CONTAINER_CONTEXT] = childNodes;
+    stateBag[FrameworkObject.CONTAINER_CONTEXT] = childNodes.value;
 
     _initControl();
 
@@ -37,9 +37,6 @@ class TreeNode extends Control implements FrameworkContainer
   makeMe() => new TreeNode();
 
   void _initControl(){
-    // Adjust indicator if children present or not.
-    childNodes.value.listChanged + (__, _) => adjustIndicator();
-
     // Toggle visibility of child nodes when clicked.
     Template
       .findByName('__tree_node_indicator__', template)
@@ -48,18 +45,19 @@ class TreeNode extends Control implements FrameworkContainer
             ? Visibility.collapsed
             : Visibility.visible;
 
-        adjustIndicator();
+        updateIndicator();
       };
   }
 
   void onFirstLoad(){
     _parentTreeView = Template.findParentByType(this, 'TreeView');
-    adjustIndicator();
+    assert(_parentTreeView != null);
+    updateIndicator();
   }
 
   var _lastWasEmpty = false;
 
-  void adjustIndicator(){
+  void updateIndicator(){
 
     if (childNodes.value.isEmpty()){
       if (_lastWasEmpty) return;
@@ -149,7 +147,8 @@ class TreeNode extends Control implements FrameworkContainer
       Visibility.collapsed,
       converter:const StringToVisibilityConverter());
 
-    _mouseEventStyles = new FrameworkProperty(this, '_mouseEventStyles');
+    _mouseEventStyles = new FrameworkProperty(this, '_mouseEventStyles',
+        defaultValue: getResource('__TreeView_mouse_leave_style_template__'));
   }
 
   void _childrenChanged(_, ListChangedEventArgs args){
@@ -159,6 +158,7 @@ class TreeNode extends Control implements FrameworkContainer
     for (final child in args.newItems){
       child._parentNode = this;
     }
+    updateIndicator();
   }
 
   // IFrameworkContainer interface
@@ -173,14 +173,14 @@ class TreeNode extends Control implements FrameworkContainer
             <stack>
               <stack orientation='horizontal'>
                 <contentpresenter name='__tree_node_indicator__' margin='2' minwidth='15' content='{template indicator}' />
-                <border padding='0,5,0,0' borderThickness='1' cornerRadius='4' style='{template _mouseEventStyles}' name='__tree_node_header__'>
+                <border style='{template _mouseEventStyles}' padding='0,5,0,0' borderThickness='1' cornerRadius='4' name='__tree_node_header__'>
                   <stack orientation='horizontal'>
                     <contentpresenter valign='center' margin='2' minwidth='20' content='{template icon}' />
                     <contentpresenter valign='center' content='{template header}' />
                   </stack>
                 </border>
               </stack>
-              <collectionpresenter visibility='{template childVisibility}' datacontext='{template childNodes}'>
+              <collectionpresenter name='__tree_node_cp__' visibility='{template childVisibility}' dataContext='{template childNodes}'>
                 <itemstemplate>
                   <contentpresenter margin='0,0,0,20' content='{data}' />
                 </itemstemplate>

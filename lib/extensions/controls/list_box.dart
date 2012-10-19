@@ -80,8 +80,6 @@ class ListBox extends Control implements FrameworkContainer
   }
 
   void _OnItemCreated(sender, ItemCreatedEventArgs args){
-    log('item created', element:this);
-
     FrameworkElement item = args.itemCreated;
 
     item.click + (_, __) {

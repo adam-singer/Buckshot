@@ -55,19 +55,18 @@ class LinearGradientBrush extends Brush
     stops.value.forEach((GradientStop stop){
       colorString.add(stop.color.value.toColorString());
 
-      if (stop.percent != -1)
-        colorString.add(" ${stop.percent}%");
+      if (stop.percent.value != -1)
+        colorString.add(" ${stop.percent.value}%");
 
       if (stop != stops.value.last())
         colorString.add(", ");
     });
 
     //set the background for all browser types
-    element.style.background = "-webkit-linear-gradient(${direction.toString()}, ${colorString})";
-    element.style.background = "-moz-linear-gradient(${direction.toString()}, ${colorString})";
-    element.style.background = "-ms-linear-gradient(${direction.toString()}, ${colorString})";
-    element.style.background = "-o-linear-gradient(${direction.toString()}, ${colorString})";
-    element.style.background = "linear-gradient(${direction.toString()}, ${colorString})";
-
+    element.style.background = "-webkit-linear-gradient(${direction.value}, ${colorString})";
+    element.style.background = "-moz-linear-gradient(${direction.value}, ${colorString})";
+    element.style.background = "-ms-linear-gradient(${direction.value}, ${colorString})";
+    element.style.background = "-o-linear-gradient(${direction.value}, ${colorString})";
+    element.style.background = "linear-gradient(${direction.value}, ${colorString})";
   }
 }

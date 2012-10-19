@@ -53,6 +53,9 @@ class FrameworkProperty<T> extends FrameworkPropertyBase
      .invokeAsync(sourceObject,
          new PropertyChangingEventArgs(previousValue, _value));
 
+     if(_traceProperty.isEmpty()) return;
+     if (_traceProperty.indexOf(propertyName) == -1) return;
+     log('***TRACE***: object $sourceObject property $propertyName assigned value: $_value');
    }
 
   /** Gets the stored value of the FrameworkProperty. */
@@ -84,6 +87,8 @@ class FrameworkProperty<T> extends FrameworkPropertyBase
     if (defaultValue == null) return;
     value = defaultValue;
   }
+
+  String toString() => 'FrameworkProperty (${propertyName}, value: ${_value})';
 }
 
 /// A [FrameworkProperty] that supports participation in transition/animation features.

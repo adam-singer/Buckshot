@@ -155,6 +155,7 @@ part 'src/templates/presentation_format_provider.dart';
 part 'src/templates/xml_template_provider.dart';
 part 'src/templates/template.dart';
 part 'src/templates/template_object.dart';
+part 'src/templates/template_exception.dart';
 
 part 'src/converters/i_value_converter.dart';
 part 'src/primitives/thickness.dart';
@@ -162,7 +163,6 @@ part 'src/primitives/tuple.dart';
 
 part 'src/events/buckshot_exception.dart';
 part 'src/events/animation_exception.dart';
-part 'src/events/presentation_provider_exception.dart';
 part 'src/events/framework_property_resolution_exception.dart';
 
 

@@ -124,7 +124,7 @@ class Border extends FrameworkElement implements FrameworkContainer
       propertyChangedCallback: (Color c){
         rawElement.style.borderColor = c.toColorString();
       },
-      defaultValue: new Color.predefined(Colors.Red),
+      defaultValue: getResource('theme_border_color'),
       converter:const StringToColorConverter());
 
 

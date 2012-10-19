@@ -52,14 +52,11 @@ void main() {
     .then((t){
         bindToWindowDimensions(t.parent);
 
-        (t.parent as Border).background.value =
-            new SolidColorBrush(getResource('theme_background_dark'));
+        (t.parent as Border).background.value = getResource('theme_dark_brush');
 
         (t.parent as Border).verticalScrollEnabled.value = true;
 
         final demo = queryString['demo'];
-
-
 
         if (demo != null){
           t.dataContext.value.setTemplate('${demo}');
