@@ -44,14 +44,11 @@ class Control extends FrameworkElement
 
     _visualTemplateApplied = true;
 
-    if (!defaultControlTemplate.isEmpty()){
-      if (defaultControlTemplate is ControlTemplate){
-        _finishApplyVisualTemplate();
-      }else if (defaultControlTemplate is String){
-        Template
-        .deserialize(defaultControlTemplate)
-        .then((_) => _finishApplyVisualTemplate());
-      }
+    if (defaultControlTemplate is String &&
+        !defaultControlTemplate.isEmpty()){
+      Template
+      .deserialize(defaultControlTemplate)
+      .then((_) => _finishApplyVisualTemplate());
     }else{
       _finishApplyVisualTemplate();
     }
