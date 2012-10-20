@@ -400,11 +400,11 @@ class FrameworkObject extends BuckshotObject
     }
 
     //db('Removed from Layout Tree', this);
-    var p = parent;
+    final p = parent;
 
     parent = null;
 
-    if (!p.isLoaded) return;
+    if (p == null || !p.isLoaded) return;
 
     _onRemoveFromDOM();
   }

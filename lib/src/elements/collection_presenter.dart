@@ -83,7 +83,7 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
   }
 
   @override onFirstLoad(){
-    _updateCollection();
+    invalidate();
   }
 
   //IFrameworkContainer interface
@@ -92,6 +92,7 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
   void invalidate() => _updateCollection();
 
   void _updateCollection(){
+    log('Invalidating CollectionPresenter', element:this);
     var values = collection.value;
 
  //   log('values from collection property ${collection.value}');
@@ -111,14 +112,6 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
     //  log('datacontext propertyName: ${dc.propertyName}, value: ${dc.value}', element: this);
     }
 
-
-    if (values is ObservableList && _eHandler == null){
-      _eHandler = values.listChanged + (_, __) {
-        presentationPanel.value.children.clear();
-        _updateCollection();
-      };
-    }
-
     if (values is! Collection){
   //    log('*** values collection: $values', element: this);
       throw const BuckshotException("Expected dataContext object"
@@ -126,33 +119,65 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
     }
 
     presentationPanel.value.rawElement.elements.clear();
+    _addItems(values);
 
+    // If an observable list, watch it and add/remove items as necessary.
+    if (values is ObservableList && _eHandler == null){
+      _eHandler = values.listChanged + (_, ListChangedEventArgs args) {
+         if(!args.newItems.isEmpty()){
+           _addItems(args.newItems);
+         }
+
+         if (args.oldItems.isEmpty()) return;
+         _removeItems(args.oldItems);
+      };
+    }
+  }
+
+  void _removeItems(Collection items){
+    int count = 0;
+    for(final element in presentationPanel.value.children){
+      if (items.some((item) => item == element.stateBag[SBO])){
+        presentationPanel.value.children.remove(element);
+        count++;
+      }
+
+      if (count == items.length){
+        // found them all
+        break;
+      }
+    }
+  }
+
+  void _addItems(Collection items){
     if (itemsTemplate.value == null){
       //no template, then just call toString on the object.
-      values.forEach((iterationObject){
+      items.forEach((iterationObject){
         final it = new TextBlock()
-                        ..hAlign.value = HorizontalAlignment.stretch
-                        ..text.value = '$iterationObject'
-                        ..stateBag[SBO] = iterationObject;
+        ..hAlign.value = HorizontalAlignment.stretch
+        ..text.value = '$iterationObject'
+        ..stateBag[SBO] = iterationObject;
 
         itemCreated.invokeAsync(this, new ItemCreatedEventArgs(it));
         presentationPanel.value.children.add(it);
       });
     }else{
       //if template, then bind the object to the template datacontext
-      values.forEach((iterationObject){
+      items.forEach((iterationObject){
         Template
         .deserialize(itemsTemplate.value)
         .then((FrameworkElement it){
           it..stateBag[SBO] = iterationObject
-            ..dataContext.value = iterationObject;
+              ..dataContext.value = iterationObject;
           itemCreated.invokeAsync(this, new ItemCreatedEventArgs(it));
           presentationPanel.value.children.add(it);
         });
       });
     }
-  }
 }
+
+}
+
 
 
 class ItemCreatedEventArgs extends EventArgs{

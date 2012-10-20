@@ -1,12 +1,12 @@
 <stack halign='center' valign='center'>
 	<textblock halign='center' maxwidth='400'>
-	This simple stock ticker demo will, at random intervals, display updates from fictional 
+	This simple stock ticker demo will, at random intervals, display updates from fictional
 	stock symbols that you enter, simulating coming data from some external
 	source.
 	</textblock>
 	<stack orientation='horizontal' halign='center'>
 		<border
-		 	bordercolor='{resource theme_border_color_dark}' 
+		 	bordercolor='{resource theme_border_color_dark}'
 		 	background='SteelBlue'
 		 	borderthickness='{resource theme_border_thickness}'
 		 	padding='{resource theme_border_padding}'
@@ -14,15 +14,15 @@
 		  <stack halign='stretch'>
 			   <stack halign='center' orientation='horizontal'>
 				   <textbox valign='center' placeholder='Enter a stock symbol...' text='{data tickerInput, mode=TwoWay}' />
-				   <button on.click='watch_ticker_click' content='Submit' margin='5' />		   
+				   <button on.click='watch_ticker_click' content='Submit' margin='5' />
 			   </stack>
-			   <border halign='stretch' margin='5' height='380' background='Black'>
+			   <border verticalscrollenabled='true' halign='stretch' margin='5' height='380' background='Black'>
 			   		<collectionpresenter collection='{data tickerOutput}'>
 			   		  <itemstemplate>
 			   		  	<stack orientation='horizontal'>
-			   		  		<textblock margin='5' minwidth='60' foreground='White' text='{data datetime}' /> 
-		   		  			<textblock margin='5' minwidth='60' foreground='White' text='{data symbol}' /> 
-			   		  		<textblock margin='5' foreground='{data directionColor}' text='{data quote}' /> 
+			   		  		<textblock margin='5' minwidth='60' foreground='White' text='{data datetime}' />
+		   		  			<textblock margin='5' minwidth='60' foreground='White' text='{data symbol}' />
+			   		  		<textblock margin='5' foreground='{data directionColor}' text='{data quote}' />
 			   		  	</stack>
 			   		  </itemstemplate>
 			   		</collectionpresenter>
@@ -30,7 +30,7 @@
 		  </stack>
 		</border>
 		<border
-		 	bordercolor='{resource theme_border_color_dark}' 
+		 	bordercolor='{resource theme_border_color_dark}'
 		 	background='WhiteSmoke'
 		 	valign='stretch'
 		 	borderthickness='{resource theme_border_thickness}'
@@ -43,6 +43,6 @@
 		     </collectionpresenter>
 		   </stack>
 		</border>
-		
+
 	</stack>
 </stack>
