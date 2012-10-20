@@ -4,13 +4,20 @@
 
 /**
 * A base class for control-type elements (buttons, etc). */
-class Control extends FrameworkElement
+abstract class Control extends FrameworkElement
 {
   FrameworkProperty<bool> isEnabled;
 
   FrameworkElement template;
 
-  String get defaultControlTemplate => '';
+  /**
+   * Required getter for all controls.  Can return one of three values:
+   *
+   * * Empty String: means the default createElement() method will be used.
+   * * String: Expects the string to be a control template.
+   * * ControlTemplate: A concrete control template.
+   */
+  abstract get defaultControlTemplate;
 
   bool _visualTemplateApplied = false;    // flags if visual template applied
   bool _templateApplied = false;          // flags if a template was used during applyVisualTemplate();
@@ -44,34 +51,41 @@ class Control extends FrameworkElement
 
     _visualTemplateApplied = true;
 
-    if (defaultControlTemplate is String &&
-        !defaultControlTemplate.isEmpty()){
+    if (defaultControlTemplate is ControlTemplate){
+      final tName = XML.parse(defaultControlTemplate.rawData).attributes['controlType'];
+      assert(tName != null);
+      assert(!tName.isEmpty());
       Template
-      .deserialize(defaultControlTemplate)
-      .then((_) => _finishApplyVisualTemplate());
+        .deserialize(defaultControlTemplate.rawData)
+        .then((_) => _finishApplyVisualTemplate(tName));
+    } else if (defaultControlTemplate is String && !defaultControlTemplate.isEmpty()){
+      final tName = XML.parse(defaultControlTemplate).attributes['controlType'];
+      assert(tName != null);
+      assert(!tName.isEmpty());
+      Template
+        .deserialize(defaultControlTemplate)
+        .then((_) => _finishApplyVisualTemplate(tName));
     }else{
-      _finishApplyVisualTemplate();
+      final tName = templateName;
+      assert(tName != null);
+      assert(!tName.isEmpty());
+      _finishApplyVisualTemplate('');
     }
   }
 
-  void _finishApplyVisualTemplate(){
-    var t;
-
-    if (defaultControlTemplate is ControlTemplate){
-      t = defaultControlTemplate;
-    }else{
-      t = getResource(templateName) as ControlTemplate;
-    }
-
-    if (t == null){
+  void _finishApplyVisualTemplate(String t){
+    if (t.isEmpty()){
       template = this;
       super.applyVisualTemplate();
       return;
     }
 
+    final controlTemplate = getResource(t) as ControlTemplate;
+    assert(controlTemplate != null);
+
     _templateApplied = true;
 
-    template = t.template.value;
+    template = controlTemplate.template.value;
 
     //log('control template applied: $template', element: this);
 

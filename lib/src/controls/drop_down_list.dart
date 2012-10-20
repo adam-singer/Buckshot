@@ -101,6 +101,8 @@ class DropDownList extends Control
   void createElement(){
     rawElement = new Element.tag('select');
   }
+
+  get defaultControlTemplate => '';
 }
 
 

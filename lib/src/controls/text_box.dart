@@ -205,6 +205,8 @@ class TextBox extends Control
     rawElement = new InputElement();
     rawElement.attributes["type"] = "text";
   }
+
+  get defaultControlTemplate => '';
 }
 
 class InputTypes{

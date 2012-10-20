@@ -22,4 +22,6 @@ class AccordionItem extends Control implements FrameworkContainer
     header = new FrameworkProperty(this, 'header');
     body = new FrameworkProperty(this, 'body');
   }
+
+  get defaultControlTemplate => '';
 }

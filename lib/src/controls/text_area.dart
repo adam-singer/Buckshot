@@ -198,4 +198,6 @@ class TextArea extends Control
   void createElement(){
     rawElement = new TextAreaElement();
   }
+
+  get defaultControlTemplate => '';
 }

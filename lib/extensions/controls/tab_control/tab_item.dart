@@ -59,4 +59,6 @@ class TabItem extends Control implements FrameworkContainer
         defaultValue: true,
         converter: const StringToBooleanConverter());
   }
+
+  get defaultControlTemplate => '';
 }

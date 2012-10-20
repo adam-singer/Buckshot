@@ -92,7 +92,7 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
   void invalidate() => _updateCollection();
 
   void _updateCollection(){
-    log('Invalidating CollectionPresenter', element:this);
+    log('Invalidating CollectionPresenter', element:this, logLevel: Level.FINE);
     var values = collection.value;
 
  //   log('values from collection property ${collection.value}');
