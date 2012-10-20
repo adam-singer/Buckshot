@@ -13,8 +13,10 @@ class TextBlock extends FrameworkElement implements FrameworkContainer
   FrameworkProperty<String> text;
   FrameworkProperty<num> fontSize;
   FrameworkProperty<String> fontFamily;
-  //TODO: make strongly typed version
+
+  //TODO: make strongly typed versions
   FrameworkProperty<String> decoration;
+  FrameworkProperty<String> fontWeight;
 
   TextBlock()
   {
@@ -33,12 +35,16 @@ class TextBlock extends FrameworkElement implements FrameworkContainer
 
   void _initTextBlockProperties(){
 
+    fontWeight = new FrameworkProperty(this, 'fontWeight',
+      (String value){
+        rawElement.style.fontWeight = '$value';
+      });
+
     decoration = new FrameworkProperty(this, 'decoration',
       propertyChangedCallback:
         (String value){
           rawElement.style.textDecoration = '$value';
-        },
-      defaultValue: 'none');
+        });
 
     background = new FrameworkProperty(
       this,
