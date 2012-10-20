@@ -53,9 +53,9 @@ class ContentPresenter extends FrameworkElement implements FrameworkContainer
   void updateLayout(){
     if (!isLoaded) return;
 
-    if (content.value == null) return;
+    if (currentContent == null) return;
 
-    Polly.setFlexboxAlignment(content.value);
+    Polly.setFlexboxAlignment(currentContent);
   }
 
   /// Overridden [FrameworkObject] method for generating the html representation of the border.
