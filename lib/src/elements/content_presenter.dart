@@ -42,6 +42,8 @@ class ContentPresenter extends FrameworkElement implements FrameworkContainer
         }
 
         currentContent = value;
+
+        if (value == null) return;
         value.addToLayoutTree(this);
       });
   }
