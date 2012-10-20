@@ -48,6 +48,22 @@ class ContentPresenter extends FrameworkElement implements FrameworkContainer
       });
   }
 
+  /// Overridden [FrameworkObject] method is called when the framework
+  /// requires elements to recalculate layout.
+  void updateLayout(){
+    if (!isLoaded) return;
+
+    if (content.value == null) return;
+
+    Polly.setFlexboxAlignment(content.value);
+  }
+
+  /// Overridden [FrameworkObject] method for generating the html representation of the border.
+  void createElement(){
+    rawElement = new DivElement();
+    Polly.makeFlexBox(rawElement);
+  }
+
   /// Gets the [contentProperty] value.
   get containerContent => content.value;
 }
