@@ -13,6 +13,8 @@ class TextBlock extends FrameworkElement implements FrameworkContainer
   FrameworkProperty<String> text;
   FrameworkProperty<num> fontSize;
   FrameworkProperty<String> fontFamily;
+  //TODO: make strongly typed version
+  FrameworkProperty<String> decoration;
 
   TextBlock()
   {
@@ -30,6 +32,13 @@ class TextBlock extends FrameworkElement implements FrameworkContainer
   get containerContent => text.value;
 
   void _initTextBlockProperties(){
+
+    decoration = new FrameworkProperty(this, 'decoration',
+      propertyChangedCallback:
+        (String value){
+          rawElement.style.textDecoration = '$value';
+        },
+      defaultValue: 'none');
 
     background = new FrameworkProperty(
       this,
