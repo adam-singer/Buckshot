@@ -36,14 +36,12 @@ class TextArea extends Control
     _initEvents();
 
     registerEvent('textchanged', textChanged);
+
+    userSelect.value = true;
   }
 
   TextArea.register() : super.register();
   makeMe() => new TextArea();
-
-  onFirstLoad(){
-    userSelect.value = true;
-  }
 
   void _initProperties(){
 
