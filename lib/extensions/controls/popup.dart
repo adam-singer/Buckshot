@@ -118,21 +118,27 @@ class Popup extends Control
   }
 
   void _initPopupProperties(){
+    log("${getResource('theme_popup_background_brush')}");
+    log("${getResource('theme_popup_border_color')}");
+    log("${getResource('theme_accordion_background_mouse_down_brush')}");
+    log("${getResource('theme_shadow_color')}");
+    dumpTheme();
+
     background = new FrameworkProperty(this, 'background',
-        defaultValue: getResource('theme_dark_brush'),
+        defaultValue: getResource('theme_popup_background_brush'),
         converter: const StringToSolidColorBrushConverter());
 
     borderColor = new FrameworkProperty(this, 'borderColor',
-        defaultValue: getResource('theme_border_color'),
+        defaultValue: getResource('theme_popup_border_color'),
         converter: const StringToColorConverter());
 
     borderThickness = new FrameworkProperty(this, 'borderThickness',
-        defaultValue: getResource('theme_border_thickness',
+        defaultValue: getResource('theme_popup_border_thickness',
                                  converter: const StringToThicknessConverter()),
         converter: const StringToThicknessConverter());
 
     cornerRadius= new FrameworkProperty(this, 'cornerRadius',
-        defaultValue: getResource('theme_border_corner_radius',
+        defaultValue: getResource('theme_popup_corner_radius',
                                  converter: const StringToThicknessConverter()),
         converter: const StringToThicknessConverter());
 
@@ -160,9 +166,9 @@ class Popup extends Control
 '''
 <controltemplate controlType='${this.templateName}'>
     <border name='__borderRoot__'
-            shadowx='3'
-            shadowy='3'
-            shadowblur='6'
+            shadowx='{resource theme_popup_shadow_x}'
+            shadowy='{resource theme_popup_shadow_y}'
+            shadowblur='{resource theme_popup_shadow_blur}'
             zorder='32766'
             minwidth='20'
             minheight='20'

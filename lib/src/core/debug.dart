@@ -48,6 +48,14 @@ void logSevere(String message, [FrameworkObject element]){
   new Logger('buckshot.${element}').severe("($element) $message");
 }
 
+void dumpTheme(){
+  print('THEME RESOURCES');
+  _resourceRegistry.forEach((k, v){
+    if (!k.startsWith('theme')) return;
+    print('$k: $v');
+  });
+}
+
 /**
  * Debug function that pretty prints an element tree to stdout.
  */

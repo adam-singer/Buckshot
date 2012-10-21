@@ -109,6 +109,19 @@
   <solidcolorbrush key='theme_menu_background_brush' color='{resource theme_background_dark}' />
 
   <!--
+  Popup
+  -->
+  <var key='theme_popup_padding' value='5' />
+  <var key='theme_popup_border_thickness' value='1' />
+  <color key='theme_popup_border_color' value='{resource theme_border_color}' />
+  <var key='theme_popup_shadow_x' value='2' />
+  <var key='theme_popup_shadow_y' value='2' />
+  <var key='theme_popup_shadow_blur' value='4' />
+  <var key='theme_popup_corner_radius' value='0' />
+  <var key='theme_popup_border_thickness' value='1' />
+  <solidcolorbrush key='theme_popup_background_brush' color='{resource theme_background_dark}' />
+
+  <!--
   TabControl
   -->
 
