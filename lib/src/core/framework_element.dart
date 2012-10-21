@@ -361,15 +361,13 @@ class FrameworkElement extends FrameworkObject
       propertyChangedCallback:(Visibility value){
         if (value == Visibility.visible){
           rawElement.style.visibility = '$value';
-
           rawElement.style.display =
               stateBag["display"] == null ? "inherit" : stateBag["display"];
-          stateBag.remove("display");
         }else{
-          //preserve in case some element is using "inline" or some other fancy display value
+          //preserve in case some element is using "inline"
+          //or some other fancy display value
           stateBag["display"] = rawElement.style.display;
           rawElement.style.visibility = '$value';
-
           rawElement.style.display = "none";
         }
       },
