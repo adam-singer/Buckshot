@@ -80,7 +80,7 @@ class Popup extends Control
   Popup.register() : super.register();
   makeMe() => new Popup();
 
-  void show([FrameworkElement target = null]){
+  Future show([FrameworkElement target = null]){
     if (_currentPopup != null) _currentPopup.hide();
 
     if (target == null || !target.isLoaded){
@@ -94,10 +94,11 @@ class Popup extends Control
       onLoaded();
       updateLayout();
       _currentPopup = this;
+      return new Future.immediate(true);
     }else{
-      target
+      return target
         .updateMeasurementAsync
-        .then((ElementRect r){
+        .chain((ElementRect r){
           rawElement.style.left = '${offsetX.value + r.bounding.left}px';
           rawElement.style.top = '${offsetY.value + r.bounding.top}px';
           document.body.elements.add(rawElement);
@@ -108,6 +109,7 @@ class Popup extends Control
           onLoaded();
           updateLayout();
           _currentPopup = this;
+          return new Future.immediate(true);
         });
     }
   }
