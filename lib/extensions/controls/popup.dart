@@ -119,7 +119,7 @@ class Popup extends Control
 
   void _initPopupProperties(){
     background = new FrameworkProperty(this, 'background',
-        defaultValue: new SolidColorBrush(getResource('theme_dark_brush')),
+        defaultValue: getResource('theme_dark_brush'),
         converter: const StringToSolidColorBrushConverter());
 
     borderColor = new FrameworkProperty(this, 'borderColor',
