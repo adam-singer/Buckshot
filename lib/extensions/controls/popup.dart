@@ -123,7 +123,7 @@ class Popup extends Control
         converter: const StringToSolidColorBrushConverter());
 
     borderColor = new FrameworkProperty(this, 'borderColor',
-        defaultValue: new SolidColorBrush(getResource('theme_border_color')),
+        defaultValue: getResource('theme_border_color'),
         converter: const StringToColorConverter());
 
     borderThickness = new FrameworkProperty(this, 'borderThickness',
