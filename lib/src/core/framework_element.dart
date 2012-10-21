@@ -188,8 +188,9 @@ class FrameworkElement extends FrameworkObject
     sy = (sy == null) ? '' : '${sy}px';
     b = (b == null) ? '' : '${b}px';
     s = (s == null) ? '' : '${s}px';
+
     if (c != null){
-      c = '${c.value}';
+      c = '${c.toColorString()}';
     }else{
       c = new Color.predefined(Colors.Black).toColorString();
     }
