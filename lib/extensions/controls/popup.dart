@@ -166,7 +166,7 @@ class Popup extends Control
             zorder='32766'
             minwidth='20'
             minheight='20'
-            padding='5' 
+            padding='{resource theme_popup_padding}' 
             cornerRadius='{template cornerRadius}' 
             borderthickness='{template borderThickness}' 
             bordercolor='{template borderColor}' 
