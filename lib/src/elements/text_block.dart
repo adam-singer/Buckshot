@@ -25,7 +25,7 @@ class TextBlock extends FrameworkElement implements FrameworkContainer
     _initTextBlockProperties();
 
     stateBag[FrameworkObject.CONTAINER_CONTEXT] = text;
-
+    userSelect.value = true;
   }
 
   TextBlock.register() : super.register();

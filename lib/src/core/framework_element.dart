@@ -20,6 +20,7 @@ class FrameworkElement extends FrameworkObject
   // registered polyfills
   final HashMap<String, Dynamic> _polyfills = new HashMap<String, Object>();
 
+  FrameworkProperty<bool> userSelect;
   /// Represents the margin [Thickness] area outside the FrameworkElement boundary.
   FrameworkProperty<Thickness> margin;
   /// Represents the width of the FrameworkElement.
@@ -216,6 +217,14 @@ class FrameworkElement extends FrameworkObject
 
 
   void _initFrameworkProperties(){
+
+    userSelect = new FrameworkProperty(this, 'userSelect',
+        propertyChangedCallback:
+          (bool value){
+            rawElement.style.userSelect = value ? '' : 'all';
+          },
+        defaultValue: false,
+        converter: const StringToBooleanConverter());
 
     shadowX = new FrameworkProperty(this, 'shadowX',
         propertyChangedCallback: (_) => _drawShadow(this),

@@ -33,6 +33,7 @@ class TextBox extends Control
     _initEvents();
 
     registerEvent('textchanged', textChanged);
+    userSelect.value = true;
   }
 
   TextBox.register() : super.register();

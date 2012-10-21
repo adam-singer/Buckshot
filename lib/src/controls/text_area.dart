@@ -36,6 +36,7 @@ class TextArea extends Control
     _initEvents();
 
     registerEvent('textchanged', textChanged);
+    userSelect.value = true;
   }
 
   TextArea.register() : super.register();
