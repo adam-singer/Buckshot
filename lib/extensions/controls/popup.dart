@@ -118,12 +118,6 @@ class Popup extends Control
   }
 
   void _initPopupProperties(){
-    log("${getResource('theme_popup_background_brush')}");
-    log("${getResource('theme_popup_border_color')}");
-    log("${getResource('theme_accordion_background_mouse_down_brush')}");
-    log("${getResource('theme_shadow_color')}");
-    dumpTheme();
-
     background = new FrameworkProperty(this, 'background',
         defaultValue: getResource('theme_popup_background_brush'),
         converter: const StringToSolidColorBrushConverter());
