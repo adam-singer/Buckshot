@@ -86,9 +86,9 @@ class ListBox extends Control implements FrameworkContainer
 
       _selectedIndex = _presenter.presentationPanel.value.children.indexOf(item);
 
-      selectedItem.value = item.stateBag[CollectionPresenter.SBO];
+      selectedItem.value = item.stateBag[CollectionPresenter.OBJECT_CONTENT];
 
-      selectionChanged.invoke(this, new SelectedItemChangedEventArgs(item.stateBag[CollectionPresenter.SBO]));
+      selectionChanged.invoke(this, new SelectedItemChangedEventArgs(item.stateBag[CollectionPresenter.OBJECT_CONTENT]));
 
     };
 

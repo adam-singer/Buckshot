@@ -33,7 +33,9 @@
 */
 class CollectionPresenter extends FrameworkElement implements FrameworkContainer
 {
-  static const String SBO = '__CollectionPresenterData__';
+  static const String OBJECT_CONTENT = '__CollectionPresenterData__';
+  static const String TEMPLATE_CONTENT =
+      '__collection_presenter_template_content__';
   var _eHandler;
 
   /// Represents the [Panel] element which will contain the generated UI for
@@ -137,7 +139,7 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
   void _removeItems(Collection items){
     int count = 0;
     for(final element in presentationPanel.value.children){
-      if (items.some((item) => item == element.stateBag[SBO])){
+      if (items.some((item) => item == element.stateBag[OBJECT_CONTENT])){
         presentationPanel.value.children.remove(element);
         count++;
       }
@@ -156,8 +158,8 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
         final it = new TextBlock()
         ..hAlign.value = HorizontalAlignment.stretch
         ..text.value = '$iterationObject'
-        ..stateBag[SBO] = iterationObject;
-
+        ..stateBag[OBJECT_CONTENT] = iterationObject;
+        iterationObject.stateBag[TEMPLATE_CONTENT] = it;
         itemCreated.invokeAsync(this, new ItemCreatedEventArgs(it));
         presentationPanel.value.children.add(it);
       });
@@ -167,8 +169,9 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
         Template
         .deserialize(itemsTemplate.value)
         .then((FrameworkElement it){
-          it..stateBag[SBO] = iterationObject
+          it..stateBag[OBJECT_CONTENT] = iterationObject
               ..dataContext.value = iterationObject;
+          iterationObject.stateBag[TEMPLATE_CONTENT] = it;
           itemCreated.invokeAsync(this, new ItemCreatedEventArgs(it));
           presentationPanel.value.children.add(it);
         });
