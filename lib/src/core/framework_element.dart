@@ -221,7 +221,7 @@ class FrameworkElement extends FrameworkObject
     userSelect = new FrameworkProperty(this, 'userSelect',
         propertyChangedCallback:
           (bool value){
-            rawElement.style.userSelect = value ? '' : 'all';
+            rawElement.style.userSelect = value ? 'all' : 'none';
           },
         defaultValue: false,
         converter: const StringToBooleanConverter());
