@@ -215,7 +215,6 @@ class FrameworkElement extends FrameworkObject
     e.rawElement.style.transformOrigin = '${tx}px ${ty}px ${tz}px';
   }
 
-
   void _initFrameworkProperties(){
 
     userSelect = new FrameworkProperty(this, 'userSelect',

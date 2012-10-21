@@ -33,11 +33,14 @@ class TextBox extends Control
     _initEvents();
 
     registerEvent('textchanged', textChanged);
-    userSelect.value = true;
   }
 
   TextBox.register() : super.register();
   makeMe() => new TextBox();
+
+  onFirstLoad(){
+    userSelect.value = true;
+  }
 
   void _initTextBoxProperties(){
     final _ie = rawElement as InputElement;
