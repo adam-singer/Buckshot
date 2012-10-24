@@ -2,17 +2,17 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-#library('menus.controls.buckshotui.org');
+library menus_controls_buckshot;
 
-#import('dart:html');
-#import('package:buckshot/buckshot.dart');
-#import('package:dartnet_event_model/events.dart');
-#import('package:buckshot/web/web.dart');
+import 'dart:html';
+import 'package:buckshot/buckshot_browser.dart';
+import 'package:dartnet_event_model/events.dart';
+import 'package:buckshot/web/web.dart';
 
-#source('menu.dart');
-#source('menu_item.dart');
-#source('menu_strip.dart');
-#source('menu_item_selected_event_args.dart');
+part 'menu.dart';
+part 'menu_item.dart';
+part 'menu_strip.dart';
+part 'menu_item_selected_event_args.dart';
 
 /**
  * Registers [MenuStrip], [Menu], and [MenuItem] controls to the framework if

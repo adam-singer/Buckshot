@@ -9,8 +9,8 @@ class StandardCalc extends View
 // Setting the template in text in addition to the HTML file so that the app
 // can be embedded into the Sandbox demo.  Alternatives to this would be to
 // put template into the sandbox html page, or load it from a Uri.
-String _standardCalcView = 
-@'''
+String _standardCalcView =
+r'''
 <grid halign='stretch' valign='stretch'>
       <rowdefinitions>
         <rowdefinition height='*1' />

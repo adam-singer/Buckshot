@@ -1,8 +1,8 @@
-#library('animation_tests.dart');
+library animation_tests;
 
-#import('dart:html');
-#import('package:buckshot/buckshot.dart');
-#import('package:unittest/unittest.dart');
+import 'dart:html';
+import 'package:buckshot/buckshot_browser.dart';
+import 'package:unittest/unittest.dart';
 
 Future run(){
   group('Animation', (){

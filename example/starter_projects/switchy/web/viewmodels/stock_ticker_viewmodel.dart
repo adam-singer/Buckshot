@@ -1,7 +1,7 @@
-#library('stock_ticker_view_model');
+library stock_ticker_view_model;
 
-#import('package:buckshot/buckshot.dart');
-#import('../models/stock_ticker.dart');
+import 'package:buckshot/buckshot_browser.dart';
+import '../models/stock_ticker.dart';
 
 class StockTickerViewModel extends ViewModelBase
 {

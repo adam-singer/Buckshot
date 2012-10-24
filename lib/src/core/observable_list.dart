@@ -30,6 +30,8 @@ class ObservableList<T> implements List<T>{
 
   void forEach(void f(element)) => _list.forEach(f);
 
+  bool contains(T element) => _list.contains(element);
+  
   Collection map(f(T element)) => _list.map(f);
 
   Collection<T> filter(bool f(T element)) => _list.filter(f);
@@ -100,7 +102,7 @@ class ObservableList<T> implements List<T>{
 
   T last() => _list.last();
 
-  void sort(int compare(a, b)) => _list.sort(compare);
+  void sort([Comparator compare = Comparable.compare]) => _list.sort(compare);
 
   void insertRange(int start, int length, [T initialValue = null]){
     throw const UnsupportedOperationException("insertRange not supported in ObservableList");

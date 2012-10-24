@@ -5,7 +5,7 @@
 library dockpanel_controls_buckshotui_org;
 
 import 'dart:html';
-import 'package:buckshot/buckshot.dart';
+import 'package:buckshot/buckshot_browser.dart';
 import 'package:dartnet_event_model/events.dart';
 import 'package:buckshot/web/web.dart';
 import 'package:logging/logging.dart';

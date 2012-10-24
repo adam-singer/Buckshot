@@ -1,9 +1,9 @@
 
-#import('package:buckshot/buckshot.dart');
+import 'package:buckshot/buckshot_browser.dart';
 
-#source('views/main_view.dart');
-#source('viewmodels/viewmodel.dart');
-#source('models/model.dart');
+part 'views/main_view.dart';
+part 'viewmodels/viewmodel.dart';
+part 'models/model.dart';
 
 
 main(){

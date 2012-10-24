@@ -1,9 +1,9 @@
-#library('todo_apps_buckshotui_org');
+library todo_apps_buckshot;
 
-#import('package:buckshot/buckshot.dart');
-#import('dart:html');
-#source('view.dart');
-#source('viewmodel.dart');
+import 'package:buckshot/buckshot_browser.dart';
+import 'dart:html';
+part 'view.dart';
+part 'viewmodel.dart';
 
 
 void main() {

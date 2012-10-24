@@ -1,8 +1,8 @@
-#library('dart_tests');
+library dart_tests;
 
-#import('dart:html');
-#import('package:unittest/unittest.dart');
-#import('package:xml/xml.dart');
+import 'dart:html';
+import 'package:unittest/unittest.dart';
+import 'package:xml/xml.dart';
 
 // Tests against known Dart or other external dependency bugs
 run(){

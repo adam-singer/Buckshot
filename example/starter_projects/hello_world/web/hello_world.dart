@@ -1,4 +1,4 @@
-#import('package:buckshot/buckshot.dart');
+import 'package:buckshot/buckshot_browser.dart';
 
 void main() {
   // setView() renders a View into the web page at a DIV with the id

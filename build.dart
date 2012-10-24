@@ -1,5 +1,5 @@
-#import('package:buckshot/generator.dart');
-#import('dart:io');
+import 'package:buckshot/generator_console.dart';
+import 'dart:io';
 
 void main(){
 

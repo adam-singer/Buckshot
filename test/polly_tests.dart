@@ -1,10 +1,10 @@
-#library('polly_tests_buckshot');
+library polly_tests_buckshot;
 
-#import('dart:html');
-#import('package:buckshot/buckshot.dart');
-#import('package:xml/xml.dart');
-#import('package:buckshot/web/web.dart');
-#import('package:unittest/unittest.dart');
+import 'dart:html';
+import 'package:buckshot/buckshot_browser.dart';
+import 'package:xml/xml.dart';
+import 'package:buckshot/web/web.dart';
+import 'package:unittest/unittest.dart';
 
 run(){
   group('Polly', (){

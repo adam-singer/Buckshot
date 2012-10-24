@@ -2,12 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // Apache-style license that can be found in the LICENSE file.
 
-#library('webglcanvas.canvas.controls.buckshot');
-#import('dart:html');
-#import('package:buckshot/buckshot.dart');
-#import('package:dartnet_event_model/events.dart');
-#import('package:buckshot/web/web.dart');
-#import('package:buckshot/extensions/controls/canvas/canvas_base.dart');
+library webglcanvas_canvas_controls_buckshot;
+
+import 'dart:html';
+import 'package:buckshot/buckshot_browser.dart';
+import 'package:dartnet_event_model/events.dart';
+import 'package:buckshot/web/web.dart';
+import 'package:buckshot/extensions/controls/canvas/canvas_base.dart';
 
 /**
  * A 3D canvas to draw to.

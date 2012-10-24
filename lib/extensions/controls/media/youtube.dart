@@ -2,10 +2,10 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-#library('youtube.media.controls.buckshotui.org');
-#import('dart:html');
-#import('package:buckshot/buckshot.dart');
-#import('package:buckshot/web/web.dart');
+library youtube_media_controls_buckshot;
+import 'dart:html';
+import 'package:buckshot/buckshot_browser.dart';
+import 'package:buckshot/web/web.dart';
 
 class YouTube extends FrameworkElement
 {

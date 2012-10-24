@@ -1,17 +1,17 @@
-#library('calculator_apps_buckshotui_org');
+library calculator_apps_buckshot;
 
-#import('dart:html');
-#import('dart:math', prefix:'Math');
-#import('package:buckshot/buckshot.dart');
-#import('package:dartnet_event_model/events.dart');
+import 'dart:html';
+import 'dart:math' as Math;
+import 'package:buckshot/buckshot_browser.dart';
+import 'package:dartnet_event_model/events.dart';
 
-#source('common/i_calculator.dart');
-#source('common/output_changed_event_args.dart');
-#source('views/main.dart');
-#source('views/standard_calc.dart');
-#source('views/extended_calc.dart');
-#source('viewmodels/view_model.dart');
-#source('models/calc.dart');
+part 'common/i_calculator.dart';
+part 'common/output_changed_event_args.dart';
+part 'views/main.dart';
+part 'views/standard_calc.dart';
+part 'views/extended_calc.dart';
+part 'viewmodels/view_model.dart';
+part 'models/calc.dart';
 
 
 /**

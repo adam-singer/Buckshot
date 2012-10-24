@@ -2,14 +2,14 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-#library('accordion.controls.buckshotui.org');
+library accordion_controls_buckshot;
 
-#import('dart:html');
-#import('package:buckshot/buckshot.dart');
-#import('package:dartnet_event_model/events.dart');
-#import('package:buckshot/web/web.dart');
+import 'dart:html';
+import 'package:buckshot/buckshot_browser.dart';
+import 'package:dartnet_event_model/events.dart';
+import 'package:buckshot/web/web.dart';
 
-#source('accordion_item.dart');
+part 'accordion_item.dart';
 
 class Accordion extends Control implements FrameworkContainer
 {

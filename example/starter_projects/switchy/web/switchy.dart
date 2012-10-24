@@ -1,26 +1,21 @@
-#import('package:buckshot/buckshot.dart');
-#import('package:dartnet_event_model/events.dart');
-
-#import('dart:html');
-#import('dart:isolate');
-
+import 'package:buckshot/buckshot_browser.dart';
+import 'package:dartnet_event_model/events.dart';
+import 'dart:html';
+import 'dart:isolate';
 // Import control extensions we want to use for this app
-#import('package:buckshot/extensions/controls/menus/menu_lib.dart');
-#import('package:buckshot/extensions/controls/dock_panel.dart');
-#import('package:buckshot/extensions/controls/modal_dialog.dart');
+import 'package:buckshot/extensions/controls/menus/menu_lib.dart';
+import 'package:buckshot/extensions/controls/dock_panel.dart';
+import 'package:buckshot/extensions/controls/modal_dialog.dart';
+import 'viewmodels/stock_ticker_viewmodel.dart';
+import 'viewmodels/calculator_viewmodel.dart';
 
-#import('viewmodels/stock_ticker_viewmodel.dart');
-#import('viewmodels/calculator_viewmodel.dart');
-
-#source('views/master.dart');
-#source('views/stock_ticker.dart');
-#source('views/home.dart');
-#source('views/calculator/calculator.dart');
-#source('views/clock.dart');
-
-
-#source('viewmodels/master_viewmodel.dart');
-#source('viewmodels/clock_viewmodel.dart');
+part 'views/master.dart';
+part 'views/stock_ticker.dart';
+part 'views/home.dart';
+part 'views/calculator/calculator.dart';
+part 'views/clock.dart';
+part 'viewmodels/master_viewmodel.dart';
+part 'viewmodels/clock_viewmodel.dart';
 
 void main() {
   // we have to register our control extensions until Dart supports
@@ -36,14 +31,11 @@ void main() {
     registerMenuControls();
   }
 
-  // 1. Deserialize the resources template so it's loaded first.
-  // 2. Set the view to the Master View
-  // 3. Create a binding to make the app full-window.
-  // 4. Bind the root container to the dimensions of the window.
-  Template
-    .deserialize('web/views/templates/resources.xml')   // #1
-    .chain((_) => setView(new Master()))                // #2
-    .then((viewObject){                                 // #3
-      bindToWindowDimensions(viewObject.parent);        // #4
+  // 1. Set the view to the Master View
+  // 2. Create a binding to make the app full-window.
+  // 3. Bind the root container to the dimensions of the window.
+  setView(new Master())                                 // #1
+    .then((viewObject){                                 // #2
+      bindToWindowDimensions(viewObject.parent);        // #3
     });
 }

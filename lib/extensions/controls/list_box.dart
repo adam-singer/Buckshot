@@ -4,11 +4,11 @@
 
 //TODO add mouse state template properties
 
-#library('listbox.controls.buckshotui.org');
+library listbox_controls_buckshot;
 
-#import('package:buckshot/buckshot.dart');
-#import('package:dartnet_event_model/events.dart');
-#import('package:buckshot/web/web.dart');
+import 'package:buckshot/buckshot_browser.dart';
+import 'package:dartnet_event_model/events.dart';
+import 'package:buckshot/web/web.dart';
 
 
 /**

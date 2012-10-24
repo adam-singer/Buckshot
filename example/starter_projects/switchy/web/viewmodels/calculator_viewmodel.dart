@@ -1,10 +1,10 @@
-#library('calculator_view_model');
+library calculator_view_model;
 
-#import('package:buckshot/buckshot.dart');
-#import('../models/calc.dart');
+import 'package:buckshot/buckshot_browser.dart';
+import '../models/calc.dart';
 
-#source('../views/calculator/standard_calc.dart');
-#source('../views/calculator/extended_calc.dart');
+part '../views/calculator/standard_calc.dart';
+part '../views/calculator/extended_calc.dart';
 
 /**
 * Note that ViewModel extends from [ViewModelBase], which allows it to
@@ -139,6 +139,6 @@ class CalculatorViewModel extends ViewModelBase
    * mode selector on the calculator.
    */
   void selectionChanged_handler(sender, args){
-    setMode(args.selectedItem.item);
+    setMode(args.selectedItem.item.value);
   }
 }

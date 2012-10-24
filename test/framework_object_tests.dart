@@ -1,7 +1,7 @@
-#library('framework_object_tests_buckshot');
+library framework_object_tests_buckshot;
 
-#import('package:buckshot/buckshot.dart');
-#import('package:unittest/unittest.dart');
+import 'package:buckshot/buckshot_browser.dart';
+import 'package:unittest/unittest.dart';
 
 run(){
   group('FrameworkObject', (){
