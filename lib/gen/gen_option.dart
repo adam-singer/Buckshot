@@ -1,3 +1,5 @@
+part of genie_buckshot_org;
+
 /**
  * Enumerates options for code generation.
  */

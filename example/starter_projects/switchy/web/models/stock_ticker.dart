@@ -1,8 +1,8 @@
-#library('stock_ticker_model');
+library stock_ticker_model;
 
-#import('dart:math');
-#import('dart:isolate');
-#import('package:dartnet_event_model/events.dart');
+import 'dart:math';
+import 'dart:isolate';
+import 'package:dartnet_event_model/events.dart';
 
 /**
  * A simple stock ticker service.

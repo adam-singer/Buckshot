@@ -1,10 +1,10 @@
-#library('calculator_model');
+library calculator_model;
 
-#import('dart:math', prefix:'Math');
-#import('package:dartnet_event_model/events.dart');
+import 'dart:math' as Math;
+import 'package:dartnet_event_model/events.dart';
 
-#source('i_calculator.dart');
-#source('output_changed_event_args.dart');
+part 'i_calculator.dart';
+part 'output_changed_event_args.dart';
 
 /**
 * A naive calculator implementation.
@@ -193,7 +193,7 @@ class Calc implements ICalculator
     if (_state != FOPERAND && _state != SOPERAND) return;
 
     if (number == number.floor()){
-      number = Math.parseInt(number.toString().replaceAll('.0', ''));
+      number = int.parse(number.toString().replaceAll('.0', ''));
     }
 
     if (_state == FOPERAND){
@@ -212,7 +212,7 @@ class Calc implements ICalculator
     if (str.endsWith('.')){
       str = str.substring(0, str.length - 1);
     }
-    return  str.contains('.') ? Math.parseDouble(str) : Math.parseInt(str);
+    return  str.contains('.') ? double.parse(str) : int.parse(str);
   }
 
   num _getNumberFrom(String str){
@@ -221,7 +221,7 @@ class Calc implements ICalculator
       str = str.substring(0, str.length - 1);
     }
 
-    return str.contains('.') ? Math.parseDouble(str) : Math.parseInt(str);
+    return str.contains('.') ? double.parse(str) : int.parse(str);
   }
 
   /* Operators */
@@ -399,7 +399,7 @@ class Calc implements ICalculator
 
     var result = operators[currentOp]();
     if (result == result.floor()){
-      result = Math.parseInt(result.toString().replaceAll('.0', ''));
+      result = int.parse(result.toString().replaceAll('.0', ''));
     }
     clear();
 

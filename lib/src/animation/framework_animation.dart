@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -143,10 +145,11 @@ class FrameworkAnimation
       i++;
     }
 
-    if (fi > -1)
+    if (fi > -1) {
       props[fi] = newProp;
-    else
+    } else {
       props.add(newProp);
+    }
 
     StringBuffer sb = new StringBuffer();
 

@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -25,8 +27,9 @@ class RadioButtonGroup
     if (!radioButtonList.isEmpty()){
       //do a check to ensure groupName is the same
       String gName = radioButtonList.getKeys().iterator().next().groupName.value;
-      if (gName != buttonToAdd.groupName.value)
+      if (gName != buttonToAdd.groupName.value) {
         throw new BuckshotException("Attempted to add RadioButton with groupName='${buttonToAdd.groupName.value}' to RadioButtonGroup with groupName='$gName'");
+      }
     }
 
     //register to the selection event of the button

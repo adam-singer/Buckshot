@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -17,7 +19,7 @@ class RadialGradientBrush extends Brush {
   /// gradients.
   FrameworkProperty<Color> fallbackColor;
 
-  RadialGradientBrush([RadialGradientDrawMode mode, Color fallback])
+  RadialGradientBrush({RadialGradientDrawMode mode, Color fallback})
   {
     _initRadialGradientProperties();
 
@@ -51,11 +53,13 @@ class RadialGradientBrush extends Brush {
     stops.value.forEach((GradientStop stop){
       colorString.add(stop.color.value.toColorString());
 
-      if (stop.percent.value != -1)
+      if (stop.percent.value != -1) {
         colorString.add(" ${stop.percent.value}%");
+      }
 
-      if (stop != stops.value.last())
+      if (stop != stops.value.last()) {
         colorString.add(", ");
+      }
     });
 
     //set the background for all browser types

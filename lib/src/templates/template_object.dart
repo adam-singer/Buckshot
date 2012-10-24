@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 
 class TemplateObject extends BuckshotObject
 {

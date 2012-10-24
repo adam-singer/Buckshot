@@ -2,10 +2,10 @@
 // http://www.buckshotui.org
 // See LICENSE file for Apache 2.0 licensing information.
 
-#library('web.utils.prujohn');
+library web_utils_prujohn;
 
-#import('dart:html');
-#import('dart:math');
+import 'dart:html';
+import 'dart:math';
 
-#source('browser.dart');
-#source('browser_info.dart');
+part 'browser.dart';
+part 'browser_info.dart';

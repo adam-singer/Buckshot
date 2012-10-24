@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -97,8 +99,9 @@ abstract class ActionBase extends TemplateObject
     }else{
       var el = namedElements[targetName.value];
 
-      if (el == null)
+      if (el == null) {
         throw const BuckshotException('action Target was not found.');
+      }
 
       _target = el;
     }

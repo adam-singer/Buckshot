@@ -1,3 +1,5 @@
+part of calculator_view_model;
+
 /**
 * Represents the view of an extended calculator keypad layout.
 */

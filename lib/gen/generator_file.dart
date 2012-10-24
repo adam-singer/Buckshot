@@ -1,3 +1,5 @@
+part of genie_buckshot_org;
+
 /**
  * Provides utilities and info on a .html or .buckshot file.
  */

@@ -1,3 +1,5 @@
+part of todo_apps_buckshot;
+
 class Main extends View
 {
 

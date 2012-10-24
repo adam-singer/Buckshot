@@ -1,3 +1,5 @@
+part of yaml;
+
 // Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
@@ -123,7 +125,7 @@ class _Composer extends _Visitor {
     var match = const RegExp("^[-+]?[0-9]+\$").firstMatch(content);
     if (match != null) {
       return new _ScalarNode(_Tag.yaml("int"),
-          value: Math.parseInt(match.group(0)));
+          value: int.parse(match.group(0)));
     }
 
     match = const RegExp("^0o([0-7]+)\$").firstMatch(content);
@@ -140,7 +142,7 @@ class _Composer extends _Visitor {
     match = const RegExp("^0x[0-9a-fA-F]+\$").firstMatch(content);
     if (match != null) {
       return new _ScalarNode(_Tag.yaml("int"),
-          value: Math.parseInt(match.group(0)));
+          value: int.parse(match.group(0)));
     }
 
     return null;
@@ -156,20 +158,20 @@ class _Composer extends _Visitor {
       // floats by removing the trailing dot.
       var matchStr = match.group(0).replaceAll(new RegExp(r"\.$"), "");
       return new _ScalarNode(_Tag.yaml("float"),
-          value: Math.parseDouble(matchStr));
+          value: double.parse(matchStr));
     }
 
     match = const RegExp("^([+-]?)\.(inf|Inf|INF)\$").firstMatch(content);
     if (match != null) {
       var infinityStr = match.group(1) == "-" ? "-Infinity" : "Infinity";
       return new _ScalarNode(_Tag.yaml("float"),
-          value: Math.parseDouble(infinityStr));
+          value: double.parse(infinityStr));
     }
 
     match = const RegExp("^\.(nan|NaN|NAN)\$").firstMatch(content);
     if (match != null) {
       return new _ScalarNode(_Tag.yaml("float"),
-          value: Math.parseDouble("NaN"));
+          value: double.parse("NaN"));
     }
 
     return null;

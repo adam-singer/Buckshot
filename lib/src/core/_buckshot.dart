@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -29,6 +31,6 @@
 
   // Wrappers to prevent propagation of static warnings elsewhere.
   reflectMe(object) => reflect(object);
-  get mirrorSystem() => currentMirrorSystem();
+  get mirrorSystem => currentMirrorSystem();
 
 }

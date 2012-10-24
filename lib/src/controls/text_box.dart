@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -290,8 +292,9 @@ class Validation{
 
     List<String> value = AttachedFrameworkProperty.getValue(element, validationProperty);
 
-    if (Validation.validationProperty == null || value == null)
+    if (Validation.validationProperty == null || value == null) {
       setValidation(element, new List<String>());
+    }
 
     return AttachedFrameworkProperty.getValue(element, validationProperty);
   }

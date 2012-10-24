@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -47,11 +49,11 @@ class Color extends FrameworkResource
   }
 
   /// Gets the R (red) component of the RGB color.
-  num get R => parseInt('0x${value.value.substring(1,3)}');
+  num get R => int.parse('0x${value.value.substring(1,3)}');
   /// Gets the G (green) component of the RGB color.
-  num get G => parseInt('0x${value.value.substring(3,5)}');
+  num get G => int.parse('0x${value.value.substring(3,5)}');
   /// Gets the B (blue) compoonent of the RGB color.
-  num get B => parseInt('0x${value.value.substring(5,7)}');
+  num get B => int.parse('0x${value.value.substring(5,7)}');
 
   void _initColorProperties(){
     value = new FrameworkProperty(this, "value",

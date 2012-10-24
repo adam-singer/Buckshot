@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -33,7 +35,8 @@ class ToggleProperty extends ActionBase
     //TODO throw?
     if (property.value == null ||
         firstValue.value == null ||
-        secondValue.value == null) return;
+        secondValue.value == null) { return;
+    }
 
     var el = target.value != null
         ? namedElements[target.value]

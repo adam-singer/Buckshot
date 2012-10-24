@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -36,18 +38,20 @@ class Binding extends BuckshotObject
     [this.bindingMode = BindingMode.OneWay,
     this.converter = const _DefaultConverter()])
   {
-    if (_fromProperty == null || _toProperty == null)
+    if (_fromProperty == null || _toProperty == null) {
       throw const BuckshotException("Attempted to bind"
         " to/from null FrameworkProperty.");
+    }
 
     //NOTE: circular bindings of same property are not checked
     // Circular bindings are not generally harmful because the
     // property system doesn't fire when values are equivalent
     // There is a case where it may be harmful, when value converters
     // are used to transform the values through the chain...
-    if (_fromProperty === _toProperty)
+    if (identical(_fromProperty, _toProperty)) {
       throw const BuckshotException("Attempted to bind"
         " same property together.");
+    }
 
     _registerBinding();
   }
@@ -71,9 +75,10 @@ class Binding extends BuckshotObject
     // system doesn't fire when values are equivalent
     // There is a case where it may be harmful, when value converters are
     // used to transform the values through the chain...
-    if (_fromProperty === _toProperty)
+    if (identical(_fromProperty, _toProperty)) {
       throw const BuckshotException("Attempted to bind"
         " same property together.");
+    }
 
     _registerBinding();
   }
@@ -121,8 +126,9 @@ class Binding extends BuckshotObject
     bindingSet = false;
     int i = _fromProperty.sourceObject._bindings.indexOf(this, 0);
 
-    if (i == -1) throw const BuckshotException("Binding not found"
+    if (i == -1) { throw const BuckshotException("Binding not found"
       " in binding registry when attempting to unregister.");
+    }
 
     _fromProperty.sourceObject._bindings.removeRange(i, 1);
 
@@ -137,8 +143,9 @@ class Binding extends BuckshotObject
                 ._bindings
                 .indexOf(_twoWayPartner, 0);
 
-    if (pi == -1) throw const BuckshotException("Two-Way partner binding"
+    if (pi == -1) { throw const BuckshotException("Two-Way partner binding"
       " not found in binding registry when attempting to unregister.");
+    }
 
     _twoWayPartner._fromProperty.sourceObject._bindings.removeRange(pi, 1);
   }
@@ -152,8 +159,9 @@ class Binding extends BuckshotObject
           binding._toProperty.value =
               binding.converter.convert(binding._fromProperty.value);
 
-        if (binding.bindingMode == BindingMode.OneTime)
+        if (binding.bindingMode == BindingMode.OneTime) {
           binding.unregister();
+        }
     });
   }
 }

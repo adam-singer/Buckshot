@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn
 // See LICENSE file for Apache 2.0 licensing information.
@@ -11,7 +13,7 @@ abstract class IValueConverter
 
   /// Returns a converted value from a given [Dynamic] value and optional [Dynamic]
   /// parameter.
-  abstract Dynamic convert(Dynamic value, [Dynamic parameter]);
+  abstract Dynamic convert(Dynamic value, {Dynamic parameter});
 
   //TODO implement two-way conversion support
 }

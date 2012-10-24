@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -59,7 +61,7 @@ class FrameworkProperty<T> extends FrameworkPropertyBase
    }
 
   /** Gets the stored value of the FrameworkProperty. */
-  T get value() => _value;
+  T get value => _value;
 
   /** Gets the previous value of the FrameworkProperty. */
   T previousValue;
@@ -96,7 +98,7 @@ class AnimatingFrameworkProperty<T> extends FrameworkProperty<T>
 {
   final String cssPropertyPeer;
 
-  AnimatingFrameworkProperty(FrameworkElement sourceObject, String propertyName, String this.cssPropertyPeer, [Function propertyChangedCallback, T defaultValue = null, converter = null])
+  AnimatingFrameworkProperty(FrameworkElement sourceObject, String propertyName, String this.cssPropertyPeer, {Function propertyChangedCallback, T defaultValue: null, converter: null})
   : super(sourceObject, propertyName, propertyChangedCallback, defaultValue:defaultValue, converter:converter)
   {
     if (sourceObject is! FrameworkElement) throw const BuckshotException('AnimatingFrameworkProperty can only be used with elements that derive from FrameworkElement.');

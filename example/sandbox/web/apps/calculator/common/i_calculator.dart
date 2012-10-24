@@ -1,3 +1,5 @@
+part of calculator_apps_buckshot;
+
 
 /**
 * Provides a contract for calculator implementations to work within

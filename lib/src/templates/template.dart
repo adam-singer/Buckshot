@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -164,11 +166,12 @@ class Template {
   *
   * Use the [deserialize] method to convert a template to a [FrameworkObject].
   */
-  static Future<String> getTemplate(String from, [type = _UNKNOWN]){
+  static Future<String> getTemplate(String from, {type: _UNKNOWN}){
     var c = new Completer();
 
-    if (type == _UNKNOWN)
+    if (type == _UNKNOWN) {
       type = _determineType(from);
+    }
 
     if (type == _HTML_ELEMENT) {
       var result = document.query(from);
@@ -360,9 +363,10 @@ class Template {
     //property node
     ofElement.getPropertyByName(lowered)
     .then((p){
-      if (p == null) throw new TemplateException("Property node"
+      if (p == null) { throw new TemplateException("Property node"
           " name '${lowered}' is not a valid"
           " property of ${ofElement.type}.");
+      }
 
       if (lowered == "itemstemplate"){
         //accomodation for controls that use itemstemplates...
@@ -447,9 +451,10 @@ class Template {
     }else{
       //element or resource
 
-      if (!ofElement.isContainer)
+      if (!ofElement.isContainer) {
         throw const TemplateException("Attempted to add"
         " element to another element which is not a container.");
+      }
 
       final cc = ofElement.stateBag[FrameworkObject.CONTAINER_CONTEXT];
 
@@ -482,23 +487,26 @@ class Template {
 
   static void _processTextNode(ofElement, ofXMLNode){
     if (ofXMLNode.text.trim() != ""){
-      if (!ofElement.isContainer)
+      if (!ofElement.isContainer) {
         throw const TemplateException("Text node found in element"
         " which does not have a container context defined.");
+      }
 
       var cc = ofElement.stateBag[FrameworkObject.CONTAINER_CONTEXT];
 
-      if (cc is List) throw const TemplateException("Expected"
+      if (cc is List) { throw const TemplateException("Expected"
       " container context to be property.  Found list.");
+      }
 
       cc.value = ofXMLNode.text.trim();
     }
   }
 
   static void _resolveBinding(FrameworkProperty p, String binding){
-    if (!binding.startsWith("{") || !binding.endsWith("}"))
+    if (!binding.startsWith("{") || !binding.endsWith("}")) {
       throw const TemplateException('Binding must begin with'
         ' "{" and end with "}"');
+    }
 
     FrameworkProperty placeholder =
         new FrameworkProperty(null, "placeholder",(_){});
@@ -542,8 +550,9 @@ class Template {
                 && converterSplit[1].endsWith('}')){
               _resolveBinding(placeholder, converterSplit[1]);
               var testValueConverter = placeholder.value;
-              if (testValueConverter is IValueConverter)
+              if (testValueConverter is IValueConverter) {
                 vc = testValueConverter;
+              }
             } //TODO: else throw?
           }
         });
@@ -551,9 +560,10 @@ class Template {
 
     switch(words[0]){
       case "resource":
-        if (words.length != 2)
+        if (words.length != 2) {
           throw const TemplateException('Binding'
             ' syntax incorrect.');
+        }
 
         p.value = getResource(words[1]);
         break;
@@ -587,17 +597,19 @@ class Template {
         }
         break;
       case "element":
-        if (words.length != 2)
+        if (words.length != 2) {
           throw const TemplateException('Binding'
             ' syntax incorrect.');
+        }
 
         if (words[1].contains(".")){
           var ne = words[1].substring(0, words[1].indexOf('.'));
           var prop = words[1].substring(words[1].indexOf('.') + 1);
 
-          if (!namedElements.containsKey(ne))
+          if (!namedElements.containsKey(ne)) {
             throw new TemplateException("Named element '${ne}'"
             " not found.");
+          }
 
           Binding b;
 
@@ -640,9 +652,10 @@ class Template {
     //TODO: maybe support merged resource collections in the future...
     if (resource is ResourceCollection) return;
 
-    if (resource.key.value.isEmpty())
+    if (resource.key.value.isEmpty()) {
       throw const TemplateException("Resource is missing"
         " a key identifier.");
+    }
 
     //add/replace resource at given key
     registerResource(resource);

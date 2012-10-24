@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -306,10 +308,11 @@ class FrameworkObject extends BuckshotObject
           //log('late binding $dc to $p', element:this);
           new Binding(dc, p);
         }else{
-          if (dc.value is! BuckshotObject)
+          if (dc.value is! BuckshotObject) {
             throw new BuckshotException("Datacontext binding attempted to"
               " resolve properties '${bd.dataContextPath}'"
               " on non-BuckshotObject type.");
+          }
 
           //TODO keep a reference to these so they can be removed if the
           // datacontext changes

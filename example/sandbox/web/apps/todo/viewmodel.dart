@@ -1,3 +1,5 @@
+part of todo_apps_buckshot;
+
 
 /// ViewModelBase allows the class to implement [FrameworkProperty]s
 class ViewModel extends ViewModelBase

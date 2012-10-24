@@ -1,3 +1,5 @@
+part of calculator_apps_buckshot;
+
 /**
 * Note that ViewModel extends from [ViewModelBase], which allows it to
 * participate in the Buckshot property binding system.

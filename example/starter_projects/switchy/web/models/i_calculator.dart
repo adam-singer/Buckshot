@@ -1,3 +1,5 @@
+part of calculator_model;
+
 
 /**
 * Provides a contract for calculator implementations to work within

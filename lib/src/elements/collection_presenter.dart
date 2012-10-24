@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -72,8 +74,9 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
       assert(p != null);
       assert(p.parent == null);
 
-      if (!rawElement.elements.isEmpty())
+      if (!rawElement.elements.isEmpty()) {
          rawElement.elements[0].remove();
+      }
 
       p.addToLayoutTree(this);
       assert(p.parent == this);

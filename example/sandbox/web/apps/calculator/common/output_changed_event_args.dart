@@ -1,3 +1,5 @@
+part of calculator_apps_buckshot;
+
 
 /**
 * Event-handler object to support the [FrameworkEvent]s in [ICalculator].

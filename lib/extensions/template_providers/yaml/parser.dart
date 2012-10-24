@@ -1,3 +1,5 @@
+part of yaml;
+
 // Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
@@ -688,7 +690,7 @@ class _Parser {
     if (!captureAs('', () => consumeChar(char))) return false;
     var captured = captureAndTransform(
         () => nAtOnce(digits, (c, _) => isHexDigit(c)),
-        (hex) => new String.fromCharCodes([Math.parseInt("0x$hex")]));
+        (hex) => new String.fromCharCodes([int.parse("0x$hex")]));
     return expect(captured, "$digits hexidecimal digits");
   }
 

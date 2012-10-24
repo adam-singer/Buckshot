@@ -1,3 +1,5 @@
+part of web_utils_prujohn;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -76,9 +78,9 @@ class Browser
 
     num getMajor(String ver){
       if (ver.contains('.')){
-        return parseInt(ver.substring(0, ver.indexOf('.')));
+        return int.parse(ver.substring(0, ver.indexOf('.')));
       }else{
-        return parseInt(ver);
+        return int.parse(ver);
       }
     }
 

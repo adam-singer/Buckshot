@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -129,12 +131,13 @@ class LayoutCanvas extends Panel
 
     if (value < 0) value = 0;
 
-    if (LayoutCanvas.topProperty == null)
+    if (LayoutCanvas.topProperty == null) {
       LayoutCanvas.topProperty = new AttachedFrameworkProperty("top",
         (FrameworkElement e, int v){
         _setPosition(e);
 //        e.margin = new Thickness.specified(v, 0, 0, LayoutCanvas.getLeft(e));
       });
+    }
 
     AttachedFrameworkProperty.setValue(element, topProperty, value);
 
@@ -147,8 +150,9 @@ class LayoutCanvas extends Panel
 
     var value = AttachedFrameworkProperty.getValue(element, topProperty);
 
-    if (LayoutCanvas.topProperty == null || value == null)
+    if (LayoutCanvas.topProperty == null || value == null) {
       LayoutCanvas.setTop(element, 0);
+    }
 
     return AttachedFrameworkProperty.getValue(element, topProperty);
   }
@@ -164,12 +168,13 @@ class LayoutCanvas extends Panel
 
     if (value < 0) value = 0;
 
-    if (LayoutCanvas.leftProperty == null)
+    if (LayoutCanvas.leftProperty == null) {
       LayoutCanvas.leftProperty = new AttachedFrameworkProperty("left",
         (FrameworkElement e, int v){
           _setPosition(e);
 //          e.margin = new Thickness.specified(LayoutCanvas.getTop(e), 0, 0, v);
       });
+    }
 
     AttachedFrameworkProperty.setValue(element, leftProperty, value);
   }
@@ -181,8 +186,9 @@ class LayoutCanvas extends Panel
 
     var value = AttachedFrameworkProperty.getValue(element, leftProperty);
 
-    if (LayoutCanvas.leftProperty == null || value == null)
+    if (LayoutCanvas.leftProperty == null || value == null) {
       LayoutCanvas.setLeft(element, 0);
+    }
 
     return AttachedFrameworkProperty.getValue(element, leftProperty);
   }

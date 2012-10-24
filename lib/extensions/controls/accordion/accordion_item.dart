@@ -1,3 +1,5 @@
+part of accordion_controls_buckshot;
+
 
 class AccordionItem extends Control implements FrameworkContainer
 {

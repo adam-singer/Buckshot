@@ -2,10 +2,10 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
-#library('json.templateproviders.buckshotui.org');
-#import('dart:json');
-#import('package:buckshot/buckshot.dart');
-#import('package:xml/xml.dart');
+library json_templateproviders_buckshotui_org;
+import 'dart:json';
+import 'package:buckshot/buckshot.dart';
+import 'package:xml/xml.dart';
 
 /**
 * Provides serialization/deserialization for JSON format templates.

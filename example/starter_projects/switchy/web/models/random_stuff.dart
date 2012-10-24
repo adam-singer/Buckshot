@@ -1,6 +1,6 @@
-#library('random_stuff_library');
+library random_stuff_library;
 
-#import('dart:math');
+import 'dart:math';
 
 /**
  * This model produces various random pieces of information.

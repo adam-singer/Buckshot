@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -8,11 +10,11 @@
 class StringToNumericConverter implements IValueConverter {
   const StringToNumericConverter();
 
-  Dynamic convert(Dynamic value, [Dynamic parameter]){
+  Dynamic convert(Dynamic value, {Dynamic parameter}){
     if (value is! String || value == 'auto') return value;
 
     try{
-      return parseDouble(value);
+      return double.parse(value);
     } catch(e){
       return value;
     }

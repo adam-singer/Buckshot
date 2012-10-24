@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -36,8 +38,9 @@ abstract class Control extends FrameworkElement
     isEnabled = new FrameworkProperty(this, "isEnabled",
       propertyChangedCallback: (bool value){
         if (value){
-          if (rawElement.attributes.containsKey('disabled'))
+          if (rawElement.attributes.containsKey('disabled')) {
             rawElement.attributes.remove('disabled');
+          }
         }else{
           rawElement.attributes['disabled'] = 'disabled';
         }

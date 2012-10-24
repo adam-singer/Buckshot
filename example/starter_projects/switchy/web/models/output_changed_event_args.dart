@@ -1,3 +1,5 @@
+part of calculator_model;
+
 
 /**
 * Event-handler object to support the [FrameworkEvent]s in [ICalculator].

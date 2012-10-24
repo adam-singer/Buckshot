@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -99,8 +101,9 @@ void _onChildrenChanging(Object _, ListChangedEventArgs args){
 
     var p = item.parent;
 
-    if (p == null || p is! _GridCell)
+    if (p == null || p is! _GridCell) {
       throw new BuckshotException("Deleted element not found in internal Grid collection.");
+    }
 
     item.removeFromLayoutTree();
 
@@ -202,8 +205,9 @@ void _updateColumnLayout(num gridWidth){
             num childWidth = child.content.value.mostRecentMeasurement.bounding.width;
             num mOffset = child.content.value.margin.value.left +
                 child.content.value.margin.value.right;
-            if (childWidth + mOffset > widestAuto)
+            if (childWidth + mOffset > widestAuto) {
               widestAuto = childWidth + mOffset;
+            }
           });
 
         c._adjustedLength = widestAuto;
@@ -220,7 +224,7 @@ void _updateColumnLayout(num gridWidth){
 
       // if star type calculate adjusted length
       if (c.width.value.gridUnitType.value == GridUnitType.star){
-        if (c === lastStar){
+        if (identical(c, lastStar)){
           c._adjustedLength = (availColWidth - totalStarLength);
         }
         else{
@@ -250,8 +254,9 @@ void _updateColumnLayout(num gridWidth){
           new Thickness.specified(child.margin.value.top, 0, 0, columnDefinitions.value[colIndex]._adjustedOffset);
 
       if (childColumnSpan > 1){
-        if (childColumnSpan > columnDefinitions.value.length - colIndex)
+        if (childColumnSpan > columnDefinitions.value.length - colIndex) {
           childColumnSpan = columnDefinitions.value.length - colIndex;
+        }
         child.rawElement.style.width = '${_totalLengthOf(columnDefinitions.value.getRange(colIndex, childColumnSpan))}px';
       }else{
         child.rawElement.style.width = '${columnDefinitions.value[colIndex]._adjustedLength}px';
@@ -306,8 +311,9 @@ void _updateRowLayout(num gridHeight){
           num childHeight = child.content.value.mostRecentMeasurement.bounding.height;
           num mOffset = child.content.value.margin.value.top +
               child.content.value.margin.value.bottom;
-          if (childHeight + mOffset > widestAuto)
+          if (childHeight + mOffset > widestAuto) {
             widestAuto = childHeight + mOffset;
+          }
         });
 
       c._adjustedLength = widestAuto;
@@ -321,7 +327,7 @@ void _updateRowLayout(num gridHeight){
   rowDefinitions.value.forEach((RowDefinition c){
 
     if (c.height.value.gridUnitType.value == GridUnitType.star){
-      if (c === lastStar){
+      if (identical(c, lastStar)){
         c._adjustedLength = (availRowHeight - totalStarLength);
       }else{
         c._adjustedLength = ((availRowHeight * (c.height.value.length.value / totalStarValue)).round());
@@ -348,8 +354,9 @@ void _updateRowLayout(num gridHeight){
         new Thickness.specified(rowDefinitions.value[rowIndex]._adjustedOffset, 0, 0, child.margin.value.left);
 
     if (childRowSpan > 1){
-      if (childRowSpan > rowDefinitions.value.length - rowIndex)
+      if (childRowSpan > rowDefinitions.value.length - rowIndex) {
         childRowSpan = rowDefinitions.value.length - rowIndex;
+      }
 
       child.rawElement.style.height = '${_totalLengthOf(rowDefinitions.value.getRange(rowIndex, childRowSpan))}px';
     }else{
@@ -390,8 +397,9 @@ void _updateRowLayout(num gridHeight){
 
     var value = AttachedFrameworkProperty.getValue(element, Grid.columnProperty);
 
-    if (Grid.columnProperty == null || value == null)
+    if (Grid.columnProperty == null || value == null) {
       Grid.setColumn(element, 0);
+    }
 
     return AttachedFrameworkProperty.getValue(element, columnProperty);
   }
@@ -419,8 +427,9 @@ void _updateRowLayout(num gridHeight){
 
     var value = AttachedFrameworkProperty.getValue(element, Grid.rowProperty);
 
-    if (Grid.rowProperty == null || value == null)
+    if (Grid.rowProperty == null || value == null) {
       Grid.setRow(element, 0);
+    }
 
     return AttachedFrameworkProperty.getValue(element, rowProperty);
   }
@@ -448,8 +457,9 @@ void _updateRowLayout(num gridHeight){
 
     var value = AttachedFrameworkProperty.getValue(element, Grid.columnSpanProperty);
 
-    if (Grid.columnSpanProperty == null || value == null)
+    if (Grid.columnSpanProperty == null || value == null) {
       Grid.setColumnSpan(element, 0);
+    }
 
     return AttachedFrameworkProperty.getValue(element, Grid.columnSpanProperty);
   }
@@ -477,8 +487,9 @@ void _updateRowLayout(num gridHeight){
 
     var value = AttachedFrameworkProperty.getValue(element, Grid.rowSpanProperty);
 
-    if (Grid.rowSpanProperty == null || value == null)
+    if (Grid.rowSpanProperty == null || value == null) {
       Grid.setRowSpan(element, 0);
+    }
 
     return AttachedFrameworkProperty.getValue(element, rowSpanProperty);
   }

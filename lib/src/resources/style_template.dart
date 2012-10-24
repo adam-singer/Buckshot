@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -67,8 +69,9 @@ class StyleTemplate extends FrameworkResource
 
   void _onSettersCollectionChanging(Object _, ListChangedEventArgs args){
     args.oldItems.forEach((Setter item){
-      if (_setters.containsKey(item.property.value))
+      if (_setters.containsKey(item.property.value)) {
         _setters.remove(item.property.value);
+      }
     });
 
 

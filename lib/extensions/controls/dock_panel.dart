@@ -57,9 +57,10 @@ class DockPanel extends Panel
 
     value = const StringToLocationConverter().convert(value);
 
-    if (DockPanel.dockProperty == null)
+    if (DockPanel.dockProperty == null) {
       DockPanel.dockProperty = new AttachedFrameworkProperty("dock",
         (FrameworkElement e, DockLocation l){});
+    }
 
     AttachedFrameworkProperty.setValue(element, dockProperty, value);
 
@@ -73,8 +74,9 @@ class DockPanel extends Panel
 
     final value = AttachedFrameworkProperty.getValue(element, dockProperty);
 
-    if (DockPanel.dockProperty == null || value == null)
+    if (DockPanel.dockProperty == null || value == null) {
       DockPanel.setDock(element, DockLocation.left);
+    }
 
     return AttachedFrameworkProperty.getValue(element, dockProperty);
   }

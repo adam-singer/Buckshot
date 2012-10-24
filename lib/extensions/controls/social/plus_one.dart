@@ -55,15 +55,16 @@ class PlusOne extends FrameworkElement
 
   /**
   * Injects javascript into the DOM, and optionally removes it after the script has run. */
-  static void _inject(String javascript, [bool removeAfter = false]){
+  static void _inject(String javascript, {bool removeAfter: false}){
     var s = new Element.tag("script");
     s.attributes["type"] = "text/javascript";
     s.text = javascript;
 
     document.body.nodes.add(s);
 
-    if (removeAfter != null && removeAfter)
+    if (removeAfter != null && removeAfter) {
       s.remove();
+    }
   }
 
 

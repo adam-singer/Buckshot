@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -27,8 +29,9 @@ class ResourceCollection extends FrameworkResource implements FrameworkContainer
       args.newItems.forEach((FrameworkResource r){
 
         //throw on non-resources in this collection or attempts to nest collections
-        if (!(r is FrameworkResource) || r is ResourceCollection)
+        if (!(r is FrameworkResource) || r is ResourceCollection) {
           throw const BuckshotException("Invalid resource found in ResourceCollection.");
+        }
       });
     }
   }

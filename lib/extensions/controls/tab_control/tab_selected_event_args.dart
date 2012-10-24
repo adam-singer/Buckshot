@@ -1,3 +1,5 @@
+part of tabcontrol_controls_buckshot;
+
 
 class TabSelectedEventArgs extends EventArgs
 {

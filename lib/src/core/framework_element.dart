@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -257,9 +259,10 @@ class FrameworkElement extends FrameworkObject
           }
 
           aList.listChanged + (_, ListChangedEventArgs args){
-            if (args.oldItems.length > 0)
+            if (args.oldItems.length > 0) {
               throw const BuckshotException('Actions cannot be removed once'
                   ' added to the collection.');
+            }
 
             //assign this element as the source to any new actions
             args.newItems.forEach((ActionBase action){

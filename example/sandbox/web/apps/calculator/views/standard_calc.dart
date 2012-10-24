@@ -1,3 +1,5 @@
+part of calculator_apps_buckshot;
+
 /**
 * Represents the view of an standard calculator keypad layout.
 */

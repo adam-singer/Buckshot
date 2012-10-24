@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -18,7 +20,7 @@ class LinearGradientBrush extends Brush
   /// Represents the fall back [Color] to use if gradients aren't supported.
   FrameworkProperty<Color> fallbackColor;
 
-  LinearGradientBrush([LinearGradientDirection dir, Color fallback])
+  LinearGradientBrush({LinearGradientDirection dir, Color fallback})
   {
     _initLinearGradientBrushProperties();
 
@@ -55,11 +57,13 @@ class LinearGradientBrush extends Brush
     stops.value.forEach((GradientStop stop){
       colorString.add(stop.color.value.toColorString());
 
-      if (stop.percent.value != -1)
+      if (stop.percent.value != -1) {
         colorString.add(" ${stop.percent.value}%");
+      }
 
-      if (stop != stops.value.last())
+      if (stop != stops.value.last()) {
         colorString.add(", ");
+      }
     });
 
     //set the background for all browser types

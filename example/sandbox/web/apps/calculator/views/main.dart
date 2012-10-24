@@ -1,3 +1,5 @@
+part of calculator_apps_buckshot;
+
 class Main extends View
 {
 

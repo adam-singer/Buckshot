@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -33,8 +35,9 @@ class DataTemplate extends BuckshotObject
   : _properties = new HashMap<String, FrameworkProperty>()
   {
     propertyNames.forEach((String p){
-      if (!(p is String)) throw const BuckshotException("Expect String property"
+      if (!(p is String)) { throw const BuckshotException("Expect String property"
           " name in DataTemplate.fromList constructor list.");
+      }
       addProperty(p);
     });
   }
@@ -48,8 +51,9 @@ class DataTemplate extends BuckshotObject
   : _properties = new HashMap<String, FrameworkProperty>()
   {
     propertyMap.forEach((String p, v){
-      if (!(p is String)) throw const BuckshotException("Expect String property"
+      if (!(p is String)) { throw const BuckshotException("Expect String property"
           " name in DataTemplate.fromList constructor list.");
+      }
       addProperty(p, v);
     });
   }
@@ -96,9 +100,10 @@ class DataTemplate extends BuckshotObject
                    [Dynamic defaultData = null,
                    Function changedCallback = null]){
 
-    if (_properties.containsKey(propertyName))
+    if (_properties.containsKey(propertyName)) {
       throw new BuckshotException("Property name '${propertyName}' already"
       " exists in DataTemplate properties.");
+    }
 
     if (defaultData == null && changedCallback == null){
       _properties[propertyName] = new FrameworkProperty(this, propertyName);

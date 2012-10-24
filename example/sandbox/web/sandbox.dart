@@ -70,7 +70,7 @@ void main() {
 }
 
 
-Map<String, String> get queryString() {
+Map<String, String> get queryString {
   var results = {};
   var qs;
   qs = window.location.search.isEmpty() ? ''

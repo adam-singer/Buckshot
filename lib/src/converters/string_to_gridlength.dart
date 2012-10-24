@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -27,7 +29,7 @@ class StringToGridLengthConverter implements IValueConverter
       
       //only a numeric should be left
       try{
-        num val = parseDouble(stripped);
+        num val = double.parse(stripped);
         return new GridLength.star(val);
       }on FormatException catch (e){
         throw const BuckshotException("Unable to parse gridlength value.");
@@ -36,7 +38,7 @@ class StringToGridLengthConverter implements IValueConverter
    
     // should be pixel
     try{
-      num val = parseInt(value);
+      num val = int.parse(value);
       return new GridLength.pixel(val);
     }on FormatException catch (e){
       throw const BuckshotException("Unable to parse gridlength value.");

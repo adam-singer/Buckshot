@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 
 /** Base class for Polyfills */
 abstract class Polyfill extends HashableObject

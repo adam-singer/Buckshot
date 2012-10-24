@@ -1,3 +1,5 @@
+part of core_buckshotui_org;
+
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
@@ -26,8 +28,9 @@ class _CssCompiler
     //sort keyframe by time
     sortKeyFrames(anim.keyFrames.value);
 
-    if (anim.keyFrames.value[0].time.value < 0)
+    if (anim.keyFrames.value[0].time.value < 0) {
       throw const AnimationException('keyframe start time is < 0');
+    }
 
     //convert keyframe times to percentages
     computeKeyFramePercentages(anim.keyFrames.value);
@@ -65,8 +68,9 @@ class _CssCompiler
         if (prop == null){
           throw new AnimationException('Unable to find specified property: ${s.property.value}');
         }
-        if (prop is! AnimatingFrameworkProperty)
+        if (prop is! AnimatingFrameworkProperty) {
           throw new AnimationException('Attempted to animate property ${s.property.value} that is not type AnimatingFrameworkProperty.');
+        }
 
         //set the value to the proxy element, then read back it's css output
         if (prop.propertyName == 'fill'){
