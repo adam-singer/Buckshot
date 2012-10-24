@@ -19,6 +19,7 @@ class BrowserInfo {
 
   bool get isMobile => mobileType != Browser.UNKNOWN;
 
-  String toString() => "Browser Info (Type: ${browser}, Version: ${version}, Platform: ${platform}, MobileType: ${mobileType})";
+  String toString() => "Browser Info (Type: ${browser}, Version: ${version}, "
+    " Platform: ${platform}, MobileType: ${mobileType})";
 
 }
