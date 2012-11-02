@@ -47,7 +47,7 @@ class DataTemplate extends BuckshotObject
    *  ## Example ##
    *     new DataTemplate.fromMap({"name":"John","address":"123 Main St","phone":"555-555-5555","age":"27","sex":"M"});
    */
-  DataTemplate.fromMap(Map<String, Dynamic> propertyMap)
+  DataTemplate.fromMap(Map<String, dynamic> propertyMap)
   : _properties = new HashMap<String, FrameworkProperty>()
   {
     propertyMap.forEach((String p, v){
@@ -72,7 +72,7 @@ class DataTemplate extends BuckshotObject
     var name = '';
 
     _properties
-    .getKeys()
+    .keys
     .some((k){
       if (k.toLowerCase() == propertyName){
         name = k;
@@ -85,19 +85,19 @@ class DataTemplate extends BuckshotObject
   }
 
   /** Sets [propertyName] to the given [value] in the DataTemplate. */
-  void setV(String propertyName, Dynamic value) {
+  void setV(String propertyName, dynamic value) {
       _properties[propertyName].value = value;
   }
 
   /** Gets the value from [propertyName] in the DataTemplate.*/
-  Dynamic getV(String propertyName) => _properties[propertyName].value;
+  dynamic getV(String propertyName) => _properties[propertyName].value;
 
   /**
    * Adds a new [FrameworkProperty] to the DataTemplate with optional default
    * data and callback.
    */
   void addProperty(String propertyName,
-                   [Dynamic defaultData = null,
+                   [dynamic defaultData = null,
                    Function changedCallback = null]){
 
     if (_properties.containsKey(propertyName)) {

@@ -24,9 +24,9 @@ class RadioButtonGroup
       throw const BuckshotException("RadioButton already exists in the RadioButtonGroup list.");
     }
 
-    if (!radioButtonList.isEmpty()){
+    if (!radioButtonList.isEmpty){
       //do a check to ensure groupName is the same
-      String gName = radioButtonList.getKeys().iterator().next().groupName.value;
+      String gName = radioButtonList.keys.iterator().next().groupName.value;
       if (gName != buttonToAdd.groupName.value) {
         throw new BuckshotException("Attempted to add RadioButton with groupName='${buttonToAdd.groupName.value}' to RadioButtonGroup with groupName='$gName'");
       }

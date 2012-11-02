@@ -26,7 +26,7 @@ class FrameworkObject extends BuckshotObject
 
   /// Represents the data context assigned to the FrameworkElement.
   /// Declarative xml binding can be used to bind to data context.
-  FrameworkProperty<Dynamic> dataContext;
+  FrameworkProperty<dynamic> dataContext;
 
   /// Represents a map of [Binding]s that will be bound just before
   /// the element renders to the DOM.
@@ -96,7 +96,7 @@ class FrameworkObject extends BuckshotObject
     name = new FrameworkProperty(
       this,
       "name",
-      (String value){
+      propertyChangedCallback: (String value){
 
         if (name.previousValue != null){
           throw new BuckshotException('Attempted to assign name "${value}"'
@@ -117,7 +117,7 @@ class FrameworkObject extends BuckshotObject
   void _startWatchMeasurement(){
     _watchingMeasurement = true;
 
-    watchIt(int time){
+    watchIt(num time){
       if (!_watchingMeasurement) return;
 
       rawElement.rect.then((ElementRect m){
@@ -164,7 +164,7 @@ class FrameworkObject extends BuckshotObject
   void _startWatchPosition(){
     _watchingPosition= true;
 
-    watchIt(int time){
+    watchIt(num time){
       if (!_watchingPosition) return;
 
       rawElement.rect.then((ElementRect m){
@@ -285,7 +285,7 @@ class FrameworkObject extends BuckshotObject
 
     final dcs = _resolveAllDataContexts();
 
-    if (dcs.isEmpty()) return;
+    if (dcs.isEmpty) return;
 
     //log('data contexts: ${dcs}', element: this);
 
@@ -293,7 +293,7 @@ class FrameworkObject extends BuckshotObject
 
     final dc = dcs[0];
 
-    if (lateBindings.isEmpty()) return;
+    if (lateBindings.isEmpty) return;
     _wireLateBindings(dc);
   }
 
@@ -333,7 +333,7 @@ class FrameworkObject extends BuckshotObject
   }
 
   void _wireEventBindings(List dataContexts){
-    if (_eventBindings.isEmpty()) return;
+    if (_eventBindings.isEmpty) return;
     if (!reflectionEnabled){
       _eventBindings
         .forEach((String handler, FrameworkEvent event){
@@ -360,7 +360,7 @@ class FrameworkObject extends BuckshotObject
       return;
     }
 
-    if (dataContexts.isEmpty()){
+    if (dataContexts.isEmpty){
       // global event handler
       final lm = buckshot.mirrorSystem.isolate.rootLibrary;
       _eventBindings

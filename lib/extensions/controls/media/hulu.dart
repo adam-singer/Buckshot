@@ -25,13 +25,14 @@ class Hulu extends FrameworkElement
   makeMe() => new Hulu();
 
   void _initializeHuluProperties(){
-    videoID = new FrameworkProperty(this, "videoID", (String value){
+    videoID = new FrameworkProperty(this, "videoID",
+        propertyChangedCallback: (String value){
       param1.attributes["src"] = 'http://www.hulu.com/embed/${value.toString()}';
       embed.attributes["src"] = 'http://www.hulu.com/embed/${value.toString()}';
     });
   }
 
-  void calculateWidth(value){
+ void calculateWidth(value){
     super.calculateWidth(value);
     if (actualWidth == null) return;
     rawElement.attributes["width"] = '${actualWidth.toString()}px';

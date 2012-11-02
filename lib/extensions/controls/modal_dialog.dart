@@ -63,8 +63,8 @@ class ModalDialog extends Control
   FrameworkProperty<Thickness> cornerRadius;
   FrameworkProperty<Brush> maskBrush;
   FrameworkProperty<num> maskOpacity;
-  FrameworkProperty<Dynamic> title;
-  FrameworkProperty<Dynamic> body;
+  FrameworkProperty<dynamic> title;
+  FrameworkProperty<dynamic> body;
   Binding b1, b2;
   Border bDialog;
   Grid cvRoot;
@@ -193,12 +193,12 @@ class ModalDialog extends Control
 
     borderThickness = new FrameworkProperty(this, 'borderThickness',
         defaultValue: getResource('theme_border_thickness',
-                                  const StringToThicknessConverter()),
+                                  converter:const StringToThicknessConverter()),
         converter: const StringToThicknessConverter());
 
     cornerRadius = new FrameworkProperty(this, 'cornerRadius',
         defaultValue: getResource('theme_border_corner_radius',
-            const StringToThicknessConverter()),
+            converter:const StringToThicknessConverter()),
         converter: const StringToThicknessConverter());
 
     cvRoot = Template.findByName('cvRoot', template);

@@ -14,7 +14,7 @@ part 'tab_selected_event_args.dart';
 
 class TabControl extends Control implements FrameworkContainer
 {
-  FrameworkProperty<Dynamic> currentContent;
+  FrameworkProperty<dynamic> currentContent;
   FrameworkProperty<ObservableList<TabItem>> tabItems;
   FrameworkProperty<HorizontalAlignment> tabAlignment;
   FrameworkProperty<Brush> tabBackground;
@@ -95,7 +95,7 @@ class TabControl extends Control implements FrameworkContainer
   }
 
   void onFirstLoad(){
-    if (tabItems.value.isEmpty()) return;
+    if (tabItems.value.isEmpty) return;
 
     // this is the collection of the visual elements representing each
     // tab

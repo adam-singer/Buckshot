@@ -50,7 +50,7 @@ class StockTickerModel
    * arrive via the [stockUpdate] event.
    */
   void watchSymbol(String symbol){
-    if (symbol == null || symbol.isEmpty()) return;
+    if (symbol == null || symbol.isEmpty) return;
 
     if (symbol.length > 4){
       symbol = symbol.substring(0, 3);
@@ -68,7 +68,7 @@ class StockTickerModel
   }
 
   void _updateTickers(_){
-    if (_tickerSymbols.isEmpty()) return;
+    if (_tickerSymbols.isEmpty) return;
 
     _tickerSymbols.forEach((symbol, currentPrice){
       if (!(_rng.nextInt(100) > 50)) return; // 50% chance to spawn a symbol update

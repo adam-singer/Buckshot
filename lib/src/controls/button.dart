@@ -10,7 +10,7 @@ part of core_buckshotui_org;
 class Button extends Control implements FrameworkContainer
 {
   /// Represents the content inside the button.
-  FrameworkProperty<Dynamic> content;
+  FrameworkProperty<dynamic> content;
 
   Button()
   {

@@ -11,14 +11,14 @@ part of core_buckshotui_org;
 
 const String _defaultRootID = "#BuckshotHost";
 
-final Map<String, Dynamic> _mirrorCache = new Map<String, Dynamic>();
+final Map<String, dynamic> _mirrorCache = new Map<String, dynamic>();
 
 /// Central registry of named [FrameworkObject] elements.
 final HashMap<String, FrameworkObject> namedElements =
     new HashMap<String, FrameworkObject>();
 
 final HashMap<String, Function> _objectRegistry =
-    new HashMap<String, Dynamic>();
+    new HashMap<String, dynamic>();
 
 /**
  * Registers an object to the framework.
@@ -339,7 +339,7 @@ Future<FrameworkElement> setView(View view, [String elementID = 'BuckshotHost'])
 Binding bind(FrameworkProperty from, FrameworkProperty to,
              {BindingMode bindingMode : BindingMode.OneWay,
               IValueConverter converter :const _DefaultConverter()}){
-  return new Binding(from, to, bindingMode, converter);
+  return new Binding(from, to, bindingMode:bindingMode, converter:converter);
 }
 
 
@@ -349,7 +349,7 @@ Binding bind(FrameworkProperty from, FrameworkProperty to,
  * If the optional [converter] is supplied, then the value returned is
  * first passed through converter.convert();
  */
-getResource(String resourceKey, [IValueConverter converter = null]){
+getResource(String resourceKey, {IValueConverter converter: null}){
   if (_resourceRegistry == null) return null;
 
   String lowered = resourceKey.trim().toLowerCase();
@@ -384,7 +384,7 @@ void registerResource(FrameworkResource resource){
  *
  * This function is deprecated. Assign to property.value directly.
  */
-@deprecated void setValue(FrameworkProperty property, Dynamic value){
+@deprecated void setValue(FrameworkProperty property, dynamic value){
   property.value = value;
 }
 

@@ -40,7 +40,7 @@ class RawHtml extends FrameworkElement
     htmlString = new FrameworkProperty(
       this,
       "htmlString",
-      (String value){
+      propertyChangedCallback: (String value){
         rawElement.innerHTML = value.toString();
       });
   }

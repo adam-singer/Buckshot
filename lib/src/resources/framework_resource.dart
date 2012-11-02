@@ -33,7 +33,7 @@ class FrameworkResource extends FrameworkObject
 {
   /// An application-wide unique identifier for the resource.
   /// Required.
-  FrameworkProperty key;
+  FrameworkProperty<String> key;
 
   /// A meta-data tag that is used to identify the default resource
   /// property of a FrameworkResource.

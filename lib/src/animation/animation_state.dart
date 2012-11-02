@@ -8,7 +8,7 @@ class AnimationState extends TemplateObject
 {
   FrameworkProperty<String> target;
   FrameworkProperty<String> property;
-  FrameworkProperty<Dynamic> value;
+  FrameworkProperty<dynamic> value;
 
   AnimationState(){
     _initAnimationStateProperties();

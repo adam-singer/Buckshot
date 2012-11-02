@@ -52,7 +52,7 @@ class FrameworkAnimation
      window.requestAnimationFrame(_doWork);
   }
 
-  static void _doWork(int time){
+  static void _doWork(num time){
 
     workers.forEach((_, work) => work(time));
 
@@ -105,7 +105,7 @@ class FrameworkAnimation
       sb.add('${props[i]},');
     }
 
-    sb.add(props.last());
+    sb.add(props.last);
 
     Polly.setCSS(rel.rawElement, 'transition', sb.toString());
   }
@@ -157,7 +157,7 @@ class FrameworkAnimation
       sb.add('${props[i]},');
     }
 
-    sb.add(props.last());
+    sb.add(props.last);
 
     Polly.setCSS((property.sourceObject as FrameworkObject).rawElement, 'transition', sb.toString());
   }

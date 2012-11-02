@@ -8,7 +8,7 @@ class StringToColorStringConverter implements IValueConverter{
 
   const StringToColorStringConverter();
 
-  Dynamic convert(Dynamic value, [Dynamic parameter]){
+  dynamic convert(dynamic value, [dynamic parameter]){
 
     if (value.startsWith("#")){
       return value;

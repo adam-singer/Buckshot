@@ -73,7 +73,7 @@ void main() {
 Map<String, String> get queryString {
   var results = {};
   var qs;
-  qs = window.location.search.isEmpty() ? ''
+  qs = window.location.search.isEmpty ? ''
       : window.location.search.substring(1);
   var pairs = qs.split('&');
 

@@ -15,7 +15,7 @@ class AttachedPropertyChangedEventArgs extends EventArgs
   final element;
 
   /// Holds the value assigned to the attached property.
-  final Dynamic value;
+  final dynamic value;
 
   AttachedPropertyChangedEventArgs(this.element, this.property, this.value);
 }

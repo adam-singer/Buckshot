@@ -55,7 +55,7 @@ class FrameworkProperty<T> extends FrameworkPropertyBase
      .invokeAsync(sourceObject,
          new PropertyChangingEventArgs(previousValue, _value));
 
-     if(_traceProperty.isEmpty()) return;
+     if(_traceProperty.isEmpty) return;
      if (_traceProperty.indexOf(propertyName) == -1) return;
      log('***TRACE***: object $sourceObject property $propertyName assigned value: $_value');
    }
@@ -72,14 +72,14 @@ class FrameworkProperty<T> extends FrameworkPropertyBase
   FrameworkProperty(
       BuckshotObject sourceObject,
       String propertyName,
-      [Function propertyChangedCallback,
-      T defaultValue = null,
-      converter = null])
+      {Function propertyChangedCallback : null,
+      T defaultValue : null,
+      converter : null})
   : super(
       sourceObject,
       propertyName,
       propertyChangedCallback,
-      stringToValueConverter:converter)
+      converter)
   {
 
     if (!reflectionEnabled && sourceObject != null){
@@ -99,7 +99,7 @@ class AnimatingFrameworkProperty<T> extends FrameworkProperty<T>
   final String cssPropertyPeer;
 
   AnimatingFrameworkProperty(FrameworkElement sourceObject, String propertyName, String this.cssPropertyPeer, {Function propertyChangedCallback, T defaultValue: null, converter: null})
-  : super(sourceObject, propertyName, propertyChangedCallback, defaultValue:defaultValue, converter:converter)
+  : super(sourceObject, propertyName, propertyChangedCallback:propertyChangedCallback, defaultValue:defaultValue, converter:converter)
   {
     if (sourceObject is! FrameworkElement) throw const BuckshotException('AnimatingFrameworkProperty can only be used with elements that derive from FrameworkElement.');
   }

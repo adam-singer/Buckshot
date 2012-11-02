@@ -64,7 +64,8 @@ class Border extends FrameworkElement implements FrameworkContainer
     //register the dependency properties
     content = new FrameworkProperty(
       this,
-      "content", (FrameworkElement c)
+      "content",
+      propertyChangedCallback: (FrameworkElement c)
       {
         if (content.previousValue != null){
           content.previousValue.removeFromLayoutTree();
@@ -96,16 +97,18 @@ class Border extends FrameworkElement implements FrameworkContainer
     padding = new FrameworkProperty(
       this,
       "padding",
-      (Thickness value){
+      propertyChangedCallback: (Thickness value){
         rawElement.style.padding = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
         updateLayout();
-      }, new Thickness(0), converter:const StringToThicknessConverter());
+      },
+      defaultValue: new Thickness(0),
+      converter:const StringToThicknessConverter());
 
     cornerRadius = new AnimatingFrameworkProperty(
       this,
       "cornerRadius",
       'border-radius',
-      propertyChangedCallback:(Thickness value){
+      propertyChangedCallback:(value){
         // TODO (John) this is a temprorary fix until value converters are working in
         // templates...
         if (value is num){
@@ -133,7 +136,7 @@ class Border extends FrameworkElement implements FrameworkContainer
     borderThickness = new FrameworkProperty(
       this,
       "borderThickness",
-      (value){
+      propertyChangedCallback: (value){
 
         String color = borderColor.value != null ? rawElement.style.borderColor : Colors.White.toString();
 
@@ -142,7 +145,7 @@ class Border extends FrameworkElement implements FrameworkContainer
         rawElement.style.borderLeft = '${borderStyle.value} ${value.left}px $color';
         rawElement.style.borderBottom = '${borderStyle.value} ${value.bottom}px $color';
 
-      }, new Thickness(0), converter:const StringToThicknessConverter());
+      }, defaultValue: new Thickness(0), converter:const StringToThicknessConverter());
 
     horizontalScrollEnabled = new AnimatingFrameworkProperty(this,
         "horizontalScrollEnabled",

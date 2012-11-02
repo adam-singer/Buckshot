@@ -41,19 +41,25 @@ class Slider extends Control
   }
 
   void _initSliderProperties(){
-    min = new FrameworkProperty(this, "min", (num v){
+    min = new FrameworkProperty(this, "min",
+        propertyChangedCallback: (num v){
       rawElement.attributes["min"] = v.toString();
-    }, 0, converter:const StringToNumericConverter());
+    }, defaultValue:0,
+    converter:const StringToNumericConverter());
 
-    max= new FrameworkProperty(this, "max", (num v){
+    max= new FrameworkProperty(this, "max",
+        propertyChangedCallback: (num v){
       rawElement.attributes["max"] = v.toInt().toString();
-    }, 100, converter:const StringToNumericConverter());
+    }, defaultValue:100,
+    converter:const StringToNumericConverter());
 
-    step = new FrameworkProperty(this, "step", (num v){
+    step = new FrameworkProperty(this, "step",
+        propertyChangedCallback: (num v){
       rawElement.attributes["step"] = v.toString();
     }, converter:const StringToNumericConverter());
 
-    value = new FrameworkProperty(this, "value", (num v){
+    value = new FrameworkProperty(this, "value",
+        propertyChangedCallback: (num v){
       (rawElement as InputElement).value = v.toString();
     }, converter:const StringToNumericConverter());
   }

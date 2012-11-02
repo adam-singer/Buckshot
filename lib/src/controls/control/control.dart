@@ -57,27 +57,27 @@ abstract class Control extends FrameworkElement
     if (defaultControlTemplate is ControlTemplate){
       final tName = XML.parse(defaultControlTemplate.rawData).attributes['controlType'];
       assert(tName != null);
-      assert(!tName.isEmpty());
+      assert(!tName.isEmpty);
       Template
         .deserialize(defaultControlTemplate.rawData)
         .then((_) => _finishApplyVisualTemplate(tName));
-    } else if (defaultControlTemplate is String && !defaultControlTemplate.isEmpty()){
+    } else if (defaultControlTemplate is String && !defaultControlTemplate.isEmpty){
       final tName = XML.parse(defaultControlTemplate).attributes['controlType'];
       assert(tName != null);
-      assert(!tName.isEmpty());
+      assert(!tName.isEmpty);
       Template
         .deserialize(defaultControlTemplate)
         .then((_) => _finishApplyVisualTemplate(tName));
     }else{
       final tName = templateName;
       assert(tName != null);
-      assert(!tName.isEmpty());
+      assert(!tName.isEmpty);
       _finishApplyVisualTemplate('');
     }
   }
 
   void _finishApplyVisualTemplate(String t){
-    if (t.isEmpty()){
+    if (t.isEmpty){
       template = this;
       super.applyVisualTemplate();
       return;
@@ -156,5 +156,5 @@ abstract class Control extends FrameworkElement
   }
 
   /// Gets a standardized name for assignment to the [ControlTemplate] 'controlType' property.
-  String get templateName => 'template_${hashCode()}';
+  String get templateName => 'template_${hashCode}';
 }

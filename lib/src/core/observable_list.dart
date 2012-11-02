@@ -28,12 +28,12 @@ class ObservableList<T> implements List<T>{
 
   T operator[](int index) => _list[index];
 
-  bool isEmpty() => _list.isEmpty();
+  bool get isEmpty => _list.isEmpty;
 
   void forEach(void f(element)) => _list.forEach(f);
 
   bool contains(T element) => _list.contains(element);
-  
+
   Collection map(f(T element)) => _list.map(f);
 
   Collection<T> filter(bool f(T element)) => _list.filter(f);
@@ -55,8 +55,8 @@ class ObservableList<T> implements List<T>{
 
   List getRange(int start, int length) => _list.getRange(start, length);
 
-  Dynamic reduce(Dynamic initialValue,
-                 Dynamic combine(Dynamic previousValue, T element)) =>
+  dynamic reduce(dynamic initialValue,
+                 dynamic combine(dynamic previousValue, T element)) =>
                      _list.reduce(initialValue, combine);
 
 //  T removeAt(int index){
@@ -96,18 +96,18 @@ class ObservableList<T> implements List<T>{
   }
 
   T removeLast(){
-    T item = _list.last();
+    T item = _list.last;
     _list.removeLast();
     _notifySingleOld(item);
     return item;
   }
 
-  T last() => _list.last();
+  T get last => _list.last;
 
   void sort([Comparator compare = Comparable.compare]) => _list.sort(compare);
 
   void insertRange(int start, int length, [T initialValue = null]){
-    throw const UnsupportedOperationException("insertRange not supported in ObservableList");
+    throw new UnsupportedError("insertRange not supported in ObservableList");
   }
 
   void addLast(T value) => _list.addLast(value);

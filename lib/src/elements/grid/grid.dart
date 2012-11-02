@@ -65,17 +65,17 @@ Grid()
   }
   columnDefinitions = new FrameworkProperty(this,
       "columnDefinitions",
-      (ObservableList<ColumnDefinition> list){
+      propertyChangedCallback: (ObservableList<ColumnDefinition> list){
         _updateColumnLayout(actualWidth.value);
       },
-      new ObservableList<ColumnDefinition>());
+      defaultValue:new ObservableList<ColumnDefinition>());
 
   rowDefinitions = new FrameworkProperty(this,
       "rowDefinitions",
-      (ObservableList<RowDefinition> list){
+      propertyChangedCallback: (ObservableList<RowDefinition> list){
         _updateRowLayout(actualHeight.value);
       },
-      new ObservableList<RowDefinition>());
+      defaultValue:new ObservableList<RowDefinition>());
 
   children.listChanged + _onChildrenChanging;
 

@@ -9,7 +9,7 @@ part of core_buckshotui_org;
 */
 class Setter extends TemplateObject
 {
-  FrameworkProperty<Dynamic> value;
+  FrameworkProperty<dynamic> value;
   FrameworkProperty<String> property;
 
   Setter(){
@@ -19,7 +19,7 @@ class Setter extends TemplateObject
   Setter.register() : super.register();
   makeMe() => new Setter();
 
-  Setter.with(String propertyName, Dynamic propertyValue)
+  Setter.with(String propertyName, dynamic propertyValue)
   {
     _initStyleSetterProperties();
     property.value = propertyName;

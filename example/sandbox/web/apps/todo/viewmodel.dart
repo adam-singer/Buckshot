@@ -31,7 +31,7 @@ class ViewModel extends ViewModelBase
   }
 
   void addNewEntry(){
-    if (taskName.value.isEmpty() || dueDate.value.isEmpty()){
+    if (taskName.value.isEmpty || dueDate.value.isEmpty){
       statusColor.value = bad;
       statusText.value = "Please make sure Task and Due Date are filled in.";
     }else{

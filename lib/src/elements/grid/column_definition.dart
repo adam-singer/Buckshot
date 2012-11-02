@@ -45,12 +45,15 @@ class ColumnDefinition extends GridLayoutDefinition{
   }
 
   void _initColumnDefinitionProperties(){
-    width = new FrameworkProperty(this, "width", (GridLength v){
+    width = new FrameworkProperty(this, "width",
+    propertyChangedCallback: (GridLength v){
       if (v.length.value < minLength) v.length.value = minLength;
       if (v.length.value > maxLength) v.length.value = maxLength;
 
       _gridLength = v;
       _columnDefinitionChanged.invoke(this, new EventArgs());
-    }, new GridLength(), converter:const StringToGridLengthConverter());
+    },
+    defaultValue:new GridLength(),
+    converter:const StringToGridLengthConverter());
   }
 }

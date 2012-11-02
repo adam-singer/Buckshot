@@ -21,13 +21,16 @@ class Image extends FrameworkElement {
   makeMe() => new Image();
 
   void _initializeImageProperties(){
-    sourceUri = new FrameworkProperty(this, "sourceUri", (String value){
+    sourceUri = new FrameworkProperty(this, "sourceUri",
+        propertyChangedCallback: (String value){
       rawElement.attributes["src"] = value.toString();
     });
 
-    alt = new FrameworkProperty(this, "alt", (String value){
+    alt = new FrameworkProperty(this, "alt",
+        propertyChangedCallback: (String value){
       rawElement.attributes["alt"] = value.toString();
-    }, "undefined");
+    },
+    defaultValue: "undefined");
   }
 
   /// Overridden [FrameworkObject] method.

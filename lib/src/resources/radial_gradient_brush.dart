@@ -57,7 +57,7 @@ class RadialGradientBrush extends Brush {
         colorString.add(" ${stop.percent.value}%");
       }
 
-      if (stop != stops.value.last()) {
+      if (stop != stops.value.last) {
         colorString.add(", ");
       }
     });

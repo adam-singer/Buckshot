@@ -44,12 +44,15 @@ class RowDefinition extends GridLayoutDefinition{
   }
 
   void _initRowDefinitionProperties(){
-    height = new FrameworkProperty(this, "height", (GridLength v){
-      if (v.length.value < minLength) v.length.value = minLength;
-      if (v.length.value  > maxLength) v.length.value = maxLength;
+    height = new FrameworkProperty(this, "height",
+      propertyChangedCallback: (GridLength v){
+        if (v.length.value < minLength) v.length.value = minLength;
+        if (v.length.value  > maxLength) v.length.value = maxLength;
 
-      _gridLength = v;
-      _rowDefinitionChanged.invoke(this, new EventArgs());
-    }, new GridLength(), converter:const StringToGridLengthConverter());
+        _gridLength = v;
+        _rowDefinitionChanged.invoke(this, new EventArgs());
+      },
+      defaultValue: new GridLength(),
+      converter:const StringToGridLengthConverter());
   }
 }

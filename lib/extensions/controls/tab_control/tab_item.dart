@@ -10,7 +10,7 @@ class TabItem extends Control implements FrameworkContainer
   FrameworkProperty<FrameworkElement> icon;
   FrameworkProperty<bool> closeEnabled;
   FrameworkProperty<Visibility> _closeButtonVisiblity;
-  FrameworkProperty<Dynamic> content;
+  FrameworkProperty<dynamic> content;
 
   FrameworkElement _visualTemplate;
 

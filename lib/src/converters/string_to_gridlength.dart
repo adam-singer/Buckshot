@@ -12,7 +12,7 @@ class StringToGridLengthConverter implements IValueConverter
 {
   const StringToGridLengthConverter();
   
-  Dynamic convert(Dynamic value, [Dynamic parameter]){
+  dynamic convert(dynamic value, [dynamic parameter]){
     if (!(value is String)) return value;
    
     // auto length

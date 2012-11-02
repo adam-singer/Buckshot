@@ -39,20 +39,19 @@ class TextBlock extends FrameworkElement implements FrameworkContainer
   void _initTextBlockProperties(){
 
     fontWeight = new FrameworkProperty(this, 'fontWeight',
-      (String value){
+        propertyChangedCallback: (String value){
         rawElement.style.fontWeight = '$value';
       });
 
     decoration = new FrameworkProperty(this, 'decoration',
-      propertyChangedCallback:
-        (String value){
+        propertyChangedCallback: (String value){
           rawElement.style.textDecoration = '$value';
         });
 
     background = new FrameworkProperty(
       this,
       "background",
-      (Brush value){
+      propertyChangedCallback: (Brush value){
         if (value == null){
           rawElement.style.background = "None";
           return;
@@ -63,7 +62,7 @@ class TextBlock extends FrameworkElement implements FrameworkContainer
     foreground = new FrameworkProperty(
       this,
       "foreground",
-      (Color c){
+      propertyChangedCallback: (Color c){
          rawElement.style.color = c.toColorString();
       },
       defaultValue: getResource('theme_text_foreground'),
@@ -72,21 +71,21 @@ class TextBlock extends FrameworkElement implements FrameworkContainer
     text = new FrameworkProperty(
       this,
       "text",
-      (String value){
+      propertyChangedCallback: (value){
         rawElement.text = "$value";
       });
 
     fontSize = new FrameworkProperty(
       this,
       "fontSize",
-      (value){
+      propertyChangedCallback: (value){
         rawElement.style.fontSize = '${value.toString()}px';
       });
 
     fontFamily = new FrameworkProperty(
       this,
       "fontFamily",
-      (value){
+      propertyChangedCallback: (value){
         rawElement.style.fontFamily = value.toString();
       }, defaultValue:getResource('theme_text_font_family'));
   }

@@ -9,10 +9,10 @@ part of core_buckshotui_org;
 */
 class Hyperlink extends Control implements FrameworkContainer
 {
-  Dynamic _content;
+  dynamic _content;
 
   /// Represents the content of the hyperlink.
-  FrameworkProperty<Dynamic> content;
+  FrameworkProperty<dynamic> content;
   /// Represents the html 'target' value of the hyperlink.
   FrameworkProperty<String> targetName;
   /// Represents the url navigation target of the hyperlink.
@@ -43,7 +43,7 @@ class Hyperlink extends Control implements FrameworkContainer
     content = new FrameworkProperty(
       this,
       "content",
-      (value) {
+      propertyChangedCallback: (value) {
 
         //if the content is previously a textblock and the value is a String then just
         //replace the text property with the new string
@@ -77,18 +77,20 @@ class Hyperlink extends Control implements FrameworkContainer
 
       });
 
-    targetName = new FrameworkProperty(this, "targetName", (String value){
+    targetName = new FrameworkProperty(this, "targetName",
+        propertyChangedCallback: (String value){
       rawElement.attributes["target"] = value.toString();
-    }, "_self");
+    }, defaultValue: "_self");
 
-    navigateTo = new FrameworkProperty(this, "navigateTo", (String value){
+    navigateTo = new FrameworkProperty(this, "navigateTo",
+        propertyChangedCallback: (String value){
       rawElement.attributes["href"] = value.toString();
     });
 
     foreground = new FrameworkProperty(
       this,
       "foreground",
-      (Color value){
+      propertyChangedCallback: (Color value){
         rawElement.style.color = '$value';
       },
       defaultValue: getResource('theme_text_foreground'),
@@ -97,14 +99,14 @@ class Hyperlink extends Control implements FrameworkContainer
     fontSize = new FrameworkProperty(
       this,
       "fontSize",
-      (value){
+      propertyChangedCallback: (value){
         rawElement.style.fontSize = '${value.toString()}px';
       }, converter:const StringToNumericConverter());
 
     fontFamily = new FrameworkProperty(
       this,
       "fontFamily",
-      (value){
+      propertyChangedCallback: (value){
         rawElement.style.fontFamily = value.toString();
       });
   }

@@ -10,7 +10,7 @@ part of core_buckshotui_org;
 class StringToNumericConverter implements IValueConverter {
   const StringToNumericConverter();
 
-  Dynamic convert(Dynamic value, {Dynamic parameter}){
+  dynamic convert(dynamic value, {dynamic parameter}){
     if (value is! String || value == 'auto') return value;
 
     try{

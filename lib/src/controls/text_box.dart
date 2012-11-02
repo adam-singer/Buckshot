@@ -47,13 +47,15 @@ class TextBox extends Control
     placeholder = new FrameworkProperty(
       this,
       "placeholder",
-      (String value){
+      propertyChangedCallback: (String value){
         rawElement.attributes["placeholder"] = '$value';
       });
 
-    text = new FrameworkProperty(this, "text", (value){
-      _ie.value = '$value';
-    },"");
+    text = new FrameworkProperty(this, "text",
+      propertyChangedCallback: (value){
+        _ie.value = '$value';
+      },
+      defaultValue:"");
 
     inputType = new FrameworkProperty(this, "inputType",
       propertyChangedCallback:
@@ -88,7 +90,7 @@ class TextBox extends Control
         },
         defaultValue:
           getResource('theme_textbox_border_style',
-                      const StringToBorderStyleConverter()),
+                      converter:const StringToBorderStyleConverter()),
         converter: const StringToBorderStyleConverter());
 
     cornerRadius= new AnimatingFrameworkProperty(
@@ -123,7 +125,7 @@ class TextBox extends Control
     borderThickness = new FrameworkProperty(
       this,
       "borderThickness",
-      (value){
+      propertyChangedCallback: (value){
 
         String color = borderColor != null
             ? rawElement.style.borderColor
@@ -142,7 +144,7 @@ class TextBox extends Control
     padding = new FrameworkProperty(
         this,
         "padding",
-        (Thickness value){
+        propertyChangedCallback: (Thickness value){
           rawElement.style.padding = '${value.top}px ${value.right}px'
             ' ${value.bottom}px ${value.left}px';
           updateLayout();
@@ -154,7 +156,7 @@ class TextBox extends Control
     foreground = new FrameworkProperty(
         this,
         "foreground",
-        (Color c){
+        propertyChangedCallback: (Color c){
           rawElement.style.color = c.toColorString();
         },
         defaultValue: getResource('theme_textbox_foreground'),
@@ -163,14 +165,14 @@ class TextBox extends Control
     fontSize = new FrameworkProperty(
       this,
       "fontSize",
-      (value){
+      propertyChangedCallback: (value){
         rawElement.style.fontSize = '${value}px';
       });
 
     fontFamily = new FrameworkProperty(
       this,
       "fontFamily",
-      (value){
+      propertyChangedCallback: (value){
         rawElement.style.fontFamily = '$value';
       }, defaultValue:getResource('theme_text_font_family'));
   }

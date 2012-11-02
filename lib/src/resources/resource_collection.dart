@@ -25,7 +25,7 @@ class ResourceCollection extends FrameworkResource implements FrameworkContainer
 
   void _onListChanging(Object _, ListChangedEventArgs args){
 
-    if (!args.newItems.isEmpty()){
+    if (!args.newItems.isEmpty){
       args.newItems.forEach((FrameworkResource r){
 
         //throw on non-resources in this collection or attempts to nest collections

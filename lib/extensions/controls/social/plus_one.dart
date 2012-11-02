@@ -39,14 +39,15 @@ class PlusOne extends FrameworkElement
   }
 
   void _initializePlusOneProperties(){
-    annotation = new FrameworkProperty(this, "annotation", (PlusOneAnnotationTypes value){
+    annotation = new FrameworkProperty(this, "annotation",
+    propertyChangedCallback: (PlusOneAnnotationTypes value){
       rawElement.attributes["annotation"] = value.toString();
     },
     defaultValue:PlusOneAnnotationTypes.none,
     converter:const StringToPlusOneAnnotationTypeConverter());
 
     size = new FrameworkProperty(this, "size",
-    (PlusOneButtonSizes value){
+        propertyChangedCallback: (PlusOneButtonSizes value){
       rawElement.attributes["size"] = value.toString();
     },
     defaultValue:PlusOneButtonSizes.standard,
@@ -102,7 +103,7 @@ class PlusOneAnnotationTypes{
 class StringToPlusOneButtonSizeConverter implements IValueConverter{
   const StringToPlusOneButtonSizeConverter();
 
-  Dynamic convert(Dynamic value, [Dynamic parameter]){
+  dynamic convert(dynamic value, [dynamic parameter]){
       if (!(value is String)) return value;
 
       switch(value){
@@ -124,7 +125,7 @@ class StringToPlusOneButtonSizeConverter implements IValueConverter{
 class StringToPlusOneAnnotationTypeConverter implements IValueConverter{
   const StringToPlusOneAnnotationTypeConverter();
 
-  Dynamic convert(Dynamic value, [Dynamic parameter]){
+  dynamic convert(dynamic value, [dynamic parameter]){
       if (!(value is String)) return value;
 
       switch(value){

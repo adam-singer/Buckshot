@@ -8,7 +8,7 @@ class StringToFrameworkElementConverter implements IValueConverter
 {
   const StringToFrameworkElementConverter();
 
-  Dynamic convert(Dynamic value, [Dynamic parameter]){
+  dynamic convert(dynamic value, [dynamic parameter]){
     if (!(value is String)) return value;
 
     return (namedElements.containsKey(value)) ? namedElements[value] : null;

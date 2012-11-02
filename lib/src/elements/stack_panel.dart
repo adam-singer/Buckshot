@@ -66,13 +66,13 @@ class Stack extends Panel
   @override void onChildrenChanging(ListChangedEventArgs args){
     super.onChildrenChanging(args);
 
-    if (!args.oldItems.isEmpty()){
+    if (!args.oldItems.isEmpty){
       args.oldItems.forEach((FrameworkElement element){
         element.removeFromLayoutTree();
       });
     }
 
-    if (!args.newItems.isEmpty()){
+    if (!args.newItems.isEmpty){
       args.newItems.forEach((FrameworkElement element){
         element.addToLayoutTree(this);
       });

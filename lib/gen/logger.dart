@@ -37,7 +37,7 @@ class Logger
    * Pushes a new logging context onto the stack.
    */
   void pushContext(String context){
-    if (context == null || context.isEmpty()) return;
+    if (context == null || context.isEmpty) return;
 
     _contexts.add(context);
   }
@@ -46,7 +46,7 @@ class Logger
    * Pops the most recent context off the stack.
    */
   void popContext(){
-    if (_contexts.isEmpty()) return;
+    if (_contexts.isEmpty) return;
     _contexts.removeLast();
   }
 
@@ -66,14 +66,14 @@ class Logger
    * Gets the current context stack.  The string is empty of no contexts
    * are in the stack.
    */
-  String get context => _contexts.isEmpty() ? '' : '$_contexts';
+  String get context => _contexts.isEmpty ? '' : '$_contexts';
 
   /**
    * Writes a [logEntry] to the log, with optional [newContext] added
    * to the context stack.
    */
   void write(logEntry, [String newContext = '']){
-    if (!newContext.isEmpty()){
+    if (!newContext.isEmpty){
       pushContext(newContext);
     }
 
@@ -88,13 +88,13 @@ class Logger
    * no context added.
    */
   void writeAndPop(logEntry, String context){
-    if (context != null && !context.isEmpty()){
+    if (context != null && !context.isEmpty){
       pushContext(context);
     }
 
     _write('$logEntry');
 
-    if (context != null && !context.isEmpty()){
+    if (context != null && !context.isEmpty){
       popContext();
     }
   }

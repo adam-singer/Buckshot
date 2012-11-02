@@ -64,7 +64,7 @@ class Accordion extends Control implements FrameworkContainer
   }
 
   void _invalidate(){
-    if (accordionItems.value.isEmpty()) return;
+    if (accordionItems.value.isEmpty) return;
 
     final pc = (Template.findByName('__ac_presenter__', template)
         as CollectionPresenter)
@@ -190,7 +190,7 @@ class StringToSelectionModeConverter implements IValueConverter
 
   const StringToSelectionModeConverter();
 
-  Dynamic convert(Dynamic value, [Dynamic parameter]){
+  dynamic convert(dynamic value, [dynamic parameter]){
     if (!(value is String)) return value;
 
     switch(value){

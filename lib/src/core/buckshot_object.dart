@@ -9,7 +9,7 @@ part of core_buckshotui_org;
 */
 abstract class BuckshotObject extends HashableObject
 {
-  final HashMap<String, Dynamic> stateBag = new HashMap<String, Dynamic>();
+  final HashMap<String, dynamic> stateBag = new HashMap<String, dynamic>();
   final List<Binding> _bindings = new List<Binding>();
   final Set<FrameworkProperty> _frameworkProperties =
       new Set<FrameworkProperty>();
@@ -320,7 +320,7 @@ abstract class BuckshotObject extends HashableObject
     return c.future;
   }
 
-  String get safeName => '${toString()}${hashCode()}';
+  String get safeName => '${toString()}${hashCode}';
 
   String toString() => super
                         .toString()

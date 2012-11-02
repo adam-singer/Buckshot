@@ -14,6 +14,6 @@ class HashableObject
 
   HashableObject() : _assignedHash = HashableObject._hashNum++;
 
-  int hashCode() => _assignedHash;
+  int get hashCode => _assignedHash;
 
 }

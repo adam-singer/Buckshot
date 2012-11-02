@@ -20,7 +20,7 @@ class FrameworkElement extends FrameworkObject
       new HashMap<String, String>();
 
   // registered polyfills
-  final HashMap<String, Dynamic> _polyfills = new HashMap<String, Object>();
+  final HashMap<String, dynamic> _polyfills = new HashMap<String, Object>();
 
   FrameworkProperty<bool> userSelect;
   /// Represents the margin [Thickness] area outside the FrameworkElement boundary.
@@ -252,7 +252,7 @@ class FrameworkElement extends FrameworkObject
         converter:const StringToBooleanConverter());
 
     actions = new FrameworkProperty(this, 'actions',
-        (ObservableList<ActionBase> aList){
+        propertyChangedCallback: (ObservableList<ActionBase> aList){
           if (actions != null){
             throw const BuckshotException('FrameworkElement.actionsProperty'
                 ' collection can only be assigned once.');
@@ -268,14 +268,16 @@ class FrameworkElement extends FrameworkObject
             args.newItems.forEach((ActionBase action){
               action._source.value = this;
             });
-        };
-    }, new ObservableList<ActionBase>());
+          };
+        },
+        defaultValue: new ObservableList<ActionBase>());
 
 
     //TODO: propogate this property in elements that use virtual containers
 
-    perspective = new FrameworkProperty(this, "perspective", (num value){
-      Polly.setCSS(rawElement, 'perspective', '$value');
+    perspective = new FrameworkProperty(this, "perspective",
+      propertyChangedCallback: (num value){
+        Polly.setCSS(rawElement, 'perspective', '$value');
     },converter:const StringToNumericConverter());
 
     translateX = new AnimatingFrameworkProperty(this, "translateX",
@@ -331,17 +333,17 @@ class FrameworkElement extends FrameworkObject
 
 
     transformOriginX = new FrameworkProperty(this, "transformOriginX",
-      (num value){
+      propertyChangedCallback: (num value){
         _setTransformOrigin(this);
     }, converter:const StringToNumericConverter());
 
     transformOriginY = new FrameworkProperty(this, "transformOriginY",
-      (num value){
+        propertyChangedCallback: (num value){
         _setTransformOrigin(this);
     }, converter:const StringToNumericConverter());
 
     transformOriginZ = new FrameworkProperty(this, "transformOriginZ",
-      (num value){
+        propertyChangedCallback: (num value){
         _setTransformOrigin(this);
     }, converter:const StringToNumericConverter());
 
@@ -379,17 +381,19 @@ class FrameworkElement extends FrameworkObject
     zOrder = new FrameworkProperty(
       this,
       "zOrder",
-      (num value){
+      propertyChangedCallback: (num value){
         rawElement.style.zIndex = value.toInt().toString(); //, null);
       }, converter:const StringToNumericConverter());
 
     margin = new FrameworkProperty(
       this,
       "margin",
-      (Thickness value){
+      propertyChangedCallback: (Thickness value){
         rawElement.style.margin = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px'; //, null);
         if (parent != null) parent.updateLayout();
-      }, new Thickness(0), converter:const StringToThicknessConverter());
+      },
+      defaultValue:new Thickness(0),
+      converter:const StringToThicknessConverter());
 
     actualWidth = new FrameworkProperty(this, "actualWidth");
 
@@ -398,81 +402,80 @@ class FrameworkElement extends FrameworkObject
     width = new FrameworkProperty(
       this,
       "width",
-      (Dynamic value) => calculateWidth(value),
+      propertyChangedCallback: (dynamic value) => calculateWidth(value),
       defaultValue:"auto",
       converter:const StringToNumericConverter());
 
     height = new FrameworkProperty(
       this,
       "height",
-      (Dynamic value) => calculateHeight(value),
+      propertyChangedCallback: (dynamic value) => calculateHeight(value),
       defaultValue:"auto",
       converter:const StringToNumericConverter());
 
     minHeight = new FrameworkProperty(
       this,
       "minHeight",
-      (value){
+      propertyChangedCallback: (value){
         rawElement.style.minHeight = '${value}px';
       }, converter:const StringToNumericConverter());
 
     maxHeight = new FrameworkProperty(
       this,
       "maxHeight",
-      (value){
+      propertyChangedCallback: (value){
         rawElement.style.maxHeight = '${value}px';
       }, converter:const StringToNumericConverter());
 
     minWidth = new FrameworkProperty(
       this,
       "minWidth",
-      (value){
+      propertyChangedCallback: (value){
         rawElement.style.minWidth = '${value}px';
       }, converter:const StringToNumericConverter());
 
     maxWidth = new FrameworkProperty(
       this,
       "maxWidth",
-      (value){
+      propertyChangedCallback: (value){
         rawElement.style.maxWidth = '${value}px';
       }, converter:const StringToNumericConverter());
 
     cursor = new FrameworkProperty(
       this,
       "cursor",
-      (Cursors value){
+      propertyChangedCallback: (Cursors value){
         rawElement.style.cursor = '$value';
       }, converter:const StringToCursorConverter());
 
-    tag = new FrameworkProperty(
-      this,
-      "tag",
-      (value){});
+    tag = new FrameworkProperty(this, "tag");
 
     hAlign = new FrameworkProperty(
       this,
       "hAlign",
-      (HorizontalAlignment value){
+      propertyChangedCallback: (HorizontalAlignment value){
         updateMeasurementAsync.then((_){
           if (parent != null) parent.updateLayout();
         });
       },
-      HorizontalAlignment.left, converter:const StringToHorizontalAlignmentConverter());
+      defaultValue:HorizontalAlignment.left,
+      converter:const StringToHorizontalAlignmentConverter());
 
     vAlign = new FrameworkProperty(
       this,
       "vAlign",
-      (VerticalAlignment value){
+      propertyChangedCallback: (VerticalAlignment value){
         updateMeasurementAsync.then((_){
           if (parent != null) parent.updateLayout();
         });
       },
-      VerticalAlignment.top, converter:const StringToVerticalAlignmentConverter());
+      defaultValue:VerticalAlignment.top,
+      converter:const StringToVerticalAlignmentConverter());
 
     style = new FrameworkProperty(
       this,
       "style",
-      (StyleTemplate value){
+      propertyChangedCallback: (StyleTemplate value){
         if (value == null){
           //setting non-null style to null
           _style._unregisterElement(this);
@@ -485,15 +488,15 @@ class FrameworkElement extends FrameworkObject
           value._registerElement(this);
           _style = value;
         }
-      }, new StyleTemplate());
+      }, defaultValue:new StyleTemplate());
 
     draggable = new FrameworkProperty(
       this,
       "draggable",
-      (bool value) {
+      propertyChangedCallback: (bool value) {
         rawElement.draggable = value;
       },
-      false,
+      defaultValue:false,
       converter:const StringToBooleanConverter());
   }
 

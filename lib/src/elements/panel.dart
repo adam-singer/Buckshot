@@ -35,7 +35,7 @@ class Panel extends FrameworkElement implements FrameworkContainer
     background = new FrameworkProperty(
       this,
       "background",
-      (Brush value){
+      propertyChangedCallback: (Brush value){
         if (value == null){
           rawElement.style.background = "None";
           return;

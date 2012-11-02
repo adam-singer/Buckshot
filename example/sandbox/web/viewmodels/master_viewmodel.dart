@@ -362,7 +362,7 @@ class MasterViewModel extends ViewModelBase
 
   void demotreeview_selection(sender, args)
   {
-    demoTreeNodeSelected.value = args.node.header;
+    demoTreeNodeSelected.value = args.node.header.value;
   }
 
   void dockpanel_click(sender, args){

@@ -22,8 +22,10 @@ class YouTube extends FrameworkElement
 
 
   void _initializeYouTubeProperties(){
-    videoID = new FrameworkProperty(this, "videoID", (String value){
-      rawElement.attributes["src"] = 'http://www.youtube.com/embed/${value.toString()}?wmode=transparent';
+    videoID = new FrameworkProperty(this, "videoID",
+        propertyChangedCallback: (String value){
+      rawElement.attributes["src"] =
+          'http://www.youtube.com/embed/${value.toString()}?wmode=transparent';
     });
   }
 

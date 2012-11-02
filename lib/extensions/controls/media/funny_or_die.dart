@@ -22,7 +22,8 @@ class FunnyOrDie extends FrameworkElement
   makeMe() => new FunnyOrDie();
 
   void _initializeFunnyOrDieProperties(){
-    videoID = new FrameworkProperty(this, "videoID", (String value){
+    videoID = new FrameworkProperty(this, "videoID",
+        propertyChangedCallback: (String value){
       rawElement.attributes["src"] = 'http://www.funnyordie.com/embed/${value.toString()}';
     });
   }

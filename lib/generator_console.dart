@@ -10,7 +10,7 @@ import 'package:buckshot/gen/genie.dart';
 void generateCode(){
 
   final fileNames = _getChangedFiles(new Options().arguments);
-  if (fileNames.isEmpty()){
+  if (fileNames.isEmpty){
     return;
   }
 

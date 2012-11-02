@@ -14,7 +14,7 @@ class Menu extends Control implements FrameworkContainer
 {
   FrameworkProperty<ObservableList<MenuItem>> menuItems;
   FrameworkProperty<String> parentName;
-  FrameworkProperty<Dynamic> header;
+  FrameworkProperty<dynamic> header;
   FrameworkProperty<FrameworkElement> _menuParent;
   FrameworkProperty<num> offsetX;
   FrameworkProperty<num> offsetY;
@@ -46,7 +46,7 @@ class Menu extends Control implements FrameworkContainer
     }
 
     _setPosition().then((_){
-      if (menuItems.value.isEmpty()) return;
+      if (menuItems.value.isEmpty) return;
 
       menuItems.value.forEach((MenuItem item){
         item.click + (_, __){

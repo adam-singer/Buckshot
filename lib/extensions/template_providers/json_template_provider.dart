@@ -4,7 +4,7 @@
 
 library json_templateproviders_buckshotui_org;
 import 'dart:json';
-import 'package:buckshot/buckshot.dart';
+import 'package:buckshot/buckshot_browser.dart';
 import 'package:xml/xml.dart';
 
 /**

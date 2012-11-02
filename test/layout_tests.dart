@@ -29,7 +29,7 @@ void run()
 
       window.setTimeout(expectAsync0((){
 
-        namedElements.getValues().forEach((v)=> v.updateMeasurement());
+        namedElements.values.forEach((v)=> v.updateMeasurement());
 
         //references
         final bLorumIpsum = namedElements['bLorumIpsum'];
@@ -137,7 +137,7 @@ void run()
 
       window.setTimeout(expectAsync0((){
 
-        namedElements.getValues().forEach((v)=> v.updateMeasurement());
+        namedElements.values.forEach((v)=> v.updateMeasurement());
 
         //references
         final spRoot = namedElements['rootPanel'];
@@ -224,7 +224,7 @@ void run()
       // otherwise some measurements will still be 0. Especially in JS.
       window.setTimeout(expectAsync0((){
 
-        namedElements.getValues().forEach((v)=> v.updateMeasurement());
+        namedElements.values.forEach((v)=> v.updateMeasurement());
 
         //references
         final borderRoot = namedElements['borderContainer'];

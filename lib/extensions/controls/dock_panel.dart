@@ -193,8 +193,8 @@ class DockPanel extends Panel
     });
 
     //stretch the last item to fill the remaining space
-    if (fillLast.value && !children.isEmpty()){
-      final child = children.last();
+    if (fillLast.value && !children.isEmpty){
+      final child = children.last;
       //stretch the last item to fill the remaining space
       final p = child.rawElement.parent;
 

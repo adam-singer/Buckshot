@@ -27,7 +27,8 @@ class _GridCell extends FrameworkObject
   void _initGridCellProperties(){
     content = new FrameworkProperty(
       this,
-      "content", (FrameworkElement newContent)
+      "content",
+      propertyChangedCallback: (FrameworkElement newContent)
       {
         if (content.previousValue != null){
           content.previousValue.removeFromLayoutTree();
@@ -40,9 +41,10 @@ class _GridCell extends FrameworkObject
     margin = new FrameworkProperty(
       this,
       "margin",
-      (Thickness value){
+      propertyChangedCallback: (Thickness value){
         rawElement.style.margin = '${value.top}px ${value.right}px ${value.bottom}px ${value.left}px';
-      }, new Thickness(0), converter:const StringToThicknessConverter());
+      },
+      defaultValue:new Thickness(0), converter:const StringToThicknessConverter());
   }
 
   /// Overridden [FrameworkObject] method for generating the html representation of the border.

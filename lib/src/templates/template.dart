@@ -402,7 +402,7 @@ class Template {
         }else{
           //property node
 
-          if (ofXMLNode.children.isEmpty()){
+          if (ofXMLNode.children.isEmpty){
             //assume text assignment
             p.value = ofXMLNode.text.trim();
             c.complete(true);
@@ -508,8 +508,7 @@ class Template {
         ' "{" and end with "}"');
     }
 
-    FrameworkProperty placeholder =
-        new FrameworkProperty(null, "placeholder",(_){});
+    FrameworkProperty placeholder = new FrameworkProperty(null, "placeholder");
 
     String stripped = binding.substring(1, binding.length - 1);
 
@@ -652,7 +651,7 @@ class Template {
     //TODO: maybe support merged resource collections in the future...
     if (resource is ResourceCollection) return;
 
-    if (resource.key.value.isEmpty()) {
+    if (resource.key.value.isEmpty) {
       throw const TemplateException("Resource is missing"
         " a key identifier.");
     }

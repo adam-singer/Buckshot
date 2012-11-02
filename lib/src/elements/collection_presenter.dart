@@ -69,18 +69,19 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
 
   void _initCollectionPresenterProperties(){
 
-    presentationPanel =
-        new FrameworkProperty(this, "presentationPanel", (Panel p){
-      assert(p != null);
-      assert(p.parent == null);
+    presentationPanel = new FrameworkProperty(this, "presentationPanel",
+      propertyChangedCallback: (Panel p){
+        assert(p != null);
+        assert(p.parent == null);
 
-      if (!rawElement.elements.isEmpty()) {
-         rawElement.elements[0].remove();
-      }
+        if (!rawElement.elements.isEmpty) {
+           rawElement.elements[0].remove();
+        }
 
-      p.addToLayoutTree(this);
-      assert(p.parent == this);
-    }, new Stack());
+        p.addToLayoutTree(this);
+        assert(p.parent == this);
+      },
+      defaultValue: new Stack());
 
     itemsTemplate = new FrameworkProperty(this, "itemsTemplate");
 
@@ -129,11 +130,11 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
     // If an observable list, watch it and add/remove items as necessary.
     if (values is ObservableList && _eHandler == null){
       _eHandler = values.listChanged + (_, ListChangedEventArgs args) {
-         if(!args.newItems.isEmpty()){
+         if(!args.newItems.isEmpty){
            _addItems(args.newItems);
          }
 
-         if (args.oldItems.isEmpty()) return;
+         if (args.oldItems.isEmpty) return;
          _removeItems(args.oldItems);
       };
     }
@@ -162,7 +163,9 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
         ..hAlign.value = HorizontalAlignment.stretch
         ..text.value = '$iterationObject'
         ..stateBag[OBJECT_CONTENT] = iterationObject;
-        iterationObject.stateBag[TEMPLATE_CONTENT] = it;
+        if (iterationObject is FrameworkObject){
+          iterationObject.stateBag[TEMPLATE_CONTENT] = it;
+        }
         itemCreated.invokeAsync(this, new ItemCreatedEventArgs(it));
         presentationPanel.value.children.add(it);
       });
@@ -187,7 +190,7 @@ class CollectionPresenter extends FrameworkElement implements FrameworkContainer
 
 
 class ItemCreatedEventArgs extends EventArgs{
-  final Dynamic itemCreated;
+  final dynamic itemCreated;
 
   ItemCreatedEventArgs(this.itemCreated);
 }

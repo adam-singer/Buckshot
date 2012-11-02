@@ -15,19 +15,18 @@ part of core_buckshotui_org;
 class AttachedFrameworkProperty extends FrameworkPropertyBase
 {
   static HashMap<AttachedFrameworkProperty, HashMap<FrameworkObject,
-  Dynamic>> _attachedProperties;
+  dynamic>> _attachedProperties;
 
-  AttachedFrameworkProperty(String propertyName,
-      Function propertyChangedCallback)
-    : super(null, propertyName, propertyChangedCallback)
+  AttachedFrameworkProperty(String propertyName, Function propertyChangedCallback)
+    : super(null, propertyName, propertyChangedCallback, null)
     {
       if (_attachedProperties == null){
         _attachedProperties = new HashMap<AttachedFrameworkProperty,
-        HashMap<FrameworkObject, Dynamic>>();
+        HashMap<FrameworkObject, dynamic>>();
       }
 
       _attachedProperties[this] =
-          new HashMap<FrameworkElement, Dynamic>();
+          new HashMap<FrameworkElement, dynamic>();
     }
 
   /**
@@ -76,12 +75,12 @@ class AttachedFrameworkProperty extends FrameworkPropertyBase
                                AttachedFrameworkProperty property,
                                value)
   {
-    HashMap<FrameworkObject, Dynamic> aDepInfo = _attachedProperties[property];
+    HashMap<FrameworkObject, dynamic> aDepInfo = _attachedProperties[property];
 
     //no need to invoke if nothing has changed
     if (aDepInfo[element] == value) return;
 
-    Dynamic oldValue = aDepInfo[element];
+    dynamic oldValue = aDepInfo[element];
     aDepInfo[element] = value;
 
     //invoke the event so that any subscribers will get the message

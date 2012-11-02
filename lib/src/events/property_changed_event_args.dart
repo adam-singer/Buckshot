@@ -15,9 +15,9 @@ part of core_buckshotui_org;
 class PropertyChangingEventArgs extends EventArgs
 {
    /// holds the previous value of the [FrameworkPropertyBase].
-   final Dynamic oldValue;
+   final dynamic oldValue;
    /// Holds the new value of the [FrameworkPropertyBase].
-   final Dynamic newValue;
+   final dynamic newValue;
 
    PropertyChangingEventArgs(this.oldValue, this.newValue);
 }

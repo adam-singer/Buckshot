@@ -30,7 +30,7 @@ run(){
 
       Expect.throws(
         (){
-          Expect.isTrue(o.hashCode() is int);
+          Expect.isTrue(o.hashCode is int);
         }
       );
     });

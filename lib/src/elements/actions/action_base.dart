@@ -41,22 +41,22 @@ abstract class ActionBase extends TemplateObject
 
     _source = new FrameworkProperty(this, '_source');
 
-    event = new FrameworkProperty(this, 'event', (String e){
+    event = new FrameworkProperty(this, 'event',
+      propertyChangedCallback: (String e){
+        var src = _source.value;
 
-      var src = _source.value;
-
-      // set the event against the source element if it is available,
-      // otherwise we wait until the source is available and set the
-      // event then.
-      if (src != null){
-        _setEvent(e);
-      }else{
-        var ref;
-        ref = _source.propertyChanging + (_, PropertyChangingEventArgs args) {
+        // set the event against the source element if it is available,
+        // otherwise we wait until the source is available and set the
+        // event then.
+        if (src != null){
           _setEvent(e);
-          _source.propertyChanging - ref;
-        };
-      }
+        }else{
+          var ref;
+          ref = _source.propertyChanging + (_, PropertyChangingEventArgs args) {
+            _setEvent(e);
+            _source.propertyChanging - ref;
+          };
+        }
     });
   }
 

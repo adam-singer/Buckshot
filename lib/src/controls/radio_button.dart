@@ -29,13 +29,16 @@ class RadioButton extends Control
   makeMe() => new RadioButton();
 
   void _initProperties(){
-    value = new FrameworkProperty(this, 'value', (String v){
-      rawElement.attributes['value'] = v;
-    });
+    value = new FrameworkProperty(this, 'value',
+      propertyChangedCallback: (String v){
+        rawElement.attributes['value'] = v;
+      });
 
-    groupName = new FrameworkProperty(this, 'groupName', (String v){
-      rawElement.attributes['name'] =  v;
-    }, 'default');
+    groupName = new FrameworkProperty(this, 'groupName',
+      propertyChangedCallback: (String v){
+        rawElement.attributes['name'] =  v;
+      },
+      defaultValue: 'default');
   }
 
   void _initEvents(){

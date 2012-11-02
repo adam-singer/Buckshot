@@ -8,7 +8,7 @@ class StringToColorConverter implements IValueConverter{
 
   const StringToColorConverter();
 
-  Dynamic convert(Dynamic value, [Dynamic parameter]){
+  dynamic convert(dynamic value, [dynamic parameter]){
     if (value.startsWith("#")){
       return new Color.hex(value);
     }

@@ -148,9 +148,9 @@ class Calc implements ICalculator
   }
 
   int get _state {
-    if (!numBuffer2.isEmpty()) return SOPERAND;
-    if (!currentOp.isEmpty()) return OP;
-    if (!numBuffer1.isEmpty()) return FOPERAND;
+    if (!numBuffer2.isEmpty) return SOPERAND;
+    if (!currentOp.isEmpty) return OP;
+    if (!numBuffer1.isEmpty) return FOPERAND;
     return EMPTY;
   }
 
@@ -168,9 +168,9 @@ class Calc implements ICalculator
       str = '0';
     }else if (_state == FOPERAND){
       str = numBuffer1.toString();
-    }else if (_state == OP && !numBuffer2.isEmpty()){
+    }else if (_state == OP && !numBuffer2.isEmpty){
       str = numBuffer2.toString();
-    }else if (_state == OP && numBuffer2.isEmpty()){
+    }else if (_state == OP && numBuffer2.isEmpty){
       str = numBuffer1.toString();
     }else if (_state == SOPERAND){
       str = numBuffer2.toString();

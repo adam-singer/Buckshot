@@ -8,14 +8,14 @@ part of core_buckshotui_org;
 //intermediate data structure used during animation css compilation
 class _CssAnimationObject{
   final StringBuffer css;
-  final HashMap<String, Dynamic> standardPropertyCarryOver;
+  final HashMap<String, dynamic> standardPropertyCarryOver;
 
   FrameworkElement concreteElement;
 
   _CssAnimationObject()
   :
     css = new StringBuffer(),
-    standardPropertyCarryOver = new HashMap<String, Dynamic>();
+    standardPropertyCarryOver = new HashMap<String, dynamic>();
 }
 
 //compiles an AnimationResource object into valid css3
@@ -116,7 +116,7 @@ class _CssCompiler
         sb.add(temp);
       });
 
-      sb.add('#${t} { ${Polly.generateCSS("animation", "${anim.key}${t} ${anim.keyFrames.value.last().time.value}s linear forwards")} }');
+      sb.add('#${t} { ${Polly.generateCSS("animation", "${anim.key}${t} ${anim.keyFrames.value.last.time.value}s linear forwards")} }');
 
       compiledCSS.add(sb.toString());
     });
@@ -125,7 +125,7 @@ class _CssCompiler
   }
 
   static void computeKeyFramePercentages(List<AnimationKeyFrame> keyFrames){
-    var span = keyFrames.last().time.value;
+    var span = keyFrames.last.time.value;
 
     for(int i = 0; i < keyFrames.length; i++){
       keyFrames[i]._percentage = (keyFrames[i].time.value / span) * 100;

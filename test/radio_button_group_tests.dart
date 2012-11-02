@@ -11,7 +11,7 @@ run(){
 
       rbg.addRadioButton(null);
 
-      Expect.isTrue(rbg.radioButtonList.isEmpty());
+      Expect.isTrue(rbg.radioButtonList.isEmpty);
     });
     test('Fail on RadioButton already exists', (){
       RadioButtonGroup rbg = new RadioButtonGroup();

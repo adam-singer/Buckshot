@@ -13,12 +13,12 @@ class TreeNode extends Control implements FrameworkContainer
   TreeView _parentTreeView;
   TreeNode _parentNode = null;
 
-  FrameworkProperty<Dynamic> header;
+  FrameworkProperty<dynamic> header;
   FrameworkProperty<FrameworkElement> icon;
   FrameworkProperty<FrameworkElement> folderIcon;
   FrameworkProperty<FrameworkElement> fileIcon;
   FrameworkProperty<ObservableList<TreeNode>> childNodes;
-  FrameworkProperty<Dynamic> indicator;
+  FrameworkProperty<dynamic> indicator;
   FrameworkProperty<Visibility> childVisibility;
   FrameworkProperty<StyleTemplate> _mouseEventStyles;
 
@@ -61,7 +61,7 @@ class TreeNode extends Control implements FrameworkContainer
 
   void updateIndicator(){
 
-    if (childNodes.value.isEmpty()){
+    if (childNodes.value.isEmpty){
       if (_lastWasEmpty) return;
 
       indicator.value = '';
@@ -145,8 +145,7 @@ class TreeNode extends Control implements FrameworkContainer
     childVisibility = new FrameworkProperty(
       this,
       'childVisibility',
-      (_){},
-      Visibility.collapsed,
+      defaultValue: Visibility.collapsed,
       converter:const StringToVisibilityConverter());
 
     _mouseEventStyles = new FrameworkProperty(this, '_mouseEventStyles',

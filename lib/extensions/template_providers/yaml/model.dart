@@ -48,7 +48,7 @@ class _Tag implements Hashable {
     }
   }
 
-  int hashCode() => name.hashCode();
+  int get hashCode => name.hashCode;
 }
 
 /** The abstract class for YAML nodes. */
@@ -66,7 +66,7 @@ class _Node implements Hashable {
     return tag == other.tag;
   }
 
-  int hashCode() => _hashCode([tag, anchor]);
+  int get hashCode => _hashCode([tag, anchor]);
 
   abstract visit(_Visitor v);
 }
@@ -92,7 +92,7 @@ class _SequenceNode extends _Node {
 
   String toString() => '$tag [${Strings.join(content.map((e) => '$e'), ', ')}]';
 
-  int hashCode() => super.hashCode() ^ _hashCode(content);
+  int get hashCode => super.hashCode ^ _hashCode(content);
 
   visit(_Visitor v) => v.visitSequence(this);
 }
@@ -203,7 +203,7 @@ class _ScalarNode extends _Node {
     return '${Strings.join(prefix, '')}$str';
   }
 
-  int hashCode() => super.hashCode() ^ content.hashCode();
+  int get hashCode => super.hashCode ^ content.hashCode;
 
   visit(_Visitor v) => v.visitScalar(this);
 }
@@ -234,7 +234,7 @@ class _MappingNode extends _Node {
     return '$tag {$strContent}';
   }
 
-  int hashCode() => super.hashCode() ^ _hashCode(content);
+  int get hashCode => super.hashCode ^ _hashCode(content);
 
   visit(_Visitor v) => v.visitMapping(this);
 }

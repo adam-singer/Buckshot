@@ -31,7 +31,7 @@ class StyleTemplate extends FrameworkResource
   * Does not move associated elements or bindings, but the copied setters are
   * applied to any elements using the current StyleTemplate. */
   void mergeWith(List<StyleTemplate> templates){
-    if (templates == null || templates.isEmpty()) return;
+    if (templates == null || templates.isEmpty) return;
 
     for (final StyleTemplate style in templates){
       if (style == null || style == this) continue; //ignore if null or same template
@@ -57,7 +57,7 @@ class StyleTemplate extends FrameworkResource
   /**
   * Sets a style [property] with a given [value], which will apply to all current and future Elements using this StyleTemplate.
   * Unknown properties are ignored. */
-  void setProperty(String property, Dynamic newValue){
+  void setProperty(String property, dynamic newValue){
     if (_setters.containsKey(property)){
       _setters[property].value.value = newValue;
     }else{
@@ -112,7 +112,7 @@ class StyleTemplate extends FrameworkResource
   }
 
   void _unsetStyleBindings(FrameworkElement element){
-    element.stateBag.forEach((String k, Dynamic v){
+    element.stateBag.forEach((String k, dynamic v){
       if (k.startsWith(stateBagPrefix)){
         v.unregister();
         element.stateBag.remove(k);

@@ -145,7 +145,10 @@ class TreeView extends Panel
     selectedNode = new FrameworkProperty(this, 'selectedNode');
 
     indent = new FrameworkProperty(this, 'indent'
-      , (_) => updateLayout(), 10, converter:const StringToNumericConverter());
+      ,
+      propertyChangedCallback: (_) => updateLayout(),
+      defaultValue: 10,
+      converter:const StringToNumericConverter());
 
     borderColor = new AnimatingFrameworkProperty(
       this,
@@ -160,9 +163,7 @@ class TreeView extends Panel
     borderThickness = new FrameworkProperty(
       this,
       "borderThickness",
-      propertyChangedCallback:
-        (value){
-
+      propertyChangedCallback: (value){
         String color = borderColor.value != null
             ? rawElement.style.borderColor
             : '${getResource('theme_background_light')}';

@@ -14,7 +14,7 @@ class ToggleProperty extends ActionBase
   FrameworkProperty<String> firstValue;
   FrameworkProperty<String> secondValue;
 
-  Dynamic _currentValue;
+  dynamic _currentValue;
 
   ToggleProperty(){
     _initTogglePropertyActionProperties();

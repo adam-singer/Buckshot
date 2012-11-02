@@ -45,7 +45,7 @@ class BuckshotEvent<T extends EventArgs> extends FrameworkEvent
     if (i < 0) return;
     handlers.removeRange(i, 1);
 
-    if (_lostLastSubscriberCallback != null && handlers.isEmpty()){
+    if (_lostLastSubscriberCallback != null && handlers.isEmpty){
       _lostLastSubscriberCallback();
     }
   }

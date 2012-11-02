@@ -50,16 +50,19 @@ class TextArea extends Control
     placeholder = new FrameworkProperty(
       this,
       "placeholder",
-      (String value){
+      propertyChangedCallback: (String value){
         (rawElement as TextAreaElement).attributes["placeholder"] = value;
       });
 
 
-    text = new FrameworkProperty(this, "text", (String value){
-      (rawElement as TextAreaElement).value = value;
-    },"");
+    text = new FrameworkProperty(this, "text",
+      propertyChangedCallback: (String value){
+        (rawElement as TextAreaElement).value = value;
+      },
+      defaultValue:"");
 
-    spellcheck= new FrameworkProperty(this, "spellcheck", (bool value){
+    spellcheck= new FrameworkProperty(this, "spellcheck",
+    propertyChangedCallback: (bool value){
       (rawElement as TextAreaElement).attributes["spellcheck"] = value.toString();
     }, converter:const StringToBooleanConverter());
 
@@ -67,24 +70,23 @@ class TextArea extends Control
         this,
         "background",
         'background',
-        propertyChangedCallback:(Brush value){
+      propertyChangedCallback:(Brush value){
           if (value == null){
             rawElement.style.background = "None";
             return;
           }
           value.renderBrush(rawElement);
         },
-        defaultValue: getResource('theme_textarea_background'),
-        converter:const StringToSolidColorBrushConverter());
+      defaultValue: getResource('theme_textarea_background'),
+      converter:const StringToSolidColorBrushConverter());
 
     borderStyle = new FrameworkProperty(this, 'borderStyle',
-        propertyChangedCallback: (BorderStyle value){
+      propertyChangedCallback: (BorderStyle value){
           rawElement.style.borderStyle = '$value';
         },
-        defaultValue:
-          getResource('theme_textarea_border_style',
-                      const StringToBorderStyleConverter()),
-        converter: const StringToBorderStyleConverter());
+      defaultValue: getResource('theme_textarea_border_style',
+                                converter:const StringToBorderStyleConverter()),
+      converter: const StringToBorderStyleConverter());
 
     cornerRadius = new AnimatingFrameworkProperty(
       this,
@@ -118,7 +120,7 @@ class TextArea extends Control
     borderThickness = new FrameworkProperty(
       this,
       "borderThickness",
-      (value){
+      propertyChangedCallback: (value){
 
         String color = borderColor != null
             ? rawElement.style.borderColor
@@ -134,22 +136,20 @@ class TextArea extends Control
                                 converter:const StringToThicknessConverter()),
       converter:const StringToThicknessConverter());
 
-    padding = new FrameworkProperty(
-        this,
-        "padding",
-        (Thickness value){
+    padding = new FrameworkProperty(this, "padding",
+        propertyChangedCallback: (Thickness value){
           rawElement.style.padding = '${value.top}px ${value.right}px'
             ' ${value.bottom}px ${value.left}px';
           updateLayout();
         },
         defaultValue: getResource('theme_textarea_padding',
-                                  converter: const StringToThicknessConverter())
-        , converter:const StringToThicknessConverter());
+                                converter: const StringToThicknessConverter()),
+        converter:const StringToThicknessConverter());
 
     foreground = new FrameworkProperty(
         this,
         "foreground",
-        (Color c){
+        propertyChangedCallback: (Color c){
           rawElement.style.color = c.toColorString();
         },
         defaultValue: getResource('theme_textarea_foreground'),
@@ -158,16 +158,17 @@ class TextArea extends Control
     fontSize = new FrameworkProperty(
       this,
       "fontSize",
-      (value){
+      propertyChangedCallback: (value){
         rawElement.style.fontSize = '${value}px';
       });
 
     fontFamily = new FrameworkProperty(
       this,
       "fontFamily",
-      (value){
+      propertyChangedCallback: (value){
         rawElement.style.fontFamily = '$value';
-      }, defaultValue:getResource('theme_textarea_font_family'));
+      },
+      defaultValue:getResource('theme_textarea_font_family'));
   }
 
 

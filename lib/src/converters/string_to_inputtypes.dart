@@ -9,7 +9,7 @@ part of core_buckshotui_org;
 class StringToInputTypesConverter implements IValueConverter{
   const StringToInputTypesConverter();
     
-  Dynamic convert(Dynamic value, [Dynamic parameter]){
+  dynamic convert(dynamic value, [dynamic parameter]){
     if (value is! String) return value;
     
     switch(value){

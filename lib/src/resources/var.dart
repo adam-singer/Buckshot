@@ -37,7 +37,7 @@ part of core_buckshotui_org;
 */
 class Var extends FrameworkResource implements FrameworkContainer
 {
-  FrameworkProperty<Dynamic> value;
+  FrameworkProperty<dynamic> value;
 
   Var(){
     _initVarProperties();

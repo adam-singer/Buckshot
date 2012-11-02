@@ -61,7 +61,7 @@ class Popup extends Control
   FrameworkProperty<Color> borderColor;
   FrameworkProperty<Thickness> borderThickness;
   FrameworkProperty<Thickness> cornerRadius;
-  FrameworkProperty<Dynamic> content;
+  FrameworkProperty<dynamic> content;
 
   FrameworkElement _target;
   EventHandlerReference _ref;

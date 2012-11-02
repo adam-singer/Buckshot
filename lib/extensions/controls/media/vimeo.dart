@@ -21,7 +21,8 @@ class Vimeo extends FrameworkElement
   makeMe() => new Vimeo();
 
   void _initializeVimeoProperties(){
-    videoID= new FrameworkProperty(this, "videoID", (String value){
+    videoID= new FrameworkProperty(this, "videoID",
+        propertyChangedCallback: (String value){
       rawElement.attributes["src"] = 'http://player.vimeo.com/video/${value.toString()}';
     });
   }

@@ -30,10 +30,10 @@ class MenuStrip extends Control implements FrameworkContainer
   makeMe() => new MenuStrip();
 
   void onFirstLoad(){
-    if (menus.value.isEmpty()) return;
+    if (menus.value.isEmpty) return;
 
     menus.value.forEach((Menu m){
-      if (!m.menuItems.value.isEmpty()){
+      if (!m.menuItems.value.isEmpty){
         m.menuItemSelected + (sender, MenuItemSelectedEventArgs args){
           //just bubble the event
           menuItemSelected.invoke(sender, args);
@@ -50,7 +50,7 @@ class MenuStrip extends Control implements FrameworkContainer
             return;
           }
           hideAllMenus();
-          if (m.menuItems.value.isEmpty()){
+          if (m.menuItems.value.isEmpty){
               // item-less menu, so just send the menu in the sender of the
               // event..
               menuItemSelected.invoke(m, new MenuItemSelectedEventArgs(null));
@@ -66,10 +66,10 @@ class MenuStrip extends Control implements FrameworkContainer
    * Hides any currently open menus attached to the MenuStrip.
    */
   void hideAllMenus(){
-    if (menus.value.isEmpty()) return;
+    if (menus.value.isEmpty) return;
 
     menus.value.forEach((Menu m){
-      if (!m.menuItems.value.isEmpty()){
+      if (!m.menuItems.value.isEmpty){
         m.hide();
       }
     });

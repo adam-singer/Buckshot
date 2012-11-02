@@ -10,7 +10,7 @@ class Thickness
 {
   final num left, top, right, bottom;
 
-  Thickness(int uniformThickness) :
+  Thickness(num uniformThickness) :
     left = uniformThickness,
     right = uniformThickness,
     top = uniformThickness,
@@ -18,7 +18,7 @@ class Thickness
 
   Thickness.specified(this.top, this.right, this.bottom, this.left);
 
-  Thickness.widthheight(int width, int height) :
+  Thickness.widthheight(num width, num height) :
     left = width,
     right = width,
     top = height,

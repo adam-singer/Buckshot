@@ -9,8 +9,10 @@ version: 0.1.1
 author: John Evans <prujohn@gmail.com>
 homepage: http://www.buckshotui.org
 dependencies:
-  xml: 'any'
-  dartnet_event_model: 'any'
+  xml:
+    git: git://github.com/prujohn/dart-xml.git
+  dartnet_event_model:
+    git: git://github.com/prujohn/DartNet-Event-Model.git
   html5lib: 'any'
   unittest:
     sdk: unittest

@@ -18,7 +18,7 @@ class ListBox extends Control implements FrameworkContainer
 {
   FrameworkProperty<bool> horizontalScrollEnabled;
   FrameworkProperty<bool> verticalScrollEnabled;
-  FrameworkProperty<Dynamic> selectedItem;
+  FrameworkProperty<dynamic> selectedItem;
   /// Represents the [Panel] element which will contain the generated UI for
   /// each element of the collection.
   FrameworkProperty<Panel> presentationPanel;
@@ -139,26 +139,27 @@ class ListBox extends Control implements FrameworkContainer
 
   void _initListBoxProperties(){
 
-    highlightBrush = new FrameworkProperty(this, "highlightColor", (_){
-    }, new SolidColorBrush(new Color.predefined(Colors.PowderBlue)),
-    converter:const StringToSolidColorBrushConverter());
+    highlightBrush = new FrameworkProperty(this, "highlightColor",
+      defaultValue: new SolidColorBrush.fromPredefined(Colors.PowderBlue),
+      converter:const StringToSolidColorBrushConverter());
 
-    selectBrush = new FrameworkProperty(this, "selectColor", (_){
-    }, new SolidColorBrush(new Color.predefined(Colors.SkyBlue)),
-    converter:const StringToSolidColorBrushConverter());
+    selectBrush = new FrameworkProperty(this, "selectColor",
+      defaultValue: new SolidColorBrush.fromPredefined(Colors.SkyBlue),
+      converter:const StringToSolidColorBrushConverter());
 
-    selectedItem = new FrameworkProperty(this, "selectedItem", (_){});
+    selectedItem = new FrameworkProperty(this, "selectedItem");
 
     presentationPanel = new FrameworkProperty(this, "presentationPanel",
-    (Panel p){
-      if (_presenter == null) return;
-      _presenter.presentationPanel.value = p;
-    });
+      propertyChangedCallback: (Panel p){
+        if (_presenter == null) return;
+        _presenter.presentationPanel.value = p;
+      });
 
-    itemsTemplate = new FrameworkProperty(this, "itemsTemplate", (value){
-      if (_presenter == null) return;
-      _presenter.itemsTemplate.value = value;
-    });
+    itemsTemplate = new FrameworkProperty(this, "itemsTemplate",
+      propertyChangedCallback: (value){
+        if (_presenter == null) return;
+        _presenter.itemsTemplate.value = value;
+      });
 
     horizontalScrollEnabled = new FrameworkProperty(this,
         "horizontalScrollEnabled",

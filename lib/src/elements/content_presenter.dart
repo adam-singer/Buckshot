@@ -12,7 +12,7 @@ part of core_buckshotui_org;
 class ContentPresenter extends FrameworkElement implements FrameworkContainer
 {
   /// Represents the content inside the border.
-  FrameworkProperty<Dynamic> content;
+  FrameworkProperty<dynamic> content;
 
   ContentPresenter()
   {
@@ -33,7 +33,7 @@ class ContentPresenter extends FrameworkElement implements FrameworkContainer
     content = new FrameworkProperty(
       this,
       "content",
-      (value){
+      propertyChangedCallback: (value){
         //log('setting content presenter content to: $value', element:this);
         if (currentContent != null){
           currentContent.removeFromLayoutTree();
