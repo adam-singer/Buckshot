@@ -1,3 +1,4 @@
+part of switchy;
 
 class Clock extends View
 {

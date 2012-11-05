@@ -1,3 +1,5 @@
+library switchy;
+
 import 'package:buckshot/buckshot_browser.dart';
 import 'package:dartnet_event_model/events.dart';
 import 'dart:html';

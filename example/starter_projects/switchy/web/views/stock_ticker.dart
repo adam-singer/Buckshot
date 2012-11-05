@@ -1,3 +1,4 @@
+part of switchy;
 
 /** Represents a view for a stock ticker widget. */
 class StockTicker extends View

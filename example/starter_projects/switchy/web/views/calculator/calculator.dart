@@ -1,3 +1,5 @@
+part of switchy;
+
 class Calculator extends View
 {
 

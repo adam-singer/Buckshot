@@ -9,6 +9,7 @@
  *
  * Properties that need to be bound to must be of type [FrameworkProperty].
  */
+part of sandbox;
 class MasterViewModel extends ViewModelBase
 {
   const months = const ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',

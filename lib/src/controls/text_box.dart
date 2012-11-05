@@ -261,7 +261,7 @@ class TextChangedEventArgs extends EventArgs {
   TextChangedEventArgs.with(this.oldText, this.newText);
 }
 
-interface IValidatable
+abstract class IValidatable
 {
   bool isValid;
 

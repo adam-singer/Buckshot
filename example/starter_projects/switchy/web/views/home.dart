@@ -1,3 +1,4 @@
+part of switchy;
 
 /**
  * Represents the home content view of Switchy.  It's a simple view, so we

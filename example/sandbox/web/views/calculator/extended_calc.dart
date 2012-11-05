@@ -1,3 +1,4 @@
+part of sandbox;
 
 /**
 * Represents the view of an extended calculator keypad layout.

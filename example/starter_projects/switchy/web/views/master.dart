@@ -1,3 +1,4 @@
+part of switchy;
 
 /**
  * Represents the master view of the Switch application.

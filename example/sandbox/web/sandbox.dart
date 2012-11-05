@@ -1,6 +1,7 @@
 // Copyright (c) 2012, John Evans
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
+library sandbox;
 
 import 'dart:html';
 import 'package:buckshot/buckshot_browser.dart';

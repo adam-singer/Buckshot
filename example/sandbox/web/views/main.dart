@@ -2,6 +2,7 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
+part of sandbox;
 class Main extends View
 {
   Main() : super.fromResource('web/views/templates/master.xml')

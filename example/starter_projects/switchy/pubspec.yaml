@@ -1,6 +1,6 @@
 name:  switchy
 description:  A sample application
 dependencies: 
-  buckshot: 'any'
-  dartnet_event_model: 'any'
+  buckshot: { git: git://github.com/prujohn/Buckshot.git }
+  dartnet_event_model: { git: git://github.com/prujohn/DartNet-Event-Model.git }
 

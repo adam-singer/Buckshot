@@ -1,3 +1,5 @@
+part of sandbox;
+
 class Calculator extends View
 {
 

@@ -1,3 +1,4 @@
+part of sandbox;
 
 class Clock extends View
 {

@@ -1,3 +1,4 @@
+part of starter_project;
 
 class ViewModel extends ViewModelBase
 {

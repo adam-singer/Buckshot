@@ -1,3 +1,4 @@
+part of switchy;
 
 class MasterViewModel extends ViewModelBase
 {

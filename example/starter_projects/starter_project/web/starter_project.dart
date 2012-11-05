@@ -1,3 +1,4 @@
+library starter_project;
 
 import 'package:buckshot/buckshot_browser.dart';
 

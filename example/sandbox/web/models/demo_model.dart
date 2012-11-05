@@ -2,6 +2,7 @@
 // https://github.com/prujohn/Buckshot
 // See LICENSE file for Apache 2.0 licensing information.
 
+part of sandbox;
 class DemoModel {
   // This list of data is build statically using data templates, but image how easy it would be
   // to query some data source and build up a list just like this...

@@ -5,7 +5,7 @@ part of calculator_model;
 * Provides a contract for calculator implementations to work within
 * this application.
 */
-interface ICalculator{
+abstract class ICalculator{
   
   /**
   * Receives input from the environment and applies it to
@@ -17,7 +17,7 @@ interface ICalculator{
   * An event which fires when the calculator implementation 
   * changes the primary output.
   */
-  final FrameworkEvent<OutputChangedEventArgs> mainOutputChanged;
+  FrameworkEvent<OutputChangedEventArgs> mainOutputChanged;
   
   /** 
   * An event which fires when the calculator implementation 
@@ -29,7 +29,7 @@ interface ICalculator{
   * which indicates to the user that 5 is already stored, and the
   * addition operator will be applied to it and the second operand.
   */
-  final FrameworkEvent<OutputChangedEventArgs> subOutputChanged;
+  FrameworkEvent<OutputChangedEventArgs> subOutputChanged;
   
   /**
   * An event which fires when the calculator changes the memory-
@@ -40,5 +40,5 @@ interface ICalculator{
   * either an empty string or "M" to indicate if the memory register
   * contains a value.
   */
-  final FrameworkEvent<OutputChangedEventArgs> memoryMarkerChanged;
+  FrameworkEvent<OutputChangedEventArgs> memoryMarkerChanged;
 }
